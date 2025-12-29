@@ -75,6 +75,8 @@ export interface IRModelIntersection extends IRModelBase {
 }
 
 export interface IRModelUnion extends IRModelBase {
+  // todo: distinguish between anyOf and oneOf union (exclusive union) to allow runtime validation
+  //       of this.
   type: "union"
   schemas: NonEmptyArray<MaybeIRModel>
 }

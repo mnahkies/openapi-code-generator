@@ -827,16 +827,13 @@ export class SchemaNormalizer {
         const nullable =
           base.nullable || schemaObject.type === "null" || hasNull
 
-        const allOf = normalizeAllOf(schemaObject.allOf)
-        const oneOf = normalizeOneOf(schemaObject.oneOf)
-        const anyOf = normalizeAnyOf(schemaObject.anyOf)
-
         const required = (schemaObject.required ?? []).filter((it) => {
           const include = Reflect.has(properties, it)
 
           if (!include) {
-            // todo: check for presence in anyOf / allOf
-            logger.warn("skipping required property not present on object")
+            logger.warn(
+              `skipping required property '${it}' not present on object`,
+            )
           }
 
           return include
@@ -847,18 +844,6 @@ export class SchemaNormalizer {
           schemaObject,
         )
 
-        /**
-         * 1. Collect the object itself, sans the allOf/anyOf/oneOf
-         *   - ignore if nothing interesting
-         * 2. Convert allOf + object itself to an intersection
-         * 3. Convert oneOf/anyOf to an union
-         * 4. Wrap intersection + union in an intersection
-         *
-         * Notes:
-         * - flatten when only a single schema
-         * - later need to resolve anyOf / oneOf / allOf against parent schemas somehow, eg: to flip a property to required.
-         */
-
         const result = {
           ...base,
           nullable,
@@ -868,16 +853,30 @@ export class SchemaNormalizer {
           additionalProperties,
         } satisfies IRModelObject
 
+        const allOf = this.normalizeComposition(
+          schemaObject.allOf,
+          schemaObject,
+        )
+        const oneOf = this.normalizeComposition(
+          schemaObject.oneOf,
+          schemaObject,
+        )
+        const anyOf = this.normalizeComposition(
+          schemaObject.anyOf,
+          schemaObject,
+        )
+
         const isPartOfComposition = Boolean(
           allOf.length || oneOf.length || anyOf.length,
-        )
-        const hasOwnProperties = Boolean(
-          additionalProperties || Object.keys(properties).length > 0,
         )
 
         if (!isPartOfComposition) {
           return result
         }
+
+        const hasOwnProperties = Boolean(
+          additionalProperties || Object.keys(properties).length > 0,
+        )
 
         const maybeIntersection = this.intersection(
           {...base, nullable},
@@ -900,7 +899,9 @@ export class SchemaNormalizer {
           return maybeUnion
         }
 
-        throw new Error(`unreachable`)
+        throw new Error(
+          `unreachable: every composite object must be composed either/both an intersection/union`,
+        )
       }
       case "array": {
         let items = schemaObject.items
@@ -1056,30 +1057,6 @@ export class SchemaNormalizer {
       )
     }
 
-    function normalizeAllOf(allOf: SchemaObject["allOf"] = []): MaybeIRModel[] {
-      return allOf
-        ?.filter((it) => isRef(it) || it.type !== "null")
-        .map((it) => self.normalize(it))
-    }
-
-    function normalizeOneOf(oneOf: SchemaObject["oneOf"] = []): MaybeIRModel[] {
-      return oneOf
-        .filter((it) => isRef(it) || it.type !== "null")
-        .map((it) => self.normalize(it))
-    }
-
-    function normalizeAnyOf(anyOf: SchemaObject["anyOf"] = []): MaybeIRModel[] {
-      return anyOf
-        .filter((it) => {
-          // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
-          //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
-          //       it's intended to indicate that at least one of the objects properties must be set (consider it a
-          //       Omit<Partial<Thing>, EmptyObject> )
-          return isRef(it) || (Boolean(it.type) && it.type !== "null")
-        })
-        .map((it) => self.normalize(it))
-    }
-
     function hasATypeNull(arr?: (Schema | Reference)[]) {
       return Boolean(
         arr?.find((it) => {
@@ -1087,6 +1064,62 @@ export class SchemaNormalizer {
         }),
       )
     }
+  }
+
+  private normalizeComposition(
+    items: (Schema | Reference)[] = [],
+    parent: SchemaObject,
+  ): MaybeIRModel[] {
+    return items
+      .map((it) => {
+        if (isRef(it) || (it.type !== undefined && it.type !== "object")) {
+          return it
+        }
+
+        if (it.required?.length) {
+          /**
+           * HACK: A pattern observed in the wild is using oneOf to alter the required status of a property:
+           *
+           * type: object
+           * properties:
+           *   foo:
+           *     type: string
+           *   bar:
+           *     type: string
+           * oneOf:
+           *   - required: ["foo"]
+           *   - required: ["bar"]
+           *
+           * Eg: to indicate mutual exclusivity.
+           *
+           * This aims to support that approach, but doing a "look up" of the parents property definition, and
+           * copying it to the oneOf's definitions if it's missing.
+           *
+           * TODO:
+           * - doesn't follow allOf / $ref / recurse
+           */
+          const properties = it.required.reduce((acc, name) => {
+            const fromParent = parent.properties?.[name]
+
+            if (acc[name] || !fromParent) {
+              return acc
+            }
+            return {...acc, [name]: fromParent}
+          }, it.properties ?? {})
+
+          if (Object.keys(properties).length) {
+            return {
+              type: "object",
+              ...it,
+              properties,
+            } as SchemaObject
+          }
+        }
+
+        return it
+      })
+      .filter((it) => isRef(it) || it.type !== "null")
+      .map((it) => this.normalize(it))
   }
 
   private normalizeAdditionalProperties(
@@ -1127,7 +1160,6 @@ export class SchemaNormalizer {
     }
   }
 
-  // todo: is base needed?
   private intersection(base: IRModelBase, schemas: []): undefined
   private intersection(
     base: IRModelBase,
@@ -1163,7 +1195,6 @@ export class SchemaNormalizer {
     return undefined
   }
 
-  // todo: is base needed?
   private union(
     base: IRModelBase,
     schemas: MaybeIRModel[],

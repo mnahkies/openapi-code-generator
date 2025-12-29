@@ -337,13 +337,12 @@ describe("core/input - SchemaNormalizer", () => {
       )
     })
 
-    it("normalizes anyOf entries, filters unsupported/nullable branches, and infers nullable", () => {
+    it("normalizes anyOf entries and infers nullable when a null branch is present", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
         anyOf: [
           {type: "number"},
           {type: "null"},
-          {},
           {$ref: "#/components/schemas/Another"},
         ],
       })
@@ -470,6 +469,43 @@ describe("core/input - SchemaNormalizer", () => {
                     }),
                   },
                 }),
+              ],
+            }),
+          ],
+        }),
+      )
+    })
+
+    it("can pull a base property definition into oneOf modifiers", () => {
+      // as seen in github api definitions
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        required: ["name"],
+        properties: {
+          name: {type: "string"},
+          foo: {type: "string"},
+          bar: {type: "string"},
+        },
+        oneOf: [{required: ["foo"]}, {required: ["bar"]}],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.intersection({
+          schemas: [
+            ir.object({
+              properties: {
+                name: ir.string(),
+                // note: these don't *actually* need to be defined in the base object
+                // given they are repeated in the intersected union, but it simplifies the initial implementation
+                foo: ir.string(),
+                bar: ir.string(),
+              },
+              required: ["name"],
+            }),
+            ir.union({
+              schemas: [
+                ir.object({properties: {foo: ir.string()}, required: ["foo"]}),
+                ir.object({properties: {bar: ir.string()}, required: ["bar"]}),
               ],
             }),
           ],
