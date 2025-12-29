@@ -8537,6 +8537,16 @@ export type t_ChecksCreateRequestBody = {
     | UnknownEnumStringValue
 } & (
   | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
       status: "completed" | UnknownEnumStringValue
       [key: string]: unknown | undefined
     }
@@ -8611,7 +8621,26 @@ export type t_ChecksUpdateRequestBody = {
     | "requested"
     | "pending"
     | UnknownEnumStringValue
-}
+} & (
+  | {
+      conclusion:
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "success"
+        | "skipped"
+        | "stale"
+        | "timed_out"
+        | UnknownEnumStringValue
+      status?: "completed" | UnknownEnumStringValue
+      [key: string]: unknown | undefined
+    }
+  | {
+      status?: "queued" | "in_progress" | UnknownEnumStringValue
+      [key: string]: unknown | undefined
+    }
+)
 
 export type t_CodeScanningCreateVariantAnalysisRequestBody = {
   language: t_code_scanning_variant_analysis_language
@@ -8619,7 +8648,17 @@ export type t_CodeScanningCreateVariantAnalysisRequestBody = {
   repositories?: string[]
   repository_lists?: string[]
   repository_owners?: string[]
-} & unknown
+} & (
+  | {
+      repositories: string[]
+    }
+  | {
+      repository_lists: string[]
+    }
+  | {
+      repository_owners: string[]
+    }
+)
 
 export type t_CodeScanningUpdateAlertRequestBody = {
   create_request?: t_code_scanning_alert_create_request
@@ -9823,7 +9862,14 @@ export type t_PullsRemoveRequestedReviewersRequestBody = {
 export type t_PullsRequestReviewersRequestBody = {
   reviewers?: string[]
   team_reviewers?: string[]
-}
+} & (
+  | {
+      reviewers: string[]
+    }
+  | {
+      team_reviewers: string[]
+    }
+)
 
 export type t_PullsSubmitReviewRequestBody = {
   body?: string
@@ -10194,13 +10240,27 @@ export type t_ReposCreatePagesDeploymentRequestBody = {
   pages_build_version: string
 }
 
-export type t_ReposCreatePagesSiteRequestBody = {
-  build_type?: "legacy" | "workflow" | UnknownEnumStringValue
-  source?: {
-    branch: string
-    path?: "/" | "/docs" | UnknownEnumStringValue
-  }
-} | null
+export type t_ReposCreatePagesSiteRequestBody =
+  | (({
+      build_type?: "legacy" | "workflow" | UnknownEnumStringValue
+      source?: {
+        branch: string
+        path?: "/" | "/docs" | UnknownEnumStringValue
+      }
+    } | null) &
+      (
+        | {
+            source: {
+              branch: string
+              path?: "/" | "/docs" | UnknownEnumStringValue
+            }
+          }
+        | {
+            build_type: "legacy" | "workflow" | UnknownEnumStringValue
+          }
+        | null
+      ))
+  | null
 
 export type t_ReposCreateReleaseRequestBody = {
   body?: string
@@ -10447,7 +10507,29 @@ export type t_ReposUpdateInformationAboutPagesSiteRequestBody = {
         branch: string
         path: "/" | "/docs" | UnknownEnumStringValue
       }
-}
+} & (
+  | {
+      build_type: "legacy" | "workflow" | UnknownEnumStringValue
+    }
+  | {
+      source:
+        | "gh-pages"
+        | "master"
+        | "master /docs"
+        | UnknownEnumStringValue
+        | {
+            branch: string
+            path: "/" | "/docs" | UnknownEnumStringValue
+          }
+    }
+  | {
+      cname: string | null
+    }
+  | unknown
+  | {
+      https_enforced: boolean
+    }
+)
 
 export type t_ReposUpdateInvitationRequestBody = {
   permissions?:

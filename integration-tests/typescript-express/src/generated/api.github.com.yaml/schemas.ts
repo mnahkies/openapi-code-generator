@@ -9705,7 +9705,19 @@ export const s_ChecksCreateRequestBody = z.intersection(
   }),
   z.union([
     z.intersection(
-      z.object({status: z.enum(["completed"])}),
+      z.object({
+        status: z.enum(["completed"]),
+        conclusion: z.enum([
+          "action_required",
+          "cancelled",
+          "failure",
+          "neutral",
+          "success",
+          "skipped",
+          "stale",
+          "timed_out",
+        ]),
+      }),
       z.record(z.string(), z.unknown()),
     ),
     z.intersection(
@@ -9715,77 +9727,101 @@ export const s_ChecksCreateRequestBody = z.intersection(
   ]),
 )
 
-export const s_ChecksUpdateRequestBody = z.object({
-  name: z.string().optional(),
-  details_url: z.string().optional(),
-  external_id: z.string().optional(),
-  started_at: z.iso.datetime({offset: true}).optional(),
-  status: z
-    .enum([
-      "queued",
-      "in_progress",
-      "completed",
-      "waiting",
-      "requested",
-      "pending",
-    ])
-    .optional(),
-  conclusion: z
-    .enum([
-      "action_required",
-      "cancelled",
-      "failure",
-      "neutral",
-      "success",
-      "skipped",
-      "stale",
-      "timed_out",
-    ])
-    .optional(),
-  completed_at: z.iso.datetime({offset: true}).optional(),
-  output: z
-    .object({
-      title: z.string().optional(),
-      summary: z.string().max(65535),
-      text: z.string().max(65535).optional(),
-      annotations: z
-        .array(
-          z.object({
-            path: z.string(),
-            start_line: z.coerce.number(),
-            end_line: z.coerce.number(),
-            start_column: z.coerce.number().optional(),
-            end_column: z.coerce.number().optional(),
-            annotation_level: z.enum(["notice", "warning", "failure"]),
-            message: z.string(),
-            title: z.string().optional(),
-            raw_details: z.string().optional(),
-          }),
-        )
-        .max(50)
-        .optional(),
-      images: z
-        .array(
-          z.object({
-            alt: z.string(),
-            image_url: z.string(),
-            caption: z.string().optional(),
-          }),
-        )
-        .optional(),
-    })
-    .optional(),
-  actions: z
-    .array(
+export const s_ChecksUpdateRequestBody = z.intersection(
+  z.object({
+    name: z.string().optional(),
+    details_url: z.string().optional(),
+    external_id: z.string().optional(),
+    started_at: z.iso.datetime({offset: true}).optional(),
+    status: z
+      .enum([
+        "queued",
+        "in_progress",
+        "completed",
+        "waiting",
+        "requested",
+        "pending",
+      ])
+      .optional(),
+    conclusion: z
+      .enum([
+        "action_required",
+        "cancelled",
+        "failure",
+        "neutral",
+        "success",
+        "skipped",
+        "stale",
+        "timed_out",
+      ])
+      .optional(),
+    completed_at: z.iso.datetime({offset: true}).optional(),
+    output: z
+      .object({
+        title: z.string().optional(),
+        summary: z.string().max(65535),
+        text: z.string().max(65535).optional(),
+        annotations: z
+          .array(
+            z.object({
+              path: z.string(),
+              start_line: z.coerce.number(),
+              end_line: z.coerce.number(),
+              start_column: z.coerce.number().optional(),
+              end_column: z.coerce.number().optional(),
+              annotation_level: z.enum(["notice", "warning", "failure"]),
+              message: z.string(),
+              title: z.string().optional(),
+              raw_details: z.string().optional(),
+            }),
+          )
+          .max(50)
+          .optional(),
+        images: z
+          .array(
+            z.object({
+              alt: z.string(),
+              image_url: z.string(),
+              caption: z.string().optional(),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
+    actions: z
+      .array(
+        z.object({
+          label: z.string().max(20),
+          description: z.string().max(40),
+          identifier: z.string().max(20),
+        }),
+      )
+      .max(3)
+      .optional(),
+  }),
+  z.union([
+    z.intersection(
       z.object({
-        label: z.string().max(20),
-        description: z.string().max(40),
-        identifier: z.string().max(20),
+        status: z.enum(["completed"]).optional(),
+        conclusion: z.enum([
+          "action_required",
+          "cancelled",
+          "failure",
+          "neutral",
+          "success",
+          "skipped",
+          "stale",
+          "timed_out",
+        ]),
       }),
-    )
-    .max(3)
-    .optional(),
-})
+      z.record(z.string(), z.unknown()),
+    ),
+    z.intersection(
+      z.object({status: z.enum(["queued", "in_progress"]).optional()}),
+      z.record(z.string(), z.unknown()),
+    ),
+  ]),
+)
 
 export const s_ChecksCreateSuiteRequestBody = z.object({head_sha: z.string()})
 
@@ -9815,7 +9851,11 @@ export const s_CodeScanningCreateVariantAnalysisRequestBody = z.intersection(
     repository_lists: z.array(z.string()).max(1).optional(),
     repository_owners: z.array(z.string()).max(1).optional(),
   }),
-  z.union([z.unknown(), z.unknown(), z.unknown()]),
+  z.union([
+    z.object({repositories: z.array(z.string())}),
+    z.object({repository_lists: z.array(z.string()).max(1)}),
+    z.object({repository_owners: z.array(z.string()).max(1)}),
+  ]),
 )
 
 export const s_CodeScanningUploadSarifRequestBody = z.object({
@@ -10331,28 +10371,58 @@ export const s_ActivityMarkRepoNotificationsAsReadRequestBody = z.object({
 })
 
 export const s_ReposCreatePagesSiteRequestBody = z
-  .object({
-    build_type: z.enum(["legacy", "workflow"]).optional(),
-    source: z
+  .intersection(
+    z
       .object({
-        branch: z.string(),
-        path: z.enum(["/", "/docs"]).optional().default("/"),
+        build_type: z.enum(["legacy", "workflow"]).optional(),
+        source: z
+          .object({
+            branch: z.string(),
+            path: z.enum(["/", "/docs"]).optional().default("/"),
+          })
+          .optional(),
       })
-      .optional(),
-  })
+      .nullable()
+      .nullable(),
+    z
+      .union([
+        z.object({
+          source: z.object({
+            branch: z.string(),
+            path: z.enum(["/", "/docs"]).optional().default("/"),
+          }),
+        }),
+        z.object({build_type: z.enum(["legacy", "workflow"])}),
+      ])
+      .nullable(),
+  )
   .nullable()
 
-export const s_ReposUpdateInformationAboutPagesSiteRequestBody = z.object({
-  cname: z.string().nullable().optional(),
-  https_enforced: PermissiveBoolean.optional(),
-  build_type: z.enum(["legacy", "workflow"]).optional(),
-  source: z
-    .union([
-      z.enum(["gh-pages", "master", "master /docs"]),
-      z.object({branch: z.string(), path: z.enum(["/", "/docs"])}),
-    ])
-    .optional(),
-})
+export const s_ReposUpdateInformationAboutPagesSiteRequestBody = z.intersection(
+  z.object({
+    cname: z.string().nullable().optional(),
+    https_enforced: PermissiveBoolean.optional(),
+    build_type: z.enum(["legacy", "workflow"]).optional(),
+    source: z
+      .union([
+        z.enum(["gh-pages", "master", "master /docs"]),
+        z.object({branch: z.string(), path: z.enum(["/", "/docs"])}),
+      ])
+      .optional(),
+  }),
+  z.union([
+    z.object({build_type: z.enum(["legacy", "workflow"])}),
+    z.object({
+      source: z.union([
+        z.enum(["gh-pages", "master", "master /docs"]),
+        z.object({branch: z.string(), path: z.enum(["/", "/docs"])}),
+      ]),
+    }),
+    z.object({cname: z.string().nullable()}),
+    z.unknown(),
+    z.object({https_enforced: PermissiveBoolean}),
+  ]),
+)
 
 export const s_ReposCreatePagesDeploymentRequestBody = z.object({
   artifact_id: z.coerce.number().optional(),
@@ -10450,10 +10520,16 @@ export const s_PullsMergeRequestBody = z
   })
   .nullable()
 
-export const s_PullsRequestReviewersRequestBody = z.object({
-  reviewers: z.array(z.string()).optional(),
-  team_reviewers: z.array(z.string()).optional(),
-})
+export const s_PullsRequestReviewersRequestBody = z.intersection(
+  z.object({
+    reviewers: z.array(z.string()).optional(),
+    team_reviewers: z.array(z.string()).optional(),
+  }),
+  z.union([
+    z.object({reviewers: z.array(z.string())}),
+    z.object({team_reviewers: z.array(z.string())}),
+  ]),
+)
 
 export const s_PullsRemoveRequestedReviewersRequestBody = z.object({
   reviewers: z.array(z.string()),
