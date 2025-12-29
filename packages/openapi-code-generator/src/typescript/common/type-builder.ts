@@ -1,10 +1,10 @@
-import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {logger} from "../../core/logger"
 import type {Reference} from "../../core/openapi-types"
 import type {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
+import {hasSingleElement} from "../../core/utils"
 import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import {
@@ -48,51 +48,25 @@ export function normalizeIRType(type: IRType): IRType {
     return type
   }
 
-  if (type.type === "type-intersection") {
+  if (type.type === "type-intersection" || type.type === "type-union") {
     const flattened: IRType[] = []
 
-    for (const t of type.types) {
-      const normalized = normalizeIRType(t)
+    for (const innerType of type.types) {
+      const normalized = normalizeIRType(innerType)
 
-      if (
-        typeof normalized !== "string" &&
-        normalized.type === "type-intersection"
-      ) {
+      if (typeof normalized !== "string" && normalized.type === type.type) {
         flattened.push(...normalized.types)
       } else {
         flattened.push(normalized)
       }
     }
 
-    if (isNonEmptyArray(flattened) && flattened.length === 1) {
+    if (hasSingleElement(flattened)) {
       return flattened[0]
     }
 
     return {
-      type: "type-intersection",
-      types: flattened,
-    }
-  }
-
-  if (type.type === "type-union") {
-    const flattened: IRType[] = []
-
-    for (const t of type.types) {
-      const normalized = normalizeIRType(t)
-
-      if (typeof normalized !== "string" && normalized.type === "type-union") {
-        flattened.push(...normalized.types)
-      } else {
-        flattened.push(normalized)
-      }
-    }
-
-    if (isNonEmptyArray(flattened) && flattened.length === 1) {
-      return flattened[0]
-    }
-
-    return {
-      type: "type-union",
+      type: type.type,
       types: flattened,
     }
   }
@@ -112,7 +86,7 @@ export function toTs(type: IRType): string {
     return intersect(...type.types.map(toTs))
   }
 
-  throw new Error(`unknown type ${JSON.stringify(type)}`)
+  throw new Error(`toTs: unknown type '${JSON.stringify(type)}'`)
 }
 
 export class TypeBuilder implements ICompilable {
@@ -366,11 +340,9 @@ export class TypeBuilder implements ICompilable {
       result.push("null")
     }
 
-    if (!isNonEmptyArray(result)) {
-      throw new Error("expected at least 1 item")
-    }
-
-    return result.length > 1 ? {type: "type-union", types: result} : result[0]
+    return hasSingleElement(result)
+      ? result[0]
+      : {type: "type-union", types: result}
   }
 
   toCompilationUnit(): CompilationUnit {

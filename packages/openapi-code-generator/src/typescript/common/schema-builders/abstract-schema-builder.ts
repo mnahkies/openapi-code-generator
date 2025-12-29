@@ -243,7 +243,6 @@ export abstract class AbstractSchemaBuilder<
       }
 
       case "union": {
-        // todo: do we need to special case a single schema?
         result = this.union(model.schemas.map((it) => this.fromModel(it, true)))
         break
       }
