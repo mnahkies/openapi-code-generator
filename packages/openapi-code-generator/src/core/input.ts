@@ -60,7 +60,11 @@ export type InputConfig = {
   enumExtensibility: "open" | "closed"
 }
 
-export class Input {
+export interface ISchemaProvider {
+  schema(maybeRef: MaybeIRModel): IRModel
+}
+
+export class Input implements ISchemaProvider {
   constructor(
     private loader: OpenapiLoader,
     readonly config: InputConfig,

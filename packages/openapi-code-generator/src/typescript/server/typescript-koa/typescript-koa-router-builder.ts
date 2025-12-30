@@ -3,7 +3,7 @@ import {isDefined, titleCase} from "../../../core/utils"
 import type {ServerImplementationMethod} from "../../../templates.types"
 import type {ImportBuilder} from "../../common/import-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../../common/type-builder"
+import type {TypeBuilder} from "../../common/type-builder/type-builder"
 import {
   constStatement,
   object,

@@ -3,7 +3,7 @@ import type {IROperation} from "../../core/openapi-types-normalized"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import type {ImportBuilder} from "../common/import-builder"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder"
+import type {TypeBuilder} from "../common/type-builder/type-builder"
 import {
   ServerOperationBuilder,
   type ServerSymbols,

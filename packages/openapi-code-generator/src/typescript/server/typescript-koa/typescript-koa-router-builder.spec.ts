@@ -3,7 +3,7 @@ import type {ServerImplementationMethod} from "../../../templates.types"
 import {unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../../common/import-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder"
+import {TypeBuilder} from "../../common/type-builder/type-builder"
 import {TypescriptFormatterBiome} from "../../common/typescript-formatter.biome"
 import {KoaRouterBuilder} from "./typescript-koa-router-builder"
 
@@ -57,7 +57,7 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
         includeFileExtensions: false,
       })
 
-      const typeBuilder = await TypeBuilder.fromInput(
+      const typeBuilder = await TypeBuilder.fromSchemaProvider(
         "./unit-test.types.ts",
         input,
         {},

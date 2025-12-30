@@ -2,7 +2,7 @@ import {titleCase} from "../../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
 import {ImportBuilder} from "../../common/import-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder"
+import {TypeBuilder} from "../../common/type-builder/type-builder"
 import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"
 
 export async function generateTypescriptAxios(
@@ -15,7 +15,7 @@ export async function generateTypescriptAxios(
   const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
   const clientImports = new ImportBuilder(importBuilderConfig)
 
-  const rootTypeBuilder = await TypeBuilder.fromInput(
+  const rootTypeBuilder = await TypeBuilder.fromSchemaProvider(
     "./models.ts",
     input,
     config.compilerOptions,

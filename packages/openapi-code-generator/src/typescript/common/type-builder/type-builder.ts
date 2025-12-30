@@ -1,12 +1,12 @@
-import type {Input} from "../../core/input"
-import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
-import {logger} from "../../core/logger"
-import type {Reference} from "../../core/openapi-types"
-import type {MaybeIRModel} from "../../core/openapi-types-normalized"
-import {getNameFromRef, isRef} from "../../core/openapi-utils"
-import {hasSingleElement} from "../../core/utils"
-import {CompilationUnit, type ICompilable} from "./compilation-units"
-import type {ImportBuilder} from "./import-builder"
+import type {ISchemaProvider} from "../../../core/input"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
+import {logger} from "../../../core/logger"
+import type {Reference} from "../../../core/openapi-types"
+import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
+import {getNameFromRef, isRef} from "../../../core/openapi-utils"
+import {hasSingleElement} from "../../../core/utils"
+import {CompilationUnit, type ICompilable} from "../compilation-units"
+import type {ImportBuilder} from "../import-builder"
 import {
   array,
   coerceToString,
@@ -15,8 +15,8 @@ import {
   objectProperty,
   quotedStringLiteral,
   union,
-} from "./type-utils"
-import {buildExport} from "./typescript-common"
+} from "../type-utils"
+import {buildExport} from "../typescript-common"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",
@@ -43,21 +43,24 @@ type IRType = IRTypeIntersection | IRTypeUnion | IRTypeOther
 /**
  * Recursively looks for opportunities to merge / flatten intersections and unions
  */
-export function normalizeIRType(type: IRType): IRType {
+function normalizeIRType(type: IRType): IRType {
   if (typeof type === "string") {
     return type
   }
 
   if (type.type === "type-intersection" || type.type === "type-union") {
     const flattened: IRType[] = []
-
+    const seen = new Set<string>()
     for (const innerType of type.types) {
       const normalized = normalizeIRType(innerType)
 
       if (typeof normalized !== "string" && normalized.type === type.type) {
         flattened.push(...normalized.types)
-      } else {
+      } else if (typeof normalized !== "string") {
         flattened.push(normalized)
+      } else if (!seen.has(normalized)) {
+        flattened.push(normalized)
+        seen.add(normalized)
       }
     }
 
@@ -71,13 +74,16 @@ export function normalizeIRType(type: IRType): IRType {
     }
   }
 
-  return type
+  /* istanbul ignore next */
+  throw new Error(
+    `normalizeIRType: unknown IRType '${JSON.stringify(type satisfies never)}'`,
+  )
 }
 
 /**
  * Converts IRType to a typescript type
  */
-export function toTs(type: IRType): string {
+function toTs(type: IRType): string {
   if (typeof type === "string") {
     return type
   } else if (type.type === "type-union") {
@@ -86,13 +92,14 @@ export function toTs(type: IRType): string {
     return intersect(...type.types.map(toTs))
   }
 
+  /* istanbul ignore next */
   throw new Error(`toTs: unknown type '${JSON.stringify(type)}'`)
 }
 
 export class TypeBuilder implements ICompilable {
   private constructor(
     public readonly filename: string,
-    private readonly input: Input,
+    private readonly input: ISchemaProvider,
     private readonly compilerOptions: CompilerOptions,
     private readonly config: TypeBuilderConfig,
     private readonly referenced = new Set<string>(),
@@ -101,13 +108,18 @@ export class TypeBuilder implements ICompilable {
     private readonly parent?: TypeBuilder,
   ) {}
 
-  static async fromInput(
+  static async fromSchemaProvider(
     filename: string,
-    input: Input,
+    schemaProvider: ISchemaProvider,
     compilerOptions: CompilerOptions,
     typeBuilderConfig: TypeBuilderConfig,
   ): Promise<TypeBuilder> {
-    return new TypeBuilder(filename, input, compilerOptions, typeBuilderConfig)
+    return new TypeBuilder(
+      filename,
+      schemaProvider,
+      compilerOptions,
+      typeBuilderConfig,
+    )
   }
 
   withImports(imports: ImportBuilder): TypeBuilder {
@@ -309,8 +321,7 @@ export class TypeBuilder implements ICompilable {
       }
 
       case "any": {
-        result.push(this.config.allowAny ? "any" : "unknown")
-        break
+        return this.config.allowAny ? "any" : "unknown"
       }
 
       case "never": {
@@ -319,7 +330,9 @@ export class TypeBuilder implements ICompilable {
       }
 
       case "null": {
-        throw new Error("unreachable - input should normalize this out")
+        throw new Error(
+          "unreachable - 'null' types should be normalized out by SchemaNormalizer",
+        )
       }
 
       case "record": {

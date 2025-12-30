@@ -9,7 +9,7 @@ import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
 import {convertBytesToHuman} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder"
+import type {TypeBuilder} from "../common/type-builder/type-builder"
 import {intersect, object} from "../common/type-utils"
 import {
   requestBodyAsParameter,

@@ -13,7 +13,7 @@ import {
   unitTestInput,
 } from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
-import {TypeBuilder} from "../type-builder"
+import {TypeBuilder} from "../type-builder/type-builder"
 import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {type SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
@@ -56,7 +56,7 @@ export function schemaBuilderTestHarness(
 
     const imports = new ImportBuilder({includeFileExtensions: false})
 
-    const typeBuilder = await TypeBuilder.fromInput(
+    const typeBuilder = await TypeBuilder.fromSchemaProvider(
       "./unit-test.types.ts",
       input,
       {exactOptionalPropertyTypes: false},

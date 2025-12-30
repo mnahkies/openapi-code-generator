@@ -4,7 +4,7 @@ import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
 import {CompilationUnit} from "../../common/compilation-units"
 import {ImportBuilder} from "../../common/import-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder"
+import {TypeBuilder} from "../../common/type-builder/type-builder"
 import {KoaRouterBuilder} from "./typescript-koa-router-builder"
 import {KoaServerBuilder} from "./typescript-koa-server-builder"
 
@@ -20,7 +20,7 @@ export async function generateTypescriptKoa(
 
   const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
 
-  const rootTypeBuilder = await TypeBuilder.fromInput(
+  const rootTypeBuilder = await TypeBuilder.fromSchemaProvider(
     "./models.ts",
     input,
     config.compilerOptions,

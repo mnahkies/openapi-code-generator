@@ -4,11 +4,13 @@ import type {
   IRModelBoolean,
   IRModelIntersection,
   IRModelNever,
+  IRModelNull,
   IRModelNumeric,
   IRModelObject,
   IRModelRecord,
   IRModelString,
   IRModelUnion,
+  IRRef,
 } from "../core/openapi-types-normalized"
 
 const base = {
@@ -110,9 +112,20 @@ const extension = {
     default: undefined,
     "x-internal-preprocess": undefined,
   } satisfies IRModelUnion,
+  null: {
+    isIRModel: true,
+    type: "null",
+    nullable: false,
+  } satisfies IRModelNull,
 }
 
 export const irFixture = {
+  ref(path: string, file = ""): IRRef {
+    return {
+      $ref: `${file}#${path}`,
+      "x-internal-preprocess": undefined,
+    }
+  },
   any(partial: Partial<IRModelAny> = {}): IRModelAny {
     return {...base.any, ...partial}
   },
@@ -146,5 +159,8 @@ export const irFixture = {
   },
   union(partial: Partial<IRModelUnion> = {}): IRModelUnion {
     return {...extension.union, ...partial}
+  },
+  null(partial: Partial<IRModelNull> = {}): IRModelNull {
+    return {...extension.null, ...partial}
   },
 }
