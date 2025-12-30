@@ -19,6 +19,10 @@ export function getNameFromRef({$ref}: Reference, prefix: string): string {
   return prefix + name.replace(/[-.]+/g, "_")
 }
 
+/**
+ * Given an openapi path template, extract the variable placeholders
+ * ref: {@link https://spec.openapis.org/oas/v3.2.0.html#path-templating path-templating}
+ */
 export function extractPlaceholders(
   it: string,
 ): {wholeString: string; placeholder: string | undefined}[] {
