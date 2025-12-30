@@ -2,7 +2,6 @@ import util from "node:util"
 
 export type LoggerMeta = Record<string, unknown>
 
-// todo: respect NO_COLOR env var, tty, TERM, etc.
 enum Color {
   FgRed = "\x1b[31m",
   FgYellow = "\x1b[33m",
@@ -15,25 +14,52 @@ const ConsoleSink = {
   error: (it: string) => console.info(it),
 }
 
+const shouldColor = (isTTY: boolean) => {
+  if (process.env.NO_COLOR) {
+    return false
+  }
+
+  if (process.env.NODE_DISABLE_COLORS) {
+    return false
+  }
+
+  if (process.env.TERM === "dumb") {
+    return false
+  }
+
+  return isTTY
+}
+
 export class Logger {
   private readonly startTime = this.now()
   private readonly times: [string, bigint, ...bigint[]][] = []
 
   constructor(
+    private readonly isTTY: boolean,
     private readonly format = defaultFormat,
     private readonly sink = ConsoleSink,
   ) {}
 
   readonly info = (message: string, meta?: LoggerMeta): void => {
-    this.sink.info(this.format("info", message, meta))
+    this.sink.info(this.format("info", message, meta, shouldColor(this.isTTY)))
   }
 
   readonly warn = (message: string, meta?: LoggerMeta): void => {
-    this.sink.warn(this.format("warn", message, meta, Color.FgYellow))
+    this.sink.warn(
+      this.format(
+        "warn",
+        message,
+        meta,
+        shouldColor(this.isTTY),
+        Color.FgYellow,
+      ),
+    )
   }
 
   readonly error = (message: string, meta?: LoggerMeta): void => {
-    this.sink.error(this.format("error", message, meta, Color.FgRed))
+    this.sink.error(
+      this.format("error", message, meta, shouldColor(this.isTTY), Color.FgRed),
+    )
   }
 
   readonly time = (description: string): void => {
@@ -84,10 +110,11 @@ function defaultFormat(
   level: string,
   message: string,
   meta?: LoggerMeta,
+  useColor: boolean = true,
   color = Color.Reset,
 ) {
-  return `${color}[${level}]${Color.Reset} ${message} ${
-    meta ? util.inspect(meta, false, 3, false) : ""
+  return `${useColor ? color : ""}[${level}]${useColor ? Color.Reset : ""} ${message} ${
+    meta ? util.inspect(meta, false, 3, useColor) : ""
   }`
 }
 
@@ -95,4 +122,4 @@ function diff(start: bigint, end: bigint) {
   return Number((end - start) / BigInt(1000000))
 }
 
-export const logger = new Logger()
+export const logger = new Logger(process.stdout.isTTY)
