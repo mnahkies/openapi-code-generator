@@ -58,7 +58,6 @@
     "@typespec/versioning": "0.77.0",
     "@typespec/xml": "0.77.0",
     "joi": "^18.0.2",
-    "piscina": "^5.1.4",
     "tsx": "^4.21.0"
   },
   "dependencies": {

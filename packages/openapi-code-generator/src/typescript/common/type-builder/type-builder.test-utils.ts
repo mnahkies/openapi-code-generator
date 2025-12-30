@@ -2,7 +2,7 @@ import type {ISchemaProvider} from "../../../core/input"
 import type {IFormatter} from "../../../core/interfaces"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
 import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
-import typecheck from "../../../test/typescript-compiler-worker.test-utils"
+import {TestOutputTypeChecker} from "../../../test/typescript-compiler.test-utils"
 import {CompilationUnit} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
 import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
@@ -21,7 +21,9 @@ export type TypeBuilderTestHarness = {
 export function typeBuilderTestHarness(
   formatter: IFormatter,
 ): TypeBuilderTestHarness {
-  async function getResult(
+  const typechecker = new TestOutputTypeChecker()
+
+  async function getActual(
     schema: MaybeIRModel,
     input: ISchemaProvider,
     {
@@ -54,7 +56,7 @@ export function typeBuilderTestHarness(
 
     const types = await formatted(formatter, builder.toCompilationUnit())
 
-    await typecheck([
+    typechecker.typecheck([
       {
         filename: usage.filename,
         content: usage.content,
@@ -78,19 +80,16 @@ export function typeBuilderTestHarness(
     filename: string
     content: string
   }> {
+    const raw = unit.getRawFileContent({
+      allowUnusedImports: false,
+      includeHeader: false,
+    })
+
     return {
       filename: unit.filename,
-      content: (
-        await formatter.format(
-          unit.filename,
-          unit.getRawFileContent({
-            allowUnusedImports: false,
-            includeHeader: false,
-          }),
-        )
-      ).result.trim(),
+      content: (await formatter.format(unit.filename, raw)).result.trim(),
     }
   }
 
-  return {getActual: getResult}
+  return {getActual}
 }

@@ -74,13 +74,16 @@ function normalizeIRType(type: IRType): IRType {
     }
   }
 
-  return type
+  /* istanbul ignore next */
+  throw new Error(
+    `normalizeIRType: unknown IRType '${JSON.stringify(type satisfies never)}'`,
+  )
 }
 
 /**
  * Converts IRType to a typescript type
  */
-export function toTs(type: IRType): string {
+function toTs(type: IRType): string {
   if (typeof type === "string") {
     return type
   } else if (type.type === "type-union") {
@@ -89,6 +92,7 @@ export function toTs(type: IRType): string {
     return intersect(...type.types.map(toTs))
   }
 
+  /* istanbul ignore next */
   throw new Error(`toTs: unknown type '${JSON.stringify(type)}'`)
 }
 
