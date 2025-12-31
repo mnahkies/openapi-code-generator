@@ -1,4 +1,4 @@
-import type {OpenapiLoader} from "../openapi-loader"
+import type {OpenapiLoader} from "../loaders/openapi-loader"
 import type {
   Parameter,
   Reference,

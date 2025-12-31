@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, jest} from "@jest/globals"
 import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils"
-import type {OpenapiLoader} from "../openapi-loader"
+import type {OpenapiLoader} from "../loaders/openapi-loader"
 import type {Parameter} from "../openapi-types"
 import {defaultSyntheticNameGenerator} from "../synthetic-name-generator"
 import {ParameterNormalizer} from "./parameter-normalizer"

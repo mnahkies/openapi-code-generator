@@ -1,7 +1,7 @@
+import type {OpenapiLoader} from "./loaders/openapi-loader"
 import {logger} from "./logger"
 import {ParameterNormalizer} from "./normalization/parameter-normalizer"
 import {SchemaNormalizer} from "./normalization/schema-normalizer"
-import type {OpenapiLoader} from "./openapi-loader"
 import type {
   MediaType,
   Operation,
