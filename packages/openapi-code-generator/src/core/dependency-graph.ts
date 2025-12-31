@@ -1,7 +1,7 @@
 import type {Input} from "./input"
 import {logger} from "./logger"
 import type {Reference} from "./openapi-types"
-import type {IRModel, MaybeIRModel} from "./openapi-types-normalized"
+import type {MaybeIRModel} from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 
 function intersect<T>(a: Set<T>, b: Set<T>) {
@@ -16,72 +16,69 @@ function remove(a: Set<unknown>, b: Set<unknown>) {
   }
 }
 
-const getAllSourcesFromSchema = (it: IRModel) => {
-  const allSources: Array<MaybeIRModel> = [it as MaybeIRModel]
-
-  if (it.type === "object") {
-    if (it.additionalProperties) {
-      allSources.push(it.additionalProperties.key)
-      allSources.push(it.additionalProperties.value)
-    }
-  } else if (it.type === "array") {
-    allSources.push(it.items)
-  } else if (it.type === "record") {
-    allSources.push(it.key)
-    allSources.push(it.value)
-  } else if (it.type === "intersection" || it.type === "union") {
-    allSources.push(...it.schemas)
+const getDependenciesFromSchema = (
+  schema: MaybeIRModel,
+  getNameForRef: (ref: Reference) => string,
+  visited = new Set<MaybeIRModel>(),
+): Set<string> => {
+  if (visited.has(schema)) {
+    logger.error(
+      "circular dependency visited for schema - stopping graph walk",
+      {schema},
+    )
+    return new Set(
+      visited
+        .values()
+        .filter((it) => isRef(it))
+        .map(getNameForRef),
+    )
   }
 
-  return allSources
-}
+  visited.add(schema)
 
-const getDependenciesFromSchema = (
-  schema: IRModel,
-  getNameForRef: (ref: Reference) => string,
-): Set<string> => {
-  const allSources = getAllSourcesFromSchema(schema)
   const result = new Set<string>()
 
-  for (const it of allSources) {
-    if (isRef(it)) {
-      result.add(getNameForRef(it))
-    } else if (it.type === "object") {
-      const innerSources = Object.values(it.properties)
-
-      if (it.additionalProperties) {
-        innerSources.push(it.additionalProperties.key)
-        innerSources.push(it.additionalProperties.value)
+  if (isRef(schema)) {
+    result.add(getNameForRef(schema))
+  } else {
+    if (schema.type === "object") {
+      for (const property of Object.values(schema.properties)) {
+        intersect(
+          result,
+          getDependenciesFromSchema(property, getNameForRef, visited),
+        )
       }
 
-      for (const prop of innerSources) {
-        if (isRef(prop)) {
-          result.add(getNameForRef(prop))
-        } else if (
-          prop.type === "object" ||
-          prop.type === "union" ||
-          prop.type === "intersection" ||
-          prop.type === "record"
-        ) {
-          intersect(result, getDependenciesFromSchema(prop, getNameForRef))
-        } else if (prop.type === "array") {
-          if (isRef(prop.items)) {
-            result.add(getNameForRef(prop.items))
-          } else {
-            intersect(
-              result,
-              getDependenciesFromSchema(prop.items, getNameForRef),
-            )
-          }
-        }
+      if (schema.additionalProperties) {
+        intersect(
+          result,
+          getDependenciesFromSchema(
+            schema.additionalProperties,
+            getNameForRef,
+            visited,
+          ),
+        )
       }
-    } else if (it.type === "intersection" || it.type === "union") {
-      for (const prop of it.schemas) {
-        if (isRef(prop)) {
-          result.add(getNameForRef(prop))
-        } else {
-          intersect(result, getDependenciesFromSchema(prop, getNameForRef))
-        }
+    } else if (schema.type === "array") {
+      intersect(
+        result,
+        getDependenciesFromSchema(schema.items, getNameForRef, visited),
+      )
+    } else if (schema.type === "record") {
+      intersect(
+        result,
+        getDependenciesFromSchema(schema.key, getNameForRef, visited),
+      )
+      intersect(
+        result,
+        getDependenciesFromSchema(schema.value, getNameForRef, visited),
+      )
+    } else if (schema.type === "intersection" || schema.type === "union") {
+      for (const subSchema of schema.schemas) {
+        intersect(
+          result,
+          getDependenciesFromSchema(subSchema, getNameForRef, visited),
+        )
       }
     }
   }
