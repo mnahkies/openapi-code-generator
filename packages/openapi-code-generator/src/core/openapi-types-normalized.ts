@@ -79,6 +79,16 @@ export interface IRModelUnion extends IRModelBase {
   //       of this.
   type: "union"
   schemas: NonEmptyArray<MaybeIRModel>
+
+  discriminator?:
+    | {
+        propertyName: string
+        mapping: {
+          [propertyValue: string]: IRRef
+        }
+        //todo: support defaultMapping
+      }
+    | undefined
 }
 
 export interface IRModelObject extends IRModelBase {

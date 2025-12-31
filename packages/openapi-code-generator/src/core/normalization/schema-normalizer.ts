@@ -3,6 +3,7 @@ import {generationLib} from "../generation-lib.ts"
 import type {InputConfig} from "../input.ts"
 import {logger} from "../logger.ts"
 import type {
+  Discriminator,
   Reference,
   Schema,
   SchemaNumber,
@@ -191,7 +192,11 @@ export class SchemaNormalizer {
           {...base, nullable},
           hasOwnProperties ? [...allOf, result] : allOf,
         )
-        const maybeUnion = this.union({...base, nullable}, [...oneOf, ...anyOf])
+        const maybeUnion = this.union(
+          {...base, nullable},
+          [...oneOf, ...anyOf],
+          schemaObject.discriminator,
+        )
 
         if (maybeIntersection && maybeUnion) {
           return this.intersection({...base, nullable}, [
@@ -375,6 +380,29 @@ export class SchemaNormalizer {
     }
   }
 
+  private normalizeDiscriminator(
+    discriminator: Discriminator | undefined,
+  ): IRModelUnion["discriminator"] | undefined {
+    if (!discriminator) {
+      return undefined
+    }
+
+    if (!discriminator.mapping) {
+      // todo: cna we support this if the discriminated property is an enum of one element?
+      logger.warn("discriminators without a mapping are ignored.")
+      return undefined
+    }
+
+    return {
+      propertyName: discriminator.propertyName,
+      mapping: Object.fromEntries(
+        Object.entries(discriminator.mapping).map(([key, value]) => {
+          return [key, {$ref: value}]
+        }),
+      ),
+    }
+  }
+
   private normalizeComposition(
     items: (Schema | Reference)[] = [],
     parent: SchemaObject,
@@ -511,6 +539,7 @@ export class SchemaNormalizer {
   private union(
     base: IRModelBase,
     schemas: MaybeIRModel[],
+    discriminator: Discriminator | undefined,
   ): MaybeIRModel | IRModelUnion | undefined {
     // (A|B)|(C|D) is the same as (A|B|C|D)
     // todo: merge repeated in-line schemas
@@ -530,6 +559,7 @@ export class SchemaNormalizer {
       return {
         ...base,
         type: "union",
+        discriminator: this.normalizeDiscriminator(discriminator),
         schemas,
       }
     }

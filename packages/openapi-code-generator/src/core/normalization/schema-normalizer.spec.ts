@@ -512,6 +512,39 @@ describe("core/input - SchemaNormalizer", () => {
         }),
       )
     })
+
+    it("handles a discriminator", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+          mapping: {
+            foo: "#/components/schemas/Foo",
+            bar: "#/components/schemas/Bar",
+          },
+        },
+        oneOf: [
+          {$ref: "#/components/schemas/Foo"},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          discriminator: {
+            propertyName: "type",
+            mapping: {
+              foo: ir.ref("/components/schemas/Foo"),
+              bar: ir.ref("/components/schemas/Bar"),
+            },
+          },
+          schemas: [
+            ir.ref("/components/schemas/Foo"),
+            ir.ref("/components/schemas/Bar"),
+          ],
+        }),
+      )
+    })
   })
 
   describe("empty schemas / additionalProperties", () => {
