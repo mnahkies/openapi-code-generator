@@ -10,6 +10,11 @@ import type {
   IRModelRecord,
   IRModelString,
   IRModelUnion,
+  IROperationParameters,
+  IRParameterCookie,
+  IRParameterHeader,
+  IRParameterPath,
+  IRParameterQuery,
   IRRef,
 } from "../core/openapi-types-normalized"
 
@@ -119,6 +124,56 @@ const extension = {
   } satisfies IRModelNull,
 }
 
+const parameters = {
+  path: {
+    name: "id",
+    in: "path",
+    required: true,
+    schema: base.string,
+    style: "simple",
+    explode: false,
+    deprecated: false,
+    description: undefined,
+  } satisfies IRParameterPath,
+  query: {
+    name: "filter",
+    in: "query",
+    required: false,
+    schema: base.string,
+    style: "form",
+    explode: true,
+    deprecated: false,
+    description: undefined,
+    allowEmptyValue: false,
+  } satisfies IRParameterQuery,
+  header: {
+    name: "X-Header",
+    in: "header",
+    required: false,
+    schema: base.string,
+    style: "simple",
+    explode: false,
+    deprecated: false,
+    description: undefined,
+  } satisfies IRParameterHeader,
+  cookie: {
+    name: "session",
+    in: "cookie",
+    required: false,
+    schema: base.string,
+    style: "form",
+    explode: true,
+    deprecated: false,
+    description: undefined,
+  } satisfies IRParameterCookie,
+  operation: {
+    all: [],
+    path: {name: "pathParameters", list: [], $ref: undefined},
+    query: {name: "queryParameters", list: [], $ref: undefined},
+    header: {name: "headerParameters", list: [], $ref: undefined},
+  } satisfies IROperationParameters,
+}
+
 export const irFixture = {
   ref(path: string, file = ""): IRRef {
     return {
@@ -162,5 +217,22 @@ export const irFixture = {
   },
   null(partial: Partial<IRModelNull> = {}): IRModelNull {
     return {...extension.null, ...partial}
+  },
+  pathParameter(partial: Partial<IRParameterPath> = {}): IRParameterPath {
+    return {...parameters.path, ...partial}
+  },
+  queryParameter(partial: Partial<IRParameterQuery> = {}): IRParameterQuery {
+    return {...parameters.query, ...partial}
+  },
+  headerParameter(partial: Partial<IRParameterHeader> = {}): IRParameterHeader {
+    return {...parameters.header, ...partial}
+  },
+  cookieParameter(partial: Partial<IRParameterCookie> = {}): IRParameterCookie {
+    return {...parameters.cookie, ...partial}
+  },
+  operationParameters(
+    partial: Partial<IROperationParameters> = {},
+  ): IROperationParameters {
+    return {...parameters.operation, ...partial}
   },
 }

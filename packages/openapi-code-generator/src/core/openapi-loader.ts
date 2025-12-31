@@ -16,7 +16,7 @@ import type {
   xInternalPreproccess,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
-import type {OpenapiValidator} from "./openapi-validator"
+import type {IOpenapiValidator} from "./openapi-validator"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
@@ -25,7 +25,7 @@ export class OpenapiLoader {
   private constructor(
     private readonly entryPointKey: string,
     private readonly config: {titleOverride: string | undefined},
-    private readonly validator: OpenapiValidator,
+    private readonly validator: IOpenapiValidator,
     private readonly genericLoader: GenericLoader,
   ) {
     this.virtualLibrary.set(generationLib.key, generationLib)
@@ -176,7 +176,7 @@ export class OpenapiLoader {
 
   static async createFromLiteral(
     value: object,
-    validator: OpenapiValidator,
+    validator: IOpenapiValidator,
     genericLoader: GenericLoader,
   ): Promise<OpenapiLoader> {
     const loader = new OpenapiLoader(
@@ -197,7 +197,7 @@ export class OpenapiLoader {
       fileType: "openapi3" | "typespec"
       titleOverride: string | undefined
     },
-    validator: OpenapiValidator,
+    validator: IOpenapiValidator,
     genericLoader: GenericLoader,
     typespecLoader: TypespecLoader,
   ): Promise<OpenapiLoader> {

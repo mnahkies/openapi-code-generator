@@ -1,5 +1,6 @@
 import ts from "typescript"
-import type {Input, SchemaNormalizer} from "../../../core/input"
+import type {Input} from "../../../core/input"
+import type {SchemaNormalizer} from "../../../core/normalization/schema-normalizer"
 import type {
   Reference,
   Schema,

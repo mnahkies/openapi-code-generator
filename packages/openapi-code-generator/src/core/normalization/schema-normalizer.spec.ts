@@ -1,7 +1,7 @@
 import {describe, expect, it} from "@jest/globals"
-import {irFixture as ir} from "../test/ir-model.fixtures.test-utils"
-import {generationLib} from "./generation-lib"
-import {SchemaNormalizer} from "./input"
+import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils"
+import {generationLib} from "../generation-lib"
+import {SchemaNormalizer} from "./schema-normalizer"
 
 describe("core/input - SchemaNormalizer", () => {
   const schemaNormalizer = new SchemaNormalizer({
