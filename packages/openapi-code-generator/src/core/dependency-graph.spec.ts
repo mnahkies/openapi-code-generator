@@ -1,5 +1,9 @@
 import {describe, expect, it} from "@jest/globals"
-import {testVersions, unitTestInput} from "../test/input.test-utils"
+import {
+  createTestInputFromYamlString,
+  testVersions,
+  unitTestInput,
+} from "../test/input.test-utils"
 import {buildDependencyGraph} from "./dependency-graph"
 import {getNameFromRef} from "./openapi-utils"
 
@@ -49,5 +53,28 @@ describe.each(testVersions)("%s - core/dependency-graph", (version) => {
     expect(graph.order.indexOf("s_Recursive")).toBe(-1)
 
     expect(graph.circular).toStrictEqual(new Set(["s_Recursive"]))
+  })
+
+  it("handles recursion in intersection types", async () => {
+    const yaml = `
+openapi: 3.0.3
+info:
+  title: Test
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    RecursiveIntersection:
+      allOf:
+        - type: object
+          properties:
+            foo:
+              type: string
+        - $ref: '#/components/schemas/RecursiveIntersection'
+`
+    const input = await createTestInputFromYamlString(yaml)
+    const graph = buildDependencyGraph(input, (it) => getNameFromRef(it, "s_"))
+
+    expect(graph.circular).toContain("s_RecursiveIntersection")
   })
 })
