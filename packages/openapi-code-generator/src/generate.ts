@@ -3,10 +3,10 @@ import type {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import {Input} from "./core/input"
 import type {IFormatter} from "./core/interfaces"
 import {GenericLoader} from "./core/loaders/generic.loader"
+import {OpenapiLoader} from "./core/loaders/openapi-loader"
 import type {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
-import {OpenapiLoader} from "./core/openapi-loader"
-import type {OpenapiValidator} from "./core/openapi-validator"
+import type {IOpenapiValidator} from "./core/openapi-validator"
 import {templates} from "./templates"
 import type {OpenapiGenerator} from "./templates.types"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
@@ -34,7 +34,7 @@ export async function generate(
   config: Config,
   fsAdaptor: IFsAdaptor,
   formatter: IFormatter,
-  validator: OpenapiValidator,
+  validator: IOpenapiValidator,
   typespecLoader: TypespecLoader,
 ) {
   logger.time("program starting")

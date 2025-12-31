@@ -1,9 +1,6 @@
 import path from "node:path"
 import util from "node:util"
-import {generationLib, VirtualDefinition} from "./generation-lib"
-import type {GenericLoader} from "./loaders/generic.loader"
-import type {TypespecLoader} from "./loaders/typespec.loader"
-import {isRemote} from "./loaders/utils"
+import {generationLib, VirtualDefinition} from "../generation-lib"
 import type {
   OpenapiDocument,
   Operation,
@@ -14,9 +11,12 @@ import type {
   Response,
   Schema,
   xInternalPreproccess,
-} from "./openapi-types"
-import {isRef} from "./openapi-utils"
-import type {OpenapiValidator} from "./openapi-validator"
+} from "../openapi-types"
+import {isRef} from "../openapi-utils"
+import type {IOpenapiValidator} from "../openapi-validator"
+import type {GenericLoader} from "./generic.loader"
+import type {TypespecLoader} from "./typespec.loader"
+import {isRemote} from "./utils"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
@@ -25,7 +25,7 @@ export class OpenapiLoader {
   private constructor(
     private readonly entryPointKey: string,
     private readonly config: {titleOverride: string | undefined},
-    private readonly validator: OpenapiValidator,
+    private readonly validator: IOpenapiValidator,
     private readonly genericLoader: GenericLoader,
   ) {
     this.virtualLibrary.set(generationLib.key, generationLib)
@@ -176,7 +176,7 @@ export class OpenapiLoader {
 
   static async createFromLiteral(
     value: object,
-    validator: OpenapiValidator,
+    validator: IOpenapiValidator,
     genericLoader: GenericLoader,
   ): Promise<OpenapiLoader> {
     const loader = new OpenapiLoader(
@@ -197,7 +197,7 @@ export class OpenapiLoader {
       fileType: "openapi3" | "typespec"
       titleOverride: string | undefined
     },
-    validator: OpenapiValidator,
+    validator: IOpenapiValidator,
     genericLoader: GenericLoader,
     typespecLoader: TypespecLoader,
   ): Promise<OpenapiLoader> {
