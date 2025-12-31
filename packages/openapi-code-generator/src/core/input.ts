@@ -48,7 +48,7 @@ export class Input implements ISchemaProvider {
     private loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
-    private readonly schemaNormalizer = new SchemaNormalizer(config),
+    private readonly schemaNormalizer = new SchemaNormalizer(config, this),
     private readonly parameterNormalizer = new ParameterNormalizer(
       loader,
       schemaNormalizer,

@@ -244,7 +244,20 @@ export abstract class AbstractSchemaBuilder<
       }
 
       case "union": {
-        result = this.union(model.schemas.map((it) => this.fromModel(it, true)))
+        if (model.discriminator) {
+          result = this.discriminatedUnion(
+            model.discriminator.propertyName,
+            Object.fromEntries(
+              Object.entries(model.discriminator.mapping).map(
+                ([value, ref]) => [value, this.fromModel(ref, true)],
+              ),
+            ),
+          )
+        } else {
+          result = this.union(
+            model.schemas.map((it) => this.fromModel(it, true)),
+          )
+        }
         break
       }
 
@@ -353,6 +366,11 @@ export abstract class AbstractSchemaBuilder<
   protected abstract intersection(model: IRModelIntersection): string
 
   protected abstract union(schemas: string[]): string
+
+  protected abstract discriminatedUnion(
+    propertyName: string,
+    mapping: Record<string, string>,
+  ): string
 
   protected abstract preprocess(
     schema: string,

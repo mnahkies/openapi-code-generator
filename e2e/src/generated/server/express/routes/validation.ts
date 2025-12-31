@@ -25,6 +25,7 @@ import {
 } from "express"
 import {z} from "zod/v4"
 import type {
+  t_Animal,
   t_Enumerations,
   t_GetResponsesDefault200Response,
   t_GetResponsesDefaultdefaultResponse,
@@ -35,6 +36,7 @@ import type {
   t_RandomNumber,
 } from "../models.ts"
 import {
+  s_Animal,
   s_Enumerations,
   s_GetResponsesDefault200Response,
   s_GetResponsesDefaultdefaultResponse,
@@ -90,6 +92,18 @@ export type PostValidationOptionalBody = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostValidationObjectsDiscriminatedUnionResponder = {
+  with200(): ExpressRuntimeResponse<t_Animal>
+} & ExpressRuntimeResponder
+
+export type PostValidationObjectsDiscriminatedUnion = (
+  params: Params<void, void, t_Animal, void>,
+  respond: PostValidationObjectsDiscriminatedUnionResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type GetResponses500Responder = {
   with500(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
@@ -133,6 +147,7 @@ export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
   postValidationOptionalBody: PostValidationOptionalBody
+  postValidationObjectsDiscriminatedUnion: PostValidationObjectsDiscriminatedUnion
   getResponses500: GetResponses500
   getResponsesDefault: GetResponsesDefault
   getResponsesEmpty: GetResponsesEmpty
@@ -288,6 +303,55 @@ export function createValidationRouter(
             handleResponse(
               res,
               postValidationOptionalBodyResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postValidationObjectsDiscriminatedUnionResponseBodyValidator =
+    responseValidationFactory([["200", s_Animal]], undefined)
+
+  // postValidationObjectsDiscriminatedUnion
+  router.post(
+    `/validation/objects/discriminated-union`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_Animal,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_Animal>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postValidationObjectsDiscriminatedUnion(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postValidationObjectsDiscriminatedUnionResponseBodyValidator,
             ),
           )
       } catch (error) {

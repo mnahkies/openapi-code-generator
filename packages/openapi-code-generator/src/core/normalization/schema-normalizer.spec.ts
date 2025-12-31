@@ -1,12 +1,22 @@
-import {describe, expect, it} from "@jest/globals"
+import {beforeEach, describe, expect, it} from "@jest/globals"
+import {FakeSchemaProvider} from "../../test/fake-schema-provider.ts"
 import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils.ts"
 import {generationLib} from "../generation-lib.ts"
 import {SchemaNormalizer} from "./schema-normalizer.ts"
 
 describe("core/input - SchemaNormalizer", () => {
-  const schemaNormalizer = new SchemaNormalizer({
-    extractInlineSchemas: true,
-    enumExtensibility: "open",
+  let schemaProvider: FakeSchemaProvider
+  let schemaNormalizer: SchemaNormalizer
+
+  beforeEach(() => {
+    schemaProvider = new FakeSchemaProvider()
+    schemaNormalizer = new SchemaNormalizer(
+      {
+        extractInlineSchemas: true,
+        enumExtensibility: "open",
+      },
+      schemaProvider,
+    )
   })
 
   it("passes through $ref untouched", () => {
@@ -626,6 +636,291 @@ describe("core/input - SchemaNormalizer", () => {
                 ir.object({properties: {bar: ir.string()}, required: ["bar"]}),
               ],
             }),
+          ],
+        }),
+      )
+    })
+  })
+
+  describe("discriminator", () => {
+    describe("all alternatives are $ref of type: object", () => {
+      it("supports mapping", () => {
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Foo"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Bar"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+
+        const actual = schemaNormalizer.normalize({
+          type: "object",
+          discriminator: {
+            propertyName: "type",
+            mapping: {
+              foo: "#/components/schemas/Foo",
+              bar: "#/components/schemas/Bar",
+            },
+          },
+          oneOf: [
+            {$ref: "#/components/schemas/Foo"},
+            {$ref: "#/components/schemas/Bar"},
+          ],
+        })
+
+        expect(actual).toStrictEqual(
+          ir.union({
+            discriminator: {
+              propertyName: "type",
+              mapping: {
+                foo: ir.ref("/components/schemas/Foo"),
+                bar: ir.ref("/components/schemas/Bar"),
+              },
+            },
+            schemas: [
+              ir.ref("/components/schemas/Foo"),
+              ir.ref("/components/schemas/Bar"),
+            ],
+          }),
+        )
+      })
+
+      it("supports a defined path mapping", () => {
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+
+        const actual = schemaNormalizer.normalize({
+          type: "object",
+          discriminator: {
+            propertyName: "type",
+            mapping: {
+              foo: "#/components/schemas/Foo",
+              bar: "#/components/schemas/Bar",
+            },
+          },
+          oneOf: [
+            {$ref: "/absolute/path.yaml#/components/schemas/Foo"},
+            {$ref: "/absolute/path.yaml#/components/schemas/Bar"},
+          ],
+        })
+
+        expect(actual).toStrictEqual(
+          ir.union({
+            discriminator: {
+              propertyName: "type",
+              mapping: {
+                foo: ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+                bar: ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+              },
+            },
+            schemas: [
+              ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+              ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+            ],
+          }),
+        )
+      })
+
+      // todo: normalize relative paths / uris properly here.
+      it.skip("supports a cross-file defined path mapping", () => {
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+
+        const actual = schemaNormalizer.normalize({
+          type: "object",
+          discriminator: {
+            propertyName: "type",
+            mapping: {
+              foo: "./path.yaml#/components/schemas/Foo",
+              bar: "./path.yaml#/components/schemas/Bar",
+            },
+          },
+          oneOf: [
+            {$ref: "/absolute/path.yaml#/components/schemas/Foo"},
+            {$ref: "/absolute/path.yaml#/components/schemas/Bar"},
+          ],
+        })
+
+        expect(actual).toStrictEqual(
+          ir.union({
+            discriminator: {
+              propertyName: "type",
+              mapping: {
+                foo: ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+                bar: ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+              },
+            },
+            schemas: [
+              ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
+              ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
+            ],
+          }),
+        )
+      })
+
+      it("infers a mapping when none provided", () => {
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Foo"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+        schemaProvider.registerTestRef(
+          ir.ref("/components/schemas/Bar"),
+          ir.object({properties: {type: ir.string()}}),
+        )
+
+        const actual = schemaNormalizer.normalize({
+          type: "object",
+          discriminator: {
+            propertyName: "type",
+          },
+          oneOf: [
+            {$ref: "#/components/schemas/Foo"},
+            {$ref: "#/components/schemas/Bar"},
+          ],
+        })
+
+        expect(actual).toStrictEqual(
+          ir.union({
+            discriminator: {
+              propertyName: "type",
+              mapping: {
+                Foo: ir.ref("/components/schemas/Foo"),
+                Bar: ir.ref("/components/schemas/Bar"),
+              },
+            },
+            schemas: [
+              ir.ref("/components/schemas/Foo"),
+              ir.ref("/components/schemas/Bar"),
+            ],
+          }),
+        )
+      })
+    })
+
+    it("ignores the discriminator property where some alternatives are not type: object", () => {})
+
+    it("ignores the discriminator property where no composition is defined", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        properties: {
+          name: {type: "string"},
+          type: {type: "string"},
+        },
+        discriminator: {
+          propertyName: "type",
+          mapping: {
+            foo: "#/components/schemas/Foo",
+            bar: "#/components/schemas/Bar",
+          },
+        },
+      })
+
+      expect(actual).toStrictEqual(
+        ir.object({properties: {name: ir.string(), type: ir.string()}}),
+      )
+    })
+
+    // todo: figure this out
+    it.skip("handles a discriminator altering the base object with in-line schemas", () => {
+      // example derived from POST /repos/{owner}/{repo}/check-runs
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        properties: {
+          status: {type: "string", enum: ["success", "fail", "in-progress"]},
+          completed_at: {type: "string", format: "date-time"},
+        },
+        oneOf: [
+          {
+            type: "object",
+            properties: {status: {type: "string", enum: ["success", "fail"]}},
+            required: ["completed_at"],
+          },
+          {
+            type: "object",
+            properties: {status: {type: "string", enum: ["in-progress"]}},
+          },
+        ],
+        discriminator: {
+          propertyName: "status",
+        },
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          schemas: [
+            ir.object({
+              properties: {
+                status: ir.string({enum: ["success", "fail"]}),
+                completed_at: ir.string({format: "date-time"}),
+              },
+              required: ["completed_at"],
+            }),
+            ir.object({
+              properties: {
+                status: ir.string({enum: ["in-progress"]}),
+                completed_at: ir.string({format: "date-time"}),
+              },
+            }),
+          ],
+          discriminator: {
+            propertyName: "status",
+            mapping: {
+              success: ir.object({
+                properties: {
+                  status: ir.string({enum: ["success", "fail"]}),
+                  completed_at: ir.string({format: "date-time"}),
+                },
+                required: ["completed_at"],
+              }),
+              fail: ir.object({
+                properties: {
+                  status: ir.string({enum: ["success", "fail"]}),
+                  completed_at: ir.string({format: "date-time"}),
+                },
+                required: ["completed_at"],
+              }),
+              "in-progress": ir.object({
+                properties: {
+                  status: ir.string({enum: ["in-progress"]}),
+                  completed_at: ir.string({format: "date-time"}),
+                },
+              }),
+            },
+          },
+        }),
+      )
+    })
+
+    it("ignores the discriminator property where some alternatives are inline schemas", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+        },
+        oneOf: [
+          {type: "object", properties: {type: {type: "string"}}},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          schemas: [
+            ir.object({properties: {type: ir.string()}}),
+            ir.ref("/components/schemas/Bar"),
           ],
         }),
       )

@@ -10,6 +10,7 @@ import {
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import {z} from "zod/v4"
 import type {
+  t_Animal,
   t_Enumerations,
   t_GetHeadersRequest200Response,
   t_GetHeadersUndeclared200Response,
@@ -26,6 +27,7 @@ import type {
   UnknownEnumStringValue,
 } from "./models.ts"
 import {
+  s_Animal,
   s_Enumerations,
   s_GetHeadersRequest200Response,
   s_GetHeadersUndeclared200Response,
@@ -366,6 +368,32 @@ export class E2ETestClient extends AbstractAxiosClient {
       ...res,
       data: s_PostValidationOptionalBody200Response.parse(res.data),
     }
+  }
+
+  async postValidationObjectsDiscriminatedUnion(
+    p: {
+      requestBody: t_Animal
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_Animal>> {
+    const url = `/validation/objects/discriminated-union`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    const res = await this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: s_Animal.parse(res.data)}
   }
 
   async getResponses500(

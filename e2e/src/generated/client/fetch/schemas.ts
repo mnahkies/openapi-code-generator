@@ -5,6 +5,18 @@
 import {z} from "zod/v4"
 import type {UnknownEnumNumberValue, UnknownEnumStringValue} from "./models.ts"
 
+export const s_Cat = z.object({
+  name: z.string().optional(),
+  type: z.literal("cat"),
+  lives: z.coerce.number().optional(),
+})
+
+export const s_Dog = z.object({
+  name: z.string().optional(),
+  type: z.literal("dog"),
+  sticks: z.coerce.number().optional(),
+})
+
 export const s_Enumerations = z.object({
   colors: z.union([
     z.enum(["red", "green", "blue"]),
@@ -36,6 +48,8 @@ export const s_RandomNumber = z.object({
     })
     .optional(),
 })
+
+export const s_Animal = z.discriminatedUnion("type", [s_Cat, s_Dog])
 
 export const s_GetHeadersUndeclared200Response = z.object({
   rawHeaders: z.record(z.string(), z.unknown()).optional(),

@@ -289,6 +289,22 @@ paths:
                     type: string
         204:
           description: ok
+  /validation/objects/discriminated-union:
+    post:
+      tags:
+       - validation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Animal'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
 
   /responses/500:
     get:
@@ -470,6 +486,40 @@ components:
               typedHeaders: {}
 
   schemas:
+    Cat:
+      type: object
+      required:
+        - type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: ['cat']
+        lives:
+          type: number
+    Dog:
+      type: object
+      required:
+        - type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: ['dog']
+        sticks:
+          type: number
+    Animal:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/Cat'
+        - $ref: '#/components/schemas/Dog'
+      discriminator:
+        propertyName: type
+        mapping:
+          cat: '#/components/schemas/Cat'
+          dog: '#/components/schemas/Dog'
     Enumerations:
       type: object
       required:

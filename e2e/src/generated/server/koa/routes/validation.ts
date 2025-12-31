@@ -20,6 +20,7 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import {z} from "zod/v4"
 import type {
+  t_Animal,
   t_Enumerations,
   t_GetResponsesDefault200Response,
   t_GetResponsesDefaultdefaultResponse,
@@ -30,6 +31,7 @@ import type {
   t_RandomNumber,
 } from "../models.ts"
 import {
+  s_Animal,
   s_Enumerations,
   s_GetResponsesDefault200Response,
   s_GetResponsesDefaultdefaultResponse,
@@ -88,6 +90,18 @@ export type PostValidationOptionalBody = (
   | typeof SkipResponse
 >
 
+export type PostValidationObjectsDiscriminatedUnionResponder = {
+  with200(): KoaRuntimeResponse<t_Animal>
+} & KoaRuntimeResponder
+
+export type PostValidationObjectsDiscriminatedUnion = (
+  params: Params<void, void, t_Animal, void>,
+  respond: PostValidationObjectsDiscriminatedUnionResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_Animal> | typeof SkipResponse
+>
+
 export type GetResponses500Responder = {
   with500(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -130,6 +144,7 @@ export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
   postValidationOptionalBody: PostValidationOptionalBody
+  postValidationObjectsDiscriminatedUnion: PostValidationObjectsDiscriminatedUnion
   getResponses500: GetResponses500
   getResponsesDefault: GetResponsesDefault
   getResponsesEmpty: GetResponsesEmpty
@@ -268,6 +283,45 @@ export function createValidationRouter(
         .postValidationOptionalBody(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, postValidationOptionalBodyResponseValidator))
+    },
+  )
+
+  const postValidationObjectsDiscriminatedUnionResponseValidator =
+    responseValidationFactory([["200", s_Animal]], undefined)
+
+  router.post(
+    "postValidationObjectsDiscriminatedUnion",
+    "/validation/objects/discriminated-union",
+    async (ctx) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          s_Animal,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_Animal>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .postValidationObjectsDiscriminatedUnion(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            postValidationObjectsDiscriminatedUnionResponseValidator,
+          ),
+        )
     },
   )
 

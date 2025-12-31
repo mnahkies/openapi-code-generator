@@ -10,6 +10,20 @@ export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
 
+export type t_Animal = t_Cat | t_Dog
+
+export type t_Cat = {
+  lives?: number | undefined
+  name?: string | undefined
+  type: "cat"
+}
+
+export type t_Dog = {
+  name?: string | undefined
+  sticks?: number | undefined
+  type: "dog"
+}
+
 export type t_Enumerations = {
   colors: "red" | "green" | "blue" | UnknownEnumStringValue
   starRatings: 1 | 2 | 3 | UnknownEnumNumberValue
