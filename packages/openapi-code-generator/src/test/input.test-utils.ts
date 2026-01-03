@@ -12,7 +12,7 @@ import {OpenapiValidator} from "../core/openapi-validator"
 
 export type OpenApiVersion = "3.0.x" | "3.1.x"
 
-function getTestVersions(): OpenApiVersion[] {
+function getTestVersions(): [OpenApiVersion, ...OpenApiVersion[]] {
   if (process.argv.find((arg) => ["--updateSnapshot", "-u"].includes(arg))) {
     logger.warn("Running with --updateSnapshot - only testing one version")
     return ["3.0.x"]
