@@ -7,7 +7,6 @@ import {GenericLoader} from "../core/loaders/generic.loader"
 import {OpenapiLoader} from "../core/loaders/openapi-loader"
 import {TypespecLoader} from "../core/loaders/typespec.loader"
 import {logger} from "../core/logger"
-import {SchemaNormalizer} from "../core/normalization/schema-normalizer"
 import {OpenapiValidator} from "../core/openapi-validator"
 
 export type OpenApiVersion = "3.0.x" | "3.1.x"
@@ -59,7 +58,6 @@ export async function unitTestInput(
 
   return {
     input: new Input(loader, config),
-    schemaNormalizer: new SchemaNormalizer(config),
     file,
   }
 }

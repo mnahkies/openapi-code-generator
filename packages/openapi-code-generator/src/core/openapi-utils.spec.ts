@@ -1,5 +1,10 @@
 import {describe, expect, it} from "@jest/globals"
-import {extractPlaceholders, getNameFromRef, isRef} from "./openapi-utils"
+import {
+  extractPlaceholders,
+  getNameFromRef,
+  getRawNameFromRef,
+  isRef,
+} from "./openapi-utils"
 
 describe("core/openapi-utils", () => {
   describe("#isRef", () => {
@@ -14,6 +19,20 @@ describe("core/openapi-utils", () => {
     it("returns false if not passed an object", () => {
       expect(isRef(null)).toBe(false)
       expect(isRef(123)).toBe(false)
+    })
+  })
+
+  describe("#getRawNameFromRef", () => {
+    it("returns the raw name", () => {
+      expect(
+        getRawNameFromRef({$ref: "#/components/schemas/Something"}),
+      ).toEqual("Something")
+    })
+
+    it("throws on an invalid $ref", () => {
+      expect(() => getRawNameFromRef({$ref: "#/"})).toThrow(
+        "no name found in $ref: '#/'",
+      )
     })
   })
 

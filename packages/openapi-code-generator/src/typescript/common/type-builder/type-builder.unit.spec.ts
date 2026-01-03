@@ -1,12 +1,7 @@
 import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
-import type {ISchemaProvider} from "../../../core/input"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {
-  IRModel,
-  IRRef,
-  MaybeIRModel,
-} from "../../../core/openapi-types-normalized"
-import {isRef} from "../../../core/openapi-utils"
+import type {IRModel} from "../../../core/openapi-types-normalized"
+import {FakeSchemaProvider} from "../../../test/fake-schema-provider"
 import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils"
 import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
 import type {TypeBuilderConfig} from "./type-builder"
@@ -14,30 +9,6 @@ import {
   type TypeBuilderTestHarness,
   typeBuilderTestHarness,
 } from "./type-builder.test-utils"
-
-class FakeSchemaProvider implements ISchemaProvider {
-  private readonly testRefs: Record<string, IRModel> = {}
-
-  registerTestRef(ref: IRRef, model: IRModel) {
-    this.testRefs[ref.$ref] = model
-  }
-
-  schema(maybeRef: MaybeIRModel): IRModel {
-    if (isRef(maybeRef)) {
-      const result = this.testRefs[maybeRef.$ref]
-
-      if (!result) {
-        throw new Error(
-          `FakeSchemaProvider: $ref '${maybeRef.$ref}' is not registered`,
-        )
-      }
-
-      return result
-    }
-
-    return maybeRef
-  }
-}
 
 describe("typescript/common/type-builder - unit tests", () => {
   let formatter: TypescriptFormatterBiome

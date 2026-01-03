@@ -1,73 +1,108 @@
 import ts from "typescript"
-import type {Input} from "../../../core/input"
-import type {SchemaNormalizer} from "../../../core/normalization/schema-normalizer"
-import type {
-  Reference,
-  Schema,
-  SchemaNumber,
-  SchemaObject,
-  SchemaString,
-} from "../../../core/openapi-types"
-import {isRef} from "../../../core/openapi-utils"
+import type {ISchemaProvider} from "../../../core/input"
+import type {IFormatter} from "../../../core/interfaces"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
+import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
 import {
   type OpenApiVersion,
   unitTestInput,
 } from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
-import {TypeBuilder} from "../type-builder/type-builder"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
+import {TypeBuilder, type TypeBuilderConfig} from "../type-builder/type-builder"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {type SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
 
-export function schemaBuilderTestHarness(
+export type SchemaBuilderIntegrationTestHarness = {
+  getActual(
+    path: string,
+    config?: SchemaBuilderConfig,
+  ): Promise<{
+    code: string
+    schemas: string
+    execute: (input: unknown) => Promise<unknown>
+  }>
+}
+
+export function schemaBuilderIntegrationTestHarness(
   schemaBuilderType: SchemaBuilderType,
+  formatter: IFormatter,
   version: OpenApiVersion,
   executeParseSchema: (code: string, input?: unknown) => Promise<unknown>,
 ) {
-  async function getActualFromModel(
-    schema: Schema,
-    config: SchemaBuilderConfig = {allowAny: false},
-  ) {
-    const {input, schemaNormalizer} = await unitTestInput(version)
-    return getResult(input, schemaNormalizer, schema, true, config)
-  }
+  const innerHarness = schemaBuilderTestHarness(
+    schemaBuilderType,
+    formatter,
+    executeParseSchema,
+  )
 
   async function getActual(
     path: string,
     config: SchemaBuilderConfig = {allowAny: false},
   ) {
-    const {input, schemaNormalizer, file} = await unitTestInput(version)
-    return getResult(
-      input,
-      schemaNormalizer,
+    const {input, file} = await unitTestInput(version)
+
+    return innerHarness.getActual(
       {$ref: `${file}#${path}`},
+      input,
+      {
+        config: {allowAny: config.allowAny},
+        compilerOptions: {exactOptionalPropertyTypes: false},
+      },
       true,
-      config,
     )
   }
 
-  async function getResult(
-    input: Input,
-    schemaNormalizer: SchemaNormalizer,
-    maybeSchema: Schema | Reference,
-    required: boolean,
-    config: SchemaBuilderConfig,
-  ) {
-    const formatter = await TypescriptFormatterBiome.createNodeFormatter()
+  return {
+    getActual,
+  }
+}
 
+export type SchemaBuilderTestHarness = {
+  getActual(
+    maybeIRModel: MaybeIRModel,
+    schemaProvider: ISchemaProvider,
+    opts?: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    },
+    required?: boolean,
+  ): Promise<{
+    code: string
+    schemas: string
+    execute: (input: unknown) => Promise<unknown>
+  }>
+}
+
+export function schemaBuilderTestHarness(
+  schemaBuilderType: SchemaBuilderType,
+  formatter: IFormatter,
+  executeParseSchema: (code: string, input?: unknown) => Promise<unknown>,
+): SchemaBuilderTestHarness {
+  async function getActual(
+    maybeIRModel: MaybeIRModel,
+    schemaProvider: ISchemaProvider,
+    {
+      config = {allowAny: false},
+      compilerOptions = {exactOptionalPropertyTypes: false},
+    }: {
+      config?: TypeBuilderConfig
+      compilerOptions?: CompilerOptions
+    },
+    required: boolean = true,
+  ) {
     const imports = new ImportBuilder({includeFileExtensions: false})
 
     const typeBuilder = await TypeBuilder.fromSchemaProvider(
       "./unit-test.types.ts",
-      input,
-      {exactOptionalPropertyTypes: false},
-      {allowAny: config.allowAny},
+      schemaProvider,
+      compilerOptions,
+      config,
     )
 
     const schemaBuilder = (
       await schemaBuilderFactory(
         "./unit-test.schemas.ts",
-        input,
+        schemaProvider,
         schemaBuilderType,
         config,
         new ImportBuilder({includeFileExtensions: false}),
@@ -75,12 +110,7 @@ export function schemaBuilderTestHarness(
       )
     ).withImports(imports)
 
-    const schema = schemaBuilder.fromModel(
-      isRef(maybeSchema)
-        ? maybeSchema
-        : schemaNormalizer.normalize(maybeSchema),
-      required,
-    )
+    const schema = schemaBuilder.fromModel(maybeIRModel, required)
 
     const code = (
       await formatter.format(
@@ -131,47 +161,5 @@ export function schemaBuilderTestHarness(
     }
   }
 
-  return {
-    getActualFromModel,
-    getActual,
-  }
-}
-
-export function schemaObject(
-  partial: Partial<SchemaObject> = {},
-): SchemaObject {
-  return {
-    type: "object",
-    allOf: [],
-    anyOf: [],
-    oneOf: [],
-    properties: {},
-    additionalProperties: undefined,
-    required: [],
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
-}
-
-export function schemaString(
-  partial: Partial<SchemaString> = {},
-): SchemaString {
-  return {
-    type: "string",
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
-}
-
-export function schemaNumber(
-  partial: Partial<SchemaNumber> = {},
-): SchemaNumber {
-  return {
-    type: "number",
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
+  return {getActual}
 }

@@ -1,4 +1,4 @@
-import type {Input} from "../../../core/input"
+import type {ISchemaProvider} from "../../../core/input"
 import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder/type-builder"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
@@ -11,7 +11,7 @@ export type SchemaBuilderType = "zod-v3" | "zod-v4" | "joi"
 
 export function schemaBuilderFactory(
   filename: string,
-  input: Input,
+  schemaProvider: ISchemaProvider,
   schemaBuilderType: SchemaBuilderType,
   schemaBuilderConfig: SchemaBuilderConfig,
   schemaBuilderImports: ImportBuilder,
@@ -19,9 +19,9 @@ export function schemaBuilderFactory(
 ): Promise<SchemaBuilder> {
   switch (schemaBuilderType) {
     case "joi": {
-      return JoiBuilder.fromInput(
+      return JoiBuilder.fromSchemaProvider(
         filename,
-        input,
+        schemaProvider,
         schemaBuilderConfig,
         schemaBuilderImports,
         typeBuilder,
@@ -29,9 +29,9 @@ export function schemaBuilderFactory(
     }
 
     case "zod-v3": {
-      return ZodV3Builder.fromInput(
+      return ZodV3Builder.fromSchemaProvider(
         filename,
-        input,
+        schemaProvider,
         schemaBuilderConfig,
         schemaBuilderImports,
         typeBuilder,
@@ -39,9 +39,9 @@ export function schemaBuilderFactory(
     }
 
     case "zod-v4": {
-      return ZodV4Builder.fromInput(
+      return ZodV4Builder.fromSchemaProvider(
         filename,
-        input,
+        schemaProvider,
         schemaBuilderConfig,
         schemaBuilderImports,
         typeBuilder,
@@ -49,6 +49,7 @@ export function schemaBuilderFactory(
     }
 
     default:
+      /* istanbul ignore next */
       throw new Error(`schemaBuilderType '${schemaBuilderType}' not recognized`)
   }
 }

@@ -1,4 +1,4 @@
-import type {Input} from "./input"
+import type {ISchemaProvider} from "./input"
 import {logger} from "./logger"
 import type {Reference} from "./openapi-types"
 import type {MaybeIRModel} from "./openapi-types-normalized"
@@ -94,11 +94,11 @@ export type DependencyGraph = {order: string[]; circular: Set<string>}
  *
  * It's not perfect though:
  * - doesn't discover schemas declared in external specifications (eg: shared definition files)
- * @param input
+ * @param schemaProvider
  * @param getNameForRef
  */
 export function buildDependencyGraph(
-  input: Input,
+  schemaProvider: ISchemaProvider,
   getNameForRef: (reference: Reference) => string,
 ): DependencyGraph {
   logger.time("calculate schema dependency graph")
@@ -110,7 +110,7 @@ export function buildDependencyGraph(
   const order: string[] = []
 
   // TODO: this may miss extracted in-line schemas
-  for (const [name, schema] of Object.entries(input.allSchemas())) {
+  for (const [name, schema] of Object.entries(schemaProvider.allSchemas())) {
     remaining.set(
       getNameForRef({$ref: name}),
       getDependenciesFromSchema(schema, getNameForRef),
