@@ -2,7 +2,7 @@ import {
   buildDependencyGraph,
   type DependencyGraph,
 } from "../../../core/dependency-graph"
-import type {Input} from "../../../core/input"
+import type {ISchemaProvider} from "../../../core/input"
 import {logger} from "../../../core/logger"
 import type {Reference} from "../../../core/openapi-types"
 import type {
@@ -38,7 +38,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected constructor(
     public readonly filename: string,
-    protected readonly input: Input,
+    protected readonly schemaProvider: ISchemaProvider,
     protected readonly config: SchemaBuilderConfig,
     protected readonly schemaBuilderImports: ImportBuilder,
     typeBuilder: TypeBuilder,
@@ -50,7 +50,9 @@ export abstract class AbstractSchemaBuilder<
   ) {
     this.graph =
       parent?.graph ??
-      buildDependencyGraph(this.input, (it) => this.getSchemaNameFromRef(it))
+      buildDependencyGraph(this.schemaProvider, (it) =>
+        this.getSchemaNameFromRef(it),
+      )
     this.importHelpers(this.schemaBuilderImports)
     this.typeBuilder = typeBuilder.withImports(this.schemaBuilderImports)
   }
@@ -123,6 +125,7 @@ export abstract class AbstractSchemaBuilder<
               })
             }
 
+            /* istanbul ignore next */
             throw new Error("unreachable")
           })
       )
@@ -184,7 +187,7 @@ export abstract class AbstractSchemaBuilder<
       }
 
       if (maybeModel["x-internal-preprocess"]) {
-        const dereferenced = this.input.preprocess(
+        const dereferenced = this.schemaProvider.preprocess(
           maybeModel["x-internal-preprocess"],
         )
         if (dereferenced.deserialize) {
@@ -211,6 +214,7 @@ export abstract class AbstractSchemaBuilder<
         // todo: byte is base64 encoded string, https://spec.openapis.org/registry/format/byte.html
         // model.format === "byte"
         if (model.format === "binary") {
+          // todo: check instanceof Blob?
           result = this.any()
         } else {
           result = this.string(model)
@@ -234,7 +238,7 @@ export abstract class AbstractSchemaBuilder<
         // Note: for zod in particular it's desirable to use merge over intersection
         //       where possible, as it returns a more malleable schema
         const isMergable = model.schemas
-          .map((it) => this.input.schema(it))
+          .map((it) => this.schemaProvider.schema(it))
           .every((it) => it.type === "object" && !it.additionalProperties)
 
         result = isMergable ? this.merge(schemas) : this.intersect(schemas)
@@ -304,7 +308,9 @@ export abstract class AbstractSchemaBuilder<
     }
 
     if (model["x-internal-preprocess"]) {
-      const dereferenced = this.input.preprocess(model["x-internal-preprocess"])
+      const dereferenced = this.schemaProvider.preprocess(
+        model["x-internal-preprocess"],
+      )
       if (dereferenced.deserialize) {
         result = this.preprocess(result, dereferenced.deserialize.fn)
       }

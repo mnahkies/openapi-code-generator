@@ -1,4 +1,4 @@
-import type {Input} from "../../../core/input"
+import type {ISchemaProvider} from "../../../core/input"
 import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModel,
@@ -47,16 +47,16 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
 > {
   readonly type = "zod-v4"
 
-  static async fromInput(
+  static async fromSchemaProvider(
     filename: string,
-    input: Input,
+    schemaProvider: ISchemaProvider,
     schemaBuilderConfig: SchemaBuilderConfig,
     schemaBuilderImports: ImportBuilder,
     typeBuilder: TypeBuilder,
   ): Promise<ZodV4Builder> {
     return new ZodV4Builder(
       filename,
-      input,
+      schemaProvider,
       schemaBuilderConfig,
       schemaBuilderImports,
       typeBuilder,
@@ -67,7 +67,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
   override withImports(imports: ImportBuilder): ZodV4Builder {
     return new ZodV4Builder(
       this.filename,
-      this.input,
+      this.schemaProvider,
       this.config,
       this.schemaBuilderImports,
       this.typeBuilder,
@@ -93,7 +93,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
 
   protected schemaFromRef(reference: Reference): ExportDefinition {
     const name = this.getSchemaNameFromRef(reference)
-    const schemaObject = this.input.schema(reference)
+    const schemaObject = this.schemaProvider.schema(reference)
 
     const value = this.fromModel(schemaObject, true)
 

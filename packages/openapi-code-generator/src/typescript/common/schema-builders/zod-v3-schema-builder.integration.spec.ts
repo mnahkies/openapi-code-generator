@@ -1,22 +1,11 @@
 import * as vm from "node:vm"
-import {describe, expect, it} from "@jest/globals"
-import type {
-  SchemaArray,
-  SchemaBoolean,
-  SchemaNumber,
-  SchemaObject,
-  SchemaString,
-} from "../../../core/openapi-types"
-import {isDefined} from "../../../core/utils"
+import {beforeAll, describe, expect, it} from "@jest/globals"
 import {testVersions} from "../../../test/input.test-utils"
-import type {SchemaBuilderConfig} from "./abstract-schema-builder"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
 import {
-  schemaBuilderTestHarness,
-  schemaNumber,
-  schemaObject,
-  schemaString,
+  type SchemaBuilderIntegrationTestHarness,
+  schemaBuilderIntegrationTestHarness,
 } from "./schema-builder.test-utils"
-import {staticSchemas} from "./zod-v3-schema-builder"
 
 describe.each(
   testVersions,
@@ -29,11 +18,19 @@ describe.each(
     )
   }
 
-  const {getActualFromModel, getActual} = schemaBuilderTestHarness(
-    "zod-v3",
-    version,
-    executeParseSchema,
-  )
+  let getActual: SchemaBuilderIntegrationTestHarness["getActual"]
+
+  beforeAll(async () => {
+    const formatter = await TypescriptFormatterBiome.createNodeFormatter()
+    const harness = schemaBuilderIntegrationTestHarness(
+      "zod-v3",
+      formatter,
+      version,
+      executeParseSchema,
+    )
+
+    getActual = harness.getActual
+  })
 
   it("supports the SimpleObject", async () => {
     const {code, schemas} = await getActual("components/schemas/SimpleObject")

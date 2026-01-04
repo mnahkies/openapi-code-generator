@@ -38,7 +38,9 @@ export type InputConfig = {
 }
 
 export interface ISchemaProvider {
-  schema(maybeRef: MaybeIRModel): IRModel
+  schema(maybeRef: MaybeIRModel | Reference): IRModel
+  allSchemas(): Record<string, MaybeIRModel>
+  preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess
 }
 
 export class Input implements ISchemaProvider {

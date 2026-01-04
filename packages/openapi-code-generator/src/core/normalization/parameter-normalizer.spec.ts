@@ -86,15 +86,14 @@ describe("ParameterNormalizer", () => {
       })
 
       it("throws on unsupported style", () => {
-        const param = {
-          name: "id",
-          in: "path",
-          style: "form",
-          schema: {type: "string"},
-        } as any
-        expect(() => parameterNormalizer.normalizeParameter(param)).toThrow(
-          "unsupported parameter style: 'form' for in: 'path'",
-        )
+        expect(() =>
+          parameterNormalizer.normalizeParameter({
+            name: "id",
+            in: "path",
+            style: "form",
+            schema: {type: "string"},
+          }),
+        ).toThrow("unsupported parameter style: 'form' for in: 'path'")
       })
     })
 
@@ -226,7 +225,7 @@ describe("ParameterNormalizer", () => {
       }
 
       loader.parameter.mockImplementation((it) => it as Parameter)
-      loader.schema.mockImplementation((it) => it as any)
+      loader.schema.mockImplementation((it) => it)
       loader.addVirtualType.mockImplementation((_opId, name) =>
         ir.ref(name, "virtual"),
       )
@@ -300,7 +299,7 @@ describe("ParameterNormalizer", () => {
       }
 
       loader.parameter.mockReturnValue(queryParam)
-      loader.schema.mockReturnValue({type: "string"} as any)
+      loader.schema.mockReturnValue({type: "string"})
       loader.addVirtualType.mockImplementation((_operationId, name) =>
         ir.ref(name, "virtual"),
       )
@@ -328,7 +327,7 @@ describe("ParameterNormalizer", () => {
       loader.schema.mockReturnValue({
         type: "array",
         items: {type: "string"},
-      } as any)
+      })
       loader.addVirtualType.mockImplementation((_opId, name) =>
         ir.ref(name, "virtual"),
       )
