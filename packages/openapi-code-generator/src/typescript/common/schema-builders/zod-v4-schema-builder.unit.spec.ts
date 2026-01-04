@@ -1105,6 +1105,53 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
 
       await expect(execute("some string")).resolves.toEqual("some string")
     })
+
+    it("can generate a discriminated union", async () => {
+      const {code, execute} = await getActual(
+        ir.union({
+          schemas: [
+            ir.object({
+              properties: {kind: ir.string({enum: ["a"]}), foo: ir.string()},
+              required: ["kind", "foo"],
+            }),
+            ir.object({
+              properties: {kind: ir.string({enum: ["b"]}), bar: ir.string()},
+              required: ["kind", "bar"],
+            }),
+          ],
+          discriminator: {
+            propertyName: "kind",
+            mapping: {
+              a: ir.object({
+                properties: {kind: ir.string({enum: ["a"]}), foo: ir.string()},
+                required: ["kind", "foo"],
+              }),
+              b: ir.object({
+                properties: {kind: ir.string({enum: ["b"]}), bar: ir.string()},
+                required: ["kind", "bar"],
+              }),
+            } as any,
+          },
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "const x = z.discriminatedUnion("kind", [
+          z.object({ kind: , foo: z.string() }),
+          z.object({ kind: z.literal("b"), bar: z.string() }),
+        ])"
+      `)
+
+      await expect(execute({kind: "a", foo: "foo"})).resolves.toEqual({
+        kind: "a",
+        foo: "foo",
+      })
+
+      await expect(execute({kind: "b", bar: "bar"})).resolves.toEqual({
+        kind: "b",
+        bar: "bar",
+      })
+    })
   })
 
   describe("intersections", () => {

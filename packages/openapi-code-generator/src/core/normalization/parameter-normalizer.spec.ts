@@ -1,4 +1,5 @@
 import {beforeEach, describe, expect, it, jest} from "@jest/globals"
+import {FakeSchemaProvider} from "../../test/fake-schema-provider.ts"
 import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils.ts"
 import type {OpenapiLoader} from "../loaders/openapi-loader.ts"
 import type {Parameter} from "../openapi-types.ts"
@@ -8,6 +9,7 @@ import {SchemaNormalizer} from "./schema-normalizer.ts"
 
 describe("ParameterNormalizer", () => {
   let loader: jest.Mocked<OpenapiLoader>
+  let fakeSchemaProvider: FakeSchemaProvider
   let schemaNormalizer: SchemaNormalizer
   let parameterNormalizer: ParameterNormalizer
 
@@ -18,10 +20,15 @@ describe("ParameterNormalizer", () => {
       addVirtualType: jest.fn(),
     } as unknown as jest.Mocked<OpenapiLoader>
 
-    schemaNormalizer = new SchemaNormalizer({
-      extractInlineSchemas: true,
-      enumExtensibility: "open",
-    })
+    fakeSchemaProvider = new FakeSchemaProvider()
+
+    schemaNormalizer = new SchemaNormalizer(
+      {
+        extractInlineSchemas: true,
+        enumExtensibility: "open",
+      },
+      fakeSchemaProvider,
+    )
 
     parameterNormalizer = new ParameterNormalizer(
       loader,
