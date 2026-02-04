@@ -6,7 +6,8 @@ packages:
 minimumReleaseAge: 10080 # 7 days in minutes
 
 minimumReleaseAgeExclude:
-  - 'next@16.1.0'
+  # Renovate security update: next@16.1.5
+  - 'next@16.1.0 || 16.1.5'
   - '@next/env@16.1.0'
   - '@next/swc-darwin-arm64@16.1.0'
   - '@next/swc-darwin-x64@16.1.0'
