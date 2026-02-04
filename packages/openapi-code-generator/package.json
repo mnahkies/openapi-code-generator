@@ -46,7 +46,7 @@
     "@azure-tools/typespec-client-generator-core": "0.63.0",
     "@jest/globals": "^30.2.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "^4.17.21",
+    "@types/lodash": "^4.17.23",
     "@typespec/compiler": "^1.7.0",
     "@typespec/events": "0.77.0",
     "@typespec/http": "^1.7.0",
@@ -61,9 +61,9 @@
     "tsx": "^4.21.0"
   },
   "dependencies": {
-    "@biomejs/biome": "2.3.10",
+    "@biomejs/biome": "2.3.13",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.3.10",
+    "@biomejs/wasm-nodejs": "2.3.13",
     "@commander-js/extra-typings": "^14.0.0",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "ajv": "^8.17.1",
@@ -72,7 +72,7 @@
     "commander": "^14.0.2",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.3",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",
     "zod": "^3.25.74"
