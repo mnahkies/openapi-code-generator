@@ -19,7 +19,7 @@
     "@nahkies/typescript-express-runtime": "workspace:*",
     "@nahkies/typescript-fetch-runtime": "workspace:*",
     "@nahkies/typescript-koa-runtime": "workspace:*",
-    "axios": "^1.13.4",
+    "axios": "1.13.2",
     "express": "^5.1.0",
     "koa": "^3.1.1",
     "zod": "^3.25.74"
