@@ -1,0 +1,13 @@
+diff --git a/index.d.cts b/index.d.cts
+index 7a4eff949961ec02504ddf91f67874e567e1ee49..a32064ec7a0f3b09a021ad5fbfd0f3bd1c10033e 100644
+--- a/index.d.cts
++++ b/index.d.cts
+@@ -417,7 +417,7 @@ declare namespace axios {
+     httpAgent?: any;
+     httpsAgent?: any;
+     proxy?: AxiosProxyConfig | false;
+-    cancelToken?: CancelToken;
++    cancelToken?: CancelToken | undefined;
+     decompress?: boolean;
+     transitional?: TransitionalOptions;
+     signal?: GenericAbortSignal;

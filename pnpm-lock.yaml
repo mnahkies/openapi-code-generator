@@ -10,6 +10,11 @@ overrides:
   '@isaacs/brace-expansion': 5.0.1
   tar: 7.5.7
 
+patchedDependencies:
+  axios:
+    hash: 6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1
+    path: patches/axios.patch
+
 importers:
 
   .:
@@ -103,7 +108,7 @@ importers:
         version: link:../packages/typescript-koa-runtime
       axios:
         specifier: 1.13.5
-        version: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       express:
         specifier: ^5.1.0
         version: 5.2.1
@@ -186,7 +191,7 @@ importers:
         version: link:../../packages/typescript-axios-runtime
       axios:
         specifier: 1.13.5
-        version: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -463,7 +468,7 @@ importers:
         version: 30.2.0
       axios:
         specifier: 1.13.5
-        version: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@22.16.5)
@@ -10954,7 +10959,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.13.5:
+  axios@1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1):
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
@@ -14498,7 +14503,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.13.5
+      axios: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
