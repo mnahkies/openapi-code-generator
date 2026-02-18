@@ -121,9 +121,7 @@ export function schemaBuilderTestHarness(
           ${
             // hack: joi currently shoves exported functions into schemas.ts for intersection support, and
             //       executing the code during tests we don't have module.exports available.
-            schemaBuilder
-              .preamble()
-              .replaceAll("export function", "function")
+            schemaBuilder.preamble().replaceAll("export function", "function")
           }const x = ${schema}
         `,
       )
