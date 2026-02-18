@@ -44,7 +44,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.23",
     "@types/node": "22.16.5",
-    "@types/react": "^19.2.10",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.2",
     "gh-pages": "^6.3.0",
     "tsx": "^4.21.0",
