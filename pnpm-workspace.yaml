@@ -3,18 +3,9 @@ packages:
   - integration-tests/*
   - e2e
 
-minimumReleaseAge: 10080 # 7 days in minutes
-
-minimumReleaseAgeExclude:
-  # Renovate security update: lodash@4.17.23
-  - lodash@4.17.23
-  - '@isaacs/brace-expansion@5.0.1'
-
-nodeOptions: "${NODE_OPTIONS:- } --experimental-vm-modules"
-
 dedupeInjectedDeps: true
 
-linkWorkspacePackages: deep
+gitChecks: false
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'
@@ -26,11 +17,25 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
+linkWorkspacePackages: deep
+
+minimumReleaseAge: 10080
+
+minimumReleaseAgeExclude:
+  - lodash@4.17.23
+  - '@isaacs/brace-expansion@5.0.1'
+  - axios@1.13.5
+
+nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
+
 overrides:
-  '@types/node': 22.16.5
-  'zod@4.1.11': '4.1.13'
   '@isaacs/brace-expansion': 5.0.1
+  '@types/node': 22.16.5
   tar: 7.5.7
+  zod@4.1.11: 4.1.13
+
+patchedDependencies:
+  axios: patches/axios.patch
 
 preferWorkspacePackages: true
 
@@ -39,6 +44,3 @@ publicHoistPattern:
   - '@azure-tools/*'
   - '@types/node'
   - '@biomejs/biome'
-
-# GH actions doesn't checkout the branch
-gitChecks: false

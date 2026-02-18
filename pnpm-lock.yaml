@@ -10,6 +10,11 @@ overrides:
   '@isaacs/brace-expansion': 5.0.1
   tar: 7.5.7
 
+patchedDependencies:
+  axios:
+    hash: 6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1
+    path: patches/axios.patch
+
 importers:
 
   .:
@@ -102,8 +107,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/typescript-koa-runtime
       axios:
-        specifier: 1.13.2
-        version: 1.13.2
+        specifier: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       express:
         specifier: ^5.1.0
         version: 5.2.1
@@ -185,8 +190,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-axios-runtime
       axios:
-        specifier: 1.13.2
-        version: 1.13.2
+        specifier: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
@@ -462,8 +467,8 @@ importers:
         specifier: ^30.2.0
         version: 30.2.0
       axios:
-        specifier: 1.13.2
-        version: 1.13.2
+        specifier: 1.13.5
+        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@22.16.5)
@@ -3757,8 +3762,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  axios@1.13.2:
-    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
+  axios@1.13.5:
+    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
 
   babel-jest@30.2.0:
     resolution: {integrity: sha512-0YiBEOxWqKkSQWL9nNGGEgndoeL0ZpWrbLMNL5u/Kaxrli3Eaxlt3ZtIDktEvXt4L/R9r3ODr2zKwGM/2BjxVw==}
@@ -10954,7 +10959,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.13.2:
+  axios@1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1):
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
@@ -14498,7 +14503,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.13.2
+      axios: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
