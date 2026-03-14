@@ -39,12 +39,12 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.14",
+    "@biomejs/biome": "2.4.6",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.3.14",
+    "@biomejs/wasm-nodejs": "2.4.6",
     "@commander-js/extra-typings": "^14.0.0",
     "@jest/reporters": "^30.2.0",
-    "@swc/core": "^1.15.11",
+    "@swc/core": "^1.15.18",
     "@swc/jest": "^0.2.39",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.7",
@@ -56,8 +56,8 @@
     "husky": "^9.1.7",
     "jest": "^30.2.0",
     "json5": "^2.2.3",
-    "lerna": "^9.0.4",
-    "lint-staged": "^16.2.7",
+    "lerna": "^9.0.5",
+    "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
@@ -80,5 +80,5 @@
   "engines": {
     "node": ">=20 <25"
   },
-  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937"
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }

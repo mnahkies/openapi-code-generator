@@ -55,7 +55,7 @@
       "complexity": {
         "noForEach": "error"
       },
-      "nursery": {
+      "suspicious": {
         "noImportCycles": "error"
       },
       "style": {
