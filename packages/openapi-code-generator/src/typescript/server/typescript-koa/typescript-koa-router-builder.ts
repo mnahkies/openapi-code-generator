@@ -62,7 +62,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .add("KoaRuntimeError", "RequestInputType")
 
     this.imports.from("koa").addType("Next")
-    this.imports.from("@koa/router").addType("RouterContext").all("KoaRouter")
+    this.imports.from("@koa/router").addType("RouterContext").addType("RouterOptions").all("KoaRouter")
 
     const schemaBuilderType = this.schemaBuilder.type
 
@@ -258,8 +258,8 @@ ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
-  const router = new KoaRouter()
+export function ${createRouterExportName}(implementation: ${implementationExportName}, options: RouterOptions): KoaRouter {
+  const router = new KoaRouter(options)
 
   ${routerStatements.join("\n\n")}
 
