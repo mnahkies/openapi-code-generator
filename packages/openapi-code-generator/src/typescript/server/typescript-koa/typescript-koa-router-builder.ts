@@ -258,7 +258,7 @@ ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function ${createRouterExportName}(implementation: ${implementationExportName}, options: RouterOptions): KoaRouter {
+export function ${createRouterExportName}(implementation: ${implementationExportName}, options?: RouterOptions): KoaRouter {
   const router = new KoaRouter(options)
 
   ${routerStatements.join("\n\n")}
