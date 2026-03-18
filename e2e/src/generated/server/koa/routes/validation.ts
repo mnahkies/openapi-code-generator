@@ -22,6 +22,9 @@ import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
+  t_GetResponsesDefault200Response,
+  t_GetResponsesDefaultdefaultResponse,
+  t_GetResponsesDefaultQuerySchema,
   t_GetValidationNumbersRandomNumberQuerySchema,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
@@ -29,6 +32,8 @@ import type {
 } from "../models.ts"
 import {
   s_Enumerations,
+  s_GetResponsesDefault200Response,
+  s_GetResponsesDefaultdefaultResponse,
   s_PostValidationOptionalBody200Response,
   s_PostValidationOptionalBodyRequestBody,
   s_RandomNumber,
@@ -98,6 +103,25 @@ export type GetResponses500 = (
   next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<500, void> | typeof SkipResponse>
 
+export type GetResponsesDefaultResponder = {
+  with200(): KoaRuntimeResponse<t_GetResponsesDefault200Response>
+  withDefault(
+    status: StatusCode,
+  ): KoaRuntimeResponse<t_GetResponsesDefaultdefaultResponse>
+} & KoaRuntimeResponder
+
+export type GetResponsesDefault = (
+  params: Params<void, t_GetResponsesDefaultQuerySchema, void, void>,
+  respond: GetResponsesDefaultResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_GetResponsesDefault200Response>
+  | Res<StatusCode, t_GetResponsesDefaultdefaultResponse>
+  | typeof SkipResponse
+>
+
 export type GetResponsesEmptyResponder = {
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -114,6 +138,7 @@ export type ValidationImplementation = {
   postValidationEnums: PostValidationEnums
   postValidationOptionalBody: PostValidationOptionalBody
   getResponses500: GetResponses500
+  getResponsesDefault: GetResponsesDefault
   getResponsesEmpty: GetResponsesEmpty
 }
 
@@ -281,6 +306,47 @@ export function createValidationRouter(
       .getResponses500(input, responder, ctx, next)
       .catch(handleImplementationError)
       .then(handleResponse(ctx, next, getResponses500ResponseValidator))
+  })
+
+  const getResponsesDefaultQuerySchema = z.object({
+    status: z.enum(["200", "500"]).optional(),
+  })
+
+  const getResponsesDefaultResponseValidator = responseValidationFactory(
+    [["200", s_GetResponsesDefault200Response]],
+    s_GetResponsesDefaultdefaultResponse,
+  )
+
+  router.get("getResponsesDefault", "/responses/default", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getResponsesDefaultQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_GetResponsesDefault200Response>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_GetResponsesDefaultdefaultResponse>(
+          status,
+        )
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .getResponsesDefault(input, responder, ctx, next)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, next, getResponsesDefaultResponseValidator))
   })
 
   const getResponsesEmptyResponseValidator = responseValidationFactory(

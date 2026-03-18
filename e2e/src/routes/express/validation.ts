@@ -1,6 +1,7 @@
 import {
   createRouter,
   type GetResponses500,
+  type GetResponsesDefault,
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
@@ -52,6 +53,17 @@ const getResponsesEmpty: GetResponsesEmpty = async (_, respond) => {
   return respond.with204()
 }
 
+const getResponsesDefault: GetResponsesDefault = async ({query}, respond) => {
+  const status = query.status ?? "200"
+  if (status === "200") {
+    return respond.with200().body({id: "123"})
+  } else if (status === "500") {
+    return respond.withDefault(500).body({error: "something went wrong"})
+  }
+
+  throw new Error("unreachable")
+}
+
 const getResponses500: GetResponses500 = async () => {
   throw new Error("something went wrong")
 }
@@ -62,6 +74,7 @@ export function createValidationRouter() {
     postValidationOptionalBody,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
+    getResponsesDefault,
     getResponses500,
   })
 }

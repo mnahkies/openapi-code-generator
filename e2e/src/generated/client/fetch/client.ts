@@ -7,6 +7,7 @@ import {
   type AbstractFetchClientConfig,
   type Res,
   type Server,
+  type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
 import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
 import {z} from "zod/v4"
@@ -18,6 +19,8 @@ import type {
   t_GetParamsMixedQuery200Response,
   t_GetParamsSimpleQuery200Response,
   t_GetParamsUnexplodedObjectQuery200Response,
+  t_GetResponsesDefault200Response,
+  t_GetResponsesDefaultdefaultResponse,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
@@ -32,6 +35,8 @@ import {
   s_GetParamsMixedQuery200Response,
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
+  s_GetResponsesDefault200Response,
+  s_GetResponsesDefaultdefaultResponse,
   s_PostValidationOptionalBody200Response,
   s_ProductOrder,
   s_RandomNumber,
@@ -351,6 +356,32 @@ export class E2ETestClient extends AbstractFetchClient {
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["500", z.any()]], undefined)(res)
+  }
+
+  async getResponsesDefault(
+    p: {
+      status?: "200" | "500" | UnknownEnumStringValue
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_GetResponsesDefault200Response>
+    | Res<StatusCode, t_GetResponsesDefaultdefaultResponse>
+  > {
+    const url = this.basePath + `/responses/default`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({status: p["status"]})
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetResponsesDefault200Response]],
+      s_GetResponsesDefaultdefaultResponse,
+    )(res)
   }
 
   async getResponsesEmpty(

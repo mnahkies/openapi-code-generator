@@ -20,6 +20,9 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
+  t_GetResponsesDefault200Response,
+  t_GetResponsesDefaultdefaultResponse,
+  t_GetResponsesDefaultQuerySchema,
   t_GetValidationNumbersRandomNumberQuerySchema,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
@@ -27,6 +30,8 @@ import type {
 } from "../models.ts"
 import {
   s_Enumerations,
+  s_GetResponsesDefault200Response,
+  s_GetResponsesDefaultdefaultResponse,
   s_PostValidationOptionalBody200Response,
   s_PostValidationOptionalBodyRequestBody,
   s_RandomNumber,
@@ -91,6 +96,21 @@ export type GetResponses500 = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type GetResponsesDefaultResponder = {
+  with200(): ExpressRuntimeResponse<t_GetResponsesDefault200Response>
+  withDefault(
+    status: StatusCode,
+  ): ExpressRuntimeResponse<t_GetResponsesDefaultdefaultResponse>
+} & ExpressRuntimeResponder
+
+export type GetResponsesDefault = (
+  params: Params<void, t_GetResponsesDefaultQuerySchema, void, void>,
+  respond: GetResponsesDefaultResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type GetResponsesEmptyResponder = {
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
@@ -108,6 +128,7 @@ export type ValidationImplementation = {
   postValidationEnums: PostValidationEnums
   postValidationOptionalBody: PostValidationOptionalBody
   getResponses500: GetResponses500
+  getResponsesDefault: GetResponsesDefault
   getResponsesEmpty: GetResponsesEmpty
 }
 
@@ -294,6 +315,57 @@ export function createValidationRouter(
           .getResponses500(input, responder, req, res, next)
           .catch(handleImplementationError)
           .then(handleResponse(res, getResponses500ResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getResponsesDefaultQuerySchema = z.object({
+    status: z.enum(["200", "500"]).optional(),
+  })
+
+  const getResponsesDefaultResponseBodyValidator = responseValidationFactory(
+    [["200", s_GetResponsesDefault200Response]],
+    s_GetResponsesDefaultdefaultResponse,
+  )
+
+  // getResponsesDefault
+  router.get(
+    `/responses/default`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: parseRequestInput(
+            getResponsesDefaultQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_GetResponsesDefault200Response>(
+              200,
+            )
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_GetResponsesDefaultdefaultResponse>(
+              status,
+            )
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getResponsesDefault(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getResponsesDefaultResponseBodyValidator))
       } catch (error) {
         next(error)
       }

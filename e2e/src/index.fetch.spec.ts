@@ -379,6 +379,32 @@ describe.each(
     })
   })
 
+  describe("GET /responses/default", () => {
+    it("returns {id: string} for 200", async () => {
+      const res = await client.getResponsesDefault({status: "200"})
+
+      expect(res.status).toBe(200)
+
+      if (res.status === 200) {
+        const body = await res.json()
+
+        expect(body.id).toBe("123")
+      }
+    })
+
+    it("returns {error: string} for other status codes", async () => {
+      const res = await client.getResponsesDefault({status: "500"})
+
+      expect(res.status).toBe(500)
+
+      if (res.status !== 200) {
+        const body = await res.json()
+
+        expect(body.error).toBe("something went wrong")
+      }
+    })
+  })
+
   describe("GET /responses/500", () => {
     it("returns response from error middleware", async () => {
       const res = await client.getResponses500()
