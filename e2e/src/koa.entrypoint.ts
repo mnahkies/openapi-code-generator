@@ -4,6 +4,7 @@ import {createEscapeHatchesRouter} from "./routes/koa/escape-hatches.ts"
 import {createMediaTypesRouter} from "./routes/koa/media-types.ts"
 import {createQueryParametersRouter} from "./routes/koa/query-parameters.ts"
 import {createRequestHeadersRouter} from "./routes/koa/request-headers.ts"
+import {createRouteMatchingRouter} from "./routes/koa/route-matching.ts"
 import {createValidationRouter} from "./routes/koa/validation.ts"
 import {createErrorResponse} from "./shared.ts"
 
@@ -15,6 +16,7 @@ function createRouter() {
   const escapeHatchesRouter = createEscapeHatchesRouter()
   const mediaTypesRouter = createMediaTypesRouter()
   const queryParametersRouter = createQueryParametersRouter()
+  const routeMatchingRouter = createRouteMatchingRouter()
 
   router.use(
     requestHeadersRouter.allowedMethods(),
@@ -27,6 +29,7 @@ function createRouter() {
     queryParametersRouter.allowedMethods(),
     queryParametersRouter.routes(),
   )
+  router.use(routeMatchingRouter.allowedMethods(), routeMatchingRouter.routes())
 
   return router
 }

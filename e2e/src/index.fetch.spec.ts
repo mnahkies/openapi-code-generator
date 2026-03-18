@@ -520,4 +520,20 @@ describe.each(
       })
     })
   })
+
+  describe("route matching", () => {
+    it("should match fixed field route over parameterized route", async () => {
+      const res = await client.routeMatchingGetByFixedField()
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toEqual({matched: "fixed-field"})
+    })
+
+    it("should match parameterized route", async () => {
+      const res = await client.routeMatchingGetById({id: "123"})
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toEqual({matched: "id", id: "123"})
+    })
+  })
 })

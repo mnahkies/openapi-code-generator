@@ -481,6 +481,33 @@ export class E2ETestClient extends AbstractFetchClient {
 
     return responseValidationFactory([["200", z.string()]], undefined)(res)
   }
+
+  async routeMatchingGetByFixedField(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, unknown>> {
+    const url = this.basePath + `/route-matching/fixed-field`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+
+    return responseValidationFactory([["200", z.unknown()]], undefined)(res)
+  }
+
+  async routeMatchingGetById(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, unknown>> {
+    const url = this.basePath + `/route-matching/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+
+    return responseValidationFactory([["200", z.unknown()]], undefined)(res)
+  }
 }
 
 export {E2ETestClient as ApiClient}
