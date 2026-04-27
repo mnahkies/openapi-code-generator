@@ -33,6 +33,8 @@ minimumReleaseAgeExclude:
   - koa@3.1.2
   # Renovate security update: @angular/core@21.1.6
   - "@angular/core@21.1.6"
+  # Renovate security update: lodash-es@~4.17@4.18.1
+  - lodash-es@~4.17@4.18.1
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
@@ -41,7 +43,7 @@ overrides:
   '@types/node': 22.16.5
   tar: 7.5.8
   zod@4.1.11: 4.1.13
-  'lodash-es@~4.17': 4.17.23
+  'lodash-es@~4.17': 4.18.1
   qs: 6.14.2
 
 patchedDependencies:
