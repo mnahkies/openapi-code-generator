@@ -31,8 +31,8 @@ minimumReleaseAgeExclude:
   - ajv@8.18.0
   # Renovate security update: koa@3.1.2
   - koa@3.1.2
-  # Renovate security update: @angular/core@21.1.6
-  - "@angular/core@21.1.6"
+  # Renovate security update: @angular/core@21.1.6 || 21.2.4
+  - "@angular/core@21.1.6 || 21.2.4"
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
