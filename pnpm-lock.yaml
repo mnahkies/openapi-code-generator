@@ -109,8 +109,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/typescript-koa-runtime
       axios:
-        specifier: 1.13.5
-        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
+        specifier: 1.15.0
+        version: 1.15.0(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       express:
         specifier: ^5.1.0
         version: 5.2.1
@@ -192,8 +192,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-axios-runtime
       axios:
-        specifier: 1.13.5
-        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
+        specifier: 1.15.0
+        version: 1.15.0(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       dotenv:
         specifier: ^17.3.1
         version: 17.3.1
@@ -469,8 +469,8 @@ importers:
         specifier: ^30.2.0
         version: 30.2.0
       axios:
-        specifier: 1.13.5
-        version: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
+        specifier: 1.15.0
+        version: 1.15.0(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@22.16.5)
@@ -3610,6 +3610,7 @@ packages:
   '@xmldom/xmldom@0.9.8':
     resolution: {integrity: sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==}
     engines: {node: '>=14.6'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
@@ -3772,8 +3773,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  axios@1.13.5:
-    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
+  axios@1.15.0:
+    resolution: {integrity: sha512-wWyJDlAatxk30ZJer+GeCWS209sA42X+N5jU2jy6oHTp7ufw8uzUTVFBX9+wTfAlhiJXGS0Bq7X6efruWjuK9Q==}
 
   babel-jest@30.2.0:
     resolution: {integrity: sha512-0YiBEOxWqKkSQWL9nNGGEgndoeL0ZpWrbLMNL5u/Kaxrli3Eaxlt3ZtIDktEvXt4L/R9r3ODr2zKwGM/2BjxVw==}
@@ -6727,8 +6728,9 @@ packages:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
 
-  proxy-from-env@1.1.0:
-    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+  proxy-from-env@2.1.0:
+    resolution: {integrity: sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==}
+    engines: {node: '>=10'}
 
   pure-rand@7.0.1:
     resolution: {integrity: sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==}
@@ -10957,11 +10959,11 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1):
+  axios@1.15.0(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1):
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
-      proxy-from-env: 1.1.0
+      proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
 
@@ -14458,7 +14460,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.13.5(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
+      axios: 1.15.0(patch_hash=6560630882dbcc0975f9cafc909783b277056e2ec142062ecf5b9c3c6aa4bfb1)
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       cliui: 8.0.1
@@ -14898,7 +14900,7 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
-  proxy-from-env@1.1.0: {}
+  proxy-from-env@2.1.0: {}
 
   pure-rand@7.0.1: {}
 
