@@ -38,11 +38,11 @@ nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
 overrides:
   '@isaacs/brace-expansion': 5.0.1
-  '@types/node': 22.16.5
+  '@types/node': 25.6.0
   tar: 7.5.8
-  zod@4.1.11: 4.1.13
+  zod@4.1.11: 4.3.6
   'lodash-es@~4.17': 4.17.23
-  qs: 6.14.2
+  qs: 6.15.1
 
 patchedDependencies:
   axios: patches/axios.patch

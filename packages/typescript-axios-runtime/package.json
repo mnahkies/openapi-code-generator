@@ -39,7 +39,7 @@
     "@jest/globals": "^30.2.0",
     "axios": "1.13.5",
     "jest": "^30.2.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   },
   "files": [
     "src",
