@@ -168,7 +168,7 @@ export class OpenapiLoader {
         obj[key] = $ref
 
         await this.loadFile(pathFromRef($ref))
-      } else if (typeof obj[key] === "object" && !!obj[key]) {
+      } else if (typeof obj[key] === "object" && obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])
       }
     }

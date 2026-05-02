@@ -111,8 +111,13 @@ export abstract class AbstractAxiosClient {
   }
 
   protected _parseBlobResponse(res: AxiosResponse) {
+    const contentType = res.headers["content-type"]
+
     return new Blob([res.data], {
-      type: res.headers["content-type"] || "application/octet-stream",
+      type:
+        typeof contentType === "string"
+          ? contentType
+          : "application/octet-stream",
     })
   }
 

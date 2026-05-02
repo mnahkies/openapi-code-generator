@@ -40,26 +40,26 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.6",
+    "@biomejs/biome": "2.4.13",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.4.6",
+    "@biomejs/wasm-nodejs": "2.4.13",
     "@commander-js/extra-typings": "^14.0.0",
-    "@jest/reporters": "^30.2.0",
-    "@swc/core": "^1.15.18",
+    "@jest/reporters": "^30.3.0",
+    "@swc/core": "^1.15.30",
     "@swc/jest": "^0.2.39",
     "@tsconfig/node24": "^24.0.4",
-    "@tsconfig/strictest": "^2.0.7",
+    "@tsconfig/strictest": "^2.0.8",
     "@types/node": "22.16.5",
-    "ajv": "^8.17.1",
+    "ajv": "^8.20.0",
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^3.0.1",
     "commander": "^14.0.3",
     "husky": "^9.1.7",
-    "jest": "^30.2.0",
+    "jest": "^30.3.0",
     "json5": "^2.2.3",
-    "lerna": "^9.0.5",
-    "lint-staged": "^16.3.2",
-    "prettier": "^3.8.1",
+    "lerna": "^9.0.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
     "typescript": "^5.9.3"
@@ -81,5 +81,5 @@
   "engines": {
     "node": ">=20 <25"
   },
-  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
+  "packageManager": "pnpm@10.33.2+sha512.a90faf6feeab71ad6c6e57f94e0fe1a12f5dcc22cd754db40ae9593eb6a3e0b6b12e3540218bb37ae083404b1f2ce6db2a4121e979829b4aff94b99f49da1cf8"
 }
