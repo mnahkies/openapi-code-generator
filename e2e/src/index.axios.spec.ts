@@ -372,6 +372,29 @@ describe.each(
     })
   })
 
+  describe("GET /responses/default", () => {
+    it("returns {id: string} for 200", async () => {
+      const {status, data} = await client.getResponsesDefault({status: "200"})
+
+      expect(status).toBe(200)
+      expect(data.id).toBe("123")
+    })
+
+    it("returns {error: string} for other status codes", async () => {
+      const err = await client.getResponsesDefault({status: "500"}).then(
+        () => {
+          throw new Error("expected request to fail")
+        },
+        (err: AxiosError) => err,
+      )
+
+      expect(err.status).toBe(500)
+      expect(err.response?.data).toStrictEqual({
+        error: "something went wrong",
+      })
+    })
+  })
+
   describe("GET /responses/500", () => {
     it("returns response from error middleware", async () => {
       const err = await client.getResponses500().then(

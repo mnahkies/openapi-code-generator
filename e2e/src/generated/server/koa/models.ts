@@ -95,6 +95,18 @@ export type t_GetParamsUnexplodedObjectQueryQuerySchema = {
   }
 }
 
+export type t_GetResponsesDefault200Response = {
+  id?: string | undefined
+}
+
+export type t_GetResponsesDefaultQuerySchema = {
+  status?: ("200" | "500") | undefined
+}
+
+export type t_GetResponsesDefaultdefaultResponse = {
+  error?: string | undefined
+}
+
 export type t_GetValidationNumbersRandomNumberQuerySchema = {
   forbidden?: number[] | undefined
   max?: number | undefined

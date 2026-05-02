@@ -72,7 +72,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           statusString: string
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/service-status`
     const headers = this._headers(
@@ -110,7 +110,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
             status: t_Azure_Core_Foundations_OperationState
           }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -139,7 +139,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_Widget>
     | Res<201, t_Widget>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200 | 201>,
+        t_Azure_Core_Foundations_ErrorResponse
+      >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -179,7 +182,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_Widget> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_Widget>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -221,7 +225,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 202>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -259,7 +263,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_PagedWidget>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets`
     const headers = this._headers(
@@ -302,7 +306,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_WidgetAnalytics>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -339,7 +343,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_WidgetAnalytics>
     | Res<201, t_WidgetAnalytics>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200 | 201>,
+        t_Azure_Core_Foundations_ErrorResponse
+      >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -384,7 +391,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
@@ -421,7 +428,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 202>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}:scheduleRepairs`
     const headers = this._headers(
@@ -463,7 +470,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -490,7 +497,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<201, void>
+    | Res<Exclude<StatusCode, 201>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -527,7 +535,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_PagedWidgetPart>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -557,7 +565,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_WidgetPart>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -593,7 +601,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<204, void>
+    | Res<Exclude<StatusCode, 204>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -639,7 +648,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 202>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts:reorderParts`
     const headers = this._headers(
@@ -680,7 +689,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -709,7 +718,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_Manufacturer>
     | Res<201, t_Manufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200 | 201>,
+        t_Azure_Core_Foundations_ErrorResponse
+      >
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -750,7 +762,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_Manufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -792,7 +804,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 202>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -826,7 +838,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_PagedManufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<Exclude<StatusCode, 200>, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers`
     const headers = this._headers(

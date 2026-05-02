@@ -68,3 +68,11 @@ export const s_GetParamsMixedQuery200Response = z.object({
 export const s_PostValidationOptionalBody200Response = z.object({
   id: z.string().optional(),
 })
+
+export const s_GetResponsesDefault200Response = z.object({
+  id: z.string().optional(),
+})
+
+export const s_GetResponsesDefaultdefaultResponse = z.object({
+  error: z.string().optional(),
+})

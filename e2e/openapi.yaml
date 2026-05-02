@@ -277,6 +277,35 @@ paths:
       responses:
         500:
           description: Internal Server Error
+  /responses/default:
+    get:
+      tags:
+        - validation
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [200,500]
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   /responses/empty:
     get:
       tags:

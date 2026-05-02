@@ -71,6 +71,14 @@ export type t_GetParamsUnexplodedObjectQuery200Response = {
   }
 }
 
+export type t_GetResponsesDefault200Response = {
+  id?: string | undefined
+}
+
+export type t_GetResponsesDefaultdefaultResponse = {
+  error?: string | undefined
+}
+
 export type t_PostValidationOptionalBody200Response = {
   id?: string | undefined
 }
