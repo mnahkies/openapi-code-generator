@@ -80,16 +80,18 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
     const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const builderReturnType = builder.returnType()
+
     const nonDefaultStatusTypes = builderReturnType
       .filter(({isDefault}) => !isDefault)
       .map(({statusType}) => statusType)
-    const returnType = builderReturnType
-      .map(({statusType, responseType, isDefault}) => {
+
+    const returnType = union(
+      builderReturnType.map(({statusType, responseType, isDefault}) => {
         return isDefault
-          ? `Res<Exclude<StatusCode, ${nonDefaultStatusTypes.join(" | ")}>,${responseType}>`
+          ? `Res<Exclude<StatusCode, ${union(nonDefaultStatusTypes)}>,${responseType}>`
           : `Res<${statusType},${responseType}>`
-      })
-      .join(" | ")
+      }),
+    )
 
     const responseSchemas = this.config.enableRuntimeResponseValidation
       ? builder.responseSchemas()
