@@ -11,15 +11,15 @@ import type {
 } from "@nahkies/typescript-common-runtime/types"
 
 export type {
-  QueryParams,
   HeaderParams,
+  QueryParams,
+  Server,
   StatusCode,
   StatusCode1xx,
   StatusCode2xx,
   StatusCode3xx,
   StatusCode4xx,
   StatusCode5xx,
-  Server,
 }
 
 export interface Res<Status extends StatusCode, JsonBody> extends Response {

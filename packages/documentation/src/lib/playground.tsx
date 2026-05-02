@@ -396,7 +396,7 @@ const PlaygroundWrapper: React.FC = () => {
     fetchSample(defaultSampleFilename).then((content) =>
       setDefaultSample({filename: defaultSampleFilename, content: content}),
     )
-  }, [defaultSampleFilename])
+  }, [])
 
   if (!monaco || !defaultSample) {
     return null

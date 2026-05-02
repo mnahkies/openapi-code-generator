@@ -17,7 +17,6 @@ pnpm run build:docs
 pnpm ci-test
 
 pnpm lint
-pnpm format
 
 for SCHEMA_BUILDER in "${SCHEMA_BUILDERS[@]}"; do
   pnpm integration:clean

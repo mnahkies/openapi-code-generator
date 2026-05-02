@@ -81,6 +81,7 @@
   "overrides": [
     {
       "includes": ["integration-tests/**/generated/**", "e2e/**/generated/**"],
+      "assist": { "actions": { "source": { "organizeImports": "off" } } },
       "linter": {
         "rules": {
           "complexity": {
