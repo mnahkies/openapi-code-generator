@@ -13,6 +13,7 @@
     // incompatible with https://biomejs.dev/linter/rules/use-literal-keys/
     "noPropertyAccessFromIndexSignature": false,
     "moduleResolution": "Node16",
+    "types": ["node"],
     "paths": {
       "@nahkies/*": ["./packages/*/src"]
     }
