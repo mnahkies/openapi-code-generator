@@ -40,7 +40,6 @@ Main ones of interest are `build`, `test`, `lint`. E.g:
 pnpm build
 pnpm test
 pnpm lint
-pnpm format
 ```
 
 To regenerate the integration tests:
@@ -78,7 +77,6 @@ in the fetch runtime [here][ts-ignore-example]
 
 ```shell
 pnpm lint
-pnpm format
 ```
 
 We use `biome` for formatting, and linting, largely sticking to the recommended rules.

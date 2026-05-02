@@ -2,9 +2,13 @@ import {Biome, type Configuration, Distribution} from "@biomejs/js-api"
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 
-const defaultConfiguration = {
-  organizeImports: {
-    enabled: true,
+const defaultConfiguration: Configuration = {
+  assist: {
+    actions: {
+      source: {
+        organizeImports: "on",
+      },
+    },
   },
   files: {
     maxSize: 5 * 1024 * 1024,
@@ -23,7 +27,7 @@ const defaultConfiguration = {
       semicolons: "asNeeded",
     },
   },
-} as const
+}
 
 export class TypescriptFormatterBiome implements IFormatter {
   private constructor(
@@ -56,14 +60,15 @@ export class TypescriptFormatterBiome implements IFormatter {
   }
 
   static async createNodeFormatter(
-    configuration?: Configuration,
+    configuration: Configuration = defaultConfiguration,
   ): Promise<TypescriptFormatterBiome> {
     const biome = await Biome.create({
       distribution: Distribution.NODE,
     })
     const {projectKey} = biome.openProject()
+
     biome.applyConfiguration(projectKey, {
-      ...(configuration ?? defaultConfiguration),
+      ...configuration,
       // we want to avoid any ignore patterns that might \
       // prevent formatting of the output
       vcs: {enabled: false},

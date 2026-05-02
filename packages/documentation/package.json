@@ -21,7 +21,6 @@
     "dev": "pnpm copy-sample-data && next dev",
     "build": "pnpm copy-sample-data && next build",
     "lint": "pnpm -w lint",
-    "format": "pnpm -w format",
     "copy-sample-data": "tsx ./scripts/copy-sample-data.ts",
     "publish:gh-pages": "pnpm gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
