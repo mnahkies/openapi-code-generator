@@ -49,7 +49,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
+  ): Promise<Res<200, t_Pet[]> | Res<Exclude<StatusCode, 200>, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
@@ -71,7 +71,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
+  ): Promise<Res<200, t_Pet> | Res<Exclude<StatusCode, 200>, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -88,7 +88,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
+  ): Promise<Res<200, t_Pet> | Res<Exclude<StatusCode, 200>, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -101,7 +101,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<StatusCode, t_Error>> {
+  ): Promise<Res<204, void> | Res<Exclude<StatusCode, 204>, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 

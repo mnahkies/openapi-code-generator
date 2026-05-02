@@ -193,7 +193,9 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    | Res<200, t_TodoList>
+    | Res<StatusCode4xx, t_Error>
+    | Res<Exclude<StatusCode, 200 | StatusCode4xx>, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -209,7 +211,9 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    | Res<200, t_TodoList>
+    | Res<StatusCode4xx, t_Error>
+    | Res<Exclude<StatusCode, 200 | StatusCode4xx>, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
@@ -228,7 +232,9 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    | Res<204, void>
+    | Res<StatusCode4xx, t_Error>
+    | Res<Exclude<StatusCode, 204 | StatusCode4xx>, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)

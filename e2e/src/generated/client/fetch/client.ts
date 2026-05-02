@@ -366,7 +366,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_GetResponsesDefault200Response>
-    | Res<StatusCode, t_GetResponsesDefaultdefaultResponse>
+    | Res<Exclude<StatusCode, 200>, t_GetResponsesDefaultdefaultResponse>
   > {
     const url = this.basePath + `/responses/default`
     const headers = this._headers({Accept: "application/json"}, opts.headers)

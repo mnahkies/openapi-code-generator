@@ -60,7 +60,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_OperationListResult>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath + `/providers/Microsoft.ContosoProviderHub/operations`
@@ -81,7 +84,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_Employee>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -105,7 +111,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_Employee>
     | Res<201, t_Employee>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200 | 201>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -136,7 +145,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_Employee>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -167,7 +179,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
   ): Promise<
     | Res<202, void>
     | Res<204, void>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 202 | 204>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -194,7 +209,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
   ): Promise<
     | Res<204, void>
     | Res<404, void>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 204 | 404>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -215,7 +233,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_EmployeeListResult>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -235,7 +256,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_EmployeeListResult>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
@@ -258,7 +282,10 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_MoveResponse>
-    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    | Res<
+        Exclude<StatusCode, 200>,
+        t_Azure_ResourceManager_CommonTypes_ErrorResponse
+      >
   > {
     const url =
       this.basePath +
