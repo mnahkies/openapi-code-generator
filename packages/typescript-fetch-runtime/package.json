@@ -90,7 +90,8 @@
   },
   "files": [
     "src",
-    "dist",
+    "dist/cjs",
+    "dist/esm",
     "README.md",
     "CHANGELOG.md",
     "package.json",
