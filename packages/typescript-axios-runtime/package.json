@@ -55,6 +55,9 @@
     "typescript-axios",
     "axios"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "publishConfig": {
     "access": "public"
   }

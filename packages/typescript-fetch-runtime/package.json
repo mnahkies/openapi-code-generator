@@ -80,6 +80,9 @@
     "typescript-fetch",
     "fetch"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -146,6 +146,9 @@
     "axios",
     "angular"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "publishConfig": {
     "access": "public"
   }
