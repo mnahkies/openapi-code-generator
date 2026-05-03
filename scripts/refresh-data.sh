@@ -2,9 +2,12 @@
 
 set -e
 
-# Openapi v3.1 schema definitions
-curl https://spec.openapis.org/oas/3.1/schema/2025-02-13 -o ./schemas/openapi-3.1-specification.json
+# Openapi v3.0
 curl https://spec.openapis.org/oas/3.0/schema/2024-10-18 -o ./schemas/openapi-3.0-specification.json
+
+# Openapi v3.1
+curl https://spec.openapis.org/oas/3.1/meta/2024-11-10 -o ./schemas/openapi-3.1-meta.json
+curl https://spec.openapis.org/oas/3.1/schema/2025-09-15 -o ./schemas/openapi-3.1-specification.json
 
 # Example API Definitions
 curl -L https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml -o ./integration-tests-definitions/api.github.com.yaml

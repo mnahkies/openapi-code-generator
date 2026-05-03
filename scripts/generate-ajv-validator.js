@@ -24,7 +24,7 @@ const outputDir = path.join(
   "../packages/openapi-code-generator/src/core/schemas",
 )
 
-const loadYamlFile = async (filepath) => {
+const loadJsonFile = async (filepath) => {
   const content = await fs.readFile(filepath, "utf-8")
   return JSON.parse(content)
 }
@@ -65,7 +65,7 @@ const loadSchema = async (uri) => {
 }
 
 const compileOpenapi30Standalone = async () => {
-  const spec = await loadYamlFile(openapi30Path)
+  const spec = await loadJsonFile(openapi30Path)
   const ajv4 = new AjvDraft04({
     code: {source: true},
     strict: false,
@@ -77,9 +77,39 @@ const compileOpenapi30Standalone = async () => {
   return standaloneCode(ajv4, validate)
 }
 
+const replaceDynamicAnchors = (document) => {
+  if (document && typeof document === "object" && !Array.isArray(document)) {
+    if (document["$dynamicRef"] === "#meta") {
+      return {$ref: "#/$defs/schema"}
+    }
+
+    const result = Object.fromEntries(
+      Object.entries(document).map(([key, value]) => [
+        key,
+        replaceDynamicAnchors(value),
+      ]),
+    )
+
+    return result
+  }
+
+  return document
+}
+
 const compileOpenapi31Standalone = async (strict) => {
   try {
-    const spec = await loadYamlFile(openapi31Path)
+    const spec = await loadJsonFile(openapi31Path)
+    const without$DynamicAnchors = replaceDynamicAnchors(spec)
+
+    without$DynamicAnchors["$defs"]["schema"] = {
+      ...without$DynamicAnchors["$defs"]["schema"],
+      allOf: [
+        {$ref: "https://json-schema.org/draft/2020-12/schema"},
+        {
+          $ref: "https://spec.openapis.org/oas/3.1/meta/2024-11-10",
+        },
+      ],
+    }
 
     const ajv2020 = new Ajv2020({
       code: {source: true},
@@ -90,7 +120,13 @@ const compileOpenapi31Standalone = async (strict) => {
     addFormats(ajv2020)
     ajv2020.addFormat("media-range", true)
 
-    const validate = ajv2020.compile(spec)
+    ajv2020.addSchema(
+      await loadJsonFile(
+        path.join(__dirname, "../schemas/openapi-3.1-meta.json"),
+      ),
+    )
+
+    const validate = ajv2020.compile(without$DynamicAnchors)
 
     // TODO: it spits out a validator, but it doesn't actually work due to $dynamicAnchor not being supported
     if (
@@ -103,7 +139,16 @@ const compileOpenapi31Standalone = async (strict) => {
         paths: {
           "/something": {
             get: {
-              responses: {default: {description: "whatever"}},
+              responses: {
+                200: {
+                  description: "whatever",
+                  content: {
+                    "application/json": {
+                      schema: {$ref: "#/components/schemas/Something"},
+                    },
+                  },
+                },
+              },
             },
           },
         },
@@ -113,7 +158,12 @@ const compileOpenapi31Standalone = async (strict) => {
               type: ["object", "null"],
               properties: {
                 name: {type: "string"},
+                count: {type: "number", maximumInclusive: "10"},
               },
+              discriminator: {
+                propertyName: "type",
+              },
+              "x-some-extension": {foo: "bar"},
             },
           },
         },

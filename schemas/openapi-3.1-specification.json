@@ -1,5 +1,5 @@
 {
-  "$id": "https://spec.openapis.org/oas/3.1/schema/2025-02-13",
+  "$id": "https://spec.openapis.org/oas/3.1/schema/2025-09-15",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "The description of OpenAPI v3.1.x Documents without Schema Object validation",
   "type": "object",
@@ -275,7 +275,7 @@
         }
       },
       "patternProperties": {
-        "^(schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$": {
+        "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$": {
           "$comment": "Enumerating all of the property names in the regex above is necessary for unevaluatedProperties to work as expected",
           "propertyNames": {
             "pattern": "^[a-zA-Z0-9._-]+$"
@@ -484,10 +484,7 @@
           "in": {
             "const": "query"
           }
-        },
-        "required": [
-          "in"
-        ]
+        }
       },
       "then": {
         "properties": {
@@ -534,10 +531,7 @@
                   "in": {
                     "const": "path"
                   }
-                },
-                "required": [
-                  "in"
-                ]
+                }
               },
               "then": {
                 "properties": {
@@ -564,10 +558,7 @@
                   "in": {
                     "const": "header"
                   }
-                },
-                "required": [
-                  "in"
-                ]
+                }
               },
               "then": {
                 "properties": {
@@ -584,10 +575,7 @@
                   "in": {
                     "const": "query"
                   }
-                },
-                "required": [
-                  "in"
-                ]
+                }
               },
               "then": {
                 "properties": {
@@ -613,10 +601,7 @@
                   "in": {
                     "const": "cookie"
                   }
-                },
-                "required": [
-                  "in"
-                ]
+                }
               },
               "then": {
                 "properties": {
@@ -731,7 +716,6 @@
           }
         },
         "style": {
-          "default": "form",
           "enum": [
             "form",
             "spaceDelimited",
@@ -743,8 +727,33 @@
           "type": "boolean"
         },
         "allowReserved": {
-          "default": false,
           "type": "boolean"
+        }
+      },
+      "dependentSchemas": {
+        "style": {
+          "properties": {
+            "allowReserved": {
+              "default": false
+            }
+          }
+        },
+        "explode": {
+          "properties": {
+            "style": {
+              "default": "form"
+            },
+            "allowReserved": {
+              "default": false
+            }
+          }
+        },
+        "allowReserved": {
+          "properties": {
+            "style": {
+              "default": "form"
+            }
+          }
         }
       },
       "allOf": [
@@ -907,7 +916,7 @@
         "description": {
           "type": "string"
         },
-        "body": {
+        "server": {
           "$ref": "#/$defs/server"
         }
       },
@@ -1100,10 +1109,7 @@
               "type": {
                 "const": "apiKey"
               }
-            },
-            "required": [
-              "type"
-            ]
+            }
           },
           "then": {
             "properties": {
@@ -1130,10 +1136,7 @@
               "type": {
                 "const": "http"
               }
-            },
-            "required": [
-              "type"
-            ]
+            }
           },
           "then": {
             "properties": {
@@ -1176,10 +1179,7 @@
               "type": {
                 "const": "oauth2"
               }
-            },
-            "required": [
-              "type"
-            ]
+            }
           },
           "then": {
             "properties": {
@@ -1198,10 +1198,7 @@
               "type": {
                 "const": "openIdConnect"
               }
-            },
-            "required": [
-              "type"
-            ]
+            }
           },
           "then": {
             "properties": {
@@ -1370,6 +1367,12 @@
             "$ref": "#/$defs/example-or-reference"
           }
         }
+      },
+      "not": {
+        "required": [
+          "example",
+          "examples"
+        ]
       }
     },
     "map-of-strings": {

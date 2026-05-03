@@ -2,17 +2,17657 @@
 // @ts-nocheck
 /* istanbul ignore file */
 /* c8 ignore start */
-
 "use strict"
-const {logger} = require("../logger")
-module.exports = validate
-module.exports.default = validate
-
-function validate() {
-  logger.warn(
-    "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
-  )
-  return true
+module.exports = validate20
+module.exports.default = validate20
+const schema31 = {
+  $id: "https://spec.openapis.org/oas/3.1/schema/2025-09-15",
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  description:
+    "The description of OpenAPI v3.1.x Documents without Schema Object validation",
+  type: "object",
+  properties: {
+    openapi: {type: "string", pattern: "^3\\.1\\.\\d+(-.+)?$"},
+    info: {$ref: "#/$defs/info"},
+    jsonSchemaDialect: {
+      type: "string",
+      format: "uri-reference",
+      default: "https://spec.openapis.org/oas/3.1/dialect/2024-11-10",
+    },
+    servers: {
+      type: "array",
+      items: {$ref: "#/$defs/server"},
+      default: [{url: "/"}],
+    },
+    paths: {$ref: "#/$defs/paths"},
+    webhooks: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/path-item"},
+    },
+    components: {$ref: "#/$defs/components"},
+    security: {type: "array", items: {$ref: "#/$defs/security-requirement"}},
+    tags: {type: "array", items: {$ref: "#/$defs/tag"}},
+    externalDocs: {$ref: "#/$defs/external-documentation"},
+  },
+  required: ["openapi", "info"],
+  anyOf: [
+    {required: ["paths"]},
+    {required: ["components"]},
+    {required: ["webhooks"]},
+  ],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+  $defs: {
+    info: {
+      $comment: "https://spec.openapis.org/oas/v3.1#info-object",
+      type: "object",
+      properties: {
+        title: {type: "string"},
+        summary: {type: "string"},
+        description: {type: "string"},
+        termsOfService: {type: "string", format: "uri-reference"},
+        contact: {$ref: "#/$defs/contact"},
+        license: {$ref: "#/$defs/license"},
+        version: {type: "string"},
+      },
+      required: ["title", "version"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    contact: {
+      $comment: "https://spec.openapis.org/oas/v3.1#contact-object",
+      type: "object",
+      properties: {
+        name: {type: "string"},
+        url: {type: "string", format: "uri-reference"},
+        email: {type: "string", format: "email"},
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    license: {
+      $comment: "https://spec.openapis.org/oas/v3.1#license-object",
+      type: "object",
+      properties: {
+        name: {type: "string"},
+        identifier: {type: "string"},
+        url: {type: "string", format: "uri-reference"},
+      },
+      required: ["name"],
+      dependentSchemas: {identifier: {not: {required: ["url"]}}},
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    server: {
+      $comment: "https://spec.openapis.org/oas/v3.1#server-object",
+      type: "object",
+      properties: {
+        url: {type: "string"},
+        description: {type: "string"},
+        variables: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/server-variable"},
+        },
+      },
+      required: ["url"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "server-variable": {
+      $comment: "https://spec.openapis.org/oas/v3.1#server-variable-object",
+      type: "object",
+      properties: {
+        enum: {type: "array", items: {type: "string"}, minItems: 1},
+        default: {type: "string"},
+        description: {type: "string"},
+      },
+      required: ["default"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    components: {
+      $comment: "https://spec.openapis.org/oas/v3.1#components-object",
+      type: "object",
+      properties: {
+        schemas: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/schema"},
+        },
+        responses: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/response-or-reference"},
+        },
+        parameters: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/parameter-or-reference"},
+        },
+        examples: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/example-or-reference"},
+        },
+        requestBodies: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/request-body-or-reference"},
+        },
+        headers: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/header-or-reference"},
+        },
+        securitySchemes: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/security-scheme-or-reference"},
+        },
+        links: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/link-or-reference"},
+        },
+        callbacks: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/callbacks-or-reference"},
+        },
+        pathItems: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/path-item"},
+        },
+      },
+      patternProperties: {
+        "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$":
+          {
+            $comment:
+              "Enumerating all of the property names in the regex above is necessary for unevaluatedProperties to work as expected",
+            propertyNames: {pattern: "^[a-zA-Z0-9._-]+$"},
+          },
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    paths: {
+      $comment: "https://spec.openapis.org/oas/v3.1#paths-object",
+      type: "object",
+      patternProperties: {"^/": {$ref: "#/$defs/path-item"}},
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "path-item": {
+      $comment: "https://spec.openapis.org/oas/v3.1#path-item-object",
+      type: "object",
+      properties: {
+        $ref: {type: "string", format: "uri-reference"},
+        summary: {type: "string"},
+        description: {type: "string"},
+        servers: {type: "array", items: {$ref: "#/$defs/server"}},
+        parameters: {
+          type: "array",
+          items: {$ref: "#/$defs/parameter-or-reference"},
+        },
+        get: {$ref: "#/$defs/operation"},
+        put: {$ref: "#/$defs/operation"},
+        post: {$ref: "#/$defs/operation"},
+        delete: {$ref: "#/$defs/operation"},
+        options: {$ref: "#/$defs/operation"},
+        head: {$ref: "#/$defs/operation"},
+        patch: {$ref: "#/$defs/operation"},
+        trace: {$ref: "#/$defs/operation"},
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    operation: {
+      $comment: "https://spec.openapis.org/oas/v3.1#operation-object",
+      type: "object",
+      properties: {
+        tags: {type: "array", items: {type: "string"}},
+        summary: {type: "string"},
+        description: {type: "string"},
+        externalDocs: {$ref: "#/$defs/external-documentation"},
+        operationId: {type: "string"},
+        parameters: {
+          type: "array",
+          items: {$ref: "#/$defs/parameter-or-reference"},
+        },
+        requestBody: {$ref: "#/$defs/request-body-or-reference"},
+        responses: {$ref: "#/$defs/responses"},
+        callbacks: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/callbacks-or-reference"},
+        },
+        deprecated: {default: false, type: "boolean"},
+        security: {
+          type: "array",
+          items: {$ref: "#/$defs/security-requirement"},
+        },
+        servers: {type: "array", items: {$ref: "#/$defs/server"}},
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "external-documentation": {
+      $comment:
+        "https://spec.openapis.org/oas/v3.1#external-documentation-object",
+      type: "object",
+      properties: {
+        description: {type: "string"},
+        url: {type: "string", format: "uri-reference"},
+      },
+      required: ["url"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    parameter: {
+      $comment: "https://spec.openapis.org/oas/v3.1#parameter-object",
+      type: "object",
+      properties: {
+        name: {type: "string"},
+        in: {enum: ["query", "header", "path", "cookie"]},
+        description: {type: "string"},
+        required: {default: false, type: "boolean"},
+        deprecated: {default: false, type: "boolean"},
+        schema: {$ref: "#/$defs/schema"},
+        content: {$ref: "#/$defs/content", minProperties: 1, maxProperties: 1},
+      },
+      required: ["name", "in"],
+      oneOf: [{required: ["schema"]}, {required: ["content"]}],
+      if: {properties: {in: {const: "query"}}},
+      then: {properties: {allowEmptyValue: {default: false, type: "boolean"}}},
+      dependentSchemas: {
+        schema: {
+          properties: {style: {type: "string"}, explode: {type: "boolean"}},
+          allOf: [
+            {$ref: "#/$defs/examples"},
+            {
+              $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path",
+            },
+            {
+              $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-header",
+            },
+            {
+              $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query",
+            },
+            {
+              $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-cookie",
+            },
+            {$ref: "#/$defs/styles-for-form"},
+          ],
+          $defs: {
+            "styles-for-path": {
+              if: {properties: {in: {const: "path"}}},
+              then: {
+                properties: {
+                  style: {
+                    default: "simple",
+                    enum: ["matrix", "label", "simple"],
+                  },
+                  required: {const: true},
+                },
+                required: ["required"],
+              },
+            },
+            "styles-for-header": {
+              if: {properties: {in: {const: "header"}}},
+              then: {properties: {style: {default: "simple", const: "simple"}}},
+            },
+            "styles-for-query": {
+              if: {properties: {in: {const: "query"}}},
+              then: {
+                properties: {
+                  style: {
+                    default: "form",
+                    enum: [
+                      "form",
+                      "spaceDelimited",
+                      "pipeDelimited",
+                      "deepObject",
+                    ],
+                  },
+                  allowReserved: {default: false, type: "boolean"},
+                },
+              },
+            },
+            "styles-for-cookie": {
+              if: {properties: {in: {const: "cookie"}}},
+              then: {properties: {style: {default: "form", const: "form"}}},
+            },
+          },
+        },
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "parameter-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/parameter"},
+    },
+    "request-body": {
+      $comment: "https://spec.openapis.org/oas/v3.1#request-body-object",
+      type: "object",
+      properties: {
+        description: {type: "string"},
+        content: {$ref: "#/$defs/content"},
+        required: {default: false, type: "boolean"},
+      },
+      required: ["content"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "request-body-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/request-body"},
+    },
+    content: {
+      $comment: "https://spec.openapis.org/oas/v3.1#fixed-fields-10",
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/media-type"},
+      propertyNames: {format: "media-range"},
+    },
+    "media-type": {
+      $comment: "https://spec.openapis.org/oas/v3.1#media-type-object",
+      type: "object",
+      properties: {
+        schema: {$ref: "#/$defs/schema"},
+        encoding: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/encoding"},
+        },
+      },
+      allOf: [
+        {$ref: "#/$defs/specification-extensions"},
+        {$ref: "#/$defs/examples"},
+      ],
+      unevaluatedProperties: false,
+    },
+    encoding: {
+      $comment: "https://spec.openapis.org/oas/v3.1#encoding-object",
+      type: "object",
+      properties: {
+        contentType: {type: "string", format: "media-range"},
+        headers: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/header-or-reference"},
+        },
+        style: {
+          enum: ["form", "spaceDelimited", "pipeDelimited", "deepObject"],
+        },
+        explode: {type: "boolean"},
+        allowReserved: {type: "boolean"},
+      },
+      dependentSchemas: {
+        style: {properties: {allowReserved: {default: false}}},
+        explode: {
+          properties: {
+            style: {default: "form"},
+            allowReserved: {default: false},
+          },
+        },
+        allowReserved: {properties: {style: {default: "form"}}},
+      },
+      allOf: [
+        {$ref: "#/$defs/specification-extensions"},
+        {$ref: "#/$defs/styles-for-form"},
+      ],
+      unevaluatedProperties: false,
+    },
+    responses: {
+      $comment: "https://spec.openapis.org/oas/v3.1#responses-object",
+      type: "object",
+      properties: {default: {$ref: "#/$defs/response-or-reference"}},
+      patternProperties: {
+        "^[1-5](?:[0-9]{2}|XX)$": {$ref: "#/$defs/response-or-reference"},
+      },
+      minProperties: 1,
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+      if: {
+        $comment:
+          "either default, or at least one response code property must exist",
+        patternProperties: {"^[1-5](?:[0-9]{2}|XX)$": false},
+      },
+      then: {required: ["default"]},
+    },
+    response: {
+      $comment: "https://spec.openapis.org/oas/v3.1#response-object",
+      type: "object",
+      properties: {
+        description: {type: "string"},
+        headers: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/header-or-reference"},
+        },
+        content: {$ref: "#/$defs/content"},
+        links: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/link-or-reference"},
+        },
+      },
+      required: ["description"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "response-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/response"},
+    },
+    callbacks: {
+      $comment: "https://spec.openapis.org/oas/v3.1#callback-object",
+      type: "object",
+      $ref: "#/$defs/specification-extensions",
+      additionalProperties: {$ref: "#/$defs/path-item"},
+    },
+    "callbacks-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/callbacks"},
+    },
+    example: {
+      $comment: "https://spec.openapis.org/oas/v3.1#example-object",
+      type: "object",
+      properties: {
+        summary: {type: "string"},
+        description: {type: "string"},
+        value: true,
+        externalValue: {type: "string", format: "uri-reference"},
+      },
+      not: {required: ["value", "externalValue"]},
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "example-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/example"},
+    },
+    link: {
+      $comment: "https://spec.openapis.org/oas/v3.1#link-object",
+      type: "object",
+      properties: {
+        operationRef: {type: "string", format: "uri-reference"},
+        operationId: {type: "string"},
+        parameters: {$ref: "#/$defs/map-of-strings"},
+        requestBody: true,
+        description: {type: "string"},
+        server: {$ref: "#/$defs/server"},
+      },
+      oneOf: [{required: ["operationRef"]}, {required: ["operationId"]}],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "link-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/link"},
+    },
+    header: {
+      $comment: "https://spec.openapis.org/oas/v3.1#header-object",
+      type: "object",
+      properties: {
+        description: {type: "string"},
+        required: {default: false, type: "boolean"},
+        deprecated: {default: false, type: "boolean"},
+        schema: {$ref: "#/$defs/schema"},
+        content: {$ref: "#/$defs/content", minProperties: 1, maxProperties: 1},
+      },
+      oneOf: [{required: ["schema"]}, {required: ["content"]}],
+      dependentSchemas: {
+        schema: {
+          properties: {
+            style: {default: "simple", const: "simple"},
+            explode: {default: false, type: "boolean"},
+          },
+          $ref: "#/$defs/examples",
+        },
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "header-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/header"},
+    },
+    tag: {
+      $comment: "https://spec.openapis.org/oas/v3.1#tag-object",
+      type: "object",
+      properties: {
+        name: {type: "string"},
+        description: {type: "string"},
+        externalDocs: {$ref: "#/$defs/external-documentation"},
+      },
+      required: ["name"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    reference: {
+      $comment: "https://spec.openapis.org/oas/v3.1#reference-object",
+      type: "object",
+      properties: {
+        $ref: {type: "string", format: "uri-reference"},
+        summary: {type: "string"},
+        description: {type: "string"},
+      },
+    },
+    schema: {
+      $comment: "https://spec.openapis.org/oas/v3.1#schema-object",
+      $dynamicAnchor: "meta",
+      type: ["object", "boolean"],
+      allOf: [
+        {$ref: "https://json-schema.org/draft/2020-12/schema"},
+        {$ref: "https://spec.openapis.org/oas/3.1/meta/2024-11-10"},
+      ],
+    },
+    "security-scheme": {
+      $comment: "https://spec.openapis.org/oas/v3.1#security-scheme-object",
+      type: "object",
+      properties: {
+        type: {
+          enum: ["apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"],
+        },
+        description: {type: "string"},
+      },
+      required: ["type"],
+      allOf: [
+        {$ref: "#/$defs/specification-extensions"},
+        {$ref: "#/$defs/security-scheme/$defs/type-apikey"},
+        {$ref: "#/$defs/security-scheme/$defs/type-http"},
+        {$ref: "#/$defs/security-scheme/$defs/type-http-bearer"},
+        {$ref: "#/$defs/security-scheme/$defs/type-oauth2"},
+        {$ref: "#/$defs/security-scheme/$defs/type-oidc"},
+      ],
+      unevaluatedProperties: false,
+      $defs: {
+        "type-apikey": {
+          if: {properties: {type: {const: "apiKey"}}},
+          then: {
+            properties: {
+              name: {type: "string"},
+              in: {enum: ["query", "header", "cookie"]},
+            },
+            required: ["name", "in"],
+          },
+        },
+        "type-http": {
+          if: {properties: {type: {const: "http"}}},
+          then: {properties: {scheme: {type: "string"}}, required: ["scheme"]},
+        },
+        "type-http-bearer": {
+          if: {
+            properties: {
+              type: {const: "http"},
+              scheme: {type: "string", pattern: "^[Bb][Ee][Aa][Rr][Ee][Rr]$"},
+            },
+            required: ["type", "scheme"],
+          },
+          then: {properties: {bearerFormat: {type: "string"}}},
+        },
+        "type-oauth2": {
+          if: {properties: {type: {const: "oauth2"}}},
+          then: {
+            properties: {flows: {$ref: "#/$defs/oauth-flows"}},
+            required: ["flows"],
+          },
+        },
+        "type-oidc": {
+          if: {properties: {type: {const: "openIdConnect"}}},
+          then: {
+            properties: {
+              openIdConnectUrl: {type: "string", format: "uri-reference"},
+            },
+            required: ["openIdConnectUrl"],
+          },
+        },
+      },
+    },
+    "security-scheme-or-reference": {
+      if: {type: "object", required: ["$ref"]},
+      then: {$ref: "#/$defs/reference"},
+      else: {$ref: "#/$defs/security-scheme"},
+    },
+    "oauth-flows": {
+      type: "object",
+      properties: {
+        implicit: {$ref: "#/$defs/oauth-flows/$defs/implicit"},
+        password: {$ref: "#/$defs/oauth-flows/$defs/password"},
+        clientCredentials: {
+          $ref: "#/$defs/oauth-flows/$defs/client-credentials",
+        },
+        authorizationCode: {
+          $ref: "#/$defs/oauth-flows/$defs/authorization-code",
+        },
+      },
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+      $defs: {
+        implicit: {
+          type: "object",
+          properties: {
+            authorizationUrl: {type: "string", format: "uri-reference"},
+            refreshUrl: {type: "string", format: "uri-reference"},
+            scopes: {$ref: "#/$defs/map-of-strings"},
+          },
+          required: ["authorizationUrl", "scopes"],
+          $ref: "#/$defs/specification-extensions",
+          unevaluatedProperties: false,
+        },
+        password: {
+          type: "object",
+          properties: {
+            tokenUrl: {type: "string", format: "uri-reference"},
+            refreshUrl: {type: "string", format: "uri-reference"},
+            scopes: {$ref: "#/$defs/map-of-strings"},
+          },
+          required: ["tokenUrl", "scopes"],
+          $ref: "#/$defs/specification-extensions",
+          unevaluatedProperties: false,
+        },
+        "client-credentials": {
+          type: "object",
+          properties: {
+            tokenUrl: {type: "string", format: "uri-reference"},
+            refreshUrl: {type: "string", format: "uri-reference"},
+            scopes: {$ref: "#/$defs/map-of-strings"},
+          },
+          required: ["tokenUrl", "scopes"],
+          $ref: "#/$defs/specification-extensions",
+          unevaluatedProperties: false,
+        },
+        "authorization-code": {
+          type: "object",
+          properties: {
+            authorizationUrl: {type: "string", format: "uri-reference"},
+            tokenUrl: {type: "string", format: "uri-reference"},
+            refreshUrl: {type: "string", format: "uri-reference"},
+            scopes: {$ref: "#/$defs/map-of-strings"},
+          },
+          required: ["authorizationUrl", "tokenUrl", "scopes"],
+          $ref: "#/$defs/specification-extensions",
+          unevaluatedProperties: false,
+        },
+      },
+    },
+    "security-requirement": {
+      $comment:
+        "https://spec.openapis.org/oas/v3.1#security-requirement-object",
+      type: "object",
+      additionalProperties: {type: "array", items: {type: "string"}},
+    },
+    "specification-extensions": {
+      $comment: "https://spec.openapis.org/oas/v3.1#specification-extensions",
+      patternProperties: {"^x-": true},
+    },
+    examples: {
+      properties: {
+        example: true,
+        examples: {
+          type: "object",
+          additionalProperties: {$ref: "#/$defs/example-or-reference"},
+        },
+      },
+      not: {required: ["example", "examples"]},
+    },
+    "map-of-strings": {type: "object", additionalProperties: {type: "string"}},
+    "styles-for-form": {
+      if: {properties: {style: {const: "form"}}, required: ["style"]},
+      then: {properties: {explode: {default: true}}},
+      else: {properties: {explode: {default: false}}},
+    },
+  },
 }
-
+const schema32 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#specification-extensions",
+  patternProperties: {"^x-": true},
+}
+const schema96 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#security-requirement-object",
+  type: "object",
+  additionalProperties: {type: "array", items: {type: "string"}},
+}
+const pattern4 = new RegExp("^x-", "u")
+const pattern5 = new RegExp("^3\\.1\\.\\d+(-.+)?$", "u")
+const schema33 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#info-object",
+  type: "object",
+  properties: {
+    title: {type: "string"},
+    summary: {type: "string"},
+    description: {type: "string"},
+    termsOfService: {type: "string", format: "uri-reference"},
+    contact: {$ref: "#/$defs/contact"},
+    license: {$ref: "#/$defs/license"},
+    version: {type: "string"},
+  },
+  required: ["title", "version"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const formats0 =
+  /^(?:[a-z][a-z0-9+\-.]*:)?(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'"()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?(?:\?(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i
+const schema35 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#contact-object",
+  type: "object",
+  properties: {
+    name: {type: "string"},
+    url: {type: "string", format: "uri-reference"},
+    email: {type: "string", format: "email"},
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const formats4 =
+  /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i
+function validate22(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate22.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.name = true
+        props0.url = true
+        props0.email = true
+      }
+      if (data.name !== undefined) {
+        let data0 = data.name
+        const _errs4 = errors
+        if (typeof data0 !== "string") {
+          validate22.errors = [
+            {
+              instancePath: instancePath + "/name",
+              schemaPath: "#/properties/name/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema35.properties.name.type,
+              parentSchema: schema35.properties.name,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid2 = _errs4 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.url !== undefined) {
+          let data1 = data.url
+          const _errs6 = errors
+          if (errors === _errs6) {
+            if (errors === _errs6) {
+              if (typeof data1 === "string") {
+                if (!formats0.test(data1)) {
+                  validate22.errors = [
+                    {
+                      instancePath: instancePath + "/url",
+                      schemaPath: "#/properties/url/format",
+                      keyword: "format",
+                      params: {format: "uri-reference"},
+                      message: 'must match format "' + "uri-reference" + '"',
+                      schema: "uri-reference",
+                      parentSchema: schema35.properties.url,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate22.errors = [
+                  {
+                    instancePath: instancePath + "/url",
+                    schemaPath: "#/properties/url/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema35.properties.url.type,
+                    parentSchema: schema35.properties.url,
+                    data: data1,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid2 = _errs6 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.email !== undefined) {
+            let data2 = data.email
+            const _errs8 = errors
+            if (errors === _errs8) {
+              if (errors === _errs8) {
+                if (typeof data2 === "string") {
+                  if (!formats4.test(data2)) {
+                    validate22.errors = [
+                      {
+                        instancePath: instancePath + "/email",
+                        schemaPath: "#/properties/email/format",
+                        keyword: "format",
+                        params: {format: "email"},
+                        message: 'must match format "' + "email" + '"',
+                        schema: "email",
+                        parentSchema: schema35.properties.email,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate22.errors = [
+                    {
+                      instancePath: instancePath + "/email",
+                      schemaPath: "#/properties/email/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema35.properties.email.type,
+                      parentSchema: schema35.properties.email,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs8 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (props0 !== true) {
+              for (const key1 in data) {
+                if (!props0 || !props0[key1]) {
+                  validate22.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key1},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema35,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate22.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema35.type,
+          parentSchema: schema35,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate22.errors = vErrors
+  return errors === 0
+}
+validate22.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema37 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#license-object",
+  type: "object",
+  properties: {
+    name: {type: "string"},
+    identifier: {type: "string"},
+    url: {type: "string", format: "uri-reference"},
+  },
+  required: ["name"],
+  dependentSchemas: {identifier: {not: {required: ["url"]}}},
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate24(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate24.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.name === undefined && (missing0 = "name")) {
+        validate24.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema37.required,
+            parentSchema: schema37,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.name = true
+          props0.identifier = true
+          props0.url = true
+        }
+        if (data.name !== undefined) {
+          let data0 = data.name
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate24.errors = [
+              {
+                instancePath: instancePath + "/name",
+                schemaPath: "#/properties/name/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema37.properties.name.type,
+                parentSchema: schema37.properties.name,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.identifier !== undefined) {
+            let data1 = data.identifier
+            const _errs6 = errors
+            if (typeof data1 !== "string") {
+              validate24.errors = [
+                {
+                  instancePath: instancePath + "/identifier",
+                  schemaPath: "#/properties/identifier/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema37.properties.identifier.type,
+                  parentSchema: schema37.properties.identifier,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.url !== undefined) {
+              let data2 = data.url
+              const _errs8 = errors
+              if (errors === _errs8) {
+                if (errors === _errs8) {
+                  if (typeof data2 === "string") {
+                    if (!formats0.test(data2)) {
+                      validate24.errors = [
+                        {
+                          instancePath: instancePath + "/url",
+                          schemaPath: "#/properties/url/format",
+                          keyword: "format",
+                          params: {format: "uri-reference"},
+                          message:
+                            'must match format "' + "uri-reference" + '"',
+                          schema: "uri-reference",
+                          parentSchema: schema37.properties.url,
+                          data: data2,
+                        },
+                      ]
+                      return false
+                    }
+                  } else {
+                    validate24.errors = [
+                      {
+                        instancePath: instancePath + "/url",
+                        schemaPath: "#/properties/url/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema37.properties.url.type,
+                        parentSchema: schema37.properties.url,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                }
+              }
+              var valid2 = _errs8 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.identifier !== undefined) {
+                const _errs10 = errors
+                const _errs11 = errors
+                const _errs12 = errors
+                if (data && typeof data == "object" && !Array.isArray(data)) {
+                  let missing1
+                  if (data.url === undefined && (missing1 = "url")) {
+                    const err0 = {}
+                    if (vErrors === null) {
+                      vErrors = [err0]
+                    } else {
+                      vErrors.push(err0)
+                    }
+                    errors++
+                  }
+                }
+                var valid4 = _errs12 === errors
+                if (valid4) {
+                  validate24.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/dependentSchemas/identifier/not",
+                      keyword: "not",
+                      params: {},
+                      message: "must NOT be valid",
+                      schema: schema37.dependentSchemas.identifier.not,
+                      parentSchema: schema37.dependentSchemas.identifier,
+                      data,
+                    },
+                  ]
+                  return false
+                } else {
+                  errors = _errs11
+                  if (vErrors !== null) {
+                    if (_errs11) {
+                      vErrors.length = _errs11
+                    } else {
+                      vErrors = null
+                    }
+                  }
+                }
+                var valid3 = _errs10 === errors
+              } else {
+                var valid3 = true
+              }
+              if (valid3) {
+                if (props0 !== true) {
+                  for (const key1 in data) {
+                    if (!props0 || !props0[key1]) {
+                      validate24.errors = [
+                        {
+                          instancePath,
+                          schemaPath: "#/unevaluatedProperties",
+                          keyword: "unevaluatedProperties",
+                          params: {unevaluatedProperty: key1},
+                          message: "must NOT have unevaluated properties",
+                          schema: false,
+                          parentSchema: schema37,
+                          data,
+                        },
+                      ]
+                      return false
+                      break
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate24.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema37.type,
+          parentSchema: schema37,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate24.errors = vErrors
+  return errors === 0
+}
+validate24.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate21(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate21.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.title === undefined && (missing0 = "title")) ||
+        (data.version === undefined && (missing0 = "version"))
+      ) {
+        validate21.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema33.required,
+            parentSchema: schema33,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.title = true
+          props0.summary = true
+          props0.description = true
+          props0.termsOfService = true
+          props0.contact = true
+          props0.license = true
+          props0.version = true
+        }
+        if (data.title !== undefined) {
+          let data0 = data.title
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate21.errors = [
+              {
+                instancePath: instancePath + "/title",
+                schemaPath: "#/properties/title/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema33.properties.title.type,
+                parentSchema: schema33.properties.title,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.summary !== undefined) {
+            let data1 = data.summary
+            const _errs6 = errors
+            if (typeof data1 !== "string") {
+              validate21.errors = [
+                {
+                  instancePath: instancePath + "/summary",
+                  schemaPath: "#/properties/summary/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema33.properties.summary.type,
+                  parentSchema: schema33.properties.summary,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.description !== undefined) {
+              let data2 = data.description
+              const _errs8 = errors
+              if (typeof data2 !== "string") {
+                validate21.errors = [
+                  {
+                    instancePath: instancePath + "/description",
+                    schemaPath: "#/properties/description/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema33.properties.description.type,
+                    parentSchema: schema33.properties.description,
+                    data: data2,
+                  },
+                ]
+                return false
+              }
+              var valid2 = _errs8 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.termsOfService !== undefined) {
+                let data3 = data.termsOfService
+                const _errs10 = errors
+                if (errors === _errs10) {
+                  if (errors === _errs10) {
+                    if (typeof data3 === "string") {
+                      if (!formats0.test(data3)) {
+                        validate21.errors = [
+                          {
+                            instancePath: instancePath + "/termsOfService",
+                            schemaPath: "#/properties/termsOfService/format",
+                            keyword: "format",
+                            params: {format: "uri-reference"},
+                            message:
+                              'must match format "' + "uri-reference" + '"',
+                            schema: "uri-reference",
+                            parentSchema: schema33.properties.termsOfService,
+                            data: data3,
+                          },
+                        ]
+                        return false
+                      }
+                    } else {
+                      validate21.errors = [
+                        {
+                          instancePath: instancePath + "/termsOfService",
+                          schemaPath: "#/properties/termsOfService/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema33.properties.termsOfService.type,
+                          parentSchema: schema33.properties.termsOfService,
+                          data: data3,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                }
+                var valid2 = _errs10 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (data.contact !== undefined) {
+                  const _errs12 = errors
+                  if (
+                    !validate22(data.contact, {
+                      instancePath: instancePath + "/contact",
+                      parentData: data,
+                      parentDataProperty: "contact",
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate22.errors
+                        : vErrors.concat(validate22.errors)
+                    errors = vErrors.length
+                  }
+                  var valid2 = _errs12 === errors
+                } else {
+                  var valid2 = true
+                }
+                if (valid2) {
+                  if (data.license !== undefined) {
+                    const _errs13 = errors
+                    if (
+                      !validate24(data.license, {
+                        instancePath: instancePath + "/license",
+                        parentData: data,
+                        parentDataProperty: "license",
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate24.errors
+                          : vErrors.concat(validate24.errors)
+                      errors = vErrors.length
+                    }
+                    var valid2 = _errs13 === errors
+                  } else {
+                    var valid2 = true
+                  }
+                  if (valid2) {
+                    if (data.version !== undefined) {
+                      let data6 = data.version
+                      const _errs14 = errors
+                      if (typeof data6 !== "string") {
+                        validate21.errors = [
+                          {
+                            instancePath: instancePath + "/version",
+                            schemaPath: "#/properties/version/type",
+                            keyword: "type",
+                            params: {type: "string"},
+                            message: "must be string",
+                            schema: schema33.properties.version.type,
+                            parentSchema: schema33.properties.version,
+                            data: data6,
+                          },
+                        ]
+                        return false
+                      }
+                      var valid2 = _errs14 === errors
+                    } else {
+                      var valid2 = true
+                    }
+                    if (valid2) {
+                      if (props0 !== true) {
+                        for (const key1 in data) {
+                          if (!props0 || !props0[key1]) {
+                            validate21.errors = [
+                              {
+                                instancePath,
+                                schemaPath: "#/unevaluatedProperties",
+                                keyword: "unevaluatedProperties",
+                                params: {unevaluatedProperty: key1},
+                                message: "must NOT have unevaluated properties",
+                                schema: false,
+                                parentSchema: schema33,
+                                data,
+                              },
+                            ]
+                            return false
+                            break
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate21.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema33.type,
+          parentSchema: schema33,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate21.errors = vErrors
+  return errors === 0
+}
+validate21.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema39 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#server-object",
+  type: "object",
+  properties: {
+    url: {type: "string"},
+    description: {type: "string"},
+    variables: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/server-variable"},
+    },
+  },
+  required: ["url"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema41 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#server-variable-object",
+  type: "object",
+  properties: {
+    enum: {type: "array", items: {type: "string"}, minItems: 1},
+    default: {type: "string"},
+    description: {type: "string"},
+  },
+  required: ["default"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate28(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate28.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.default === undefined && (missing0 = "default")) {
+        validate28.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema41.required,
+            parentSchema: schema41,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.enum = true
+          props0.default = true
+          props0.description = true
+        }
+        if (data.enum !== undefined) {
+          let data0 = data.enum
+          const _errs4 = errors
+          if (errors === _errs4) {
+            if (Array.isArray(data0)) {
+              if (data0.length < 1) {
+                validate28.errors = [
+                  {
+                    instancePath: instancePath + "/enum",
+                    schemaPath: "#/properties/enum/minItems",
+                    keyword: "minItems",
+                    params: {limit: 1},
+                    message: "must NOT have fewer than 1 items",
+                    schema: 1,
+                    parentSchema: schema41.properties.enum,
+                    data: data0,
+                  },
+                ]
+                return false
+              } else {
+                var valid3 = true
+                const len0 = data0.length
+                for (let i0 = 0; i0 < len0; i0++) {
+                  let data1 = data0[i0]
+                  const _errs6 = errors
+                  if (typeof data1 !== "string") {
+                    validate28.errors = [
+                      {
+                        instancePath: instancePath + "/enum/" + i0,
+                        schemaPath: "#/properties/enum/items/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema41.properties.enum.items.type,
+                        parentSchema: schema41.properties.enum.items,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                  var valid3 = _errs6 === errors
+                  if (!valid3) {
+                    break
+                  }
+                }
+              }
+            } else {
+              validate28.errors = [
+                {
+                  instancePath: instancePath + "/enum",
+                  schemaPath: "#/properties/enum/type",
+                  keyword: "type",
+                  params: {type: "array"},
+                  message: "must be array",
+                  schema: schema41.properties.enum.type,
+                  parentSchema: schema41.properties.enum,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.default !== undefined) {
+            let data2 = data.default
+            const _errs8 = errors
+            if (typeof data2 !== "string") {
+              validate28.errors = [
+                {
+                  instancePath: instancePath + "/default",
+                  schemaPath: "#/properties/default/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema41.properties.default.type,
+                  parentSchema: schema41.properties.default,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs8 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.description !== undefined) {
+              let data3 = data.description
+              const _errs10 = errors
+              if (typeof data3 !== "string") {
+                validate28.errors = [
+                  {
+                    instancePath: instancePath + "/description",
+                    schemaPath: "#/properties/description/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema41.properties.description.type,
+                    parentSchema: schema41.properties.description,
+                    data: data3,
+                  },
+                ]
+                return false
+              }
+              var valid2 = _errs10 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key1 in data) {
+                  if (!props0 || !props0[key1]) {
+                    validate28.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key1},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema41,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate28.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema41.type,
+          parentSchema: schema41,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate28.errors = vErrors
+  return errors === 0
+}
+validate28.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate27(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate27.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.url === undefined && (missing0 = "url")) {
+        validate27.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema39.required,
+            parentSchema: schema39,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.url = true
+          props0.description = true
+          props0.variables = true
+        }
+        if (data.url !== undefined) {
+          let data0 = data.url
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate27.errors = [
+              {
+                instancePath: instancePath + "/url",
+                schemaPath: "#/properties/url/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema39.properties.url.type,
+                parentSchema: schema39.properties.url,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.description !== undefined) {
+            let data1 = data.description
+            const _errs6 = errors
+            if (typeof data1 !== "string") {
+              validate27.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema39.properties.description.type,
+                  parentSchema: schema39.properties.description,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.variables !== undefined) {
+              let data2 = data.variables
+              const _errs8 = errors
+              if (errors === _errs8) {
+                if (
+                  data2 &&
+                  typeof data2 == "object" &&
+                  !Array.isArray(data2)
+                ) {
+                  for (const key1 in data2) {
+                    const _errs11 = errors
+                    if (
+                      !validate28(data2[key1], {
+                        instancePath:
+                          instancePath +
+                          "/variables/" +
+                          key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                        parentData: data2,
+                        parentDataProperty: key1,
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate28.errors
+                          : vErrors.concat(validate28.errors)
+                      errors = vErrors.length
+                    }
+                    var valid3 = _errs11 === errors
+                    if (!valid3) {
+                      break
+                    }
+                  }
+                } else {
+                  validate27.errors = [
+                    {
+                      instancePath: instancePath + "/variables",
+                      schemaPath: "#/properties/variables/type",
+                      keyword: "type",
+                      params: {type: "object"},
+                      message: "must be object",
+                      schema: schema39.properties.variables.type,
+                      parentSchema: schema39.properties.variables,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs8 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key2 in data) {
+                  if (!props0 || !props0[key2]) {
+                    validate27.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key2},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema39,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate27.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema39.type,
+          parentSchema: schema39,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate27.errors = vErrors
+  return errors === 0
+}
+validate27.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema43 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#paths-object",
+  type: "object",
+  patternProperties: {"^/": {$ref: "#/$defs/path-item"}},
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const pattern12 = new RegExp("^/", "u")
+const schema45 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#path-item-object",
+  type: "object",
+  properties: {
+    $ref: {type: "string", format: "uri-reference"},
+    summary: {type: "string"},
+    description: {type: "string"},
+    servers: {type: "array", items: {$ref: "#/$defs/server"}},
+    parameters: {
+      type: "array",
+      items: {$ref: "#/$defs/parameter-or-reference"},
+    },
+    get: {$ref: "#/$defs/operation"},
+    put: {$ref: "#/$defs/operation"},
+    post: {$ref: "#/$defs/operation"},
+    delete: {$ref: "#/$defs/operation"},
+    options: {$ref: "#/$defs/operation"},
+    head: {$ref: "#/$defs/operation"},
+    patch: {$ref: "#/$defs/operation"},
+    trace: {$ref: "#/$defs/operation"},
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema47 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/parameter"},
+}
+const schema48 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#reference-object",
+  type: "object",
+  properties: {
+    $ref: {type: "string", format: "uri-reference"},
+    summary: {type: "string"},
+    description: {type: "string"},
+  },
+}
+function validate35(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate35.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.$ref !== undefined) {
+        let data0 = data.$ref
+        const _errs2 = errors
+        if (errors === _errs2) {
+          if (errors === _errs2) {
+            if (typeof data0 === "string") {
+              if (!formats0.test(data0)) {
+                validate35.errors = [
+                  {
+                    instancePath: instancePath + "/$ref",
+                    schemaPath: "#/properties/%24ref/format",
+                    keyword: "format",
+                    params: {format: "uri-reference"},
+                    message: 'must match format "' + "uri-reference" + '"',
+                    schema: "uri-reference",
+                    parentSchema: schema48.properties.$ref,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            } else {
+              validate35.errors = [
+                {
+                  instancePath: instancePath + "/$ref",
+                  schemaPath: "#/properties/%24ref/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema48.properties.$ref.type,
+                  parentSchema: schema48.properties.$ref,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var valid0 = _errs2 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.summary !== undefined) {
+          let data1 = data.summary
+          const _errs4 = errors
+          if (typeof data1 !== "string") {
+            validate35.errors = [
+              {
+                instancePath: instancePath + "/summary",
+                schemaPath: "#/properties/summary/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema48.properties.summary.type,
+                parentSchema: schema48.properties.summary,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid0 = _errs4 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.description !== undefined) {
+            let data2 = data.description
+            const _errs6 = errors
+            if (typeof data2 !== "string") {
+              validate35.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema48.properties.description.type,
+                  parentSchema: schema48.properties.description,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid0 = _errs6 === errors
+          } else {
+            var valid0 = true
+          }
+        }
+      }
+    } else {
+      validate35.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema48.type,
+          parentSchema: schema48,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate35.errors = vErrors
+  return errors === 0
+}
+validate35.evaluated = {
+  props: {$ref: true, summary: true, description: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema49 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#parameter-object",
+  type: "object",
+  properties: {
+    name: {type: "string"},
+    in: {enum: ["query", "header", "path", "cookie"]},
+    description: {type: "string"},
+    required: {default: false, type: "boolean"},
+    deprecated: {default: false, type: "boolean"},
+    schema: {$ref: "#/$defs/schema"},
+    content: {$ref: "#/$defs/content", minProperties: 1, maxProperties: 1},
+  },
+  required: ["name", "in"],
+  oneOf: [{required: ["schema"]}, {required: ["content"]}],
+  if: {properties: {in: {const: "query"}}},
+  then: {properties: {allowEmptyValue: {default: false, type: "boolean"}}},
+  dependentSchemas: {
+    schema: {
+      properties: {style: {type: "string"}, explode: {type: "boolean"}},
+      allOf: [
+        {$ref: "#/$defs/examples"},
+        {
+          $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path",
+        },
+        {
+          $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-header",
+        },
+        {
+          $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query",
+        },
+        {
+          $ref: "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-cookie",
+        },
+        {$ref: "#/$defs/styles-for-form"},
+      ],
+      $defs: {
+        "styles-for-path": {
+          if: {properties: {in: {const: "path"}}},
+          then: {
+            properties: {
+              style: {default: "simple", enum: ["matrix", "label", "simple"]},
+              required: {const: true},
+            },
+            required: ["required"],
+          },
+        },
+        "styles-for-header": {
+          if: {properties: {in: {const: "header"}}},
+          then: {properties: {style: {default: "simple", const: "simple"}}},
+        },
+        "styles-for-query": {
+          if: {properties: {in: {const: "query"}}},
+          then: {
+            properties: {
+              style: {
+                default: "form",
+                enum: ["form", "spaceDelimited", "pipeDelimited", "deepObject"],
+              },
+              allowReserved: {default: false, type: "boolean"},
+            },
+          },
+        },
+        "styles-for-cookie": {
+          if: {properties: {in: {const: "cookie"}}},
+          then: {properties: {style: {default: "form", const: "form"}}},
+        },
+      },
+    },
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema72 = {
+  if: {properties: {in: {const: "path"}}},
+  then: {
+    properties: {
+      style: {default: "simple", enum: ["matrix", "label", "simple"]},
+      required: {const: true},
+    },
+    required: ["required"],
+  },
+}
+const schema73 = {
+  if: {properties: {in: {const: "header"}}},
+  then: {properties: {style: {default: "simple", const: "simple"}}},
+}
+const schema74 = {
+  if: {properties: {in: {const: "query"}}},
+  then: {
+    properties: {
+      style: {
+        default: "form",
+        enum: ["form", "spaceDelimited", "pipeDelimited", "deepObject"],
+      },
+      allowReserved: {default: false, type: "boolean"},
+    },
+  },
+}
+const schema75 = {
+  if: {properties: {in: {const: "cookie"}}},
+  then: {properties: {style: {default: "form", const: "form"}}},
+}
+const schema68 = {
+  if: {properties: {style: {const: "form"}}, required: ["style"]},
+  then: {properties: {explode: {default: true}}},
+  else: {properties: {explode: {default: false}}},
+}
+const schema51 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#schema-object",
+  $dynamicAnchor: "meta",
+  type: ["object", "boolean"],
+  allOf: [
+    {$ref: "https://json-schema.org/draft/2020-12/schema"},
+    {$ref: "https://spec.openapis.org/oas/3.1/meta/2024-11-10"},
+  ],
+}
+const schema0 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/schema",
+  $vocabulary: {
+    "https://json-schema.org/draft/2020-12/vocab/core": true,
+    "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+    "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+    "https://json-schema.org/draft/2020-12/vocab/validation": true,
+    "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+    "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+    "https://json-schema.org/draft/2020-12/vocab/content": true,
+  },
+  $dynamicAnchor: "meta",
+  title: "Core and Validation specifications meta-schema",
+  allOf: [
+    {$ref: "meta/core"},
+    {$ref: "meta/applicator"},
+    {$ref: "meta/unevaluated"},
+    {$ref: "meta/validation"},
+    {$ref: "meta/meta-data"},
+    {$ref: "meta/format-annotation"},
+    {$ref: "meta/content"},
+  ],
+  type: ["object", "boolean"],
+  $comment:
+    "This meta-schema also defines keywords that have appeared in previous drafts in order to prevent incompatible extensions as they remain in common use.",
+  properties: {
+    definitions: {
+      $comment: '"definitions" has been replaced by "$defs".',
+      type: "object",
+      additionalProperties: {$dynamicRef: "#meta"},
+      deprecated: true,
+      default: {},
+    },
+    dependencies: {
+      $comment:
+        '"dependencies" has been split and replaced by "dependentSchemas" and "dependentRequired" in order to serve their differing semantics.',
+      type: "object",
+      additionalProperties: {
+        anyOf: [
+          {$dynamicRef: "#meta"},
+          {$ref: "meta/validation#/$defs/stringArray"},
+        ],
+      },
+      deprecated: true,
+      default: {},
+    },
+    $recursiveAnchor: {
+      $comment: '"$recursiveAnchor" has been replaced by "$dynamicAnchor".',
+      $ref: "meta/core#/$defs/anchorString",
+      deprecated: true,
+    },
+    $recursiveRef: {
+      $comment: '"$recursiveRef" has been replaced by "$dynamicRef".',
+      $ref: "meta/core#/$defs/uriReferenceString",
+      deprecated: true,
+    },
+  },
+}
+const schema23 = {
+  type: "array",
+  items: {type: "string"},
+  uniqueItems: true,
+  default: [],
+}
+const schema5 = {type: "string", pattern: "^[A-Za-z_][-A-Za-z0-9._]*$"}
+const schema2 = {type: "string", format: "uri-reference"}
+const schema1 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/core",
+  $vocabulary: {"https://json-schema.org/draft/2020-12/vocab/core": true},
+  $dynamicAnchor: "meta",
+  title: "Core vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    $id: {
+      $ref: "#/$defs/uriReferenceString",
+      $comment: "Non-empty fragments not allowed.",
+      pattern: "^[^#]*#?$",
+    },
+    $schema: {$ref: "#/$defs/uriString"},
+    $ref: {$ref: "#/$defs/uriReferenceString"},
+    $anchor: {$ref: "#/$defs/anchorString"},
+    $dynamicRef: {$ref: "#/$defs/uriReferenceString"},
+    $dynamicAnchor: {$ref: "#/$defs/anchorString"},
+    $vocabulary: {
+      type: "object",
+      propertyNames: {$ref: "#/$defs/uriString"},
+      additionalProperties: {type: "boolean"},
+    },
+    $comment: {type: "string"},
+    $defs: {type: "object", additionalProperties: {$dynamicRef: "#meta"}},
+  },
+  $defs: {
+    anchorString: {type: "string", pattern: "^[A-Za-z_][-A-Za-z0-9._]*$"},
+    uriString: {type: "string", format: "uri"},
+    uriReferenceString: {type: "string", format: "uri-reference"},
+  },
+}
+const schema3 = {type: "string", format: "uri"}
+const pattern0 = new RegExp("^[^#]*#?$", "u")
+const pattern1 = new RegExp("^[A-Za-z_][-A-Za-z0-9._]*$", "u")
+function validate1(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/core" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate1.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate1.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema1.type},
+        message: "must be object,boolean",
+        schema: schema1.type,
+        parentSchema: schema1,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate1
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.$id !== undefined) {
+        let data0 = data.$id
+        const _errs1 = errors
+        const _errs3 = errors
+        if (errors === _errs3) {
+          if (errors === _errs3) {
+            if (!(typeof data0 === "string")) {
+              validate1.errors = [
+                {
+                  instancePath: instancePath + "/$id",
+                  schemaPath: "#/$defs/uriReferenceString/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema2.type,
+                  parentSchema: schema2,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        if (errors === _errs1) {
+          if (typeof data0 === "string") {
+            if (!pattern0.test(data0)) {
+              validate1.errors = [
+                {
+                  instancePath: instancePath + "/$id",
+                  schemaPath: "#/properties/%24id/pattern",
+                  keyword: "pattern",
+                  params: {pattern: "^[^#]*#?$"},
+                  message: 'must match pattern "' + "^[^#]*#?$" + '"',
+                  schema: "^[^#]*#?$",
+                  parentSchema: schema1.properties.$id,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.$schema !== undefined) {
+          let data1 = data.$schema
+          const _errs5 = errors
+          const _errs6 = errors
+          if (errors === _errs6) {
+            if (errors === _errs6) {
+              if (!(typeof data1 === "string")) {
+                validate1.errors = [
+                  {
+                    instancePath: instancePath + "/$schema",
+                    schemaPath: "#/$defs/uriString/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema3.type,
+                    parentSchema: schema3,
+                    data: data1,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid0 = _errs5 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.$ref !== undefined) {
+            let data2 = data.$ref
+            const _errs8 = errors
+            const _errs9 = errors
+            if (errors === _errs9) {
+              if (errors === _errs9) {
+                if (!(typeof data2 === "string")) {
+                  validate1.errors = [
+                    {
+                      instancePath: instancePath + "/$ref",
+                      schemaPath: "#/$defs/uriReferenceString/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema2.type,
+                      parentSchema: schema2,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid0 = _errs8 === errors
+          } else {
+            var valid0 = true
+          }
+          if (valid0) {
+            if (data.$anchor !== undefined) {
+              let data3 = data.$anchor
+              const _errs11 = errors
+              const _errs12 = errors
+              if (errors === _errs12) {
+                if (typeof data3 === "string") {
+                  if (!pattern1.test(data3)) {
+                    validate1.errors = [
+                      {
+                        instancePath: instancePath + "/$anchor",
+                        schemaPath: "#/$defs/anchorString/pattern",
+                        keyword: "pattern",
+                        params: {pattern: "^[A-Za-z_][-A-Za-z0-9._]*$"},
+                        message:
+                          'must match pattern "' +
+                          "^[A-Za-z_][-A-Za-z0-9._]*$" +
+                          '"',
+                        schema: "^[A-Za-z_][-A-Za-z0-9._]*$",
+                        parentSchema: schema5,
+                        data: data3,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate1.errors = [
+                    {
+                      instancePath: instancePath + "/$anchor",
+                      schemaPath: "#/$defs/anchorString/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema5.type,
+                      parentSchema: schema5,
+                      data: data3,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid0 = _errs11 === errors
+            } else {
+              var valid0 = true
+            }
+            if (valid0) {
+              if (data.$dynamicRef !== undefined) {
+                let data4 = data.$dynamicRef
+                const _errs14 = errors
+                const _errs15 = errors
+                if (errors === _errs15) {
+                  if (errors === _errs15) {
+                    if (!(typeof data4 === "string")) {
+                      validate1.errors = [
+                        {
+                          instancePath: instancePath + "/$dynamicRef",
+                          schemaPath: "#/$defs/uriReferenceString/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema2.type,
+                          parentSchema: schema2,
+                          data: data4,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                }
+                var valid0 = _errs14 === errors
+              } else {
+                var valid0 = true
+              }
+              if (valid0) {
+                if (data.$dynamicAnchor !== undefined) {
+                  let data5 = data.$dynamicAnchor
+                  const _errs17 = errors
+                  const _errs18 = errors
+                  if (errors === _errs18) {
+                    if (typeof data5 === "string") {
+                      if (!pattern1.test(data5)) {
+                        validate1.errors = [
+                          {
+                            instancePath: instancePath + "/$dynamicAnchor",
+                            schemaPath: "#/$defs/anchorString/pattern",
+                            keyword: "pattern",
+                            params: {pattern: "^[A-Za-z_][-A-Za-z0-9._]*$"},
+                            message:
+                              'must match pattern "' +
+                              "^[A-Za-z_][-A-Za-z0-9._]*$" +
+                              '"',
+                            schema: "^[A-Za-z_][-A-Za-z0-9._]*$",
+                            parentSchema: schema5,
+                            data: data5,
+                          },
+                        ]
+                        return false
+                      }
+                    } else {
+                      validate1.errors = [
+                        {
+                          instancePath: instancePath + "/$dynamicAnchor",
+                          schemaPath: "#/$defs/anchorString/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema5.type,
+                          parentSchema: schema5,
+                          data: data5,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                  var valid0 = _errs17 === errors
+                } else {
+                  var valid0 = true
+                }
+                if (valid0) {
+                  if (data.$vocabulary !== undefined) {
+                    let data6 = data.$vocabulary
+                    const _errs20 = errors
+                    if (errors === _errs20) {
+                      if (
+                        data6 &&
+                        typeof data6 == "object" &&
+                        !Array.isArray(data6)
+                      ) {
+                        for (const key0 in data6) {
+                          const _errs22 = errors
+                          const _errs23 = errors
+                          if (errors === _errs23) {
+                            if (errors === _errs23) {
+                              if (!(typeof key0 === "string")) {
+                                const err0 = {
+                                  instancePath: instancePath + "/$vocabulary",
+                                  schemaPath: "#/$defs/uriString/type",
+                                  keyword: "type",
+                                  params: {type: "string"},
+                                  message: "must be string",
+                                  schema: schema3.type,
+                                  parentSchema: schema3,
+                                  data: key0,
+                                  propertyName: key0,
+                                }
+                                if (vErrors === null) {
+                                  vErrors = [err0]
+                                } else {
+                                  vErrors.push(err0)
+                                }
+                                errors++
+                              }
+                            }
+                          }
+                          var valid7 = _errs22 === errors
+                          if (!valid7) {
+                            const err1 = {
+                              instancePath: instancePath + "/$vocabulary",
+                              schemaPath:
+                                "#/properties/%24vocabulary/propertyNames",
+                              keyword: "propertyNames",
+                              params: {propertyName: key0},
+                              message: "property name must be valid",
+                              schema:
+                                schema1.properties.$vocabulary.propertyNames,
+                              parentSchema: schema1.properties.$vocabulary,
+                              data: data6,
+                            }
+                            if (vErrors === null) {
+                              vErrors = [err1]
+                            } else {
+                              vErrors.push(err1)
+                            }
+                            errors++
+                            validate1.errors = vErrors
+                            return false
+                            break
+                          }
+                        }
+                        if (valid7) {
+                          for (const key1 in data6) {
+                            let data7 = data6[key1]
+                            const _errs26 = errors
+                            if (typeof data7 !== "boolean") {
+                              validate1.errors = [
+                                {
+                                  instancePath:
+                                    instancePath +
+                                    "/$vocabulary/" +
+                                    key1
+                                      .replace(/~/g, "~0")
+                                      .replace(/\//g, "~1"),
+                                  schemaPath:
+                                    "#/properties/%24vocabulary/additionalProperties/type",
+                                  keyword: "type",
+                                  params: {type: "boolean"},
+                                  message: "must be boolean",
+                                  schema:
+                                    schema1.properties.$vocabulary
+                                      .additionalProperties.type,
+                                  parentSchema:
+                                    schema1.properties.$vocabulary
+                                      .additionalProperties,
+                                  data: data7,
+                                },
+                              ]
+                              return false
+                            }
+                            var valid9 = _errs26 === errors
+                            if (!valid9) {
+                              break
+                            }
+                          }
+                        }
+                      } else {
+                        validate1.errors = [
+                          {
+                            instancePath: instancePath + "/$vocabulary",
+                            schemaPath: "#/properties/%24vocabulary/type",
+                            keyword: "type",
+                            params: {type: "object"},
+                            message: "must be object",
+                            schema: schema1.properties.$vocabulary.type,
+                            parentSchema: schema1.properties.$vocabulary,
+                            data: data6,
+                          },
+                        ]
+                        return false
+                      }
+                    }
+                    var valid0 = _errs20 === errors
+                  } else {
+                    var valid0 = true
+                  }
+                  if (valid0) {
+                    if (data.$comment !== undefined) {
+                      let data8 = data.$comment
+                      const _errs28 = errors
+                      if (typeof data8 !== "string") {
+                        validate1.errors = [
+                          {
+                            instancePath: instancePath + "/$comment",
+                            schemaPath: "#/properties/%24comment/type",
+                            keyword: "type",
+                            params: {type: "string"},
+                            message: "must be string",
+                            schema: schema1.properties.$comment.type,
+                            parentSchema: schema1.properties.$comment,
+                            data: data8,
+                          },
+                        ]
+                        return false
+                      }
+                      var valid0 = _errs28 === errors
+                    } else {
+                      var valid0 = true
+                    }
+                    if (valid0) {
+                      if (data.$defs !== undefined) {
+                        let data9 = data.$defs
+                        const _errs30 = errors
+                        if (errors === _errs30) {
+                          if (
+                            data9 &&
+                            typeof data9 == "object" &&
+                            !Array.isArray(data9)
+                          ) {
+                            for (const key2 in data9) {
+                              let data10 = data9[key2]
+                              const _errs33 = errors
+                              let _v0 = dynamicAnchors.meta
+                              if (_v0) {
+                                if (
+                                  !_v0(data10, {
+                                    instancePath:
+                                      instancePath +
+                                      "/$defs/" +
+                                      key2
+                                        .replace(/~/g, "~0")
+                                        .replace(/\//g, "~1"),
+                                    parentData: data9,
+                                    parentDataProperty: key2,
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? _v0.errors
+                                      : vErrors.concat(_v0.errors)
+                                  errors = vErrors.length
+                                } else {
+                                  var props0 = _v0.evaluated.props
+                                  var items0 = _v0.evaluated.items
+                                }
+                              } else {
+                                if (
+                                  !validate1(data10, {
+                                    instancePath:
+                                      instancePath +
+                                      "/$defs/" +
+                                      key2
+                                        .replace(/~/g, "~0")
+                                        .replace(/\//g, "~1"),
+                                    parentData: data9,
+                                    parentDataProperty: key2,
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? validate1.errors
+                                      : vErrors.concat(validate1.errors)
+                                  errors = vErrors.length
+                                } else {
+                                  var props1 = validate1.evaluated.props
+                                  if (props0 !== true && props1 !== undefined) {
+                                    if (props1 === true) {
+                                      props0 = true
+                                    } else {
+                                      props0 = props0 || {}
+                                      Object.assign(props0, props1)
+                                    }
+                                  }
+                                  var items1 = validate1.evaluated.items
+                                  if (items0 !== true && items1 !== undefined) {
+                                    items0 =
+                                      items1 === true
+                                        ? true
+                                        : items0 > items1
+                                          ? items0
+                                          : items1
+                                  }
+                                }
+                              }
+                              var valid10 = _errs33 === errors
+                              if (!valid10) {
+                                break
+                              }
+                            }
+                          } else {
+                            validate1.errors = [
+                              {
+                                instancePath: instancePath + "/$defs",
+                                schemaPath: "#/properties/%24defs/type",
+                                keyword: "type",
+                                params: {type: "object"},
+                                message: "must be object",
+                                schema: schema1.properties.$defs.type,
+                                parentSchema: schema1.properties.$defs,
+                                data: data9,
+                              },
+                            ]
+                            return false
+                          }
+                        }
+                        var valid0 = _errs30 === errors
+                      } else {
+                        var valid0 = true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  validate1.errors = vErrors
+  return errors === 0
+}
+validate1.evaluated = {
+  props: {
+    $id: true,
+    $schema: true,
+    $ref: true,
+    $anchor: true,
+    $dynamicRef: true,
+    $dynamicAnchor: true,
+    $vocabulary: true,
+    $comment: true,
+    $defs: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema9 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/applicator",
+  $vocabulary: {"https://json-schema.org/draft/2020-12/vocab/applicator": true},
+  $dynamicAnchor: "meta",
+  title: "Applicator vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    prefixItems: {$ref: "#/$defs/schemaArray"},
+    items: {$dynamicRef: "#meta"},
+    contains: {$dynamicRef: "#meta"},
+    additionalProperties: {$dynamicRef: "#meta"},
+    properties: {
+      type: "object",
+      additionalProperties: {$dynamicRef: "#meta"},
+      default: {},
+    },
+    patternProperties: {
+      type: "object",
+      additionalProperties: {$dynamicRef: "#meta"},
+      propertyNames: {format: "regex"},
+      default: {},
+    },
+    dependentSchemas: {
+      type: "object",
+      additionalProperties: {$dynamicRef: "#meta"},
+      default: {},
+    },
+    propertyNames: {$dynamicRef: "#meta"},
+    if: {$dynamicRef: "#meta"},
+    then: {$dynamicRef: "#meta"},
+    else: {$dynamicRef: "#meta"},
+    allOf: {$ref: "#/$defs/schemaArray"},
+    anyOf: {$ref: "#/$defs/schemaArray"},
+    oneOf: {$ref: "#/$defs/schemaArray"},
+    not: {$dynamicRef: "#meta"},
+  },
+  $defs: {
+    schemaArray: {type: "array", minItems: 1, items: {$dynamicRef: "#meta"}},
+  },
+}
+const schema10 = {type: "array", minItems: 1, items: {$dynamicRef: "#meta"}}
+function validate4(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate4.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (errors === 0) {
+    if (Array.isArray(data)) {
+      if (data.length < 1) {
+        validate4.errors = [
+          {
+            instancePath,
+            schemaPath: "#/minItems",
+            keyword: "minItems",
+            params: {limit: 1},
+            message: "must NOT have fewer than 1 items",
+            schema: 1,
+            parentSchema: schema10,
+            data,
+          },
+        ]
+        return false
+      } else {
+        var valid0 = true
+        const len0 = data.length
+        for (let i0 = 0; i0 < len0; i0++) {
+          let data0 = data[i0]
+          const _errs1 = errors
+          let _v0 = dynamicAnchors.meta
+          if (_v0) {
+            if (
+              !_v0(data0, {
+                instancePath: instancePath + "/" + i0,
+                parentData: data,
+                parentDataProperty: i0,
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null ? _v0.errors : vErrors.concat(_v0.errors)
+              errors = vErrors.length
+            } else {
+              var props0 = _v0.evaluated.props
+              var items0 = _v0.evaluated.items
+            }
+          } else {
+            if (
+              !validate4(data0, {
+                instancePath: instancePath + "/" + i0,
+                parentData: data,
+                parentDataProperty: i0,
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate4.errors
+                  : vErrors.concat(validate4.errors)
+              errors = vErrors.length
+            } else {
+              var props1 = validate4.evaluated.props
+              if (props0 !== true && props1 !== undefined) {
+                if (props1 === true) {
+                  props0 = true
+                } else {
+                  props0 = props0 || {}
+                  Object.assign(props0, props1)
+                }
+              }
+              var items1 = validate4.evaluated.items
+              if (items0 !== true && items1 !== undefined) {
+                items0 =
+                  items1 === true ? true : items0 > items1 ? items0 : items1
+              }
+            }
+          }
+          var valid0 = _errs1 === errors
+          if (!valid0) {
+            break
+          }
+        }
+      }
+    } else {
+      validate4.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "array"},
+          message: "must be array",
+          schema: schema10.type,
+          parentSchema: schema10,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate4.errors = vErrors
+  return errors === 0
+}
+validate4.evaluated = {items: true, dynamicProps: false, dynamicItems: false}
+function validate3(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/applicator" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate3.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate3.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema9.type},
+        message: "must be object,boolean",
+        schema: schema9.type,
+        parentSchema: schema9,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate3
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.prefixItems !== undefined) {
+        const _errs1 = errors
+        if (
+          !validate4(data.prefixItems, {
+            instancePath: instancePath + "/prefixItems",
+            parentData: data,
+            parentDataProperty: "prefixItems",
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? validate4.errors
+              : vErrors.concat(validate4.errors)
+          errors = vErrors.length
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.items !== undefined) {
+          let data1 = data.items
+          const _errs2 = errors
+          let _v0 = dynamicAnchors.meta
+          if (_v0) {
+            if (
+              !_v0(data1, {
+                instancePath: instancePath + "/items",
+                parentData: data,
+                parentDataProperty: "items",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null ? _v0.errors : vErrors.concat(_v0.errors)
+              errors = vErrors.length
+            } else {
+              var props0 = _v0.evaluated.props
+              var items0 = _v0.evaluated.items
+            }
+          } else {
+            if (
+              !validate3(data1, {
+                instancePath: instancePath + "/items",
+                parentData: data,
+                parentDataProperty: "items",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate3.errors
+                  : vErrors.concat(validate3.errors)
+              errors = vErrors.length
+            } else {
+              var props1 = validate3.evaluated.props
+              if (props0 !== true && props1 !== undefined) {
+                if (props1 === true) {
+                  props0 = true
+                } else {
+                  props0 = props0 || {}
+                  Object.assign(props0, props1)
+                }
+              }
+              var items1 = validate3.evaluated.items
+              if (items0 !== true && items1 !== undefined) {
+                items0 =
+                  items1 === true ? true : items0 > items1 ? items0 : items1
+              }
+            }
+          }
+          var valid0 = _errs2 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.contains !== undefined) {
+            let data2 = data.contains
+            const _errs3 = errors
+            let _v1 = dynamicAnchors.meta
+            if (_v1) {
+              if (
+                !_v1(data2, {
+                  instancePath: instancePath + "/contains",
+                  parentData: data,
+                  parentDataProperty: "contains",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null ? _v1.errors : vErrors.concat(_v1.errors)
+                errors = vErrors.length
+              } else {
+                var props2 = _v1.evaluated.props
+                var items2 = _v1.evaluated.items
+              }
+            } else {
+              if (
+                !validate3(data2, {
+                  instancePath: instancePath + "/contains",
+                  parentData: data,
+                  parentDataProperty: "contains",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate3.errors
+                    : vErrors.concat(validate3.errors)
+                errors = vErrors.length
+              } else {
+                var props3 = validate3.evaluated.props
+                if (props2 !== true && props3 !== undefined) {
+                  if (props3 === true) {
+                    props2 = true
+                  } else {
+                    props2 = props2 || {}
+                    Object.assign(props2, props3)
+                  }
+                }
+                var items3 = validate3.evaluated.items
+                if (items2 !== true && items3 !== undefined) {
+                  items2 =
+                    items3 === true ? true : items2 > items3 ? items2 : items3
+                }
+              }
+            }
+            var valid0 = _errs3 === errors
+          } else {
+            var valid0 = true
+          }
+          if (valid0) {
+            if (data.additionalProperties !== undefined) {
+              let data3 = data.additionalProperties
+              const _errs4 = errors
+              let _v2 = dynamicAnchors.meta
+              if (_v2) {
+                if (
+                  !_v2(data3, {
+                    instancePath: instancePath + "/additionalProperties",
+                    parentData: data,
+                    parentDataProperty: "additionalProperties",
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null ? _v2.errors : vErrors.concat(_v2.errors)
+                  errors = vErrors.length
+                } else {
+                  var props4 = _v2.evaluated.props
+                  var items4 = _v2.evaluated.items
+                }
+              } else {
+                if (
+                  !validate3(data3, {
+                    instancePath: instancePath + "/additionalProperties",
+                    parentData: data,
+                    parentDataProperty: "additionalProperties",
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate3.errors
+                      : vErrors.concat(validate3.errors)
+                  errors = vErrors.length
+                } else {
+                  var props5 = validate3.evaluated.props
+                  if (props4 !== true && props5 !== undefined) {
+                    if (props5 === true) {
+                      props4 = true
+                    } else {
+                      props4 = props4 || {}
+                      Object.assign(props4, props5)
+                    }
+                  }
+                  var items5 = validate3.evaluated.items
+                  if (items4 !== true && items5 !== undefined) {
+                    items4 =
+                      items5 === true ? true : items4 > items5 ? items4 : items5
+                  }
+                }
+              }
+              var valid0 = _errs4 === errors
+            } else {
+              var valid0 = true
+            }
+            if (valid0) {
+              if (data.properties !== undefined) {
+                let data4 = data.properties
+                const _errs5 = errors
+                if (errors === _errs5) {
+                  if (
+                    data4 &&
+                    typeof data4 == "object" &&
+                    !Array.isArray(data4)
+                  ) {
+                    for (const key0 in data4) {
+                      let data5 = data4[key0]
+                      const _errs8 = errors
+                      let _v3 = dynamicAnchors.meta
+                      if (_v3) {
+                        if (
+                          !_v3(data5, {
+                            instancePath:
+                              instancePath +
+                              "/properties/" +
+                              key0.replace(/~/g, "~0").replace(/\//g, "~1"),
+                            parentData: data4,
+                            parentDataProperty: key0,
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? _v3.errors
+                              : vErrors.concat(_v3.errors)
+                          errors = vErrors.length
+                        } else {
+                          var props6 = _v3.evaluated.props
+                          var items6 = _v3.evaluated.items
+                        }
+                      } else {
+                        if (
+                          !validate3(data5, {
+                            instancePath:
+                              instancePath +
+                              "/properties/" +
+                              key0.replace(/~/g, "~0").replace(/\//g, "~1"),
+                            parentData: data4,
+                            parentDataProperty: key0,
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate3.errors
+                              : vErrors.concat(validate3.errors)
+                          errors = vErrors.length
+                        } else {
+                          var props7 = validate3.evaluated.props
+                          if (props6 !== true && props7 !== undefined) {
+                            if (props7 === true) {
+                              props6 = true
+                            } else {
+                              props6 = props6 || {}
+                              Object.assign(props6, props7)
+                            }
+                          }
+                          var items7 = validate3.evaluated.items
+                          if (items6 !== true && items7 !== undefined) {
+                            items6 =
+                              items7 === true
+                                ? true
+                                : items6 > items7
+                                  ? items6
+                                  : items7
+                          }
+                        }
+                      }
+                      var valid4 = _errs8 === errors
+                      if (!valid4) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate3.errors = [
+                      {
+                        instancePath: instancePath + "/properties",
+                        schemaPath: "#/properties/properties/type",
+                        keyword: "type",
+                        params: {type: "object"},
+                        message: "must be object",
+                        schema: schema9.properties.properties.type,
+                        parentSchema: schema9.properties.properties,
+                        data: data4,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid0 = _errs5 === errors
+              } else {
+                var valid0 = true
+              }
+              if (valid0) {
+                if (data.patternProperties !== undefined) {
+                  let data6 = data.patternProperties
+                  const _errs9 = errors
+                  if (errors === _errs9) {
+                    if (
+                      data6 &&
+                      typeof data6 == "object" &&
+                      !Array.isArray(data6)
+                    ) {
+                      for (const key1 in data6) {
+                        const _errs11 = errors
+                        var valid6 = _errs11 === errors
+                        if (!valid6) {
+                          const err0 = {
+                            instancePath: instancePath + "/patternProperties",
+                            schemaPath:
+                              "#/properties/patternProperties/propertyNames",
+                            keyword: "propertyNames",
+                            params: {propertyName: key1},
+                            message: "property name must be valid",
+                            schema:
+                              schema9.properties.patternProperties
+                                .propertyNames,
+                            parentSchema: schema9.properties.patternProperties,
+                            data: data6,
+                          }
+                          if (vErrors === null) {
+                            vErrors = [err0]
+                          } else {
+                            vErrors.push(err0)
+                          }
+                          errors++
+                          validate3.errors = vErrors
+                          return false
+                          break
+                        }
+                      }
+                      if (valid6) {
+                        for (const key2 in data6) {
+                          let data7 = data6[key2]
+                          const _errs13 = errors
+                          let _v4 = dynamicAnchors.meta
+                          if (_v4) {
+                            if (
+                              !_v4(data7, {
+                                instancePath:
+                                  instancePath +
+                                  "/patternProperties/" +
+                                  key2.replace(/~/g, "~0").replace(/\//g, "~1"),
+                                parentData: data6,
+                                parentDataProperty: key2,
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? _v4.errors
+                                  : vErrors.concat(_v4.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props8 = _v4.evaluated.props
+                              var items8 = _v4.evaluated.items
+                            }
+                          } else {
+                            if (
+                              !validate3(data7, {
+                                instancePath:
+                                  instancePath +
+                                  "/patternProperties/" +
+                                  key2.replace(/~/g, "~0").replace(/\//g, "~1"),
+                                parentData: data6,
+                                parentDataProperty: key2,
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate3.errors
+                                  : vErrors.concat(validate3.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props9 = validate3.evaluated.props
+                              if (props8 !== true && props9 !== undefined) {
+                                if (props9 === true) {
+                                  props8 = true
+                                } else {
+                                  props8 = props8 || {}
+                                  Object.assign(props8, props9)
+                                }
+                              }
+                              var items9 = validate3.evaluated.items
+                              if (items8 !== true && items9 !== undefined) {
+                                items8 =
+                                  items9 === true
+                                    ? true
+                                    : items8 > items9
+                                      ? items8
+                                      : items9
+                              }
+                            }
+                          }
+                          var valid7 = _errs13 === errors
+                          if (!valid7) {
+                            break
+                          }
+                        }
+                      }
+                    } else {
+                      validate3.errors = [
+                        {
+                          instancePath: instancePath + "/patternProperties",
+                          schemaPath: "#/properties/patternProperties/type",
+                          keyword: "type",
+                          params: {type: "object"},
+                          message: "must be object",
+                          schema: schema9.properties.patternProperties.type,
+                          parentSchema: schema9.properties.patternProperties,
+                          data: data6,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                  var valid0 = _errs9 === errors
+                } else {
+                  var valid0 = true
+                }
+                if (valid0) {
+                  if (data.dependentSchemas !== undefined) {
+                    let data8 = data.dependentSchemas
+                    const _errs14 = errors
+                    if (errors === _errs14) {
+                      if (
+                        data8 &&
+                        typeof data8 == "object" &&
+                        !Array.isArray(data8)
+                      ) {
+                        for (const key3 in data8) {
+                          let data9 = data8[key3]
+                          const _errs17 = errors
+                          let _v5 = dynamicAnchors.meta
+                          if (_v5) {
+                            if (
+                              !_v5(data9, {
+                                instancePath:
+                                  instancePath +
+                                  "/dependentSchemas/" +
+                                  key3.replace(/~/g, "~0").replace(/\//g, "~1"),
+                                parentData: data8,
+                                parentDataProperty: key3,
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? _v5.errors
+                                  : vErrors.concat(_v5.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props10 = _v5.evaluated.props
+                              var items10 = _v5.evaluated.items
+                            }
+                          } else {
+                            if (
+                              !validate3(data9, {
+                                instancePath:
+                                  instancePath +
+                                  "/dependentSchemas/" +
+                                  key3.replace(/~/g, "~0").replace(/\//g, "~1"),
+                                parentData: data8,
+                                parentDataProperty: key3,
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate3.errors
+                                  : vErrors.concat(validate3.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props11 = validate3.evaluated.props
+                              if (props10 !== true && props11 !== undefined) {
+                                if (props11 === true) {
+                                  props10 = true
+                                } else {
+                                  props10 = props10 || {}
+                                  Object.assign(props10, props11)
+                                }
+                              }
+                              var items11 = validate3.evaluated.items
+                              if (items10 !== true && items11 !== undefined) {
+                                items10 =
+                                  items11 === true
+                                    ? true
+                                    : items10 > items11
+                                      ? items10
+                                      : items11
+                              }
+                            }
+                          }
+                          var valid9 = _errs17 === errors
+                          if (!valid9) {
+                            break
+                          }
+                        }
+                      } else {
+                        validate3.errors = [
+                          {
+                            instancePath: instancePath + "/dependentSchemas",
+                            schemaPath: "#/properties/dependentSchemas/type",
+                            keyword: "type",
+                            params: {type: "object"},
+                            message: "must be object",
+                            schema: schema9.properties.dependentSchemas.type,
+                            parentSchema: schema9.properties.dependentSchemas,
+                            data: data8,
+                          },
+                        ]
+                        return false
+                      }
+                    }
+                    var valid0 = _errs14 === errors
+                  } else {
+                    var valid0 = true
+                  }
+                  if (valid0) {
+                    if (data.propertyNames !== undefined) {
+                      let data10 = data.propertyNames
+                      const _errs18 = errors
+                      let _v6 = dynamicAnchors.meta
+                      if (_v6) {
+                        if (
+                          !_v6(data10, {
+                            instancePath: instancePath + "/propertyNames",
+                            parentData: data,
+                            parentDataProperty: "propertyNames",
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? _v6.errors
+                              : vErrors.concat(_v6.errors)
+                          errors = vErrors.length
+                        } else {
+                          var props12 = _v6.evaluated.props
+                          var items12 = _v6.evaluated.items
+                        }
+                      } else {
+                        if (
+                          !validate3(data10, {
+                            instancePath: instancePath + "/propertyNames",
+                            parentData: data,
+                            parentDataProperty: "propertyNames",
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate3.errors
+                              : vErrors.concat(validate3.errors)
+                          errors = vErrors.length
+                        } else {
+                          var props13 = validate3.evaluated.props
+                          if (props12 !== true && props13 !== undefined) {
+                            if (props13 === true) {
+                              props12 = true
+                            } else {
+                              props12 = props12 || {}
+                              Object.assign(props12, props13)
+                            }
+                          }
+                          var items13 = validate3.evaluated.items
+                          if (items12 !== true && items13 !== undefined) {
+                            items12 =
+                              items13 === true
+                                ? true
+                                : items12 > items13
+                                  ? items12
+                                  : items13
+                          }
+                        }
+                      }
+                      var valid0 = _errs18 === errors
+                    } else {
+                      var valid0 = true
+                    }
+                    if (valid0) {
+                      if (data.if !== undefined) {
+                        let data11 = data.if
+                        const _errs19 = errors
+                        let _v7 = dynamicAnchors.meta
+                        if (_v7) {
+                          if (
+                            !_v7(data11, {
+                              instancePath: instancePath + "/if",
+                              parentData: data,
+                              parentDataProperty: "if",
+                              rootData,
+                              dynamicAnchors,
+                            })
+                          ) {
+                            vErrors =
+                              vErrors === null
+                                ? _v7.errors
+                                : vErrors.concat(_v7.errors)
+                            errors = vErrors.length
+                          } else {
+                            var props14 = _v7.evaluated.props
+                            var items14 = _v7.evaluated.items
+                          }
+                        } else {
+                          if (
+                            !validate3(data11, {
+                              instancePath: instancePath + "/if",
+                              parentData: data,
+                              parentDataProperty: "if",
+                              rootData,
+                              dynamicAnchors,
+                            })
+                          ) {
+                            vErrors =
+                              vErrors === null
+                                ? validate3.errors
+                                : vErrors.concat(validate3.errors)
+                            errors = vErrors.length
+                          } else {
+                            var props15 = validate3.evaluated.props
+                            if (props14 !== true && props15 !== undefined) {
+                              if (props15 === true) {
+                                props14 = true
+                              } else {
+                                props14 = props14 || {}
+                                Object.assign(props14, props15)
+                              }
+                            }
+                            var items15 = validate3.evaluated.items
+                            if (items14 !== true && items15 !== undefined) {
+                              items14 =
+                                items15 === true
+                                  ? true
+                                  : items14 > items15
+                                    ? items14
+                                    : items15
+                            }
+                          }
+                        }
+                        var valid0 = _errs19 === errors
+                      } else {
+                        var valid0 = true
+                      }
+                      if (valid0) {
+                        if (data.then !== undefined) {
+                          let data12 = data.then
+                          const _errs20 = errors
+                          let _v8 = dynamicAnchors.meta
+                          if (_v8) {
+                            if (
+                              !_v8(data12, {
+                                instancePath: instancePath + "/then",
+                                parentData: data,
+                                parentDataProperty: "then",
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? _v8.errors
+                                  : vErrors.concat(_v8.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props16 = _v8.evaluated.props
+                              var items16 = _v8.evaluated.items
+                            }
+                          } else {
+                            if (
+                              !validate3(data12, {
+                                instancePath: instancePath + "/then",
+                                parentData: data,
+                                parentDataProperty: "then",
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate3.errors
+                                  : vErrors.concat(validate3.errors)
+                              errors = vErrors.length
+                            } else {
+                              var props17 = validate3.evaluated.props
+                              if (props16 !== true && props17 !== undefined) {
+                                if (props17 === true) {
+                                  props16 = true
+                                } else {
+                                  props16 = props16 || {}
+                                  Object.assign(props16, props17)
+                                }
+                              }
+                              var items17 = validate3.evaluated.items
+                              if (items16 !== true && items17 !== undefined) {
+                                items16 =
+                                  items17 === true
+                                    ? true
+                                    : items16 > items17
+                                      ? items16
+                                      : items17
+                              }
+                            }
+                          }
+                          var valid0 = _errs20 === errors
+                        } else {
+                          var valid0 = true
+                        }
+                        if (valid0) {
+                          if (data.else !== undefined) {
+                            let data13 = data.else
+                            const _errs21 = errors
+                            let _v9 = dynamicAnchors.meta
+                            if (_v9) {
+                              if (
+                                !_v9(data13, {
+                                  instancePath: instancePath + "/else",
+                                  parentData: data,
+                                  parentDataProperty: "else",
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? _v9.errors
+                                    : vErrors.concat(_v9.errors)
+                                errors = vErrors.length
+                              } else {
+                                var props18 = _v9.evaluated.props
+                                var items18 = _v9.evaluated.items
+                              }
+                            } else {
+                              if (
+                                !validate3(data13, {
+                                  instancePath: instancePath + "/else",
+                                  parentData: data,
+                                  parentDataProperty: "else",
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? validate3.errors
+                                    : vErrors.concat(validate3.errors)
+                                errors = vErrors.length
+                              } else {
+                                var props19 = validate3.evaluated.props
+                                if (props18 !== true && props19 !== undefined) {
+                                  if (props19 === true) {
+                                    props18 = true
+                                  } else {
+                                    props18 = props18 || {}
+                                    Object.assign(props18, props19)
+                                  }
+                                }
+                                var items19 = validate3.evaluated.items
+                                if (items18 !== true && items19 !== undefined) {
+                                  items18 =
+                                    items19 === true
+                                      ? true
+                                      : items18 > items19
+                                        ? items18
+                                        : items19
+                                }
+                              }
+                            }
+                            var valid0 = _errs21 === errors
+                          } else {
+                            var valid0 = true
+                          }
+                          if (valid0) {
+                            if (data.allOf !== undefined) {
+                              const _errs22 = errors
+                              if (
+                                !validate4(data.allOf, {
+                                  instancePath: instancePath + "/allOf",
+                                  parentData: data,
+                                  parentDataProperty: "allOf",
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? validate4.errors
+                                    : vErrors.concat(validate4.errors)
+                                errors = vErrors.length
+                              }
+                              var valid0 = _errs22 === errors
+                            } else {
+                              var valid0 = true
+                            }
+                            if (valid0) {
+                              if (data.anyOf !== undefined) {
+                                const _errs23 = errors
+                                if (
+                                  !validate4(data.anyOf, {
+                                    instancePath: instancePath + "/anyOf",
+                                    parentData: data,
+                                    parentDataProperty: "anyOf",
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? validate4.errors
+                                      : vErrors.concat(validate4.errors)
+                                  errors = vErrors.length
+                                }
+                                var valid0 = _errs23 === errors
+                              } else {
+                                var valid0 = true
+                              }
+                              if (valid0) {
+                                if (data.oneOf !== undefined) {
+                                  const _errs24 = errors
+                                  if (
+                                    !validate4(data.oneOf, {
+                                      instancePath: instancePath + "/oneOf",
+                                      parentData: data,
+                                      parentDataProperty: "oneOf",
+                                      rootData,
+                                      dynamicAnchors,
+                                    })
+                                  ) {
+                                    vErrors =
+                                      vErrors === null
+                                        ? validate4.errors
+                                        : vErrors.concat(validate4.errors)
+                                    errors = vErrors.length
+                                  }
+                                  var valid0 = _errs24 === errors
+                                } else {
+                                  var valid0 = true
+                                }
+                                if (valid0) {
+                                  if (data.not !== undefined) {
+                                    let data17 = data.not
+                                    const _errs25 = errors
+                                    let _v10 = dynamicAnchors.meta
+                                    if (_v10) {
+                                      if (
+                                        !_v10(data17, {
+                                          instancePath: instancePath + "/not",
+                                          parentData: data,
+                                          parentDataProperty: "not",
+                                          rootData,
+                                          dynamicAnchors,
+                                        })
+                                      ) {
+                                        vErrors =
+                                          vErrors === null
+                                            ? _v10.errors
+                                            : vErrors.concat(_v10.errors)
+                                        errors = vErrors.length
+                                      } else {
+                                        var props20 = _v10.evaluated.props
+                                        var items20 = _v10.evaluated.items
+                                      }
+                                    } else {
+                                      if (
+                                        !validate3(data17, {
+                                          instancePath: instancePath + "/not",
+                                          parentData: data,
+                                          parentDataProperty: "not",
+                                          rootData,
+                                          dynamicAnchors,
+                                        })
+                                      ) {
+                                        vErrors =
+                                          vErrors === null
+                                            ? validate3.errors
+                                            : vErrors.concat(validate3.errors)
+                                        errors = vErrors.length
+                                      } else {
+                                        var props21 = validate3.evaluated.props
+                                        if (
+                                          props20 !== true &&
+                                          props21 !== undefined
+                                        ) {
+                                          if (props21 === true) {
+                                            props20 = true
+                                          } else {
+                                            props20 = props20 || {}
+                                            Object.assign(props20, props21)
+                                          }
+                                        }
+                                        var items21 = validate3.evaluated.items
+                                        if (
+                                          items20 !== true &&
+                                          items21 !== undefined
+                                        ) {
+                                          items20 =
+                                            items21 === true
+                                              ? true
+                                              : items20 > items21
+                                                ? items20
+                                                : items21
+                                        }
+                                      }
+                                    }
+                                    var valid0 = _errs25 === errors
+                                  } else {
+                                    var valid0 = true
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  validate3.errors = vErrors
+  return errors === 0
+}
+validate3.evaluated = {
+  props: {
+    prefixItems: true,
+    items: true,
+    contains: true,
+    additionalProperties: true,
+    properties: true,
+    patternProperties: true,
+    dependentSchemas: true,
+    propertyNames: true,
+    if: true,
+    then: true,
+    else: true,
+    allOf: true,
+    anyOf: true,
+    oneOf: true,
+    not: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema11 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/unevaluated",
+  $vocabulary: {
+    "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+  },
+  $dynamicAnchor: "meta",
+  title: "Unevaluated applicator vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    unevaluatedItems: {$dynamicRef: "#meta"},
+    unevaluatedProperties: {$dynamicRef: "#meta"},
+  },
+}
+function validate10(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/unevaluated" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate10.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate10.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema11.type},
+        message: "must be object,boolean",
+        schema: schema11.type,
+        parentSchema: schema11,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate10
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.unevaluatedItems !== undefined) {
+        let data0 = data.unevaluatedItems
+        const _errs1 = errors
+        let _v0 = dynamicAnchors.meta
+        if (_v0) {
+          if (
+            !_v0(data0, {
+              instancePath: instancePath + "/unevaluatedItems",
+              parentData: data,
+              parentDataProperty: "unevaluatedItems",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors = vErrors === null ? _v0.errors : vErrors.concat(_v0.errors)
+            errors = vErrors.length
+          } else {
+            var props0 = _v0.evaluated.props
+            var items0 = _v0.evaluated.items
+          }
+        } else {
+          if (
+            !validate10(data0, {
+              instancePath: instancePath + "/unevaluatedItems",
+              parentData: data,
+              parentDataProperty: "unevaluatedItems",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate10.errors
+                : vErrors.concat(validate10.errors)
+            errors = vErrors.length
+          } else {
+            var props1 = validate10.evaluated.props
+            if (props0 !== true && props1 !== undefined) {
+              if (props1 === true) {
+                props0 = true
+              } else {
+                props0 = props0 || {}
+                Object.assign(props0, props1)
+              }
+            }
+            var items1 = validate10.evaluated.items
+            if (items0 !== true && items1 !== undefined) {
+              items0 =
+                items1 === true ? true : items0 > items1 ? items0 : items1
+            }
+          }
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.unevaluatedProperties !== undefined) {
+          let data1 = data.unevaluatedProperties
+          const _errs2 = errors
+          let _v1 = dynamicAnchors.meta
+          if (_v1) {
+            if (
+              !_v1(data1, {
+                instancePath: instancePath + "/unevaluatedProperties",
+                parentData: data,
+                parentDataProperty: "unevaluatedProperties",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null ? _v1.errors : vErrors.concat(_v1.errors)
+              errors = vErrors.length
+            } else {
+              var props2 = _v1.evaluated.props
+              var items2 = _v1.evaluated.items
+            }
+          } else {
+            if (
+              !validate10(data1, {
+                instancePath: instancePath + "/unevaluatedProperties",
+                parentData: data,
+                parentDataProperty: "unevaluatedProperties",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate10.errors
+                  : vErrors.concat(validate10.errors)
+              errors = vErrors.length
+            } else {
+              var props3 = validate10.evaluated.props
+              if (props2 !== true && props3 !== undefined) {
+                if (props3 === true) {
+                  props2 = true
+                } else {
+                  props2 = props2 || {}
+                  Object.assign(props2, props3)
+                }
+              }
+              var items3 = validate10.evaluated.items
+              if (items2 !== true && items3 !== undefined) {
+                items2 =
+                  items3 === true ? true : items2 > items3 ? items2 : items3
+              }
+            }
+          }
+          var valid0 = _errs2 === errors
+        } else {
+          var valid0 = true
+        }
+      }
+    }
+  }
+  validate10.errors = vErrors
+  return errors === 0
+}
+validate10.evaluated = {
+  props: {unevaluatedItems: true, unevaluatedProperties: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema12 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/validation",
+  $vocabulary: {"https://json-schema.org/draft/2020-12/vocab/validation": true},
+  $dynamicAnchor: "meta",
+  title: "Validation vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    type: {
+      anyOf: [
+        {$ref: "#/$defs/simpleTypes"},
+        {
+          type: "array",
+          items: {$ref: "#/$defs/simpleTypes"},
+          minItems: 1,
+          uniqueItems: true,
+        },
+      ],
+    },
+    const: true,
+    enum: {type: "array", items: true},
+    multipleOf: {type: "number", exclusiveMinimum: 0},
+    maximum: {type: "number"},
+    exclusiveMaximum: {type: "number"},
+    minimum: {type: "number"},
+    exclusiveMinimum: {type: "number"},
+    maxLength: {$ref: "#/$defs/nonNegativeInteger"},
+    minLength: {$ref: "#/$defs/nonNegativeIntegerDefault0"},
+    pattern: {type: "string", format: "regex"},
+    maxItems: {$ref: "#/$defs/nonNegativeInteger"},
+    minItems: {$ref: "#/$defs/nonNegativeIntegerDefault0"},
+    uniqueItems: {type: "boolean", default: false},
+    maxContains: {$ref: "#/$defs/nonNegativeInteger"},
+    minContains: {$ref: "#/$defs/nonNegativeInteger", default: 1},
+    maxProperties: {$ref: "#/$defs/nonNegativeInteger"},
+    minProperties: {$ref: "#/$defs/nonNegativeIntegerDefault0"},
+    required: {$ref: "#/$defs/stringArray"},
+    dependentRequired: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/stringArray"},
+    },
+  },
+  $defs: {
+    nonNegativeInteger: {type: "integer", minimum: 0},
+    nonNegativeIntegerDefault0: {
+      $ref: "#/$defs/nonNegativeInteger",
+      default: 0,
+    },
+    simpleTypes: {
+      enum: [
+        "array",
+        "boolean",
+        "integer",
+        "null",
+        "number",
+        "object",
+        "string",
+      ],
+    },
+    stringArray: {
+      type: "array",
+      items: {type: "string"},
+      uniqueItems: true,
+      default: [],
+    },
+  },
+}
+const schema13 = {
+  enum: ["array", "boolean", "integer", "null", "number", "object", "string"],
+}
+const schema15 = {type: "integer", minimum: 0}
+const func0 = require("ajv/dist/runtime/equal").default
+function validate12(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/validation" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate12.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate12.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema12.type},
+        message: "must be object,boolean",
+        schema: schema12.type,
+        parentSchema: schema12,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate12
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.type !== undefined) {
+        let data0 = data.type
+        const _errs1 = errors
+        const _errs2 = errors
+        let valid1 = false
+        const _errs3 = errors
+        if (
+          !(
+            data0 === "array" ||
+            data0 === "boolean" ||
+            data0 === "integer" ||
+            data0 === "null" ||
+            data0 === "number" ||
+            data0 === "object" ||
+            data0 === "string"
+          )
+        ) {
+          const err0 = {
+            instancePath: instancePath + "/type",
+            schemaPath: "#/$defs/simpleTypes/enum",
+            keyword: "enum",
+            params: {allowedValues: schema13.enum},
+            message: "must be equal to one of the allowed values",
+            schema: schema13.enum,
+            parentSchema: schema13,
+            data: data0,
+          }
+          if (vErrors === null) {
+            vErrors = [err0]
+          } else {
+            vErrors.push(err0)
+          }
+          errors++
+        }
+        var _valid0 = _errs3 === errors
+        valid1 = valid1 || _valid0
+        const _errs5 = errors
+        if (errors === _errs5) {
+          if (Array.isArray(data0)) {
+            if (data0.length < 1) {
+              const err1 = {
+                instancePath: instancePath + "/type",
+                schemaPath: "#/properties/type/anyOf/1/minItems",
+                keyword: "minItems",
+                params: {limit: 1},
+                message: "must NOT have fewer than 1 items",
+                schema: 1,
+                parentSchema: schema12.properties.type.anyOf[1],
+                data: data0,
+              }
+              if (vErrors === null) {
+                vErrors = [err1]
+              } else {
+                vErrors.push(err1)
+              }
+              errors++
+            } else {
+              var valid3 = true
+              const len0 = data0.length
+              for (let i0 = 0; i0 < len0; i0++) {
+                let data1 = data0[i0]
+                const _errs7 = errors
+                if (
+                  !(
+                    data1 === "array" ||
+                    data1 === "boolean" ||
+                    data1 === "integer" ||
+                    data1 === "null" ||
+                    data1 === "number" ||
+                    data1 === "object" ||
+                    data1 === "string"
+                  )
+                ) {
+                  const err2 = {
+                    instancePath: instancePath + "/type/" + i0,
+                    schemaPath: "#/$defs/simpleTypes/enum",
+                    keyword: "enum",
+                    params: {allowedValues: schema13.enum},
+                    message: "must be equal to one of the allowed values",
+                    schema: schema13.enum,
+                    parentSchema: schema13,
+                    data: data1,
+                  }
+                  if (vErrors === null) {
+                    vErrors = [err2]
+                  } else {
+                    vErrors.push(err2)
+                  }
+                  errors++
+                }
+                var valid3 = _errs7 === errors
+                if (!valid3) {
+                  break
+                }
+              }
+              if (valid3) {
+                let i1 = data0.length
+                let j0
+                if (i1 > 1) {
+                  outer0: for (; i1--; ) {
+                    for (j0 = i1; j0--; ) {
+                      if (func0(data0[i1], data0[j0])) {
+                        const err3 = {
+                          instancePath: instancePath + "/type",
+                          schemaPath: "#/properties/type/anyOf/1/uniqueItems",
+                          keyword: "uniqueItems",
+                          params: {i: i1, j: j0},
+                          message:
+                            "must NOT have duplicate items (items ## " +
+                            j0 +
+                            " and " +
+                            i1 +
+                            " are identical)",
+                          schema: true,
+                          parentSchema: schema12.properties.type.anyOf[1],
+                          data: data0,
+                        }
+                        if (vErrors === null) {
+                          vErrors = [err3]
+                        } else {
+                          vErrors.push(err3)
+                        }
+                        errors++
+                        break outer0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            const err4 = {
+              instancePath: instancePath + "/type",
+              schemaPath: "#/properties/type/anyOf/1/type",
+              keyword: "type",
+              params: {type: "array"},
+              message: "must be array",
+              schema: schema12.properties.type.anyOf[1].type,
+              parentSchema: schema12.properties.type.anyOf[1],
+              data: data0,
+            }
+            if (vErrors === null) {
+              vErrors = [err4]
+            } else {
+              vErrors.push(err4)
+            }
+            errors++
+          }
+        }
+        var _valid0 = _errs5 === errors
+        valid1 = valid1 || _valid0
+        if (!valid1) {
+          const err5 = {
+            instancePath: instancePath + "/type",
+            schemaPath: "#/properties/type/anyOf",
+            keyword: "anyOf",
+            params: {},
+            message: "must match a schema in anyOf",
+            schema: schema12.properties.type.anyOf,
+            parentSchema: schema12.properties.type,
+            data: data0,
+          }
+          if (vErrors === null) {
+            vErrors = [err5]
+          } else {
+            vErrors.push(err5)
+          }
+          errors++
+          validate12.errors = vErrors
+          return false
+        } else {
+          errors = _errs2
+          if (vErrors !== null) {
+            if (_errs2) {
+              vErrors.length = _errs2
+            } else {
+              vErrors = null
+            }
+          }
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.enum !== undefined) {
+          let data2 = data.enum
+          const _errs9 = errors
+          if (errors === _errs9) {
+            if (!Array.isArray(data2)) {
+              validate12.errors = [
+                {
+                  instancePath: instancePath + "/enum",
+                  schemaPath: "#/properties/enum/type",
+                  keyword: "type",
+                  params: {type: "array"},
+                  message: "must be array",
+                  schema: schema12.properties.enum.type,
+                  parentSchema: schema12.properties.enum,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+          }
+          var valid0 = _errs9 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.multipleOf !== undefined) {
+            let data3 = data.multipleOf
+            const _errs11 = errors
+            if (errors === _errs11) {
+              if (typeof data3 == "number") {
+                if (data3 <= 0 || isNaN(data3)) {
+                  validate12.errors = [
+                    {
+                      instancePath: instancePath + "/multipleOf",
+                      schemaPath: "#/properties/multipleOf/exclusiveMinimum",
+                      keyword: "exclusiveMinimum",
+                      params: {comparison: ">", limit: 0},
+                      message: "must be > 0",
+                      schema: 0,
+                      parentSchema: schema12.properties.multipleOf,
+                      data: data3,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate12.errors = [
+                  {
+                    instancePath: instancePath + "/multipleOf",
+                    schemaPath: "#/properties/multipleOf/type",
+                    keyword: "type",
+                    params: {type: "number"},
+                    message: "must be number",
+                    schema: schema12.properties.multipleOf.type,
+                    parentSchema: schema12.properties.multipleOf,
+                    data: data3,
+                  },
+                ]
+                return false
+              }
+            }
+            var valid0 = _errs11 === errors
+          } else {
+            var valid0 = true
+          }
+          if (valid0) {
+            if (data.maximum !== undefined) {
+              let data4 = data.maximum
+              const _errs13 = errors
+              if (!(typeof data4 == "number")) {
+                validate12.errors = [
+                  {
+                    instancePath: instancePath + "/maximum",
+                    schemaPath: "#/properties/maximum/type",
+                    keyword: "type",
+                    params: {type: "number"},
+                    message: "must be number",
+                    schema: schema12.properties.maximum.type,
+                    parentSchema: schema12.properties.maximum,
+                    data: data4,
+                  },
+                ]
+                return false
+              }
+              var valid0 = _errs13 === errors
+            } else {
+              var valid0 = true
+            }
+            if (valid0) {
+              if (data.exclusiveMaximum !== undefined) {
+                let data5 = data.exclusiveMaximum
+                const _errs15 = errors
+                if (!(typeof data5 == "number")) {
+                  validate12.errors = [
+                    {
+                      instancePath: instancePath + "/exclusiveMaximum",
+                      schemaPath: "#/properties/exclusiveMaximum/type",
+                      keyword: "type",
+                      params: {type: "number"},
+                      message: "must be number",
+                      schema: schema12.properties.exclusiveMaximum.type,
+                      parentSchema: schema12.properties.exclusiveMaximum,
+                      data: data5,
+                    },
+                  ]
+                  return false
+                }
+                var valid0 = _errs15 === errors
+              } else {
+                var valid0 = true
+              }
+              if (valid0) {
+                if (data.minimum !== undefined) {
+                  let data6 = data.minimum
+                  const _errs17 = errors
+                  if (!(typeof data6 == "number")) {
+                    validate12.errors = [
+                      {
+                        instancePath: instancePath + "/minimum",
+                        schemaPath: "#/properties/minimum/type",
+                        keyword: "type",
+                        params: {type: "number"},
+                        message: "must be number",
+                        schema: schema12.properties.minimum.type,
+                        parentSchema: schema12.properties.minimum,
+                        data: data6,
+                      },
+                    ]
+                    return false
+                  }
+                  var valid0 = _errs17 === errors
+                } else {
+                  var valid0 = true
+                }
+                if (valid0) {
+                  if (data.exclusiveMinimum !== undefined) {
+                    let data7 = data.exclusiveMinimum
+                    const _errs19 = errors
+                    if (!(typeof data7 == "number")) {
+                      validate12.errors = [
+                        {
+                          instancePath: instancePath + "/exclusiveMinimum",
+                          schemaPath: "#/properties/exclusiveMinimum/type",
+                          keyword: "type",
+                          params: {type: "number"},
+                          message: "must be number",
+                          schema: schema12.properties.exclusiveMinimum.type,
+                          parentSchema: schema12.properties.exclusiveMinimum,
+                          data: data7,
+                        },
+                      ]
+                      return false
+                    }
+                    var valid0 = _errs19 === errors
+                  } else {
+                    var valid0 = true
+                  }
+                  if (valid0) {
+                    if (data.maxLength !== undefined) {
+                      let data8 = data.maxLength
+                      const _errs21 = errors
+                      const _errs22 = errors
+                      if (
+                        !(
+                          typeof data8 == "number" &&
+                          !(data8 % 1) &&
+                          !isNaN(data8)
+                        )
+                      ) {
+                        validate12.errors = [
+                          {
+                            instancePath: instancePath + "/maxLength",
+                            schemaPath: "#/$defs/nonNegativeInteger/type",
+                            keyword: "type",
+                            params: {type: "integer"},
+                            message: "must be integer",
+                            schema: schema15.type,
+                            parentSchema: schema15,
+                            data: data8,
+                          },
+                        ]
+                        return false
+                      }
+                      if (errors === _errs22) {
+                        if (typeof data8 == "number") {
+                          if (data8 < 0 || isNaN(data8)) {
+                            validate12.errors = [
+                              {
+                                instancePath: instancePath + "/maxLength",
+                                schemaPath:
+                                  "#/$defs/nonNegativeInteger/minimum",
+                                keyword: "minimum",
+                                params: {comparison: ">=", limit: 0},
+                                message: "must be >= 0",
+                                schema: 0,
+                                parentSchema: schema15,
+                                data: data8,
+                              },
+                            ]
+                            return false
+                          }
+                        }
+                      }
+                      var valid0 = _errs21 === errors
+                    } else {
+                      var valid0 = true
+                    }
+                    if (valid0) {
+                      if (data.minLength !== undefined) {
+                        let data9 = data.minLength
+                        const _errs24 = errors
+                        const _errs25 = errors
+                        if (
+                          !(
+                            typeof data9 == "number" &&
+                            !(data9 % 1) &&
+                            !isNaN(data9)
+                          )
+                        ) {
+                          validate12.errors = [
+                            {
+                              instancePath: instancePath + "/minLength",
+                              schemaPath:
+                                "#/$defs/nonNegativeIntegerDefault0/type",
+                              keyword: "type",
+                              params: {type: "integer"},
+                              message: "must be integer",
+                              schema: schema15.type,
+                              parentSchema: schema15,
+                              data: data9,
+                            },
+                          ]
+                          return false
+                        }
+                        if (errors === _errs25) {
+                          if (typeof data9 == "number") {
+                            if (data9 < 0 || isNaN(data9)) {
+                              validate12.errors = [
+                                {
+                                  instancePath: instancePath + "/minLength",
+                                  schemaPath:
+                                    "#/$defs/nonNegativeIntegerDefault0/minimum",
+                                  keyword: "minimum",
+                                  params: {comparison: ">=", limit: 0},
+                                  message: "must be >= 0",
+                                  schema: 0,
+                                  parentSchema: schema15,
+                                  data: data9,
+                                },
+                              ]
+                              return false
+                            }
+                          }
+                        }
+                        var valid0 = _errs24 === errors
+                      } else {
+                        var valid0 = true
+                      }
+                      if (valid0) {
+                        if (data.pattern !== undefined) {
+                          let data10 = data.pattern
+                          const _errs27 = errors
+                          if (errors === _errs27) {
+                            if (errors === _errs27) {
+                              if (!(typeof data10 === "string")) {
+                                validate12.errors = [
+                                  {
+                                    instancePath: instancePath + "/pattern",
+                                    schemaPath: "#/properties/pattern/type",
+                                    keyword: "type",
+                                    params: {type: "string"},
+                                    message: "must be string",
+                                    schema: schema12.properties.pattern.type,
+                                    parentSchema: schema12.properties.pattern,
+                                    data: data10,
+                                  },
+                                ]
+                                return false
+                              }
+                            }
+                          }
+                          var valid0 = _errs27 === errors
+                        } else {
+                          var valid0 = true
+                        }
+                        if (valid0) {
+                          if (data.maxItems !== undefined) {
+                            let data11 = data.maxItems
+                            const _errs29 = errors
+                            const _errs30 = errors
+                            if (
+                              !(
+                                typeof data11 == "number" &&
+                                !(data11 % 1) &&
+                                !isNaN(data11)
+                              )
+                            ) {
+                              validate12.errors = [
+                                {
+                                  instancePath: instancePath + "/maxItems",
+                                  schemaPath: "#/$defs/nonNegativeInteger/type",
+                                  keyword: "type",
+                                  params: {type: "integer"},
+                                  message: "must be integer",
+                                  schema: schema15.type,
+                                  parentSchema: schema15,
+                                  data: data11,
+                                },
+                              ]
+                              return false
+                            }
+                            if (errors === _errs30) {
+                              if (typeof data11 == "number") {
+                                if (data11 < 0 || isNaN(data11)) {
+                                  validate12.errors = [
+                                    {
+                                      instancePath: instancePath + "/maxItems",
+                                      schemaPath:
+                                        "#/$defs/nonNegativeInteger/minimum",
+                                      keyword: "minimum",
+                                      params: {comparison: ">=", limit: 0},
+                                      message: "must be >= 0",
+                                      schema: 0,
+                                      parentSchema: schema15,
+                                      data: data11,
+                                    },
+                                  ]
+                                  return false
+                                }
+                              }
+                            }
+                            var valid0 = _errs29 === errors
+                          } else {
+                            var valid0 = true
+                          }
+                          if (valid0) {
+                            if (data.minItems !== undefined) {
+                              let data12 = data.minItems
+                              const _errs32 = errors
+                              const _errs33 = errors
+                              if (
+                                !(
+                                  typeof data12 == "number" &&
+                                  !(data12 % 1) &&
+                                  !isNaN(data12)
+                                )
+                              ) {
+                                validate12.errors = [
+                                  {
+                                    instancePath: instancePath + "/minItems",
+                                    schemaPath:
+                                      "#/$defs/nonNegativeIntegerDefault0/type",
+                                    keyword: "type",
+                                    params: {type: "integer"},
+                                    message: "must be integer",
+                                    schema: schema15.type,
+                                    parentSchema: schema15,
+                                    data: data12,
+                                  },
+                                ]
+                                return false
+                              }
+                              if (errors === _errs33) {
+                                if (typeof data12 == "number") {
+                                  if (data12 < 0 || isNaN(data12)) {
+                                    validate12.errors = [
+                                      {
+                                        instancePath:
+                                          instancePath + "/minItems",
+                                        schemaPath:
+                                          "#/$defs/nonNegativeIntegerDefault0/minimum",
+                                        keyword: "minimum",
+                                        params: {comparison: ">=", limit: 0},
+                                        message: "must be >= 0",
+                                        schema: 0,
+                                        parentSchema: schema15,
+                                        data: data12,
+                                      },
+                                    ]
+                                    return false
+                                  }
+                                }
+                              }
+                              var valid0 = _errs32 === errors
+                            } else {
+                              var valid0 = true
+                            }
+                            if (valid0) {
+                              if (data.uniqueItems !== undefined) {
+                                let data13 = data.uniqueItems
+                                const _errs35 = errors
+                                if (typeof data13 !== "boolean") {
+                                  validate12.errors = [
+                                    {
+                                      instancePath:
+                                        instancePath + "/uniqueItems",
+                                      schemaPath:
+                                        "#/properties/uniqueItems/type",
+                                      keyword: "type",
+                                      params: {type: "boolean"},
+                                      message: "must be boolean",
+                                      schema:
+                                        schema12.properties.uniqueItems.type,
+                                      parentSchema:
+                                        schema12.properties.uniqueItems,
+                                      data: data13,
+                                    },
+                                  ]
+                                  return false
+                                }
+                                var valid0 = _errs35 === errors
+                              } else {
+                                var valid0 = true
+                              }
+                              if (valid0) {
+                                if (data.maxContains !== undefined) {
+                                  let data14 = data.maxContains
+                                  const _errs37 = errors
+                                  const _errs38 = errors
+                                  if (
+                                    !(
+                                      typeof data14 == "number" &&
+                                      !(data14 % 1) &&
+                                      !isNaN(data14)
+                                    )
+                                  ) {
+                                    validate12.errors = [
+                                      {
+                                        instancePath:
+                                          instancePath + "/maxContains",
+                                        schemaPath:
+                                          "#/$defs/nonNegativeInteger/type",
+                                        keyword: "type",
+                                        params: {type: "integer"},
+                                        message: "must be integer",
+                                        schema: schema15.type,
+                                        parentSchema: schema15,
+                                        data: data14,
+                                      },
+                                    ]
+                                    return false
+                                  }
+                                  if (errors === _errs38) {
+                                    if (typeof data14 == "number") {
+                                      if (data14 < 0 || isNaN(data14)) {
+                                        validate12.errors = [
+                                          {
+                                            instancePath:
+                                              instancePath + "/maxContains",
+                                            schemaPath:
+                                              "#/$defs/nonNegativeInteger/minimum",
+                                            keyword: "minimum",
+                                            params: {
+                                              comparison: ">=",
+                                              limit: 0,
+                                            },
+                                            message: "must be >= 0",
+                                            schema: 0,
+                                            parentSchema: schema15,
+                                            data: data14,
+                                          },
+                                        ]
+                                        return false
+                                      }
+                                    }
+                                  }
+                                  var valid0 = _errs37 === errors
+                                } else {
+                                  var valid0 = true
+                                }
+                                if (valid0) {
+                                  if (data.minContains !== undefined) {
+                                    let data15 = data.minContains
+                                    const _errs40 = errors
+                                    const _errs41 = errors
+                                    if (
+                                      !(
+                                        typeof data15 == "number" &&
+                                        !(data15 % 1) &&
+                                        !isNaN(data15)
+                                      )
+                                    ) {
+                                      validate12.errors = [
+                                        {
+                                          instancePath:
+                                            instancePath + "/minContains",
+                                          schemaPath:
+                                            "#/$defs/nonNegativeInteger/type",
+                                          keyword: "type",
+                                          params: {type: "integer"},
+                                          message: "must be integer",
+                                          schema: schema15.type,
+                                          parentSchema: schema15,
+                                          data: data15,
+                                        },
+                                      ]
+                                      return false
+                                    }
+                                    if (errors === _errs41) {
+                                      if (typeof data15 == "number") {
+                                        if (data15 < 0 || isNaN(data15)) {
+                                          validate12.errors = [
+                                            {
+                                              instancePath:
+                                                instancePath + "/minContains",
+                                              schemaPath:
+                                                "#/$defs/nonNegativeInteger/minimum",
+                                              keyword: "minimum",
+                                              params: {
+                                                comparison: ">=",
+                                                limit: 0,
+                                              },
+                                              message: "must be >= 0",
+                                              schema: 0,
+                                              parentSchema: schema15,
+                                              data: data15,
+                                            },
+                                          ]
+                                          return false
+                                        }
+                                      }
+                                    }
+                                    var valid0 = _errs40 === errors
+                                  } else {
+                                    var valid0 = true
+                                  }
+                                  if (valid0) {
+                                    if (data.maxProperties !== undefined) {
+                                      let data16 = data.maxProperties
+                                      const _errs43 = errors
+                                      const _errs44 = errors
+                                      if (
+                                        !(
+                                          typeof data16 == "number" &&
+                                          !(data16 % 1) &&
+                                          !isNaN(data16)
+                                        )
+                                      ) {
+                                        validate12.errors = [
+                                          {
+                                            instancePath:
+                                              instancePath + "/maxProperties",
+                                            schemaPath:
+                                              "#/$defs/nonNegativeInteger/type",
+                                            keyword: "type",
+                                            params: {type: "integer"},
+                                            message: "must be integer",
+                                            schema: schema15.type,
+                                            parentSchema: schema15,
+                                            data: data16,
+                                          },
+                                        ]
+                                        return false
+                                      }
+                                      if (errors === _errs44) {
+                                        if (typeof data16 == "number") {
+                                          if (data16 < 0 || isNaN(data16)) {
+                                            validate12.errors = [
+                                              {
+                                                instancePath:
+                                                  instancePath +
+                                                  "/maxProperties",
+                                                schemaPath:
+                                                  "#/$defs/nonNegativeInteger/minimum",
+                                                keyword: "minimum",
+                                                params: {
+                                                  comparison: ">=",
+                                                  limit: 0,
+                                                },
+                                                message: "must be >= 0",
+                                                schema: 0,
+                                                parentSchema: schema15,
+                                                data: data16,
+                                              },
+                                            ]
+                                            return false
+                                          }
+                                        }
+                                      }
+                                      var valid0 = _errs43 === errors
+                                    } else {
+                                      var valid0 = true
+                                    }
+                                    if (valid0) {
+                                      if (data.minProperties !== undefined) {
+                                        let data17 = data.minProperties
+                                        const _errs46 = errors
+                                        const _errs47 = errors
+                                        if (
+                                          !(
+                                            typeof data17 == "number" &&
+                                            !(data17 % 1) &&
+                                            !isNaN(data17)
+                                          )
+                                        ) {
+                                          validate12.errors = [
+                                            {
+                                              instancePath:
+                                                instancePath + "/minProperties",
+                                              schemaPath:
+                                                "#/$defs/nonNegativeIntegerDefault0/type",
+                                              keyword: "type",
+                                              params: {type: "integer"},
+                                              message: "must be integer",
+                                              schema: schema15.type,
+                                              parentSchema: schema15,
+                                              data: data17,
+                                            },
+                                          ]
+                                          return false
+                                        }
+                                        if (errors === _errs47) {
+                                          if (typeof data17 == "number") {
+                                            if (data17 < 0 || isNaN(data17)) {
+                                              validate12.errors = [
+                                                {
+                                                  instancePath:
+                                                    instancePath +
+                                                    "/minProperties",
+                                                  schemaPath:
+                                                    "#/$defs/nonNegativeIntegerDefault0/minimum",
+                                                  keyword: "minimum",
+                                                  params: {
+                                                    comparison: ">=",
+                                                    limit: 0,
+                                                  },
+                                                  message: "must be >= 0",
+                                                  schema: 0,
+                                                  parentSchema: schema15,
+                                                  data: data17,
+                                                },
+                                              ]
+                                              return false
+                                            }
+                                          }
+                                        }
+                                        var valid0 = _errs46 === errors
+                                      } else {
+                                        var valid0 = true
+                                      }
+                                      if (valid0) {
+                                        if (data.required !== undefined) {
+                                          let data18 = data.required
+                                          const _errs49 = errors
+                                          const _errs50 = errors
+                                          if (errors === _errs50) {
+                                            if (Array.isArray(data18)) {
+                                              var valid15 = true
+                                              const len1 = data18.length
+                                              for (
+                                                let i2 = 0;
+                                                i2 < len1;
+                                                i2++
+                                              ) {
+                                                let data19 = data18[i2]
+                                                const _errs52 = errors
+                                                if (
+                                                  typeof data19 !== "string"
+                                                ) {
+                                                  validate12.errors = [
+                                                    {
+                                                      instancePath:
+                                                        instancePath +
+                                                        "/required/" +
+                                                        i2,
+                                                      schemaPath:
+                                                        "#/$defs/stringArray/items/type",
+                                                      keyword: "type",
+                                                      params: {type: "string"},
+                                                      message: "must be string",
+                                                      schema:
+                                                        schema23.items.type,
+                                                      parentSchema:
+                                                        schema23.items,
+                                                      data: data19,
+                                                    },
+                                                  ]
+                                                  return false
+                                                }
+                                                var valid15 = _errs52 === errors
+                                                if (!valid15) {
+                                                  break
+                                                }
+                                              }
+                                              if (valid15) {
+                                                let i3 = data18.length
+                                                let j1
+                                                if (i3 > 1) {
+                                                  const indices0 = {}
+                                                  for (; i3--; ) {
+                                                    let item0 = data18[i3]
+                                                    if (
+                                                      typeof item0 !== "string"
+                                                    ) {
+                                                      continue
+                                                    }
+                                                    if (
+                                                      typeof indices0[item0] ==
+                                                      "number"
+                                                    ) {
+                                                      j1 = indices0[item0]
+                                                      validate12.errors = [
+                                                        {
+                                                          instancePath:
+                                                            instancePath +
+                                                            "/required",
+                                                          schemaPath:
+                                                            "#/$defs/stringArray/uniqueItems",
+                                                          keyword:
+                                                            "uniqueItems",
+                                                          params: {
+                                                            i: i3,
+                                                            j: j1,
+                                                          },
+                                                          message:
+                                                            "must NOT have duplicate items (items ## " +
+                                                            j1 +
+                                                            " and " +
+                                                            i3 +
+                                                            " are identical)",
+                                                          schema: true,
+                                                          parentSchema:
+                                                            schema23,
+                                                          data: data18,
+                                                        },
+                                                      ]
+                                                      return false
+                                                      break
+                                                    }
+                                                    indices0[item0] = i3
+                                                  }
+                                                }
+                                              }
+                                            } else {
+                                              validate12.errors = [
+                                                {
+                                                  instancePath:
+                                                    instancePath + "/required",
+                                                  schemaPath:
+                                                    "#/$defs/stringArray/type",
+                                                  keyword: "type",
+                                                  params: {type: "array"},
+                                                  message: "must be array",
+                                                  schema: schema23.type,
+                                                  parentSchema: schema23,
+                                                  data: data18,
+                                                },
+                                              ]
+                                              return false
+                                            }
+                                          }
+                                          var valid0 = _errs49 === errors
+                                        } else {
+                                          var valid0 = true
+                                        }
+                                        if (valid0) {
+                                          if (
+                                            data.dependentRequired !== undefined
+                                          ) {
+                                            let data20 = data.dependentRequired
+                                            const _errs54 = errors
+                                            if (errors === _errs54) {
+                                              if (
+                                                data20 &&
+                                                typeof data20 == "object" &&
+                                                !Array.isArray(data20)
+                                              ) {
+                                                for (const key0 in data20) {
+                                                  let data21 = data20[key0]
+                                                  const _errs57 = errors
+                                                  const _errs58 = errors
+                                                  if (errors === _errs58) {
+                                                    if (Array.isArray(data21)) {
+                                                      var valid19 = true
+                                                      const len2 = data21.length
+                                                      for (
+                                                        let i4 = 0;
+                                                        i4 < len2;
+                                                        i4++
+                                                      ) {
+                                                        let data22 = data21[i4]
+                                                        const _errs60 = errors
+                                                        if (
+                                                          typeof data22 !==
+                                                          "string"
+                                                        ) {
+                                                          validate12.errors = [
+                                                            {
+                                                              instancePath:
+                                                                instancePath +
+                                                                "/dependentRequired/" +
+                                                                key0
+                                                                  .replace(
+                                                                    /~/g,
+                                                                    "~0",
+                                                                  )
+                                                                  .replace(
+                                                                    /\//g,
+                                                                    "~1",
+                                                                  ) +
+                                                                "/" +
+                                                                i4,
+                                                              schemaPath:
+                                                                "#/$defs/stringArray/items/type",
+                                                              keyword: "type",
+                                                              params: {
+                                                                type: "string",
+                                                              },
+                                                              message:
+                                                                "must be string",
+                                                              schema:
+                                                                schema23.items
+                                                                  .type,
+                                                              parentSchema:
+                                                                schema23.items,
+                                                              data: data22,
+                                                            },
+                                                          ]
+                                                          return false
+                                                        }
+                                                        var valid19 =
+                                                          _errs60 === errors
+                                                        if (!valid19) {
+                                                          break
+                                                        }
+                                                      }
+                                                      if (valid19) {
+                                                        let i5 = data21.length
+                                                        let j2
+                                                        if (i5 > 1) {
+                                                          const indices1 = {}
+                                                          for (; i5--; ) {
+                                                            let item1 =
+                                                              data21[i5]
+                                                            if (
+                                                              typeof item1 !==
+                                                              "string"
+                                                            ) {
+                                                              continue
+                                                            }
+                                                            if (
+                                                              typeof indices1[
+                                                                item1
+                                                              ] == "number"
+                                                            ) {
+                                                              j2 =
+                                                                indices1[item1]
+                                                              validate12.errors =
+                                                                [
+                                                                  {
+                                                                    instancePath:
+                                                                      instancePath +
+                                                                      "/dependentRequired/" +
+                                                                      key0
+                                                                        .replace(
+                                                                          /~/g,
+                                                                          "~0",
+                                                                        )
+                                                                        .replace(
+                                                                          /\//g,
+                                                                          "~1",
+                                                                        ),
+                                                                    schemaPath:
+                                                                      "#/$defs/stringArray/uniqueItems",
+                                                                    keyword:
+                                                                      "uniqueItems",
+                                                                    params: {
+                                                                      i: i5,
+                                                                      j: j2,
+                                                                    },
+                                                                    message:
+                                                                      "must NOT have duplicate items (items ## " +
+                                                                      j2 +
+                                                                      " and " +
+                                                                      i5 +
+                                                                      " are identical)",
+                                                                    schema: true,
+                                                                    parentSchema:
+                                                                      schema23,
+                                                                    data: data21,
+                                                                  },
+                                                                ]
+                                                              return false
+                                                              break
+                                                            }
+                                                            indices1[item1] = i5
+                                                          }
+                                                        }
+                                                      }
+                                                    } else {
+                                                      validate12.errors = [
+                                                        {
+                                                          instancePath:
+                                                            instancePath +
+                                                            "/dependentRequired/" +
+                                                            key0
+                                                              .replace(
+                                                                /~/g,
+                                                                "~0",
+                                                              )
+                                                              .replace(
+                                                                /\//g,
+                                                                "~1",
+                                                              ),
+                                                          schemaPath:
+                                                            "#/$defs/stringArray/type",
+                                                          keyword: "type",
+                                                          params: {
+                                                            type: "array",
+                                                          },
+                                                          message:
+                                                            "must be array",
+                                                          schema: schema23.type,
+                                                          parentSchema:
+                                                            schema23,
+                                                          data: data21,
+                                                        },
+                                                      ]
+                                                      return false
+                                                    }
+                                                  }
+                                                  var valid17 =
+                                                    _errs57 === errors
+                                                  if (!valid17) {
+                                                    break
+                                                  }
+                                                }
+                                              } else {
+                                                validate12.errors = [
+                                                  {
+                                                    instancePath:
+                                                      instancePath +
+                                                      "/dependentRequired",
+                                                    schemaPath:
+                                                      "#/properties/dependentRequired/type",
+                                                    keyword: "type",
+                                                    params: {type: "object"},
+                                                    message: "must be object",
+                                                    schema:
+                                                      schema12.properties
+                                                        .dependentRequired.type,
+                                                    parentSchema:
+                                                      schema12.properties
+                                                        .dependentRequired,
+                                                    data: data20,
+                                                  },
+                                                ]
+                                                return false
+                                              }
+                                            }
+                                            var valid0 = _errs54 === errors
+                                          } else {
+                                            var valid0 = true
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  validate12.errors = vErrors
+  return errors === 0
+}
+validate12.evaluated = {
+  props: {
+    type: true,
+    const: true,
+    enum: true,
+    multipleOf: true,
+    maximum: true,
+    exclusiveMaximum: true,
+    minimum: true,
+    exclusiveMinimum: true,
+    maxLength: true,
+    minLength: true,
+    pattern: true,
+    maxItems: true,
+    minItems: true,
+    uniqueItems: true,
+    maxContains: true,
+    minContains: true,
+    maxProperties: true,
+    minProperties: true,
+    required: true,
+    dependentRequired: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema25 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/meta-data",
+  $vocabulary: {"https://json-schema.org/draft/2020-12/vocab/meta-data": true},
+  $dynamicAnchor: "meta",
+  title: "Meta-data vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    title: {type: "string"},
+    description: {type: "string"},
+    default: true,
+    deprecated: {type: "boolean", default: false},
+    readOnly: {type: "boolean", default: false},
+    writeOnly: {type: "boolean", default: false},
+    examples: {type: "array", items: true},
+  },
+}
+function validate14(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/meta-data" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate14.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate14.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema25.type},
+        message: "must be object,boolean",
+        schema: schema25.type,
+        parentSchema: schema25,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate14
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.title !== undefined) {
+        let data0 = data.title
+        const _errs1 = errors
+        if (typeof data0 !== "string") {
+          validate14.errors = [
+            {
+              instancePath: instancePath + "/title",
+              schemaPath: "#/properties/title/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema25.properties.title.type,
+              parentSchema: schema25.properties.title,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.description !== undefined) {
+          let data1 = data.description
+          const _errs3 = errors
+          if (typeof data1 !== "string") {
+            validate14.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema25.properties.description.type,
+                parentSchema: schema25.properties.description,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid0 = _errs3 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.deprecated !== undefined) {
+            let data2 = data.deprecated
+            const _errs5 = errors
+            if (typeof data2 !== "boolean") {
+              validate14.errors = [
+                {
+                  instancePath: instancePath + "/deprecated",
+                  schemaPath: "#/properties/deprecated/type",
+                  keyword: "type",
+                  params: {type: "boolean"},
+                  message: "must be boolean",
+                  schema: schema25.properties.deprecated.type,
+                  parentSchema: schema25.properties.deprecated,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid0 = _errs5 === errors
+          } else {
+            var valid0 = true
+          }
+          if (valid0) {
+            if (data.readOnly !== undefined) {
+              let data3 = data.readOnly
+              const _errs7 = errors
+              if (typeof data3 !== "boolean") {
+                validate14.errors = [
+                  {
+                    instancePath: instancePath + "/readOnly",
+                    schemaPath: "#/properties/readOnly/type",
+                    keyword: "type",
+                    params: {type: "boolean"},
+                    message: "must be boolean",
+                    schema: schema25.properties.readOnly.type,
+                    parentSchema: schema25.properties.readOnly,
+                    data: data3,
+                  },
+                ]
+                return false
+              }
+              var valid0 = _errs7 === errors
+            } else {
+              var valid0 = true
+            }
+            if (valid0) {
+              if (data.writeOnly !== undefined) {
+                let data4 = data.writeOnly
+                const _errs9 = errors
+                if (typeof data4 !== "boolean") {
+                  validate14.errors = [
+                    {
+                      instancePath: instancePath + "/writeOnly",
+                      schemaPath: "#/properties/writeOnly/type",
+                      keyword: "type",
+                      params: {type: "boolean"},
+                      message: "must be boolean",
+                      schema: schema25.properties.writeOnly.type,
+                      parentSchema: schema25.properties.writeOnly,
+                      data: data4,
+                    },
+                  ]
+                  return false
+                }
+                var valid0 = _errs9 === errors
+              } else {
+                var valid0 = true
+              }
+              if (valid0) {
+                if (data.examples !== undefined) {
+                  let data5 = data.examples
+                  const _errs11 = errors
+                  if (errors === _errs11) {
+                    if (!Array.isArray(data5)) {
+                      validate14.errors = [
+                        {
+                          instancePath: instancePath + "/examples",
+                          schemaPath: "#/properties/examples/type",
+                          keyword: "type",
+                          params: {type: "array"},
+                          message: "must be array",
+                          schema: schema25.properties.examples.type,
+                          parentSchema: schema25.properties.examples,
+                          data: data5,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                  var valid0 = _errs11 === errors
+                } else {
+                  var valid0 = true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  validate14.errors = vErrors
+  return errors === 0
+}
+validate14.evaluated = {
+  props: {
+    title: true,
+    description: true,
+    default: true,
+    deprecated: true,
+    readOnly: true,
+    writeOnly: true,
+    examples: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema26 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/format-annotation",
+  $vocabulary: {
+    "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+  },
+  $dynamicAnchor: "meta",
+  title: "Format vocabulary meta-schema for annotation results",
+  type: ["object", "boolean"],
+  properties: {format: {type: "string"}},
+}
+function validate16(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/format-annotation" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate16.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate16.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema26.type},
+        message: "must be object,boolean",
+        schema: schema26.type,
+        parentSchema: schema26,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate16
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.format !== undefined) {
+        let data0 = data.format
+        if (typeof data0 !== "string") {
+          validate16.errors = [
+            {
+              instancePath: instancePath + "/format",
+              schemaPath: "#/properties/format/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema26.properties.format.type,
+              parentSchema: schema26.properties.format,
+              data: data0,
+            },
+          ]
+          return false
+        }
+      }
+    }
+  }
+  validate16.errors = vErrors
+  return errors === 0
+}
+validate16.evaluated = {
+  props: {format: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema27 = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://json-schema.org/draft/2020-12/meta/content",
+  $vocabulary: {"https://json-schema.org/draft/2020-12/vocab/content": true},
+  $dynamicAnchor: "meta",
+  title: "Content vocabulary meta-schema",
+  type: ["object", "boolean"],
+  properties: {
+    contentEncoding: {type: "string"},
+    contentMediaType: {type: "string"},
+    contentSchema: {$dynamicRef: "#meta"},
+  },
+}
+function validate18(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/meta/content" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate18.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate18.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema27.type},
+        message: "must be object,boolean",
+        schema: schema27.type,
+        parentSchema: schema27,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate18
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.contentEncoding !== undefined) {
+        let data0 = data.contentEncoding
+        const _errs1 = errors
+        if (typeof data0 !== "string") {
+          validate18.errors = [
+            {
+              instancePath: instancePath + "/contentEncoding",
+              schemaPath: "#/properties/contentEncoding/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema27.properties.contentEncoding.type,
+              parentSchema: schema27.properties.contentEncoding,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.contentMediaType !== undefined) {
+          let data1 = data.contentMediaType
+          const _errs3 = errors
+          if (typeof data1 !== "string") {
+            validate18.errors = [
+              {
+                instancePath: instancePath + "/contentMediaType",
+                schemaPath: "#/properties/contentMediaType/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema27.properties.contentMediaType.type,
+                parentSchema: schema27.properties.contentMediaType,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid0 = _errs3 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.contentSchema !== undefined) {
+            let data2 = data.contentSchema
+            const _errs5 = errors
+            let _v0 = dynamicAnchors.meta
+            if (_v0) {
+              if (
+                !_v0(data2, {
+                  instancePath: instancePath + "/contentSchema",
+                  parentData: data,
+                  parentDataProperty: "contentSchema",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null ? _v0.errors : vErrors.concat(_v0.errors)
+                errors = vErrors.length
+              } else {
+                var props0 = _v0.evaluated.props
+                var items0 = _v0.evaluated.items
+              }
+            } else {
+              if (
+                !validate18(data2, {
+                  instancePath: instancePath + "/contentSchema",
+                  parentData: data,
+                  parentDataProperty: "contentSchema",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate18.errors
+                    : vErrors.concat(validate18.errors)
+                errors = vErrors.length
+              } else {
+                var props1 = validate18.evaluated.props
+                if (props0 !== true && props1 !== undefined) {
+                  if (props1 === true) {
+                    props0 = true
+                  } else {
+                    props0 = props0 || {}
+                    Object.assign(props0, props1)
+                  }
+                }
+                var items1 = validate18.evaluated.items
+                if (items0 !== true && items1 !== undefined) {
+                  items0 =
+                    items1 === true ? true : items0 > items1 ? items0 : items1
+                }
+              }
+            }
+            var valid0 = _errs5 === errors
+          } else {
+            var valid0 = true
+          }
+        }
+      }
+    }
+  }
+  validate18.errors = vErrors
+  return errors === 0
+}
+validate18.evaluated = {
+  props: {contentEncoding: true, contentMediaType: true, contentSchema: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+function validate0(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://json-schema.org/draft/2020-12/schema" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate0.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate0.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema0.type},
+        message: "must be object,boolean",
+        schema: schema0.type,
+        parentSchema: schema0,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate0
+  }
+  const _errs2 = errors
+  if (
+    !validate1(data, {
+      instancePath,
+      parentData,
+      parentDataProperty,
+      rootData,
+      dynamicAnchors,
+    })
+  ) {
+    vErrors =
+      vErrors === null ? validate1.errors : vErrors.concat(validate1.errors)
+    errors = vErrors.length
+  }
+  var valid0 = _errs2 === errors
+  if (valid0) {
+    const _errs3 = errors
+    if (
+      !validate3(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate3.errors : vErrors.concat(validate3.errors)
+      errors = vErrors.length
+    }
+    var valid0 = _errs3 === errors
+    if (valid0) {
+      const _errs4 = errors
+      if (
+        !validate10(data, {
+          instancePath,
+          parentData,
+          parentDataProperty,
+          rootData,
+          dynamicAnchors,
+        })
+      ) {
+        vErrors =
+          vErrors === null
+            ? validate10.errors
+            : vErrors.concat(validate10.errors)
+        errors = vErrors.length
+      }
+      var valid0 = _errs4 === errors
+      if (valid0) {
+        const _errs5 = errors
+        if (
+          !validate12(data, {
+            instancePath,
+            parentData,
+            parentDataProperty,
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? validate12.errors
+              : vErrors.concat(validate12.errors)
+          errors = vErrors.length
+        }
+        var valid0 = _errs5 === errors
+        if (valid0) {
+          const _errs6 = errors
+          if (
+            !validate14(data, {
+              instancePath,
+              parentData,
+              parentDataProperty,
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate14.errors
+                : vErrors.concat(validate14.errors)
+            errors = vErrors.length
+          }
+          var valid0 = _errs6 === errors
+          if (valid0) {
+            const _errs7 = errors
+            if (
+              !validate16(data, {
+                instancePath,
+                parentData,
+                parentDataProperty,
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate16.errors
+                  : vErrors.concat(validate16.errors)
+              errors = vErrors.length
+            }
+            var valid0 = _errs7 === errors
+            if (valid0) {
+              const _errs8 = errors
+              if (
+                !validate18(data, {
+                  instancePath,
+                  parentData,
+                  parentDataProperty,
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate18.errors
+                    : vErrors.concat(validate18.errors)
+                errors = vErrors.length
+              }
+              var valid0 = _errs8 === errors
+            }
+          }
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.definitions !== undefined) {
+        let data0 = data.definitions
+        const _errs9 = errors
+        if (errors === _errs9) {
+          if (data0 && typeof data0 == "object" && !Array.isArray(data0)) {
+            for (const key0 in data0) {
+              let data1 = data0[key0]
+              const _errs13 = errors
+              let _v0 = dynamicAnchors.meta
+              if (_v0) {
+                if (
+                  !_v0(data1, {
+                    instancePath:
+                      instancePath +
+                      "/definitions/" +
+                      key0.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    parentData: data0,
+                    parentDataProperty: key0,
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null ? _v0.errors : vErrors.concat(_v0.errors)
+                  errors = vErrors.length
+                } else {
+                  var props0 = _v0.evaluated.props
+                  var items0 = _v0.evaluated.items
+                }
+              } else {
+                if (
+                  !validate0(data1, {
+                    instancePath:
+                      instancePath +
+                      "/definitions/" +
+                      key0.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    parentData: data0,
+                    parentDataProperty: key0,
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate0.errors
+                      : vErrors.concat(validate0.errors)
+                  errors = vErrors.length
+                } else {
+                  var props1 = validate0.evaluated.props
+                  if (props0 !== true && props1 !== undefined) {
+                    if (props1 === true) {
+                      props0 = true
+                    } else {
+                      props0 = props0 || {}
+                      Object.assign(props0, props1)
+                    }
+                  }
+                  var items1 = validate0.evaluated.items
+                  if (items0 !== true && items1 !== undefined) {
+                    items0 =
+                      items1 === true ? true : items0 > items1 ? items0 : items1
+                  }
+                }
+              }
+              var valid2 = _errs13 === errors
+              if (!valid2) {
+                break
+              }
+            }
+          } else {
+            validate0.errors = [
+              {
+                instancePath: instancePath + "/definitions",
+                schemaPath: "#/properties/definitions/type",
+                keyword: "type",
+                params: {type: "object"},
+                message: "must be object",
+                schema: schema0.properties.definitions.type,
+                parentSchema: schema0.properties.definitions,
+                data: data0,
+              },
+            ]
+            return false
+          }
+        }
+        var valid1 = _errs9 === errors
+      } else {
+        var valid1 = true
+      }
+      if (valid1) {
+        if (data.dependencies !== undefined) {
+          let data2 = data.dependencies
+          const _errs14 = errors
+          if (errors === _errs14) {
+            if (data2 && typeof data2 == "object" && !Array.isArray(data2)) {
+              for (const key1 in data2) {
+                let data3 = data2[key1]
+                const _errs18 = errors
+                const _errs19 = errors
+                let valid5 = false
+                const _errs20 = errors
+                let _v1 = dynamicAnchors.meta
+                if (_v1) {
+                  if (
+                    !_v1(data3, {
+                      instancePath:
+                        instancePath +
+                        "/dependencies/" +
+                        key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      parentData: data2,
+                      parentDataProperty: key1,
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null ? _v1.errors : vErrors.concat(_v1.errors)
+                    errors = vErrors.length
+                  } else {
+                    var props2 = _v1.evaluated.props
+                    var items2 = _v1.evaluated.items
+                  }
+                } else {
+                  if (
+                    !validate0(data3, {
+                      instancePath:
+                        instancePath +
+                        "/dependencies/" +
+                        key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      parentData: data2,
+                      parentDataProperty: key1,
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate0.errors
+                        : vErrors.concat(validate0.errors)
+                    errors = vErrors.length
+                  } else {
+                    var props3 = validate0.evaluated.props
+                    if (props2 !== true && props3 !== undefined) {
+                      if (props3 === true) {
+                        props2 = true
+                      } else {
+                        props2 = props2 || {}
+                        Object.assign(props2, props3)
+                      }
+                    }
+                    var items3 = validate0.evaluated.items
+                    if (items2 !== true && items3 !== undefined) {
+                      items2 =
+                        items3 === true
+                          ? true
+                          : items2 > items3
+                            ? items2
+                            : items3
+                    }
+                  }
+                }
+                var _valid0 = _errs20 === errors
+                valid5 = valid5 || _valid0
+                const _errs21 = errors
+                const _errs22 = errors
+                if (errors === _errs22) {
+                  if (Array.isArray(data3)) {
+                    var valid8 = true
+                    const len0 = data3.length
+                    for (let i0 = 0; i0 < len0; i0++) {
+                      let data4 = data3[i0]
+                      const _errs24 = errors
+                      if (typeof data4 !== "string") {
+                        const err0 = {
+                          instancePath:
+                            instancePath +
+                            "/dependencies/" +
+                            key1.replace(/~/g, "~0").replace(/\//g, "~1") +
+                            "/" +
+                            i0,
+                          schemaPath:
+                            "meta/validation#/$defs/stringArray/items/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema23.items.type,
+                          parentSchema: schema23.items,
+                          data: data4,
+                        }
+                        if (vErrors === null) {
+                          vErrors = [err0]
+                        } else {
+                          vErrors.push(err0)
+                        }
+                        errors++
+                      }
+                      var valid8 = _errs24 === errors
+                      if (!valid8) {
+                        break
+                      }
+                    }
+                    if (valid8) {
+                      let i1 = data3.length
+                      let j0
+                      if (i1 > 1) {
+                        const indices0 = {}
+                        for (; i1--; ) {
+                          let item0 = data3[i1]
+                          if (typeof item0 !== "string") {
+                            continue
+                          }
+                          if (typeof indices0[item0] == "number") {
+                            j0 = indices0[item0]
+                            const err1 = {
+                              instancePath:
+                                instancePath +
+                                "/dependencies/" +
+                                key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                              schemaPath:
+                                "meta/validation#/$defs/stringArray/uniqueItems",
+                              keyword: "uniqueItems",
+                              params: {i: i1, j: j0},
+                              message:
+                                "must NOT have duplicate items (items ## " +
+                                j0 +
+                                " and " +
+                                i1 +
+                                " are identical)",
+                              schema: true,
+                              parentSchema: schema23,
+                              data: data3,
+                            }
+                            if (vErrors === null) {
+                              vErrors = [err1]
+                            } else {
+                              vErrors.push(err1)
+                            }
+                            errors++
+                            break
+                          }
+                          indices0[item0] = i1
+                        }
+                      }
+                    }
+                  } else {
+                    const err2 = {
+                      instancePath:
+                        instancePath +
+                        "/dependencies/" +
+                        key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      schemaPath: "meta/validation#/$defs/stringArray/type",
+                      keyword: "type",
+                      params: {type: "array"},
+                      message: "must be array",
+                      schema: schema23.type,
+                      parentSchema: schema23,
+                      data: data3,
+                    }
+                    if (vErrors === null) {
+                      vErrors = [err2]
+                    } else {
+                      vErrors.push(err2)
+                    }
+                    errors++
+                  }
+                }
+                var _valid0 = _errs21 === errors
+                valid5 = valid5 || _valid0
+                if (_valid0) {
+                  if (items2 !== true) {
+                    items2 = true
+                  }
+                }
+                if (!valid5) {
+                  const err3 = {
+                    instancePath:
+                      instancePath +
+                      "/dependencies/" +
+                      key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    schemaPath:
+                      "#/properties/dependencies/additionalProperties/anyOf",
+                    keyword: "anyOf",
+                    params: {},
+                    message: "must match a schema in anyOf",
+                    schema:
+                      schema0.properties.dependencies.additionalProperties
+                        .anyOf,
+                    parentSchema:
+                      schema0.properties.dependencies.additionalProperties,
+                    data: data3,
+                  }
+                  if (vErrors === null) {
+                    vErrors = [err3]
+                  } else {
+                    vErrors.push(err3)
+                  }
+                  errors++
+                  validate0.errors = vErrors
+                  return false
+                } else {
+                  errors = _errs19
+                  if (vErrors !== null) {
+                    if (_errs19) {
+                      vErrors.length = _errs19
+                    } else {
+                      vErrors = null
+                    }
+                  }
+                }
+                var valid4 = _errs18 === errors
+                if (!valid4) {
+                  break
+                }
+              }
+            } else {
+              validate0.errors = [
+                {
+                  instancePath: instancePath + "/dependencies",
+                  schemaPath: "#/properties/dependencies/type",
+                  keyword: "type",
+                  params: {type: "object"},
+                  message: "must be object",
+                  schema: schema0.properties.dependencies.type,
+                  parentSchema: schema0.properties.dependencies,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+          }
+          var valid1 = _errs14 === errors
+        } else {
+          var valid1 = true
+        }
+        if (valid1) {
+          if (data.$recursiveAnchor !== undefined) {
+            let data5 = data.$recursiveAnchor
+            const _errs26 = errors
+            const _errs28 = errors
+            if (errors === _errs28) {
+              if (typeof data5 === "string") {
+                if (!pattern1.test(data5)) {
+                  validate0.errors = [
+                    {
+                      instancePath: instancePath + "/$recursiveAnchor",
+                      schemaPath: "meta/core#/$defs/anchorString/pattern",
+                      keyword: "pattern",
+                      params: {pattern: "^[A-Za-z_][-A-Za-z0-9._]*$"},
+                      message:
+                        'must match pattern "' +
+                        "^[A-Za-z_][-A-Za-z0-9._]*$" +
+                        '"',
+                      schema: "^[A-Za-z_][-A-Za-z0-9._]*$",
+                      parentSchema: schema5,
+                      data: data5,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate0.errors = [
+                  {
+                    instancePath: instancePath + "/$recursiveAnchor",
+                    schemaPath: "meta/core#/$defs/anchorString/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema5.type,
+                    parentSchema: schema5,
+                    data: data5,
+                  },
+                ]
+                return false
+              }
+            }
+            var valid1 = _errs26 === errors
+          } else {
+            var valid1 = true
+          }
+          if (valid1) {
+            if (data.$recursiveRef !== undefined) {
+              let data6 = data.$recursiveRef
+              const _errs30 = errors
+              const _errs32 = errors
+              if (errors === _errs32) {
+                if (errors === _errs32) {
+                  if (!(typeof data6 === "string")) {
+                    validate0.errors = [
+                      {
+                        instancePath: instancePath + "/$recursiveRef",
+                        schemaPath: "meta/core#/$defs/uriReferenceString/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema2.type,
+                        parentSchema: schema2,
+                        data: data6,
+                      },
+                    ]
+                    return false
+                  }
+                }
+              }
+              var valid1 = _errs30 === errors
+            } else {
+              var valid1 = true
+            }
+          }
+        }
+      }
+    }
+  }
+  validate0.errors = vErrors
+  return errors === 0
+}
+validate0.evaluated = {
+  props: {
+    definitions: true,
+    dependencies: true,
+    $recursiveAnchor: true,
+    $recursiveRef: true,
+    contentEncoding: true,
+    contentMediaType: true,
+    contentSchema: true,
+    format: true,
+    title: true,
+    description: true,
+    default: true,
+    deprecated: true,
+    readOnly: true,
+    writeOnly: true,
+    examples: true,
+    type: true,
+    const: true,
+    enum: true,
+    multipleOf: true,
+    maximum: true,
+    exclusiveMaximum: true,
+    minimum: true,
+    exclusiveMinimum: true,
+    maxLength: true,
+    minLength: true,
+    pattern: true,
+    maxItems: true,
+    minItems: true,
+    uniqueItems: true,
+    maxContains: true,
+    minContains: true,
+    maxProperties: true,
+    minProperties: true,
+    required: true,
+    dependentRequired: true,
+    unevaluatedItems: true,
+    unevaluatedProperties: true,
+    prefixItems: true,
+    items: true,
+    contains: true,
+    additionalProperties: true,
+    properties: true,
+    patternProperties: true,
+    dependentSchemas: true,
+    propertyNames: true,
+    if: true,
+    then: true,
+    else: true,
+    allOf: true,
+    anyOf: true,
+    oneOf: true,
+    not: true,
+    $id: true,
+    $schema: true,
+    $ref: true,
+    $anchor: true,
+    $dynamicRef: true,
+    $dynamicAnchor: true,
+    $vocabulary: true,
+    $comment: true,
+    $defs: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema52 = {
+  $id: "https://spec.openapis.org/oas/3.1/meta/2024-11-10",
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  title: "OAS Base Vocabulary",
+  description: "A JSON Schema Vocabulary used in the OpenAPI Schema Dialect",
+  $dynamicAnchor: "meta",
+  $vocabulary: {"https://spec.openapis.org/oas/3.1/vocab/base": true},
+  type: ["object", "boolean"],
+  properties: {
+    discriminator: {$ref: "#/$defs/discriminator"},
+    example: true,
+    externalDocs: {$ref: "#/$defs/external-docs"},
+    xml: {$ref: "#/$defs/xml"},
+  },
+  $defs: {
+    discriminator: {
+      $ref: "#/$defs/extensible",
+      properties: {
+        mapping: {additionalProperties: {type: "string"}, type: "object"},
+        propertyName: {type: "string"},
+      },
+      required: ["propertyName"],
+      type: "object",
+      unevaluatedProperties: false,
+    },
+    extensible: {patternProperties: {"^x-": true}},
+    "external-docs": {
+      $ref: "#/$defs/extensible",
+      properties: {
+        description: {type: "string"},
+        url: {format: "uri-reference", type: "string"},
+      },
+      required: ["url"],
+      type: "object",
+      unevaluatedProperties: false,
+    },
+    xml: {
+      $ref: "#/$defs/extensible",
+      properties: {
+        attribute: {type: "boolean"},
+        name: {type: "string"},
+        namespace: {format: "uri", type: "string"},
+        prefix: {type: "string"},
+        wrapped: {type: "boolean"},
+      },
+      type: "object",
+      unevaluatedProperties: false,
+    },
+  },
+}
+const schema53 = {
+  $ref: "#/$defs/extensible",
+  properties: {
+    mapping: {additionalProperties: {type: "string"}, type: "object"},
+    propertyName: {type: "string"},
+  },
+  required: ["propertyName"],
+  type: "object",
+  unevaluatedProperties: false,
+}
+const schema54 = {patternProperties: {"^x-": true}}
+function validate41(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate41.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (data && typeof data == "object" && !Array.isArray(data)) {
+    var props0 = {}
+    for (const key0 in data) {
+      if (pattern4.test(key0)) {
+        props0[key0] = true
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.propertyName === undefined && (missing0 = "propertyName")) {
+        validate41.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema53.required,
+            parentSchema: schema53,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.mapping = true
+          props0.propertyName = true
+        }
+        if (data.mapping !== undefined) {
+          let data0 = data.mapping
+          const _errs2 = errors
+          if (errors === _errs2) {
+            if (data0 && typeof data0 == "object" && !Array.isArray(data0)) {
+              for (const key1 in data0) {
+                let data1 = data0[key1]
+                const _errs5 = errors
+                if (typeof data1 !== "string") {
+                  validate41.errors = [
+                    {
+                      instancePath:
+                        instancePath +
+                        "/mapping/" +
+                        key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      schemaPath:
+                        "#/properties/mapping/additionalProperties/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema:
+                        schema53.properties.mapping.additionalProperties.type,
+                      parentSchema:
+                        schema53.properties.mapping.additionalProperties,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+                var valid3 = _errs5 === errors
+                if (!valid3) {
+                  break
+                }
+              }
+            } else {
+              validate41.errors = [
+                {
+                  instancePath: instancePath + "/mapping",
+                  schemaPath: "#/properties/mapping/type",
+                  keyword: "type",
+                  params: {type: "object"},
+                  message: "must be object",
+                  schema: schema53.properties.mapping.type,
+                  parentSchema: schema53.properties.mapping,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+          var valid2 = _errs2 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.propertyName !== undefined) {
+            let data2 = data.propertyName
+            const _errs7 = errors
+            if (typeof data2 !== "string") {
+              validate41.errors = [
+                {
+                  instancePath: instancePath + "/propertyName",
+                  schemaPath: "#/properties/propertyName/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema53.properties.propertyName.type,
+                  parentSchema: schema53.properties.propertyName,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs7 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (props0 !== true) {
+              for (const key2 in data) {
+                if (!props0 || !props0[key2]) {
+                  validate41.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key2},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema53,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate41.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema53.type,
+          parentSchema: schema53,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate41.errors = vErrors
+  return errors === 0
+}
+validate41.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema55 = {
+  $ref: "#/$defs/extensible",
+  properties: {
+    description: {type: "string"},
+    url: {format: "uri-reference", type: "string"},
+  },
+  required: ["url"],
+  type: "object",
+  unevaluatedProperties: false,
+}
+function validate43(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate43.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (data && typeof data == "object" && !Array.isArray(data)) {
+    var props0 = {}
+    for (const key0 in data) {
+      if (pattern4.test(key0)) {
+        props0[key0] = true
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.url === undefined && (missing0 = "url")) {
+        validate43.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema55.required,
+            parentSchema: schema55,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.description = true
+          props0.url = true
+        }
+        if (data.description !== undefined) {
+          let data0 = data.description
+          const _errs2 = errors
+          if (typeof data0 !== "string") {
+            validate43.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema55.properties.description.type,
+                parentSchema: schema55.properties.description,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs2 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.url !== undefined) {
+            let data1 = data.url
+            const _errs4 = errors
+            if (errors === _errs4) {
+              if (errors === _errs4) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate43.errors = [
+                      {
+                        instancePath: instancePath + "/url",
+                        schemaPath: "#/properties/url/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema55.properties.url,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate43.errors = [
+                    {
+                      instancePath: instancePath + "/url",
+                      schemaPath: "#/properties/url/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema55.properties.url.type,
+                      parentSchema: schema55.properties.url,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs4 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (props0 !== true) {
+              for (const key1 in data) {
+                if (!props0 || !props0[key1]) {
+                  validate43.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key1},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema55,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate43.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema55.type,
+          parentSchema: schema55,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate43.errors = vErrors
+  return errors === 0
+}
+validate43.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema57 = {
+  $ref: "#/$defs/extensible",
+  properties: {
+    attribute: {type: "boolean"},
+    name: {type: "string"},
+    namespace: {format: "uri", type: "string"},
+    prefix: {type: "string"},
+    wrapped: {type: "boolean"},
+  },
+  type: "object",
+  unevaluatedProperties: false,
+}
+const formats16 = require("ajv-formats/dist/formats").fullFormats.uri
+function validate45(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate45.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (data && typeof data == "object" && !Array.isArray(data)) {
+    var props0 = {}
+    for (const key0 in data) {
+      if (pattern4.test(key0)) {
+        props0[key0] = true
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.attribute = true
+        props0.name = true
+        props0.namespace = true
+        props0.prefix = true
+        props0.wrapped = true
+      }
+      if (data.attribute !== undefined) {
+        let data0 = data.attribute
+        const _errs2 = errors
+        if (typeof data0 !== "boolean") {
+          validate45.errors = [
+            {
+              instancePath: instancePath + "/attribute",
+              schemaPath: "#/properties/attribute/type",
+              keyword: "type",
+              params: {type: "boolean"},
+              message: "must be boolean",
+              schema: schema57.properties.attribute.type,
+              parentSchema: schema57.properties.attribute,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid2 = _errs2 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.name !== undefined) {
+          let data1 = data.name
+          const _errs4 = errors
+          if (typeof data1 !== "string") {
+            validate45.errors = [
+              {
+                instancePath: instancePath + "/name",
+                schemaPath: "#/properties/name/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema57.properties.name.type,
+                parentSchema: schema57.properties.name,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.namespace !== undefined) {
+            let data2 = data.namespace
+            const _errs6 = errors
+            if (errors === _errs6) {
+              if (errors === _errs6) {
+                if (typeof data2 === "string") {
+                  if (!formats16(data2)) {
+                    validate45.errors = [
+                      {
+                        instancePath: instancePath + "/namespace",
+                        schemaPath: "#/properties/namespace/format",
+                        keyword: "format",
+                        params: {format: "uri"},
+                        message: 'must match format "' + "uri" + '"',
+                        schema: "uri",
+                        parentSchema: schema57.properties.namespace,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate45.errors = [
+                    {
+                      instancePath: instancePath + "/namespace",
+                      schemaPath: "#/properties/namespace/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema57.properties.namespace.type,
+                      parentSchema: schema57.properties.namespace,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.prefix !== undefined) {
+              let data3 = data.prefix
+              const _errs8 = errors
+              if (typeof data3 !== "string") {
+                validate45.errors = [
+                  {
+                    instancePath: instancePath + "/prefix",
+                    schemaPath: "#/properties/prefix/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema57.properties.prefix.type,
+                    parentSchema: schema57.properties.prefix,
+                    data: data3,
+                  },
+                ]
+                return false
+              }
+              var valid2 = _errs8 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.wrapped !== undefined) {
+                let data4 = data.wrapped
+                const _errs10 = errors
+                if (typeof data4 !== "boolean") {
+                  validate45.errors = [
+                    {
+                      instancePath: instancePath + "/wrapped",
+                      schemaPath: "#/properties/wrapped/type",
+                      keyword: "type",
+                      params: {type: "boolean"},
+                      message: "must be boolean",
+                      schema: schema57.properties.wrapped.type,
+                      parentSchema: schema57.properties.wrapped,
+                      data: data4,
+                    },
+                  ]
+                  return false
+                }
+                var valid2 = _errs10 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (props0 !== true) {
+                  for (const key1 in data) {
+                    if (!props0 || !props0[key1]) {
+                      validate45.errors = [
+                        {
+                          instancePath,
+                          schemaPath: "#/unevaluatedProperties",
+                          keyword: "unevaluatedProperties",
+                          params: {unevaluatedProperty: key1},
+                          message: "must NOT have unevaluated properties",
+                          schema: false,
+                          parentSchema: schema57,
+                          data,
+                        },
+                      ]
+                      return false
+                      break
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate45.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema57.type,
+          parentSchema: schema57,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate45.errors = vErrors
+  return errors === 0
+}
+validate45.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate40(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://spec.openapis.org/oas/3.1/meta/2024-11-10" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate40.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate40.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema52.type},
+        message: "must be object,boolean",
+        schema: schema52.type,
+        parentSchema: schema52,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate40
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.discriminator !== undefined) {
+        const _errs1 = errors
+        if (
+          !validate41(data.discriminator, {
+            instancePath: instancePath + "/discriminator",
+            parentData: data,
+            parentDataProperty: "discriminator",
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? validate41.errors
+              : vErrors.concat(validate41.errors)
+          errors = vErrors.length
+        }
+        var valid0 = _errs1 === errors
+      } else {
+        var valid0 = true
+      }
+      if (valid0) {
+        if (data.externalDocs !== undefined) {
+          const _errs2 = errors
+          if (
+            !validate43(data.externalDocs, {
+              instancePath: instancePath + "/externalDocs",
+              parentData: data,
+              parentDataProperty: "externalDocs",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate43.errors
+                : vErrors.concat(validate43.errors)
+            errors = vErrors.length
+          }
+          var valid0 = _errs2 === errors
+        } else {
+          var valid0 = true
+        }
+        if (valid0) {
+          if (data.xml !== undefined) {
+            const _errs3 = errors
+            if (
+              !validate45(data.xml, {
+                instancePath: instancePath + "/xml",
+                parentData: data,
+                parentDataProperty: "xml",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate45.errors
+                  : vErrors.concat(validate45.errors)
+              errors = vErrors.length
+            }
+            var valid0 = _errs3 === errors
+          } else {
+            var valid0 = true
+          }
+        }
+      }
+    }
+  }
+  validate40.errors = vErrors
+  return errors === 0
+}
+validate40.evaluated = {
+  props: {discriminator: true, example: true, externalDocs: true, xml: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+function validate38(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate38.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (
+    !(data && typeof data == "object" && !Array.isArray(data)) &&
+    typeof data !== "boolean"
+  ) {
+    validate38.errors = [
+      {
+        instancePath,
+        schemaPath: "#/type",
+        keyword: "type",
+        params: {type: schema51.type},
+        message: "must be object,boolean",
+        schema: schema51.type,
+        parentSchema: schema51,
+        data,
+      },
+    ]
+    return false
+  }
+  if (!dynamicAnchors.meta) {
+    dynamicAnchors.meta = validate38
+  }
+  const _errs2 = errors
+  if (
+    !validate0(data, {
+      instancePath,
+      parentData,
+      parentDataProperty,
+      rootData,
+      dynamicAnchors,
+    })
+  ) {
+    vErrors =
+      vErrors === null ? validate0.errors : vErrors.concat(validate0.errors)
+    errors = vErrors.length
+  }
+  var valid0 = _errs2 === errors
+  if (valid0) {
+    const _errs3 = errors
+    if (
+      !validate40(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate40.errors : vErrors.concat(validate40.errors)
+      errors = vErrors.length
+    }
+    var valid0 = _errs3 === errors
+  }
+  validate38.errors = vErrors
+  return errors === 0
+}
+validate38.evaluated = {
+  props: {
+    discriminator: true,
+    example: true,
+    externalDocs: true,
+    xml: true,
+    definitions: true,
+    dependencies: true,
+    $recursiveAnchor: true,
+    $recursiveRef: true,
+    contentEncoding: true,
+    contentMediaType: true,
+    contentSchema: true,
+    format: true,
+    title: true,
+    description: true,
+    default: true,
+    deprecated: true,
+    readOnly: true,
+    writeOnly: true,
+    examples: true,
+    type: true,
+    const: true,
+    enum: true,
+    multipleOf: true,
+    maximum: true,
+    exclusiveMaximum: true,
+    minimum: true,
+    exclusiveMinimum: true,
+    maxLength: true,
+    minLength: true,
+    pattern: true,
+    maxItems: true,
+    minItems: true,
+    uniqueItems: true,
+    maxContains: true,
+    minContains: true,
+    maxProperties: true,
+    minProperties: true,
+    required: true,
+    dependentRequired: true,
+    unevaluatedItems: true,
+    unevaluatedProperties: true,
+    prefixItems: true,
+    items: true,
+    contains: true,
+    additionalProperties: true,
+    properties: true,
+    patternProperties: true,
+    dependentSchemas: true,
+    propertyNames: true,
+    if: true,
+    then: true,
+    else: true,
+    allOf: true,
+    anyOf: true,
+    oneOf: true,
+    not: true,
+    $id: true,
+    $schema: true,
+    $ref: true,
+    $anchor: true,
+    $dynamicRef: true,
+    $dynamicAnchor: true,
+    $vocabulary: true,
+    $comment: true,
+    $defs: true,
+  },
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema59 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#fixed-fields-10",
+  type: "object",
+  additionalProperties: {$ref: "#/$defs/media-type"},
+  propertyNames: {format: "media-range"},
+}
+const schema60 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#media-type-object",
+  type: "object",
+  properties: {
+    schema: {$ref: "#/$defs/schema"},
+    encoding: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/encoding"},
+    },
+  },
+  allOf: [
+    {$ref: "#/$defs/specification-extensions"},
+    {$ref: "#/$defs/examples"},
+  ],
+  unevaluatedProperties: false,
+}
+const schema62 = {
+  properties: {
+    example: true,
+    examples: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/example-or-reference"},
+    },
+  },
+  not: {required: ["example", "examples"]},
+}
+const schema63 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/example"},
+}
+const schema64 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#example-object",
+  type: "object",
+  properties: {
+    summary: {type: "string"},
+    description: {type: "string"},
+    value: true,
+    externalValue: {type: "string", format: "uri-reference"},
+  },
+  not: {required: ["value", "externalValue"]},
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate54(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate54.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    const _errs4 = errors
+    const _errs5 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.value === undefined && (missing0 = "value")) ||
+        (data.externalValue === undefined && (missing0 = "externalValue"))
+      ) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+    var valid2 = _errs5 === errors
+    if (valid2) {
+      validate54.errors = [
+        {
+          instancePath,
+          schemaPath: "#/not",
+          keyword: "not",
+          params: {},
+          message: "must NOT be valid",
+          schema: schema64.not,
+          parentSchema: schema64,
+          data,
+        },
+      ]
+      return false
+    } else {
+      errors = _errs4
+      if (vErrors !== null) {
+        if (_errs4) {
+          vErrors.length = _errs4
+        } else {
+          vErrors = null
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.summary = true
+        props0.description = true
+        props0.value = true
+        props0.externalValue = true
+      }
+      if (data.summary !== undefined) {
+        let data0 = data.summary
+        const _errs6 = errors
+        if (typeof data0 !== "string") {
+          validate54.errors = [
+            {
+              instancePath: instancePath + "/summary",
+              schemaPath: "#/properties/summary/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema64.properties.summary.type,
+              parentSchema: schema64.properties.summary,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid3 = _errs6 === errors
+      } else {
+        var valid3 = true
+      }
+      if (valid3) {
+        if (data.description !== undefined) {
+          let data1 = data.description
+          const _errs8 = errors
+          if (typeof data1 !== "string") {
+            validate54.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema64.properties.description.type,
+                parentSchema: schema64.properties.description,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid3 = _errs8 === errors
+        } else {
+          var valid3 = true
+        }
+        if (valid3) {
+          if (data.externalValue !== undefined) {
+            let data2 = data.externalValue
+            const _errs10 = errors
+            if (errors === _errs10) {
+              if (errors === _errs10) {
+                if (typeof data2 === "string") {
+                  if (!formats0.test(data2)) {
+                    validate54.errors = [
+                      {
+                        instancePath: instancePath + "/externalValue",
+                        schemaPath: "#/properties/externalValue/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema64.properties.externalValue,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate54.errors = [
+                    {
+                      instancePath: instancePath + "/externalValue",
+                      schemaPath: "#/properties/externalValue/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema64.properties.externalValue.type,
+                      parentSchema: schema64.properties.externalValue,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid3 = _errs10 === errors
+          } else {
+            var valid3 = true
+          }
+          if (valid3) {
+            if (props0 !== true) {
+              for (const key1 in data) {
+                if (!props0 || !props0[key1]) {
+                  validate54.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key1},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema64,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate54.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema64.type,
+          parentSchema: schema64,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate54.errors = vErrors
+  return errors === 0
+}
+validate54.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate52(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate52.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate54(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate54.errors : vErrors.concat(validate54.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema63.if,
+      parentSchema: schema63,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate52.errors = vErrors
+    return false
+  }
+  validate52.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate52.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate51(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate51.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  const _errs1 = errors
+  if (data && typeof data == "object" && !Array.isArray(data)) {
+    let missing0
+    if (
+      (data.example === undefined && (missing0 = "example")) ||
+      (data.examples === undefined && (missing0 = "examples"))
+    ) {
+      const err0 = {}
+      if (vErrors === null) {
+        vErrors = [err0]
+      } else {
+        vErrors.push(err0)
+      }
+      errors++
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    validate51.errors = [
+      {
+        instancePath,
+        schemaPath: "#/not",
+        keyword: "not",
+        params: {},
+        message: "must NOT be valid",
+        schema: schema62.not,
+        parentSchema: schema62,
+        data,
+      },
+    ]
+    return false
+  } else {
+    errors = _errs0
+    if (vErrors !== null) {
+      if (_errs0) {
+        vErrors.length = _errs0
+      } else {
+        vErrors = null
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.examples !== undefined) {
+        let data0 = data.examples
+        const _errs2 = errors
+        if (errors === _errs2) {
+          if (data0 && typeof data0 == "object" && !Array.isArray(data0)) {
+            for (const key0 in data0) {
+              const _errs5 = errors
+              if (
+                !validate52(data0[key0], {
+                  instancePath:
+                    instancePath +
+                    "/examples/" +
+                    key0.replace(/~/g, "~0").replace(/\//g, "~1"),
+                  parentData: data0,
+                  parentDataProperty: key0,
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate52.errors
+                    : vErrors.concat(validate52.errors)
+                errors = vErrors.length
+              }
+              var valid2 = _errs5 === errors
+              if (!valid2) {
+                break
+              }
+            }
+          } else {
+            validate51.errors = [
+              {
+                instancePath: instancePath + "/examples",
+                schemaPath: "#/properties/examples/type",
+                keyword: "type",
+                params: {type: "object"},
+                message: "must be object",
+                schema: schema62.properties.examples.type,
+                parentSchema: schema62.properties.examples,
+                data: data0,
+              },
+            ]
+            return false
+          }
+        }
+      }
+    }
+  }
+  validate51.errors = vErrors
+  return errors === 0
+}
+validate51.evaluated = {
+  props: {example: true, examples: true},
+  dynamicProps: false,
+  dynamicItems: false,
+}
+const schema66 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#encoding-object",
+  type: "object",
+  properties: {
+    contentType: {type: "string", format: "media-range"},
+    headers: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/header-or-reference"},
+    },
+    style: {enum: ["form", "spaceDelimited", "pipeDelimited", "deepObject"]},
+    explode: {type: "boolean"},
+    allowReserved: {type: "boolean"},
+  },
+  dependentSchemas: {
+    style: {properties: {allowReserved: {default: false}}},
+    explode: {
+      properties: {style: {default: "form"}, allowReserved: {default: false}},
+    },
+    allowReserved: {properties: {style: {default: "form"}}},
+  },
+  allOf: [
+    {$ref: "#/$defs/specification-extensions"},
+    {$ref: "#/$defs/styles-for-form"},
+  ],
+  unevaluatedProperties: false,
+}
+const schema69 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/header"},
+}
+const schema70 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#header-object",
+  type: "object",
+  properties: {
+    description: {type: "string"},
+    required: {default: false, type: "boolean"},
+    deprecated: {default: false, type: "boolean"},
+    schema: {$ref: "#/$defs/schema"},
+    content: {$ref: "#/$defs/content", minProperties: 1, maxProperties: 1},
+  },
+  oneOf: [{required: ["schema"]}, {required: ["content"]}],
+  dependentSchemas: {
+    schema: {
+      properties: {
+        style: {default: "simple", const: "simple"},
+        explode: {default: false, type: "boolean"},
+      },
+      $ref: "#/$defs/examples",
+    },
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const wrapper0 = {validate: validate49}
+function validate62(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate62.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    const _errs4 = errors
+    let valid2 = false
+    let passing0 = null
+    const _errs5 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.schema === undefined && (missing0 = "schema")) {
+        const err0 = {
+          instancePath,
+          schemaPath: "#/oneOf/0/required",
+          keyword: "required",
+          params: {missingProperty: missing0},
+          message: "must have required property '" + missing0 + "'",
+          schema: schema70.oneOf[0].required,
+          parentSchema: schema70.oneOf[0],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs5 === errors
+    if (_valid0) {
+      valid2 = true
+      passing0 = 0
+    }
+    const _errs6 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing1
+      if (data.content === undefined && (missing1 = "content")) {
+        const err1 = {
+          instancePath,
+          schemaPath: "#/oneOf/1/required",
+          keyword: "required",
+          params: {missingProperty: missing1},
+          message: "must have required property '" + missing1 + "'",
+          schema: schema70.oneOf[1].required,
+          parentSchema: schema70.oneOf[1],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err1]
+        } else {
+          vErrors.push(err1)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs6 === errors
+    if (_valid0 && valid2) {
+      valid2 = false
+      passing0 = [passing0, 1]
+    } else {
+      if (_valid0) {
+        valid2 = true
+        passing0 = 1
+      }
+    }
+    if (!valid2) {
+      const err2 = {
+        instancePath,
+        schemaPath: "#/oneOf",
+        keyword: "oneOf",
+        params: {passingSchemas: passing0},
+        message: "must match exactly one schema in oneOf",
+        schema: schema70.oneOf,
+        parentSchema: schema70,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err2]
+      } else {
+        vErrors.push(err2)
+      }
+      errors++
+      validate62.errors = vErrors
+      return false
+    } else {
+      errors = _errs4
+      if (vErrors !== null) {
+        if (_errs4) {
+          vErrors.length = _errs4
+        } else {
+          vErrors = null
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.description = true
+        props0.required = true
+        props0.deprecated = true
+        props0.schema = true
+        props0.content = true
+      }
+      if (data.description !== undefined) {
+        let data0 = data.description
+        const _errs7 = errors
+        if (typeof data0 !== "string") {
+          validate62.errors = [
+            {
+              instancePath: instancePath + "/description",
+              schemaPath: "#/properties/description/type",
+              keyword: "type",
+              params: {type: "string"},
+              message: "must be string",
+              schema: schema70.properties.description.type,
+              parentSchema: schema70.properties.description,
+              data: data0,
+            },
+          ]
+          return false
+        }
+        var valid3 = _errs7 === errors
+      } else {
+        var valid3 = true
+      }
+      if (valid3) {
+        if (data.required !== undefined) {
+          let data1 = data.required
+          const _errs9 = errors
+          if (typeof data1 !== "boolean") {
+            validate62.errors = [
+              {
+                instancePath: instancePath + "/required",
+                schemaPath: "#/properties/required/type",
+                keyword: "type",
+                params: {type: "boolean"},
+                message: "must be boolean",
+                schema: schema70.properties.required.type,
+                parentSchema: schema70.properties.required,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid3 = _errs9 === errors
+        } else {
+          var valid3 = true
+        }
+        if (valid3) {
+          if (data.deprecated !== undefined) {
+            let data2 = data.deprecated
+            const _errs11 = errors
+            if (typeof data2 !== "boolean") {
+              validate62.errors = [
+                {
+                  instancePath: instancePath + "/deprecated",
+                  schemaPath: "#/properties/deprecated/type",
+                  keyword: "type",
+                  params: {type: "boolean"},
+                  message: "must be boolean",
+                  schema: schema70.properties.deprecated.type,
+                  parentSchema: schema70.properties.deprecated,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid3 = _errs11 === errors
+          } else {
+            var valid3 = true
+          }
+          if (valid3) {
+            if (data.schema !== undefined) {
+              const _errs13 = errors
+              if (
+                !validate38(data.schema, {
+                  instancePath: instancePath + "/schema",
+                  parentData: data,
+                  parentDataProperty: "schema",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate38.errors
+                    : vErrors.concat(validate38.errors)
+                errors = vErrors.length
+              }
+              var valid3 = _errs13 === errors
+            } else {
+              var valid3 = true
+            }
+            if (valid3) {
+              if (data.content !== undefined) {
+                let data4 = data.content
+                const _errs14 = errors
+                if (
+                  !wrapper0.validate(data4, {
+                    instancePath: instancePath + "/content",
+                    parentData: data,
+                    parentDataProperty: "content",
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? wrapper0.validate.errors
+                      : vErrors.concat(wrapper0.validate.errors)
+                  errors = vErrors.length
+                }
+                if (errors === _errs14) {
+                  if (
+                    data4 &&
+                    typeof data4 == "object" &&
+                    !Array.isArray(data4)
+                  ) {
+                    if (Object.keys(data4).length > 1) {
+                      validate62.errors = [
+                        {
+                          instancePath: instancePath + "/content",
+                          schemaPath: "#/properties/content/maxProperties",
+                          keyword: "maxProperties",
+                          params: {limit: 1},
+                          message: "must NOT have more than 1 properties",
+                          schema: 1,
+                          parentSchema: schema70.properties.content,
+                          data: data4,
+                        },
+                      ]
+                      return false
+                    } else {
+                      if (Object.keys(data4).length < 1) {
+                        validate62.errors = [
+                          {
+                            instancePath: instancePath + "/content",
+                            schemaPath: "#/properties/content/minProperties",
+                            keyword: "minProperties",
+                            params: {limit: 1},
+                            message: "must NOT have fewer than 1 properties",
+                            schema: 1,
+                            parentSchema: schema70.properties.content,
+                            data: data4,
+                          },
+                        ]
+                        return false
+                      }
+                    }
+                  }
+                }
+                var valid3 = _errs14 === errors
+              } else {
+                var valid3 = true
+              }
+              if (valid3) {
+                if (data.schema !== undefined) {
+                  const _errs15 = errors
+                  if (
+                    !validate51(data, {
+                      instancePath,
+                      parentData,
+                      parentDataProperty,
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate51.errors
+                        : vErrors.concat(validate51.errors)
+                    errors = vErrors.length
+                  }
+                  if (errors === _errs15) {
+                    if (
+                      data &&
+                      typeof data == "object" &&
+                      !Array.isArray(data)
+                    ) {
+                      if (data.style !== undefined) {
+                        let data5 = data.style
+                        const _errs16 = errors
+                        if ("simple" !== data5) {
+                          validate62.errors = [
+                            {
+                              instancePath: instancePath + "/style",
+                              schemaPath:
+                                "#/dependentSchemas/schema/properties/style/const",
+                              keyword: "const",
+                              params: {allowedValue: "simple"},
+                              message: "must be equal to constant",
+                              schema: "simple",
+                              parentSchema:
+                                schema70.dependentSchemas.schema.properties
+                                  .style,
+                              data: data5,
+                            },
+                          ]
+                          return false
+                        }
+                        var valid5 = _errs16 === errors
+                      } else {
+                        var valid5 = true
+                      }
+                      if (valid5) {
+                        if (data.explode !== undefined) {
+                          let data6 = data.explode
+                          const _errs17 = errors
+                          if (typeof data6 !== "boolean") {
+                            validate62.errors = [
+                              {
+                                instancePath: instancePath + "/explode",
+                                schemaPath:
+                                  "#/dependentSchemas/schema/properties/explode/type",
+                                keyword: "type",
+                                params: {type: "boolean"},
+                                message: "must be boolean",
+                                schema:
+                                  schema70.dependentSchemas.schema.properties
+                                    .explode.type,
+                                parentSchema:
+                                  schema70.dependentSchemas.schema.properties
+                                    .explode,
+                                data: data6,
+                              },
+                            ]
+                            return false
+                          }
+                          var valid5 = _errs17 === errors
+                        } else {
+                          var valid5 = true
+                        }
+                      }
+                    }
+                  }
+                  var valid4 = _errs15 === errors
+                  if (valid4) {
+                    if (props0 !== true) {
+                      props0 = props0 || {}
+                      props0.style = true
+                      props0.explode = true
+                      props0.example = true
+                      props0.examples = true
+                    }
+                  }
+                } else {
+                  var valid4 = true
+                }
+                if (valid4) {
+                  if (props0 !== true) {
+                    for (const key1 in data) {
+                      if (!props0 || !props0[key1]) {
+                        validate62.errors = [
+                          {
+                            instancePath,
+                            schemaPath: "#/unevaluatedProperties",
+                            keyword: "unevaluatedProperties",
+                            params: {unevaluatedProperty: key1},
+                            message: "must NOT have unevaluated properties",
+                            schema: false,
+                            parentSchema: schema70,
+                            data,
+                          },
+                        ]
+                        return false
+                        break
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate62.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema70.type,
+          parentSchema: schema70,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate62.errors = vErrors
+  return errors === 0
+}
+validate62.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate60(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate60.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate62(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate62.errors : vErrors.concat(validate62.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema69.if,
+      parentSchema: schema69,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate60.errors = vErrors
+    return false
+  }
+  validate60.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate60.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate59(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate59.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs2 = errors
+  const _errs3 = errors
+  if (errors === _errs3) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs2 === errors
+  if (valid0) {
+    const _errs5 = errors
+    const _errs7 = errors
+    let valid4 = true
+    const _errs8 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.style === undefined && (missing0 = "style")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      } else {
+        if (data.style !== undefined) {
+          if ("form" !== data.style) {
+            const err1 = {}
+            if (vErrors === null) {
+              vErrors = [err1]
+            } else {
+              vErrors.push(err1)
+            }
+            errors++
+          }
+        }
+      }
+    }
+    var _valid0 = _errs8 === errors
+    errors = _errs7
+    if (vErrors !== null) {
+      if (_errs7) {
+        vErrors.length = _errs7
+      } else {
+        vErrors = null
+      }
+    }
+    let ifClause0
+    if (_valid0) {
+      const _errs10 = errors
+      var _valid0 = _errs10 === errors
+      valid4 = _valid0
+      if (valid4) {
+        var props1 = {}
+        props1.explode = true
+        props1.style = true
+      }
+      ifClause0 = "then"
+    } else {
+      const _errs11 = errors
+      var _valid0 = _errs11 === errors
+      valid4 = _valid0
+      if (valid4) {
+        if (props1 !== true) {
+          props1 = props1 || {}
+          props1.explode = true
+        }
+      }
+      ifClause0 = "else"
+    }
+    if (!valid4) {
+      const err2 = {
+        instancePath,
+        schemaPath: "#/$defs/styles-for-form/if",
+        keyword: "if",
+        params: {failingKeyword: ifClause0},
+        message: 'must match "' + ifClause0 + '" schema',
+        schema: schema68.if,
+        parentSchema: schema68,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err2]
+      } else {
+        vErrors.push(err2)
+      }
+      errors++
+      validate59.errors = vErrors
+      return false
+    }
+    var valid0 = _errs5 === errors
+    if (valid0) {
+      if (props0 !== true && props1 !== undefined) {
+        if (props1 === true) {
+          props0 = true
+        } else {
+          props0 = props0 || {}
+          Object.assign(props0, props1)
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.contentType = true
+        props0.headers = true
+        props0.style = true
+        props0.explode = true
+        props0.allowReserved = true
+      }
+      if (data.contentType !== undefined) {
+        let data1 = data.contentType
+        const _errs12 = errors
+        if (errors === _errs12) {
+          if (errors === _errs12) {
+            if (!(typeof data1 === "string")) {
+              validate59.errors = [
+                {
+                  instancePath: instancePath + "/contentType",
+                  schemaPath: "#/properties/contentType/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema66.properties.contentType.type,
+                  parentSchema: schema66.properties.contentType,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var valid6 = _errs12 === errors
+      } else {
+        var valid6 = true
+      }
+      if (valid6) {
+        if (data.headers !== undefined) {
+          let data2 = data.headers
+          const _errs14 = errors
+          if (errors === _errs14) {
+            if (data2 && typeof data2 == "object" && !Array.isArray(data2)) {
+              for (const key1 in data2) {
+                const _errs17 = errors
+                if (
+                  !validate60(data2[key1], {
+                    instancePath:
+                      instancePath +
+                      "/headers/" +
+                      key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    parentData: data2,
+                    parentDataProperty: key1,
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate60.errors
+                      : vErrors.concat(validate60.errors)
+                  errors = vErrors.length
+                }
+                var valid7 = _errs17 === errors
+                if (!valid7) {
+                  break
+                }
+              }
+            } else {
+              validate59.errors = [
+                {
+                  instancePath: instancePath + "/headers",
+                  schemaPath: "#/properties/headers/type",
+                  keyword: "type",
+                  params: {type: "object"},
+                  message: "must be object",
+                  schema: schema66.properties.headers.type,
+                  parentSchema: schema66.properties.headers,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+          }
+          var valid6 = _errs14 === errors
+        } else {
+          var valid6 = true
+        }
+        if (valid6) {
+          if (data.style !== undefined) {
+            let data4 = data.style
+            const _errs18 = errors
+            if (
+              !(
+                data4 === "form" ||
+                data4 === "spaceDelimited" ||
+                data4 === "pipeDelimited" ||
+                data4 === "deepObject"
+              )
+            ) {
+              validate59.errors = [
+                {
+                  instancePath: instancePath + "/style",
+                  schemaPath: "#/properties/style/enum",
+                  keyword: "enum",
+                  params: {allowedValues: schema66.properties.style.enum},
+                  message: "must be equal to one of the allowed values",
+                  schema: schema66.properties.style.enum,
+                  parentSchema: schema66.properties.style,
+                  data: data4,
+                },
+              ]
+              return false
+            }
+            var valid6 = _errs18 === errors
+          } else {
+            var valid6 = true
+          }
+          if (valid6) {
+            if (data.explode !== undefined) {
+              let data5 = data.explode
+              const _errs19 = errors
+              if (typeof data5 !== "boolean") {
+                validate59.errors = [
+                  {
+                    instancePath: instancePath + "/explode",
+                    schemaPath: "#/properties/explode/type",
+                    keyword: "type",
+                    params: {type: "boolean"},
+                    message: "must be boolean",
+                    schema: schema66.properties.explode.type,
+                    parentSchema: schema66.properties.explode,
+                    data: data5,
+                  },
+                ]
+                return false
+              }
+              var valid6 = _errs19 === errors
+            } else {
+              var valid6 = true
+            }
+            if (valid6) {
+              if (data.allowReserved !== undefined) {
+                let data6 = data.allowReserved
+                const _errs21 = errors
+                if (typeof data6 !== "boolean") {
+                  validate59.errors = [
+                    {
+                      instancePath: instancePath + "/allowReserved",
+                      schemaPath: "#/properties/allowReserved/type",
+                      keyword: "type",
+                      params: {type: "boolean"},
+                      message: "must be boolean",
+                      schema: schema66.properties.allowReserved.type,
+                      parentSchema: schema66.properties.allowReserved,
+                      data: data6,
+                    },
+                  ]
+                  return false
+                }
+                var valid6 = _errs21 === errors
+              } else {
+                var valid6 = true
+              }
+              if (valid6) {
+                if (data.style !== undefined) {
+                  const _errs23 = errors
+                  var valid8 = _errs23 === errors
+                  if (valid8) {
+                    if (props0 !== true) {
+                      props0 = props0 || {}
+                      props0.allowReserved = true
+                    }
+                  }
+                } else {
+                  var valid8 = true
+                }
+                if (valid8) {
+                  if (data.explode !== undefined) {
+                    const _errs24 = errors
+                    var valid8 = _errs24 === errors
+                    if (valid8) {
+                      if (props0 !== true) {
+                        props0 = props0 || {}
+                        props0.style = true
+                        props0.allowReserved = true
+                      }
+                    }
+                  } else {
+                    var valid8 = true
+                  }
+                  if (valid8) {
+                    if (data.allowReserved !== undefined) {
+                      const _errs25 = errors
+                      var valid8 = _errs25 === errors
+                      if (valid8) {
+                        if (props0 !== true) {
+                          props0 = props0 || {}
+                          props0.style = true
+                        }
+                      }
+                    } else {
+                      var valid8 = true
+                    }
+                    if (valid8) {
+                      if (props0 !== true) {
+                        for (const key2 in data) {
+                          if (!props0 || !props0[key2]) {
+                            validate59.errors = [
+                              {
+                                instancePath,
+                                schemaPath: "#/unevaluatedProperties",
+                                keyword: "unevaluatedProperties",
+                                params: {unevaluatedProperty: key2},
+                                message: "must NOT have unevaluated properties",
+                                schema: false,
+                                parentSchema: schema66,
+                                data,
+                              },
+                            ]
+                            return false
+                            break
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate59.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema66.type,
+          parentSchema: schema66,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate59.errors = vErrors
+  return errors === 0
+}
+validate59.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate50(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate50.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs2 = errors
+  const _errs3 = errors
+  if (errors === _errs3) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs2 === errors
+  if (valid0) {
+    const _errs5 = errors
+    if (
+      !validate51(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate51.errors : vErrors.concat(validate51.errors)
+      errors = vErrors.length
+    }
+    var valid0 = _errs5 === errors
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.example = true
+        props0.examples = true
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.schema = true
+        props0.encoding = true
+      }
+      if (data.schema !== undefined) {
+        const _errs6 = errors
+        if (
+          !validate38(data.schema, {
+            instancePath: instancePath + "/schema",
+            parentData: data,
+            parentDataProperty: "schema",
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? validate38.errors
+              : vErrors.concat(validate38.errors)
+          errors = vErrors.length
+        }
+        var valid3 = _errs6 === errors
+      } else {
+        var valid3 = true
+      }
+      if (valid3) {
+        if (data.encoding !== undefined) {
+          let data1 = data.encoding
+          const _errs7 = errors
+          if (errors === _errs7) {
+            if (data1 && typeof data1 == "object" && !Array.isArray(data1)) {
+              for (const key1 in data1) {
+                const _errs10 = errors
+                if (
+                  !validate59(data1[key1], {
+                    instancePath:
+                      instancePath +
+                      "/encoding/" +
+                      key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    parentData: data1,
+                    parentDataProperty: key1,
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate59.errors
+                      : vErrors.concat(validate59.errors)
+                  errors = vErrors.length
+                }
+                var valid4 = _errs10 === errors
+                if (!valid4) {
+                  break
+                }
+              }
+            } else {
+              validate50.errors = [
+                {
+                  instancePath: instancePath + "/encoding",
+                  schemaPath: "#/properties/encoding/type",
+                  keyword: "type",
+                  params: {type: "object"},
+                  message: "must be object",
+                  schema: schema60.properties.encoding.type,
+                  parentSchema: schema60.properties.encoding,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+          }
+          var valid3 = _errs7 === errors
+        } else {
+          var valid3 = true
+        }
+        if (valid3) {
+          if (props0 !== true) {
+            for (const key2 in data) {
+              if (!props0 || !props0[key2]) {
+                validate50.errors = [
+                  {
+                    instancePath,
+                    schemaPath: "#/unevaluatedProperties",
+                    keyword: "unevaluatedProperties",
+                    params: {unevaluatedProperty: key2},
+                    message: "must NOT have unevaluated properties",
+                    schema: false,
+                    parentSchema: schema60,
+                    data,
+                  },
+                ]
+                return false
+                break
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate50.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema60.type,
+          parentSchema: schema60,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate50.errors = vErrors
+  return errors === 0
+}
+validate50.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate49(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate49.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      for (const key0 in data) {
+        const _errs2 = errors
+        var valid0 = _errs2 === errors
+        if (!valid0) {
+          const err0 = {
+            instancePath,
+            schemaPath: "#/propertyNames",
+            keyword: "propertyNames",
+            params: {propertyName: key0},
+            message: "property name must be valid",
+            schema: schema59.propertyNames,
+            parentSchema: schema59,
+            data,
+          }
+          if (vErrors === null) {
+            vErrors = [err0]
+          } else {
+            vErrors.push(err0)
+          }
+          errors++
+          validate49.errors = vErrors
+          return false
+          break
+        }
+      }
+      if (valid0) {
+        for (const key1 in data) {
+          const _errs4 = errors
+          if (
+            !validate50(data[key1], {
+              instancePath:
+                instancePath +
+                "/" +
+                key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+              parentData: data,
+              parentDataProperty: key1,
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate50.errors
+                : vErrors.concat(validate50.errors)
+            errors = vErrors.length
+          }
+          var valid1 = _errs4 === errors
+          if (!valid1) {
+            break
+          }
+        }
+      }
+    } else {
+      validate49.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema59.type,
+          parentSchema: schema59,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate49.errors = vErrors
+  return errors === 0
+}
+validate49.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate37(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate37.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    const _errs4 = errors
+    let valid2 = false
+    let passing0 = null
+    const _errs5 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.schema === undefined && (missing0 = "schema")) {
+        const err0 = {
+          instancePath,
+          schemaPath: "#/oneOf/0/required",
+          keyword: "required",
+          params: {missingProperty: missing0},
+          message: "must have required property '" + missing0 + "'",
+          schema: schema49.oneOf[0].required,
+          parentSchema: schema49.oneOf[0],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs5 === errors
+    if (_valid0) {
+      valid2 = true
+      passing0 = 0
+    }
+    const _errs6 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing1
+      if (data.content === undefined && (missing1 = "content")) {
+        const err1 = {
+          instancePath,
+          schemaPath: "#/oneOf/1/required",
+          keyword: "required",
+          params: {missingProperty: missing1},
+          message: "must have required property '" + missing1 + "'",
+          schema: schema49.oneOf[1].required,
+          parentSchema: schema49.oneOf[1],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err1]
+        } else {
+          vErrors.push(err1)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs6 === errors
+    if (_valid0 && valid2) {
+      valid2 = false
+      passing0 = [passing0, 1]
+    } else {
+      if (_valid0) {
+        valid2 = true
+        passing0 = 1
+      }
+    }
+    if (!valid2) {
+      const err2 = {
+        instancePath,
+        schemaPath: "#/oneOf",
+        keyword: "oneOf",
+        params: {passingSchemas: passing0},
+        message: "must match exactly one schema in oneOf",
+        schema: schema49.oneOf,
+        parentSchema: schema49,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err2]
+      } else {
+        vErrors.push(err2)
+      }
+      errors++
+      validate37.errors = vErrors
+      return false
+    } else {
+      errors = _errs4
+      if (vErrors !== null) {
+        if (_errs4) {
+          vErrors.length = _errs4
+        } else {
+          vErrors = null
+        }
+      }
+      const _errs7 = errors
+      let valid3 = true
+      const _errs8 = errors
+      if (data && typeof data == "object" && !Array.isArray(data)) {
+        if (data.in !== undefined) {
+          if ("query" !== data.in) {
+            const err3 = {}
+            if (vErrors === null) {
+              vErrors = [err3]
+            } else {
+              vErrors.push(err3)
+            }
+            errors++
+          }
+        }
+      }
+      var _valid1 = _errs8 === errors
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.in = true
+      }
+      errors = _errs7
+      if (vErrors !== null) {
+        if (_errs7) {
+          vErrors.length = _errs7
+        } else {
+          vErrors = null
+        }
+      }
+      if (_valid1) {
+        const _errs10 = errors
+        if (data && typeof data == "object" && !Array.isArray(data)) {
+          if (data.allowEmptyValue !== undefined) {
+            let data1 = data.allowEmptyValue
+            if (typeof data1 !== "boolean") {
+              validate37.errors = [
+                {
+                  instancePath: instancePath + "/allowEmptyValue",
+                  schemaPath: "#/then/properties/allowEmptyValue/type",
+                  keyword: "type",
+                  params: {type: "boolean"},
+                  message: "must be boolean",
+                  schema: schema49.then.properties.allowEmptyValue.type,
+                  parentSchema: schema49.then.properties.allowEmptyValue,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var _valid1 = _errs10 === errors
+        valid3 = _valid1
+        if (valid3) {
+          if (props0 !== true) {
+            props0 = props0 || {}
+            props0.allowEmptyValue = true
+          }
+        }
+      }
+      if (!valid3) {
+        const err4 = {
+          instancePath,
+          schemaPath: "#/if",
+          keyword: "if",
+          params: {failingKeyword: "then"},
+          message: 'must match "then" schema',
+          schema: schema49.if,
+          parentSchema: schema49,
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err4]
+        } else {
+          vErrors.push(err4)
+        }
+        errors++
+        validate37.errors = vErrors
+        return false
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing2
+      if (
+        (data.name === undefined && (missing2 = "name")) ||
+        (data.in === undefined && (missing2 = "in"))
+      ) {
+        validate37.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing2},
+            message: "must have required property '" + missing2 + "'",
+            schema: schema49.required,
+            parentSchema: schema49,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.name = true
+          props0.in = true
+          props0.description = true
+          props0.required = true
+          props0.deprecated = true
+          props0.schema = true
+          props0.content = true
+        }
+        if (data.name !== undefined) {
+          let data2 = data.name
+          const _errs13 = errors
+          if (typeof data2 !== "string") {
+            validate37.errors = [
+              {
+                instancePath: instancePath + "/name",
+                schemaPath: "#/properties/name/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema49.properties.name.type,
+                parentSchema: schema49.properties.name,
+                data: data2,
+              },
+            ]
+            return false
+          }
+          var valid6 = _errs13 === errors
+        } else {
+          var valid6 = true
+        }
+        if (valid6) {
+          if (data.in !== undefined) {
+            let data3 = data.in
+            const _errs15 = errors
+            if (
+              !(
+                data3 === "query" ||
+                data3 === "header" ||
+                data3 === "path" ||
+                data3 === "cookie"
+              )
+            ) {
+              validate37.errors = [
+                {
+                  instancePath: instancePath + "/in",
+                  schemaPath: "#/properties/in/enum",
+                  keyword: "enum",
+                  params: {allowedValues: schema49.properties.in.enum},
+                  message: "must be equal to one of the allowed values",
+                  schema: schema49.properties.in.enum,
+                  parentSchema: schema49.properties.in,
+                  data: data3,
+                },
+              ]
+              return false
+            }
+            var valid6 = _errs15 === errors
+          } else {
+            var valid6 = true
+          }
+          if (valid6) {
+            if (data.description !== undefined) {
+              let data4 = data.description
+              const _errs16 = errors
+              if (typeof data4 !== "string") {
+                validate37.errors = [
+                  {
+                    instancePath: instancePath + "/description",
+                    schemaPath: "#/properties/description/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema49.properties.description.type,
+                    parentSchema: schema49.properties.description,
+                    data: data4,
+                  },
+                ]
+                return false
+              }
+              var valid6 = _errs16 === errors
+            } else {
+              var valid6 = true
+            }
+            if (valid6) {
+              if (data.required !== undefined) {
+                let data5 = data.required
+                const _errs18 = errors
+                if (typeof data5 !== "boolean") {
+                  validate37.errors = [
+                    {
+                      instancePath: instancePath + "/required",
+                      schemaPath: "#/properties/required/type",
+                      keyword: "type",
+                      params: {type: "boolean"},
+                      message: "must be boolean",
+                      schema: schema49.properties.required.type,
+                      parentSchema: schema49.properties.required,
+                      data: data5,
+                    },
+                  ]
+                  return false
+                }
+                var valid6 = _errs18 === errors
+              } else {
+                var valid6 = true
+              }
+              if (valid6) {
+                if (data.deprecated !== undefined) {
+                  let data6 = data.deprecated
+                  const _errs20 = errors
+                  if (typeof data6 !== "boolean") {
+                    validate37.errors = [
+                      {
+                        instancePath: instancePath + "/deprecated",
+                        schemaPath: "#/properties/deprecated/type",
+                        keyword: "type",
+                        params: {type: "boolean"},
+                        message: "must be boolean",
+                        schema: schema49.properties.deprecated.type,
+                        parentSchema: schema49.properties.deprecated,
+                        data: data6,
+                      },
+                    ]
+                    return false
+                  }
+                  var valid6 = _errs20 === errors
+                } else {
+                  var valid6 = true
+                }
+                if (valid6) {
+                  if (data.schema !== undefined) {
+                    const _errs22 = errors
+                    if (
+                      !validate38(data.schema, {
+                        instancePath: instancePath + "/schema",
+                        parentData: data,
+                        parentDataProperty: "schema",
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate38.errors
+                          : vErrors.concat(validate38.errors)
+                      errors = vErrors.length
+                    }
+                    var valid6 = _errs22 === errors
+                  } else {
+                    var valid6 = true
+                  }
+                  if (valid6) {
+                    if (data.content !== undefined) {
+                      let data8 = data.content
+                      const _errs23 = errors
+                      if (
+                        !validate49(data8, {
+                          instancePath: instancePath + "/content",
+                          parentData: data,
+                          parentDataProperty: "content",
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate49.errors
+                            : vErrors.concat(validate49.errors)
+                        errors = vErrors.length
+                      }
+                      if (errors === _errs23) {
+                        if (
+                          data8 &&
+                          typeof data8 == "object" &&
+                          !Array.isArray(data8)
+                        ) {
+                          if (Object.keys(data8).length > 1) {
+                            validate37.errors = [
+                              {
+                                instancePath: instancePath + "/content",
+                                schemaPath:
+                                  "#/properties/content/maxProperties",
+                                keyword: "maxProperties",
+                                params: {limit: 1},
+                                message: "must NOT have more than 1 properties",
+                                schema: 1,
+                                parentSchema: schema49.properties.content,
+                                data: data8,
+                              },
+                            ]
+                            return false
+                          } else {
+                            if (Object.keys(data8).length < 1) {
+                              validate37.errors = [
+                                {
+                                  instancePath: instancePath + "/content",
+                                  schemaPath:
+                                    "#/properties/content/minProperties",
+                                  keyword: "minProperties",
+                                  params: {limit: 1},
+                                  message:
+                                    "must NOT have fewer than 1 properties",
+                                  schema: 1,
+                                  parentSchema: schema49.properties.content,
+                                  data: data8,
+                                },
+                              ]
+                              return false
+                            }
+                          }
+                        }
+                      }
+                      var valid6 = _errs23 === errors
+                    } else {
+                      var valid6 = true
+                    }
+                    if (valid6) {
+                      if (data.schema !== undefined) {
+                        const _errs24 = errors
+                        const _errs25 = errors
+                        if (
+                          !validate51(data, {
+                            instancePath,
+                            parentData,
+                            parentDataProperty,
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate51.errors
+                              : vErrors.concat(validate51.errors)
+                          errors = vErrors.length
+                        }
+                        var valid8 = _errs25 === errors
+                        if (valid8) {
+                          const _errs26 = errors
+                          const _errs28 = errors
+                          let valid10 = true
+                          const _errs29 = errors
+                          if (
+                            data &&
+                            typeof data == "object" &&
+                            !Array.isArray(data)
+                          ) {
+                            if (data.in !== undefined) {
+                              if ("path" !== data.in) {
+                                const err5 = {}
+                                if (vErrors === null) {
+                                  vErrors = [err5]
+                                } else {
+                                  vErrors.push(err5)
+                                }
+                                errors++
+                              }
+                            }
+                          }
+                          var _valid2 = _errs29 === errors
+                          errors = _errs28
+                          if (vErrors !== null) {
+                            if (_errs28) {
+                              vErrors.length = _errs28
+                            } else {
+                              vErrors = null
+                            }
+                          }
+                          if (_valid2) {
+                            const _errs31 = errors
+                            if (
+                              data &&
+                              typeof data == "object" &&
+                              !Array.isArray(data)
+                            ) {
+                              let missing3
+                              if (
+                                data.required === undefined &&
+                                (missing3 = "required")
+                              ) {
+                                validate37.errors = [
+                                  {
+                                    instancePath,
+                                    schemaPath:
+                                      "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path/then/required",
+                                    keyword: "required",
+                                    params: {missingProperty: missing3},
+                                    message:
+                                      "must have required property '" +
+                                      missing3 +
+                                      "'",
+                                    schema: schema72.then.required,
+                                    parentSchema: schema72.then,
+                                    data,
+                                  },
+                                ]
+                                return false
+                              } else {
+                                if (data.style !== undefined) {
+                                  let data10 = data.style
+                                  const _errs32 = errors
+                                  if (
+                                    !(
+                                      data10 === "matrix" ||
+                                      data10 === "label" ||
+                                      data10 === "simple"
+                                    )
+                                  ) {
+                                    validate37.errors = [
+                                      {
+                                        instancePath: instancePath + "/style",
+                                        schemaPath:
+                                          "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path/then/properties/style/enum",
+                                        keyword: "enum",
+                                        params: {
+                                          allowedValues:
+                                            schema72.then.properties.style.enum,
+                                        },
+                                        message:
+                                          "must be equal to one of the allowed values",
+                                        schema:
+                                          schema72.then.properties.style.enum,
+                                        parentSchema:
+                                          schema72.then.properties.style,
+                                        data: data10,
+                                      },
+                                    ]
+                                    return false
+                                  }
+                                  var valid12 = _errs32 === errors
+                                } else {
+                                  var valid12 = true
+                                }
+                                if (valid12) {
+                                  if (data.required !== undefined) {
+                                    let data11 = data.required
+                                    const _errs33 = errors
+                                    if (true !== data11) {
+                                      validate37.errors = [
+                                        {
+                                          instancePath:
+                                            instancePath + "/required",
+                                          schemaPath:
+                                            "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path/then/properties/required/const",
+                                          keyword: "const",
+                                          params: {allowedValue: true},
+                                          message: "must be equal to constant",
+                                          schema: true,
+                                          parentSchema:
+                                            schema72.then.properties.required,
+                                          data: data11,
+                                        },
+                                      ]
+                                      return false
+                                    }
+                                    var valid12 = _errs33 === errors
+                                  } else {
+                                    var valid12 = true
+                                  }
+                                }
+                              }
+                            }
+                            var _valid2 = _errs31 === errors
+                            valid10 = _valid2
+                            if (valid10) {
+                              var props1 = {}
+                              props1.style = true
+                              props1.required = true
+                              props1.in = true
+                            }
+                          }
+                          if (!valid10) {
+                            const err6 = {
+                              instancePath,
+                              schemaPath:
+                                "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-path/if",
+                              keyword: "if",
+                              params: {failingKeyword: "then"},
+                              message: 'must match "then" schema',
+                              schema: schema72.if,
+                              parentSchema: schema72,
+                              data,
+                            }
+                            if (vErrors === null) {
+                              vErrors = [err6]
+                            } else {
+                              vErrors.push(err6)
+                            }
+                            errors++
+                            validate37.errors = vErrors
+                            return false
+                          }
+                          var valid8 = _errs26 === errors
+                          if (valid8) {
+                            if (props1 !== true) {
+                              props1 = props1 || {}
+                              props1.example = true
+                              props1.examples = true
+                            }
+                            const _errs34 = errors
+                            const _errs36 = errors
+                            let valid14 = true
+                            const _errs37 = errors
+                            if (
+                              data &&
+                              typeof data == "object" &&
+                              !Array.isArray(data)
+                            ) {
+                              if (data.in !== undefined) {
+                                if ("header" !== data.in) {
+                                  const err7 = {}
+                                  if (vErrors === null) {
+                                    vErrors = [err7]
+                                  } else {
+                                    vErrors.push(err7)
+                                  }
+                                  errors++
+                                }
+                              }
+                            }
+                            var _valid3 = _errs37 === errors
+                            errors = _errs36
+                            if (vErrors !== null) {
+                              if (_errs36) {
+                                vErrors.length = _errs36
+                              } else {
+                                vErrors = null
+                              }
+                            }
+                            if (_valid3) {
+                              const _errs39 = errors
+                              if (
+                                data &&
+                                typeof data == "object" &&
+                                !Array.isArray(data)
+                              ) {
+                                if (data.style !== undefined) {
+                                  let data13 = data.style
+                                  if ("simple" !== data13) {
+                                    validate37.errors = [
+                                      {
+                                        instancePath: instancePath + "/style",
+                                        schemaPath:
+                                          "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-header/then/properties/style/const",
+                                        keyword: "const",
+                                        params: {allowedValue: "simple"},
+                                        message: "must be equal to constant",
+                                        schema: "simple",
+                                        parentSchema:
+                                          schema73.then.properties.style,
+                                        data: data13,
+                                      },
+                                    ]
+                                    return false
+                                  }
+                                }
+                              }
+                              var _valid3 = _errs39 === errors
+                              valid14 = _valid3
+                              if (valid14) {
+                                var props2 = {}
+                                props2.style = true
+                                props2.in = true
+                              }
+                            }
+                            if (!valid14) {
+                              const err8 = {
+                                instancePath,
+                                schemaPath:
+                                  "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-header/if",
+                                keyword: "if",
+                                params: {failingKeyword: "then"},
+                                message: 'must match "then" schema',
+                                schema: schema73.if,
+                                parentSchema: schema73,
+                                data,
+                              }
+                              if (vErrors === null) {
+                                vErrors = [err8]
+                              } else {
+                                vErrors.push(err8)
+                              }
+                              errors++
+                              validate37.errors = vErrors
+                              return false
+                            }
+                            var valid8 = _errs34 === errors
+                            if (valid8) {
+                              if (props1 !== true && props2 !== undefined) {
+                                if (props2 === true) {
+                                  props1 = true
+                                } else {
+                                  props1 = props1 || {}
+                                  Object.assign(props1, props2)
+                                }
+                              }
+                              const _errs41 = errors
+                              const _errs43 = errors
+                              let valid18 = true
+                              const _errs44 = errors
+                              if (
+                                data &&
+                                typeof data == "object" &&
+                                !Array.isArray(data)
+                              ) {
+                                if (data.in !== undefined) {
+                                  if ("query" !== data.in) {
+                                    const err9 = {}
+                                    if (vErrors === null) {
+                                      vErrors = [err9]
+                                    } else {
+                                      vErrors.push(err9)
+                                    }
+                                    errors++
+                                  }
+                                }
+                              }
+                              var _valid4 = _errs44 === errors
+                              errors = _errs43
+                              if (vErrors !== null) {
+                                if (_errs43) {
+                                  vErrors.length = _errs43
+                                } else {
+                                  vErrors = null
+                                }
+                              }
+                              if (_valid4) {
+                                const _errs46 = errors
+                                if (
+                                  data &&
+                                  typeof data == "object" &&
+                                  !Array.isArray(data)
+                                ) {
+                                  if (data.style !== undefined) {
+                                    let data15 = data.style
+                                    const _errs47 = errors
+                                    if (
+                                      !(
+                                        data15 === "form" ||
+                                        data15 === "spaceDelimited" ||
+                                        data15 === "pipeDelimited" ||
+                                        data15 === "deepObject"
+                                      )
+                                    ) {
+                                      validate37.errors = [
+                                        {
+                                          instancePath: instancePath + "/style",
+                                          schemaPath:
+                                            "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query/then/properties/style/enum",
+                                          keyword: "enum",
+                                          params: {
+                                            allowedValues:
+                                              schema74.then.properties.style
+                                                .enum,
+                                          },
+                                          message:
+                                            "must be equal to one of the allowed values",
+                                          schema:
+                                            schema74.then.properties.style.enum,
+                                          parentSchema:
+                                            schema74.then.properties.style,
+                                          data: data15,
+                                        },
+                                      ]
+                                      return false
+                                    }
+                                    var valid20 = _errs47 === errors
+                                  } else {
+                                    var valid20 = true
+                                  }
+                                  if (valid20) {
+                                    if (data.allowReserved !== undefined) {
+                                      let data16 = data.allowReserved
+                                      const _errs48 = errors
+                                      if (typeof data16 !== "boolean") {
+                                        validate37.errors = [
+                                          {
+                                            instancePath:
+                                              instancePath + "/allowReserved",
+                                            schemaPath:
+                                              "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query/then/properties/allowReserved/type",
+                                            keyword: "type",
+                                            params: {type: "boolean"},
+                                            message: "must be boolean",
+                                            schema:
+                                              schema74.then.properties
+                                                .allowReserved.type,
+                                            parentSchema:
+                                              schema74.then.properties
+                                                .allowReserved,
+                                            data: data16,
+                                          },
+                                        ]
+                                        return false
+                                      }
+                                      var valid20 = _errs48 === errors
+                                    } else {
+                                      var valid20 = true
+                                    }
+                                  }
+                                }
+                                var _valid4 = _errs46 === errors
+                                valid18 = _valid4
+                                if (valid18) {
+                                  var props3 = {}
+                                  props3.style = true
+                                  props3.allowReserved = true
+                                  props3.in = true
+                                }
+                              }
+                              if (!valid18) {
+                                const err10 = {
+                                  instancePath,
+                                  schemaPath:
+                                    "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-query/if",
+                                  keyword: "if",
+                                  params: {failingKeyword: "then"},
+                                  message: 'must match "then" schema',
+                                  schema: schema74.if,
+                                  parentSchema: schema74,
+                                  data,
+                                }
+                                if (vErrors === null) {
+                                  vErrors = [err10]
+                                } else {
+                                  vErrors.push(err10)
+                                }
+                                errors++
+                                validate37.errors = vErrors
+                                return false
+                              }
+                              var valid8 = _errs41 === errors
+                              if (valid8) {
+                                if (props1 !== true && props3 !== undefined) {
+                                  if (props3 === true) {
+                                    props1 = true
+                                  } else {
+                                    props1 = props1 || {}
+                                    Object.assign(props1, props3)
+                                  }
+                                }
+                                const _errs50 = errors
+                                const _errs52 = errors
+                                let valid22 = true
+                                const _errs53 = errors
+                                if (
+                                  data &&
+                                  typeof data == "object" &&
+                                  !Array.isArray(data)
+                                ) {
+                                  if (data.in !== undefined) {
+                                    if ("cookie" !== data.in) {
+                                      const err11 = {}
+                                      if (vErrors === null) {
+                                        vErrors = [err11]
+                                      } else {
+                                        vErrors.push(err11)
+                                      }
+                                      errors++
+                                    }
+                                  }
+                                }
+                                var _valid5 = _errs53 === errors
+                                errors = _errs52
+                                if (vErrors !== null) {
+                                  if (_errs52) {
+                                    vErrors.length = _errs52
+                                  } else {
+                                    vErrors = null
+                                  }
+                                }
+                                if (_valid5) {
+                                  const _errs55 = errors
+                                  if (
+                                    data &&
+                                    typeof data == "object" &&
+                                    !Array.isArray(data)
+                                  ) {
+                                    if (data.style !== undefined) {
+                                      let data18 = data.style
+                                      if ("form" !== data18) {
+                                        validate37.errors = [
+                                          {
+                                            instancePath:
+                                              instancePath + "/style",
+                                            schemaPath:
+                                              "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-cookie/then/properties/style/const",
+                                            keyword: "const",
+                                            params: {allowedValue: "form"},
+                                            message:
+                                              "must be equal to constant",
+                                            schema: "form",
+                                            parentSchema:
+                                              schema75.then.properties.style,
+                                            data: data18,
+                                          },
+                                        ]
+                                        return false
+                                      }
+                                    }
+                                  }
+                                  var _valid5 = _errs55 === errors
+                                  valid22 = _valid5
+                                  if (valid22) {
+                                    var props4 = {}
+                                    props4.style = true
+                                    props4.in = true
+                                  }
+                                }
+                                if (!valid22) {
+                                  const err12 = {
+                                    instancePath,
+                                    schemaPath:
+                                      "#/$defs/parameter/dependentSchemas/schema/$defs/styles-for-cookie/if",
+                                    keyword: "if",
+                                    params: {failingKeyword: "then"},
+                                    message: 'must match "then" schema',
+                                    schema: schema75.if,
+                                    parentSchema: schema75,
+                                    data,
+                                  }
+                                  if (vErrors === null) {
+                                    vErrors = [err12]
+                                  } else {
+                                    vErrors.push(err12)
+                                  }
+                                  errors++
+                                  validate37.errors = vErrors
+                                  return false
+                                }
+                                var valid8 = _errs50 === errors
+                                if (valid8) {
+                                  if (props1 !== true && props4 !== undefined) {
+                                    if (props4 === true) {
+                                      props1 = true
+                                    } else {
+                                      props1 = props1 || {}
+                                      Object.assign(props1, props4)
+                                    }
+                                  }
+                                  const _errs57 = errors
+                                  const _errs59 = errors
+                                  let valid26 = true
+                                  const _errs60 = errors
+                                  if (
+                                    data &&
+                                    typeof data == "object" &&
+                                    !Array.isArray(data)
+                                  ) {
+                                    let missing4
+                                    if (
+                                      data.style === undefined &&
+                                      (missing4 = "style")
+                                    ) {
+                                      const err13 = {}
+                                      if (vErrors === null) {
+                                        vErrors = [err13]
+                                      } else {
+                                        vErrors.push(err13)
+                                      }
+                                      errors++
+                                    } else {
+                                      if (data.style !== undefined) {
+                                        if ("form" !== data.style) {
+                                          const err14 = {}
+                                          if (vErrors === null) {
+                                            vErrors = [err14]
+                                          } else {
+                                            vErrors.push(err14)
+                                          }
+                                          errors++
+                                        }
+                                      }
+                                    }
+                                  }
+                                  var _valid6 = _errs60 === errors
+                                  errors = _errs59
+                                  if (vErrors !== null) {
+                                    if (_errs59) {
+                                      vErrors.length = _errs59
+                                    } else {
+                                      vErrors = null
+                                    }
+                                  }
+                                  let ifClause0
+                                  if (_valid6) {
+                                    const _errs62 = errors
+                                    var _valid6 = _errs62 === errors
+                                    valid26 = _valid6
+                                    if (valid26) {
+                                      var props5 = {}
+                                      props5.explode = true
+                                      props5.style = true
+                                    }
+                                    ifClause0 = "then"
+                                  } else {
+                                    const _errs63 = errors
+                                    var _valid6 = _errs63 === errors
+                                    valid26 = _valid6
+                                    if (valid26) {
+                                      if (props5 !== true) {
+                                        props5 = props5 || {}
+                                        props5.explode = true
+                                      }
+                                    }
+                                    ifClause0 = "else"
+                                  }
+                                  if (!valid26) {
+                                    const err15 = {
+                                      instancePath,
+                                      schemaPath: "#/$defs/styles-for-form/if",
+                                      keyword: "if",
+                                      params: {failingKeyword: ifClause0},
+                                      message:
+                                        'must match "' + ifClause0 + '" schema',
+                                      schema: schema68.if,
+                                      parentSchema: schema68,
+                                      data,
+                                    }
+                                    if (vErrors === null) {
+                                      vErrors = [err15]
+                                    } else {
+                                      vErrors.push(err15)
+                                    }
+                                    errors++
+                                    validate37.errors = vErrors
+                                    return false
+                                  }
+                                  var valid8 = _errs57 === errors
+                                  if (valid8) {
+                                    if (
+                                      props1 !== true &&
+                                      props5 !== undefined
+                                    ) {
+                                      if (props5 === true) {
+                                        props1 = true
+                                      } else {
+                                        props1 = props1 || {}
+                                        Object.assign(props1, props5)
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                        if (errors === _errs24) {
+                          if (
+                            data &&
+                            typeof data == "object" &&
+                            !Array.isArray(data)
+                          ) {
+                            if (props1 !== true) {
+                              props1 = props1 || {}
+                              props1.style = true
+                              props1.explode = true
+                            }
+                            if (data.style !== undefined) {
+                              let data20 = data.style
+                              const _errs64 = errors
+                              if (typeof data20 !== "string") {
+                                validate37.errors = [
+                                  {
+                                    instancePath: instancePath + "/style",
+                                    schemaPath:
+                                      "#/dependentSchemas/schema/properties/style/type",
+                                    keyword: "type",
+                                    params: {type: "string"},
+                                    message: "must be string",
+                                    schema:
+                                      schema49.dependentSchemas.schema
+                                        .properties.style.type,
+                                    parentSchema:
+                                      schema49.dependentSchemas.schema
+                                        .properties.style,
+                                    data: data20,
+                                  },
+                                ]
+                                return false
+                              }
+                              var valid28 = _errs64 === errors
+                            } else {
+                              var valid28 = true
+                            }
+                            if (valid28) {
+                              if (data.explode !== undefined) {
+                                let data21 = data.explode
+                                const _errs66 = errors
+                                if (typeof data21 !== "boolean") {
+                                  validate37.errors = [
+                                    {
+                                      instancePath: instancePath + "/explode",
+                                      schemaPath:
+                                        "#/dependentSchemas/schema/properties/explode/type",
+                                      keyword: "type",
+                                      params: {type: "boolean"},
+                                      message: "must be boolean",
+                                      schema:
+                                        schema49.dependentSchemas.schema
+                                          .properties.explode.type,
+                                      parentSchema:
+                                        schema49.dependentSchemas.schema
+                                          .properties.explode,
+                                      data: data21,
+                                    },
+                                  ]
+                                  return false
+                                }
+                                var valid28 = _errs66 === errors
+                              } else {
+                                var valid28 = true
+                              }
+                            }
+                          }
+                        }
+                        var valid7 = _errs24 === errors
+                        if (valid7) {
+                          if (props0 !== true && props1 !== undefined) {
+                            if (props1 === true) {
+                              props0 = true
+                            } else {
+                              props0 = props0 || {}
+                              Object.assign(props0, props1)
+                            }
+                          }
+                        }
+                      } else {
+                        var valid7 = true
+                      }
+                      if (valid7) {
+                        if (props0 !== true) {
+                          for (const key1 in data) {
+                            if (!props0 || !props0[key1]) {
+                              validate37.errors = [
+                                {
+                                  instancePath,
+                                  schemaPath: "#/unevaluatedProperties",
+                                  keyword: "unevaluatedProperties",
+                                  params: {unevaluatedProperty: key1},
+                                  message:
+                                    "must NOT have unevaluated properties",
+                                  schema: false,
+                                  parentSchema: schema49,
+                                  data,
+                                },
+                              ]
+                              return false
+                              break
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate37.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema49.type,
+          parentSchema: schema49,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate37.errors = vErrors
+  return errors === 0
+}
+validate37.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate34(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate34.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate37(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate37.errors : vErrors.concat(validate37.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema47.if,
+      parentSchema: schema47,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate34.errors = vErrors
+    return false
+  }
+  validate34.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate34.evaluated = {dynamicProps: true, dynamicItems: false}
+const schema77 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#operation-object",
+  type: "object",
+  properties: {
+    tags: {type: "array", items: {type: "string"}},
+    summary: {type: "string"},
+    description: {type: "string"},
+    externalDocs: {$ref: "#/$defs/external-documentation"},
+    operationId: {type: "string"},
+    parameters: {
+      type: "array",
+      items: {$ref: "#/$defs/parameter-or-reference"},
+    },
+    requestBody: {$ref: "#/$defs/request-body-or-reference"},
+    responses: {$ref: "#/$defs/responses"},
+    callbacks: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/callbacks-or-reference"},
+    },
+    deprecated: {default: false, type: "boolean"},
+    security: {type: "array", items: {$ref: "#/$defs/security-requirement"}},
+    servers: {type: "array", items: {$ref: "#/$defs/server"}},
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema79 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#external-documentation-object",
+  type: "object",
+  properties: {
+    description: {type: "string"},
+    url: {type: "string", format: "uri-reference"},
+  },
+  required: ["url"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate74(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate74.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.url === undefined && (missing0 = "url")) {
+        validate74.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema79.required,
+            parentSchema: schema79,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.description = true
+          props0.url = true
+        }
+        if (data.description !== undefined) {
+          let data0 = data.description
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate74.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema79.properties.description.type,
+                parentSchema: schema79.properties.description,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.url !== undefined) {
+            let data1 = data.url
+            const _errs6 = errors
+            if (errors === _errs6) {
+              if (errors === _errs6) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate74.errors = [
+                      {
+                        instancePath: instancePath + "/url",
+                        schemaPath: "#/properties/url/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema79.properties.url,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate74.errors = [
+                    {
+                      instancePath: instancePath + "/url",
+                      schemaPath: "#/properties/url/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema79.properties.url.type,
+                      parentSchema: schema79.properties.url,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (props0 !== true) {
+              for (const key1 in data) {
+                if (!props0 || !props0[key1]) {
+                  validate74.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key1},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema79,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate74.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema79.type,
+          parentSchema: schema79,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate74.errors = vErrors
+  return errors === 0
+}
+validate74.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema81 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/request-body"},
+}
+const schema82 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#request-body-object",
+  type: "object",
+  properties: {
+    description: {type: "string"},
+    content: {$ref: "#/$defs/content"},
+    required: {default: false, type: "boolean"},
+  },
+  required: ["content"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate79(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate79.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.content === undefined && (missing0 = "content")) {
+        validate79.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema82.required,
+            parentSchema: schema82,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.description = true
+          props0.content = true
+          props0.required = true
+        }
+        if (data.description !== undefined) {
+          let data0 = data.description
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate79.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema82.properties.description.type,
+                parentSchema: schema82.properties.description,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.content !== undefined) {
+            const _errs6 = errors
+            if (
+              !validate49(data.content, {
+                instancePath: instancePath + "/content",
+                parentData: data,
+                parentDataProperty: "content",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate49.errors
+                  : vErrors.concat(validate49.errors)
+              errors = vErrors.length
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.required !== undefined) {
+              let data2 = data.required
+              const _errs7 = errors
+              if (typeof data2 !== "boolean") {
+                validate79.errors = [
+                  {
+                    instancePath: instancePath + "/required",
+                    schemaPath: "#/properties/required/type",
+                    keyword: "type",
+                    params: {type: "boolean"},
+                    message: "must be boolean",
+                    schema: schema82.properties.required.type,
+                    parentSchema: schema82.properties.required,
+                    data: data2,
+                  },
+                ]
+                return false
+              }
+              var valid2 = _errs7 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key1 in data) {
+                  if (!props0 || !props0[key1]) {
+                    validate79.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key1},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema82,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate79.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema82.type,
+          parentSchema: schema82,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate79.errors = vErrors
+  return errors === 0
+}
+validate79.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate77(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate77.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate79(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate79.errors : vErrors.concat(validate79.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema81.if,
+      parentSchema: schema81,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate77.errors = vErrors
+    return false
+  }
+  validate77.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate77.evaluated = {dynamicProps: true, dynamicItems: false}
+const schema84 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#responses-object",
+  type: "object",
+  properties: {default: {$ref: "#/$defs/response-or-reference"}},
+  patternProperties: {
+    "^[1-5](?:[0-9]{2}|XX)$": {$ref: "#/$defs/response-or-reference"},
+  },
+  minProperties: 1,
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+  if: {
+    $comment:
+      "either default, or at least one response code property must exist",
+    patternProperties: {"^[1-5](?:[0-9]{2}|XX)$": false},
+  },
+  then: {required: ["default"]},
+}
+const pattern26 = new RegExp("^[1-5](?:[0-9]{2}|XX)$", "u")
+const schema86 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/response"},
+}
+const schema87 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#response-object",
+  type: "object",
+  properties: {
+    description: {type: "string"},
+    headers: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/header-or-reference"},
+    },
+    content: {$ref: "#/$defs/content"},
+    links: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/link-or-reference"},
+    },
+  },
+  required: ["description"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema89 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/link"},
+}
+const schema90 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#link-object",
+  type: "object",
+  properties: {
+    operationRef: {type: "string", format: "uri-reference"},
+    operationId: {type: "string"},
+    parameters: {$ref: "#/$defs/map-of-strings"},
+    requestBody: true,
+    description: {type: "string"},
+    server: {$ref: "#/$defs/server"},
+  },
+  oneOf: [{required: ["operationRef"]}, {required: ["operationId"]}],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const schema92 = {type: "object", additionalProperties: {type: "string"}}
+function validate91(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate91.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    const _errs4 = errors
+    let valid2 = false
+    let passing0 = null
+    const _errs5 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.operationRef === undefined && (missing0 = "operationRef")) {
+        const err0 = {
+          instancePath,
+          schemaPath: "#/oneOf/0/required",
+          keyword: "required",
+          params: {missingProperty: missing0},
+          message: "must have required property '" + missing0 + "'",
+          schema: schema90.oneOf[0].required,
+          parentSchema: schema90.oneOf[0],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs5 === errors
+    if (_valid0) {
+      valid2 = true
+      passing0 = 0
+    }
+    const _errs6 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing1
+      if (data.operationId === undefined && (missing1 = "operationId")) {
+        const err1 = {
+          instancePath,
+          schemaPath: "#/oneOf/1/required",
+          keyword: "required",
+          params: {missingProperty: missing1},
+          message: "must have required property '" + missing1 + "'",
+          schema: schema90.oneOf[1].required,
+          parentSchema: schema90.oneOf[1],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err1]
+        } else {
+          vErrors.push(err1)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs6 === errors
+    if (_valid0 && valid2) {
+      valid2 = false
+      passing0 = [passing0, 1]
+    } else {
+      if (_valid0) {
+        valid2 = true
+        passing0 = 1
+      }
+    }
+    if (!valid2) {
+      const err2 = {
+        instancePath,
+        schemaPath: "#/oneOf",
+        keyword: "oneOf",
+        params: {passingSchemas: passing0},
+        message: "must match exactly one schema in oneOf",
+        schema: schema90.oneOf,
+        parentSchema: schema90,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err2]
+      } else {
+        vErrors.push(err2)
+      }
+      errors++
+      validate91.errors = vErrors
+      return false
+    } else {
+      errors = _errs4
+      if (vErrors !== null) {
+        if (_errs4) {
+          vErrors.length = _errs4
+        } else {
+          vErrors = null
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.operationRef = true
+        props0.operationId = true
+        props0.parameters = true
+        props0.requestBody = true
+        props0.description = true
+        props0.server = true
+      }
+      if (data.operationRef !== undefined) {
+        let data0 = data.operationRef
+        const _errs7 = errors
+        if (errors === _errs7) {
+          if (errors === _errs7) {
+            if (typeof data0 === "string") {
+              if (!formats0.test(data0)) {
+                validate91.errors = [
+                  {
+                    instancePath: instancePath + "/operationRef",
+                    schemaPath: "#/properties/operationRef/format",
+                    keyword: "format",
+                    params: {format: "uri-reference"},
+                    message: 'must match format "' + "uri-reference" + '"',
+                    schema: "uri-reference",
+                    parentSchema: schema90.properties.operationRef,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            } else {
+              validate91.errors = [
+                {
+                  instancePath: instancePath + "/operationRef",
+                  schemaPath: "#/properties/operationRef/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema90.properties.operationRef.type,
+                  parentSchema: schema90.properties.operationRef,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var valid3 = _errs7 === errors
+      } else {
+        var valid3 = true
+      }
+      if (valid3) {
+        if (data.operationId !== undefined) {
+          let data1 = data.operationId
+          const _errs9 = errors
+          if (typeof data1 !== "string") {
+            validate91.errors = [
+              {
+                instancePath: instancePath + "/operationId",
+                schemaPath: "#/properties/operationId/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema90.properties.operationId.type,
+                parentSchema: schema90.properties.operationId,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid3 = _errs9 === errors
+        } else {
+          var valid3 = true
+        }
+        if (valid3) {
+          if (data.parameters !== undefined) {
+            let data2 = data.parameters
+            const _errs11 = errors
+            const _errs12 = errors
+            if (errors === _errs12) {
+              if (data2 && typeof data2 == "object" && !Array.isArray(data2)) {
+                for (const key1 in data2) {
+                  let data3 = data2[key1]
+                  const _errs15 = errors
+                  if (typeof data3 !== "string") {
+                    validate91.errors = [
+                      {
+                        instancePath:
+                          instancePath +
+                          "/parameters/" +
+                          key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                        schemaPath:
+                          "#/$defs/map-of-strings/additionalProperties/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema92.additionalProperties.type,
+                        parentSchema: schema92.additionalProperties,
+                        data: data3,
+                      },
+                    ]
+                    return false
+                  }
+                  var valid5 = _errs15 === errors
+                  if (!valid5) {
+                    break
+                  }
+                }
+              } else {
+                validate91.errors = [
+                  {
+                    instancePath: instancePath + "/parameters",
+                    schemaPath: "#/$defs/map-of-strings/type",
+                    keyword: "type",
+                    params: {type: "object"},
+                    message: "must be object",
+                    schema: schema92.type,
+                    parentSchema: schema92,
+                    data: data2,
+                  },
+                ]
+                return false
+              }
+            }
+            var valid3 = _errs11 === errors
+          } else {
+            var valid3 = true
+          }
+          if (valid3) {
+            if (data.description !== undefined) {
+              let data4 = data.description
+              const _errs17 = errors
+              if (typeof data4 !== "string") {
+                validate91.errors = [
+                  {
+                    instancePath: instancePath + "/description",
+                    schemaPath: "#/properties/description/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema90.properties.description.type,
+                    parentSchema: schema90.properties.description,
+                    data: data4,
+                  },
+                ]
+                return false
+              }
+              var valid3 = _errs17 === errors
+            } else {
+              var valid3 = true
+            }
+            if (valid3) {
+              if (data.server !== undefined) {
+                const _errs19 = errors
+                if (
+                  !validate27(data.server, {
+                    instancePath: instancePath + "/server",
+                    parentData: data,
+                    parentDataProperty: "server",
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate27.errors
+                      : vErrors.concat(validate27.errors)
+                  errors = vErrors.length
+                }
+                var valid3 = _errs19 === errors
+              } else {
+                var valid3 = true
+              }
+              if (valid3) {
+                if (props0 !== true) {
+                  for (const key2 in data) {
+                    if (!props0 || !props0[key2]) {
+                      validate91.errors = [
+                        {
+                          instancePath,
+                          schemaPath: "#/unevaluatedProperties",
+                          keyword: "unevaluatedProperties",
+                          params: {unevaluatedProperty: key2},
+                          message: "must NOT have unevaluated properties",
+                          schema: false,
+                          parentSchema: schema90,
+                          data,
+                        },
+                      ]
+                      return false
+                      break
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate91.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema90.type,
+          parentSchema: schema90,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate91.errors = vErrors
+  return errors === 0
+}
+validate91.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate89(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate89.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate91(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate91.errors : vErrors.concat(validate91.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema89.if,
+      parentSchema: schema89,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate89.errors = vErrors
+    return false
+  }
+  validate89.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate89.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate86(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate86.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.description === undefined && (missing0 = "description")) {
+        validate86.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema87.required,
+            parentSchema: schema87,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.description = true
+          props0.headers = true
+          props0.content = true
+          props0.links = true
+        }
+        if (data.description !== undefined) {
+          let data0 = data.description
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate86.errors = [
+              {
+                instancePath: instancePath + "/description",
+                schemaPath: "#/properties/description/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema87.properties.description.type,
+                parentSchema: schema87.properties.description,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.headers !== undefined) {
+            let data1 = data.headers
+            const _errs6 = errors
+            if (errors === _errs6) {
+              if (data1 && typeof data1 == "object" && !Array.isArray(data1)) {
+                for (const key1 in data1) {
+                  const _errs9 = errors
+                  if (
+                    !validate60(data1[key1], {
+                      instancePath:
+                        instancePath +
+                        "/headers/" +
+                        key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      parentData: data1,
+                      parentDataProperty: key1,
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate60.errors
+                        : vErrors.concat(validate60.errors)
+                    errors = vErrors.length
+                  }
+                  var valid3 = _errs9 === errors
+                  if (!valid3) {
+                    break
+                  }
+                }
+              } else {
+                validate86.errors = [
+                  {
+                    instancePath: instancePath + "/headers",
+                    schemaPath: "#/properties/headers/type",
+                    keyword: "type",
+                    params: {type: "object"},
+                    message: "must be object",
+                    schema: schema87.properties.headers.type,
+                    parentSchema: schema87.properties.headers,
+                    data: data1,
+                  },
+                ]
+                return false
+              }
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.content !== undefined) {
+              const _errs10 = errors
+              if (
+                !validate49(data.content, {
+                  instancePath: instancePath + "/content",
+                  parentData: data,
+                  parentDataProperty: "content",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate49.errors
+                    : vErrors.concat(validate49.errors)
+                errors = vErrors.length
+              }
+              var valid2 = _errs10 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.links !== undefined) {
+                let data4 = data.links
+                const _errs11 = errors
+                if (errors === _errs11) {
+                  if (
+                    data4 &&
+                    typeof data4 == "object" &&
+                    !Array.isArray(data4)
+                  ) {
+                    for (const key2 in data4) {
+                      const _errs14 = errors
+                      if (
+                        !validate89(data4[key2], {
+                          instancePath:
+                            instancePath +
+                            "/links/" +
+                            key2.replace(/~/g, "~0").replace(/\//g, "~1"),
+                          parentData: data4,
+                          parentDataProperty: key2,
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate89.errors
+                            : vErrors.concat(validate89.errors)
+                        errors = vErrors.length
+                      }
+                      var valid4 = _errs14 === errors
+                      if (!valid4) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate86.errors = [
+                      {
+                        instancePath: instancePath + "/links",
+                        schemaPath: "#/properties/links/type",
+                        keyword: "type",
+                        params: {type: "object"},
+                        message: "must be object",
+                        schema: schema87.properties.links.type,
+                        parentSchema: schema87.properties.links,
+                        data: data4,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid2 = _errs11 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (props0 !== true) {
+                  for (const key3 in data) {
+                    if (!props0 || !props0[key3]) {
+                      validate86.errors = [
+                        {
+                          instancePath,
+                          schemaPath: "#/unevaluatedProperties",
+                          keyword: "unevaluatedProperties",
+                          params: {unevaluatedProperty: key3},
+                          message: "must NOT have unevaluated properties",
+                          schema: false,
+                          parentSchema: schema87,
+                          data,
+                        },
+                      ]
+                      return false
+                      break
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate86.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema87.type,
+          parentSchema: schema87,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate86.errors = vErrors
+  return errors === 0
+}
+validate86.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate84(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate84.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate86(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate86.errors : vErrors.concat(validate86.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema86.if,
+      parentSchema: schema86,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate84.errors = vErrors
+    return false
+  }
+  validate84.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate84.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate83(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate83.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs1 === errors
+  if (valid0) {
+    const _errs4 = errors
+    let valid2 = true
+    const _errs5 = errors
+    if (errors === _errs5) {
+      if (data && typeof data == "object" && !Array.isArray(data)) {
+        var props1 = {}
+        for (const key1 in data) {
+          if (pattern26.test(key1)) {
+            const err0 = {}
+            if (vErrors === null) {
+              vErrors = [err0]
+            } else {
+              vErrors.push(err0)
+            }
+            errors++
+            props1[key1] = true
+          }
+        }
+      }
+    }
+    var _valid0 = _errs5 === errors
+    if (props0 !== true && props1 !== undefined) {
+      if (props1 === true) {
+        props0 = true
+      } else {
+        props0 = props0 || {}
+        Object.assign(props0, props1)
+      }
+    }
+    errors = _errs4
+    if (vErrors !== null) {
+      if (_errs4) {
+        vErrors.length = _errs4
+      } else {
+        vErrors = null
+      }
+    }
+    if (_valid0) {
+      const _errs7 = errors
+      if (data && typeof data == "object" && !Array.isArray(data)) {
+        let missing0
+        if (data.default === undefined && (missing0 = "default")) {
+          validate83.errors = [
+            {
+              instancePath,
+              schemaPath: "#/then/required",
+              keyword: "required",
+              params: {missingProperty: missing0},
+              message: "must have required property '" + missing0 + "'",
+              schema: schema84.then.required,
+              parentSchema: schema84.then,
+              data,
+            },
+          ]
+          return false
+        }
+      }
+      var _valid0 = _errs7 === errors
+      valid2 = _valid0
+    }
+    if (!valid2) {
+      const err1 = {
+        instancePath,
+        schemaPath: "#/if",
+        keyword: "if",
+        params: {failingKeyword: "then"},
+        message: 'must match "then" schema',
+        schema: schema84.if,
+        parentSchema: schema84,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+      validate83.errors = vErrors
+      return false
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (Object.keys(data).length < 1) {
+        validate83.errors = [
+          {
+            instancePath,
+            schemaPath: "#/minProperties",
+            keyword: "minProperties",
+            params: {limit: 1},
+            message: "must NOT have fewer than 1 properties",
+            schema: 1,
+            parentSchema: schema84,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.default = true
+        }
+        if (data.default !== undefined) {
+          const _errs8 = errors
+          if (
+            !validate84(data.default, {
+              instancePath: instancePath + "/default",
+              parentData: data,
+              parentDataProperty: "default",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate84.errors
+                : vErrors.concat(validate84.errors)
+            errors = vErrors.length
+          }
+          var valid4 = _errs8 === errors
+        } else {
+          var valid4 = true
+        }
+        if (valid4) {
+          var valid5 = true
+          for (const key2 in data) {
+            if (pattern26.test(key2)) {
+              const _errs9 = errors
+              if (
+                !validate84(data[key2], {
+                  instancePath:
+                    instancePath +
+                    "/" +
+                    key2.replace(/~/g, "~0").replace(/\//g, "~1"),
+                  parentData: data,
+                  parentDataProperty: key2,
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate84.errors
+                    : vErrors.concat(validate84.errors)
+                errors = vErrors.length
+              }
+              var valid5 = _errs9 === errors
+              props0[key2] = true
+            }
+          }
+          if (valid5) {
+            if (props0 !== true) {
+              for (const key3 in data) {
+                if (!props0 || !props0[key3]) {
+                  validate83.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key3},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema84,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate83.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema84.type,
+          parentSchema: schema84,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate83.errors = vErrors
+  return errors === 0
+}
+validate83.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema93 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/callbacks"},
+}
+const schema94 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#callback-object",
+  type: "object",
+  $ref: "#/$defs/specification-extensions",
+  additionalProperties: {$ref: "#/$defs/path-item"},
+}
+const wrapper1 = {validate: validate32}
+function validate101(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate101.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      for (const key1 in data) {
+        const _errs5 = errors
+        if (
+          !wrapper1.validate(data[key1], {
+            instancePath:
+              instancePath +
+              "/" +
+              key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+            parentData: data,
+            parentDataProperty: key1,
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? wrapper1.validate.errors
+              : vErrors.concat(wrapper1.validate.errors)
+          errors = vErrors.length
+        }
+        var valid2 = _errs5 === errors
+        if (!valid2) {
+          break
+        }
+      }
+    } else {
+      validate101.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema94.type,
+          parentSchema: schema94,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate101.errors = vErrors
+  return errors === 0
+}
+validate101.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate99(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate99.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate101(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null
+          ? validate101.errors
+          : vErrors.concat(validate101.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema93.if,
+      parentSchema: schema93,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate99.errors = vErrors
+    return false
+  }
+  validate99.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate99.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate73(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate73.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.tags = true
+        props0.summary = true
+        props0.description = true
+        props0.externalDocs = true
+        props0.operationId = true
+        props0.parameters = true
+        props0.requestBody = true
+        props0.responses = true
+        props0.callbacks = true
+        props0.deprecated = true
+        props0.security = true
+        props0.servers = true
+      }
+      if (data.tags !== undefined) {
+        let data0 = data.tags
+        const _errs4 = errors
+        if (errors === _errs4) {
+          if (Array.isArray(data0)) {
+            var valid3 = true
+            const len0 = data0.length
+            for (let i0 = 0; i0 < len0; i0++) {
+              let data1 = data0[i0]
+              const _errs6 = errors
+              if (typeof data1 !== "string") {
+                validate73.errors = [
+                  {
+                    instancePath: instancePath + "/tags/" + i0,
+                    schemaPath: "#/properties/tags/items/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema77.properties.tags.items.type,
+                    parentSchema: schema77.properties.tags.items,
+                    data: data1,
+                  },
+                ]
+                return false
+              }
+              var valid3 = _errs6 === errors
+              if (!valid3) {
+                break
+              }
+            }
+          } else {
+            validate73.errors = [
+              {
+                instancePath: instancePath + "/tags",
+                schemaPath: "#/properties/tags/type",
+                keyword: "type",
+                params: {type: "array"},
+                message: "must be array",
+                schema: schema77.properties.tags.type,
+                parentSchema: schema77.properties.tags,
+                data: data0,
+              },
+            ]
+            return false
+          }
+        }
+        var valid2 = _errs4 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.summary !== undefined) {
+          let data2 = data.summary
+          const _errs8 = errors
+          if (typeof data2 !== "string") {
+            validate73.errors = [
+              {
+                instancePath: instancePath + "/summary",
+                schemaPath: "#/properties/summary/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema77.properties.summary.type,
+                parentSchema: schema77.properties.summary,
+                data: data2,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs8 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.description !== undefined) {
+            let data3 = data.description
+            const _errs10 = errors
+            if (typeof data3 !== "string") {
+              validate73.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema77.properties.description.type,
+                  parentSchema: schema77.properties.description,
+                  data: data3,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs10 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.externalDocs !== undefined) {
+              const _errs12 = errors
+              if (
+                !validate74(data.externalDocs, {
+                  instancePath: instancePath + "/externalDocs",
+                  parentData: data,
+                  parentDataProperty: "externalDocs",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate74.errors
+                    : vErrors.concat(validate74.errors)
+                errors = vErrors.length
+              }
+              var valid2 = _errs12 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.operationId !== undefined) {
+                let data5 = data.operationId
+                const _errs13 = errors
+                if (typeof data5 !== "string") {
+                  validate73.errors = [
+                    {
+                      instancePath: instancePath + "/operationId",
+                      schemaPath: "#/properties/operationId/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema77.properties.operationId.type,
+                      parentSchema: schema77.properties.operationId,
+                      data: data5,
+                    },
+                  ]
+                  return false
+                }
+                var valid2 = _errs13 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (data.parameters !== undefined) {
+                  let data6 = data.parameters
+                  const _errs15 = errors
+                  if (errors === _errs15) {
+                    if (Array.isArray(data6)) {
+                      var valid4 = true
+                      const len1 = data6.length
+                      for (let i1 = 0; i1 < len1; i1++) {
+                        const _errs17 = errors
+                        if (
+                          !validate34(data6[i1], {
+                            instancePath: instancePath + "/parameters/" + i1,
+                            parentData: data6,
+                            parentDataProperty: i1,
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate34.errors
+                              : vErrors.concat(validate34.errors)
+                          errors = vErrors.length
+                        }
+                        var valid4 = _errs17 === errors
+                        if (!valid4) {
+                          break
+                        }
+                      }
+                    } else {
+                      validate73.errors = [
+                        {
+                          instancePath: instancePath + "/parameters",
+                          schemaPath: "#/properties/parameters/type",
+                          keyword: "type",
+                          params: {type: "array"},
+                          message: "must be array",
+                          schema: schema77.properties.parameters.type,
+                          parentSchema: schema77.properties.parameters,
+                          data: data6,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                  var valid2 = _errs15 === errors
+                } else {
+                  var valid2 = true
+                }
+                if (valid2) {
+                  if (data.requestBody !== undefined) {
+                    const _errs18 = errors
+                    if (
+                      !validate77(data.requestBody, {
+                        instancePath: instancePath + "/requestBody",
+                        parentData: data,
+                        parentDataProperty: "requestBody",
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate77.errors
+                          : vErrors.concat(validate77.errors)
+                      errors = vErrors.length
+                    }
+                    var valid2 = _errs18 === errors
+                  } else {
+                    var valid2 = true
+                  }
+                  if (valid2) {
+                    if (data.responses !== undefined) {
+                      const _errs19 = errors
+                      if (
+                        !validate83(data.responses, {
+                          instancePath: instancePath + "/responses",
+                          parentData: data,
+                          parentDataProperty: "responses",
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate83.errors
+                            : vErrors.concat(validate83.errors)
+                        errors = vErrors.length
+                      }
+                      var valid2 = _errs19 === errors
+                    } else {
+                      var valid2 = true
+                    }
+                    if (valid2) {
+                      if (data.callbacks !== undefined) {
+                        let data10 = data.callbacks
+                        const _errs20 = errors
+                        if (errors === _errs20) {
+                          if (
+                            data10 &&
+                            typeof data10 == "object" &&
+                            !Array.isArray(data10)
+                          ) {
+                            for (const key1 in data10) {
+                              const _errs23 = errors
+                              if (
+                                !validate99(data10[key1], {
+                                  instancePath:
+                                    instancePath +
+                                    "/callbacks/" +
+                                    key1
+                                      .replace(/~/g, "~0")
+                                      .replace(/\//g, "~1"),
+                                  parentData: data10,
+                                  parentDataProperty: key1,
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? validate99.errors
+                                    : vErrors.concat(validate99.errors)
+                                errors = vErrors.length
+                              }
+                              var valid5 = _errs23 === errors
+                              if (!valid5) {
+                                break
+                              }
+                            }
+                          } else {
+                            validate73.errors = [
+                              {
+                                instancePath: instancePath + "/callbacks",
+                                schemaPath: "#/properties/callbacks/type",
+                                keyword: "type",
+                                params: {type: "object"},
+                                message: "must be object",
+                                schema: schema77.properties.callbacks.type,
+                                parentSchema: schema77.properties.callbacks,
+                                data: data10,
+                              },
+                            ]
+                            return false
+                          }
+                        }
+                        var valid2 = _errs20 === errors
+                      } else {
+                        var valid2 = true
+                      }
+                      if (valid2) {
+                        if (data.deprecated !== undefined) {
+                          let data12 = data.deprecated
+                          const _errs24 = errors
+                          if (typeof data12 !== "boolean") {
+                            validate73.errors = [
+                              {
+                                instancePath: instancePath + "/deprecated",
+                                schemaPath: "#/properties/deprecated/type",
+                                keyword: "type",
+                                params: {type: "boolean"},
+                                message: "must be boolean",
+                                schema: schema77.properties.deprecated.type,
+                                parentSchema: schema77.properties.deprecated,
+                                data: data12,
+                              },
+                            ]
+                            return false
+                          }
+                          var valid2 = _errs24 === errors
+                        } else {
+                          var valid2 = true
+                        }
+                        if (valid2) {
+                          if (data.security !== undefined) {
+                            let data13 = data.security
+                            const _errs26 = errors
+                            if (errors === _errs26) {
+                              if (Array.isArray(data13)) {
+                                var valid6 = true
+                                const len2 = data13.length
+                                for (let i2 = 0; i2 < len2; i2++) {
+                                  let data14 = data13[i2]
+                                  const _errs28 = errors
+                                  const _errs29 = errors
+                                  if (errors === _errs29) {
+                                    if (
+                                      data14 &&
+                                      typeof data14 == "object" &&
+                                      !Array.isArray(data14)
+                                    ) {
+                                      for (const key2 in data14) {
+                                        let data15 = data14[key2]
+                                        const _errs33 = errors
+                                        if (errors === _errs33) {
+                                          if (Array.isArray(data15)) {
+                                            var valid9 = true
+                                            const len3 = data15.length
+                                            for (let i3 = 0; i3 < len3; i3++) {
+                                              let data16 = data15[i3]
+                                              const _errs35 = errors
+                                              if (typeof data16 !== "string") {
+                                                validate73.errors = [
+                                                  {
+                                                    instancePath:
+                                                      instancePath +
+                                                      "/security/" +
+                                                      i2 +
+                                                      "/" +
+                                                      key2
+                                                        .replace(/~/g, "~0")
+                                                        .replace(/\//g, "~1") +
+                                                      "/" +
+                                                      i3,
+                                                    schemaPath:
+                                                      "#/$defs/security-requirement/additionalProperties/items/type",
+                                                    keyword: "type",
+                                                    params: {type: "string"},
+                                                    message: "must be string",
+                                                    schema:
+                                                      schema96
+                                                        .additionalProperties
+                                                        .items.type,
+                                                    parentSchema:
+                                                      schema96
+                                                        .additionalProperties
+                                                        .items,
+                                                    data: data16,
+                                                  },
+                                                ]
+                                                return false
+                                              }
+                                              var valid9 = _errs35 === errors
+                                              if (!valid9) {
+                                                break
+                                              }
+                                            }
+                                          } else {
+                                            validate73.errors = [
+                                              {
+                                                instancePath:
+                                                  instancePath +
+                                                  "/security/" +
+                                                  i2 +
+                                                  "/" +
+                                                  key2
+                                                    .replace(/~/g, "~0")
+                                                    .replace(/\//g, "~1"),
+                                                schemaPath:
+                                                  "#/$defs/security-requirement/additionalProperties/type",
+                                                keyword: "type",
+                                                params: {type: "array"},
+                                                message: "must be array",
+                                                schema:
+                                                  schema96.additionalProperties
+                                                    .type,
+                                                parentSchema:
+                                                  schema96.additionalProperties,
+                                                data: data15,
+                                              },
+                                            ]
+                                            return false
+                                          }
+                                        }
+                                        var valid8 = _errs33 === errors
+                                        if (!valid8) {
+                                          break
+                                        }
+                                      }
+                                    } else {
+                                      validate73.errors = [
+                                        {
+                                          instancePath:
+                                            instancePath + "/security/" + i2,
+                                          schemaPath:
+                                            "#/$defs/security-requirement/type",
+                                          keyword: "type",
+                                          params: {type: "object"},
+                                          message: "must be object",
+                                          schema: schema96.type,
+                                          parentSchema: schema96,
+                                          data: data14,
+                                        },
+                                      ]
+                                      return false
+                                    }
+                                  }
+                                  var valid6 = _errs28 === errors
+                                  if (!valid6) {
+                                    break
+                                  }
+                                }
+                              } else {
+                                validate73.errors = [
+                                  {
+                                    instancePath: instancePath + "/security",
+                                    schemaPath: "#/properties/security/type",
+                                    keyword: "type",
+                                    params: {type: "array"},
+                                    message: "must be array",
+                                    schema: schema77.properties.security.type,
+                                    parentSchema: schema77.properties.security,
+                                    data: data13,
+                                  },
+                                ]
+                                return false
+                              }
+                            }
+                            var valid2 = _errs26 === errors
+                          } else {
+                            var valid2 = true
+                          }
+                          if (valid2) {
+                            if (data.servers !== undefined) {
+                              let data17 = data.servers
+                              const _errs37 = errors
+                              if (errors === _errs37) {
+                                if (Array.isArray(data17)) {
+                                  var valid10 = true
+                                  const len4 = data17.length
+                                  for (let i4 = 0; i4 < len4; i4++) {
+                                    const _errs39 = errors
+                                    if (
+                                      !validate27(data17[i4], {
+                                        instancePath:
+                                          instancePath + "/servers/" + i4,
+                                        parentData: data17,
+                                        parentDataProperty: i4,
+                                        rootData,
+                                        dynamicAnchors,
+                                      })
+                                    ) {
+                                      vErrors =
+                                        vErrors === null
+                                          ? validate27.errors
+                                          : vErrors.concat(validate27.errors)
+                                      errors = vErrors.length
+                                    }
+                                    var valid10 = _errs39 === errors
+                                    if (!valid10) {
+                                      break
+                                    }
+                                  }
+                                } else {
+                                  validate73.errors = [
+                                    {
+                                      instancePath: instancePath + "/servers",
+                                      schemaPath: "#/properties/servers/type",
+                                      keyword: "type",
+                                      params: {type: "array"},
+                                      message: "must be array",
+                                      schema: schema77.properties.servers.type,
+                                      parentSchema: schema77.properties.servers,
+                                      data: data17,
+                                    },
+                                  ]
+                                  return false
+                                }
+                              }
+                              var valid2 = _errs37 === errors
+                            } else {
+                              var valid2 = true
+                            }
+                            if (valid2) {
+                              if (props0 !== true) {
+                                for (const key3 in data) {
+                                  if (!props0 || !props0[key3]) {
+                                    validate73.errors = [
+                                      {
+                                        instancePath,
+                                        schemaPath: "#/unevaluatedProperties",
+                                        keyword: "unevaluatedProperties",
+                                        params: {unevaluatedProperty: key3},
+                                        message:
+                                          "must NOT have unevaluated properties",
+                                        schema: false,
+                                        parentSchema: schema77,
+                                        data,
+                                      },
+                                    ]
+                                    return false
+                                    break
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate73.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema77.type,
+          parentSchema: schema77,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate73.errors = vErrors
+  return errors === 0
+}
+validate73.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate32(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate32.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.$ref = true
+        props0.summary = true
+        props0.description = true
+        props0.servers = true
+        props0.parameters = true
+        props0.get = true
+        props0.put = true
+        props0.post = true
+        props0.delete = true
+        props0.options = true
+        props0.head = true
+        props0.patch = true
+        props0.trace = true
+      }
+      if (data.$ref !== undefined) {
+        let data0 = data.$ref
+        const _errs4 = errors
+        if (errors === _errs4) {
+          if (errors === _errs4) {
+            if (typeof data0 === "string") {
+              if (!formats0.test(data0)) {
+                validate32.errors = [
+                  {
+                    instancePath: instancePath + "/$ref",
+                    schemaPath: "#/properties/%24ref/format",
+                    keyword: "format",
+                    params: {format: "uri-reference"},
+                    message: 'must match format "' + "uri-reference" + '"',
+                    schema: "uri-reference",
+                    parentSchema: schema45.properties.$ref,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            } else {
+              validate32.errors = [
+                {
+                  instancePath: instancePath + "/$ref",
+                  schemaPath: "#/properties/%24ref/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema45.properties.$ref.type,
+                  parentSchema: schema45.properties.$ref,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+        }
+        var valid2 = _errs4 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.summary !== undefined) {
+          let data1 = data.summary
+          const _errs6 = errors
+          if (typeof data1 !== "string") {
+            validate32.errors = [
+              {
+                instancePath: instancePath + "/summary",
+                schemaPath: "#/properties/summary/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema45.properties.summary.type,
+                parentSchema: schema45.properties.summary,
+                data: data1,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs6 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.description !== undefined) {
+            let data2 = data.description
+            const _errs8 = errors
+            if (typeof data2 !== "string") {
+              validate32.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema45.properties.description.type,
+                  parentSchema: schema45.properties.description,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs8 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.servers !== undefined) {
+              let data3 = data.servers
+              const _errs10 = errors
+              if (errors === _errs10) {
+                if (Array.isArray(data3)) {
+                  var valid3 = true
+                  const len0 = data3.length
+                  for (let i0 = 0; i0 < len0; i0++) {
+                    const _errs12 = errors
+                    if (
+                      !validate27(data3[i0], {
+                        instancePath: instancePath + "/servers/" + i0,
+                        parentData: data3,
+                        parentDataProperty: i0,
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate27.errors
+                          : vErrors.concat(validate27.errors)
+                      errors = vErrors.length
+                    }
+                    var valid3 = _errs12 === errors
+                    if (!valid3) {
+                      break
+                    }
+                  }
+                } else {
+                  validate32.errors = [
+                    {
+                      instancePath: instancePath + "/servers",
+                      schemaPath: "#/properties/servers/type",
+                      keyword: "type",
+                      params: {type: "array"},
+                      message: "must be array",
+                      schema: schema45.properties.servers.type,
+                      parentSchema: schema45.properties.servers,
+                      data: data3,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs10 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.parameters !== undefined) {
+                let data5 = data.parameters
+                const _errs13 = errors
+                if (errors === _errs13) {
+                  if (Array.isArray(data5)) {
+                    var valid4 = true
+                    const len1 = data5.length
+                    for (let i1 = 0; i1 < len1; i1++) {
+                      const _errs15 = errors
+                      if (
+                        !validate34(data5[i1], {
+                          instancePath: instancePath + "/parameters/" + i1,
+                          parentData: data5,
+                          parentDataProperty: i1,
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate34.errors
+                            : vErrors.concat(validate34.errors)
+                        errors = vErrors.length
+                      }
+                      var valid4 = _errs15 === errors
+                      if (!valid4) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate32.errors = [
+                      {
+                        instancePath: instancePath + "/parameters",
+                        schemaPath: "#/properties/parameters/type",
+                        keyword: "type",
+                        params: {type: "array"},
+                        message: "must be array",
+                        schema: schema45.properties.parameters.type,
+                        parentSchema: schema45.properties.parameters,
+                        data: data5,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid2 = _errs13 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (data.get !== undefined) {
+                  const _errs16 = errors
+                  if (
+                    !validate73(data.get, {
+                      instancePath: instancePath + "/get",
+                      parentData: data,
+                      parentDataProperty: "get",
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate73.errors
+                        : vErrors.concat(validate73.errors)
+                    errors = vErrors.length
+                  }
+                  var valid2 = _errs16 === errors
+                } else {
+                  var valid2 = true
+                }
+                if (valid2) {
+                  if (data.put !== undefined) {
+                    const _errs17 = errors
+                    if (
+                      !validate73(data.put, {
+                        instancePath: instancePath + "/put",
+                        parentData: data,
+                        parentDataProperty: "put",
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate73.errors
+                          : vErrors.concat(validate73.errors)
+                      errors = vErrors.length
+                    }
+                    var valid2 = _errs17 === errors
+                  } else {
+                    var valid2 = true
+                  }
+                  if (valid2) {
+                    if (data.post !== undefined) {
+                      const _errs18 = errors
+                      if (
+                        !validate73(data.post, {
+                          instancePath: instancePath + "/post",
+                          parentData: data,
+                          parentDataProperty: "post",
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate73.errors
+                            : vErrors.concat(validate73.errors)
+                        errors = vErrors.length
+                      }
+                      var valid2 = _errs18 === errors
+                    } else {
+                      var valid2 = true
+                    }
+                    if (valid2) {
+                      if (data.delete !== undefined) {
+                        const _errs19 = errors
+                        if (
+                          !validate73(data.delete, {
+                            instancePath: instancePath + "/delete",
+                            parentData: data,
+                            parentDataProperty: "delete",
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate73.errors
+                              : vErrors.concat(validate73.errors)
+                          errors = vErrors.length
+                        }
+                        var valid2 = _errs19 === errors
+                      } else {
+                        var valid2 = true
+                      }
+                      if (valid2) {
+                        if (data.options !== undefined) {
+                          const _errs20 = errors
+                          if (
+                            !validate73(data.options, {
+                              instancePath: instancePath + "/options",
+                              parentData: data,
+                              parentDataProperty: "options",
+                              rootData,
+                              dynamicAnchors,
+                            })
+                          ) {
+                            vErrors =
+                              vErrors === null
+                                ? validate73.errors
+                                : vErrors.concat(validate73.errors)
+                            errors = vErrors.length
+                          }
+                          var valid2 = _errs20 === errors
+                        } else {
+                          var valid2 = true
+                        }
+                        if (valid2) {
+                          if (data.head !== undefined) {
+                            const _errs21 = errors
+                            if (
+                              !validate73(data.head, {
+                                instancePath: instancePath + "/head",
+                                parentData: data,
+                                parentDataProperty: "head",
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate73.errors
+                                  : vErrors.concat(validate73.errors)
+                              errors = vErrors.length
+                            }
+                            var valid2 = _errs21 === errors
+                          } else {
+                            var valid2 = true
+                          }
+                          if (valid2) {
+                            if (data.patch !== undefined) {
+                              const _errs22 = errors
+                              if (
+                                !validate73(data.patch, {
+                                  instancePath: instancePath + "/patch",
+                                  parentData: data,
+                                  parentDataProperty: "patch",
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? validate73.errors
+                                    : vErrors.concat(validate73.errors)
+                                errors = vErrors.length
+                              }
+                              var valid2 = _errs22 === errors
+                            } else {
+                              var valid2 = true
+                            }
+                            if (valid2) {
+                              if (data.trace !== undefined) {
+                                const _errs23 = errors
+                                if (
+                                  !validate73(data.trace, {
+                                    instancePath: instancePath + "/trace",
+                                    parentData: data,
+                                    parentDataProperty: "trace",
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? validate73.errors
+                                      : vErrors.concat(validate73.errors)
+                                  errors = vErrors.length
+                                }
+                                var valid2 = _errs23 === errors
+                              } else {
+                                var valid2 = true
+                              }
+                              if (valid2) {
+                                if (props0 !== true) {
+                                  for (const key1 in data) {
+                                    if (!props0 || !props0[key1]) {
+                                      validate32.errors = [
+                                        {
+                                          instancePath,
+                                          schemaPath: "#/unevaluatedProperties",
+                                          keyword: "unevaluatedProperties",
+                                          params: {unevaluatedProperty: key1},
+                                          message:
+                                            "must NOT have unevaluated properties",
+                                          schema: false,
+                                          parentSchema: schema45,
+                                          data,
+                                        },
+                                      ]
+                                      return false
+                                      break
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate32.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema45.type,
+          parentSchema: schema45,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate32.errors = vErrors
+  return errors === 0
+}
+validate32.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate31(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate31.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var valid2 = true
+      for (const key1 in data) {
+        if (pattern12.test(key1)) {
+          const _errs4 = errors
+          if (
+            !validate32(data[key1], {
+              instancePath:
+                instancePath +
+                "/" +
+                key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+              parentData: data,
+              parentDataProperty: key1,
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate32.errors
+                : vErrors.concat(validate32.errors)
+            errors = vErrors.length
+          }
+          var valid2 = _errs4 === errors
+          props0[key1] = true
+        }
+      }
+      if (valid2) {
+        if (props0 !== true) {
+          for (const key2 in data) {
+            if (!props0 || !props0[key2]) {
+              validate31.errors = [
+                {
+                  instancePath,
+                  schemaPath: "#/unevaluatedProperties",
+                  keyword: "unevaluatedProperties",
+                  params: {unevaluatedProperty: key2},
+                  message: "must NOT have unevaluated properties",
+                  schema: false,
+                  parentSchema: schema43,
+                  data,
+                },
+              ]
+              return false
+              break
+            }
+          }
+        }
+      }
+    } else {
+      validate31.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema43.type,
+          parentSchema: schema43,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate31.errors = vErrors
+  return errors === 0
+}
+validate31.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema97 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#components-object",
+  type: "object",
+  properties: {
+    schemas: {type: "object", additionalProperties: {$ref: "#/$defs/schema"}},
+    responses: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/response-or-reference"},
+    },
+    parameters: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/parameter-or-reference"},
+    },
+    examples: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/example-or-reference"},
+    },
+    requestBodies: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/request-body-or-reference"},
+    },
+    headers: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/header-or-reference"},
+    },
+    securitySchemes: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/security-scheme-or-reference"},
+    },
+    links: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/link-or-reference"},
+    },
+    callbacks: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/callbacks-or-reference"},
+    },
+    pathItems: {
+      type: "object",
+      additionalProperties: {$ref: "#/$defs/path-item"},
+    },
+  },
+  patternProperties: {
+    "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$":
+      {
+        $comment:
+          "Enumerating all of the property names in the regex above is necessary for unevaluatedProperties to work as expected",
+        propertyNames: {pattern: "^[a-zA-Z0-9._-]+$"},
+      },
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+const pattern39 = new RegExp(
+  "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$",
+  "u",
+)
+const pattern40 = new RegExp("^[a-zA-Z0-9._-]+$", "u")
+const schema99 = {
+  if: {type: "object", required: ["$ref"]},
+  then: {$ref: "#/$defs/reference"},
+  else: {$ref: "#/$defs/security-scheme"},
+}
+const schema100 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#security-scheme-object",
+  type: "object",
+  properties: {
+    type: {enum: ["apiKey", "http", "mutualTLS", "oauth2", "openIdConnect"]},
+    description: {type: "string"},
+  },
+  required: ["type"],
+  allOf: [
+    {$ref: "#/$defs/specification-extensions"},
+    {$ref: "#/$defs/security-scheme/$defs/type-apikey"},
+    {$ref: "#/$defs/security-scheme/$defs/type-http"},
+    {$ref: "#/$defs/security-scheme/$defs/type-http-bearer"},
+    {$ref: "#/$defs/security-scheme/$defs/type-oauth2"},
+    {$ref: "#/$defs/security-scheme/$defs/type-oidc"},
+  ],
+  unevaluatedProperties: false,
+  $defs: {
+    "type-apikey": {
+      if: {properties: {type: {const: "apiKey"}}},
+      then: {
+        properties: {
+          name: {type: "string"},
+          in: {enum: ["query", "header", "cookie"]},
+        },
+        required: ["name", "in"],
+      },
+    },
+    "type-http": {
+      if: {properties: {type: {const: "http"}}},
+      then: {properties: {scheme: {type: "string"}}, required: ["scheme"]},
+    },
+    "type-http-bearer": {
+      if: {
+        properties: {
+          type: {const: "http"},
+          scheme: {type: "string", pattern: "^[Bb][Ee][Aa][Rr][Ee][Rr]$"},
+        },
+        required: ["type", "scheme"],
+      },
+      then: {properties: {bearerFormat: {type: "string"}}},
+    },
+    "type-oauth2": {
+      if: {properties: {type: {const: "oauth2"}}},
+      then: {
+        properties: {flows: {$ref: "#/$defs/oauth-flows"}},
+        required: ["flows"],
+      },
+    },
+    "type-oidc": {
+      if: {properties: {type: {const: "openIdConnect"}}},
+      then: {
+        properties: {
+          openIdConnectUrl: {type: "string", format: "uri-reference"},
+        },
+        required: ["openIdConnectUrl"],
+      },
+    },
+  },
+}
+const schema102 = {
+  if: {properties: {type: {const: "apiKey"}}},
+  then: {
+    properties: {
+      name: {type: "string"},
+      in: {enum: ["query", "header", "cookie"]},
+    },
+    required: ["name", "in"],
+  },
+}
+const schema103 = {
+  if: {properties: {type: {const: "http"}}},
+  then: {properties: {scheme: {type: "string"}}, required: ["scheme"]},
+}
+const schema104 = {
+  if: {
+    properties: {
+      type: {const: "http"},
+      scheme: {type: "string", pattern: "^[Bb][Ee][Aa][Rr][Ee][Rr]$"},
+    },
+    required: ["type", "scheme"],
+  },
+  then: {properties: {bearerFormat: {type: "string"}}},
+}
+const schema120 = {
+  if: {properties: {type: {const: "openIdConnect"}}},
+  then: {
+    properties: {openIdConnectUrl: {type: "string", format: "uri-reference"}},
+    required: ["openIdConnectUrl"],
+  },
+}
+const pattern33 = new RegExp("^[Bb][Ee][Aa][Rr][Ee][Rr]$", "u")
+const schema105 = {
+  if: {properties: {type: {const: "oauth2"}}},
+  then: {
+    properties: {flows: {$ref: "#/$defs/oauth-flows"}},
+    required: ["flows"],
+  },
+}
+const schema106 = {
+  type: "object",
+  properties: {
+    implicit: {$ref: "#/$defs/oauth-flows/$defs/implicit"},
+    password: {$ref: "#/$defs/oauth-flows/$defs/password"},
+    clientCredentials: {$ref: "#/$defs/oauth-flows/$defs/client-credentials"},
+    authorizationCode: {$ref: "#/$defs/oauth-flows/$defs/authorization-code"},
+  },
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+  $defs: {
+    implicit: {
+      type: "object",
+      properties: {
+        authorizationUrl: {type: "string", format: "uri-reference"},
+        refreshUrl: {type: "string", format: "uri-reference"},
+        scopes: {$ref: "#/$defs/map-of-strings"},
+      },
+      required: ["authorizationUrl", "scopes"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    password: {
+      type: "object",
+      properties: {
+        tokenUrl: {type: "string", format: "uri-reference"},
+        refreshUrl: {type: "string", format: "uri-reference"},
+        scopes: {$ref: "#/$defs/map-of-strings"},
+      },
+      required: ["tokenUrl", "scopes"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "client-credentials": {
+      type: "object",
+      properties: {
+        tokenUrl: {type: "string", format: "uri-reference"},
+        refreshUrl: {type: "string", format: "uri-reference"},
+        scopes: {$ref: "#/$defs/map-of-strings"},
+      },
+      required: ["tokenUrl", "scopes"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+    "authorization-code": {
+      type: "object",
+      properties: {
+        authorizationUrl: {type: "string", format: "uri-reference"},
+        tokenUrl: {type: "string", format: "uri-reference"},
+        refreshUrl: {type: "string", format: "uri-reference"},
+        scopes: {$ref: "#/$defs/map-of-strings"},
+      },
+      required: ["authorizationUrl", "tokenUrl", "scopes"],
+      $ref: "#/$defs/specification-extensions",
+      unevaluatedProperties: false,
+    },
+  },
+}
+const schema108 = {
+  type: "object",
+  properties: {
+    authorizationUrl: {type: "string", format: "uri-reference"},
+    refreshUrl: {type: "string", format: "uri-reference"},
+    scopes: {$ref: "#/$defs/map-of-strings"},
+  },
+  required: ["authorizationUrl", "scopes"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate128(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate128.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.authorizationUrl === undefined &&
+          (missing0 = "authorizationUrl")) ||
+        (data.scopes === undefined && (missing0 = "scopes"))
+      ) {
+        validate128.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema108.required,
+            parentSchema: schema108,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.authorizationUrl = true
+          props0.refreshUrl = true
+          props0.scopes = true
+        }
+        if (data.authorizationUrl !== undefined) {
+          let data0 = data.authorizationUrl
+          const _errs3 = errors
+          if (errors === _errs3) {
+            if (errors === _errs3) {
+              if (typeof data0 === "string") {
+                if (!formats0.test(data0)) {
+                  validate128.errors = [
+                    {
+                      instancePath: instancePath + "/authorizationUrl",
+                      schemaPath: "#/properties/authorizationUrl/format",
+                      keyword: "format",
+                      params: {format: "uri-reference"},
+                      message: 'must match format "' + "uri-reference" + '"',
+                      schema: "uri-reference",
+                      parentSchema: schema108.properties.authorizationUrl,
+                      data: data0,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate128.errors = [
+                  {
+                    instancePath: instancePath + "/authorizationUrl",
+                    schemaPath: "#/properties/authorizationUrl/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema108.properties.authorizationUrl.type,
+                    parentSchema: schema108.properties.authorizationUrl,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid2 = _errs3 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.refreshUrl !== undefined) {
+            let data1 = data.refreshUrl
+            const _errs5 = errors
+            if (errors === _errs5) {
+              if (errors === _errs5) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate128.errors = [
+                      {
+                        instancePath: instancePath + "/refreshUrl",
+                        schemaPath: "#/properties/refreshUrl/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema108.properties.refreshUrl,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate128.errors = [
+                    {
+                      instancePath: instancePath + "/refreshUrl",
+                      schemaPath: "#/properties/refreshUrl/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema108.properties.refreshUrl.type,
+                      parentSchema: schema108.properties.refreshUrl,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs5 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.scopes !== undefined) {
+              let data2 = data.scopes
+              const _errs7 = errors
+              const _errs8 = errors
+              if (errors === _errs8) {
+                if (
+                  data2 &&
+                  typeof data2 == "object" &&
+                  !Array.isArray(data2)
+                ) {
+                  for (const key1 in data2) {
+                    let data3 = data2[key1]
+                    const _errs11 = errors
+                    if (typeof data3 !== "string") {
+                      validate128.errors = [
+                        {
+                          instancePath:
+                            instancePath +
+                            "/scopes/" +
+                            key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                          schemaPath:
+                            "#/$defs/map-of-strings/additionalProperties/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema92.additionalProperties.type,
+                          parentSchema: schema92.additionalProperties,
+                          data: data3,
+                        },
+                      ]
+                      return false
+                    }
+                    var valid4 = _errs11 === errors
+                    if (!valid4) {
+                      break
+                    }
+                  }
+                } else {
+                  validate128.errors = [
+                    {
+                      instancePath: instancePath + "/scopes",
+                      schemaPath: "#/$defs/map-of-strings/type",
+                      keyword: "type",
+                      params: {type: "object"},
+                      message: "must be object",
+                      schema: schema92.type,
+                      parentSchema: schema92,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs7 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key2 in data) {
+                  if (!props0 || !props0[key2]) {
+                    validate128.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key2},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema108,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate128.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema108.type,
+          parentSchema: schema108,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate128.errors = vErrors
+  return errors === 0
+}
+validate128.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema111 = {
+  type: "object",
+  properties: {
+    tokenUrl: {type: "string", format: "uri-reference"},
+    refreshUrl: {type: "string", format: "uri-reference"},
+    scopes: {$ref: "#/$defs/map-of-strings"},
+  },
+  required: ["tokenUrl", "scopes"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate130(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate130.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.tokenUrl === undefined && (missing0 = "tokenUrl")) ||
+        (data.scopes === undefined && (missing0 = "scopes"))
+      ) {
+        validate130.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema111.required,
+            parentSchema: schema111,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.tokenUrl = true
+          props0.refreshUrl = true
+          props0.scopes = true
+        }
+        if (data.tokenUrl !== undefined) {
+          let data0 = data.tokenUrl
+          const _errs3 = errors
+          if (errors === _errs3) {
+            if (errors === _errs3) {
+              if (typeof data0 === "string") {
+                if (!formats0.test(data0)) {
+                  validate130.errors = [
+                    {
+                      instancePath: instancePath + "/tokenUrl",
+                      schemaPath: "#/properties/tokenUrl/format",
+                      keyword: "format",
+                      params: {format: "uri-reference"},
+                      message: 'must match format "' + "uri-reference" + '"',
+                      schema: "uri-reference",
+                      parentSchema: schema111.properties.tokenUrl,
+                      data: data0,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate130.errors = [
+                  {
+                    instancePath: instancePath + "/tokenUrl",
+                    schemaPath: "#/properties/tokenUrl/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema111.properties.tokenUrl.type,
+                    parentSchema: schema111.properties.tokenUrl,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid2 = _errs3 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.refreshUrl !== undefined) {
+            let data1 = data.refreshUrl
+            const _errs5 = errors
+            if (errors === _errs5) {
+              if (errors === _errs5) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate130.errors = [
+                      {
+                        instancePath: instancePath + "/refreshUrl",
+                        schemaPath: "#/properties/refreshUrl/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema111.properties.refreshUrl,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate130.errors = [
+                    {
+                      instancePath: instancePath + "/refreshUrl",
+                      schemaPath: "#/properties/refreshUrl/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema111.properties.refreshUrl.type,
+                      parentSchema: schema111.properties.refreshUrl,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs5 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.scopes !== undefined) {
+              let data2 = data.scopes
+              const _errs7 = errors
+              const _errs8 = errors
+              if (errors === _errs8) {
+                if (
+                  data2 &&
+                  typeof data2 == "object" &&
+                  !Array.isArray(data2)
+                ) {
+                  for (const key1 in data2) {
+                    let data3 = data2[key1]
+                    const _errs11 = errors
+                    if (typeof data3 !== "string") {
+                      validate130.errors = [
+                        {
+                          instancePath:
+                            instancePath +
+                            "/scopes/" +
+                            key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                          schemaPath:
+                            "#/$defs/map-of-strings/additionalProperties/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema92.additionalProperties.type,
+                          parentSchema: schema92.additionalProperties,
+                          data: data3,
+                        },
+                      ]
+                      return false
+                    }
+                    var valid4 = _errs11 === errors
+                    if (!valid4) {
+                      break
+                    }
+                  }
+                } else {
+                  validate130.errors = [
+                    {
+                      instancePath: instancePath + "/scopes",
+                      schemaPath: "#/$defs/map-of-strings/type",
+                      keyword: "type",
+                      params: {type: "object"},
+                      message: "must be object",
+                      schema: schema92.type,
+                      parentSchema: schema92,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs7 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key2 in data) {
+                  if (!props0 || !props0[key2]) {
+                    validate130.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key2},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema111,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate130.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema111.type,
+          parentSchema: schema111,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate130.errors = vErrors
+  return errors === 0
+}
+validate130.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema114 = {
+  type: "object",
+  properties: {
+    tokenUrl: {type: "string", format: "uri-reference"},
+    refreshUrl: {type: "string", format: "uri-reference"},
+    scopes: {$ref: "#/$defs/map-of-strings"},
+  },
+  required: ["tokenUrl", "scopes"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate132(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate132.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.tokenUrl === undefined && (missing0 = "tokenUrl")) ||
+        (data.scopes === undefined && (missing0 = "scopes"))
+      ) {
+        validate132.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema114.required,
+            parentSchema: schema114,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.tokenUrl = true
+          props0.refreshUrl = true
+          props0.scopes = true
+        }
+        if (data.tokenUrl !== undefined) {
+          let data0 = data.tokenUrl
+          const _errs3 = errors
+          if (errors === _errs3) {
+            if (errors === _errs3) {
+              if (typeof data0 === "string") {
+                if (!formats0.test(data0)) {
+                  validate132.errors = [
+                    {
+                      instancePath: instancePath + "/tokenUrl",
+                      schemaPath: "#/properties/tokenUrl/format",
+                      keyword: "format",
+                      params: {format: "uri-reference"},
+                      message: 'must match format "' + "uri-reference" + '"',
+                      schema: "uri-reference",
+                      parentSchema: schema114.properties.tokenUrl,
+                      data: data0,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate132.errors = [
+                  {
+                    instancePath: instancePath + "/tokenUrl",
+                    schemaPath: "#/properties/tokenUrl/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema114.properties.tokenUrl.type,
+                    parentSchema: schema114.properties.tokenUrl,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid2 = _errs3 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.refreshUrl !== undefined) {
+            let data1 = data.refreshUrl
+            const _errs5 = errors
+            if (errors === _errs5) {
+              if (errors === _errs5) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate132.errors = [
+                      {
+                        instancePath: instancePath + "/refreshUrl",
+                        schemaPath: "#/properties/refreshUrl/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema114.properties.refreshUrl,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate132.errors = [
+                    {
+                      instancePath: instancePath + "/refreshUrl",
+                      schemaPath: "#/properties/refreshUrl/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema114.properties.refreshUrl.type,
+                      parentSchema: schema114.properties.refreshUrl,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs5 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.scopes !== undefined) {
+              let data2 = data.scopes
+              const _errs7 = errors
+              const _errs8 = errors
+              if (errors === _errs8) {
+                if (
+                  data2 &&
+                  typeof data2 == "object" &&
+                  !Array.isArray(data2)
+                ) {
+                  for (const key1 in data2) {
+                    let data3 = data2[key1]
+                    const _errs11 = errors
+                    if (typeof data3 !== "string") {
+                      validate132.errors = [
+                        {
+                          instancePath:
+                            instancePath +
+                            "/scopes/" +
+                            key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                          schemaPath:
+                            "#/$defs/map-of-strings/additionalProperties/type",
+                          keyword: "type",
+                          params: {type: "string"},
+                          message: "must be string",
+                          schema: schema92.additionalProperties.type,
+                          parentSchema: schema92.additionalProperties,
+                          data: data3,
+                        },
+                      ]
+                      return false
+                    }
+                    var valid4 = _errs11 === errors
+                    if (!valid4) {
+                      break
+                    }
+                  }
+                } else {
+                  validate132.errors = [
+                    {
+                      instancePath: instancePath + "/scopes",
+                      schemaPath: "#/$defs/map-of-strings/type",
+                      keyword: "type",
+                      params: {type: "object"},
+                      message: "must be object",
+                      schema: schema92.type,
+                      parentSchema: schema92,
+                      data: data2,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs7 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key2 in data) {
+                  if (!props0 || !props0[key2]) {
+                    validate132.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key2},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema114,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate132.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema114.type,
+          parentSchema: schema114,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate132.errors = vErrors
+  return errors === 0
+}
+validate132.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema117 = {
+  type: "object",
+  properties: {
+    authorizationUrl: {type: "string", format: "uri-reference"},
+    tokenUrl: {type: "string", format: "uri-reference"},
+    refreshUrl: {type: "string", format: "uri-reference"},
+    scopes: {$ref: "#/$defs/map-of-strings"},
+  },
+  required: ["authorizationUrl", "tokenUrl", "scopes"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate134(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate134.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (
+        (data.authorizationUrl === undefined &&
+          (missing0 = "authorizationUrl")) ||
+        (data.tokenUrl === undefined && (missing0 = "tokenUrl")) ||
+        (data.scopes === undefined && (missing0 = "scopes"))
+      ) {
+        validate134.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema117.required,
+            parentSchema: schema117,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.authorizationUrl = true
+          props0.tokenUrl = true
+          props0.refreshUrl = true
+          props0.scopes = true
+        }
+        if (data.authorizationUrl !== undefined) {
+          let data0 = data.authorizationUrl
+          const _errs3 = errors
+          if (errors === _errs3) {
+            if (errors === _errs3) {
+              if (typeof data0 === "string") {
+                if (!formats0.test(data0)) {
+                  validate134.errors = [
+                    {
+                      instancePath: instancePath + "/authorizationUrl",
+                      schemaPath: "#/properties/authorizationUrl/format",
+                      keyword: "format",
+                      params: {format: "uri-reference"},
+                      message: 'must match format "' + "uri-reference" + '"',
+                      schema: "uri-reference",
+                      parentSchema: schema117.properties.authorizationUrl,
+                      data: data0,
+                    },
+                  ]
+                  return false
+                }
+              } else {
+                validate134.errors = [
+                  {
+                    instancePath: instancePath + "/authorizationUrl",
+                    schemaPath: "#/properties/authorizationUrl/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema117.properties.authorizationUrl.type,
+                    parentSchema: schema117.properties.authorizationUrl,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var valid2 = _errs3 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.tokenUrl !== undefined) {
+            let data1 = data.tokenUrl
+            const _errs5 = errors
+            if (errors === _errs5) {
+              if (errors === _errs5) {
+                if (typeof data1 === "string") {
+                  if (!formats0.test(data1)) {
+                    validate134.errors = [
+                      {
+                        instancePath: instancePath + "/tokenUrl",
+                        schemaPath: "#/properties/tokenUrl/format",
+                        keyword: "format",
+                        params: {format: "uri-reference"},
+                        message: 'must match format "' + "uri-reference" + '"',
+                        schema: "uri-reference",
+                        parentSchema: schema117.properties.tokenUrl,
+                        data: data1,
+                      },
+                    ]
+                    return false
+                  }
+                } else {
+                  validate134.errors = [
+                    {
+                      instancePath: instancePath + "/tokenUrl",
+                      schemaPath: "#/properties/tokenUrl/type",
+                      keyword: "type",
+                      params: {type: "string"},
+                      message: "must be string",
+                      schema: schema117.properties.tokenUrl.type,
+                      parentSchema: schema117.properties.tokenUrl,
+                      data: data1,
+                    },
+                  ]
+                  return false
+                }
+              }
+            }
+            var valid2 = _errs5 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.refreshUrl !== undefined) {
+              let data2 = data.refreshUrl
+              const _errs7 = errors
+              if (errors === _errs7) {
+                if (errors === _errs7) {
+                  if (typeof data2 === "string") {
+                    if (!formats0.test(data2)) {
+                      validate134.errors = [
+                        {
+                          instancePath: instancePath + "/refreshUrl",
+                          schemaPath: "#/properties/refreshUrl/format",
+                          keyword: "format",
+                          params: {format: "uri-reference"},
+                          message:
+                            'must match format "' + "uri-reference" + '"',
+                          schema: "uri-reference",
+                          parentSchema: schema117.properties.refreshUrl,
+                          data: data2,
+                        },
+                      ]
+                      return false
+                    }
+                  } else {
+                    validate134.errors = [
+                      {
+                        instancePath: instancePath + "/refreshUrl",
+                        schemaPath: "#/properties/refreshUrl/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema117.properties.refreshUrl.type,
+                        parentSchema: schema117.properties.refreshUrl,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                }
+              }
+              var valid2 = _errs7 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.scopes !== undefined) {
+                let data3 = data.scopes
+                const _errs9 = errors
+                const _errs10 = errors
+                if (errors === _errs10) {
+                  if (
+                    data3 &&
+                    typeof data3 == "object" &&
+                    !Array.isArray(data3)
+                  ) {
+                    for (const key1 in data3) {
+                      let data4 = data3[key1]
+                      const _errs13 = errors
+                      if (typeof data4 !== "string") {
+                        validate134.errors = [
+                          {
+                            instancePath:
+                              instancePath +
+                              "/scopes/" +
+                              key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                            schemaPath:
+                              "#/$defs/map-of-strings/additionalProperties/type",
+                            keyword: "type",
+                            params: {type: "string"},
+                            message: "must be string",
+                            schema: schema92.additionalProperties.type,
+                            parentSchema: schema92.additionalProperties,
+                            data: data4,
+                          },
+                        ]
+                        return false
+                      }
+                      var valid4 = _errs13 === errors
+                      if (!valid4) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate134.errors = [
+                      {
+                        instancePath: instancePath + "/scopes",
+                        schemaPath: "#/$defs/map-of-strings/type",
+                        keyword: "type",
+                        params: {type: "object"},
+                        message: "must be object",
+                        schema: schema92.type,
+                        parentSchema: schema92,
+                        data: data3,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid2 = _errs9 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (props0 !== true) {
+                  for (const key2 in data) {
+                    if (!props0 || !props0[key2]) {
+                      validate134.errors = [
+                        {
+                          instancePath,
+                          schemaPath: "#/unevaluatedProperties",
+                          keyword: "unevaluatedProperties",
+                          params: {unevaluatedProperty: key2},
+                          message: "must NOT have unevaluated properties",
+                          schema: false,
+                          parentSchema: schema117,
+                          data,
+                        },
+                      ]
+                      return false
+                      break
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate134.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema117.type,
+          parentSchema: schema117,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate134.errors = vErrors
+  return errors === 0
+}
+validate134.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate127(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate127.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.implicit = true
+        props0.password = true
+        props0.clientCredentials = true
+        props0.authorizationCode = true
+      }
+      if (data.implicit !== undefined) {
+        const _errs3 = errors
+        if (
+          !validate128(data.implicit, {
+            instancePath: instancePath + "/implicit",
+            parentData: data,
+            parentDataProperty: "implicit",
+            rootData,
+            dynamicAnchors,
+          })
+        ) {
+          vErrors =
+            vErrors === null
+              ? validate128.errors
+              : vErrors.concat(validate128.errors)
+          errors = vErrors.length
+        }
+        var valid2 = _errs3 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.password !== undefined) {
+          const _errs4 = errors
+          if (
+            !validate130(data.password, {
+              instancePath: instancePath + "/password",
+              parentData: data,
+              parentDataProperty: "password",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate130.errors
+                : vErrors.concat(validate130.errors)
+            errors = vErrors.length
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.clientCredentials !== undefined) {
+            const _errs5 = errors
+            if (
+              !validate132(data.clientCredentials, {
+                instancePath: instancePath + "/clientCredentials",
+                parentData: data,
+                parentDataProperty: "clientCredentials",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate132.errors
+                  : vErrors.concat(validate132.errors)
+              errors = vErrors.length
+            }
+            var valid2 = _errs5 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.authorizationCode !== undefined) {
+              const _errs6 = errors
+              if (
+                !validate134(data.authorizationCode, {
+                  instancePath: instancePath + "/authorizationCode",
+                  parentData: data,
+                  parentDataProperty: "authorizationCode",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate134.errors
+                    : vErrors.concat(validate134.errors)
+                errors = vErrors.length
+              }
+              var valid2 = _errs6 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key1 in data) {
+                  if (!props0 || !props0[key1]) {
+                    validate127.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key1},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema106,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate127.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema106.type,
+          parentSchema: schema106,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate127.errors = vErrors
+  return errors === 0
+}
+validate127.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate126(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate126.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (data && typeof data == "object" && !Array.isArray(data)) {
+    if (data.type !== undefined) {
+      if ("oauth2" !== data.type) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  if (_valid0) {
+    const _errs3 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.flows === undefined && (missing0 = "flows")) {
+        validate126.errors = [
+          {
+            instancePath,
+            schemaPath: "#/then/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema105.then.required,
+            parentSchema: schema105.then,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (data.flows !== undefined) {
+          if (
+            !validate127(data.flows, {
+              instancePath: instancePath + "/flows",
+              parentData: data,
+              parentDataProperty: "flows",
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate127.errors
+                : vErrors.concat(validate127.errors)
+            errors = vErrors.length
+          }
+        }
+      }
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.flows = true
+      props0.type = true
+    }
+  }
+  if (!valid0) {
+    const err1 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: "then"},
+      message: 'must match "then" schema',
+      schema: schema105.if,
+      parentSchema: schema105,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err1]
+    } else {
+      vErrors.push(err1)
+    }
+    errors++
+    validate126.errors = vErrors
+    return false
+  }
+  validate126.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate126.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate125(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate125.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs2 = errors
+  const _errs3 = errors
+  if (errors === _errs3) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs2 === errors
+  if (valid0) {
+    const _errs5 = errors
+    const _errs7 = errors
+    let valid4 = true
+    const _errs8 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (data.type !== undefined) {
+        if ("apiKey" !== data.type) {
+          const err0 = {}
+          if (vErrors === null) {
+            vErrors = [err0]
+          } else {
+            vErrors.push(err0)
+          }
+          errors++
+        }
+      }
+    }
+    var _valid0 = _errs8 === errors
+    errors = _errs7
+    if (vErrors !== null) {
+      if (_errs7) {
+        vErrors.length = _errs7
+      } else {
+        vErrors = null
+      }
+    }
+    if (_valid0) {
+      const _errs10 = errors
+      if (data && typeof data == "object" && !Array.isArray(data)) {
+        let missing0
+        if (
+          (data.name === undefined && (missing0 = "name")) ||
+          (data.in === undefined && (missing0 = "in"))
+        ) {
+          validate125.errors = [
+            {
+              instancePath,
+              schemaPath:
+                "#/$defs/security-scheme/$defs/type-apikey/then/required",
+              keyword: "required",
+              params: {missingProperty: missing0},
+              message: "must have required property '" + missing0 + "'",
+              schema: schema102.then.required,
+              parentSchema: schema102.then,
+              data,
+            },
+          ]
+          return false
+        } else {
+          if (data.name !== undefined) {
+            let data1 = data.name
+            const _errs11 = errors
+            if (typeof data1 !== "string") {
+              validate125.errors = [
+                {
+                  instancePath: instancePath + "/name",
+                  schemaPath:
+                    "#/$defs/security-scheme/$defs/type-apikey/then/properties/name/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema102.then.properties.name.type,
+                  parentSchema: schema102.then.properties.name,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+            var valid6 = _errs11 === errors
+          } else {
+            var valid6 = true
+          }
+          if (valid6) {
+            if (data.in !== undefined) {
+              let data2 = data.in
+              const _errs13 = errors
+              if (
+                !(data2 === "query" || data2 === "header" || data2 === "cookie")
+              ) {
+                validate125.errors = [
+                  {
+                    instancePath: instancePath + "/in",
+                    schemaPath:
+                      "#/$defs/security-scheme/$defs/type-apikey/then/properties/in/enum",
+                    keyword: "enum",
+                    params: {allowedValues: schema102.then.properties.in.enum},
+                    message: "must be equal to one of the allowed values",
+                    schema: schema102.then.properties.in.enum,
+                    parentSchema: schema102.then.properties.in,
+                    data: data2,
+                  },
+                ]
+                return false
+              }
+              var valid6 = _errs13 === errors
+            } else {
+              var valid6 = true
+            }
+          }
+        }
+      }
+      var _valid0 = _errs10 === errors
+      valid4 = _valid0
+      if (valid4) {
+        var props1 = {}
+        props1.name = true
+        props1.in = true
+        props1.type = true
+      }
+    }
+    if (!valid4) {
+      const err1 = {
+        instancePath,
+        schemaPath: "#/$defs/security-scheme/$defs/type-apikey/if",
+        keyword: "if",
+        params: {failingKeyword: "then"},
+        message: 'must match "then" schema',
+        schema: schema102.if,
+        parentSchema: schema102,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+      validate125.errors = vErrors
+      return false
+    }
+    var valid0 = _errs5 === errors
+    if (valid0) {
+      if (props0 !== true && props1 !== undefined) {
+        if (props1 === true) {
+          props0 = true
+        } else {
+          props0 = props0 || {}
+          Object.assign(props0, props1)
+        }
+      }
+      const _errs14 = errors
+      const _errs16 = errors
+      let valid8 = true
+      const _errs17 = errors
+      if (data && typeof data == "object" && !Array.isArray(data)) {
+        if (data.type !== undefined) {
+          if ("http" !== data.type) {
+            const err2 = {}
+            if (vErrors === null) {
+              vErrors = [err2]
+            } else {
+              vErrors.push(err2)
+            }
+            errors++
+          }
+        }
+      }
+      var _valid1 = _errs17 === errors
+      errors = _errs16
+      if (vErrors !== null) {
+        if (_errs16) {
+          vErrors.length = _errs16
+        } else {
+          vErrors = null
+        }
+      }
+      if (_valid1) {
+        const _errs19 = errors
+        if (data && typeof data == "object" && !Array.isArray(data)) {
+          let missing1
+          if (data.scheme === undefined && (missing1 = "scheme")) {
+            validate125.errors = [
+              {
+                instancePath,
+                schemaPath:
+                  "#/$defs/security-scheme/$defs/type-http/then/required",
+                keyword: "required",
+                params: {missingProperty: missing1},
+                message: "must have required property '" + missing1 + "'",
+                schema: schema103.then.required,
+                parentSchema: schema103.then,
+                data,
+              },
+            ]
+            return false
+          } else {
+            if (data.scheme !== undefined) {
+              let data4 = data.scheme
+              if (typeof data4 !== "string") {
+                validate125.errors = [
+                  {
+                    instancePath: instancePath + "/scheme",
+                    schemaPath:
+                      "#/$defs/security-scheme/$defs/type-http/then/properties/scheme/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema103.then.properties.scheme.type,
+                    parentSchema: schema103.then.properties.scheme,
+                    data: data4,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+        }
+        var _valid1 = _errs19 === errors
+        valid8 = _valid1
+        if (valid8) {
+          var props2 = {}
+          props2.scheme = true
+          props2.type = true
+        }
+      }
+      if (!valid8) {
+        const err3 = {
+          instancePath,
+          schemaPath: "#/$defs/security-scheme/$defs/type-http/if",
+          keyword: "if",
+          params: {failingKeyword: "then"},
+          message: 'must match "then" schema',
+          schema: schema103.if,
+          parentSchema: schema103,
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err3]
+        } else {
+          vErrors.push(err3)
+        }
+        errors++
+        validate125.errors = vErrors
+        return false
+      }
+      var valid0 = _errs14 === errors
+      if (valid0) {
+        if (props0 !== true && props2 !== undefined) {
+          if (props2 === true) {
+            props0 = true
+          } else {
+            props0 = props0 || {}
+            Object.assign(props0, props2)
+          }
+        }
+        const _errs22 = errors
+        const _errs24 = errors
+        let valid12 = true
+        const _errs25 = errors
+        if (data && typeof data == "object" && !Array.isArray(data)) {
+          let missing2
+          if (
+            (data.type === undefined && (missing2 = "type")) ||
+            (data.scheme === undefined && (missing2 = "scheme"))
+          ) {
+            const err4 = {}
+            if (vErrors === null) {
+              vErrors = [err4]
+            } else {
+              vErrors.push(err4)
+            }
+            errors++
+          } else {
+            if (data.type !== undefined) {
+              const _errs26 = errors
+              if ("http" !== data.type) {
+                const err5 = {}
+                if (vErrors === null) {
+                  vErrors = [err5]
+                } else {
+                  vErrors.push(err5)
+                }
+                errors++
+              }
+              var valid13 = _errs26 === errors
+            } else {
+              var valid13 = true
+            }
+            if (valid13) {
+              if (data.scheme !== undefined) {
+                let data6 = data.scheme
+                const _errs27 = errors
+                if (errors === _errs27) {
+                  if (typeof data6 === "string") {
+                    if (!pattern33.test(data6)) {
+                      const err6 = {}
+                      if (vErrors === null) {
+                        vErrors = [err6]
+                      } else {
+                        vErrors.push(err6)
+                      }
+                      errors++
+                    }
+                  } else {
+                    const err7 = {}
+                    if (vErrors === null) {
+                      vErrors = [err7]
+                    } else {
+                      vErrors.push(err7)
+                    }
+                    errors++
+                  }
+                }
+                var valid13 = _errs27 === errors
+              } else {
+                var valid13 = true
+              }
+            }
+          }
+        }
+        var _valid2 = _errs25 === errors
+        errors = _errs24
+        if (vErrors !== null) {
+          if (_errs24) {
+            vErrors.length = _errs24
+          } else {
+            vErrors = null
+          }
+        }
+        if (_valid2) {
+          const _errs29 = errors
+          if (data && typeof data == "object" && !Array.isArray(data)) {
+            if (data.bearerFormat !== undefined) {
+              let data7 = data.bearerFormat
+              if (typeof data7 !== "string") {
+                validate125.errors = [
+                  {
+                    instancePath: instancePath + "/bearerFormat",
+                    schemaPath:
+                      "#/$defs/security-scheme/$defs/type-http-bearer/then/properties/bearerFormat/type",
+                    keyword: "type",
+                    params: {type: "string"},
+                    message: "must be string",
+                    schema: schema104.then.properties.bearerFormat.type,
+                    parentSchema: schema104.then.properties.bearerFormat,
+                    data: data7,
+                  },
+                ]
+                return false
+              }
+            }
+          }
+          var _valid2 = _errs29 === errors
+          valid12 = _valid2
+          if (valid12) {
+            var props3 = {}
+            props3.bearerFormat = true
+            props3.type = true
+            props3.scheme = true
+          }
+        }
+        if (!valid12) {
+          const err8 = {
+            instancePath,
+            schemaPath: "#/$defs/security-scheme/$defs/type-http-bearer/if",
+            keyword: "if",
+            params: {failingKeyword: "then"},
+            message: 'must match "then" schema',
+            schema: schema104.if,
+            parentSchema: schema104,
+            data,
+          }
+          if (vErrors === null) {
+            vErrors = [err8]
+          } else {
+            vErrors.push(err8)
+          }
+          errors++
+          validate125.errors = vErrors
+          return false
+        }
+        var valid0 = _errs22 === errors
+        if (valid0) {
+          if (props0 !== true && props3 !== undefined) {
+            if (props3 === true) {
+              props0 = true
+            } else {
+              props0 = props0 || {}
+              Object.assign(props0, props3)
+            }
+          }
+          const _errs32 = errors
+          if (
+            !validate126(data, {
+              instancePath,
+              parentData,
+              parentDataProperty,
+              rootData,
+              dynamicAnchors,
+            })
+          ) {
+            vErrors =
+              vErrors === null
+                ? validate126.errors
+                : vErrors.concat(validate126.errors)
+            errors = vErrors.length
+          } else {
+            var props4 = validate126.evaluated.props
+          }
+          var valid0 = _errs32 === errors
+          if (valid0) {
+            if (props0 !== true && props4 !== undefined) {
+              if (props4 === true) {
+                props0 = true
+              } else {
+                props0 = props0 || {}
+                Object.assign(props0, props4)
+              }
+            }
+            const _errs33 = errors
+            const _errs35 = errors
+            let valid16 = true
+            const _errs36 = errors
+            if (data && typeof data == "object" && !Array.isArray(data)) {
+              if (data.type !== undefined) {
+                if ("openIdConnect" !== data.type) {
+                  const err9 = {}
+                  if (vErrors === null) {
+                    vErrors = [err9]
+                  } else {
+                    vErrors.push(err9)
+                  }
+                  errors++
+                }
+              }
+            }
+            var _valid3 = _errs36 === errors
+            errors = _errs35
+            if (vErrors !== null) {
+              if (_errs35) {
+                vErrors.length = _errs35
+              } else {
+                vErrors = null
+              }
+            }
+            if (_valid3) {
+              const _errs38 = errors
+              if (data && typeof data == "object" && !Array.isArray(data)) {
+                let missing3
+                if (
+                  data.openIdConnectUrl === undefined &&
+                  (missing3 = "openIdConnectUrl")
+                ) {
+                  validate125.errors = [
+                    {
+                      instancePath,
+                      schemaPath:
+                        "#/$defs/security-scheme/$defs/type-oidc/then/required",
+                      keyword: "required",
+                      params: {missingProperty: missing3},
+                      message: "must have required property '" + missing3 + "'",
+                      schema: schema120.then.required,
+                      parentSchema: schema120.then,
+                      data,
+                    },
+                  ]
+                  return false
+                } else {
+                  if (data.openIdConnectUrl !== undefined) {
+                    let data9 = data.openIdConnectUrl
+                    const _errs39 = errors
+                    if (errors === _errs39) {
+                      if (errors === _errs39) {
+                        if (typeof data9 === "string") {
+                          if (!formats0.test(data9)) {
+                            validate125.errors = [
+                              {
+                                instancePath:
+                                  instancePath + "/openIdConnectUrl",
+                                schemaPath:
+                                  "#/$defs/security-scheme/$defs/type-oidc/then/properties/openIdConnectUrl/format",
+                                keyword: "format",
+                                params: {format: "uri-reference"},
+                                message:
+                                  'must match format "' + "uri-reference" + '"',
+                                schema: "uri-reference",
+                                parentSchema:
+                                  schema120.then.properties.openIdConnectUrl,
+                                data: data9,
+                              },
+                            ]
+                            return false
+                          }
+                        } else {
+                          validate125.errors = [
+                            {
+                              instancePath: instancePath + "/openIdConnectUrl",
+                              schemaPath:
+                                "#/$defs/security-scheme/$defs/type-oidc/then/properties/openIdConnectUrl/type",
+                              keyword: "type",
+                              params: {type: "string"},
+                              message: "must be string",
+                              schema:
+                                schema120.then.properties.openIdConnectUrl.type,
+                              parentSchema:
+                                schema120.then.properties.openIdConnectUrl,
+                              data: data9,
+                            },
+                          ]
+                          return false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              var _valid3 = _errs38 === errors
+              valid16 = _valid3
+              if (valid16) {
+                var props5 = {}
+                props5.openIdConnectUrl = true
+                props5.type = true
+              }
+            }
+            if (!valid16) {
+              const err10 = {
+                instancePath,
+                schemaPath: "#/$defs/security-scheme/$defs/type-oidc/if",
+                keyword: "if",
+                params: {failingKeyword: "then"},
+                message: 'must match "then" schema',
+                schema: schema120.if,
+                parentSchema: schema120,
+                data,
+              }
+              if (vErrors === null) {
+                vErrors = [err10]
+              } else {
+                vErrors.push(err10)
+              }
+              errors++
+              validate125.errors = vErrors
+              return false
+            }
+            var valid0 = _errs33 === errors
+            if (valid0) {
+              if (props0 !== true && props5 !== undefined) {
+                if (props5 === true) {
+                  props0 = true
+                } else {
+                  props0 = props0 || {}
+                  Object.assign(props0, props5)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing4
+      if (data.type === undefined && (missing4 = "type")) {
+        validate125.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing4},
+            message: "must have required property '" + missing4 + "'",
+            schema: schema100.required,
+            parentSchema: schema100,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.type = true
+          props0.description = true
+        }
+        if (data.type !== undefined) {
+          let data10 = data.type
+          const _errs41 = errors
+          if (
+            !(
+              data10 === "apiKey" ||
+              data10 === "http" ||
+              data10 === "mutualTLS" ||
+              data10 === "oauth2" ||
+              data10 === "openIdConnect"
+            )
+          ) {
+            validate125.errors = [
+              {
+                instancePath: instancePath + "/type",
+                schemaPath: "#/properties/type/enum",
+                keyword: "enum",
+                params: {allowedValues: schema100.properties.type.enum},
+                message: "must be equal to one of the allowed values",
+                schema: schema100.properties.type.enum,
+                parentSchema: schema100.properties.type,
+                data: data10,
+              },
+            ]
+            return false
+          }
+          var valid19 = _errs41 === errors
+        } else {
+          var valid19 = true
+        }
+        if (valid19) {
+          if (data.description !== undefined) {
+            let data11 = data.description
+            const _errs42 = errors
+            if (typeof data11 !== "string") {
+              validate125.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema100.properties.description.type,
+                  parentSchema: schema100.properties.description,
+                  data: data11,
+                },
+              ]
+              return false
+            }
+            var valid19 = _errs42 === errors
+          } else {
+            var valid19 = true
+          }
+          if (valid19) {
+            if (props0 !== true) {
+              for (const key1 in data) {
+                if (!props0 || !props0[key1]) {
+                  validate125.errors = [
+                    {
+                      instancePath,
+                      schemaPath: "#/unevaluatedProperties",
+                      keyword: "unevaluatedProperties",
+                      params: {unevaluatedProperty: key1},
+                      message: "must NOT have unevaluated properties",
+                      schema: false,
+                      parentSchema: schema100,
+                      data,
+                    },
+                  ]
+                  return false
+                  break
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate125.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema100.type,
+          parentSchema: schema100,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate125.errors = vErrors
+  return errors === 0
+}
+validate125.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate123(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate123.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  let valid0 = true
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.$ref === undefined && (missing0 = "$ref")) {
+        const err0 = {}
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    } else {
+      const err1 = {}
+      if (vErrors === null) {
+        vErrors = [err1]
+      } else {
+        vErrors.push(err1)
+      }
+      errors++
+    }
+  }
+  var _valid0 = _errs1 === errors
+  errors = _errs0
+  if (vErrors !== null) {
+    if (_errs0) {
+      vErrors.length = _errs0
+    } else {
+      vErrors = null
+    }
+  }
+  let ifClause0
+  if (_valid0) {
+    const _errs3 = errors
+    if (
+      !validate35(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null ? validate35.errors : vErrors.concat(validate35.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs3 === errors
+    valid0 = _valid0
+    if (valid0) {
+      var props0 = {}
+      props0.$ref = true
+      props0.summary = true
+      props0.description = true
+    }
+    ifClause0 = "then"
+  } else {
+    const _errs4 = errors
+    if (
+      !validate125(data, {
+        instancePath,
+        parentData,
+        parentDataProperty,
+        rootData,
+        dynamicAnchors,
+      })
+    ) {
+      vErrors =
+        vErrors === null
+          ? validate125.errors
+          : vErrors.concat(validate125.errors)
+      errors = vErrors.length
+    }
+    var _valid0 = _errs4 === errors
+    valid0 = _valid0
+    if (valid0) {
+      if (props0 !== true) {
+        props0 = true
+      }
+    }
+    ifClause0 = "else"
+  }
+  if (!valid0) {
+    const err2 = {
+      instancePath,
+      schemaPath: "#/if",
+      keyword: "if",
+      params: {failingKeyword: ifClause0},
+      message: 'must match "' + ifClause0 + '" schema',
+      schema: schema99.if,
+      parentSchema: schema99,
+      data,
+    }
+    if (vErrors === null) {
+      vErrors = [err2]
+    } else {
+      vErrors.push(err2)
+    }
+    errors++
+    validate123.errors = vErrors
+    return false
+  }
+  validate123.errors = vErrors
+  evaluated0.props = props0
+  return errors === 0
+}
+validate123.evaluated = {dynamicProps: true, dynamicItems: false}
+function validate116(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate116.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      if (props0 !== true) {
+        props0 = props0 || {}
+        props0.schemas = true
+        props0.responses = true
+        props0.parameters = true
+        props0.examples = true
+        props0.requestBodies = true
+        props0.headers = true
+        props0.securitySchemes = true
+        props0.links = true
+        props0.callbacks = true
+        props0.pathItems = true
+      }
+      if (data.schemas !== undefined) {
+        let data0 = data.schemas
+        const _errs4 = errors
+        if (errors === _errs4) {
+          if (data0 && typeof data0 == "object" && !Array.isArray(data0)) {
+            for (const key1 in data0) {
+              const _errs7 = errors
+              if (
+                !validate38(data0[key1], {
+                  instancePath:
+                    instancePath +
+                    "/schemas/" +
+                    key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                  parentData: data0,
+                  parentDataProperty: key1,
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate38.errors
+                    : vErrors.concat(validate38.errors)
+                errors = vErrors.length
+              }
+              var valid3 = _errs7 === errors
+              if (!valid3) {
+                break
+              }
+            }
+          } else {
+            validate116.errors = [
+              {
+                instancePath: instancePath + "/schemas",
+                schemaPath: "#/properties/schemas/type",
+                keyword: "type",
+                params: {type: "object"},
+                message: "must be object",
+                schema: schema97.properties.schemas.type,
+                parentSchema: schema97.properties.schemas,
+                data: data0,
+              },
+            ]
+            return false
+          }
+        }
+        var valid2 = _errs4 === errors
+      } else {
+        var valid2 = true
+      }
+      if (valid2) {
+        if (data.responses !== undefined) {
+          let data2 = data.responses
+          const _errs8 = errors
+          if (errors === _errs8) {
+            if (data2 && typeof data2 == "object" && !Array.isArray(data2)) {
+              for (const key2 in data2) {
+                const _errs11 = errors
+                if (
+                  !validate84(data2[key2], {
+                    instancePath:
+                      instancePath +
+                      "/responses/" +
+                      key2.replace(/~/g, "~0").replace(/\//g, "~1"),
+                    parentData: data2,
+                    parentDataProperty: key2,
+                    rootData,
+                    dynamicAnchors,
+                  })
+                ) {
+                  vErrors =
+                    vErrors === null
+                      ? validate84.errors
+                      : vErrors.concat(validate84.errors)
+                  errors = vErrors.length
+                }
+                var valid4 = _errs11 === errors
+                if (!valid4) {
+                  break
+                }
+              }
+            } else {
+              validate116.errors = [
+                {
+                  instancePath: instancePath + "/responses",
+                  schemaPath: "#/properties/responses/type",
+                  keyword: "type",
+                  params: {type: "object"},
+                  message: "must be object",
+                  schema: schema97.properties.responses.type,
+                  parentSchema: schema97.properties.responses,
+                  data: data2,
+                },
+              ]
+              return false
+            }
+          }
+          var valid2 = _errs8 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.parameters !== undefined) {
+            let data4 = data.parameters
+            const _errs12 = errors
+            if (errors === _errs12) {
+              if (data4 && typeof data4 == "object" && !Array.isArray(data4)) {
+                for (const key3 in data4) {
+                  const _errs15 = errors
+                  if (
+                    !validate34(data4[key3], {
+                      instancePath:
+                        instancePath +
+                        "/parameters/" +
+                        key3.replace(/~/g, "~0").replace(/\//g, "~1"),
+                      parentData: data4,
+                      parentDataProperty: key3,
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate34.errors
+                        : vErrors.concat(validate34.errors)
+                    errors = vErrors.length
+                  }
+                  var valid5 = _errs15 === errors
+                  if (!valid5) {
+                    break
+                  }
+                }
+              } else {
+                validate116.errors = [
+                  {
+                    instancePath: instancePath + "/parameters",
+                    schemaPath: "#/properties/parameters/type",
+                    keyword: "type",
+                    params: {type: "object"},
+                    message: "must be object",
+                    schema: schema97.properties.parameters.type,
+                    parentSchema: schema97.properties.parameters,
+                    data: data4,
+                  },
+                ]
+                return false
+              }
+            }
+            var valid2 = _errs12 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.examples !== undefined) {
+              let data6 = data.examples
+              const _errs16 = errors
+              if (errors === _errs16) {
+                if (
+                  data6 &&
+                  typeof data6 == "object" &&
+                  !Array.isArray(data6)
+                ) {
+                  for (const key4 in data6) {
+                    const _errs19 = errors
+                    if (
+                      !validate52(data6[key4], {
+                        instancePath:
+                          instancePath +
+                          "/examples/" +
+                          key4.replace(/~/g, "~0").replace(/\//g, "~1"),
+                        parentData: data6,
+                        parentDataProperty: key4,
+                        rootData,
+                        dynamicAnchors,
+                      })
+                    ) {
+                      vErrors =
+                        vErrors === null
+                          ? validate52.errors
+                          : vErrors.concat(validate52.errors)
+                      errors = vErrors.length
+                    }
+                    var valid6 = _errs19 === errors
+                    if (!valid6) {
+                      break
+                    }
+                  }
+                } else {
+                  validate116.errors = [
+                    {
+                      instancePath: instancePath + "/examples",
+                      schemaPath: "#/properties/examples/type",
+                      keyword: "type",
+                      params: {type: "object"},
+                      message: "must be object",
+                      schema: schema97.properties.examples.type,
+                      parentSchema: schema97.properties.examples,
+                      data: data6,
+                    },
+                  ]
+                  return false
+                }
+              }
+              var valid2 = _errs16 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (data.requestBodies !== undefined) {
+                let data8 = data.requestBodies
+                const _errs20 = errors
+                if (errors === _errs20) {
+                  if (
+                    data8 &&
+                    typeof data8 == "object" &&
+                    !Array.isArray(data8)
+                  ) {
+                    for (const key5 in data8) {
+                      const _errs23 = errors
+                      if (
+                        !validate77(data8[key5], {
+                          instancePath:
+                            instancePath +
+                            "/requestBodies/" +
+                            key5.replace(/~/g, "~0").replace(/\//g, "~1"),
+                          parentData: data8,
+                          parentDataProperty: key5,
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate77.errors
+                            : vErrors.concat(validate77.errors)
+                        errors = vErrors.length
+                      }
+                      var valid7 = _errs23 === errors
+                      if (!valid7) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate116.errors = [
+                      {
+                        instancePath: instancePath + "/requestBodies",
+                        schemaPath: "#/properties/requestBodies/type",
+                        keyword: "type",
+                        params: {type: "object"},
+                        message: "must be object",
+                        schema: schema97.properties.requestBodies.type,
+                        parentSchema: schema97.properties.requestBodies,
+                        data: data8,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid2 = _errs20 === errors
+              } else {
+                var valid2 = true
+              }
+              if (valid2) {
+                if (data.headers !== undefined) {
+                  let data10 = data.headers
+                  const _errs24 = errors
+                  if (errors === _errs24) {
+                    if (
+                      data10 &&
+                      typeof data10 == "object" &&
+                      !Array.isArray(data10)
+                    ) {
+                      for (const key6 in data10) {
+                        const _errs27 = errors
+                        if (
+                          !validate60(data10[key6], {
+                            instancePath:
+                              instancePath +
+                              "/headers/" +
+                              key6.replace(/~/g, "~0").replace(/\//g, "~1"),
+                            parentData: data10,
+                            parentDataProperty: key6,
+                            rootData,
+                            dynamicAnchors,
+                          })
+                        ) {
+                          vErrors =
+                            vErrors === null
+                              ? validate60.errors
+                              : vErrors.concat(validate60.errors)
+                          errors = vErrors.length
+                        }
+                        var valid8 = _errs27 === errors
+                        if (!valid8) {
+                          break
+                        }
+                      }
+                    } else {
+                      validate116.errors = [
+                        {
+                          instancePath: instancePath + "/headers",
+                          schemaPath: "#/properties/headers/type",
+                          keyword: "type",
+                          params: {type: "object"},
+                          message: "must be object",
+                          schema: schema97.properties.headers.type,
+                          parentSchema: schema97.properties.headers,
+                          data: data10,
+                        },
+                      ]
+                      return false
+                    }
+                  }
+                  var valid2 = _errs24 === errors
+                } else {
+                  var valid2 = true
+                }
+                if (valid2) {
+                  if (data.securitySchemes !== undefined) {
+                    let data12 = data.securitySchemes
+                    const _errs28 = errors
+                    if (errors === _errs28) {
+                      if (
+                        data12 &&
+                        typeof data12 == "object" &&
+                        !Array.isArray(data12)
+                      ) {
+                        for (const key7 in data12) {
+                          const _errs31 = errors
+                          if (
+                            !validate123(data12[key7], {
+                              instancePath:
+                                instancePath +
+                                "/securitySchemes/" +
+                                key7.replace(/~/g, "~0").replace(/\//g, "~1"),
+                              parentData: data12,
+                              parentDataProperty: key7,
+                              rootData,
+                              dynamicAnchors,
+                            })
+                          ) {
+                            vErrors =
+                              vErrors === null
+                                ? validate123.errors
+                                : vErrors.concat(validate123.errors)
+                            errors = vErrors.length
+                          }
+                          var valid9 = _errs31 === errors
+                          if (!valid9) {
+                            break
+                          }
+                        }
+                      } else {
+                        validate116.errors = [
+                          {
+                            instancePath: instancePath + "/securitySchemes",
+                            schemaPath: "#/properties/securitySchemes/type",
+                            keyword: "type",
+                            params: {type: "object"},
+                            message: "must be object",
+                            schema: schema97.properties.securitySchemes.type,
+                            parentSchema: schema97.properties.securitySchemes,
+                            data: data12,
+                          },
+                        ]
+                        return false
+                      }
+                    }
+                    var valid2 = _errs28 === errors
+                  } else {
+                    var valid2 = true
+                  }
+                  if (valid2) {
+                    if (data.links !== undefined) {
+                      let data14 = data.links
+                      const _errs32 = errors
+                      if (errors === _errs32) {
+                        if (
+                          data14 &&
+                          typeof data14 == "object" &&
+                          !Array.isArray(data14)
+                        ) {
+                          for (const key8 in data14) {
+                            const _errs35 = errors
+                            if (
+                              !validate89(data14[key8], {
+                                instancePath:
+                                  instancePath +
+                                  "/links/" +
+                                  key8.replace(/~/g, "~0").replace(/\//g, "~1"),
+                                parentData: data14,
+                                parentDataProperty: key8,
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate89.errors
+                                  : vErrors.concat(validate89.errors)
+                              errors = vErrors.length
+                            }
+                            var valid10 = _errs35 === errors
+                            if (!valid10) {
+                              break
+                            }
+                          }
+                        } else {
+                          validate116.errors = [
+                            {
+                              instancePath: instancePath + "/links",
+                              schemaPath: "#/properties/links/type",
+                              keyword: "type",
+                              params: {type: "object"},
+                              message: "must be object",
+                              schema: schema97.properties.links.type,
+                              parentSchema: schema97.properties.links,
+                              data: data14,
+                            },
+                          ]
+                          return false
+                        }
+                      }
+                      var valid2 = _errs32 === errors
+                    } else {
+                      var valid2 = true
+                    }
+                    if (valid2) {
+                      if (data.callbacks !== undefined) {
+                        let data16 = data.callbacks
+                        const _errs36 = errors
+                        if (errors === _errs36) {
+                          if (
+                            data16 &&
+                            typeof data16 == "object" &&
+                            !Array.isArray(data16)
+                          ) {
+                            for (const key9 in data16) {
+                              const _errs39 = errors
+                              if (
+                                !validate99(data16[key9], {
+                                  instancePath:
+                                    instancePath +
+                                    "/callbacks/" +
+                                    key9
+                                      .replace(/~/g, "~0")
+                                      .replace(/\//g, "~1"),
+                                  parentData: data16,
+                                  parentDataProperty: key9,
+                                  rootData,
+                                  dynamicAnchors,
+                                })
+                              ) {
+                                vErrors =
+                                  vErrors === null
+                                    ? validate99.errors
+                                    : vErrors.concat(validate99.errors)
+                                errors = vErrors.length
+                              }
+                              var valid11 = _errs39 === errors
+                              if (!valid11) {
+                                break
+                              }
+                            }
+                          } else {
+                            validate116.errors = [
+                              {
+                                instancePath: instancePath + "/callbacks",
+                                schemaPath: "#/properties/callbacks/type",
+                                keyword: "type",
+                                params: {type: "object"},
+                                message: "must be object",
+                                schema: schema97.properties.callbacks.type,
+                                parentSchema: schema97.properties.callbacks,
+                                data: data16,
+                              },
+                            ]
+                            return false
+                          }
+                        }
+                        var valid2 = _errs36 === errors
+                      } else {
+                        var valid2 = true
+                      }
+                      if (valid2) {
+                        if (data.pathItems !== undefined) {
+                          let data18 = data.pathItems
+                          const _errs40 = errors
+                          if (errors === _errs40) {
+                            if (
+                              data18 &&
+                              typeof data18 == "object" &&
+                              !Array.isArray(data18)
+                            ) {
+                              for (const key10 in data18) {
+                                const _errs43 = errors
+                                if (
+                                  !validate32(data18[key10], {
+                                    instancePath:
+                                      instancePath +
+                                      "/pathItems/" +
+                                      key10
+                                        .replace(/~/g, "~0")
+                                        .replace(/\//g, "~1"),
+                                    parentData: data18,
+                                    parentDataProperty: key10,
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? validate32.errors
+                                      : vErrors.concat(validate32.errors)
+                                  errors = vErrors.length
+                                }
+                                var valid12 = _errs43 === errors
+                                if (!valid12) {
+                                  break
+                                }
+                              }
+                            } else {
+                              validate116.errors = [
+                                {
+                                  instancePath: instancePath + "/pathItems",
+                                  schemaPath: "#/properties/pathItems/type",
+                                  keyword: "type",
+                                  params: {type: "object"},
+                                  message: "must be object",
+                                  schema: schema97.properties.pathItems.type,
+                                  parentSchema: schema97.properties.pathItems,
+                                  data: data18,
+                                },
+                              ]
+                              return false
+                            }
+                          }
+                          var valid2 = _errs40 === errors
+                        } else {
+                          var valid2 = true
+                        }
+                        if (valid2) {
+                          var valid13 = true
+                          for (const key11 in data) {
+                            if (pattern39.test(key11)) {
+                              let data20 = data[key11]
+                              const _errs44 = errors
+                              if (errors === _errs44) {
+                                if (
+                                  data20 &&
+                                  typeof data20 == "object" &&
+                                  !Array.isArray(data20)
+                                ) {
+                                  for (const key12 in data20) {
+                                    const _errs46 = errors
+                                    if (typeof key12 === "string") {
+                                      if (!pattern40.test(key12)) {
+                                        const err0 = {
+                                          instancePath:
+                                            instancePath +
+                                            "/" +
+                                            key11
+                                              .replace(/~/g, "~0")
+                                              .replace(/\//g, "~1"),
+                                          schemaPath:
+                                            "#/patternProperties/%5E(%3F%3Aschemas%7Cresponses%7Cparameters%7Cexamples%7CrequestBodies%7Cheaders%7CsecuritySchemes%7Clinks%7Ccallbacks%7CpathItems)%24/propertyNames/pattern",
+                                          keyword: "pattern",
+                                          params: {
+                                            pattern: "^[a-zA-Z0-9._-]+$",
+                                          },
+                                          message:
+                                            'must match pattern "' +
+                                            "^[a-zA-Z0-9._-]+$" +
+                                            '"',
+                                          schema: "^[a-zA-Z0-9._-]+$",
+                                          parentSchema:
+                                            schema97.patternProperties[
+                                              "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$"
+                                            ].propertyNames,
+                                          data: key12,
+                                          propertyName: key12,
+                                        }
+                                        if (vErrors === null) {
+                                          vErrors = [err0]
+                                        } else {
+                                          vErrors.push(err0)
+                                        }
+                                        errors++
+                                      }
+                                    }
+                                    var valid14 = _errs46 === errors
+                                    if (!valid14) {
+                                      const err1 = {
+                                        instancePath:
+                                          instancePath +
+                                          "/" +
+                                          key11
+                                            .replace(/~/g, "~0")
+                                            .replace(/\//g, "~1"),
+                                        schemaPath:
+                                          "#/patternProperties/%5E(%3F%3Aschemas%7Cresponses%7Cparameters%7Cexamples%7CrequestBodies%7Cheaders%7CsecuritySchemes%7Clinks%7Ccallbacks%7CpathItems)%24/propertyNames",
+                                        keyword: "propertyNames",
+                                        params: {propertyName: key12},
+                                        message: "property name must be valid",
+                                        schema:
+                                          schema97.patternProperties[
+                                            "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$"
+                                          ].propertyNames,
+                                        parentSchema:
+                                          schema97.patternProperties[
+                                            "^(?:schemas|responses|parameters|examples|requestBodies|headers|securitySchemes|links|callbacks|pathItems)$"
+                                          ],
+                                        data: data20,
+                                      }
+                                      if (vErrors === null) {
+                                        vErrors = [err1]
+                                      } else {
+                                        vErrors.push(err1)
+                                      }
+                                      errors++
+                                      validate116.errors = vErrors
+                                      return false
+                                      break
+                                    }
+                                  }
+                                }
+                              }
+                              var valid13 = _errs44 === errors
+                              props0[key11] = true
+                            }
+                          }
+                          if (valid13) {
+                            if (props0 !== true) {
+                              for (const key13 in data) {
+                                if (!props0 || !props0[key13]) {
+                                  validate116.errors = [
+                                    {
+                                      instancePath,
+                                      schemaPath: "#/unevaluatedProperties",
+                                      keyword: "unevaluatedProperties",
+                                      params: {unevaluatedProperty: key13},
+                                      message:
+                                        "must NOT have unevaluated properties",
+                                      schema: false,
+                                      parentSchema: schema97,
+                                      data,
+                                    },
+                                  ]
+                                  return false
+                                  break
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate116.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema97.type,
+          parentSchema: schema97,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate116.errors = vErrors
+  return errors === 0
+}
+validate116.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+const schema122 = {
+  $comment: "https://spec.openapis.org/oas/v3.1#tag-object",
+  type: "object",
+  properties: {
+    name: {type: "string"},
+    description: {type: "string"},
+    externalDocs: {$ref: "#/$defs/external-documentation"},
+  },
+  required: ["name"],
+  $ref: "#/$defs/specification-extensions",
+  unevaluatedProperties: false,
+}
+function validate144(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate144.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs1 = errors
+  if (errors === _errs1) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.name === undefined && (missing0 = "name")) {
+        validate144.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing0},
+            message: "must have required property '" + missing0 + "'",
+            schema: schema122.required,
+            parentSchema: schema122,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.name = true
+          props0.description = true
+          props0.externalDocs = true
+        }
+        if (data.name !== undefined) {
+          let data0 = data.name
+          const _errs4 = errors
+          if (typeof data0 !== "string") {
+            validate144.errors = [
+              {
+                instancePath: instancePath + "/name",
+                schemaPath: "#/properties/name/type",
+                keyword: "type",
+                params: {type: "string"},
+                message: "must be string",
+                schema: schema122.properties.name.type,
+                parentSchema: schema122.properties.name,
+                data: data0,
+              },
+            ]
+            return false
+          }
+          var valid2 = _errs4 === errors
+        } else {
+          var valid2 = true
+        }
+        if (valid2) {
+          if (data.description !== undefined) {
+            let data1 = data.description
+            const _errs6 = errors
+            if (typeof data1 !== "string") {
+              validate144.errors = [
+                {
+                  instancePath: instancePath + "/description",
+                  schemaPath: "#/properties/description/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema122.properties.description.type,
+                  parentSchema: schema122.properties.description,
+                  data: data1,
+                },
+              ]
+              return false
+            }
+            var valid2 = _errs6 === errors
+          } else {
+            var valid2 = true
+          }
+          if (valid2) {
+            if (data.externalDocs !== undefined) {
+              const _errs8 = errors
+              if (
+                !validate74(data.externalDocs, {
+                  instancePath: instancePath + "/externalDocs",
+                  parentData: data,
+                  parentDataProperty: "externalDocs",
+                  rootData,
+                  dynamicAnchors,
+                })
+              ) {
+                vErrors =
+                  vErrors === null
+                    ? validate74.errors
+                    : vErrors.concat(validate74.errors)
+                errors = vErrors.length
+              }
+              var valid2 = _errs8 === errors
+            } else {
+              var valid2 = true
+            }
+            if (valid2) {
+              if (props0 !== true) {
+                for (const key1 in data) {
+                  if (!props0 || !props0[key1]) {
+                    validate144.errors = [
+                      {
+                        instancePath,
+                        schemaPath: "#/unevaluatedProperties",
+                        keyword: "unevaluatedProperties",
+                        params: {unevaluatedProperty: key1},
+                        message: "must NOT have unevaluated properties",
+                        schema: false,
+                        parentSchema: schema122,
+                        data,
+                      },
+                    ]
+                    return false
+                    break
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate144.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema122.type,
+          parentSchema: schema122,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate144.errors = vErrors
+  return errors === 0
+}
+validate144.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
+function validate20(
+  data,
+  {
+    instancePath = "",
+    parentData,
+    parentDataProperty,
+    rootData = data,
+    dynamicAnchors = {},
+  } = {},
+) {
+  /*# sourceURL="https://spec.openapis.org/oas/3.1/schema/2025-09-15" */
+  let vErrors = null
+  let errors = 0
+  const evaluated0 = validate20.evaluated
+  if (evaluated0.dynamicProps) {
+    evaluated0.props = undefined
+  }
+  if (evaluated0.dynamicItems) {
+    evaluated0.items = undefined
+  }
+  const _errs0 = errors
+  if (errors === _errs0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      var props0 = {}
+      for (const key0 in data) {
+        if (pattern4.test(key0)) {
+          props0[key0] = true
+        }
+      }
+    }
+  }
+  var valid0 = _errs0 === errors
+  if (valid0) {
+    const _errs3 = errors
+    let valid2 = false
+    const _errs4 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing0
+      if (data.paths === undefined && (missing0 = "paths")) {
+        const err0 = {
+          instancePath,
+          schemaPath: "#/anyOf/0/required",
+          keyword: "required",
+          params: {missingProperty: missing0},
+          message: "must have required property '" + missing0 + "'",
+          schema: schema31.anyOf[0].required,
+          parentSchema: schema31.anyOf[0],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err0]
+        } else {
+          vErrors.push(err0)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs4 === errors
+    valid2 = valid2 || _valid0
+    const _errs5 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing1
+      if (data.components === undefined && (missing1 = "components")) {
+        const err1 = {
+          instancePath,
+          schemaPath: "#/anyOf/1/required",
+          keyword: "required",
+          params: {missingProperty: missing1},
+          message: "must have required property '" + missing1 + "'",
+          schema: schema31.anyOf[1].required,
+          parentSchema: schema31.anyOf[1],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err1]
+        } else {
+          vErrors.push(err1)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs5 === errors
+    valid2 = valid2 || _valid0
+    const _errs6 = errors
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing2
+      if (data.webhooks === undefined && (missing2 = "webhooks")) {
+        const err2 = {
+          instancePath,
+          schemaPath: "#/anyOf/2/required",
+          keyword: "required",
+          params: {missingProperty: missing2},
+          message: "must have required property '" + missing2 + "'",
+          schema: schema31.anyOf[2].required,
+          parentSchema: schema31.anyOf[2],
+          data,
+        }
+        if (vErrors === null) {
+          vErrors = [err2]
+        } else {
+          vErrors.push(err2)
+        }
+        errors++
+      }
+    }
+    var _valid0 = _errs6 === errors
+    valid2 = valid2 || _valid0
+    if (!valid2) {
+      const err3 = {
+        instancePath,
+        schemaPath: "#/anyOf",
+        keyword: "anyOf",
+        params: {},
+        message: "must match a schema in anyOf",
+        schema: schema31.anyOf,
+        parentSchema: schema31,
+        data,
+      }
+      if (vErrors === null) {
+        vErrors = [err3]
+      } else {
+        vErrors.push(err3)
+      }
+      errors++
+      validate20.errors = vErrors
+      return false
+    } else {
+      errors = _errs3
+      if (vErrors !== null) {
+        if (_errs3) {
+          vErrors.length = _errs3
+        } else {
+          vErrors = null
+        }
+      }
+    }
+  }
+  if (errors === 0) {
+    if (data && typeof data == "object" && !Array.isArray(data)) {
+      let missing3
+      if (
+        (data.openapi === undefined && (missing3 = "openapi")) ||
+        (data.info === undefined && (missing3 = "info"))
+      ) {
+        validate20.errors = [
+          {
+            instancePath,
+            schemaPath: "#/required",
+            keyword: "required",
+            params: {missingProperty: missing3},
+            message: "must have required property '" + missing3 + "'",
+            schema: schema31.required,
+            parentSchema: schema31,
+            data,
+          },
+        ]
+        return false
+      } else {
+        if (props0 !== true) {
+          props0 = props0 || {}
+          props0.openapi = true
+          props0.info = true
+          props0.jsonSchemaDialect = true
+          props0.servers = true
+          props0.paths = true
+          props0.webhooks = true
+          props0.components = true
+          props0.security = true
+          props0.tags = true
+          props0.externalDocs = true
+        }
+        if (data.openapi !== undefined) {
+          let data0 = data.openapi
+          const _errs7 = errors
+          if (errors === _errs7) {
+            if (typeof data0 === "string") {
+              if (!pattern5.test(data0)) {
+                validate20.errors = [
+                  {
+                    instancePath: instancePath + "/openapi",
+                    schemaPath: "#/properties/openapi/pattern",
+                    keyword: "pattern",
+                    params: {pattern: "^3\\.1\\.\\d+(-.+)?$"},
+                    message:
+                      'must match pattern "' + "^3\\.1\\.\\d+(-.+)?$" + '"',
+                    schema: "^3\\.1\\.\\d+(-.+)?$",
+                    parentSchema: schema31.properties.openapi,
+                    data: data0,
+                  },
+                ]
+                return false
+              }
+            } else {
+              validate20.errors = [
+                {
+                  instancePath: instancePath + "/openapi",
+                  schemaPath: "#/properties/openapi/type",
+                  keyword: "type",
+                  params: {type: "string"},
+                  message: "must be string",
+                  schema: schema31.properties.openapi.type,
+                  parentSchema: schema31.properties.openapi,
+                  data: data0,
+                },
+              ]
+              return false
+            }
+          }
+          var valid3 = _errs7 === errors
+        } else {
+          var valid3 = true
+        }
+        if (valid3) {
+          if (data.info !== undefined) {
+            const _errs9 = errors
+            if (
+              !validate21(data.info, {
+                instancePath: instancePath + "/info",
+                parentData: data,
+                parentDataProperty: "info",
+                rootData,
+                dynamicAnchors,
+              })
+            ) {
+              vErrors =
+                vErrors === null
+                  ? validate21.errors
+                  : vErrors.concat(validate21.errors)
+              errors = vErrors.length
+            }
+            var valid3 = _errs9 === errors
+          } else {
+            var valid3 = true
+          }
+          if (valid3) {
+            if (data.jsonSchemaDialect !== undefined) {
+              let data2 = data.jsonSchemaDialect
+              const _errs10 = errors
+              if (errors === _errs10) {
+                if (errors === _errs10) {
+                  if (typeof data2 === "string") {
+                    if (!formats0.test(data2)) {
+                      validate20.errors = [
+                        {
+                          instancePath: instancePath + "/jsonSchemaDialect",
+                          schemaPath: "#/properties/jsonSchemaDialect/format",
+                          keyword: "format",
+                          params: {format: "uri-reference"},
+                          message:
+                            'must match format "' + "uri-reference" + '"',
+                          schema: "uri-reference",
+                          parentSchema: schema31.properties.jsonSchemaDialect,
+                          data: data2,
+                        },
+                      ]
+                      return false
+                    }
+                  } else {
+                    validate20.errors = [
+                      {
+                        instancePath: instancePath + "/jsonSchemaDialect",
+                        schemaPath: "#/properties/jsonSchemaDialect/type",
+                        keyword: "type",
+                        params: {type: "string"},
+                        message: "must be string",
+                        schema: schema31.properties.jsonSchemaDialect.type,
+                        parentSchema: schema31.properties.jsonSchemaDialect,
+                        data: data2,
+                      },
+                    ]
+                    return false
+                  }
+                }
+              }
+              var valid3 = _errs10 === errors
+            } else {
+              var valid3 = true
+            }
+            if (valid3) {
+              if (data.servers !== undefined) {
+                let data3 = data.servers
+                const _errs12 = errors
+                if (errors === _errs12) {
+                  if (Array.isArray(data3)) {
+                    var valid4 = true
+                    const len0 = data3.length
+                    for (let i0 = 0; i0 < len0; i0++) {
+                      const _errs14 = errors
+                      if (
+                        !validate27(data3[i0], {
+                          instancePath: instancePath + "/servers/" + i0,
+                          parentData: data3,
+                          parentDataProperty: i0,
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate27.errors
+                            : vErrors.concat(validate27.errors)
+                        errors = vErrors.length
+                      }
+                      var valid4 = _errs14 === errors
+                      if (!valid4) {
+                        break
+                      }
+                    }
+                  } else {
+                    validate20.errors = [
+                      {
+                        instancePath: instancePath + "/servers",
+                        schemaPath: "#/properties/servers/type",
+                        keyword: "type",
+                        params: {type: "array"},
+                        message: "must be array",
+                        schema: schema31.properties.servers.type,
+                        parentSchema: schema31.properties.servers,
+                        data: data3,
+                      },
+                    ]
+                    return false
+                  }
+                }
+                var valid3 = _errs12 === errors
+              } else {
+                var valid3 = true
+              }
+              if (valid3) {
+                if (data.paths !== undefined) {
+                  const _errs15 = errors
+                  if (
+                    !validate31(data.paths, {
+                      instancePath: instancePath + "/paths",
+                      parentData: data,
+                      parentDataProperty: "paths",
+                      rootData,
+                      dynamicAnchors,
+                    })
+                  ) {
+                    vErrors =
+                      vErrors === null
+                        ? validate31.errors
+                        : vErrors.concat(validate31.errors)
+                    errors = vErrors.length
+                  }
+                  var valid3 = _errs15 === errors
+                } else {
+                  var valid3 = true
+                }
+                if (valid3) {
+                  if (data.webhooks !== undefined) {
+                    let data6 = data.webhooks
+                    const _errs16 = errors
+                    if (errors === _errs16) {
+                      if (
+                        data6 &&
+                        typeof data6 == "object" &&
+                        !Array.isArray(data6)
+                      ) {
+                        for (const key1 in data6) {
+                          const _errs19 = errors
+                          if (
+                            !validate32(data6[key1], {
+                              instancePath:
+                                instancePath +
+                                "/webhooks/" +
+                                key1.replace(/~/g, "~0").replace(/\//g, "~1"),
+                              parentData: data6,
+                              parentDataProperty: key1,
+                              rootData,
+                              dynamicAnchors,
+                            })
+                          ) {
+                            vErrors =
+                              vErrors === null
+                                ? validate32.errors
+                                : vErrors.concat(validate32.errors)
+                            errors = vErrors.length
+                          }
+                          var valid5 = _errs19 === errors
+                          if (!valid5) {
+                            break
+                          }
+                        }
+                      } else {
+                        validate20.errors = [
+                          {
+                            instancePath: instancePath + "/webhooks",
+                            schemaPath: "#/properties/webhooks/type",
+                            keyword: "type",
+                            params: {type: "object"},
+                            message: "must be object",
+                            schema: schema31.properties.webhooks.type,
+                            parentSchema: schema31.properties.webhooks,
+                            data: data6,
+                          },
+                        ]
+                        return false
+                      }
+                    }
+                    var valid3 = _errs16 === errors
+                  } else {
+                    var valid3 = true
+                  }
+                  if (valid3) {
+                    if (data.components !== undefined) {
+                      const _errs20 = errors
+                      if (
+                        !validate116(data.components, {
+                          instancePath: instancePath + "/components",
+                          parentData: data,
+                          parentDataProperty: "components",
+                          rootData,
+                          dynamicAnchors,
+                        })
+                      ) {
+                        vErrors =
+                          vErrors === null
+                            ? validate116.errors
+                            : vErrors.concat(validate116.errors)
+                        errors = vErrors.length
+                      }
+                      var valid3 = _errs20 === errors
+                    } else {
+                      var valid3 = true
+                    }
+                    if (valid3) {
+                      if (data.security !== undefined) {
+                        let data9 = data.security
+                        const _errs21 = errors
+                        if (errors === _errs21) {
+                          if (Array.isArray(data9)) {
+                            var valid6 = true
+                            const len1 = data9.length
+                            for (let i1 = 0; i1 < len1; i1++) {
+                              let data10 = data9[i1]
+                              const _errs23 = errors
+                              const _errs24 = errors
+                              if (errors === _errs24) {
+                                if (
+                                  data10 &&
+                                  typeof data10 == "object" &&
+                                  !Array.isArray(data10)
+                                ) {
+                                  for (const key2 in data10) {
+                                    let data11 = data10[key2]
+                                    const _errs28 = errors
+                                    if (errors === _errs28) {
+                                      if (Array.isArray(data11)) {
+                                        var valid9 = true
+                                        const len2 = data11.length
+                                        for (let i2 = 0; i2 < len2; i2++) {
+                                          let data12 = data11[i2]
+                                          const _errs30 = errors
+                                          if (typeof data12 !== "string") {
+                                            validate20.errors = [
+                                              {
+                                                instancePath:
+                                                  instancePath +
+                                                  "/security/" +
+                                                  i1 +
+                                                  "/" +
+                                                  key2
+                                                    .replace(/~/g, "~0")
+                                                    .replace(/\//g, "~1") +
+                                                  "/" +
+                                                  i2,
+                                                schemaPath:
+                                                  "#/$defs/security-requirement/additionalProperties/items/type",
+                                                keyword: "type",
+                                                params: {type: "string"},
+                                                message: "must be string",
+                                                schema:
+                                                  schema96.additionalProperties
+                                                    .items.type,
+                                                parentSchema:
+                                                  schema96.additionalProperties
+                                                    .items,
+                                                data: data12,
+                                              },
+                                            ]
+                                            return false
+                                          }
+                                          var valid9 = _errs30 === errors
+                                          if (!valid9) {
+                                            break
+                                          }
+                                        }
+                                      } else {
+                                        validate20.errors = [
+                                          {
+                                            instancePath:
+                                              instancePath +
+                                              "/security/" +
+                                              i1 +
+                                              "/" +
+                                              key2
+                                                .replace(/~/g, "~0")
+                                                .replace(/\//g, "~1"),
+                                            schemaPath:
+                                              "#/$defs/security-requirement/additionalProperties/type",
+                                            keyword: "type",
+                                            params: {type: "array"},
+                                            message: "must be array",
+                                            schema:
+                                              schema96.additionalProperties
+                                                .type,
+                                            parentSchema:
+                                              schema96.additionalProperties,
+                                            data: data11,
+                                          },
+                                        ]
+                                        return false
+                                      }
+                                    }
+                                    var valid8 = _errs28 === errors
+                                    if (!valid8) {
+                                      break
+                                    }
+                                  }
+                                } else {
+                                  validate20.errors = [
+                                    {
+                                      instancePath:
+                                        instancePath + "/security/" + i1,
+                                      schemaPath:
+                                        "#/$defs/security-requirement/type",
+                                      keyword: "type",
+                                      params: {type: "object"},
+                                      message: "must be object",
+                                      schema: schema96.type,
+                                      parentSchema: schema96,
+                                      data: data10,
+                                    },
+                                  ]
+                                  return false
+                                }
+                              }
+                              var valid6 = _errs23 === errors
+                              if (!valid6) {
+                                break
+                              }
+                            }
+                          } else {
+                            validate20.errors = [
+                              {
+                                instancePath: instancePath + "/security",
+                                schemaPath: "#/properties/security/type",
+                                keyword: "type",
+                                params: {type: "array"},
+                                message: "must be array",
+                                schema: schema31.properties.security.type,
+                                parentSchema: schema31.properties.security,
+                                data: data9,
+                              },
+                            ]
+                            return false
+                          }
+                        }
+                        var valid3 = _errs21 === errors
+                      } else {
+                        var valid3 = true
+                      }
+                      if (valid3) {
+                        if (data.tags !== undefined) {
+                          let data13 = data.tags
+                          const _errs32 = errors
+                          if (errors === _errs32) {
+                            if (Array.isArray(data13)) {
+                              var valid10 = true
+                              const len3 = data13.length
+                              for (let i3 = 0; i3 < len3; i3++) {
+                                const _errs34 = errors
+                                if (
+                                  !validate144(data13[i3], {
+                                    instancePath: instancePath + "/tags/" + i3,
+                                    parentData: data13,
+                                    parentDataProperty: i3,
+                                    rootData,
+                                    dynamicAnchors,
+                                  })
+                                ) {
+                                  vErrors =
+                                    vErrors === null
+                                      ? validate144.errors
+                                      : vErrors.concat(validate144.errors)
+                                  errors = vErrors.length
+                                }
+                                var valid10 = _errs34 === errors
+                                if (!valid10) {
+                                  break
+                                }
+                              }
+                            } else {
+                              validate20.errors = [
+                                {
+                                  instancePath: instancePath + "/tags",
+                                  schemaPath: "#/properties/tags/type",
+                                  keyword: "type",
+                                  params: {type: "array"},
+                                  message: "must be array",
+                                  schema: schema31.properties.tags.type,
+                                  parentSchema: schema31.properties.tags,
+                                  data: data13,
+                                },
+                              ]
+                              return false
+                            }
+                          }
+                          var valid3 = _errs32 === errors
+                        } else {
+                          var valid3 = true
+                        }
+                        if (valid3) {
+                          if (data.externalDocs !== undefined) {
+                            const _errs35 = errors
+                            if (
+                              !validate74(data.externalDocs, {
+                                instancePath: instancePath + "/externalDocs",
+                                parentData: data,
+                                parentDataProperty: "externalDocs",
+                                rootData,
+                                dynamicAnchors,
+                              })
+                            ) {
+                              vErrors =
+                                vErrors === null
+                                  ? validate74.errors
+                                  : vErrors.concat(validate74.errors)
+                              errors = vErrors.length
+                            }
+                            var valid3 = _errs35 === errors
+                          } else {
+                            var valid3 = true
+                          }
+                          if (valid3) {
+                            if (props0 !== true) {
+                              for (const key3 in data) {
+                                if (!props0 || !props0[key3]) {
+                                  validate20.errors = [
+                                    {
+                                      instancePath,
+                                      schemaPath: "#/unevaluatedProperties",
+                                      keyword: "unevaluatedProperties",
+                                      params: {unevaluatedProperty: key3},
+                                      message:
+                                        "must NOT have unevaluated properties",
+                                      schema: false,
+                                      parentSchema: schema31,
+                                      data,
+                                    },
+                                  ]
+                                  return false
+                                  break
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      validate20.errors = [
+        {
+          instancePath,
+          schemaPath: "#/type",
+          keyword: "type",
+          params: {type: "object"},
+          message: "must be object",
+          schema: schema31.type,
+          parentSchema: schema31,
+          data,
+        },
+      ]
+      return false
+    }
+  }
+  validate20.errors = vErrors
+  return errors === 0
+}
+validate20.evaluated = {props: true, dynamicProps: false, dynamicItems: false}
 /* c8 ignore end */
