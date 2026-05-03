@@ -21,7 +21,7 @@
     "docs:generate": "node ./scripts/generate-toc.mjs",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome check --fix .",
-    "build": "node ./scripts/generate-ajv-validator.js && tsc -b tsconfig.json && pnpm -r --workspace-concurrency=4 run bundle",
+    "build": "node ./scripts/generate-ajv-validator.js && pnpm -r --workspace-concurrency=4 run bundle && tsc -b tsconfig.json",
     "build:docs": "pnpm --filter @nahkies/openapi-code-generator-documentation build",
     "build:watch": "tsc -b tsconfig.json -w",
     "test": "jest",
