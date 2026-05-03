@@ -13,11 +13,6 @@ overrides:
   tar: ^7.5.11
   zod@4.1.11: 4.1.13
 
-patchedDependencies:
-  axios:
-    hash: 4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e
-    path: patches/axios.patch
-
 importers:
 
   .:
@@ -111,7 +106,7 @@ importers:
         version: link:../packages/typescript-koa-runtime
       axios:
         specifier: ^1.15.2
-        version: 1.15.2(patch_hash=4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e)
+        version: 1.15.2
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -194,7 +189,7 @@ importers:
         version: link:../../packages/typescript-axios-runtime
       axios:
         specifier: ^1.15.2
-        version: 1.15.2(patch_hash=4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e)
+        version: 1.15.2
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -471,7 +466,7 @@ importers:
         version: 30.3.0
       axios:
         specifier: ^1.15.2
-        version: 1.15.2(patch_hash=4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e)
+        version: 1.15.2
       jest:
         specifier: ^30.3.0
         version: 30.3.0(@types/node@22.19.17)
@@ -11495,7 +11490,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.15.2(patch_hash=4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e):
+  axios@1.15.2:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.5
@@ -15018,7 +15013,7 @@ snapshots:
       ansi-styles: 4.3.0
       argparse: 2.0.1
       asynckit: 0.4.0
-      axios: 1.15.2(patch_hash=4bffed10bfd597c1fb8eeee6d8138fa747018b38673cc158906121f78d03e78e)
+      axios: 1.15.2
       balanced-match: 4.0.3
       base64-js: 1.5.1
       bl: 4.1.0
