@@ -27,8 +27,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: node ./scripts/generate-ajv-validator.js
-      - run: pnpm tsc -b tsconfig.json
+      - run: pnpm run build
+
       - run: pnpm ci-lint
 
       - name: Check for uncommitted changes
@@ -84,7 +84,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm --filter @nahkies/openapi-code-generator-documentation build
+      - run: pnpm run build:docs
 
   unit:
     needs: build
