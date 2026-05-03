@@ -1,7 +1,6 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
-import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import type {OptionsJson, OptionsText, OptionsUrlencoded} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
 import type {Response} from "express"
@@ -13,6 +12,7 @@ import express, {
   type RequestHandler,
   type Router,
 } from "express"
+import {ExpressRuntimeError} from "./errors"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 

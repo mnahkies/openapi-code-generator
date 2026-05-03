@@ -5,10 +5,10 @@ import type Router from "@koa/router"
 import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
-import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import Koa, {type Context, type Middleware, type Next} from "koa"
 import type {KoaBodyMiddlewareOptions} from "koa-body"
 import KoaBody from "koa-body"
+import {KoaRuntimeError} from "./errors"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {

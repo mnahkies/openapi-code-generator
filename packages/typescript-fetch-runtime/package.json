@@ -18,29 +18,50 @@
   },
   "exports": {
     "./main": {
-      "require": "./dist/main.js",
-      "import": "./dist/main.js",
-      "types": "./dist/main.d.ts"
+      "import": {
+        "types": "./dist/esm/main.d.mts",
+        "default": "./dist/esm/main.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/main.d.cts",
+        "default": "./dist/cjs/main.cjs"
+      }
     },
     "./joi": {
-      "require": "./dist/joi.js",
-      "import": "./dist/joi.js",
-      "types": "./dist/joi.d.ts"
+      "import": {
+        "types": "./dist/esm/joi.d.mts",
+        "default": "./dist/esm/joi.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/joi.d.cts",
+        "default": "./dist/cjs/joi.cjs"
+      }
     },
     "./zod-v3": {
-      "require": "./dist/zod-v3.js",
-      "import": "./dist/zod-v3.js",
-      "types": "./dist/zod-v3.d.ts"
+      "import": {
+        "types": "./dist/esm/zod-v3.d.mts",
+        "default": "./dist/esm/zod-v3.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/zod-v3.d.cts",
+        "default": "./dist/cjs/zod-v3.cjs"
+      }
     },
     "./zod-v4": {
-      "require": "./dist/zod-v4.js",
-      "import": "./dist/zod-v4.js",
-      "types": "./dist/zod-v4.d.ts"
+      "import": {
+        "types": "./dist/esm/zod-v4.d.mts",
+        "default": "./dist/esm/zod-v4.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/zod-v4.d.cts",
+        "default": "./dist/cjs/zod-v4.cjs"
+      }
     }
   },
   "scripts": {
     "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
     "build": "tsc -p ./tsconfig.json",
+    "bundle": "tsdown",
     "test": "jest"
   },
   "dependencies": {
@@ -63,6 +84,7 @@
     "@jest/globals": "^30.3.0",
     "jest": "^30.3.0",
     "joi": "^18.1.2",
+    "tsdown": "^0.21.10",
     "typescript": "^6.0.3",
     "zod": "^3.25.76"
   },
