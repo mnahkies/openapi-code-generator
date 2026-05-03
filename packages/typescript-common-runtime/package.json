@@ -18,34 +18,60 @@
   },
   "exports": {
     "./errors": {
-      "require": "./dist/errors.js",
-      "import": "./dist/errors.js",
-      "types": "./dist/errors.d.ts"
+      "import": {
+        "types": "./dist/esm/errors.d.mts",
+        "default": "./dist/esm/errors.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/errors.d.cts",
+        "default": "./dist/cjs/errors.cjs"
+      }
     },
     "./validation": {
-      "require": "./dist/validation.js",
-      "import": "./dist/validation.js",
-      "types": "./dist/validation.d.ts"
+      "import": {
+        "types": "./dist/esm/validation.d.mts",
+        "default": "./dist/esm/validation.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/validation.d.cts",
+        "default": "./dist/cjs/validation.cjs"
+      }
     },
     "./types": {
-      "require": "./dist/types.js",
-      "import": "./dist/types.js",
-      "types": "./dist/types.d.ts"
+      "import": {
+        "types": "./dist/esm/types.d.mts",
+        "default": "./dist/esm/types.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/types.d.cts",
+        "default": "./dist/cjs/types.cjs"
+      }
     },
     "./query-parser": {
-      "require": "./dist/query-parser.js",
-      "import": "./dist/query-parser.js",
-      "types": "./dist/query-parser.d.ts"
+      "import": {
+        "types": "./dist/esm/query-parser.d.mts",
+        "default": "./dist/esm/query-parser.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/query-parser.d.cts",
+        "default": "./dist/cjs/query-parser.cjs"
+      }
     },
     "./request-bodies": {
-      "require": "./dist/request-bodies/index.js",
-      "import": "./dist/request-bodies/index.js",
-      "types": "./dist/request-bodies/index.d.ts"
+      "import": {
+        "types": "./dist/esm/request-bodies/index.d.mts",
+        "default": "./dist/esm/request-bodies/index.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/request-bodies/index.d.cts",
+        "default": "./dist/cjs/request-bodies/index.cjs"
+      }
     }
   },
   "scripts": {
     "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
     "build": "tsc -p ./tsconfig.json",
+    "bundle": "tsdown",
     "test": "jest"
   },
   "dependencies": {
@@ -68,6 +94,7 @@
     "@jest/globals": "^30.3.0",
     "jest": "^30.3.0",
     "joi": "^18.1.2",
+    "tsdown": "^0.21.10",
     "typescript": "^6.0.3",
     "zod": "^3.25.76"
   },

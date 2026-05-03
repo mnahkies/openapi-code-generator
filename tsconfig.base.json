@@ -4,6 +4,7 @@
     "composite": true,
     "skipLibCheck": true,
     "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
     "importHelpers": true,
     "resolveJsonModule": true,
@@ -12,7 +13,7 @@
     "noUnusedParameters": false,
     // incompatible with https://biomejs.dev/linter/rules/use-literal-keys/
     "noPropertyAccessFromIndexSignature": false,
-    "moduleResolution": "Node16",
+    "moduleResolution": "nodenext",
     "types": ["node"],
     "paths": {
       "@nahkies/*": ["./packages/*/src"]
