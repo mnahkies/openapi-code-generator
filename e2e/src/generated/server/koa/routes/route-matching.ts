@@ -56,7 +56,7 @@ export type RouteMatchingImplementation = {
 export function createRouteMatchingRouter(
   implementation: RouteMatchingImplementation,
 ): KoaRouter {
-  const router = new KoaRouter({exclusive: true})
+  const router = new KoaRouter()
 
   const routeMatchingGetByFixedFieldResponseValidator =
     responseValidationFactory([["200", z.unknown()]], undefined)

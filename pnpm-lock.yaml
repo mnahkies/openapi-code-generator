@@ -96,8 +96,8 @@ importers:
   e2e:
     dependencies:
       '@koa/router':
-        specifier: ^14.0.0
-        version: 14.0.0
+        specifier: ^15.4.0
+        version: 15.4.0(koa@3.2.0)
       '@nahkies/typescript-axios-runtime':
         specifier: workspace:*
         version: link:../packages/typescript-axios-runtime
@@ -135,9 +135,6 @@ importers:
       '@types/koa':
         specifier: ^3.0.2
         version: 3.0.2
-      '@types/koa__router':
-        specifier: ^12.0.5
-        version: 12.0.5
       expect:
         specifier: ^30.3.0
         version: 30.3.0
@@ -257,8 +254,8 @@ importers:
   integration-tests/typescript-koa:
     dependencies:
       '@koa/router':
-        specifier: ^14.0.0
-        version: 14.0.0
+        specifier: ^15.4.0
+        version: 15.4.0(koa@3.2.0)
       '@nahkies/typescript-koa-runtime':
         specifier: workspace:*
         version: link:../../packages/typescript-koa-runtime
@@ -278,9 +275,6 @@ importers:
       '@types/koa':
         specifier: ^3.0.2
         version: 3.0.2
-      '@types/koa__router':
-        specifier: ^12.0.5
-        version: 12.0.5
       '@typescript/native-preview':
         specifier: ^7.0.0-dev.20260421.2
         version: 7.0.0-dev.20260426.1
@@ -598,17 +592,14 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       '@koa/router':
-        specifier: ^14.0.0
-        version: 14.0.0
+        specifier: ^15.4.0
+        version: 15.4.0(koa@3.2.0)
       '@types/koa':
         specifier: ^3.0.2
         version: 3.0.2
       '@types/koa__cors':
         specifier: ^5.0.1
         version: 5.0.1
-      '@types/koa__router':
-        specifier: ^12.0.5
-        version: 12.0.5
       jest:
         specifier: ^30.3.0
         version: 30.3.0(@types/node@22.19.17)
@@ -2156,10 +2147,11 @@ packages:
     resolution: {integrity: sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==}
     engines: {node: '>= 14.0.0'}
 
-  '@koa/router@14.0.0':
-    resolution: {integrity: sha512-LBSu5K0qAaaQcXX/0WIB9PGDevyCxxpnc1uq13vV/CgObaVxuis5hKl3Eboq/8gcb6ebnkAStW9NB/Em2eYyFA==}
+  '@koa/router@15.4.0':
+    resolution: {integrity: sha512-vKYlXtoCfcAN8z4dHiveYX55rTYOgHEYJNumK1WM9ZAwaArhreGVkyC1LTMGfUQUJyIO/SbwRFBOHeOCY8/MaQ==}
     engines: {node: '>= 20'}
-    deprecated: Please upgrade to v15 or higher. All reported bugs in this version are fixed in newer releases, dependencies have been updated, and security has been improved.
+    peerDependencies:
+      koa: ^2.0.0 || ^3.0.0
 
   '@listr2/prompt-adapter-inquirer@3.0.5':
     resolution: {integrity: sha512-WELs+hj6xcilkloBXYf9XXK8tYEnKsgLj01Xl5ONUJpKjmT5hGVUzNUS5tooUxs7pGMrw+jFD/41WpqW4V3LDA==}
@@ -3639,9 +3631,6 @@ packages:
 
   '@types/koa__cors@5.0.1':
     resolution: {integrity: sha512-xZckuh3B6ycSBAIYnBImG1VDHyBNZsltGAuGb4THuZllccdLgD5DUs4RA7TAUjB58THg00SSZ1e//duQef7WRw==}
-
-  '@types/koa__router@12.0.5':
-    resolution: {integrity: sha512-1HeLxuDn4n5it1yZYCSyOYXo++73zT0ffoviXnPxbwbxLbvDFEvWD9ZzpRiIpK4oKR0pi+K+Mk/ZjyROjW3HSw==}
 
   '@types/lodash@4.17.24':
     resolution: {integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==}
@@ -9797,10 +9786,11 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@koa/router@14.0.0':
+  '@koa/router@15.4.0(koa@3.2.0)':
     dependencies:
       debug: 4.4.3
       http-errors: 2.0.1
+      koa: 3.2.0
       koa-compose: 4.1.0
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
@@ -11150,10 +11140,6 @@ snapshots:
       '@types/node': 22.19.17
 
   '@types/koa__cors@5.0.1':
-    dependencies:
-      '@types/koa': 3.0.2
-
-  '@types/koa__router@12.0.5':
     dependencies:
       '@types/koa': 3.0.2
 
