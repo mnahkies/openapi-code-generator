@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf ./dist && rm -rf ./src/generated",
-    "validate": "tsc -p ./tsconfig.json"
+    "validate": "tsgo -p ./tsconfig.json"
   },
   "dependencies": {
     "@nahkies/typescript-axios-runtime": "workspace:*",
@@ -17,6 +17,6 @@
   },
   "devDependencies": {
     "@types/node": "^22.19.17",
-    "typescript": "^6.0.3"
+    "@typescript/native-preview": "^7.0.0-dev.20260421.2"
   }
 }
