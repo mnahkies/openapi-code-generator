@@ -19,6 +19,8 @@ ignoredBuiltDependencies:
 
 linkWorkspacePackages: deep
 
+managePackageManagerVersions: false
+
 minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude: []
