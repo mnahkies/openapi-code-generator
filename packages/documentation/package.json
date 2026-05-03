@@ -48,5 +48,8 @@
     "gh-pages": "^6.3.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
