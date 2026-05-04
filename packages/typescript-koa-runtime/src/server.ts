@@ -8,7 +8,7 @@ import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 import Koa, {type Context, type Middleware, type Next} from "koa"
 import type {KoaBodyMiddlewareOptions} from "koa-body"
 import KoaBody from "koa-body"
-import {KoaRuntimeError} from "./errors"
+import {KoaRuntimeError} from "./errors.ts"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {

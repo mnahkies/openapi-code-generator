@@ -1,7 +1,7 @@
 import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 
 import type {Schema as JoiSchema} from "joi"
-import {ExpressRuntimeError, type RequestInputType} from "./errors"
+import {ExpressRuntimeError, type RequestInputType} from "./errors.ts"
 
 // Note: joi types don't appear to have an equivalent of z.infer,
 //       hence any seems about as good as we can do here.

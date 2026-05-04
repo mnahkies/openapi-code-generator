@@ -8,7 +8,7 @@ import {
   type HeaderParams,
   type HeadersInit,
   type QueryParams,
-} from "./main"
+} from "./main.ts"
 
 class ConcreteFetchClient extends AbstractFetchClient {
   // biome-ignore lint/complexity/noUselessConstructor: make public

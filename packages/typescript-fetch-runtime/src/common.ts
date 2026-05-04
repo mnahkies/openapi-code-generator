@@ -1,6 +1,6 @@
 import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 
-import type {Res, StatusCode} from "./types"
+import type {Res, StatusCode} from "./types.ts"
 
 export function responseValidationFactoryFactory<Schema>(
   // biome-ignore lint/suspicious/noExplicitAny: needed

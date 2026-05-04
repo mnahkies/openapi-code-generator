@@ -1,5 +1,5 @@
 import type {Schema as JoiSchema} from "joi"
-import {responseValidationFactoryFactory} from "./common"
+import {responseValidationFactoryFactory} from "./common.ts"
 
 export function responseValidationFactory(
   possibleResponses: [string, JoiSchema][],
