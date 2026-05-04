@@ -9,7 +9,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   publint: true,
-  attw: { profile: 'node16' },
+  attw: {profile: "node16"},
 
   format: {
     esm: {
