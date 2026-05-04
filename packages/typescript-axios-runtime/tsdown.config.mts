@@ -8,6 +8,8 @@ export default defineConfig({
   target: "esnext",
   dts: true,
   sourcemap: true,
+  publint: true,
+  attw: { profile: 'node16' },
 
   format: {
     esm: {
