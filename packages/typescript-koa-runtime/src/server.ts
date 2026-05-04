@@ -6,9 +6,8 @@ import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
 import Koa, {type Context, type Middleware, type Next} from "koa"
-import type {KoaBodyMiddlewareOptions} from "koa-body"
-import KoaBody from "koa-body"
-import {KoaRuntimeError} from "./errors"
+import {type KoaBodyMiddlewareOptions, koaBody} from "koa-body"
+import {KoaRuntimeError} from "./errors.ts"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export type {
@@ -149,7 +148,7 @@ export async function startServer({
   }
 
   if (body !== "disabled") {
-    app.use(KoaBody(body))
+    app.use(koaBody(body))
   }
 
   for (const it of middleware) {

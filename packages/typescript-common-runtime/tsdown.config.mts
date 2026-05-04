@@ -10,7 +10,12 @@ export default defineConfig({
     "./src/query-parser.ts",
     "./src/request-bodies/index.ts",
   ],
+
   target: "esnext",
+  dts: true,
+  sourcemap: true,
+  publint: true,
+  attw: {profile: "node16"},
 
   format: {
     esm: {
@@ -20,7 +25,4 @@ export default defineConfig({
       outDir: "./dist/cjs",
     },
   },
-
-  dts: true,
-  sourcemap: true,
 })

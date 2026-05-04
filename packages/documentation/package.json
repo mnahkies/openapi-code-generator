@@ -10,7 +10,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mnahkies/openapi-code-generator.git",
+    "url": "git+https://github.com/mnahkies/openapi-code-generator.git",
     "directory": "packages/documentation"
   },
   "bugs": {

@@ -12,7 +12,7 @@ import express, {
   type RequestHandler,
   type Router,
 } from "express"
-import {ExpressRuntimeError} from "./errors"
+import {ExpressRuntimeError} from "./errors.ts"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 

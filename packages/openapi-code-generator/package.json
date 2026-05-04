@@ -10,7 +10,7 @@
   "homepage": "https://openapi-code-generator.nahkies.co.nz/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mnahkies/openapi-code-generator.git",
+    "url": "git+https://github.com/mnahkies/openapi-code-generator.git",
     "directory": "packages/openapi-code-generator"
   },
   "bugs": {

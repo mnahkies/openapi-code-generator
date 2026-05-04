@@ -9,7 +9,7 @@ import {
   type AbstractAxiosConfig,
   type HeaderParams,
   type QueryParams,
-} from "./main"
+} from "./main.ts"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
   // biome-ignore lint/complexity/noUselessConstructor: make public

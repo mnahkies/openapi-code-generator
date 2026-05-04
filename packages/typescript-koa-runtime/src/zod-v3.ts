@@ -1,7 +1,7 @@
 import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 
 import type {z} from "zod/v3"
-import {KoaRuntimeError, type RequestInputType} from "./errors"
+import {KoaRuntimeError, type RequestInputType} from "./errors.ts"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema,

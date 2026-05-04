@@ -1,5 +1,5 @@
 import type {z} from "zod/v4"
-import {responseValidationFactoryFactory} from "./common"
+import {responseValidationFactoryFactory} from "./common.ts"
 
 export function responseValidationFactory(
   possibleResponses: [string, z.ZodTypeAny][],

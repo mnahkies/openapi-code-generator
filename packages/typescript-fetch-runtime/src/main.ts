@@ -10,9 +10,9 @@ import type {
   QueryParams,
   Res,
   StatusCode,
-} from "./types"
+} from "./types.ts"
 
-export * from "./types"
+export * from "./types.ts"
 
 export abstract class AbstractFetchClient {
   protected readonly basePath: string

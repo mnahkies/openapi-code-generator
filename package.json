@@ -11,7 +11,7 @@
   "homepage": "https://openapi-code-generator.nahkies.co.nz/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mnahkies/openapi-code-generator.git"
+    "url": "git+https://github.com/mnahkies/openapi-code-generator.git"
   },
   "bugs": {
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
@@ -39,6 +39,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.2",
     "@biomejs/biome": "2.4.13",
     "@biomejs/js-api": "4.0.0",
     "@biomejs/wasm-nodejs": "2.4.13",
@@ -59,6 +60,7 @@
     "lerna": "^9.0.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
+    "publint": "^0.3.18",
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
     "typescript": "^6.0.3"
@@ -69,7 +71,7 @@
     "e2e"
   ],
   "lint-staged": {
-    "*.{ts,js,tsx,jsx}": [
+    "*.{ts,js,tsx,jsx,mts,mjs,cts,cjs}": [
       "pnpm biome lint --write --no-errors-on-unmatched",
       "pnpm biome check --write --no-errors-on-unmatched"
     ],

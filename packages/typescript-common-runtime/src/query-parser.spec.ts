@@ -5,7 +5,7 @@ import {
   parseQueryParameter,
   parseQueryParameters,
   type Style,
-} from "./query-parser"
+} from "./query-parser.ts"
 
 // todo: nodejs v20 doesn't support Iterator.from - replace when v20 support dropped.
 function* toIterator<T>(arr: T[]): IterableIterator<T> {
