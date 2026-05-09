@@ -1,0 +1,3 @@
+.loading-spinner-module__ELiRZG__loader{box-sizing:border-box;border:5px solid #363636;border-bottom-color:#0000;border-radius:50%;width:1rem;height:1rem;animation:1s linear infinite loading-spinner-module__ELiRZG__rotation;display:inline-block}@keyframes loading-spinner-module__ELiRZG__rotation{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
+.config-form-module__pAiPuG__container{grid-gap:.5rem;grid-template-columns:1fr 1fr;align-items:center;max-width:500px;display:grid}@media (min-width:1536px){.config-form-module__pAiPuG__container{grid-template-columns:1fr 1fr 1fr 1fr;max-width:800px}}
+.playground-module__gxvCoG__editorContainer{grid-template-rows:auto;grid-template-columns:1fr;display:grid}

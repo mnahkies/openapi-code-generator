@@ -1,0 +1,73 @@
+1:"$Sreact.fragment"
+2:I[57544,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"TOCProvider"]
+3:I[62617,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"Sidebar"]
+4:I[73810,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"ClientWrapper"]
+9:I[92337,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"HeadingAnchor"]
+14:I[7800,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"OutletBoundary"]
+15:"$Sreact.suspense"
+5:Taf9,---
+title: Schema-first design
+description: Explore the benefits of schema-first API design over code-first approaches, including longevity, common language across platforms, helpful constraints, and clean separation of concerns.
+---
+
+# Why schema first
+
+Broadly speaking there are two approaches people take to maintaining API specifications:
+- Schema first, where you write the schema by hand
+- Code first, where you generate the schema from your code
+
+This project being a code generator from API specification files is on the schema first side of the debate, but why?
+
+Ultimately this is fairly subjective, but there are four primary motivators that lead us to believe schema first
+is the better approach.
+
+This is also recommended by the OpenAPI initiative (OAI) itself, where they refer to this as ["Design-first"](https://learn.openapis.org/best-practices.html) with similar arguments
+
+## Longevity
+[APIs are forever](https://www.allthingsdistributed.com/2016/03/10-lessons-from-10-years-of-aws.html),
+changing them in backwards incompatible ways is hard/expensive, or sometimes not possible.
+
+With that in mind, we believe it's important to be thoughtful about your API design, and
+that writing an explicit specification/contract is a great forcing function to accomplish this.
+
+Additionally, programming languages / frameworks come and go - they are an implementation detail,
+and subject to change as business requirements evolve.
+OpenAPI (originally Swagger) has been around for over a decade now, and we're confident it'll be around for a long time.
+
+## Common Language
+Many large projects / systems will involve multiple programming languages. For example, you might have a Java backend,
+Kotlin Android app, Swift iOS app, and Typescript web frontend.
+
+For writing your API contracts using OpenAPI up front, you create a common ground for developers of all languages to discuss
+and hash out the details.
+
+## Constraints
+General purpose programming languages are very flexible. If you try hard enough, you can probably implement it.
+Specifications like OpenAPI on the other hand are more rigid and constraining.
+
+We believe it's better to lean into this and design your system such that it can be represented fully by a
+specification, rather than attempt to generate a specification from the implementation and lose
+information/nuance in the process.
+
+## Separation
+A good specification not only defines the API contract, but also includes a lot of supplementary information such as examples,
+and documentation.
+
+Generating a good specification from your code, therefore requires including all this extra metadata in the code, which
+can make the code more difficult to work with.
+
+We prefer to separate these concerns out into the specification, and keep the implementation code leaner and simpler.0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"x:mx-auto x:flex x:max-w-(--nextra-content-width)","children":["$","$L2",null,{"value":[{"value":"Longevity","id":"longevity","depth":2},{"value":"Common Language","id":"common-language","depth":2},{"value":"Constraints","id":"constraints","depth":2},{"value":"Separation","id":"separation","depth":2}],"children":[["$","$L3",null,{}],["$","$L4",null,{"metadata":{"title":"Schema-first design","description":"Explore the benefits of schema-first API design over code-first approaches, including longevity, common language across platforms, helpful constraints, and clean separation of concerns.","filePath":"src/app/overview/schema-first-design/page.mdx","timestamp":1746869130000},"sourceCode":"$5","children":["$L6","$L7"]}]]}]}],null,"$L8"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"K_0Pd90iRzJpYL9TF35Uf"}
+6:["$","div",null,{"id":"nextra-skip-nav"}]
+7:["$","main",null,{"data-pagefind-body":true,"children":[["$","h1",null,{"className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-bold x:mt-2 x:text-4xl","children":["Why schema first","$undefined"]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Broadly speaking there are two approaches people take to maintaining API specifications:"}],"\n",["$","ul",null,{"className":"x:[:is(ol,ul)_&]:my-[.75em] x:not-first:mt-[1.25em] x:list-disc x:ms-[1.5em]","children":["\n",["$","li",null,{"className":"x:my-[.5em]","children":"Schema first, where you write the schema by hand"}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":"Code first, where you generate the schema from your code"}],"\n"]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"This project being a code generator from API specification files is on the schema first side of the debate, but why?"}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Ultimately this is fairly subjective, but there are four primary motivators that lead us to believe schema first\nis the better approach."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["This is also recommended by the OpenAPI initiative (OAI) itself, where they refer to this as ",["$","a",null,{"href":"https://learn.openapis.org/best-practices.html","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["“Design-first”",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]," with similar arguments"]}],"\n",["$","h2",null,{"id":"longevity","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Longevity",["$","$L9",null,{"id":"longevity"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","a",null,{"href":"https://www.allthingsdistributed.com/2016/03/10-lessons-from-10-years-of-aws.html","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["APIs are forever",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}],",\nchanging them in backwards incompatible ways is hard/expensive, or sometimes not possible."]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"With that in mind, we believe it’s important to be thoughtful about your API design, and\nthat writing an explicit specification/contract is a great forcing function to accomplish this."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Additionally, programming languages / frameworks come and go - they are an implementation detail,\nand subject to change as business requirements evolve.\nOpenAPI (originally Swagger) has been around for over a decade now, and we’re confident it’ll be around for a long time."}],"\n",["$","h2",null,{"id":"common-language","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Common Language","$La"]}],"\n","$Lb","\n","$Lc","\n","$Ld","\n","$Le","\n","$Lf","\n","$L10","\n","$L11","\n","$L12","\n","$L13"]}]
+8:["$","$L14",null,{"children":["$","$15",null,{"name":"Next.MetadataOutlet","children":"$@16"}]}]
+a:["$","$L9",null,{"id":"common-language"}]
+b:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Many large projects / systems will involve multiple programming languages. For example, you might have a Java backend,\nKotlin Android app, Swift iOS app, and Typescript web frontend."}]
+c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"For writing your API contracts using OpenAPI up front, you create a common ground for developers of all languages to discuss\nand hash out the details."}]
+d:["$","h2",null,{"id":"constraints","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Constraints",["$","$L9",null,{"id":"constraints"}]]}]
+e:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"General purpose programming languages are very flexible. If you try hard enough, you can probably implement it.\nSpecifications like OpenAPI on the other hand are more rigid and constraining."}]
+f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"We believe it’s better to lean into this and design your system such that it can be represented fully by a\nspecification, rather than attempt to generate a specification from the implementation and lose\ninformation/nuance in the process."}]
+10:["$","h2",null,{"id":"separation","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Separation",["$","$L9",null,{"id":"separation"}]]}]
+11:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"A good specification not only defines the API contract, but also includes a lot of supplementary information such as examples,\nand documentation."}]
+12:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Generating a good specification from your code, therefore requires including all this extra metadata in the code, which\ncan make the code more difficult to work with."}]
+13:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"We prefer to separate these concerns out into the specification, and keep the implementation code leaner and simpler."}]
+16:null

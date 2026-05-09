@@ -1,0 +1,214 @@
+1:"$Sreact.fragment"
+2:I[57544,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"TOCProvider"]
+3:I[62617,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"Sidebar"]
+4:I[73810,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"ClientWrapper"]
+9:I[92337,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"HeadingAnchor"]
+21:I[7800,["/_next/static/chunks/0npaldv-75p5~.js","/_next/static/chunks/0n9c--e4zwtet.js","/_next/static/chunks/03mg1z5~4ik8v.js","/_next/static/chunks/0pdxhv4nvn4cr.js","/_next/static/chunks/0nvt399zvffxl.js","/_next/static/chunks/0tbwwl8glzpps.js","/_next/static/chunks/0b6lb4tzkgscf.js"],"OutletBoundary"]
+22:"$Sreact.suspense"
+5:T1983,---
+title: Roadmap
+description: A rough roadmap of planned features for the OpenAPI Code Generator, laying out the road to v1.
+---
+
+import {Callout, Steps} from "nextra/components"
+
+# Roadmap
+This is a **very** loosely ordered view of known things that are planned in the roadmap. It's probably not exhaustive.
+
+## Near-term - "Sometime in the next 6 months"
+These are broadly speaking the known blockers to doing the first v1 release.
+
+<Callout emoji="💡">
+
+  The project was started [approximately July
+  2020](https://github.com/mnahkies/openapi-code-generator/commit/643a06835bfb6e462fdeb31f5432cac5ef8ef7f5), over 4
+  years ago.
+
+  It'd be really nice to get to a v1 / stable release before it turns 5 years old 😅, so we'll aim for this to happen
+  approximately Q1/Q2 of 2025.
+
+</Callout>
+
+<Steps>
+  ### Support multipart/form-data (file uploads)
+
+  Currently only `application/json`, `text/plain`, and `application/x-www-form-urlencoded`
+  request bodies are supported properly.
+
+  This is particularly problematic when wanting to upload files, such as images
+  or videos.
+
+  Adding `multipart/form-data` support will aim to solve this.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#considerations-for-file-uploads
+
+  ### Support response headers
+
+  It's common for important metadata, such as rate limit information to be
+  communicated using response headers.
+
+  At the moment this information is lost during code generation, adding support
+  will mean that it is typed and validated at runtime.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#response-object
+
+  ### Support cookie parameters
+
+  Cookies are often used to store small pieces of information to be sent on every
+  request. These are currently ignored, but should be supported.
+
+  ### Review handling of parameter `style`
+
+  Review and improve the way that parameter `style` is interpreted.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#style-values
+
+  ### Fix interpretation of `readOnly` / `writeOnly`
+
+  The meaning of these attributes was incorrectly interpreted and implemented. Changing this will
+  be a breaking change, so this should be revisited prior to v1.
+
+  ### Clean up / rethink CLI options
+
+  As the number of CLI options has grown, it's been a bit confusing around when options are/aren't
+  used, and it's not super clear how languages other than `typescript` might be introduced.
+
+  We should have a rethink of this, and probably separate client sdk vs server stubs in the option
+  structure to make it clear when args are applicable.
+
+  It may be difficult to maintain backwards compatibility, but if possible then we should.
+
+</Steps>
+
+## Mid-term - "Hopefully in the next year"
+These are items that are nice to have, but generally not breaking and therefore not blocking for a v1
+release. There's a decent chance that many of these will beat a v1 release still.
+
+<Steps>
+  ### Support custom serialization/deserialization
+
+  Sometimes you want to serialize or deserialize objects in a custom way. Good examples
+  might be parsing `date-time` strings as a `moment` / `Instant` instead of the native `Date`,
+  or parsing a `uuid` string to a first class `Uuid` type.
+
+  https://github.com/mnahkies/openapi-code-generator/pull/220 starts to explore this idea,
+  and how we could potentially make use of a custom extension to facilitate this use-case.
+
+  ### Implement a `typescript-next` template
+
+  [next.js](https://nextjs.org/) is a popular framework for building site using `react`.
+  An experimental template has been up here https://github.com/mnahkies/openapi-code-generator/pull/152
+  for months, but it needs some effort to really nail the user experience.
+
+  This is coming after an `typescript-express` template, as producing the former will
+  necessitate several important refactorings that will make this easier to achieve.
+
+  ### Explore test framework integrations
+
+  [nock](https://www.npmjs.com/package/nock) is a popular library for mocking http requests
+  in test suites. What would an integration with `nock` look like? Or maybe mock service worker?
+
+  Could we leverage examples to create fixture factories?
+
+  ### Support Security Schemas
+
+  At the moment we ignore security schemas, and expect the user to handle this themselves
+  out of band of the code generation.
+
+  For example by mounting a custom authentication middleware for Koa servers, or passing
+  an `Authorization` header for client SDKs.
+
+  It would be good to investigate how to improve things using declared security schemes.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#security-scheme-object-0
+
+</Steps>
+
+## Long-term - "One Day"
+This is a set of possible future enhancements, generally covering more niche/uncommon parts
+of the OpenAPI standard, that we _might_ implement one day.
+
+Whilst these are lower down the list due to being uncommon (often appearing 0 times in the range of
+integration tests we currently run), there's also an argument to be made that unless tooling steps up
+to support these features, then adoption will remain low, and so support should be added regardless.
+
+<Steps>
+
+  ### Support XML
+
+  Whilst JSON has broadly gained popularity over XML as a markup for HTTP requests,
+  XML isn't dead. It would be good to support it, especially for client SDK's where
+  a server might not support JSON.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#xml-object
+
+  ### Support `webhooks`
+  The `webhooks` object is a new way to declare webhooks in 3.1. We should investigate
+  supporting it.
+
+  ref: https://learn.openapis.org/examples/v3.1/webhook-example.html
+
+  ### Support `links`
+
+  The `links` object on responses is an interesting mechanism to declare relationships
+  between operations, and how to traverse these, using a static declaration.
+
+  It essentially allows you to specify a mapping of properties from one request, to be
+  parameters for another request. Eg: `$request.path.id`
+
+  Whilst interesting, it's also uncommon - currently there isn't a single usage of this
+  feature in the specifications we use for our integration tests.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#link-object
+
+  ### Support `callbacks`
+
+  The `callbacks` field of an operation is similar to the `links` response object, in that
+  it provides a way to specify callbacks related to an operation.
+
+  Much like `links`, it's uncommon to see this used in practice, without a single `callbacks`
+  object defined in any specifications we see.
+
+  ref: https://spec.openapis.org/oas/v3.1.1.html#callback-object
+</Steps>0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"x:mx-auto x:flex x:max-w-(--nextra-content-width)","children":["$","$L2",null,{"value":[{"value":"Near-term - “Sometime in the next 6 months”","id":"near-term---sometime-in-the-next-6-months","depth":2},{"value":"Support multipart/form-data (file uploads)","id":"support-multipartform-data-file-uploads","depth":3},{"value":"Support response headers","id":"support-response-headers","depth":3},{"value":"Support cookie parameters","id":"support-cookie-parameters","depth":3},{"value":[["$","$1",".0",{"children":["Review handling of parameter ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"style"}]]}]],"id":"review-handling-of-parameter-style","depth":3},{"value":[["$","$1",".0",{"children":["Fix interpretation of ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"readOnly"}]," / ",["$","code",".3",{"className":"nextra-code","dir":"ltr","children":"writeOnly"}]]}]],"id":"fix-interpretation-of-readonly--writeonly","depth":3},{"value":"Clean up / rethink CLI options","id":"clean-up--rethink-cli-options","depth":3},{"value":"Mid-term - “Hopefully in the next year”","id":"mid-term---hopefully-in-the-next-year","depth":2},{"value":"Support custom serialization/deserialization","id":"support-custom-serializationdeserialization","depth":3},{"value":[["$","$1",".0",{"children":["Implement a ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"typescript-next"}]," template"]}]],"id":"implement-a-typescript-next-template","depth":3},{"value":"Explore test framework integrations","id":"explore-test-framework-integrations","depth":3},{"value":"Support Security Schemas","id":"support-security-schemas","depth":3},{"value":"Long-term - “One Day”","id":"long-term---one-day","depth":2},{"value":"Support XML","id":"support-xml","depth":3},{"value":[["$","$1",".0",{"children":["Support ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"webhooks"}]]}]],"id":"support-webhooks","depth":3},{"value":[["$","$1",".0",{"children":["Support ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"links"}]]}]],"id":"support-links","depth":3},{"value":[["$","$1",".0",{"children":["Support ",["$","code",".1",{"className":"nextra-code","dir":"ltr","children":"callbacks"}]]}]],"id":"support-callbacks","depth":3}],"children":[["$","$L3",null,{}],["$","$L4",null,{"metadata":{"title":"Roadmap","description":"A rough roadmap of planned features for the OpenAPI Code Generator, laying out the road to v1.","filePath":"src/app/overview/roadmap/page.mdx","timestamp":1753533341000},"sourceCode":"$5","children":["$L6","$L7"]}]]}]}],null,"$L8"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"K_0Pd90iRzJpYL9TF35Uf"}
+6:["$","div",null,{"id":"nextra-skip-nav"}]
+7:["$","main",null,{"data-pagefind-body":true,"children":[["$","h1",null,{"className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-bold x:mt-2 x:text-4xl","children":["Roadmap","$undefined"]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["This is a ",["$","strong",null,{"children":"very"}]," loosely ordered view of known things that are planned in the roadmap. It’s probably not exhaustive."]}],"\n",["$","h2",null,{"id":"near-term---sometime-in-the-next-6-months","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Near-term - “Sometime in the next 6 months”",["$","$L9",null,{"id":"near-term---sometime-in-the-next-6-months"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"These are broadly speaking the known blockers to doing the first v1 release."}],"\n",["$","div",null,{"className":"nextra-callout x:overflow-x-auto x:not-first:mt-[1.25em] x:flex x:rounded-lg x:border x:py-[.5em] x:pe-[1em] x:contrast-more:border-current! x:bg-green-100 x:dark:bg-green-900/30 x:text-green-700 x:dark:text-green-500 x:border-green-700 x:dark:border-green-800","children":[["$","div",null,{"className":"x:select-none x:text-[1.25em] x:ps-[.6em] x:pe-[.4em]","style":{"fontFamily":"\"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\""},"data-pagefind-ignore":"all","children":"💡"}],["$","div",null,{"className":"x:w-full x:min-w-0","children":[["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["The project was started ",["$","a",null,{"href":"https://github.com/mnahkies/openapi-code-generator/commit/643a06835bfb6e462fdeb31f5432cac5ef8ef7f5","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["approximately July\n2020",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}],", over 4\nyears ago."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"It’d be really nice to get to a v1 / stable release before it turns 5 years old 😅, so we’ll aim for this to happen\napproximately Q1/Q2 of 2025."}]]}]]}],"\n",["$","div",null,{"className":"nextra-steps x:ms-4 x:mb-12 x:border-s x:border-gray-200 x:ps-6 x:dark:border-neutral-800","style":{"--counter-id":"_S_1_"},"children":[["$","h3",null,{"id":"support-multipartform-data-file-uploads","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support multipart/form-data (file uploads)",["$","$L9",null,{"id":"support-multipartform-data-file-uploads"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["Currently only ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"application/json"}],", ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"text/plain"}],", and ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"application/x-www-form-urlencoded"}],"\nrequest bodies are supported properly."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"This is particularly problematic when wanting to upload files, such as images\nor videos."}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["Adding ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"multipart/form-data"}]," support will aim to solve this."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ","$La"]}],"$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13","$L14","$L15","$L16","$L17","$L18","$L19"]}],"\n","$L1a","\n","$L1b","\n","$L1c","\n","$L1d","\n","$L1e","\n","$L1f","\n","$L20"]}]
+8:["$","$L21",null,{"children":["$","$22",null,{"name":"Next.MetadataOutlet","children":"$@23"}]}]
+a:["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#considerations-for-file-uploads","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#considerations-for-file-uploads",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]
+b:["$","h3",null,{"id":"support-response-headers","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support response headers",["$","$L9",null,{"id":"support-response-headers"}]]}]
+c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"It’s common for important metadata, such as rate limit information to be\ncommunicated using response headers."}]
+d:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"At the moment this information is lost during code generation, adding support\nwill mean that it is typed and validated at runtime."}]
+e:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#response-object","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#response-object",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}]
+f:["$","h3",null,{"id":"support-cookie-parameters","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support cookie parameters",["$","$L9",null,{"id":"support-cookie-parameters"}]]}]
+10:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Cookies are often used to store small pieces of information to be sent on every\nrequest. These are currently ignored, but should be supported."}]
+11:["$","h3",null,{"id":"review-handling-of-parameter-style","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Review handling of parameter ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"style"}]],["$","$L9",null,{"id":"review-handling-of-parameter-style"}]]}]
+12:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["Review and improve the way that parameter ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"style"}]," is interpreted."]}]
+13:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#style-values","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#style-values",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}]
+14:["$","h3",null,{"id":"fix-interpretation-of-readonly--writeonly","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Fix interpretation of ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"readOnly"}]," / ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"writeOnly"}]],["$","$L9",null,{"id":"fix-interpretation-of-readonly--writeonly"}]]}]
+15:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The meaning of these attributes was incorrectly interpreted and implemented. Changing this will\nbe a breaking change, so this should be revisited prior to v1."}]
+16:["$","h3",null,{"id":"clean-up--rethink-cli-options","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Clean up / rethink CLI options",["$","$L9",null,{"id":"clean-up--rethink-cli-options"}]]}]
+17:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["As the number of CLI options has grown, it’s been a bit confusing around when options are/aren’t\nused, and it’s not super clear how languages other than ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"typescript"}]," might be introduced."]}]
+18:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"We should have a rethink of this, and probably separate client sdk vs server stubs in the option\nstructure to make it clear when args are applicable."}]
+19:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"It may be difficult to maintain backwards compatibility, but if possible then we should."}]
+1a:["$","h2",null,{"id":"mid-term---hopefully-in-the-next-year","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Mid-term - “Hopefully in the next year”",["$","$L9",null,{"id":"mid-term---hopefully-in-the-next-year"}]]}]
+1b:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"These are items that are nice to have, but generally not breaking and therefore not blocking for a v1\nrelease. There’s a decent chance that many of these will beat a v1 release still."}]
+1c:["$","div",null,{"className":"nextra-steps x:ms-4 x:mb-12 x:border-s x:border-gray-200 x:ps-6 x:dark:border-neutral-800","style":{"--counter-id":"_S_2_"},"children":[["$","h3",null,{"id":"support-custom-serializationdeserialization","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support custom serialization/deserialization",["$","$L9",null,{"id":"support-custom-serializationdeserialization"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["Sometimes you want to serialize or deserialize objects in a custom way. Good examples\nmight be parsing ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"date-time"}]," strings as a ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"moment"}]," / ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"Instant"}]," instead of the native ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"Date"}],",\nor parsing a ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"uuid"}]," string to a first class ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"Uuid"}]," type."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","a",null,{"href":"https://github.com/mnahkies/openapi-code-generator/pull/220","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://github.com/mnahkies/openapi-code-generator/pull/220",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]," starts to explore this idea,\nand how we could potentially make use of a custom extension to facilitate this use-case."]}],["$","h3",null,{"id":"implement-a-typescript-next-template","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Implement a ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"typescript-next"}]," template"],["$","$L9",null,{"id":"implement-a-typescript-next-template"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","a",null,{"href":"https://nextjs.org/","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["next.js",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]," is a popular framework for building site using ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"react"}],".\nAn experimental template has been up here ",["$","a",null,{"href":"https://github.com/mnahkies/openapi-code-generator/pull/152","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://github.com/mnahkies/openapi-code-generator/pull/152",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}],"\nfor months, but it needs some effort to really nail the user experience."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["This is coming after an ","$L24"," template, as producing the former will\nnecessitate several important refactorings that will make this easier to achieve."]}],"$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c"]}]
+1d:["$","h2",null,{"id":"long-term---one-day","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Long-term - “One Day”",["$","$L9",null,{"id":"long-term---one-day"}]]}]
+1e:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["This is a set of possible future enhancements, generally covering more niche/uncommon parts\nof the OpenAPI standard, that we ",["$","em",null,{"children":"might"}]," implement one day."]}]
+1f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Whilst these are lower down the list due to being uncommon (often appearing 0 times in the range of\nintegration tests we currently run), there’s also an argument to be made that unless tooling steps up\nto support these features, then adoption will remain low, and so support should be added regardless."}]
+20:["$","div",null,{"className":"nextra-steps x:ms-4 x:mb-12 x:border-s x:border-gray-200 x:ps-6 x:dark:border-neutral-800","style":{"--counter-id":"_S_3_"},"children":[["$","h3",null,{"id":"support-xml","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support XML",["$","$L9",null,{"id":"support-xml"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Whilst JSON has broadly gained popularity over XML as a markup for HTTP requests,\nXML isn’t dead. It would be good to support it, especially for client SDK’s where\na server might not support JSON."}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#xml-object","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#xml-object",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}],["$","h3",null,{"id":"support-webhooks","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Support ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"webhooks"}]],["$","$L9",null,{"id":"support-webhooks"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["The ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"webhooks"}]," object is a new way to declare webhooks in 3.1. We should investigate\nsupporting it."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://learn.openapis.org/examples/v3.1/webhook-example.html","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://learn.openapis.org/examples/v3.1/webhook-example.html",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}],["$","h3",null,{"id":"support-links","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Support ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"links"}]],["$","$L9",null,{"id":"support-links"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["The ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"links"}]," object on responses is an interesting mechanism to declare relationships\nbetween operations, and how to traverse these, using a static declaration."]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["It essentially allows you to specify a mapping of properties from one request, to be\nparameters for another request. Eg: ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"$$request.path.id"}]]}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Whilst interesting, it’s also uncommon - currently there isn’t a single usage of this\nfeature in the specifications we use for our integration tests."}],["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#link-object","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#link-object","$L2d"]}]]}],"$L2e","$L2f","$L30","$L31"]}]
+23:null
+24:["$","code",null,{"className":"nextra-code","dir":"ltr","children":"typescript-express"}]
+25:["$","h3",null,{"id":"explore-test-framework-integrations","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Explore test framework integrations",["$","$L9",null,{"id":"explore-test-framework-integrations"}]]}]
+26:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","a",null,{"href":"https://www.npmjs.com/package/nock","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["nock",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]," is a popular library for mocking http requests\nin test suites. What would an integration with ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"nock"}]," look like? Or maybe mock service worker?"]}]
+27:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Could we leverage examples to create fixture factories?"}]
+28:["$","h3",null,{"id":"support-security-schemas","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Support Security Schemas",["$","$L9",null,{"id":"support-security-schemas"}]]}]
+29:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"At the moment we ignore security schemas, and expect the user to handle this themselves\nout of band of the code generation."}]
+2a:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["For example by mounting a custom authentication middleware for Koa servers, or passing\nan ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"Authorization"}]," header for client SDKs."]}]
+2b:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"It would be good to investigate how to improve things using declared security schemes."}]
+2c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#security-scheme-object-0","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#security-scheme-object-0",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}]
+2d:[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]
+2e:["$","h3",null,{"id":"support-callbacks","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":[["Support ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"callbacks"}]],["$","$L9",null,{"id":"support-callbacks"}]]}]
+2f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["The ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"callbacks"}]," field of an operation is similar to the ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"links"}]," response object, in that\nit provides a way to specify callbacks related to an operation."]}]
+30:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["Much like ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"links"}],", it’s uncommon to see this used in practice, without a single ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"callbacks"}],"\nobject defined in any specifications we see."]}]
+31:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":["ref: ",["$","a",null,{"href":"https://spec.openapis.org/oas/v3.1.1.html#callback-object","target":"_blank","rel":"noreferrer","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":["https://spec.openapis.org/oas/v3.1.1.html#callback-object",[" ",["$","svg",null,{"fill":"none","stroke":"currentColor","strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":1.7,"viewBox":"0 0 24 24","height":"1em","className":"x:inline x:align-baseline x:shrink-0","children":[["$","path",null,{"d":"M7 17L17 7"}],["$","path",null,{"d":"M7 7h10v10"}]]}]]]}]]}]
