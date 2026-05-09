@@ -16,7 +16,13 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 import type {
   t_GetHeadersRequest200Response,
@@ -60,8 +66,13 @@ export type RequestHeadersImplementation = {
 
 export function createRequestHeadersRouter(
   implementation: RequestHeadersImplementation,
+  options: {middleware?: RequestHandler[]} = {},
 ): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getHeadersUndeclaredResponseBodyValidator = responseValidationFactory(
     [["200", s_GetHeadersUndeclared200Response]],

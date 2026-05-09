@@ -16,7 +16,13 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
@@ -134,8 +140,13 @@ export type ValidationImplementation = {
 
 export function createValidationRouter(
   implementation: ValidationImplementation,
+  options: {middleware?: RequestHandler[]} = {},
 ): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getValidationNumbersRandomNumberQuerySchema = z.object({
     max: z.coerce.number().min(1).optional().default(10),

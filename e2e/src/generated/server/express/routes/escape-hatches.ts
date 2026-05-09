@@ -12,7 +12,13 @@ import {
   type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 
 export type GetEscapeHatchesPlainTextResponder = {
@@ -33,8 +39,13 @@ export type EscapeHatchesImplementation = {
 
 export function createEscapeHatchesRouter(
   implementation: EscapeHatchesImplementation,
+  options: {middleware?: RequestHandler[]} = {},
 ): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getEscapeHatchesPlainTextResponseBodyValidator =
     responseValidationFactory([["200", z.string()]], undefined)

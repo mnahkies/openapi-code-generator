@@ -16,7 +16,13 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 import type {t_RouteMatchingGetByIdParamSchema} from "../models.ts"
 
@@ -51,8 +57,13 @@ export type RouteMatchingImplementation = {
 
 export function createRouteMatchingRouter(
   implementation: RouteMatchingImplementation,
+  options: {middleware?: RequestHandler[]} = {},
 ): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const routeMatchingGetByFixedFieldResponseBodyValidator =
     responseValidationFactory([["200", z.unknown()]], undefined)

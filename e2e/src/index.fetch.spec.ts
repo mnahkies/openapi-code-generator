@@ -1,6 +1,7 @@
 import type {Server} from "node:http"
 import {
   afterAll,
+  afterEach,
   beforeAll,
   beforeEach,
   describe,
@@ -24,7 +25,6 @@ describe.each(
 }) => {
   let server: Server | undefined
   let client: ApiClient
-  const logSpy = jest.spyOn(console, "log").mockImplementation(() => {})
 
   beforeAll(async () => {
     const args = await startServer()
@@ -43,11 +43,6 @@ describe.each(
 
   afterAll(async () => {
     server?.close()
-    logSpy.mockRestore()
-  })
-
-  beforeEach(() => {
-    logSpy.mockClear()
   })
 
   describe("CORS", () => {
@@ -539,20 +534,28 @@ describe.each(
   })
 
   describe("route matching", () => {
+    let logSpy: jest.SpiedFunction<typeof console.log>
+
+    beforeEach(() => {
+      logSpy = jest.spyOn(console, "log").mockImplementation(() => {})
+    })
+
+    afterEach(() => {
+      logSpy.mockRestore()
+    })
+
     it("should match fixed field route over parameterized route", async () => {
       const res = await client.routeMatchingGetByFixedField()
 
       expect(res.status).toBe(200)
       await expect(res.json()).resolves.toEqual({matched: "fixed-field"})
 
-      if (name === "koa") {
-        expect(logSpy).toHaveBeenCalledWith(
-          "Request started: GET /route-matching/fixed-field",
-        )
-        expect(logSpy).toHaveBeenCalledWith(
-          "Request completed: [200] GET /route-matching/fixed-field [object Object]",
-        )
-      }
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request started: GET /route-matching/fixed-field",
+      )
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request completed: [200] GET /route-matching/fixed-field",
+      )
     })
 
     it("should match parameterized route", async () => {
@@ -561,14 +564,12 @@ describe.each(
       expect(res.status).toBe(200)
       await expect(res.json()).resolves.toEqual({matched: "id", id: "123"})
 
-      if (name === "koa") {
-        expect(logSpy).toHaveBeenCalledWith(
-          "Request started: GET /route-matching/123",
-        )
-        expect(logSpy).toHaveBeenCalledWith(
-          "Request completed: [200] GET /route-matching/123 [object Object]",
-        )
-      }
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request started: GET /route-matching/123",
+      )
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request completed: [200] GET /route-matching/123",
+      )
     })
   })
 })

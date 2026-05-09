@@ -11,9 +11,7 @@ export const routerMatchingLoggingMiddleware: RouterMiddleware = async (
 ) => {
   console.log(`Request started: ${ctx.method} ${ctx.path}`)
   await next()
-  console.log(
-    `Request completed: [${ctx.status}] ${ctx.method} ${ctx.path} ${ctx.body}`,
-  )
+  console.log(`Request completed: [${ctx.status}] ${ctx.method} ${ctx.path}`)
 }
 
 const routeMatchingGetByFixedField: RouteMatchingGetByFixedField = async (

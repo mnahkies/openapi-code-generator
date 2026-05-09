@@ -17,7 +17,13 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 import type {t_ProductOrder} from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
@@ -66,8 +72,13 @@ export type MediaTypesImplementation = {
 
 export function createMediaTypesRouter(
   implementation: MediaTypesImplementation,
+  options: {middleware?: RequestHandler[]} = {},
 ): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const postMediaTypesTextResponseBodyValidator = responseValidationFactory(
     [["200", z.string()]],
