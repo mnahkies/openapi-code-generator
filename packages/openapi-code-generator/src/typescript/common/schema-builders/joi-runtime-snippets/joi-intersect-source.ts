@@ -1,5 +1,6 @@
-import joi from "joi"
-
+// hack: exports the content from joi-intersect.ts as a string for inclusion in generated output.
+//       without polluting our bundle with import 'joi' statements.
+export const joiIntersectRawSrc = `
 /**
  * Recursively re-distribute the type union/intersection such that joi can support it
  * Eg: from A & (B | C) to (A & B) | (A & C)
@@ -24,9 +25,7 @@ export function joiIntersect(
   }
 
   if (!isObjectSchema(left) || !isObjectSchema(right)) {
-    throw new Error(
-      "only objects, or unions of objects can be intersected together.",
-    )
+    throw new Error("only objects, or unions of objects can be intersected together.")
   }
 
   return (left as joi.ObjectSchema).concat(right)
@@ -50,3 +49,4 @@ export function joiIntersect(
     return matches.map((it) => it.schema)
   }
 }
+`

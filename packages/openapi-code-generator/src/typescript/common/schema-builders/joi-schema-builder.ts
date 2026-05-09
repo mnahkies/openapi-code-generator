@@ -19,7 +19,7 @@ import {
   AbstractSchemaBuilder,
   type SchemaBuilderConfig,
 } from "./abstract-schema-builder.ts"
-import {joiIntersectRawSrc} from "./joi-runtime-snippets/joi-intersect.ts"
+import {joiIntersectRawSrc} from "./joi-runtime-snippets/joi-intersect-source.ts"
 
 const joi = "joi"
 
