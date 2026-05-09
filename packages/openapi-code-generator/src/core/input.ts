@@ -1,7 +1,7 @@
-import type {OpenapiLoader} from "./loaders/openapi-loader"
-import {logger} from "./logger"
-import {ParameterNormalizer} from "./normalization/parameter-normalizer"
-import {SchemaNormalizer} from "./normalization/schema-normalizer"
+import type {OpenapiLoader} from "./loaders/openapi-loader.ts"
+import {logger} from "./logger.ts"
+import {ParameterNormalizer} from "./normalization/parameter-normalizer.ts"
+import {SchemaNormalizer} from "./normalization/schema-normalizer.ts"
 import type {
   MediaType,
   Operation,
@@ -11,7 +11,7 @@ import type {
   Schema,
   Server,
   xInternalPreproccess,
-} from "./openapi-types"
+} from "./openapi-types.ts"
 import type {
   IRModel,
   IROperation,
@@ -21,13 +21,13 @@ import type {
   IRServer,
   IRServerVariable,
   MaybeIRModel,
-} from "./openapi-types-normalized"
-import {extractPlaceholders, isRef} from "./openapi-utils"
+} from "./openapi-types-normalized.ts"
+import {extractPlaceholders, isRef} from "./openapi-utils.ts"
 import {
   defaultSyntheticNameGenerator,
   type SyntheticNameGenerator,
-} from "./synthetic-name-generator"
-import {camelCase, coalesce, isDefined, isHttpMethod} from "./utils"
+} from "./synthetic-name-generator.ts"
+import {camelCase, coalesce, isDefined, isHttpMethod} from "./utils.ts"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"

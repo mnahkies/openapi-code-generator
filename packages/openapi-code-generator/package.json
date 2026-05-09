@@ -1,6 +1,7 @@
 {
   "name": "@nahkies/openapi-code-generator",
   "version": "0.22.0",
+  "type": "module",
   "description": "Typescript client SDK and server stub generator for OpenAPI 3 specifications",
   "license": "MIT",
   "author": {
@@ -16,27 +17,48 @@
   "bugs": {
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
-  "bin": "./dist/cli.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "bin": {
+    "openapi-code-generator": "./dist/esm/cli.mjs"
+  },
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/esm/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
     },
-    "./cli": "./dist/cli.js",
+    "./cli": {
+      "import": {
+        "types": "./dist/esm/cli.d.mts",
+        "default": "./dist/esm/cli.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/cli.d.cts",
+        "default": "./dist/cjs/cli.cjs"
+      }
+    },
     "./web": {
-      "types": "./dist/web.d.ts",
-      "import": "./dist/web.js",
-      "require": "./dist/web.js",
-      "default": "./dist/web.js"
+      "import": {
+        "types": "./dist/esm/web.d.mts",
+        "default": "./dist/esm/web.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/web.d.cts",
+        "default": "./dist/cjs/web.cjs"
+      }
     }
   },
   "scripts": {
     "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
     "build": "tsc -p ./tsconfig.json",
+    "bundle": "tsdown",
     "test": "jest"
   },
   "devDependencies": {
@@ -58,6 +80,7 @@
     "@typespec/versioning": "0.77.0",
     "@typespec/xml": "0.77.0",
     "joi": "^18.1.2",
+    "tsdown": "^0.21.10",
     "tsx": "^4.21.0"
   },
   "dependencies": {
@@ -87,7 +110,8 @@
     "@typespec/sse": "^0.72.1",
     "@typespec/streams": "^0.72.1",
     "@typespec/versioning": "^0.72.1",
-    "@typespec/xml": "^0.72.1"
+    "@typespec/xml": "^0.72.1",
+    "prettier":"^3.8.3"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {
@@ -118,6 +142,9 @@
       "optional": true
     },
     "@typespec/xml": {
+      "optional": true
+    },
+    "prettier": {
       "optional": true
     }
   },

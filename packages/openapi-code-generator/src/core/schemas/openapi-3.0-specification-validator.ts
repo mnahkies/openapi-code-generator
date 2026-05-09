@@ -3,8 +3,8 @@
 /* istanbul ignore file */
 /* c8 ignore start */
 "use strict"
-module.exports = validate10
-module.exports.default = validate10
+export const validate = validate10
+export default validate10
 const schema11 = {
   id: "https://spec.openapis.org/oas/3.0/schema/2024-10-18",
   $schema: "http://json-schema.org/draft-04/schema#",

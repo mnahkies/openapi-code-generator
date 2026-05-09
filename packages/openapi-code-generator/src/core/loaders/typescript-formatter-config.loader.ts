@@ -1,7 +1,7 @@
 import path from "node:path"
 import json5 from "json5"
-import type {IFsAdaptor} from "../file-system/fs-adaptor"
-import {logger} from "../logger"
+import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
+import {logger} from "../logger.ts"
 
 export type TypescriptFormatterConfig =
   // biome-ignore lint/suspicious/noExplicitAny: not important

@@ -1,10 +1,10 @@
-import {defaultSyntheticNameGenerator} from "./core/synthetic-name-generator"
-import type {OpenapiGenerator} from "./templates.types"
-import {generateTypescriptAngular} from "./typescript/client/typescript-angular/typescript-angular.generator"
-import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator"
-import {generateTypescriptFetch} from "./typescript/client/typescript-fetch/typescript-fetch.generator"
-import {generateTypescriptExpress} from "./typescript/server/typescript-express/typescript-express.generator"
-import {generateTypescriptKoa} from "./typescript/server/typescript-koa/typescript-koa.generator"
+import {defaultSyntheticNameGenerator} from "./core/synthetic-name-generator.ts"
+import type {OpenapiGenerator} from "./templates.types.ts"
+import {generateTypescriptAngular} from "./typescript/client/typescript-angular/typescript-angular.generator.ts"
+import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator.ts"
+import {generateTypescriptFetch} from "./typescript/client/typescript-fetch/typescript-fetch.generator.ts"
+import {generateTypescriptExpress} from "./typescript/server/typescript-express/typescript-express.generator.ts"
+import {generateTypescriptKoa} from "./typescript/server/typescript-koa/typescript-koa.generator.ts"
 
 export const templates = {
   "typescript-fetch": {

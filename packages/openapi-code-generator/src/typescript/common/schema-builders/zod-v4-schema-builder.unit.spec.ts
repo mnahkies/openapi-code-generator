@@ -1,17 +1,17 @@
 import * as vm from "node:vm"
 import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {IRModel} from "../../../core/openapi-types-normalized"
-import {isDefined} from "../../../core/utils"
-import {FakeSchemaProvider} from "../../../test/fake-schema-provider"
-import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
-import type {SchemaBuilderConfig} from "./abstract-schema-builder"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import type {IRModel} from "../../../core/openapi-types-normalized.ts"
+import {isDefined} from "../../../core/utils.ts"
+import {FakeSchemaProvider} from "../../../test/fake-schema-provider.ts"
+import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils.ts"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder.ts"
 import {
   type SchemaBuilderTestHarness,
   schemaBuilderTestHarness,
-} from "./schema-builder.test-utils"
-import {staticSchemas} from "./zod-v4-schema-builder"
+} from "./schema-builder.test-utils.ts"
+import {staticSchemas} from "./zod-v4-schema-builder.ts"
 
 describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests", () => {
   let formatter: TypescriptFormatterBiome
@@ -58,7 +58,7 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
         export const s_User = z.object({ username: z.string().optional() })"
       `)
       expect(code).toMatchInlineSnapshot(`
-        "import { s_User } from "./unit-test.schemas"
+        "import { s_User } from "./unit-test.schemas.ts"
 
         const x = z.object({ user: s_User.optional() })"
       `)
@@ -542,10 +542,10 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
       const {code} = await getActual(ir.boolean())
 
       expect(code).toMatchInlineSnapshot(`
-          "import { PermissiveBoolean } from "./unit-test.schemas"
+        "import { PermissiveBoolean } from "./unit-test.schemas"
 
-          const x = PermissiveBoolean"
-        `)
+        const x = PermissiveBoolean"
+      `)
     })
 
     it("supports default values of false", async () => {

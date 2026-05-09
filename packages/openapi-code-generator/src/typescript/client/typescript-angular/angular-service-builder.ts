@@ -1,8 +1,8 @@
-import type {ImportBuilder} from "../../common/import-builder"
-import {union} from "../../common/type-utils"
-import {buildMethod} from "../../common/typescript-common"
-import {AbstractClientBuilder} from "../abstract-client-builder"
-import type {ClientOperationBuilder} from "../client-operation-builder"
+import type {ImportBuilder} from "../../common/import-builder.ts"
+import {union} from "../../common/type-utils.ts"
+import {buildMethod} from "../../common/typescript-common.ts"
+import {AbstractClientBuilder} from "../abstract-client-builder.ts"
+import type {ClientOperationBuilder} from "../client-operation-builder.ts"
 
 export class AngularServiceBuilder extends AbstractClientBuilder {
   override capabilities = {

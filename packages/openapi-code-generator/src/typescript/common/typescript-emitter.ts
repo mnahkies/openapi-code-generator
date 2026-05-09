@@ -1,8 +1,8 @@
 import path from "node:path"
-import type {IFsAdaptor} from "../../core/file-system/fs-adaptor"
-import type {IFormatter} from "../../core/interfaces"
-import {logger} from "../../core/logger"
-import type {CompilationUnit} from "./compilation-units"
+import type {IFsAdaptor} from "../../core/file-system/fs-adaptor.ts"
+import type {IFormatter} from "../../core/interfaces.ts"
+import {logger} from "../../core/logger.ts"
+import type {CompilationUnit} from "./compilation-units.ts"
 
 export class TypescriptEmitter {
   constructor(

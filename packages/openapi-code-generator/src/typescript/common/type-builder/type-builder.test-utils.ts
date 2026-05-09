@@ -1,11 +1,11 @@
-import type {ISchemaProvider} from "../../../core/input"
-import type {IFormatter} from "../../../core/interfaces"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
-import {TestOutputTypeChecker} from "../../../test/typescript-compiler.test-utils"
-import {CompilationUnit} from "../compilation-units"
-import {ImportBuilder} from "../import-builder"
-import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import type {IFormatter} from "../../../core/interfaces.ts"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import type {MaybeIRModel} from "../../../core/openapi-types-normalized.ts"
+import {TestOutputTypeChecker} from "../../../test/typescript-compiler.test-utils.ts"
+import {CompilationUnit} from "../compilation-units.ts"
+import {ImportBuilder} from "../import-builder.ts"
+import {TypeBuilder, type TypeBuilderConfig} from "./type-builder.ts"
 
 export type TypeBuilderTestHarness = {
   getActual: (

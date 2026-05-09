@@ -1,20 +1,20 @@
-import type {Input} from "../../../core/input"
-import {isDefined, titleCase} from "../../../core/utils"
-import type {ServerImplementationMethod} from "../../../templates.types"
-import type {ImportBuilder} from "../../common/import-builder"
-import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../../common/type-builder/type-builder"
+import type {Input} from "../../../core/input.ts"
+import {isDefined, titleCase} from "../../../core/utils.ts"
+import type {ServerImplementationMethod} from "../../../templates.types.ts"
+import type {ImportBuilder} from "../../common/import-builder.ts"
+import type {SchemaBuilder} from "../../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../../common/type-builder/type-builder.ts"
 import {
   constStatement,
   object,
   quotedStringLiteral,
-} from "../../common/type-utils"
-import {buildExport} from "../../common/typescript-common"
-import {AbstractRouterBuilder} from "../abstract-router-builder"
+} from "../../common/type-utils.ts"
+import {buildExport} from "../../common/typescript-common.ts"
+import {AbstractRouterBuilder} from "../abstract-router-builder.ts"
 import type {
   ServerOperationBuilder,
   ServerSymbols,
-} from "../server-operation-builder"
+} from "../server-operation-builder.ts"
 
 export class KoaRouterBuilder extends AbstractRouterBuilder {
   private readonly operationTypes: {

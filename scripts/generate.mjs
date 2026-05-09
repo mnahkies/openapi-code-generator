@@ -75,7 +75,7 @@ async function runSingle(templatePath, input) {
 
   try {
     const result = await runCmd(
-      `node ./packages/openapi-code-generator/dist/cli.js ${args.join(" ")}`,
+      `node ./packages/openapi-code-generator/dist/esm/cli.mjs ${args.join(" ")}`,
     )
     for (const it of result) {
       console.info(`[${template} - ${filename}] ${it}`)

@@ -1,8 +1,11 @@
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import type {IROperation, IRServer} from "../../core/openapi-types-normalized"
-import {ImportBuilder} from "../common/import-builder"
-import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome"
-import {ClientServersBuilder} from "./client-servers-builder"
+import type {
+  IROperation,
+  IRServer,
+} from "../../core/openapi-types-normalized.ts"
+import {ImportBuilder} from "../common/import-builder.ts"
+import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome.ts"
+import {ClientServersBuilder} from "./client-servers-builder.ts"
 
 type TestResult = {
   output: string

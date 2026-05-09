@@ -1,16 +1,19 @@
 import ts from "typescript"
-import type {ISchemaProvider} from "../../../core/input"
-import type {IFormatter} from "../../../core/interfaces"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import type {IFormatter} from "../../../core/interfaces.ts"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import type {MaybeIRModel} from "../../../core/openapi-types-normalized.ts"
 import {
   type OpenApiVersion,
   unitTestInput,
-} from "../../../test/input.test-utils"
-import {ImportBuilder} from "../import-builder"
-import {TypeBuilder, type TypeBuilderConfig} from "../type-builder/type-builder"
-import type {SchemaBuilderConfig} from "./abstract-schema-builder"
-import {type SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
+} from "../../../test/input.test-utils.ts"
+import {ImportBuilder} from "../import-builder.ts"
+import {
+  TypeBuilder,
+  type TypeBuilderConfig,
+} from "../type-builder/type-builder.ts"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder.ts"
+import {type SchemaBuilderType, schemaBuilderFactory} from "./schema-builder.ts"
 
 export type SchemaBuilderIntegrationTestHarness = {
   getActual(

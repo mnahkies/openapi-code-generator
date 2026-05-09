@@ -8,86 +8,28 @@ if (Reflect.has(nodeModule, "setSourceMapsSupport")) {
 }
 
 import path from "node:path"
+import {Command, Option} from "@commander-js/extra-typings"
 import {
-  Command,
-  InvalidArgumentError,
-  Option,
-} from "@commander-js/extra-typings"
-import {z} from "zod/v4"
-import {promptContinue} from "./core/cli-utils"
-import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
-import type {OperationGroupStrategy} from "./core/input"
-import {loadPackageJson} from "./core/loaders/package.json.loader"
-import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
+  boolParser,
+  optionalBoolParser,
+  promptContinue,
+  remoteSpecRequestHeadersParser,
+} from "./core/cli-utils.ts"
+import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor.ts"
+import type {OperationGroupStrategy} from "./core/input.ts"
+import {loadPackageJson} from "./core/loaders/package.json.loader.ts"
+import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader.ts"
 import {
   loadTypescriptFormatterConfig,
   type TypescriptFormatterConfig,
-} from "./core/loaders/typescript-formatter-config.loader"
-import {TypespecLoader} from "./core/loaders/typespec.loader"
-import {logger} from "./core/logger"
-import {OpenapiValidator} from "./core/openapi-validator"
-import type {IdentifierConvention} from "./core/utils"
-import {configSchema, generate} from "./index"
-import {templateNames} from "./templates"
-import type {ServerImplementationMethod} from "./templates.types"
-
-const optionalBoolParser = (arg: string): boolean | undefined => {
-  const TRUTHY_VALUES = ["true", "1", "on"]
-  const FALSY_VALUES = ["false", "0", "off", ""]
-
-  if (TRUTHY_VALUES.includes(arg.toLowerCase())) {
-    return true
-  }
-  if (FALSY_VALUES.includes(arg.toLowerCase())) {
-    return false
-  }
-
-  if (!arg) {
-    return undefined
-  }
-
-  throw new InvalidArgumentError(
-    `'${arg}' is not a valid boolean parameter. Valid truthy values are: ${TRUTHY_VALUES.map(
-      (it) => JSON.stringify(it),
-    ).join(", ")}; falsy values are: ${FALSY_VALUES.map((it) =>
-      JSON.stringify(it),
-    ).join(", ")}`,
-  )
-}
-
-export const boolParser = (arg: string): boolean => {
-  const result = optionalBoolParser(arg)
-
-  if (result === undefined) {
-    throw new InvalidArgumentError(`'${arg}' is not a valid boolean parameter.`)
-  }
-
-  return result
-}
-
-export const remoteSpecRequestHeadersParser = (arg: string) => {
-  return z
-    .preprocess(
-      (str) =>
-        z
-          .string()
-          .transform((it) => JSON.parse(it))
-          .parse(str),
-      z.record(
-        z.string(),
-        z.preprocess(
-          (it) => (!it || Array.isArray(it) ? it : [it]),
-          z.array(
-            z.object({
-              name: z.string(),
-              value: z.string(),
-            }),
-          ),
-        ),
-      ),
-    )
-    .parse(arg)
-}
+} from "./core/loaders/typescript-formatter-config.loader.ts"
+import {TypespecLoader} from "./core/loaders/typespec.loader.ts"
+import {logger} from "./core/logger.ts"
+import {OpenapiValidator} from "./core/openapi-validator.ts"
+import type {IdentifierConvention} from "./core/utils.ts"
+import {configSchema, generate} from "./index.ts"
+import {templateNames} from "./templates.ts"
+import type {ServerImplementationMethod} from "./templates.types.ts"
 
 const program = new Command()
   .addOption(
@@ -337,17 +279,15 @@ async function main() {
   )
 }
 
-if (require.main === module) {
-  main()
-    .then(() => {
-      logger.info("generation complete!")
-      logger.info("elapsed", logger.toJSON())
+main()
+  .then(() => {
+    logger.info("generation complete!")
+    logger.info("elapsed", logger.toJSON())
 
-      process.exit(0)
-    })
-    .catch((err) => {
-      logger.error("unhandled error", err)
+    process.exit(0)
+  })
+  .catch((err) => {
+    logger.error("unhandled error", err)
 
-      process.exit(1)
-    })
-}
+    process.exit(1)
+  })

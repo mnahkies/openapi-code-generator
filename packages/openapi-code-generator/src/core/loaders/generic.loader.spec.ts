@@ -2,7 +2,7 @@ import {describe, expect, it} from "@jest/globals"
 import {
   type GenericLoaderRequestHeaders,
   headersForRemoteUri,
-} from "./generic.loader"
+} from "./generic.loader.ts"
 
 describe("core/loaders/generic.loader", () => {
   describe("headersForRemoteUri", () => {

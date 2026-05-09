@@ -1,10 +1,10 @@
 import {z} from "zod/v4"
-import type {GenericLoaderRequestHeaders} from "./core/loaders/generic.loader"
-import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
-import {tsconfigSchema} from "./core/schemas/tsconfig.schema"
-import type {IdentifierConvention} from "./core/utils"
-import {templateNames} from "./templates"
-import type {ServerImplementationMethod} from "./templates.types"
+import type {GenericLoaderRequestHeaders} from "./core/loaders/generic.loader.ts"
+import type {CompilerOptions} from "./core/loaders/tsconfig.loader.ts"
+import {tsconfigSchema} from "./core/schemas/tsconfig.schema.ts"
+import type {IdentifierConvention} from "./core/utils.ts"
+import {templateNames} from "./templates.ts"
+import type {ServerImplementationMethod} from "./templates.types.ts"
 
 export type Config = {
   input: string

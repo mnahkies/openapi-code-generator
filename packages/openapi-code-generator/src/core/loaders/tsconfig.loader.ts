@@ -1,13 +1,13 @@
 import path from "node:path"
 import json5 from "json5"
 import ts from "typescript"
-import type {IFsAdaptor} from "../file-system/fs-adaptor"
-import {logger} from "../logger"
+import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
+import {logger} from "../logger.ts"
 import {
   type TsCompilerOptions,
   type TsConfig,
   tsconfigSchema,
-} from "../schemas/tsconfig.schema"
+} from "../schemas/tsconfig.schema.ts"
 
 export type CompilerOptions = Pick<
   TsCompilerOptions,

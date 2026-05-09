@@ -1,10 +1,10 @@
-import {titleCase} from "../../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
-import {ImportBuilder} from "../../common/import-builder"
-import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder/type-builder"
-import {AngularModuleBuilder} from "./angular-module-builder"
-import {AngularServiceBuilder} from "./angular-service-builder"
+import {titleCase} from "../../../core/utils.ts"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types.ts"
+import {ImportBuilder} from "../../common/import-builder.ts"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder.ts"
+import {TypeBuilder} from "../../common/type-builder/type-builder.ts"
+import {AngularModuleBuilder} from "./angular-module-builder.ts"
+import {AngularServiceBuilder} from "./angular-service-builder.ts"
 
 export async function generateTypescriptAngular(
   config: OpenapiTypescriptGeneratorConfig,

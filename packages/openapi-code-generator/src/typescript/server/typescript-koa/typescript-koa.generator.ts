@@ -1,12 +1,12 @@
 import path from "node:path"
-import {normalizeFilename} from "../../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
-import {CompilationUnit} from "../../common/compilation-units"
-import {ImportBuilder} from "../../common/import-builder"
-import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder/type-builder"
-import {KoaRouterBuilder} from "./typescript-koa-router-builder"
-import {KoaServerBuilder} from "./typescript-koa-server-builder"
+import {normalizeFilename} from "../../../core/utils.ts"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types.ts"
+import {CompilationUnit} from "../../common/compilation-units.ts"
+import {ImportBuilder} from "../../common/import-builder.ts"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder.ts"
+import {TypeBuilder} from "../../common/type-builder/type-builder.ts"
+import {KoaRouterBuilder} from "./typescript-koa-router-builder.ts"
+import {KoaServerBuilder} from "./typescript-koa-server-builder.ts"
 
 export async function generateTypescriptKoa(
   config: OpenapiTypescriptGeneratorConfig,

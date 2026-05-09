@@ -1,10 +1,10 @@
 import {beforeEach, describe, expect, it, jest} from "@jest/globals"
-import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils"
-import type {OpenapiLoader} from "../loaders/openapi-loader"
-import type {Parameter} from "../openapi-types"
-import {defaultSyntheticNameGenerator} from "../synthetic-name-generator"
-import {ParameterNormalizer} from "./parameter-normalizer"
-import {SchemaNormalizer} from "./schema-normalizer"
+import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils.ts"
+import type {OpenapiLoader} from "../loaders/openapi-loader.ts"
+import type {Parameter} from "../openapi-types.ts"
+import {defaultSyntheticNameGenerator} from "../synthetic-name-generator.ts"
+import {ParameterNormalizer} from "./parameter-normalizer.ts"
+import {SchemaNormalizer} from "./schema-normalizer.ts"
 
 describe("ParameterNormalizer", () => {
   let loader: jest.Mocked<OpenapiLoader>

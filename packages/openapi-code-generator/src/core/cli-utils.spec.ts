@@ -1,8 +1,12 @@
 import {describe, expect, it} from "@jest/globals"
-import {boolParser, remoteSpecRequestHeadersParser} from "./cli"
+import {
+  boolParser,
+  optionalBoolParser,
+  remoteSpecRequestHeadersParser,
+} from "./cli-utils.ts"
 
-describe("cli", () => {
-  describe("boolParser", () => {
+describe("core/cli-utils", () => {
+  describe("optionalBoolParser", () => {
     it.each([
       ["true", true],
       ["1", true],
@@ -16,8 +20,30 @@ describe("cli", () => {
       ["FALSE", false],
       ["0", false],
       ["OFF", false],
+      ["", false],
+    ])("%s -> %s", (input, expected) => {
+      expect(optionalBoolParser(input)).toBe(expected)
+    })
+
+    it("throws for invalid input", () => {
+      expect(() => optionalBoolParser("invalid")).toThrow(
+        "'invalid' is not a valid boolean parameter",
+      )
+    })
+  })
+
+  describe("boolParser", () => {
+    it.each([
+      ["true", true],
+      ["false", false],
     ])("%s -> %s", (input, expected) => {
       expect(boolParser(input)).toBe(expected)
+    })
+
+    it("throws for invalid input", () => {
+      expect(() => boolParser("invalid")).toThrow(
+        "'invalid' is not a valid boolean parameter",
+      )
     })
   })
 
@@ -61,6 +87,16 @@ describe("cli", () => {
           {name: "some-other-header-name", value: "some-other-header-value"},
         ],
       })
+    })
+
+    it("throws on invalid JSON", () => {
+      expect(() => remoteSpecRequestHeadersParser("not-json")).toThrow()
+    })
+
+    it("throws on invalid structure", () => {
+      expect(() =>
+        remoteSpecRequestHeadersParser(JSON.stringify({foo: "bar"})),
+      ).toThrow()
     })
   })
 })

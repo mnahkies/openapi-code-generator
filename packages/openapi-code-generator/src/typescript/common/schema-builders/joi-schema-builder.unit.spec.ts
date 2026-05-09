@@ -1,15 +1,15 @@
 import * as vm from "node:vm"
 import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {IRModel} from "../../../core/openapi-types-normalized"
-import {FakeSchemaProvider} from "../../../test/fake-schema-provider"
-import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
-import type {SchemaBuilderConfig} from "./abstract-schema-builder"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import type {IRModel} from "../../../core/openapi-types-normalized.ts"
+import {FakeSchemaProvider} from "../../../test/fake-schema-provider.ts"
+import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils.ts"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder.ts"
 import {
   type SchemaBuilderTestHarness,
   schemaBuilderTestHarness,
-} from "./schema-builder.test-utils"
+} from "./schema-builder.test-utils.ts"
 
 describe("typescript/common/schema-builders/joi-schema-builder - unit tests", () => {
   let formatter: TypescriptFormatterBiome

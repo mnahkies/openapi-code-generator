@@ -67,7 +67,7 @@ const loadSchema = async (uri) => {
 const compileOpenapi30Standalone = async () => {
   const spec = await loadYamlFile(openapi30Path)
   const ajv4 = new AjvDraft04({
-    code: {source: true},
+    code: {source: true, esm: true},
     strict: false,
     loadSchema,
   })
@@ -82,7 +82,7 @@ const compileOpenapi31Standalone = async (strict) => {
     const spec = await loadYamlFile(openapi31Path)
 
     const ajv2020 = new Ajv2020({
-      code: {source: true},
+      code: {source: true, esm: true},
       strict: false,
       verbose: true,
       loadSchema,
@@ -142,12 +142,9 @@ const compileOpenapi31Standalone = async (strict) => {
     )
 
     return `
-"use strict"
-const {logger} = require('../logger')
-module.exports = validate
-module.exports.default = validate
+import {logger} from '../logger.ts'
 
-function validate(){
+export default function validate(){
     logger.warn(
       "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
     )

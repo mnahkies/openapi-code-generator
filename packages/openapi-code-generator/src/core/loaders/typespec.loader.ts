@@ -1,5 +1,5 @@
-import {logger} from "../logger"
-import {isRemote} from "./utils"
+import {logger} from "../logger.ts"
+import {isRemote} from "./utils.ts"
 
 export class TypespecLoader {
   private constructor(

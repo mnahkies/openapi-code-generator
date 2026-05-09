@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {OpenapiValidator} from "./openapi-validator"
+import {OpenapiValidator} from "./openapi-validator.ts"
 
 describe("core/openapi-validator", () => {
   describe("openapi 3.0", () => {

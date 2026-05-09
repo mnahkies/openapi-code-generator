@@ -1,6 +1,6 @@
 import path from "node:path"
 import util from "node:util"
-import {generationLib, VirtualDefinition} from "../generation-lib"
+import {generationLib, VirtualDefinition} from "../generation-lib.ts"
 import type {
   OpenapiDocument,
   Operation,
@@ -11,12 +11,12 @@ import type {
   Response,
   Schema,
   xInternalPreproccess,
-} from "../openapi-types"
-import {isRef} from "../openapi-utils"
-import type {IOpenapiValidator} from "../openapi-validator"
-import type {GenericLoader} from "./generic.loader"
-import type {TypespecLoader} from "./typespec.loader"
-import {isRemote} from "./utils"
+} from "../openapi-types.ts"
+import {isRef} from "../openapi-utils.ts"
+import type {IOpenapiValidator} from "../openapi-validator.ts"
+import type {GenericLoader} from "./generic.loader.ts"
+import type {TypespecLoader} from "./typespec.loader.ts"
+import {isRemote} from "./utils.ts"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()

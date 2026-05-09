@@ -1,5 +1,5 @@
 import {afterAll, beforeEach, describe, expect, it, jest} from "@jest/globals"
-import {Logger} from "./logger"
+import {Logger} from "./logger.ts"
 
 describe("Logger", () => {
   let sink: {info: jest.Mock; warn: jest.Mock; error: jest.Mock}

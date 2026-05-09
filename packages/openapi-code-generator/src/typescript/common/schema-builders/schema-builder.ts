@@ -1,10 +1,10 @@
-import type {ISchemaProvider} from "../../../core/input"
-import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder/type-builder"
-import type {SchemaBuilderConfig} from "./abstract-schema-builder"
-import {JoiBuilder} from "./joi-schema-builder"
-import {ZodV3Builder} from "./zod-v3-schema-builder"
-import {ZodV4Builder} from "./zod-v4-schema-builder"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import type {ImportBuilder} from "../import-builder.ts"
+import type {TypeBuilder} from "../type-builder/type-builder.ts"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder.ts"
+import {JoiBuilder} from "./joi-schema-builder.ts"
+import {ZodV3Builder} from "./zod-v3-schema-builder.ts"
+import {ZodV4Builder} from "./zod-v4-schema-builder.ts"
 
 export type SchemaBuilder = ZodV3Builder | ZodV4Builder | JoiBuilder
 export type SchemaBuilderType = "zod-v3" | "zod-v4" | "joi"

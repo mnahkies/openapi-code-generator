@@ -1,6 +1,6 @@
 import {Biome, type Configuration, Distribution} from "@biomejs/js-api"
-import type {IFormatter} from "../../core/interfaces"
-import {logger} from "../../core/logger"
+import type {IFormatter} from "../../core/interfaces.ts"
+import {logger} from "../../core/logger.ts"
 
 const defaultConfiguration: Configuration = {
   assist: {

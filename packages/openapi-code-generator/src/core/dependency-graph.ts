@@ -1,8 +1,8 @@
-import type {ISchemaProvider} from "./input"
-import {logger} from "./logger"
-import type {Reference} from "./openapi-types"
-import type {MaybeIRModel} from "./openapi-types-normalized"
-import {isRef} from "./openapi-utils"
+import type {ISchemaProvider} from "./input.ts"
+import {logger} from "./logger.ts"
+import type {Reference} from "./openapi-types.ts"
+import type {MaybeIRModel} from "./openapi-types-normalized.ts"
+import {isRef} from "./openapi-utils.ts"
 
 function intersect<T>(a: Set<T>, b: Set<T>) {
   for (const it of b) {

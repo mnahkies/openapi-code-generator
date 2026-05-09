@@ -1,14 +1,14 @@
 import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import type {IRModel} from "../../../core/openapi-types-normalized"
-import {FakeSchemaProvider} from "../../../test/fake-schema-provider"
-import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
-import type {TypeBuilderConfig} from "./type-builder"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import type {IRModel} from "../../../core/openapi-types-normalized.ts"
+import {FakeSchemaProvider} from "../../../test/fake-schema-provider.ts"
+import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils.ts"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
 import {
   type TypeBuilderTestHarness,
   typeBuilderTestHarness,
-} from "./type-builder.test-utils"
+} from "./type-builder.test-utils.ts"
+import type {TypeBuilderConfig} from "./type-builder.ts"
 
 describe("typescript/common/type-builder - unit tests", () => {
   let formatter: TypescriptFormatterBiome

@@ -3,12 +3,9 @@
 /* istanbul ignore file */
 /* c8 ignore start */
 
-"use strict"
-const {logger} = require("../logger")
-module.exports = validate
-module.exports.default = validate
+import {logger} from "../logger.ts"
 
-function validate() {
+export default function validate() {
   logger.warn(
     "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
   )

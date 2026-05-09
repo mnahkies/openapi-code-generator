@@ -1,6 +1,7 @@
 import {existsSync} from "node:fs"
 import fs from "node:fs/promises"
-import type {IFsAdaptor} from "./fs-adaptor"
+import {createRequire} from "node:module"
+import type {IFsAdaptor} from "./fs-adaptor.ts"
 
 export class NodeFsAdaptor implements IFsAdaptor {
   async readFile(path: string) {
@@ -36,6 +37,7 @@ export class NodeFsAdaptor implements IFsAdaptor {
   }
 
   resolve(request: string, fromDir: string): string {
+    const require = createRequire(import.meta.url)
     return require.resolve(request, {paths: [fromDir]})
   }
 }
