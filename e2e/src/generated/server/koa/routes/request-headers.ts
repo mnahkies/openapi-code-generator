@@ -18,7 +18,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_GetHeadersRequest200Response,
@@ -39,7 +38,6 @@ export type GetHeadersUndeclared = (
   params: Params<void, void, void, void>,
   respond: GetHeadersUndeclaredResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetHeadersUndeclared200Response>
@@ -54,7 +52,6 @@ export type GetHeadersRequest = (
   params: Params<void, void, void, t_GetHeadersRequestRequestHeaderSchema>,
   respond: GetHeadersRequestResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetHeadersRequest200Response>
@@ -76,32 +73,28 @@ export function createRequestHeadersRouter(
     undefined,
   )
 
-  router.get(
-    "getHeadersUndeclared",
-    "/headers/undeclared",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getHeadersUndeclared", "/headers/undeclared", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_GetHeadersUndeclared200Response>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_GetHeadersUndeclared200Response>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getHeadersUndeclared(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getHeadersUndeclaredResponseValidator))
-    },
-  )
+    await implementation
+      .getHeadersUndeclared(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getHeadersUndeclaredResponseValidator))
+  })
 
   const getHeadersRequestRequestHeaderSchema = z.object({
     "route-level-header": z.string().optional(),
@@ -116,7 +109,7 @@ export function createRequestHeadersRouter(
     undefined,
   )
 
-  router.get("getHeadersRequest", "/headers/request", async (ctx, next) => {
+  router.get("getHeadersRequest", "/headers/request", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -138,9 +131,9 @@ export function createRequestHeadersRouter(
     }
 
     await implementation
-      .getHeadersRequest(input, responder, ctx, next)
+      .getHeadersRequest(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getHeadersRequestResponseValidator))
+      .then(handleResponse(ctx, getHeadersRequestResponseValidator))
   })
 
   return router

@@ -21,7 +21,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_account,
@@ -1564,7 +1563,6 @@ export type GetAccount = (
   params: Params<void, t_GetAccountQuerySchema, void, void>,
   respond: GetAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account>
@@ -1581,7 +1579,6 @@ export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksRequestBody, void>,
   respond: PostAccountLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account_link>
@@ -1598,7 +1595,6 @@ export type PostAccountSessions = (
   params: Params<void, void, t_PostAccountSessionsRequestBody, void>,
   respond: PostAccountSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account_session>
@@ -1620,7 +1616,6 @@ export type GetAccounts = (
   params: Params<void, t_GetAccountsQuerySchema, void, void>,
   respond: GetAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -1645,7 +1640,6 @@ export type PostAccounts = (
   params: Params<void, void, t_PostAccountsRequestBody | undefined, void>,
   respond: PostAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account>
@@ -1662,7 +1656,6 @@ export type DeleteAccountsAccount = (
   params: Params<t_DeleteAccountsAccountParamSchema, void, void, void>,
   respond: DeleteAccountsAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_account>
@@ -1684,7 +1677,6 @@ export type GetAccountsAccount = (
   >,
   respond: GetAccountsAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account>
@@ -1706,7 +1698,6 @@ export type PostAccountsAccount = (
   >,
   respond: PostAccountsAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account>
@@ -1728,7 +1719,6 @@ export type PostAccountsAccountBankAccounts = (
   >,
   respond: PostAccountsAccountBankAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -1750,7 +1740,6 @@ export type DeleteAccountsAccountBankAccountsId = (
   >,
   respond: DeleteAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_external_account>
@@ -1772,7 +1761,6 @@ export type GetAccountsAccountBankAccountsId = (
   >,
   respond: GetAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -1794,7 +1782,6 @@ export type PostAccountsAccountBankAccountsId = (
   >,
   respond: PostAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -1821,7 +1808,6 @@ export type GetAccountsAccountCapabilities = (
   >,
   respond: GetAccountsAccountCapabilitiesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -1851,7 +1837,6 @@ export type GetAccountsAccountCapabilitiesCapability = (
   >,
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_capability>
@@ -1873,7 +1858,6 @@ export type PostAccountsAccountCapabilitiesCapability = (
   >,
   respond: PostAccountsAccountCapabilitiesCapabilityResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_capability>
@@ -1900,7 +1884,6 @@ export type GetAccountsAccountExternalAccounts = (
   >,
   respond: GetAccountsAccountExternalAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -1930,7 +1913,6 @@ export type PostAccountsAccountExternalAccounts = (
   >,
   respond: PostAccountsAccountExternalAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -1952,7 +1934,6 @@ export type DeleteAccountsAccountExternalAccountsId = (
   >,
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_external_account>
@@ -1974,7 +1955,6 @@ export type GetAccountsAccountExternalAccountsId = (
   >,
   respond: GetAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -1996,7 +1976,6 @@ export type PostAccountsAccountExternalAccountsId = (
   >,
   respond: PostAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -2018,7 +1997,6 @@ export type PostAccountsAccountLoginLinks = (
   >,
   respond: PostAccountsAccountLoginLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_login_link>
@@ -2045,7 +2023,6 @@ export type GetAccountsAccountPeople = (
   >,
   respond: GetAccountsAccountPeopleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2075,7 +2052,6 @@ export type PostAccountsAccountPeople = (
   >,
   respond: PostAccountsAccountPeopleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2097,7 +2073,6 @@ export type DeleteAccountsAccountPeoplePerson = (
   >,
   respond: DeleteAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_person>
@@ -2119,7 +2094,6 @@ export type GetAccountsAccountPeoplePerson = (
   >,
   respond: GetAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2141,7 +2115,6 @@ export type PostAccountsAccountPeoplePerson = (
   >,
   respond: PostAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2168,7 +2141,6 @@ export type GetAccountsAccountPersons = (
   >,
   respond: GetAccountsAccountPersonsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2198,7 +2170,6 @@ export type PostAccountsAccountPersons = (
   >,
   respond: PostAccountsAccountPersonsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2220,7 +2191,6 @@ export type DeleteAccountsAccountPersonsPerson = (
   >,
   respond: DeleteAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_person>
@@ -2242,7 +2212,6 @@ export type GetAccountsAccountPersonsPerson = (
   >,
   respond: GetAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2264,7 +2233,6 @@ export type PostAccountsAccountPersonsPerson = (
   >,
   respond: PostAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_person>
@@ -2286,7 +2254,6 @@ export type PostAccountsAccountReject = (
   >,
   respond: PostAccountsAccountRejectResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_account>
@@ -2308,7 +2275,6 @@ export type GetApplePayDomains = (
   params: Params<void, t_GetApplePayDomainsQuerySchema, void, void>,
   respond: GetApplePayDomainsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2333,7 +2299,6 @@ export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsRequestBody, void>,
   respond: PostApplePayDomainsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_apple_pay_domain>
@@ -2350,7 +2315,6 @@ export type DeleteApplePayDomainsDomain = (
   params: Params<t_DeleteApplePayDomainsDomainParamSchema, void, void, void>,
   respond: DeleteApplePayDomainsDomainResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_apple_pay_domain>
@@ -2372,7 +2336,6 @@ export type GetApplePayDomainsDomain = (
   >,
   respond: GetApplePayDomainsDomainResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_apple_pay_domain>
@@ -2394,7 +2357,6 @@ export type GetApplicationFees = (
   params: Params<void, t_GetApplicationFeesQuerySchema, void, void>,
   respond: GetApplicationFeesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2424,7 +2386,6 @@ export type GetApplicationFeesFeeRefundsId = (
   >,
   respond: GetApplicationFeesFeeRefundsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_fee_refund>
@@ -2446,7 +2407,6 @@ export type PostApplicationFeesFeeRefundsId = (
   >,
   respond: PostApplicationFeesFeeRefundsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_fee_refund>
@@ -2468,7 +2428,6 @@ export type GetApplicationFeesId = (
   >,
   respond: GetApplicationFeesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_application_fee>
@@ -2490,7 +2449,6 @@ export type PostApplicationFeesIdRefund = (
   >,
   respond: PostApplicationFeesIdRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_application_fee>
@@ -2517,7 +2475,6 @@ export type GetApplicationFeesIdRefunds = (
   >,
   respond: GetApplicationFeesIdRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2547,7 +2504,6 @@ export type PostApplicationFeesIdRefunds = (
   >,
   respond: PostApplicationFeesIdRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_fee_refund>
@@ -2569,7 +2525,6 @@ export type GetAppsSecrets = (
   params: Params<void, t_GetAppsSecretsQuerySchema, void, void>,
   respond: GetAppsSecretsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2594,7 +2549,6 @@ export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsRequestBody, void>,
   respond: PostAppsSecretsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_apps_secret>
@@ -2611,7 +2565,6 @@ export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteRequestBody, void>,
   respond: PostAppsSecretsDeleteResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_apps_secret>
@@ -2628,7 +2581,6 @@ export type GetAppsSecretsFind = (
   params: Params<void, t_GetAppsSecretsFindQuerySchema, void, void>,
   respond: GetAppsSecretsFindResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_apps_secret>
@@ -2645,7 +2597,6 @@ export type GetBalance = (
   params: Params<void, t_GetBalanceQuerySchema, void, void>,
   respond: GetBalanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_balance>
@@ -2667,7 +2618,6 @@ export type GetBalanceHistory = (
   params: Params<void, t_GetBalanceHistoryQuerySchema, void, void>,
   respond: GetBalanceHistoryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2697,7 +2647,6 @@ export type GetBalanceHistoryId = (
   >,
   respond: GetBalanceHistoryIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_balance_transaction>
@@ -2719,7 +2668,6 @@ export type GetBalanceTransactions = (
   params: Params<void, t_GetBalanceTransactionsQuerySchema, void, void>,
   respond: GetBalanceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2749,7 +2697,6 @@ export type GetBalanceTransactionsId = (
   >,
   respond: GetBalanceTransactionsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_balance_transaction>
@@ -2771,7 +2718,6 @@ export type GetBillingAlerts = (
   params: Params<void, t_GetBillingAlertsQuerySchema, void, void>,
   respond: GetBillingAlertsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2796,7 +2742,6 @@ export type PostBillingAlerts = (
   params: Params<void, void, t_PostBillingAlertsRequestBody, void>,
   respond: PostBillingAlertsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_alert>
@@ -2818,7 +2763,6 @@ export type GetBillingAlertsId = (
   >,
   respond: GetBillingAlertsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_alert>
@@ -2840,7 +2784,6 @@ export type PostBillingAlertsIdActivate = (
   >,
   respond: PostBillingAlertsIdActivateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_alert>
@@ -2862,7 +2805,6 @@ export type PostBillingAlertsIdArchive = (
   >,
   respond: PostBillingAlertsIdArchiveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_alert>
@@ -2884,7 +2826,6 @@ export type PostBillingAlertsIdDeactivate = (
   >,
   respond: PostBillingAlertsIdDeactivateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_alert>
@@ -2901,7 +2842,6 @@ export type GetBillingCreditBalanceSummary = (
   params: Params<void, t_GetBillingCreditBalanceSummaryQuerySchema, void, void>,
   respond: GetBillingCreditBalanceSummaryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_balance_summary>
@@ -2928,7 +2868,6 @@ export type GetBillingCreditBalanceTransactions = (
   >,
   respond: GetBillingCreditBalanceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -2958,7 +2897,6 @@ export type GetBillingCreditBalanceTransactionsId = (
   >,
   respond: GetBillingCreditBalanceTransactionsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_balance_transaction>
@@ -2980,7 +2918,6 @@ export type GetBillingCreditGrants = (
   params: Params<void, t_GetBillingCreditGrantsQuerySchema, void, void>,
   respond: GetBillingCreditGrantsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3005,7 +2942,6 @@ export type PostBillingCreditGrants = (
   params: Params<void, void, t_PostBillingCreditGrantsRequestBody, void>,
   respond: PostBillingCreditGrantsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_grant>
@@ -3027,7 +2963,6 @@ export type GetBillingCreditGrantsId = (
   >,
   respond: GetBillingCreditGrantsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_grant>
@@ -3049,7 +2984,6 @@ export type PostBillingCreditGrantsId = (
   >,
   respond: PostBillingCreditGrantsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_grant>
@@ -3071,7 +3005,6 @@ export type PostBillingCreditGrantsIdExpire = (
   >,
   respond: PostBillingCreditGrantsIdExpireResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_grant>
@@ -3093,7 +3026,6 @@ export type PostBillingCreditGrantsIdVoid = (
   >,
   respond: PostBillingCreditGrantsIdVoidResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_credit_grant>
@@ -3115,7 +3047,6 @@ export type PostBillingMeterEventAdjustments = (
   >,
   respond: PostBillingMeterEventAdjustmentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter_event_adjustment>
@@ -3132,7 +3063,6 @@ export type PostBillingMeterEvents = (
   params: Params<void, void, t_PostBillingMeterEventsRequestBody, void>,
   respond: PostBillingMeterEventsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter_event>
@@ -3154,7 +3084,6 @@ export type GetBillingMeters = (
   params: Params<void, t_GetBillingMetersQuerySchema, void, void>,
   respond: GetBillingMetersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3179,7 +3108,6 @@ export type PostBillingMeters = (
   params: Params<void, void, t_PostBillingMetersRequestBody, void>,
   respond: PostBillingMetersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter>
@@ -3201,7 +3129,6 @@ export type GetBillingMetersId = (
   >,
   respond: GetBillingMetersIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter>
@@ -3223,7 +3150,6 @@ export type PostBillingMetersId = (
   >,
   respond: PostBillingMetersIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter>
@@ -3245,7 +3171,6 @@ export type PostBillingMetersIdDeactivate = (
   >,
   respond: PostBillingMetersIdDeactivateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter>
@@ -3272,7 +3197,6 @@ export type GetBillingMetersIdEventSummaries = (
   >,
   respond: GetBillingMetersIdEventSummariesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3302,7 +3226,6 @@ export type PostBillingMetersIdReactivate = (
   >,
   respond: PostBillingMetersIdReactivateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_meter>
@@ -3324,7 +3247,6 @@ export type GetBillingPortalConfigurations = (
   params: Params<void, t_GetBillingPortalConfigurationsQuerySchema, void, void>,
   respond: GetBillingPortalConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3354,7 +3276,6 @@ export type PostBillingPortalConfigurations = (
   >,
   respond: PostBillingPortalConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_portal_configuration>
@@ -3376,7 +3297,6 @@ export type GetBillingPortalConfigurationsConfiguration = (
   >,
   respond: GetBillingPortalConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_portal_configuration>
@@ -3398,7 +3318,6 @@ export type PostBillingPortalConfigurationsConfiguration = (
   >,
   respond: PostBillingPortalConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_portal_configuration>
@@ -3415,7 +3334,6 @@ export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsRequestBody, void>,
   respond: PostBillingPortalSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_portal_session>
@@ -3437,7 +3355,6 @@ export type GetCharges = (
   params: Params<void, t_GetChargesQuerySchema, void, void>,
   respond: GetChargesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3462,7 +3379,6 @@ export type PostCharges = (
   params: Params<void, void, t_PostChargesRequestBody | undefined, void>,
   respond: PostChargesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_charge>
@@ -3486,7 +3402,6 @@ export type GetChargesSearch = (
   params: Params<void, t_GetChargesSearchQuerySchema, void, void>,
   respond: GetChargesSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3518,7 +3433,6 @@ export type GetChargesCharge = (
   >,
   respond: GetChargesChargeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_charge>
@@ -3540,7 +3454,6 @@ export type PostChargesCharge = (
   >,
   respond: PostChargesChargeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_charge>
@@ -3562,7 +3475,6 @@ export type PostChargesChargeCapture = (
   >,
   respond: PostChargesChargeCaptureResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_charge>
@@ -3584,7 +3496,6 @@ export type GetChargesChargeDispute = (
   >,
   respond: GetChargesChargeDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -3606,7 +3517,6 @@ export type PostChargesChargeDispute = (
   >,
   respond: PostChargesChargeDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -3628,7 +3538,6 @@ export type PostChargesChargeDisputeClose = (
   >,
   respond: PostChargesChargeDisputeCloseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -3650,7 +3559,6 @@ export type PostChargesChargeRefund = (
   >,
   respond: PostChargesChargeRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_charge>
@@ -3677,7 +3585,6 @@ export type GetChargesChargeRefunds = (
   >,
   respond: GetChargesChargeRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3707,7 +3614,6 @@ export type PostChargesChargeRefunds = (
   >,
   respond: PostChargesChargeRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -3729,7 +3635,6 @@ export type GetChargesChargeRefundsRefund = (
   >,
   respond: GetChargesChargeRefundsRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -3751,7 +3656,6 @@ export type PostChargesChargeRefundsRefund = (
   >,
   respond: PostChargesChargeRefundsRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -3773,7 +3677,6 @@ export type GetCheckoutSessions = (
   params: Params<void, t_GetCheckoutSessionsQuerySchema, void, void>,
   respond: GetCheckoutSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3803,7 +3706,6 @@ export type PostCheckoutSessions = (
   >,
   respond: PostCheckoutSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_checkout_session>
@@ -3825,7 +3727,6 @@ export type GetCheckoutSessionsSession = (
   >,
   respond: GetCheckoutSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_checkout_session>
@@ -3847,7 +3748,6 @@ export type PostCheckoutSessionsSession = (
   >,
   respond: PostCheckoutSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_checkout_session>
@@ -3869,7 +3769,6 @@ export type PostCheckoutSessionsSessionExpire = (
   >,
   respond: PostCheckoutSessionsSessionExpireResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_checkout_session>
@@ -3896,7 +3795,6 @@ export type GetCheckoutSessionsSessionLineItems = (
   >,
   respond: GetCheckoutSessionsSessionLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3926,7 +3824,6 @@ export type GetClimateOrders = (
   params: Params<void, t_GetClimateOrdersQuerySchema, void, void>,
   respond: GetClimateOrdersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -3951,7 +3848,6 @@ export type PostClimateOrders = (
   params: Params<void, void, t_PostClimateOrdersRequestBody, void>,
   respond: PostClimateOrdersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_order>
@@ -3973,7 +3869,6 @@ export type GetClimateOrdersOrder = (
   >,
   respond: GetClimateOrdersOrderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_order>
@@ -3995,7 +3890,6 @@ export type PostClimateOrdersOrder = (
   >,
   respond: PostClimateOrdersOrderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_order>
@@ -4017,7 +3911,6 @@ export type PostClimateOrdersOrderCancel = (
   >,
   respond: PostClimateOrdersOrderCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_order>
@@ -4039,7 +3932,6 @@ export type GetClimateProducts = (
   params: Params<void, t_GetClimateProductsQuerySchema, void, void>,
   respond: GetClimateProductsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4069,7 +3961,6 @@ export type GetClimateProductsProduct = (
   >,
   respond: GetClimateProductsProductResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_product>
@@ -4091,7 +3982,6 @@ export type GetClimateSuppliers = (
   params: Params<void, t_GetClimateSuppliersQuerySchema, void, void>,
   respond: GetClimateSuppliersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4121,7 +4011,6 @@ export type GetClimateSuppliersSupplier = (
   >,
   respond: GetClimateSuppliersSupplierResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_climate_supplier>
@@ -4143,7 +4032,6 @@ export type GetConfirmationTokensConfirmationToken = (
   >,
   respond: GetConfirmationTokensConfirmationTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_confirmation_token>
@@ -4165,7 +4053,6 @@ export type GetCountrySpecs = (
   params: Params<void, t_GetCountrySpecsQuerySchema, void, void>,
   respond: GetCountrySpecsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4195,7 +4082,6 @@ export type GetCountrySpecsCountry = (
   >,
   respond: GetCountrySpecsCountryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_country_spec>
@@ -4217,7 +4103,6 @@ export type GetCoupons = (
   params: Params<void, t_GetCouponsQuerySchema, void, void>,
   respond: GetCouponsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4242,7 +4127,6 @@ export type PostCoupons = (
   params: Params<void, void, t_PostCouponsRequestBody | undefined, void>,
   respond: PostCouponsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_coupon>
@@ -4259,7 +4143,6 @@ export type DeleteCouponsCoupon = (
   params: Params<t_DeleteCouponsCouponParamSchema, void, void, void>,
   respond: DeleteCouponsCouponResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_coupon>
@@ -4281,7 +4164,6 @@ export type GetCouponsCoupon = (
   >,
   respond: GetCouponsCouponResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_coupon>
@@ -4303,7 +4185,6 @@ export type PostCouponsCoupon = (
   >,
   respond: PostCouponsCouponResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_coupon>
@@ -4325,7 +4206,6 @@ export type GetCreditNotes = (
   params: Params<void, t_GetCreditNotesQuerySchema, void, void>,
   respond: GetCreditNotesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4350,7 +4230,6 @@ export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesRequestBody, void>,
   respond: PostCreditNotesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_credit_note>
@@ -4367,7 +4246,6 @@ export type GetCreditNotesPreview = (
   params: Params<void, t_GetCreditNotesPreviewQuerySchema, void, void>,
   respond: GetCreditNotesPreviewResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_credit_note>
@@ -4389,7 +4267,6 @@ export type GetCreditNotesPreviewLines = (
   params: Params<void, t_GetCreditNotesPreviewLinesQuerySchema, void, void>,
   respond: GetCreditNotesPreviewLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4424,7 +4301,6 @@ export type GetCreditNotesCreditNoteLines = (
   >,
   respond: GetCreditNotesCreditNoteLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4454,7 +4330,6 @@ export type GetCreditNotesId = (
   >,
   respond: GetCreditNotesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_credit_note>
@@ -4476,7 +4351,6 @@ export type PostCreditNotesId = (
   >,
   respond: PostCreditNotesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_credit_note>
@@ -4498,7 +4372,6 @@ export type PostCreditNotesIdVoid = (
   >,
   respond: PostCreditNotesIdVoidResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_credit_note>
@@ -4515,7 +4388,6 @@ export type PostCustomerSessions = (
   params: Params<void, void, t_PostCustomerSessionsRequestBody, void>,
   respond: PostCustomerSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_session>
@@ -4537,7 +4409,6 @@ export type GetCustomers = (
   params: Params<void, t_GetCustomersQuerySchema, void, void>,
   respond: GetCustomersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4562,7 +4433,6 @@ export type PostCustomers = (
   params: Params<void, void, t_PostCustomersRequestBody | undefined, void>,
   respond: PostCustomersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer>
@@ -4586,7 +4456,6 @@ export type GetCustomersSearch = (
   params: Params<void, t_GetCustomersSearchQuerySchema, void, void>,
   respond: GetCustomersSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4613,7 +4482,6 @@ export type DeleteCustomersCustomer = (
   params: Params<t_DeleteCustomersCustomerParamSchema, void, void, void>,
   respond: DeleteCustomersCustomerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_customer>
@@ -4635,7 +4503,6 @@ export type GetCustomersCustomer = (
   >,
   respond: GetCustomersCustomerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer | t_deleted_customer>
@@ -4657,7 +4524,6 @@ export type PostCustomersCustomer = (
   >,
   respond: PostCustomersCustomerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer>
@@ -4684,7 +4550,6 @@ export type GetCustomersCustomerBalanceTransactions = (
   >,
   respond: GetCustomersCustomerBalanceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4714,7 +4579,6 @@ export type PostCustomersCustomerBalanceTransactions = (
   >,
   respond: PostCustomersCustomerBalanceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_balance_transaction>
@@ -4736,7 +4600,6 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   >,
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_balance_transaction>
@@ -4759,7 +4622,6 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   >,
   respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_balance_transaction>
@@ -4786,7 +4648,6 @@ export type GetCustomersCustomerBankAccounts = (
   >,
   respond: GetCustomersCustomerBankAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4816,7 +4677,6 @@ export type PostCustomersCustomerBankAccounts = (
   >,
   respond: PostCustomersCustomerBankAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source>
@@ -4838,7 +4698,6 @@ export type DeleteCustomersCustomerBankAccountsId = (
   >,
   respond: DeleteCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source | t_deleted_payment_source>
@@ -4860,7 +4719,6 @@ export type GetCustomersCustomerBankAccountsId = (
   >,
   respond: GetCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_bank_account>
@@ -4882,7 +4740,6 @@ export type PostCustomersCustomerBankAccountsId = (
   >,
   respond: PostCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_card | t_bank_account | t_source>
@@ -4904,7 +4761,6 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   >,
   respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_bank_account>
@@ -4931,7 +4787,6 @@ export type GetCustomersCustomerCards = (
   >,
   respond: GetCustomersCustomerCardsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -4961,7 +4816,6 @@ export type PostCustomersCustomerCards = (
   >,
   respond: PostCustomersCustomerCardsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source>
@@ -4983,7 +4837,6 @@ export type DeleteCustomersCustomerCardsId = (
   >,
   respond: DeleteCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source | t_deleted_payment_source>
@@ -5005,7 +4858,6 @@ export type GetCustomersCustomerCardsId = (
   >,
   respond: GetCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_card>
@@ -5027,7 +4879,6 @@ export type PostCustomersCustomerCardsId = (
   >,
   respond: PostCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_card | t_bank_account | t_source>
@@ -5049,7 +4900,6 @@ export type GetCustomersCustomerCashBalance = (
   >,
   respond: GetCustomersCustomerCashBalanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_cash_balance>
@@ -5071,7 +4921,6 @@ export type PostCustomersCustomerCashBalance = (
   >,
   respond: PostCustomersCustomerCashBalanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_cash_balance>
@@ -5098,7 +4947,6 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5128,7 +4976,6 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_cash_balance_transaction>
@@ -5150,7 +4997,6 @@ export type DeleteCustomersCustomerDiscount = (
   >,
   respond: DeleteCustomersCustomerDiscountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_discount>
@@ -5172,7 +5018,6 @@ export type GetCustomersCustomerDiscount = (
   >,
   respond: GetCustomersCustomerDiscountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_discount>
@@ -5194,7 +5039,6 @@ export type PostCustomersCustomerFundingInstructions = (
   >,
   respond: PostCustomersCustomerFundingInstructionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_funding_instructions>
@@ -5221,7 +5065,6 @@ export type GetCustomersCustomerPaymentMethods = (
   >,
   respond: GetCustomersCustomerPaymentMethodsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5251,7 +5094,6 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   >,
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -5278,7 +5120,6 @@ export type GetCustomersCustomerSources = (
   >,
   respond: GetCustomersCustomerSourcesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5308,7 +5149,6 @@ export type PostCustomersCustomerSources = (
   >,
   respond: PostCustomersCustomerSourcesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source>
@@ -5330,7 +5170,6 @@ export type DeleteCustomersCustomerSourcesId = (
   >,
   respond: DeleteCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source | t_deleted_payment_source>
@@ -5352,7 +5191,6 @@ export type GetCustomersCustomerSourcesId = (
   >,
   respond: GetCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_source>
@@ -5374,7 +5212,6 @@ export type PostCustomersCustomerSourcesId = (
   >,
   respond: PostCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_card | t_bank_account | t_source>
@@ -5396,7 +5233,6 @@ export type PostCustomersCustomerSourcesIdVerify = (
   >,
   respond: PostCustomersCustomerSourcesIdVerifyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_bank_account>
@@ -5423,7 +5259,6 @@ export type GetCustomersCustomerSubscriptions = (
   >,
   respond: GetCustomersCustomerSubscriptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5453,7 +5288,6 @@ export type PostCustomersCustomerSubscriptions = (
   >,
   respond: PostCustomersCustomerSubscriptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -5477,7 +5311,6 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -5499,7 +5332,6 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -5522,7 +5354,6 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -5546,7 +5377,6 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     >,
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<200, t_deleted_discount>
@@ -5569,7 +5399,6 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_discount>
@@ -5596,7 +5425,6 @@ export type GetCustomersCustomerTaxIds = (
   >,
   respond: GetCustomersCustomerTaxIdsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5626,7 +5454,6 @@ export type PostCustomersCustomerTaxIds = (
   >,
   respond: PostCustomersCustomerTaxIdsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_id>
@@ -5648,7 +5475,6 @@ export type DeleteCustomersCustomerTaxIdsId = (
   >,
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_tax_id>
@@ -5670,7 +5496,6 @@ export type GetCustomersCustomerTaxIdsId = (
   >,
   respond: GetCustomersCustomerTaxIdsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_id>
@@ -5692,7 +5517,6 @@ export type GetDisputes = (
   params: Params<void, t_GetDisputesQuerySchema, void, void>,
   respond: GetDisputesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5722,7 +5546,6 @@ export type GetDisputesDispute = (
   >,
   respond: GetDisputesDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -5744,7 +5567,6 @@ export type PostDisputesDispute = (
   >,
   respond: PostDisputesDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -5766,7 +5588,6 @@ export type PostDisputesDisputeClose = (
   >,
   respond: PostDisputesDisputeCloseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dispute>
@@ -5793,7 +5614,6 @@ export type GetEntitlementsActiveEntitlements = (
   >,
   respond: GetEntitlementsActiveEntitlementsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5823,7 +5643,6 @@ export type GetEntitlementsActiveEntitlementsId = (
   >,
   respond: GetEntitlementsActiveEntitlementsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_entitlements_active_entitlement>
@@ -5845,7 +5664,6 @@ export type GetEntitlementsFeatures = (
   params: Params<void, t_GetEntitlementsFeaturesQuerySchema, void, void>,
   respond: GetEntitlementsFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -5870,7 +5688,6 @@ export type PostEntitlementsFeatures = (
   params: Params<void, void, t_PostEntitlementsFeaturesRequestBody, void>,
   respond: PostEntitlementsFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_entitlements_feature>
@@ -5892,7 +5709,6 @@ export type GetEntitlementsFeaturesId = (
   >,
   respond: GetEntitlementsFeaturesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_entitlements_feature>
@@ -5914,7 +5730,6 @@ export type PostEntitlementsFeaturesId = (
   >,
   respond: PostEntitlementsFeaturesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_entitlements_feature>
@@ -5931,7 +5746,6 @@ export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysRequestBody | undefined, void>,
   respond: PostEphemeralKeysResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ephemeral_key>
@@ -5953,7 +5767,6 @@ export type DeleteEphemeralKeysKey = (
   >,
   respond: DeleteEphemeralKeysKeyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ephemeral_key>
@@ -5975,7 +5788,6 @@ export type GetEvents = (
   params: Params<void, t_GetEventsQuerySchema, void, void>,
   respond: GetEventsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6005,7 +5817,6 @@ export type GetEventsId = (
   >,
   respond: GetEventsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_event>
@@ -6027,7 +5838,6 @@ export type GetExchangeRates = (
   params: Params<void, t_GetExchangeRatesQuerySchema, void, void>,
   respond: GetExchangeRatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6057,7 +5867,6 @@ export type GetExchangeRatesRateId = (
   >,
   respond: GetExchangeRatesRateIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_exchange_rate>
@@ -6079,7 +5888,6 @@ export type PostExternalAccountsId = (
   >,
   respond: PostExternalAccountsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_external_account>
@@ -6101,7 +5909,6 @@ export type GetFileLinks = (
   params: Params<void, t_GetFileLinksQuerySchema, void, void>,
   respond: GetFileLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6126,7 +5933,6 @@ export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksRequestBody, void>,
   respond: PostFileLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_file_link>
@@ -6148,7 +5954,6 @@ export type GetFileLinksLink = (
   >,
   respond: GetFileLinksLinkResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_file_link>
@@ -6170,7 +5975,6 @@ export type PostFileLinksLink = (
   >,
   respond: PostFileLinksLinkResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_file_link>
@@ -6192,7 +5996,6 @@ export type GetFiles = (
   params: Params<void, t_GetFilesQuerySchema, void, void>,
   respond: GetFilesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6217,7 +6020,6 @@ export type PostFiles = (
   params: Params<void, void, never, void>,
   respond: PostFilesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_file>
@@ -6239,7 +6041,6 @@ export type GetFilesFile = (
   >,
   respond: GetFilesFileResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_file>
@@ -6266,7 +6067,6 @@ export type GetFinancialConnectionsAccounts = (
   >,
   respond: GetFinancialConnectionsAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6296,7 +6096,6 @@ export type GetFinancialConnectionsAccountsAccount = (
   >,
   respond: GetFinancialConnectionsAccountsAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -6318,7 +6117,6 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   >,
   respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -6345,7 +6143,6 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   >,
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6375,7 +6172,6 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   >,
   respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -6397,7 +6193,6 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   >,
   respond: PostFinancialConnectionsAccountsAccountSubscribeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -6419,7 +6214,6 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   >,
   respond: PostFinancialConnectionsAccountsAccountUnsubscribeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -6441,7 +6235,6 @@ export type PostFinancialConnectionsSessions = (
   >,
   respond: PostFinancialConnectionsSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_session>
@@ -6463,7 +6256,6 @@ export type GetFinancialConnectionsSessionsSession = (
   >,
   respond: GetFinancialConnectionsSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_session>
@@ -6490,7 +6282,6 @@ export type GetFinancialConnectionsTransactions = (
   >,
   respond: GetFinancialConnectionsTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6520,7 +6311,6 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   >,
   respond: GetFinancialConnectionsTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_transaction>
@@ -6542,7 +6332,6 @@ export type GetForwardingRequests = (
   params: Params<void, t_GetForwardingRequestsQuerySchema, void, void>,
   respond: GetForwardingRequestsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6567,7 +6356,6 @@ export type PostForwardingRequests = (
   params: Params<void, void, t_PostForwardingRequestsRequestBody, void>,
   respond: PostForwardingRequestsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_forwarding_request>
@@ -6589,7 +6377,6 @@ export type GetForwardingRequestsId = (
   >,
   respond: GetForwardingRequestsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_forwarding_request>
@@ -6611,7 +6398,6 @@ export type GetIdentityVerificationReports = (
   params: Params<void, t_GetIdentityVerificationReportsQuerySchema, void, void>,
   respond: GetIdentityVerificationReportsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6641,7 +6427,6 @@ export type GetIdentityVerificationReportsReport = (
   >,
   respond: GetIdentityVerificationReportsReportResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_report>
@@ -6668,7 +6453,6 @@ export type GetIdentityVerificationSessions = (
   >,
   respond: GetIdentityVerificationSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6698,7 +6482,6 @@ export type PostIdentityVerificationSessions = (
   >,
   respond: PostIdentityVerificationSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_session>
@@ -6720,7 +6503,6 @@ export type GetIdentityVerificationSessionsSession = (
   >,
   respond: GetIdentityVerificationSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_session>
@@ -6742,7 +6524,6 @@ export type PostIdentityVerificationSessionsSession = (
   >,
   respond: PostIdentityVerificationSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_session>
@@ -6764,7 +6545,6 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   >,
   respond: PostIdentityVerificationSessionsSessionCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_session>
@@ -6786,7 +6566,6 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   >,
   respond: PostIdentityVerificationSessionsSessionRedactResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_identity_verification_session>
@@ -6808,7 +6587,6 @@ export type GetInvoicePayments = (
   params: Params<void, t_GetInvoicePaymentsQuerySchema, void, void>,
   respond: GetInvoicePaymentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6838,7 +6616,6 @@ export type GetInvoicePaymentsInvoicePayment = (
   >,
   respond: GetInvoicePaymentsInvoicePaymentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice_payment>
@@ -6860,7 +6637,6 @@ export type GetInvoiceRenderingTemplates = (
   params: Params<void, t_GetInvoiceRenderingTemplatesQuerySchema, void, void>,
   respond: GetInvoiceRenderingTemplatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6890,7 +6666,6 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   >,
   respond: GetInvoiceRenderingTemplatesTemplateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice_rendering_template>
@@ -6912,7 +6687,6 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   >,
   respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice_rendering_template>
@@ -6934,7 +6708,6 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   >,
   respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice_rendering_template>
@@ -6956,7 +6729,6 @@ export type GetInvoiceitems = (
   params: Params<void, t_GetInvoiceitemsQuerySchema, void, void>,
   respond: GetInvoiceitemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -6981,7 +6753,6 @@ export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsRequestBody, void>,
   respond: PostInvoiceitemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoiceitem>
@@ -6998,7 +6769,6 @@ export type DeleteInvoiceitemsInvoiceitem = (
   params: Params<t_DeleteInvoiceitemsInvoiceitemParamSchema, void, void, void>,
   respond: DeleteInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_invoiceitem>
@@ -7020,7 +6790,6 @@ export type GetInvoiceitemsInvoiceitem = (
   >,
   respond: GetInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoiceitem>
@@ -7042,7 +6811,6 @@ export type PostInvoiceitemsInvoiceitem = (
   >,
   respond: PostInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoiceitem>
@@ -7064,7 +6832,6 @@ export type GetInvoices = (
   params: Params<void, t_GetInvoicesQuerySchema, void, void>,
   respond: GetInvoicesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7089,7 +6856,6 @@ export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesRequestBody | undefined, void>,
   respond: PostInvoicesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7111,7 +6877,6 @@ export type PostInvoicesCreatePreview = (
   >,
   respond: PostInvoicesCreatePreviewResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7135,7 +6900,6 @@ export type GetInvoicesSearch = (
   params: Params<void, t_GetInvoicesSearchQuerySchema, void, void>,
   respond: GetInvoicesSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7162,7 +6926,6 @@ export type DeleteInvoicesInvoice = (
   params: Params<t_DeleteInvoicesInvoiceParamSchema, void, void, void>,
   respond: DeleteInvoicesInvoiceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_invoice>
@@ -7184,7 +6947,6 @@ export type GetInvoicesInvoice = (
   >,
   respond: GetInvoicesInvoiceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7206,7 +6968,6 @@ export type PostInvoicesInvoice = (
   >,
   respond: PostInvoicesInvoiceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7228,7 +6989,6 @@ export type PostInvoicesInvoiceAddLines = (
   >,
   respond: PostInvoicesInvoiceAddLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7250,7 +7010,6 @@ export type PostInvoicesInvoiceAttachPayment = (
   >,
   respond: PostInvoicesInvoiceAttachPaymentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7272,7 +7031,6 @@ export type PostInvoicesInvoiceFinalize = (
   >,
   respond: PostInvoicesInvoiceFinalizeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7299,7 +7057,6 @@ export type GetInvoicesInvoiceLines = (
   >,
   respond: GetInvoicesInvoiceLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7329,7 +7086,6 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   >,
   respond: PostInvoicesInvoiceLinesLineItemIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_line_item>
@@ -7351,7 +7107,6 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   >,
   respond: PostInvoicesInvoiceMarkUncollectibleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7373,7 +7128,6 @@ export type PostInvoicesInvoicePay = (
   >,
   respond: PostInvoicesInvoicePayResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7395,7 +7149,6 @@ export type PostInvoicesInvoiceRemoveLines = (
   >,
   respond: PostInvoicesInvoiceRemoveLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7417,7 +7170,6 @@ export type PostInvoicesInvoiceSend = (
   >,
   respond: PostInvoicesInvoiceSendResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7439,7 +7191,6 @@ export type PostInvoicesInvoiceUpdateLines = (
   >,
   respond: PostInvoicesInvoiceUpdateLinesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7461,7 +7212,6 @@ export type PostInvoicesInvoiceVoid = (
   >,
   respond: PostInvoicesInvoiceVoidResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_invoice>
@@ -7483,7 +7233,6 @@ export type GetIssuingAuthorizations = (
   params: Params<void, t_GetIssuingAuthorizationsQuerySchema, void, void>,
   respond: GetIssuingAuthorizationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7513,7 +7262,6 @@ export type GetIssuingAuthorizationsAuthorization = (
   >,
   respond: GetIssuingAuthorizationsAuthorizationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -7535,7 +7283,6 @@ export type PostIssuingAuthorizationsAuthorization = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -7557,7 +7304,6 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -7579,7 +7325,6 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -7601,7 +7346,6 @@ export type GetIssuingCardholders = (
   params: Params<void, t_GetIssuingCardholdersQuerySchema, void, void>,
   respond: GetIssuingCardholdersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7626,7 +7370,6 @@ export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersRequestBody, void>,
   respond: PostIssuingCardholdersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_cardholder>
@@ -7648,7 +7391,6 @@ export type GetIssuingCardholdersCardholder = (
   >,
   respond: GetIssuingCardholdersCardholderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_cardholder>
@@ -7670,7 +7412,6 @@ export type PostIssuingCardholdersCardholder = (
   >,
   respond: PostIssuingCardholdersCardholderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_cardholder>
@@ -7692,7 +7433,6 @@ export type GetIssuingCards = (
   params: Params<void, t_GetIssuingCardsQuerySchema, void, void>,
   respond: GetIssuingCardsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7717,7 +7457,6 @@ export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsRequestBody, void>,
   respond: PostIssuingCardsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -7739,7 +7478,6 @@ export type GetIssuingCardsCard = (
   >,
   respond: GetIssuingCardsCardResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -7761,7 +7499,6 @@ export type PostIssuingCardsCard = (
   >,
   respond: PostIssuingCardsCardResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -7783,7 +7520,6 @@ export type GetIssuingDisputes = (
   params: Params<void, t_GetIssuingDisputesQuerySchema, void, void>,
   respond: GetIssuingDisputesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7813,7 +7549,6 @@ export type PostIssuingDisputes = (
   >,
   respond: PostIssuingDisputesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_dispute>
@@ -7835,7 +7570,6 @@ export type GetIssuingDisputesDispute = (
   >,
   respond: GetIssuingDisputesDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_dispute>
@@ -7857,7 +7591,6 @@ export type PostIssuingDisputesDispute = (
   >,
   respond: PostIssuingDisputesDisputeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_dispute>
@@ -7879,7 +7612,6 @@ export type PostIssuingDisputesDisputeSubmit = (
   >,
   respond: PostIssuingDisputesDisputeSubmitResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_dispute>
@@ -7906,7 +7638,6 @@ export type GetIssuingPersonalizationDesigns = (
   >,
   respond: GetIssuingPersonalizationDesignsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -7936,7 +7667,6 @@ export type PostIssuingPersonalizationDesigns = (
   >,
   respond: PostIssuingPersonalizationDesignsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_personalization_design>
@@ -7958,7 +7688,6 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   >,
   respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_personalization_design>
@@ -7981,7 +7710,6 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   >,
   respond: PostIssuingPersonalizationDesignsPersonalizationDesignResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_personalization_design>
@@ -8003,7 +7731,6 @@ export type GetIssuingPhysicalBundles = (
   params: Params<void, t_GetIssuingPhysicalBundlesQuerySchema, void, void>,
   respond: GetIssuingPhysicalBundlesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8033,7 +7760,6 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   >,
   respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_physical_bundle>
@@ -8055,7 +7781,6 @@ export type GetIssuingSettlementsSettlement = (
   >,
   respond: GetIssuingSettlementsSettlementResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_settlement>
@@ -8077,7 +7802,6 @@ export type PostIssuingSettlementsSettlement = (
   >,
   respond: PostIssuingSettlementsSettlementResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_settlement>
@@ -8099,7 +7823,6 @@ export type GetIssuingTokens = (
   params: Params<void, t_GetIssuingTokensQuerySchema, void, void>,
   respond: GetIssuingTokensResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8129,7 +7852,6 @@ export type GetIssuingTokensToken = (
   >,
   respond: GetIssuingTokensTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_token>
@@ -8151,7 +7873,6 @@ export type PostIssuingTokensToken = (
   >,
   respond: PostIssuingTokensTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_token>
@@ -8173,7 +7894,6 @@ export type GetIssuingTransactions = (
   params: Params<void, t_GetIssuingTransactionsQuerySchema, void, void>,
   respond: GetIssuingTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8203,7 +7923,6 @@ export type GetIssuingTransactionsTransaction = (
   >,
   respond: GetIssuingTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_transaction>
@@ -8225,7 +7944,6 @@ export type PostIssuingTransactionsTransaction = (
   >,
   respond: PostIssuingTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_transaction>
@@ -8242,7 +7960,6 @@ export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsRequestBody, void>,
   respond: PostLinkAccountSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_session>
@@ -8264,7 +7981,6 @@ export type GetLinkAccountSessionsSession = (
   >,
   respond: GetLinkAccountSessionsSessionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_session>
@@ -8286,7 +8002,6 @@ export type GetLinkedAccounts = (
   params: Params<void, t_GetLinkedAccountsQuerySchema, void, void>,
   respond: GetLinkedAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8316,7 +8031,6 @@ export type GetLinkedAccountsAccount = (
   >,
   respond: GetLinkedAccountsAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -8338,7 +8052,6 @@ export type PostLinkedAccountsAccountDisconnect = (
   >,
   respond: PostLinkedAccountsAccountDisconnectResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -8365,7 +8078,6 @@ export type GetLinkedAccountsAccountOwners = (
   >,
   respond: GetLinkedAccountsAccountOwnersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8395,7 +8107,6 @@ export type PostLinkedAccountsAccountRefresh = (
   >,
   respond: PostLinkedAccountsAccountRefreshResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_financial_connections_account>
@@ -8417,7 +8128,6 @@ export type GetMandatesMandate = (
   >,
   respond: GetMandatesMandateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_mandate>
@@ -8439,7 +8149,6 @@ export type GetPaymentIntents = (
   params: Params<void, t_GetPaymentIntentsQuerySchema, void, void>,
   respond: GetPaymentIntentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8464,7 +8173,6 @@ export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsRequestBody, void>,
   respond: PostPaymentIntentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8488,7 +8196,6 @@ export type GetPaymentIntentsSearch = (
   params: Params<void, t_GetPaymentIntentsSearchQuerySchema, void, void>,
   respond: GetPaymentIntentsSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8520,7 +8227,6 @@ export type GetPaymentIntentsIntent = (
   >,
   respond: GetPaymentIntentsIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8542,7 +8248,6 @@ export type PostPaymentIntentsIntent = (
   >,
   respond: PostPaymentIntentsIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8564,7 +8269,6 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   >,
   respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8586,7 +8290,6 @@ export type PostPaymentIntentsIntentCancel = (
   >,
   respond: PostPaymentIntentsIntentCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8608,7 +8311,6 @@ export type PostPaymentIntentsIntentCapture = (
   >,
   respond: PostPaymentIntentsIntentCaptureResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8630,7 +8332,6 @@ export type PostPaymentIntentsIntentConfirm = (
   >,
   respond: PostPaymentIntentsIntentConfirmResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8652,7 +8353,6 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   >,
   respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8674,7 +8374,6 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   >,
   respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_intent>
@@ -8696,7 +8395,6 @@ export type GetPaymentLinks = (
   params: Params<void, t_GetPaymentLinksQuerySchema, void, void>,
   respond: GetPaymentLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8721,7 +8419,6 @@ export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksRequestBody, void>,
   respond: PostPaymentLinksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_link>
@@ -8743,7 +8440,6 @@ export type GetPaymentLinksPaymentLink = (
   >,
   respond: GetPaymentLinksPaymentLinkResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_link>
@@ -8765,7 +8461,6 @@ export type PostPaymentLinksPaymentLink = (
   >,
   respond: PostPaymentLinksPaymentLinkResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_link>
@@ -8792,7 +8487,6 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   >,
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8822,7 +8516,6 @@ export type GetPaymentMethodConfigurations = (
   params: Params<void, t_GetPaymentMethodConfigurationsQuerySchema, void, void>,
   respond: GetPaymentMethodConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8852,7 +8545,6 @@ export type PostPaymentMethodConfigurations = (
   >,
   respond: PostPaymentMethodConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_configuration>
@@ -8874,7 +8566,6 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   >,
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_configuration>
@@ -8896,7 +8587,6 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   >,
   respond: PostPaymentMethodConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_configuration>
@@ -8918,7 +8608,6 @@ export type GetPaymentMethodDomains = (
   params: Params<void, t_GetPaymentMethodDomainsQuerySchema, void, void>,
   respond: GetPaymentMethodDomainsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -8943,7 +8632,6 @@ export type PostPaymentMethodDomains = (
   params: Params<void, void, t_PostPaymentMethodDomainsRequestBody, void>,
   respond: PostPaymentMethodDomainsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_domain>
@@ -8965,7 +8653,6 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   >,
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_domain>
@@ -8987,7 +8674,6 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_domain>
@@ -9010,7 +8696,6 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method_domain>
@@ -9032,7 +8717,6 @@ export type GetPaymentMethods = (
   params: Params<void, t_GetPaymentMethodsQuerySchema, void, void>,
   respond: GetPaymentMethodsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9057,7 +8741,6 @@ export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsRequestBody | undefined, void>,
   respond: PostPaymentMethodsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -9079,7 +8762,6 @@ export type GetPaymentMethodsPaymentMethod = (
   >,
   respond: GetPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -9101,7 +8783,6 @@ export type PostPaymentMethodsPaymentMethod = (
   >,
   respond: PostPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -9123,7 +8804,6 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   >,
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -9145,7 +8825,6 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   >,
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payment_method>
@@ -9167,7 +8846,6 @@ export type GetPayouts = (
   params: Params<void, t_GetPayoutsQuerySchema, void, void>,
   respond: GetPayoutsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9192,7 +8870,6 @@ export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsRequestBody, void>,
   respond: PostPayoutsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payout>
@@ -9214,7 +8891,6 @@ export type GetPayoutsPayout = (
   >,
   respond: GetPayoutsPayoutResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payout>
@@ -9236,7 +8912,6 @@ export type PostPayoutsPayout = (
   >,
   respond: PostPayoutsPayoutResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payout>
@@ -9258,7 +8933,6 @@ export type PostPayoutsPayoutCancel = (
   >,
   respond: PostPayoutsPayoutCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payout>
@@ -9280,7 +8954,6 @@ export type PostPayoutsPayoutReverse = (
   >,
   respond: PostPayoutsPayoutReverseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_payout>
@@ -9302,7 +8975,6 @@ export type GetPlans = (
   params: Params<void, t_GetPlansQuerySchema, void, void>,
   respond: GetPlansResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9327,7 +8999,6 @@ export type PostPlans = (
   params: Params<void, void, t_PostPlansRequestBody, void>,
   respond: PostPlansResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_plan>
@@ -9344,7 +9015,6 @@ export type DeletePlansPlan = (
   params: Params<t_DeletePlansPlanParamSchema, void, void, void>,
   respond: DeletePlansPlanResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_plan>
@@ -9366,7 +9036,6 @@ export type GetPlansPlan = (
   >,
   respond: GetPlansPlanResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_plan>
@@ -9388,7 +9057,6 @@ export type PostPlansPlan = (
   >,
   respond: PostPlansPlanResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_plan>
@@ -9410,7 +9078,6 @@ export type GetPrices = (
   params: Params<void, t_GetPricesQuerySchema, void, void>,
   respond: GetPricesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9435,7 +9102,6 @@ export type PostPrices = (
   params: Params<void, void, t_PostPricesRequestBody, void>,
   respond: PostPricesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_price>
@@ -9459,7 +9125,6 @@ export type GetPricesSearch = (
   params: Params<void, t_GetPricesSearchQuerySchema, void, void>,
   respond: GetPricesSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9491,7 +9156,6 @@ export type GetPricesPrice = (
   >,
   respond: GetPricesPriceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_price>
@@ -9513,7 +9177,6 @@ export type PostPricesPrice = (
   >,
   respond: PostPricesPriceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_price>
@@ -9535,7 +9198,6 @@ export type GetProducts = (
   params: Params<void, t_GetProductsQuerySchema, void, void>,
   respond: GetProductsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9560,7 +9222,6 @@ export type PostProducts = (
   params: Params<void, void, t_PostProductsRequestBody, void>,
   respond: PostProductsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_product>
@@ -9584,7 +9245,6 @@ export type GetProductsSearch = (
   params: Params<void, t_GetProductsSearchQuerySchema, void, void>,
   respond: GetProductsSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9611,7 +9271,6 @@ export type DeleteProductsId = (
   params: Params<t_DeleteProductsIdParamSchema, void, void, void>,
   respond: DeleteProductsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_product>
@@ -9633,7 +9292,6 @@ export type GetProductsId = (
   >,
   respond: GetProductsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_product>
@@ -9655,7 +9313,6 @@ export type PostProductsId = (
   >,
   respond: PostProductsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_product>
@@ -9682,7 +9339,6 @@ export type GetProductsProductFeatures = (
   >,
   respond: GetProductsProductFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9712,7 +9368,6 @@ export type PostProductsProductFeatures = (
   >,
   respond: PostProductsProductFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_product_feature>
@@ -9734,7 +9389,6 @@ export type DeleteProductsProductFeaturesId = (
   >,
   respond: DeleteProductsProductFeaturesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_product_feature>
@@ -9756,7 +9410,6 @@ export type GetProductsProductFeaturesId = (
   >,
   respond: GetProductsProductFeaturesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_product_feature>
@@ -9778,7 +9431,6 @@ export type GetPromotionCodes = (
   params: Params<void, t_GetPromotionCodesQuerySchema, void, void>,
   respond: GetPromotionCodesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9803,7 +9455,6 @@ export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesRequestBody, void>,
   respond: PostPromotionCodesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_promotion_code>
@@ -9825,7 +9476,6 @@ export type GetPromotionCodesPromotionCode = (
   >,
   respond: GetPromotionCodesPromotionCodeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_promotion_code>
@@ -9847,7 +9497,6 @@ export type PostPromotionCodesPromotionCode = (
   >,
   respond: PostPromotionCodesPromotionCodeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_promotion_code>
@@ -9869,7 +9518,6 @@ export type GetQuotes = (
   params: Params<void, t_GetQuotesQuerySchema, void, void>,
   respond: GetQuotesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -9894,7 +9542,6 @@ export type PostQuotes = (
   params: Params<void, void, t_PostQuotesRequestBody | undefined, void>,
   respond: PostQuotesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -9916,7 +9563,6 @@ export type GetQuotesQuote = (
   >,
   respond: GetQuotesQuoteResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -9938,7 +9584,6 @@ export type PostQuotesQuote = (
   >,
   respond: PostQuotesQuoteResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -9960,7 +9605,6 @@ export type PostQuotesQuoteAccept = (
   >,
   respond: PostQuotesQuoteAcceptResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -9982,7 +9626,6 @@ export type PostQuotesQuoteCancel = (
   >,
   respond: PostQuotesQuoteCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -10009,7 +9652,6 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   >,
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10039,7 +9681,6 @@ export type PostQuotesQuoteFinalize = (
   >,
   respond: PostQuotesQuoteFinalizeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_quote>
@@ -10066,7 +9707,6 @@ export type GetQuotesQuoteLineItems = (
   >,
   respond: GetQuotesQuoteLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10096,7 +9736,6 @@ export type GetQuotesQuotePdf = (
   >,
   respond: GetQuotesQuotePdfResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, Blob>
@@ -10118,7 +9757,6 @@ export type GetRadarEarlyFraudWarnings = (
   params: Params<void, t_GetRadarEarlyFraudWarningsQuerySchema, void, void>,
   respond: GetRadarEarlyFraudWarningsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10148,7 +9786,6 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_early_fraud_warning>
@@ -10170,7 +9807,6 @@ export type GetRadarValueListItems = (
   params: Params<void, t_GetRadarValueListItemsQuerySchema, void, void>,
   respond: GetRadarValueListItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10195,7 +9831,6 @@ export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsRequestBody, void>,
   respond: PostRadarValueListItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_value_list_item>
@@ -10212,7 +9847,6 @@ export type DeleteRadarValueListItemsItem = (
   params: Params<t_DeleteRadarValueListItemsItemParamSchema, void, void, void>,
   respond: DeleteRadarValueListItemsItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_radar_value_list_item>
@@ -10234,7 +9868,6 @@ export type GetRadarValueListItemsItem = (
   >,
   respond: GetRadarValueListItemsItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_value_list_item>
@@ -10256,7 +9889,6 @@ export type GetRadarValueLists = (
   params: Params<void, t_GetRadarValueListsQuerySchema, void, void>,
   respond: GetRadarValueListsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10281,7 +9913,6 @@ export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsRequestBody, void>,
   respond: PostRadarValueListsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_value_list>
@@ -10298,7 +9929,6 @@ export type DeleteRadarValueListsValueList = (
   params: Params<t_DeleteRadarValueListsValueListParamSchema, void, void, void>,
   respond: DeleteRadarValueListsValueListResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_radar_value_list>
@@ -10320,7 +9950,6 @@ export type GetRadarValueListsValueList = (
   >,
   respond: GetRadarValueListsValueListResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_value_list>
@@ -10342,7 +9971,6 @@ export type PostRadarValueListsValueList = (
   >,
   respond: PostRadarValueListsValueListResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_radar_value_list>
@@ -10364,7 +9992,6 @@ export type GetRefunds = (
   params: Params<void, t_GetRefundsQuerySchema, void, void>,
   respond: GetRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10389,7 +10016,6 @@ export type PostRefunds = (
   params: Params<void, void, t_PostRefundsRequestBody | undefined, void>,
   respond: PostRefundsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -10411,7 +10037,6 @@ export type GetRefundsRefund = (
   >,
   respond: GetRefundsRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -10433,7 +10058,6 @@ export type PostRefundsRefund = (
   >,
   respond: PostRefundsRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -10455,7 +10079,6 @@ export type PostRefundsRefundCancel = (
   >,
   respond: PostRefundsRefundCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -10477,7 +10100,6 @@ export type GetReportingReportRuns = (
   params: Params<void, t_GetReportingReportRunsQuerySchema, void, void>,
   respond: GetReportingReportRunsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10502,7 +10124,6 @@ export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsRequestBody, void>,
   respond: PostReportingReportRunsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_reporting_report_run>
@@ -10524,7 +10145,6 @@ export type GetReportingReportRunsReportRun = (
   >,
   respond: GetReportingReportRunsReportRunResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_reporting_report_run>
@@ -10546,7 +10166,6 @@ export type GetReportingReportTypes = (
   params: Params<void, t_GetReportingReportTypesQuerySchema, void, void>,
   respond: GetReportingReportTypesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10576,7 +10195,6 @@ export type GetReportingReportTypesReportType = (
   >,
   respond: GetReportingReportTypesReportTypeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_reporting_report_type>
@@ -10598,7 +10216,6 @@ export type GetReviews = (
   params: Params<void, t_GetReviewsQuerySchema, void, void>,
   respond: GetReviewsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10628,7 +10245,6 @@ export type GetReviewsReview = (
   >,
   respond: GetReviewsReviewResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_review>
@@ -10650,7 +10266,6 @@ export type PostReviewsReviewApprove = (
   >,
   respond: PostReviewsReviewApproveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_review>
@@ -10672,7 +10287,6 @@ export type GetSetupAttempts = (
   params: Params<void, t_GetSetupAttemptsQuerySchema, void, void>,
   respond: GetSetupAttemptsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10702,7 +10316,6 @@ export type GetSetupIntents = (
   params: Params<void, t_GetSetupIntentsQuerySchema, void, void>,
   respond: GetSetupIntentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10727,7 +10340,6 @@ export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsRequestBody | undefined, void>,
   respond: PostSetupIntentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10749,7 +10361,6 @@ export type GetSetupIntentsIntent = (
   >,
   respond: GetSetupIntentsIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10771,7 +10382,6 @@ export type PostSetupIntentsIntent = (
   >,
   respond: PostSetupIntentsIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10793,7 +10403,6 @@ export type PostSetupIntentsIntentCancel = (
   >,
   respond: PostSetupIntentsIntentCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10815,7 +10424,6 @@ export type PostSetupIntentsIntentConfirm = (
   >,
   respond: PostSetupIntentsIntentConfirmResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10837,7 +10445,6 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   >,
   respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_setup_intent>
@@ -10859,7 +10466,6 @@ export type GetShippingRates = (
   params: Params<void, t_GetShippingRatesQuerySchema, void, void>,
   respond: GetShippingRatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -10884,7 +10490,6 @@ export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesRequestBody, void>,
   respond: PostShippingRatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_shipping_rate>
@@ -10906,7 +10511,6 @@ export type GetShippingRatesShippingRateToken = (
   >,
   respond: GetShippingRatesShippingRateTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_shipping_rate>
@@ -10928,7 +10532,6 @@ export type PostShippingRatesShippingRateToken = (
   >,
   respond: PostShippingRatesShippingRateTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_shipping_rate>
@@ -10950,7 +10553,6 @@ export type PostSigmaSavedQueriesId = (
   >,
   respond: PostSigmaSavedQueriesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_sigma_sigma_api_query>
@@ -10972,7 +10574,6 @@ export type GetSigmaScheduledQueryRuns = (
   params: Params<void, t_GetSigmaScheduledQueryRunsQuerySchema, void, void>,
   respond: GetSigmaScheduledQueryRunsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11002,7 +10603,6 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   >,
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_scheduled_query_run>
@@ -11019,7 +10619,6 @@ export type PostSources = (
   params: Params<void, void, t_PostSourcesRequestBody | undefined, void>,
   respond: PostSourcesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source>
@@ -11041,7 +10640,6 @@ export type GetSourcesSource = (
   >,
   respond: GetSourcesSourceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source>
@@ -11063,7 +10661,6 @@ export type PostSourcesSource = (
   >,
   respond: PostSourcesSourceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source>
@@ -11085,7 +10682,6 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   >,
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source_mandate_notification>
@@ -11112,7 +10708,6 @@ export type GetSourcesSourceSourceTransactions = (
   >,
   respond: GetSourcesSourceSourceTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11142,7 +10737,6 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   >,
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source_transaction>
@@ -11164,7 +10758,6 @@ export type PostSourcesSourceVerify = (
   >,
   respond: PostSourcesSourceVerifyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_source>
@@ -11186,7 +10779,6 @@ export type GetSubscriptionItems = (
   params: Params<void, t_GetSubscriptionItemsQuerySchema, void, void>,
   respond: GetSubscriptionItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11211,7 +10803,6 @@ export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsRequestBody, void>,
   respond: PostSubscriptionItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_item>
@@ -11233,7 +10824,6 @@ export type DeleteSubscriptionItemsItem = (
   >,
   respond: DeleteSubscriptionItemsItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_subscription_item>
@@ -11255,7 +10845,6 @@ export type GetSubscriptionItemsItem = (
   >,
   respond: GetSubscriptionItemsItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_item>
@@ -11277,7 +10866,6 @@ export type PostSubscriptionItemsItem = (
   >,
   respond: PostSubscriptionItemsItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_item>
@@ -11299,7 +10887,6 @@ export type GetSubscriptionSchedules = (
   params: Params<void, t_GetSubscriptionSchedulesQuerySchema, void, void>,
   respond: GetSubscriptionSchedulesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11329,7 +10916,6 @@ export type PostSubscriptionSchedules = (
   >,
   respond: PostSubscriptionSchedulesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_schedule>
@@ -11351,7 +10937,6 @@ export type GetSubscriptionSchedulesSchedule = (
   >,
   respond: GetSubscriptionSchedulesScheduleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_schedule>
@@ -11373,7 +10958,6 @@ export type PostSubscriptionSchedulesSchedule = (
   >,
   respond: PostSubscriptionSchedulesScheduleResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_schedule>
@@ -11395,7 +10979,6 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   >,
   respond: PostSubscriptionSchedulesScheduleCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_schedule>
@@ -11417,7 +11000,6 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   >,
   respond: PostSubscriptionSchedulesScheduleReleaseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription_schedule>
@@ -11439,7 +11021,6 @@ export type GetSubscriptions = (
   params: Params<void, t_GetSubscriptionsQuerySchema, void, void>,
   respond: GetSubscriptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11464,7 +11045,6 @@ export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsRequestBody, void>,
   respond: PostSubscriptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11488,7 +11068,6 @@ export type GetSubscriptionsSearch = (
   params: Params<void, t_GetSubscriptionsSearchQuerySchema, void, void>,
   respond: GetSubscriptionsSearchResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11520,7 +11099,6 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11542,7 +11120,6 @@ export type GetSubscriptionsSubscriptionExposedId = (
   >,
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11564,7 +11141,6 @@ export type PostSubscriptionsSubscriptionExposedId = (
   >,
   respond: PostSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11586,7 +11162,6 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_discount>
@@ -11608,7 +11183,6 @@ export type PostSubscriptionsSubscriptionMigrate = (
   >,
   respond: PostSubscriptionsSubscriptionMigrateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11630,7 +11204,6 @@ export type PostSubscriptionsSubscriptionResume = (
   >,
   respond: PostSubscriptionsSubscriptionResumeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_subscription>
@@ -11647,7 +11220,6 @@ export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsRequestBody, void>,
   respond: PostTaxCalculationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_calculation>
@@ -11669,7 +11241,6 @@ export type GetTaxCalculationsCalculation = (
   >,
   respond: GetTaxCalculationsCalculationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_calculation>
@@ -11696,7 +11267,6 @@ export type GetTaxCalculationsCalculationLineItems = (
   >,
   respond: GetTaxCalculationsCalculationLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11726,7 +11296,6 @@ export type GetTaxRegistrations = (
   params: Params<void, t_GetTaxRegistrationsQuerySchema, void, void>,
   respond: GetTaxRegistrationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11751,7 +11320,6 @@ export type PostTaxRegistrations = (
   params: Params<void, void, t_PostTaxRegistrationsRequestBody, void>,
   respond: PostTaxRegistrationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_registration>
@@ -11773,7 +11341,6 @@ export type GetTaxRegistrationsId = (
   >,
   respond: GetTaxRegistrationsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_registration>
@@ -11795,7 +11362,6 @@ export type PostTaxRegistrationsId = (
   >,
   respond: PostTaxRegistrationsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_registration>
@@ -11812,7 +11378,6 @@ export type GetTaxSettings = (
   params: Params<void, t_GetTaxSettingsQuerySchema, void, void>,
   respond: GetTaxSettingsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_settings>
@@ -11829,7 +11394,6 @@ export type PostTaxSettings = (
   params: Params<void, void, t_PostTaxSettingsRequestBody | undefined, void>,
   respond: PostTaxSettingsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_settings>
@@ -11851,7 +11415,6 @@ export type PostTaxTransactionsCreateFromCalculation = (
   >,
   respond: PostTaxTransactionsCreateFromCalculationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_transaction>
@@ -11873,7 +11436,6 @@ export type PostTaxTransactionsCreateReversal = (
   >,
   respond: PostTaxTransactionsCreateReversalResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_transaction>
@@ -11895,7 +11457,6 @@ export type GetTaxTransactionsTransaction = (
   >,
   respond: GetTaxTransactionsTransactionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_transaction>
@@ -11922,7 +11483,6 @@ export type GetTaxTransactionsTransactionLineItems = (
   >,
   respond: GetTaxTransactionsTransactionLineItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11952,7 +11512,6 @@ export type GetTaxCodes = (
   params: Params<void, t_GetTaxCodesQuerySchema, void, void>,
   respond: GetTaxCodesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -11982,7 +11541,6 @@ export type GetTaxCodesId = (
   >,
   respond: GetTaxCodesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_code>
@@ -12004,7 +11562,6 @@ export type GetTaxIds = (
   params: Params<void, t_GetTaxIdsQuerySchema, void, void>,
   respond: GetTaxIdsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -12029,7 +11586,6 @@ export type PostTaxIds = (
   params: Params<void, void, t_PostTaxIdsRequestBody, void>,
   respond: PostTaxIdsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_id>
@@ -12046,7 +11602,6 @@ export type DeleteTaxIdsId = (
   params: Params<t_DeleteTaxIdsIdParamSchema, void, void, void>,
   respond: DeleteTaxIdsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_tax_id>
@@ -12068,7 +11623,6 @@ export type GetTaxIdsId = (
   >,
   respond: GetTaxIdsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_id>
@@ -12090,7 +11644,6 @@ export type GetTaxRates = (
   params: Params<void, t_GetTaxRatesQuerySchema, void, void>,
   respond: GetTaxRatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -12115,7 +11668,6 @@ export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesRequestBody, void>,
   respond: PostTaxRatesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_rate>
@@ -12137,7 +11689,6 @@ export type GetTaxRatesTaxRate = (
   >,
   respond: GetTaxRatesTaxRateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_rate>
@@ -12159,7 +11710,6 @@ export type PostTaxRatesTaxRate = (
   >,
   respond: PostTaxRatesTaxRateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_tax_rate>
@@ -12181,7 +11731,6 @@ export type GetTerminalConfigurations = (
   params: Params<void, t_GetTerminalConfigurationsQuerySchema, void, void>,
   respond: GetTerminalConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -12211,7 +11760,6 @@ export type PostTerminalConfigurations = (
   >,
   respond: PostTerminalConfigurationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_configuration>
@@ -12233,7 +11781,6 @@ export type DeleteTerminalConfigurationsConfiguration = (
   >,
   respond: DeleteTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_terminal_configuration>
@@ -12257,7 +11804,6 @@ export type GetTerminalConfigurationsConfiguration = (
   >,
   respond: GetTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -12281,7 +11827,6 @@ export type PostTerminalConfigurationsConfiguration = (
   >,
   respond: PostTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -12303,7 +11848,6 @@ export type PostTerminalConnectionTokens = (
   >,
   respond: PostTerminalConnectionTokensResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_connection_token>
@@ -12325,7 +11869,6 @@ export type GetTerminalLocations = (
   params: Params<void, t_GetTerminalLocationsQuerySchema, void, void>,
   respond: GetTerminalLocationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -12350,7 +11893,6 @@ export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsRequestBody, void>,
   respond: PostTerminalLocationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_location>
@@ -12372,7 +11914,6 @@ export type DeleteTerminalLocationsLocation = (
   >,
   respond: DeleteTerminalLocationsLocationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_terminal_location>
@@ -12396,7 +11937,6 @@ export type GetTerminalLocationsLocation = (
   >,
   respond: GetTerminalLocationsLocationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_location | t_deleted_terminal_location>
@@ -12420,7 +11960,6 @@ export type PostTerminalLocationsLocation = (
   >,
   respond: PostTerminalLocationsLocationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_location | t_deleted_terminal_location>
@@ -12442,7 +11981,6 @@ export type GetTerminalReaders = (
   params: Params<void, t_GetTerminalReadersQuerySchema, void, void>,
   respond: GetTerminalReadersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -12467,7 +12005,6 @@ export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersRequestBody, void>,
   respond: PostTerminalReadersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12484,7 +12021,6 @@ export type DeleteTerminalReadersReader = (
   params: Params<t_DeleteTerminalReadersReaderParamSchema, void, void, void>,
   respond: DeleteTerminalReadersReaderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_terminal_reader>
@@ -12506,7 +12042,6 @@ export type GetTerminalReadersReader = (
   >,
   respond: GetTerminalReadersReaderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -12528,7 +12063,6 @@ export type PostTerminalReadersReader = (
   >,
   respond: PostTerminalReadersReaderResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -12550,7 +12084,6 @@ export type PostTerminalReadersReaderCancelAction = (
   >,
   respond: PostTerminalReadersReaderCancelActionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12572,7 +12105,6 @@ export type PostTerminalReadersReaderCollectInputs = (
   >,
   respond: PostTerminalReadersReaderCollectInputsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12594,7 +12126,6 @@ export type PostTerminalReadersReaderCollectPaymentMethod = (
   >,
   respond: PostTerminalReadersReaderCollectPaymentMethodResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12616,7 +12147,6 @@ export type PostTerminalReadersReaderConfirmPaymentIntent = (
   >,
   respond: PostTerminalReadersReaderConfirmPaymentIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12638,7 +12168,6 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   >,
   respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12660,7 +12189,6 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   >,
   respond: PostTerminalReadersReaderProcessSetupIntentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12682,7 +12210,6 @@ export type PostTerminalReadersReaderRefundPayment = (
   >,
   respond: PostTerminalReadersReaderRefundPaymentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12704,7 +12231,6 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   >,
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -12726,7 +12252,6 @@ export type PostTestHelpersConfirmationTokens = (
   >,
   respond: PostTestHelpersConfirmationTokensResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_confirmation_token>
@@ -12748,7 +12273,6 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   >,
   respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_customer_cash_balance_transaction>
@@ -12770,7 +12294,6 @@ export type PostTestHelpersIssuingAuthorizations = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12794,7 +12317,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12817,7 +12339,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12840,7 +12361,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12864,7 +12384,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     >,
     respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<200, t_issuing_authorization>
@@ -12887,7 +12406,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12911,7 +12429,6 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_authorization>
@@ -12933,7 +12450,6 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -12955,7 +12471,6 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -12977,7 +12492,6 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -12999,7 +12513,6 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -13021,7 +12534,6 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingSubmitResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_card>
@@ -13046,7 +12558,6 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<200, t_issuing_personalization_design>
@@ -13071,7 +12582,6 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<200, t_issuing_personalization_design>
@@ -13095,7 +12605,6 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<200, t_issuing_personalization_design>
@@ -13117,7 +12626,6 @@ export type PostTestHelpersIssuingSettlements = (
   >,
   respond: PostTestHelpersIssuingSettlementsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_settlement>
@@ -13140,7 +12648,6 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   >,
   respond: PostTestHelpersIssuingSettlementsSettlementCompleteResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_settlement>
@@ -13162,7 +12669,6 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   >,
   respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_transaction>
@@ -13184,7 +12690,6 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   >,
   respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_transaction>
@@ -13207,7 +12712,6 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   >,
   respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issuing_transaction>
@@ -13229,7 +12733,6 @@ export type PostTestHelpersRefundsRefundExpire = (
   >,
   respond: PostTestHelpersRefundsRefundExpireResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_refund>
@@ -13253,7 +12756,6 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   >,
   respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -13277,7 +12779,6 @@ export type PostTestHelpersTerminalReadersReaderSucceedInputCollection = (
   >,
   respond: PostTestHelpersTerminalReadersReaderSucceedInputCollectionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -13301,7 +12802,6 @@ export type PostTestHelpersTerminalReadersReaderTimeoutInputCollection = (
   >,
   respond: PostTestHelpersTerminalReadersReaderTimeoutInputCollectionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_terminal_reader>
@@ -13323,7 +12823,6 @@ export type GetTestHelpersTestClocks = (
   params: Params<void, t_GetTestHelpersTestClocksQuerySchema, void, void>,
   respond: GetTestHelpersTestClocksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -13348,7 +12847,6 @@ export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksRequestBody, void>,
   respond: PostTestHelpersTestClocksResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_test_helpers_test_clock>
@@ -13370,7 +12868,6 @@ export type DeleteTestHelpersTestClocksTestClock = (
   >,
   respond: DeleteTestHelpersTestClocksTestClockResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_test_helpers_test_clock>
@@ -13392,7 +12889,6 @@ export type GetTestHelpersTestClocksTestClock = (
   >,
   respond: GetTestHelpersTestClocksTestClockResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_test_helpers_test_clock>
@@ -13414,7 +12910,6 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   >,
   respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_test_helpers_test_clock>
@@ -13436,7 +12931,6 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -13458,7 +12952,6 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -13480,7 +12973,6 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -13502,7 +12994,6 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -13524,7 +13015,6 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -13546,7 +13036,6 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -13568,7 +13057,6 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -13591,7 +13079,6 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -13615,7 +13102,6 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -13639,7 +13125,6 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -13663,7 +13148,6 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -13685,7 +13169,6 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   >,
   respond: PostTestHelpersTreasuryReceivedCreditsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_received_credit>
@@ -13707,7 +13190,6 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   >,
   respond: PostTestHelpersTreasuryReceivedDebitsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_received_debit>
@@ -13724,7 +13206,6 @@ export type PostTokens = (
   params: Params<void, void, t_PostTokensRequestBody | undefined, void>,
   respond: PostTokensResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_token>
@@ -13746,7 +13227,6 @@ export type GetTokensToken = (
   >,
   respond: GetTokensTokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_token>
@@ -13768,7 +13248,6 @@ export type GetTopups = (
   params: Params<void, t_GetTopupsQuerySchema, void, void>,
   respond: GetTopupsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -13793,7 +13272,6 @@ export type PostTopups = (
   params: Params<void, void, t_PostTopupsRequestBody, void>,
   respond: PostTopupsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_topup>
@@ -13815,7 +13293,6 @@ export type GetTopupsTopup = (
   >,
   respond: GetTopupsTopupResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_topup>
@@ -13837,7 +13314,6 @@ export type PostTopupsTopup = (
   >,
   respond: PostTopupsTopupResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_topup>
@@ -13859,7 +13335,6 @@ export type PostTopupsTopupCancel = (
   >,
   respond: PostTopupsTopupCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_topup>
@@ -13881,7 +13356,6 @@ export type GetTransfers = (
   params: Params<void, t_GetTransfersQuerySchema, void, void>,
   respond: GetTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -13906,7 +13380,6 @@ export type PostTransfers = (
   params: Params<void, void, t_PostTransfersRequestBody, void>,
   respond: PostTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer>
@@ -13933,7 +13406,6 @@ export type GetTransfersIdReversals = (
   >,
   respond: GetTransfersIdReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -13963,7 +13435,6 @@ export type PostTransfersIdReversals = (
   >,
   respond: PostTransfersIdReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer_reversal>
@@ -13985,7 +13456,6 @@ export type GetTransfersTransfer = (
   >,
   respond: GetTransfersTransferResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer>
@@ -14007,7 +13477,6 @@ export type PostTransfersTransfer = (
   >,
   respond: PostTransfersTransferResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer>
@@ -14029,7 +13498,6 @@ export type GetTransfersTransferReversalsId = (
   >,
   respond: GetTransfersTransferReversalsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer_reversal>
@@ -14051,7 +13519,6 @@ export type PostTransfersTransferReversalsId = (
   >,
   respond: PostTransfersTransferReversalsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_transfer_reversal>
@@ -14073,7 +13540,6 @@ export type GetTreasuryCreditReversals = (
   params: Params<void, t_GetTreasuryCreditReversalsQuerySchema, void, void>,
   respond: GetTreasuryCreditReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14098,7 +13564,6 @@ export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsRequestBody, void>,
   respond: PostTreasuryCreditReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_credit_reversal>
@@ -14120,7 +13585,6 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   >,
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_credit_reversal>
@@ -14142,7 +13606,6 @@ export type GetTreasuryDebitReversals = (
   params: Params<void, t_GetTreasuryDebitReversalsQuerySchema, void, void>,
   respond: GetTreasuryDebitReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14167,7 +13630,6 @@ export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsRequestBody, void>,
   respond: PostTreasuryDebitReversalsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_debit_reversal>
@@ -14189,7 +13651,6 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   >,
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_debit_reversal>
@@ -14211,7 +13672,6 @@ export type GetTreasuryFinancialAccounts = (
   params: Params<void, t_GetTreasuryFinancialAccountsQuerySchema, void, void>,
   respond: GetTreasuryFinancialAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14236,7 +13696,6 @@ export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsRequestBody, void>,
   respond: PostTreasuryFinancialAccountsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account>
@@ -14258,7 +13717,6 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account>
@@ -14280,7 +13738,6 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account>
@@ -14302,7 +13759,6 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountCloseResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account>
@@ -14324,7 +13780,6 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account_features>
@@ -14347,7 +13802,6 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_financial_account_features>
@@ -14369,7 +13823,6 @@ export type GetTreasuryInboundTransfers = (
   params: Params<void, t_GetTreasuryInboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryInboundTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14394,7 +13847,6 @@ export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersRequestBody, void>,
   respond: PostTreasuryInboundTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -14416,7 +13868,6 @@ export type GetTreasuryInboundTransfersId = (
   >,
   respond: GetTreasuryInboundTransfersIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -14438,7 +13889,6 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   >,
   respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_inbound_transfer>
@@ -14460,7 +13910,6 @@ export type GetTreasuryOutboundPayments = (
   params: Params<void, t_GetTreasuryOutboundPaymentsQuerySchema, void, void>,
   respond: GetTreasuryOutboundPaymentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14485,7 +13934,6 @@ export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsRequestBody, void>,
   respond: PostTreasuryOutboundPaymentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -14507,7 +13955,6 @@ export type GetTreasuryOutboundPaymentsId = (
   >,
   respond: GetTreasuryOutboundPaymentsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -14529,7 +13976,6 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   >,
   respond: PostTreasuryOutboundPaymentsIdCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_payment>
@@ -14551,7 +13997,6 @@ export type GetTreasuryOutboundTransfers = (
   params: Params<void, t_GetTreasuryOutboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryOutboundTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14576,7 +14021,6 @@ export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersRequestBody, void>,
   respond: PostTreasuryOutboundTransfersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -14598,7 +14042,6 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   >,
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -14621,7 +14064,6 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   >,
   respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_outbound_transfer>
@@ -14643,7 +14085,6 @@ export type GetTreasuryReceivedCredits = (
   params: Params<void, t_GetTreasuryReceivedCreditsQuerySchema, void, void>,
   respond: GetTreasuryReceivedCreditsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14673,7 +14114,6 @@ export type GetTreasuryReceivedCreditsId = (
   >,
   respond: GetTreasuryReceivedCreditsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_received_credit>
@@ -14695,7 +14135,6 @@ export type GetTreasuryReceivedDebits = (
   params: Params<void, t_GetTreasuryReceivedDebitsQuerySchema, void, void>,
   respond: GetTreasuryReceivedDebitsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14725,7 +14164,6 @@ export type GetTreasuryReceivedDebitsId = (
   >,
   respond: GetTreasuryReceivedDebitsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_received_debit>
@@ -14747,7 +14185,6 @@ export type GetTreasuryTransactionEntries = (
   params: Params<void, t_GetTreasuryTransactionEntriesQuerySchema, void, void>,
   respond: GetTreasuryTransactionEntriesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14777,7 +14214,6 @@ export type GetTreasuryTransactionEntriesId = (
   >,
   respond: GetTreasuryTransactionEntriesIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_transaction_entry>
@@ -14799,7 +14235,6 @@ export type GetTreasuryTransactions = (
   params: Params<void, t_GetTreasuryTransactionsQuerySchema, void, void>,
   respond: GetTreasuryTransactionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14829,7 +14264,6 @@ export type GetTreasuryTransactionsId = (
   >,
   respond: GetTreasuryTransactionsIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_treasury_transaction>
@@ -14851,7 +14285,6 @@ export type GetWebhookEndpoints = (
   params: Params<void, t_GetWebhookEndpointsQuerySchema, void, void>,
   respond: GetWebhookEndpointsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -14876,7 +14309,6 @@ export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsRequestBody, void>,
   respond: PostWebhookEndpointsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_webhook_endpoint>
@@ -14898,7 +14330,6 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   >,
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_deleted_webhook_endpoint>
@@ -14920,7 +14351,6 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   >,
   respond: GetWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_webhook_endpoint>
@@ -14942,7 +14372,6 @@ export type PostWebhookEndpointsWebhookEndpoint = (
   >,
   respond: PostWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_webhook_endpoint>
@@ -15540,7 +14969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getAccount", "/v1/account", async (ctx, next) => {
+  router.get("getAccount", "/v1/account", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -15572,9 +15001,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getAccount(input, responder, ctx, next)
+      .getAccount(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getAccountResponseValidator))
+      .then(handleResponse(ctx, getAccountResponseValidator))
   })
 
   const postAccountLinksResponseValidator = responseValidationFactory(
@@ -15582,7 +15011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postAccountLinks", "/v1/account_links", async (ctx, next) => {
+  router.post("postAccountLinks", "/v1/account_links", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -15607,9 +15036,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postAccountLinks(input, responder, ctx, next)
+      .postAccountLinks(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postAccountLinksResponseValidator))
+      .then(handleResponse(ctx, postAccountLinksResponseValidator))
   })
 
   const postAccountSessionsResponseValidator = responseValidationFactory(
@@ -15617,39 +15046,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postAccountSessions",
-    "/v1/account_sessions",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostAccountSessionsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postAccountSessions", "/v1/account_sessions", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostAccountSessionsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_account_session>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_account_session>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postAccountSessions(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postAccountSessionsResponseValidator))
-    },
-  )
+    await implementation
+      .postAccountSessions(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postAccountSessionsResponseValidator))
+  })
 
   const getAccountsQuerySchema = z.object({
     created: z
@@ -15689,7 +15114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getAccounts", "/v1/accounts", async (ctx, next) => {
+  router.get("getAccounts", "/v1/accounts", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -15758,9 +15183,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getAccounts(input, responder, ctx, next)
+      .getAccounts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getAccountsResponseValidator))
+      .then(handleResponse(ctx, getAccountsResponseValidator))
   })
 
   const postAccountsResponseValidator = responseValidationFactory(
@@ -15768,7 +15193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postAccounts", "/v1/accounts", async (ctx, next) => {
+  router.post("postAccounts", "/v1/accounts", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -15793,9 +15218,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postAccounts(input, responder, ctx, next)
+      .postAccounts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postAccountsResponseValidator))
+      .then(handleResponse(ctx, postAccountsResponseValidator))
   })
 
   const deleteAccountsAccountParamSchema = z.object({
@@ -15810,7 +15235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAccountsAccount",
     "/v1/accounts/:account",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountParamSchema,
@@ -15835,9 +15260,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAccountsAccount(input, responder, ctx, next)
+        .deleteAccountsAccount(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteAccountsAccountResponseValidator))
+        .then(handleResponse(ctx, deleteAccountsAccountResponseValidator))
     },
   )
 
@@ -15859,50 +15284,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getAccountsAccount",
-    "/v1/accounts/:account",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getAccountsAccountParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getAccountsAccountQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getAccountsAccount", "/v1/accounts/:account", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getAccountsAccountParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getAccountsAccountQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_account>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_account>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getAccountsAccount(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getAccountsAccountResponseValidator))
-    },
-  )
+    await implementation
+      .getAccountsAccount(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getAccountsAccountResponseValidator))
+  })
 
   const postAccountsAccountParamSchema = z.object({
     account: z.string().max(5000),
@@ -15913,43 +15334,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postAccountsAccount",
-    "/v1/accounts/:account",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postAccountsAccountParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostAccountsAccountRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postAccountsAccount", "/v1/accounts/:account", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postAccountsAccountParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostAccountsAccountRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_account>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_account>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postAccountsAccount(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postAccountsAccountResponseValidator))
-    },
-  )
+    await implementation
+      .postAccountsAccount(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postAccountsAccountResponseValidator))
+  })
 
   const postAccountsAccountBankAccountsParamSchema = z.object({
     account: z.string().max(5000),
@@ -15961,7 +15378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountBankAccounts",
     "/v1/accounts/:account/bank_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountBankAccountsParamSchema,
@@ -15990,14 +15407,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountBankAccounts(input, responder, ctx, next)
+        .postAccountsAccountBankAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postAccountsAccountBankAccountsResponseValidator,
-          ),
+          handleResponse(ctx, postAccountsAccountBankAccountsResponseValidator),
         )
     },
   )
@@ -16013,7 +15426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAccountsAccountBankAccountsId",
     "/v1/accounts/:account/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountBankAccountsIdParamSchema,
@@ -16038,12 +15451,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAccountsAccountBankAccountsId(input, responder, ctx, next)
+        .deleteAccountsAccountBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteAccountsAccountBankAccountsIdResponseValidator,
           ),
         )
@@ -16070,7 +15482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountBankAccountsId",
     "/v1/accounts/:account/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountBankAccountsIdParamSchema,
@@ -16106,12 +15518,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountBankAccountsId(input, responder, ctx, next)
+        .getAccountsAccountBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getAccountsAccountBankAccountsIdResponseValidator,
           ),
         )
@@ -16129,7 +15540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountBankAccountsId",
     "/v1/accounts/:account/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountBankAccountsIdParamSchema,
@@ -16158,12 +15569,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountBankAccountsId(input, responder, ctx, next)
+        .postAccountsAccountBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postAccountsAccountBankAccountsIdResponseValidator,
           ),
         )
@@ -16202,7 +15612,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountCapabilities",
     "/v1/accounts/:account/capabilities",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesParamSchema,
@@ -16243,14 +15653,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountCapabilities(input, responder, ctx, next)
+        .getAccountsAccountCapabilities(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getAccountsAccountCapabilitiesResponseValidator,
-          ),
+          handleResponse(ctx, getAccountsAccountCapabilitiesResponseValidator),
         )
     },
   )
@@ -16275,7 +15681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountCapabilitiesCapability",
     "/v1/accounts/:account/capabilities/:capability",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountCapabilitiesCapabilityParamSchema,
@@ -16311,12 +15717,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountCapabilitiesCapability(input, responder, ctx, next)
+        .getAccountsAccountCapabilitiesCapability(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getAccountsAccountCapabilitiesCapabilityResponseValidator,
           ),
         )
@@ -16334,7 +15739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountCapabilitiesCapability",
     "/v1/accounts/:account/capabilities/:capability",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountCapabilitiesCapabilityParamSchema,
@@ -16363,12 +15768,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountCapabilitiesCapability(input, responder, ctx, next)
+        .postAccountsAccountCapabilitiesCapability(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postAccountsAccountCapabilitiesCapabilityResponseValidator,
           ),
         )
@@ -16413,7 +15817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountExternalAccounts",
     "/v1/accounts/:account/external_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsParamSchema,
@@ -16478,12 +15882,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountExternalAccounts(input, responder, ctx, next)
+        .getAccountsAccountExternalAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getAccountsAccountExternalAccountsResponseValidator,
           ),
         )
@@ -16500,7 +15903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountExternalAccounts",
     "/v1/accounts/:account/external_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsParamSchema,
@@ -16529,12 +15932,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountExternalAccounts(input, responder, ctx, next)
+        .postAccountsAccountExternalAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postAccountsAccountExternalAccountsResponseValidator,
           ),
         )
@@ -16552,7 +15954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAccountsAccountExternalAccountsId",
     "/v1/accounts/:account/external_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountExternalAccountsIdParamSchema,
@@ -16577,12 +15979,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAccountsAccountExternalAccountsId(input, responder, ctx, next)
+        .deleteAccountsAccountExternalAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteAccountsAccountExternalAccountsIdResponseValidator,
           ),
         )
@@ -16609,7 +16010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountExternalAccountsId",
     "/v1/accounts/:account/external_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountExternalAccountsIdParamSchema,
@@ -16645,12 +16046,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountExternalAccountsId(input, responder, ctx, next)
+        .getAccountsAccountExternalAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getAccountsAccountExternalAccountsIdResponseValidator,
           ),
         )
@@ -16668,7 +16068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountExternalAccountsId",
     "/v1/accounts/:account/external_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountExternalAccountsIdParamSchema,
@@ -16697,12 +16097,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountExternalAccountsId(input, responder, ctx, next)
+        .postAccountsAccountExternalAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postAccountsAccountExternalAccountsIdResponseValidator,
           ),
         )
@@ -16719,7 +16118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountLoginLinks",
     "/v1/accounts/:account/login_links",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountLoginLinksParamSchema,
@@ -16748,14 +16147,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountLoginLinks(input, responder, ctx, next)
+        .postAccountsAccountLoginLinks(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postAccountsAccountLoginLinksResponseValidator,
-          ),
+          handleResponse(ctx, postAccountsAccountLoginLinksResponseValidator),
         )
     },
   )
@@ -16804,7 +16199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountPeople",
     "/v1/accounts/:account/people",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountPeopleParamSchema,
@@ -16879,11 +16274,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountPeople(input, responder, ctx, next)
+        .getAccountsAccountPeople(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getAccountsAccountPeopleResponseValidator),
-        )
+        .then(handleResponse(ctx, getAccountsAccountPeopleResponseValidator))
     },
   )
 
@@ -16899,7 +16292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountPeople",
     "/v1/accounts/:account/people",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountPeopleParamSchema,
@@ -16928,11 +16321,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountPeople(input, responder, ctx, next)
+        .postAccountsAccountPeople(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postAccountsAccountPeopleResponseValidator),
-        )
+        .then(handleResponse(ctx, postAccountsAccountPeopleResponseValidator))
     },
   )
 
@@ -16947,7 +16338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAccountsAccountPeoplePerson",
     "/v1/accounts/:account/people/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountPeoplePersonParamSchema,
@@ -16972,12 +16363,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAccountsAccountPeoplePerson(input, responder, ctx, next)
+        .deleteAccountsAccountPeoplePerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteAccountsAccountPeoplePersonResponseValidator,
           ),
         )
@@ -17004,7 +16394,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountPeoplePerson",
     "/v1/accounts/:account/people/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountPeoplePersonParamSchema,
@@ -17040,14 +16430,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountPeoplePerson(input, responder, ctx, next)
+        .getAccountsAccountPeoplePerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getAccountsAccountPeoplePersonResponseValidator,
-          ),
+          handleResponse(ctx, getAccountsAccountPeoplePersonResponseValidator),
         )
     },
   )
@@ -17063,7 +16449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountPeoplePerson",
     "/v1/accounts/:account/people/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountPeoplePersonParamSchema,
@@ -17092,14 +16478,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountPeoplePerson(input, responder, ctx, next)
+        .postAccountsAccountPeoplePerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postAccountsAccountPeoplePersonResponseValidator,
-          ),
+          handleResponse(ctx, postAccountsAccountPeoplePersonResponseValidator),
         )
     },
   )
@@ -17148,7 +16530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountPersons",
     "/v1/accounts/:account/persons",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountPersonsParamSchema,
@@ -17223,11 +16605,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountPersons(input, responder, ctx, next)
+        .getAccountsAccountPersons(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getAccountsAccountPersonsResponseValidator),
-        )
+        .then(handleResponse(ctx, getAccountsAccountPersonsResponseValidator))
     },
   )
 
@@ -17243,7 +16623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountPersons",
     "/v1/accounts/:account/persons",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountPersonsParamSchema,
@@ -17272,15 +16652,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountPersons(input, responder, ctx, next)
+        .postAccountsAccountPersons(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postAccountsAccountPersonsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postAccountsAccountPersonsResponseValidator))
     },
   )
 
@@ -17295,7 +16669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAccountsAccountPersonsPerson",
     "/v1/accounts/:account/persons/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAccountsAccountPersonsPersonParamSchema,
@@ -17320,12 +16694,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAccountsAccountPersonsPerson(input, responder, ctx, next)
+        .deleteAccountsAccountPersonsPerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteAccountsAccountPersonsPersonResponseValidator,
           ),
         )
@@ -17352,7 +16725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAccountsAccountPersonsPerson",
     "/v1/accounts/:account/persons/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAccountsAccountPersonsPersonParamSchema,
@@ -17388,14 +16761,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAccountsAccountPersonsPerson(input, responder, ctx, next)
+        .getAccountsAccountPersonsPerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getAccountsAccountPersonsPersonResponseValidator,
-          ),
+          handleResponse(ctx, getAccountsAccountPersonsPersonResponseValidator),
         )
     },
   )
@@ -17411,7 +16780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountPersonsPerson",
     "/v1/accounts/:account/persons/:person",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountPersonsPersonParamSchema,
@@ -17440,12 +16809,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountPersonsPerson(input, responder, ctx, next)
+        .postAccountsAccountPersonsPerson(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postAccountsAccountPersonsPersonResponseValidator,
           ),
         )
@@ -17464,7 +16832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAccountsAccountReject",
     "/v1/accounts/:account/reject",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postAccountsAccountRejectParamSchema,
@@ -17493,11 +16861,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAccountsAccountReject(input, responder, ctx, next)
+        .postAccountsAccountReject(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postAccountsAccountRejectResponseValidator),
-        )
+        .then(handleResponse(ctx, postAccountsAccountRejectResponseValidator))
     },
   )
 
@@ -17529,114 +16895,106 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getApplePayDomains",
-    "/v1/apple_pay/domains",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getApplePayDomainsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "domain_name",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getApplePayDomains", "/v1/apple_pay/domains", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getApplePayDomainsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "domain_name",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_apple_pay_domain[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_apple_pay_domain[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getApplePayDomains(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getApplePayDomainsResponseValidator))
-    },
-  )
+    await implementation
+      .getApplePayDomains(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getApplePayDomainsResponseValidator))
+  })
 
   const postApplePayDomainsResponseValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
     s_error,
   )
 
-  router.post(
-    "postApplePayDomains",
-    "/v1/apple_pay/domains",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostApplePayDomainsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postApplePayDomains", "/v1/apple_pay/domains", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostApplePayDomainsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_apple_pay_domain>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_apple_pay_domain>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postApplePayDomains(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postApplePayDomainsResponseValidator))
-    },
-  )
+    await implementation
+      .postApplePayDomains(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postApplePayDomainsResponseValidator))
+  })
 
   const deleteApplePayDomainsDomainParamSchema = z.object({
     domain: z.string().max(5000),
@@ -17648,7 +17006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteApplePayDomainsDomain",
     "/v1/apple_pay/domains/:domain",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteApplePayDomainsDomainParamSchema,
@@ -17673,15 +17031,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteApplePayDomainsDomain(input, responder, ctx, next)
+        .deleteApplePayDomainsDomain(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteApplePayDomainsDomainResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, deleteApplePayDomainsDomainResponseValidator))
     },
   )
 
@@ -17706,7 +17058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getApplePayDomainsDomain",
     "/v1/apple_pay/domains/:domain",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getApplePayDomainsDomainParamSchema,
@@ -17742,11 +17094,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getApplePayDomainsDomain(input, responder, ctx, next)
+        .getApplePayDomainsDomain(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getApplePayDomainsDomainResponseValidator),
-        )
+        .then(handleResponse(ctx, getApplePayDomainsDomainResponseValidator))
     },
   )
 
@@ -17789,89 +17139,85 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getApplicationFees",
-    "/v1/application_fees",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getApplicationFeesQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "charge",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "created",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {
-                  gt: {type: "number"},
-                  gte: {type: "number"},
-                  lt: {type: "number"},
-                  lte: {type: "number"},
-                },
+  router.get("getApplicationFees", "/v1/application_fees", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getApplicationFeesQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "charge",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
               },
             },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_application_fee[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_application_fee[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getApplicationFees(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getApplicationFeesResponseValidator))
-    },
-  )
+    await implementation
+      .getApplicationFees(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getApplicationFeesResponseValidator))
+  })
 
   const getApplicationFeesFeeRefundsIdParamSchema = z.object({
     fee: z.string().max(5000),
@@ -17893,7 +17239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getApplicationFeesFeeRefundsId",
     "/v1/application_fees/:fee/refunds/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getApplicationFeesFeeRefundsIdParamSchema,
@@ -17929,14 +17275,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getApplicationFeesFeeRefundsId(input, responder, ctx, next)
+        .getApplicationFeesFeeRefundsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getApplicationFeesFeeRefundsIdResponseValidator,
-          ),
+          handleResponse(ctx, getApplicationFeesFeeRefundsIdResponseValidator),
         )
     },
   )
@@ -17952,7 +17294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postApplicationFeesFeeRefundsId",
     "/v1/application_fees/:fee/refunds/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postApplicationFeesFeeRefundsIdParamSchema,
@@ -17981,14 +17323,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postApplicationFeesFeeRefundsId(input, responder, ctx, next)
+        .postApplicationFeesFeeRefundsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postApplicationFeesFeeRefundsIdResponseValidator,
-          ),
+          handleResponse(ctx, postApplicationFeesFeeRefundsIdResponseValidator),
         )
     },
   )
@@ -18012,7 +17350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getApplicationFeesId",
     "/v1/application_fees/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getApplicationFeesIdParamSchema,
@@ -18048,9 +17386,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getApplicationFeesId(input, responder, ctx, next)
+        .getApplicationFeesId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getApplicationFeesIdResponseValidator))
+        .then(handleResponse(ctx, getApplicationFeesIdResponseValidator))
     },
   )
 
@@ -18064,7 +17402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postApplicationFeesIdRefund",
     "/v1/application_fees/:id/refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postApplicationFeesIdRefundParamSchema,
@@ -18093,15 +17431,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postApplicationFeesIdRefund(input, responder, ctx, next)
+        .postApplicationFeesIdRefund(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postApplicationFeesIdRefundResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postApplicationFeesIdRefundResponseValidator))
     },
   )
 
@@ -18140,7 +17472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getApplicationFeesIdRefunds",
     "/v1/application_fees/:id/refunds",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getApplicationFeesIdRefundsParamSchema,
@@ -18199,15 +17531,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getApplicationFeesIdRefunds(input, responder, ctx, next)
+        .getApplicationFeesIdRefunds(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getApplicationFeesIdRefundsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getApplicationFeesIdRefundsResponseValidator))
     },
   )
 
@@ -18221,7 +17547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postApplicationFeesIdRefunds",
     "/v1/application_fees/:id/refunds",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postApplicationFeesIdRefundsParamSchema,
@@ -18250,14 +17576,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postApplicationFeesIdRefunds(input, responder, ctx, next)
+        .postApplicationFeesIdRefunds(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postApplicationFeesIdRefundsResponseValidator,
-          ),
+          handleResponse(ctx, postApplicationFeesIdRefundsResponseValidator),
         )
     },
   )
@@ -18293,7 +17615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getAppsSecrets", "/v1/apps/secrets", async (ctx, next) => {
+  router.get("getAppsSecrets", "/v1/apps/secrets", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -18357,9 +17679,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getAppsSecrets(input, responder, ctx, next)
+      .getAppsSecrets(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getAppsSecretsResponseValidator))
+      .then(handleResponse(ctx, getAppsSecretsResponseValidator))
   })
 
   const postAppsSecretsResponseValidator = responseValidationFactory(
@@ -18367,7 +17689,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postAppsSecrets", "/v1/apps/secrets", async (ctx, next) => {
+  router.post("postAppsSecrets", "/v1/apps/secrets", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -18392,9 +17714,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postAppsSecrets(input, responder, ctx, next)
+      .postAppsSecrets(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postAppsSecretsResponseValidator))
+      .then(handleResponse(ctx, postAppsSecretsResponseValidator))
   })
 
   const postAppsSecretsDeleteResponseValidator = responseValidationFactory(
@@ -18405,7 +17727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postAppsSecretsDelete",
     "/v1/apps/secrets/delete",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -18430,9 +17752,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postAppsSecretsDelete(input, responder, ctx, next)
+        .postAppsSecretsDelete(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postAppsSecretsDeleteResponseValidator))
+        .then(handleResponse(ctx, postAppsSecretsDeleteResponseValidator))
     },
   )
 
@@ -18455,61 +17777,57 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getAppsSecretsFind",
-    "/v1/apps/secrets/find",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getAppsSecretsFindQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
+  router.get("getAppsSecretsFind", "/v1/apps/secrets/find", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getAppsSecretsFindQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "name",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "scope",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {type: {type: "string"}, user: {type: "string"}},
             },
-            {
-              name: "name",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "scope",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {type: {type: "string"}, user: {type: "string"}},
-              },
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_apps_secret>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_apps_secret>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getAppsSecretsFind(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getAppsSecretsFindResponseValidator))
-    },
-  )
+    await implementation
+      .getAppsSecretsFind(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getAppsSecretsFindResponseValidator))
+  })
 
   const getBalanceQuerySchema = z.object({
     expand: z
@@ -18525,7 +17843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getBalance", "/v1/balance", async (ctx, next) => {
+  router.get("getBalance", "/v1/balance", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -18557,9 +17875,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getBalance(input, responder, ctx, next)
+      .getBalance(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getBalanceResponseValidator))
+      .then(handleResponse(ctx, getBalanceResponseValidator))
   })
 
   const getBalanceHistoryQuerySchema = z.object({
@@ -18607,7 +17925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getBalanceHistory", "/v1/balance/history", async (ctx, next) => {
+  router.get("getBalanceHistory", "/v1/balance/history", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -18700,9 +18018,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getBalanceHistory(input, responder, ctx, next)
+      .getBalanceHistory(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getBalanceHistoryResponseValidator))
+      .then(handleResponse(ctx, getBalanceHistoryResponseValidator))
   })
 
   const getBalanceHistoryIdParamSchema = z.object({id: z.string().max(5000)})
@@ -18721,50 +18039,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getBalanceHistoryId",
-    "/v1/balance/history/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getBalanceHistoryIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getBalanceHistoryIdQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getBalanceHistoryId", "/v1/balance/history/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getBalanceHistoryIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getBalanceHistoryIdQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_balance_transaction>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_balance_transaction>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getBalanceHistoryId(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getBalanceHistoryIdResponseValidator))
-    },
-  )
+    await implementation
+      .getBalanceHistoryId(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getBalanceHistoryIdResponseValidator))
+  })
 
   const getBalanceTransactionsQuerySchema = z.object({
     created: z
@@ -18814,7 +18128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBalanceTransactions",
     "/v1/balance_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -18907,11 +18221,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBalanceTransactions(input, responder, ctx, next)
+        .getBalanceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getBalanceTransactionsResponseValidator),
-        )
+        .then(handleResponse(ctx, getBalanceTransactionsResponseValidator))
     },
   )
 
@@ -18936,7 +18248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBalanceTransactionsId",
     "/v1/balance_transactions/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getBalanceTransactionsIdParamSchema,
@@ -18972,11 +18284,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBalanceTransactionsId(input, responder, ctx, next)
+        .getBalanceTransactionsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getBalanceTransactionsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getBalanceTransactionsIdResponseValidator))
     },
   )
 
@@ -19009,7 +18319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getBillingAlerts", "/v1/billing/alerts", async (ctx, next) => {
+  router.get("getBillingAlerts", "/v1/billing/alerts", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -19076,9 +18386,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getBillingAlerts(input, responder, ctx, next)
+      .getBillingAlerts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getBillingAlertsResponseValidator))
+      .then(handleResponse(ctx, getBillingAlertsResponseValidator))
   })
 
   const postBillingAlertsResponseValidator = responseValidationFactory(
@@ -19086,7 +18396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postBillingAlerts", "/v1/billing/alerts", async (ctx, next) => {
+  router.post("postBillingAlerts", "/v1/billing/alerts", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -19111,9 +18421,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postBillingAlerts(input, responder, ctx, next)
+      .postBillingAlerts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postBillingAlertsResponseValidator))
+      .then(handleResponse(ctx, postBillingAlertsResponseValidator))
   })
 
   const getBillingAlertsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -19132,50 +18442,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getBillingAlertsId",
-    "/v1/billing/alerts/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getBillingAlertsIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getBillingAlertsIdQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getBillingAlertsId", "/v1/billing/alerts/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getBillingAlertsIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getBillingAlertsIdQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_billing_alert>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_billing_alert>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getBillingAlertsId(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getBillingAlertsIdResponseValidator))
-    },
-  )
+    await implementation
+      .getBillingAlertsId(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getBillingAlertsIdResponseValidator))
+  })
 
   const postBillingAlertsIdActivateParamSchema = z.object({
     id: z.string().max(5000),
@@ -19187,7 +18493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingAlertsIdActivate",
     "/v1/billing/alerts/:id/activate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingAlertsIdActivateParamSchema,
@@ -19216,15 +18522,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingAlertsIdActivate(input, responder, ctx, next)
+        .postBillingAlertsIdActivate(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingAlertsIdActivateResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postBillingAlertsIdActivateResponseValidator))
     },
   )
 
@@ -19240,7 +18540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingAlertsIdArchive",
     "/v1/billing/alerts/:id/archive",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingAlertsIdArchiveParamSchema,
@@ -19269,15 +18569,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingAlertsIdArchive(input, responder, ctx, next)
+        .postBillingAlertsIdArchive(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingAlertsIdArchiveResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postBillingAlertsIdArchiveResponseValidator))
     },
   )
 
@@ -19291,7 +18585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingAlertsIdDeactivate",
     "/v1/billing/alerts/:id/deactivate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingAlertsIdDeactivateParamSchema,
@@ -19320,14 +18614,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingAlertsIdDeactivate(input, responder, ctx, next)
+        .postBillingAlertsIdDeactivate(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingAlertsIdDeactivateResponseValidator,
-          ),
+          handleResponse(ctx, postBillingAlertsIdDeactivateResponseValidator),
         )
     },
   )
@@ -19361,7 +18651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingCreditBalanceSummary",
     "/v1/billing/credit_balance_summary",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -19424,14 +18714,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingCreditBalanceSummary(input, responder, ctx, next)
+        .getBillingCreditBalanceSummary(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getBillingCreditBalanceSummaryResponseValidator,
-          ),
+          handleResponse(ctx, getBillingCreditBalanceSummaryResponseValidator),
         )
     },
   )
@@ -19472,7 +18758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingCreditBalanceTransactions",
     "/v1/billing/credit_balance_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -19539,12 +18825,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingCreditBalanceTransactions(input, responder, ctx, next)
+        .getBillingCreditBalanceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getBillingCreditBalanceTransactionsResponseValidator,
           ),
         )
@@ -19573,7 +18858,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingCreditBalanceTransactionsId",
     "/v1/billing/credit_balance_transactions/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getBillingCreditBalanceTransactionsIdParamSchema,
@@ -19611,12 +18896,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingCreditBalanceTransactionsId(input, responder, ctx, next)
+        .getBillingCreditBalanceTransactionsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getBillingCreditBalanceTransactionsIdResponseValidator,
           ),
         )
@@ -19657,7 +18941,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingCreditGrants",
     "/v1/billing/credit_grants",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -19718,11 +19002,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingCreditGrants(input, responder, ctx, next)
+        .getBillingCreditGrants(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getBillingCreditGrantsResponseValidator),
-        )
+        .then(handleResponse(ctx, getBillingCreditGrantsResponseValidator))
     },
   )
 
@@ -19734,7 +19016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingCreditGrants",
     "/v1/billing/credit_grants",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -19759,11 +19041,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingCreditGrants(input, responder, ctx, next)
+        .postBillingCreditGrants(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postBillingCreditGrantsResponseValidator),
-        )
+        .then(handleResponse(ctx, postBillingCreditGrantsResponseValidator))
     },
   )
 
@@ -19788,7 +19068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingCreditGrantsId",
     "/v1/billing/credit_grants/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getBillingCreditGrantsIdParamSchema,
@@ -19824,11 +19104,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingCreditGrantsId(input, responder, ctx, next)
+        .getBillingCreditGrantsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getBillingCreditGrantsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getBillingCreditGrantsIdResponseValidator))
     },
   )
 
@@ -19844,7 +19122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingCreditGrantsId",
     "/v1/billing/credit_grants/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingCreditGrantsIdParamSchema,
@@ -19873,11 +19151,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingCreditGrantsId(input, responder, ctx, next)
+        .postBillingCreditGrantsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postBillingCreditGrantsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, postBillingCreditGrantsIdResponseValidator))
     },
   )
 
@@ -19891,7 +19167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingCreditGrantsIdExpire",
     "/v1/billing/credit_grants/:id/expire",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingCreditGrantsIdExpireParamSchema,
@@ -19920,14 +19196,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingCreditGrantsIdExpire(input, responder, ctx, next)
+        .postBillingCreditGrantsIdExpire(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingCreditGrantsIdExpireResponseValidator,
-          ),
+          handleResponse(ctx, postBillingCreditGrantsIdExpireResponseValidator),
         )
     },
   )
@@ -19942,7 +19214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingCreditGrantsIdVoid",
     "/v1/billing/credit_grants/:id/void",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingCreditGrantsIdVoidParamSchema,
@@ -19971,14 +19243,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingCreditGrantsIdVoid(input, responder, ctx, next)
+        .postBillingCreditGrantsIdVoid(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingCreditGrantsIdVoidResponseValidator,
-          ),
+          handleResponse(ctx, postBillingCreditGrantsIdVoidResponseValidator),
         )
     },
   )
@@ -19992,7 +19260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingMeterEventAdjustments",
     "/v1/billing/meter_event_adjustments",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -20017,12 +19285,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingMeterEventAdjustments(input, responder, ctx, next)
+        .postBillingMeterEventAdjustments(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postBillingMeterEventAdjustmentsResponseValidator,
           ),
         )
@@ -20037,7 +19304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingMeterEvents",
     "/v1/billing/meter_events",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -20062,11 +19329,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingMeterEvents(input, responder, ctx, next)
+        .postBillingMeterEvents(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postBillingMeterEventsResponseValidator),
-        )
+        .then(handleResponse(ctx, postBillingMeterEventsResponseValidator))
     },
   )
 
@@ -20098,7 +19363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getBillingMeters", "/v1/billing/meters", async (ctx, next) => {
+  router.get("getBillingMeters", "/v1/billing/meters", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -20159,9 +19424,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getBillingMeters(input, responder, ctx, next)
+      .getBillingMeters(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getBillingMetersResponseValidator))
+      .then(handleResponse(ctx, getBillingMetersResponseValidator))
   })
 
   const postBillingMetersResponseValidator = responseValidationFactory(
@@ -20169,7 +19434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postBillingMeters", "/v1/billing/meters", async (ctx, next) => {
+  router.post("postBillingMeters", "/v1/billing/meters", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -20194,9 +19459,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postBillingMeters(input, responder, ctx, next)
+      .postBillingMeters(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postBillingMetersResponseValidator))
+      .then(handleResponse(ctx, postBillingMetersResponseValidator))
   })
 
   const getBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
@@ -20215,50 +19480,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getBillingMetersId",
-    "/v1/billing/meters/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getBillingMetersIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getBillingMetersIdQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getBillingMetersId", "/v1/billing/meters/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getBillingMetersIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getBillingMetersIdQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_billing_meter>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_billing_meter>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getBillingMetersId(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getBillingMetersIdResponseValidator))
-    },
-  )
+    await implementation
+      .getBillingMetersId(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getBillingMetersIdResponseValidator))
+  })
 
   const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
@@ -20267,43 +19528,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postBillingMetersId",
-    "/v1/billing/meters/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postBillingMetersIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostBillingMetersIdRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postBillingMetersId", "/v1/billing/meters/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postBillingMetersIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostBillingMetersIdRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_billing_meter>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_billing_meter>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postBillingMetersId(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postBillingMetersIdResponseValidator))
-    },
-  )
+    await implementation
+      .postBillingMetersId(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postBillingMetersIdResponseValidator))
+  })
 
   const postBillingMetersIdDeactivateParamSchema = z.object({
     id: z.string().max(5000),
@@ -20315,7 +19572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingMetersIdDeactivate",
     "/v1/billing/meters/:id/deactivate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingMetersIdDeactivateParamSchema,
@@ -20344,14 +19601,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingMetersIdDeactivate(input, responder, ctx, next)
+        .postBillingMetersIdDeactivate(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingMetersIdDeactivateResponseValidator,
-          ),
+          handleResponse(ctx, postBillingMetersIdDeactivateResponseValidator),
         )
     },
   )
@@ -20398,7 +19651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingMetersIdEventSummaries",
     "/v1/billing/meters/:id/event_summaries",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getBillingMetersIdEventSummariesParamSchema,
@@ -20481,12 +19734,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingMetersIdEventSummaries(input, responder, ctx, next)
+        .getBillingMetersIdEventSummaries(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getBillingMetersIdEventSummariesResponseValidator,
           ),
         )
@@ -20503,7 +19755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingMetersIdReactivate",
     "/v1/billing/meters/:id/reactivate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingMetersIdReactivateParamSchema,
@@ -20532,14 +19784,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingMetersIdReactivate(input, responder, ctx, next)
+        .postBillingMetersIdReactivate(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingMetersIdReactivateResponseValidator,
-          ),
+          handleResponse(ctx, postBillingMetersIdReactivateResponseValidator),
         )
     },
   )
@@ -20580,7 +19828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingPortalConfigurations",
     "/v1/billing_portal/configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -20647,14 +19895,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingPortalConfigurations(input, responder, ctx, next)
+        .getBillingPortalConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getBillingPortalConfigurationsResponseValidator,
-          ),
+          handleResponse(ctx, getBillingPortalConfigurationsResponseValidator),
         )
     },
   )
@@ -20668,7 +19912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingPortalConfigurations",
     "/v1/billing_portal/configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -20693,14 +19937,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingPortalConfigurations(input, responder, ctx, next)
+        .postBillingPortalConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postBillingPortalConfigurationsResponseValidator,
-          ),
+          handleResponse(ctx, postBillingPortalConfigurationsResponseValidator),
         )
     },
   )
@@ -20727,7 +19967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getBillingPortalConfigurationsConfiguration",
     "/v1/billing_portal/configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getBillingPortalConfigurationsConfigurationParamSchema,
@@ -20763,17 +20003,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getBillingPortalConfigurationsConfiguration(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getBillingPortalConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getBillingPortalConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -20793,7 +20027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingPortalConfigurationsConfiguration",
     "/v1/billing_portal/configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postBillingPortalConfigurationsConfigurationParamSchema,
@@ -20822,17 +20056,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingPortalConfigurationsConfiguration(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postBillingPortalConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postBillingPortalConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -20847,7 +20075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postBillingPortalSessions",
     "/v1/billing_portal/sessions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -20872,11 +20100,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postBillingPortalSessions(input, responder, ctx, next)
+        .postBillingPortalSessions(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postBillingPortalSessionsResponseValidator),
-        )
+        .then(handleResponse(ctx, postBillingPortalSessionsResponseValidator))
     },
   )
 
@@ -20921,7 +20147,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCharges", "/v1/charges", async (ctx, next) => {
+  router.get("getCharges", "/v1/charges", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -21008,9 +20234,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCharges(input, responder, ctx, next)
+      .getCharges(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getChargesResponseValidator))
+      .then(handleResponse(ctx, getChargesResponseValidator))
   })
 
   const postChargesResponseValidator = responseValidationFactory(
@@ -21018,7 +20244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postCharges", "/v1/charges", async (ctx, next) => {
+  router.post("postCharges", "/v1/charges", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -21043,9 +20269,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postCharges(input, responder, ctx, next)
+      .postCharges(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postChargesResponseValidator))
+      .then(handleResponse(ctx, postChargesResponseValidator))
   })
 
   const getChargesSearchQuerySchema = z.object({
@@ -21077,7 +20303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getChargesSearch", "/v1/charges/search", async (ctx, next) => {
+  router.get("getChargesSearch", "/v1/charges/search", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -21134,9 +20360,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getChargesSearch(input, responder, ctx, next)
+      .getChargesSearch(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getChargesSearchResponseValidator))
+      .then(handleResponse(ctx, getChargesSearchResponseValidator))
   })
 
   const getChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
@@ -21155,7 +20381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
+  router.get("getChargesCharge", "/v1/charges/:charge", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getChargesChargeParamSchema,
@@ -21191,9 +20417,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getChargesCharge(input, responder, ctx, next)
+      .getChargesCharge(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getChargesChargeResponseValidator))
+      .then(handleResponse(ctx, getChargesChargeResponseValidator))
   })
 
   const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
@@ -21203,7 +20429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postChargesCharge", "/v1/charges/:charge", async (ctx, next) => {
+  router.post("postChargesCharge", "/v1/charges/:charge", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postChargesChargeParamSchema,
@@ -21232,9 +20458,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postChargesCharge(input, responder, ctx, next)
+      .postChargesCharge(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postChargesChargeResponseValidator))
+      .then(handleResponse(ctx, postChargesChargeResponseValidator))
   })
 
   const postChargesChargeCaptureParamSchema = z.object({
@@ -21249,7 +20475,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeCapture",
     "/v1/charges/:charge/capture",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeCaptureParamSchema,
@@ -21278,11 +20504,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeCapture(input, responder, ctx, next)
+        .postChargesChargeCapture(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postChargesChargeCaptureResponseValidator),
-        )
+        .then(handleResponse(ctx, postChargesChargeCaptureResponseValidator))
     },
   )
 
@@ -21307,7 +20531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getChargesChargeDispute",
     "/v1/charges/:charge/dispute",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getChargesChargeDisputeParamSchema,
@@ -21343,11 +20567,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getChargesChargeDispute(input, responder, ctx, next)
+        .getChargesChargeDispute(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getChargesChargeDisputeResponseValidator),
-        )
+        .then(handleResponse(ctx, getChargesChargeDisputeResponseValidator))
     },
   )
 
@@ -21363,7 +20585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeDispute",
     "/v1/charges/:charge/dispute",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeDisputeParamSchema,
@@ -21392,11 +20614,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeDispute(input, responder, ctx, next)
+        .postChargesChargeDispute(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postChargesChargeDisputeResponseValidator),
-        )
+        .then(handleResponse(ctx, postChargesChargeDisputeResponseValidator))
     },
   )
 
@@ -21410,7 +20630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeDisputeClose",
     "/v1/charges/:charge/dispute/close",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeDisputeCloseParamSchema,
@@ -21439,14 +20659,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeDisputeClose(input, responder, ctx, next)
+        .postChargesChargeDisputeClose(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postChargesChargeDisputeCloseResponseValidator,
-          ),
+          handleResponse(ctx, postChargesChargeDisputeCloseResponseValidator),
         )
     },
   )
@@ -21463,7 +20679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeRefund",
     "/v1/charges/:charge/refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundParamSchema,
@@ -21492,11 +20708,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeRefund(input, responder, ctx, next)
+        .postChargesChargeRefund(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postChargesChargeRefundResponseValidator),
-        )
+        .then(handleResponse(ctx, postChargesChargeRefundResponseValidator))
     },
   )
 
@@ -21532,7 +20746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getChargesChargeRefunds",
     "/v1/charges/:charge/refunds",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getChargesChargeRefundsParamSchema,
@@ -21591,11 +20805,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getChargesChargeRefunds(input, responder, ctx, next)
+        .getChargesChargeRefunds(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getChargesChargeRefundsResponseValidator),
-        )
+        .then(handleResponse(ctx, getChargesChargeRefundsResponseValidator))
     },
   )
 
@@ -21611,7 +20823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeRefunds",
     "/v1/charges/:charge/refunds",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundsParamSchema,
@@ -21640,11 +20852,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeRefunds(input, responder, ctx, next)
+        .postChargesChargeRefunds(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postChargesChargeRefundsResponseValidator),
-        )
+        .then(handleResponse(ctx, postChargesChargeRefundsResponseValidator))
     },
   )
 
@@ -21668,7 +20878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getChargesChargeRefundsRefund",
     "/v1/charges/:charge/refunds/:refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getChargesChargeRefundsRefundParamSchema,
@@ -21704,14 +20914,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getChargesChargeRefundsRefund(input, responder, ctx, next)
+        .getChargesChargeRefundsRefund(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getChargesChargeRefundsRefundResponseValidator,
-          ),
+          handleResponse(ctx, getChargesChargeRefundsRefundResponseValidator),
         )
     },
   )
@@ -21727,7 +20933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postChargesChargeRefundsRefund",
     "/v1/charges/:charge/refunds/:refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postChargesChargeRefundsRefundParamSchema,
@@ -21756,14 +20962,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postChargesChargeRefundsRefund(input, responder, ctx, next)
+        .postChargesChargeRefundsRefund(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postChargesChargeRefundsRefundResponseValidator,
-          ),
+          handleResponse(ctx, postChargesChargeRefundsRefundResponseValidator),
         )
     },
   )
@@ -21812,158 +21014,150 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getCheckoutSessions",
-    "/v1/checkout/sessions",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getCheckoutSessionsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "created",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {
-                  gt: {type: "number"},
-                  gte: {type: "number"},
-                  lt: {type: "number"},
-                  lte: {type: "number"},
-                },
+  router.get("getCheckoutSessions", "/v1/checkout/sessions", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getCheckoutSessionsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
               },
             },
-            {
-              name: "customer",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "customer_details",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "object", properties: {email: {type: "string"}}},
-            },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "payment_intent",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "payment_link",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "status",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "subscription",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+          {
+            name: "customer",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "customer_details",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "object", properties: {email: {type: "string"}}},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment_intent",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "payment_link",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "subscription",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_checkout_session[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_checkout_session[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getCheckoutSessions(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getCheckoutSessionsResponseValidator))
-    },
-  )
+    await implementation
+      .getCheckoutSessions(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getCheckoutSessionsResponseValidator))
+  })
 
   const postCheckoutSessionsResponseValidator = responseValidationFactory(
     [["200", s_checkout_session]],
     s_error,
   )
 
-  router.post(
-    "postCheckoutSessions",
-    "/v1/checkout/sessions",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostCheckoutSessionsRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postCheckoutSessions", "/v1/checkout/sessions", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostCheckoutSessionsRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_checkout_session>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_checkout_session>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postCheckoutSessions(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postCheckoutSessionsResponseValidator))
-    },
-  )
+    await implementation
+      .postCheckoutSessions(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postCheckoutSessionsResponseValidator))
+  })
 
   const getCheckoutSessionsSessionParamSchema = z.object({
     session: z.string().max(66),
@@ -21986,7 +21180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCheckoutSessionsSession",
     "/v1/checkout/sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCheckoutSessionsSessionParamSchema,
@@ -22022,15 +21216,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCheckoutSessionsSession(input, responder, ctx, next)
+        .getCheckoutSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getCheckoutSessionsSessionResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getCheckoutSessionsSessionResponseValidator))
     },
   )
 
@@ -22044,7 +21232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCheckoutSessionsSession",
     "/v1/checkout/sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCheckoutSessionsSessionParamSchema,
@@ -22073,15 +21261,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCheckoutSessionsSession(input, responder, ctx, next)
+        .postCheckoutSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postCheckoutSessionsSessionResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postCheckoutSessionsSessionResponseValidator))
     },
   )
 
@@ -22095,7 +21277,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCheckoutSessionsSessionExpire",
     "/v1/checkout/sessions/:session/expire",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCheckoutSessionsSessionExpireParamSchema,
@@ -22124,12 +21306,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCheckoutSessionsSessionExpire(input, responder, ctx, next)
+        .postCheckoutSessionsSessionExpire(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCheckoutSessionsSessionExpireResponseValidator,
           ),
         )
@@ -22171,7 +21352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCheckoutSessionsSessionLineItems",
     "/v1/checkout/sessions/:session/line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCheckoutSessionsSessionLineItemsParamSchema,
@@ -22230,12 +21411,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCheckoutSessionsSessionLineItems(input, responder, ctx, next)
+        .getCheckoutSessionsSessionLineItems(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCheckoutSessionsSessionLineItemsResponseValidator,
           ),
         )
@@ -22269,7 +21449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getClimateOrders", "/v1/climate/orders", async (ctx, next) => {
+  router.get("getClimateOrders", "/v1/climate/orders", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -22324,9 +21504,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getClimateOrders(input, responder, ctx, next)
+      .getClimateOrders(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getClimateOrdersResponseValidator))
+      .then(handleResponse(ctx, getClimateOrdersResponseValidator))
   })
 
   const postClimateOrdersResponseValidator = responseValidationFactory(
@@ -22334,7 +21514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postClimateOrders", "/v1/climate/orders", async (ctx, next) => {
+  router.post("postClimateOrders", "/v1/climate/orders", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -22359,9 +21539,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postClimateOrders(input, responder, ctx, next)
+      .postClimateOrders(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postClimateOrdersResponseValidator))
+      .then(handleResponse(ctx, postClimateOrdersResponseValidator))
   })
 
   const getClimateOrdersOrderParamSchema = z.object({
@@ -22385,7 +21565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getClimateOrdersOrder",
     "/v1/climate/orders/:order",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getClimateOrdersOrderParamSchema,
@@ -22421,9 +21601,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getClimateOrdersOrder(input, responder, ctx, next)
+        .getClimateOrdersOrder(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getClimateOrdersOrderResponseValidator))
+        .then(handleResponse(ctx, getClimateOrdersOrderResponseValidator))
     },
   )
 
@@ -22439,7 +21619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postClimateOrdersOrder",
     "/v1/climate/orders/:order",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postClimateOrdersOrderParamSchema,
@@ -22468,11 +21648,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postClimateOrdersOrder(input, responder, ctx, next)
+        .postClimateOrdersOrder(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postClimateOrdersOrderResponseValidator),
-        )
+        .then(handleResponse(ctx, postClimateOrdersOrderResponseValidator))
     },
   )
 
@@ -22486,7 +21664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postClimateOrdersOrderCancel",
     "/v1/climate/orders/:order/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postClimateOrdersOrderCancelParamSchema,
@@ -22515,14 +21693,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postClimateOrdersOrderCancel(input, responder, ctx, next)
+        .postClimateOrdersOrderCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postClimateOrdersOrderCancelResponseValidator,
-          ),
+          handleResponse(ctx, postClimateOrdersOrderCancelResponseValidator),
         )
     },
   )
@@ -22554,69 +21728,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getClimateProducts",
-    "/v1/climate/products",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getClimateProductsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getClimateProducts", "/v1/climate/products", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getClimateProductsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_climate_product[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_climate_product[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getClimateProducts(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getClimateProductsResponseValidator))
-    },
-  )
+    await implementation
+      .getClimateProducts(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getClimateProductsResponseValidator))
+  })
 
   const getClimateProductsProductParamSchema = z.object({
     product: z.string().max(5000),
@@ -22639,7 +21809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getClimateProductsProduct",
     "/v1/climate/products/:product",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getClimateProductsProductParamSchema,
@@ -22675,11 +21845,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getClimateProductsProduct(input, responder, ctx, next)
+        .getClimateProductsProduct(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getClimateProductsProductResponseValidator),
-        )
+        .then(handleResponse(ctx, getClimateProductsProductResponseValidator))
     },
   )
 
@@ -22710,69 +21878,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getClimateSuppliers",
-    "/v1/climate/suppliers",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getClimateSuppliersQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getClimateSuppliers", "/v1/climate/suppliers", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getClimateSuppliersQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_climate_supplier[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_climate_supplier[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getClimateSuppliers(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getClimateSuppliersResponseValidator))
-    },
-  )
+    await implementation
+      .getClimateSuppliers(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getClimateSuppliersResponseValidator))
+  })
 
   const getClimateSuppliersSupplierParamSchema = z.object({
     supplier: z.string().max(5000),
@@ -22793,7 +21957,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getClimateSuppliersSupplier",
     "/v1/climate/suppliers/:supplier",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getClimateSuppliersSupplierParamSchema,
@@ -22829,15 +21993,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getClimateSuppliersSupplier(input, responder, ctx, next)
+        .getClimateSuppliersSupplier(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getClimateSuppliersSupplierResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getClimateSuppliersSupplierResponseValidator))
     },
   )
 
@@ -22860,7 +22018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getConfirmationTokensConfirmationToken",
     "/v1/confirmation_tokens/:confirmation_token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getConfirmationTokensConfirmationTokenParamSchema,
@@ -22896,12 +22054,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getConfirmationTokensConfirmationToken(input, responder, ctx, next)
+        .getConfirmationTokensConfirmationToken(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getConfirmationTokensConfirmationTokenResponseValidator,
           ),
         )
@@ -22935,7 +22092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCountrySpecs", "/v1/country_specs", async (ctx, next) => {
+  router.get("getCountrySpecs", "/v1/country_specs", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -22990,9 +22147,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCountrySpecs(input, responder, ctx, next)
+      .getCountrySpecs(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCountrySpecsResponseValidator))
+      .then(handleResponse(ctx, getCountrySpecsResponseValidator))
   })
 
   const getCountrySpecsCountryParamSchema = z.object({
@@ -23016,7 +22173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCountrySpecsCountry",
     "/v1/country_specs/:country",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCountrySpecsCountryParamSchema,
@@ -23052,11 +22209,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCountrySpecsCountry(input, responder, ctx, next)
+        .getCountrySpecsCountry(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getCountrySpecsCountryResponseValidator),
-        )
+        .then(handleResponse(ctx, getCountrySpecsCountryResponseValidator))
     },
   )
 
@@ -23098,7 +22253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCoupons", "/v1/coupons", async (ctx, next) => {
+  router.get("getCoupons", "/v1/coupons", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -23167,9 +22322,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCoupons(input, responder, ctx, next)
+      .getCoupons(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCouponsResponseValidator))
+      .then(handleResponse(ctx, getCouponsResponseValidator))
   })
 
   const postCouponsResponseValidator = responseValidationFactory(
@@ -23177,7 +22332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postCoupons", "/v1/coupons", async (ctx, next) => {
+  router.post("postCoupons", "/v1/coupons", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -23202,9 +22357,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postCoupons(input, responder, ctx, next)
+      .postCoupons(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postCouponsResponseValidator))
+      .then(handleResponse(ctx, postCouponsResponseValidator))
   })
 
   const deleteCouponsCouponParamSchema = z.object({
@@ -23216,39 +22371,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.delete(
-    "deleteCouponsCoupon",
-    "/v1/coupons/:coupon",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          deleteCouponsCouponParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deleteCouponsCoupon", "/v1/coupons/:coupon", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        deleteCouponsCouponParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_deleted_coupon>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_deleted_coupon>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deleteCouponsCoupon(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteCouponsCouponResponseValidator))
-    },
-  )
+    await implementation
+      .deleteCouponsCoupon(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deleteCouponsCouponResponseValidator))
+  })
 
   const getCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
@@ -23266,7 +22417,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
+  router.get("getCouponsCoupon", "/v1/coupons/:coupon", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getCouponsCouponParamSchema,
@@ -23302,9 +22453,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCouponsCoupon(input, responder, ctx, next)
+      .getCouponsCoupon(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCouponsCouponResponseValidator))
+      .then(handleResponse(ctx, getCouponsCouponResponseValidator))
   })
 
   const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
@@ -23314,7 +22465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postCouponsCoupon", "/v1/coupons/:coupon", async (ctx, next) => {
+  router.post("postCouponsCoupon", "/v1/coupons/:coupon", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postCouponsCouponParamSchema,
@@ -23343,9 +22494,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postCouponsCoupon(input, responder, ctx, next)
+      .postCouponsCoupon(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postCouponsCouponResponseValidator))
+      .then(handleResponse(ctx, postCouponsCouponResponseValidator))
   })
 
   const getCreditNotesQuerySchema = z.object({
@@ -23388,7 +22539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCreditNotes", "/v1/credit_notes", async (ctx, next) => {
+  router.get("getCreditNotes", "/v1/credit_notes", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -23469,9 +22620,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCreditNotes(input, responder, ctx, next)
+      .getCreditNotes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCreditNotesResponseValidator))
+      .then(handleResponse(ctx, getCreditNotesResponseValidator))
   })
 
   const postCreditNotesResponseValidator = responseValidationFactory(
@@ -23479,7 +22630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postCreditNotes", "/v1/credit_notes", async (ctx, next) => {
+  router.post("postCreditNotes", "/v1/credit_notes", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -23504,9 +22655,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postCreditNotes(input, responder, ctx, next)
+      .postCreditNotes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postCreditNotesResponseValidator))
+      .then(handleResponse(ctx, postCreditNotesResponseValidator))
   })
 
   const getCreditNotesPreviewQuerySchema = z.object({
@@ -23588,7 +22739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCreditNotesPreview",
     "/v1/credit_notes/preview",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -23736,9 +22887,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCreditNotesPreview(input, responder, ctx, next)
+        .getCreditNotesPreview(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getCreditNotesPreviewResponseValidator))
+        .then(handleResponse(ctx, getCreditNotesPreviewResponseValidator))
     },
   )
 
@@ -23834,7 +22985,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCreditNotesPreviewLines",
     "/v1/credit_notes/preview/lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -24005,15 +23156,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCreditNotesPreviewLines(input, responder, ctx, next)
+        .getCreditNotesPreviewLines(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getCreditNotesPreviewLinesResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getCreditNotesPreviewLinesResponseValidator))
     },
   )
 
@@ -24052,7 +23197,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCreditNotesCreditNoteLines",
     "/v1/credit_notes/:credit_note/lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCreditNotesCreditNoteLinesParamSchema,
@@ -24111,14 +23256,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCreditNotesCreditNoteLines(input, responder, ctx, next)
+        .getCreditNotesCreditNoteLines(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getCreditNotesCreditNoteLinesResponseValidator,
-          ),
+          handleResponse(ctx, getCreditNotesCreditNoteLinesResponseValidator),
         )
     },
   )
@@ -24139,7 +23280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCreditNotesId", "/v1/credit_notes/:id", async (ctx, next) => {
+  router.get("getCreditNotesId", "/v1/credit_notes/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getCreditNotesIdParamSchema,
@@ -24175,9 +23316,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCreditNotesId(input, responder, ctx, next)
+      .getCreditNotesId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCreditNotesIdResponseValidator))
+      .then(handleResponse(ctx, getCreditNotesIdResponseValidator))
   })
 
   const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
@@ -24187,43 +23328,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postCreditNotesId",
-    "/v1/credit_notes/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postCreditNotesIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostCreditNotesIdRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postCreditNotesId", "/v1/credit_notes/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postCreditNotesIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostCreditNotesIdRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_credit_note>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_credit_note>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postCreditNotesId(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postCreditNotesIdResponseValidator))
-    },
-  )
+    await implementation
+      .postCreditNotesId(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postCreditNotesIdResponseValidator))
+  })
 
   const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
@@ -24235,7 +23372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCreditNotesIdVoid",
     "/v1/credit_notes/:id/void",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCreditNotesIdVoidParamSchema,
@@ -24264,9 +23401,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCreditNotesIdVoid(input, responder, ctx, next)
+        .postCreditNotesIdVoid(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postCreditNotesIdVoidResponseValidator))
+        .then(handleResponse(ctx, postCreditNotesIdVoidResponseValidator))
     },
   )
 
@@ -24275,39 +23412,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postCustomerSessions",
-    "/v1/customer_sessions",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostCustomerSessionsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postCustomerSessions", "/v1/customer_sessions", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostCustomerSessionsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_customer_session>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_customer_session>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postCustomerSessions(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postCustomerSessionsResponseValidator))
-    },
-  )
+    await implementation
+      .postCustomerSessions(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postCustomerSessionsResponseValidator))
+  })
 
   const getCustomersQuerySchema = z.object({
     created: z
@@ -24349,7 +23482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getCustomers", "/v1/customers", async (ctx, next) => {
+  router.get("getCustomers", "/v1/customers", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -24430,9 +23563,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getCustomers(input, responder, ctx, next)
+      .getCustomers(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getCustomersResponseValidator))
+      .then(handleResponse(ctx, getCustomersResponseValidator))
   })
 
   const postCustomersResponseValidator = responseValidationFactory(
@@ -24440,7 +23573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postCustomers", "/v1/customers", async (ctx, next) => {
+  router.post("postCustomers", "/v1/customers", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -24465,9 +23598,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postCustomers(input, responder, ctx, next)
+      .postCustomers(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postCustomersResponseValidator))
+      .then(handleResponse(ctx, postCustomersResponseValidator))
   })
 
   const getCustomersSearchQuerySchema = z.object({
@@ -24499,71 +23632,67 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getCustomersSearch",
-    "/v1/customers/search",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getCustomersSearchQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "page",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "query",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getCustomersSearch", "/v1/customers/search", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getCustomersSearchQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "page",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "query",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_customer[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_customer[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getCustomersSearch(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getCustomersSearchResponseValidator))
-    },
-  )
+    await implementation
+      .getCustomersSearch(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getCustomersSearchResponseValidator))
+  })
 
   const deleteCustomersCustomerParamSchema = z.object({
     customer: z.string().max(5000),
@@ -24577,7 +23706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomer",
     "/v1/customers/:customer",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerParamSchema,
@@ -24602,11 +23731,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomer(input, responder, ctx, next)
+        .deleteCustomersCustomer(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, deleteCustomersCustomerResponseValidator),
-        )
+        .then(handleResponse(ctx, deleteCustomersCustomerResponseValidator))
     },
   )
 
@@ -24628,50 +23755,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getCustomersCustomer",
-    "/v1/customers/:customer",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getCustomersCustomerParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getCustomersCustomerQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getCustomersCustomer", "/v1/customers/:customer", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getCustomersCustomerParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getCustomersCustomerQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_customer | t_deleted_customer>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_customer | t_deleted_customer>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getCustomersCustomer(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getCustomersCustomerResponseValidator))
-    },
-  )
+    await implementation
+      .getCustomersCustomer(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getCustomersCustomerResponseValidator))
+  })
 
   const postCustomersCustomerParamSchema = z.object({
     customer: z.string().max(5000),
@@ -24685,7 +23808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomer",
     "/v1/customers/:customer",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerParamSchema,
@@ -24714,9 +23837,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomer(input, responder, ctx, next)
+        .postCustomersCustomer(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postCustomersCustomerResponseValidator))
+        .then(handleResponse(ctx, postCustomersCustomerResponseValidator))
     },
   )
 
@@ -24755,7 +23878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerBalanceTransactions",
     "/v1/customers/:customer/balance_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsParamSchema,
@@ -24814,12 +23937,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerBalanceTransactions(input, responder, ctx, next)
+        .getCustomersCustomerBalanceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerBalanceTransactionsResponseValidator,
           ),
         )
@@ -24839,7 +23961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerBalanceTransactions",
     "/v1/customers/:customer/balance_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsParamSchema,
@@ -24868,12 +23990,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerBalanceTransactions(input, responder, ctx, next)
+        .postCustomersCustomerBalanceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerBalanceTransactionsResponseValidator,
           ),
         )
@@ -24902,7 +24023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerBalanceTransactionsTransaction",
     "/v1/customers/:customer/balance_transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBalanceTransactionsTransactionParamSchema,
@@ -24942,13 +24063,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerBalanceTransactionsTransactionResponseValidator,
           ),
         )
@@ -24970,7 +24089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerBalanceTransactionsTransaction",
     "/v1/customers/:customer/balance_transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBalanceTransactionsTransactionParamSchema,
@@ -25003,13 +24122,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerBalanceTransactionsTransactionResponseValidator,
           ),
         )
@@ -25051,7 +24168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerBankAccounts",
     "/v1/customers/:customer/bank_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsParamSchema,
@@ -25110,12 +24227,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerBankAccounts(input, responder, ctx, next)
+        .getCustomersCustomerBankAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerBankAccountsResponseValidator,
           ),
         )
@@ -25132,7 +24248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerBankAccounts",
     "/v1/customers/:customer/bank_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsParamSchema,
@@ -25161,12 +24277,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerBankAccounts(input, responder, ctx, next)
+        .postCustomersCustomerBankAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerBankAccountsResponseValidator,
           ),
         )
@@ -25192,7 +24307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerBankAccountsId",
     "/v1/customers/:customer/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerBankAccountsIdParamSchema,
@@ -25223,12 +24338,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomerBankAccountsId(input, responder, ctx, next)
+        .deleteCustomersCustomerBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteCustomersCustomerBankAccountsIdResponseValidator,
           ),
         )
@@ -25255,7 +24369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerBankAccountsId",
     "/v1/customers/:customer/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerBankAccountsIdParamSchema,
@@ -25291,12 +24405,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerBankAccountsId(input, responder, ctx, next)
+        .getCustomersCustomerBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerBankAccountsIdResponseValidator,
           ),
         )
@@ -25326,7 +24439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerBankAccountsId",
     "/v1/customers/:customer/bank_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdParamSchema,
@@ -25355,12 +24468,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerBankAccountsId(input, responder, ctx, next)
+        .postCustomersCustomerBankAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerBankAccountsIdResponseValidator,
           ),
         )
@@ -25378,7 +24490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerBankAccountsIdVerify",
     "/v1/customers/:customer/bank_accounts/:id/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerBankAccountsIdVerifyParamSchema,
@@ -25407,12 +24519,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerBankAccountsIdVerify(input, responder, ctx, next)
+        .postCustomersCustomerBankAccountsIdVerify(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerBankAccountsIdVerifyResponseValidator,
           ),
         )
@@ -25453,7 +24564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerCards",
     "/v1/customers/:customer/cards",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCardsParamSchema,
@@ -25512,11 +24623,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerCards(input, responder, ctx, next)
+        .getCustomersCustomerCards(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getCustomersCustomerCardsResponseValidator),
-        )
+        .then(handleResponse(ctx, getCustomersCustomerCardsResponseValidator))
     },
   )
 
@@ -25532,7 +24641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerCards",
     "/v1/customers/:customer/cards",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCardsParamSchema,
@@ -25561,15 +24670,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerCards(input, responder, ctx, next)
+        .postCustomersCustomerCards(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postCustomersCustomerCardsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postCustomersCustomerCardsResponseValidator))
     },
   )
 
@@ -25592,7 +24695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerCardsId",
     "/v1/customers/:customer/cards/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerCardsIdParamSchema,
@@ -25623,14 +24726,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomerCardsId(input, responder, ctx, next)
+        .deleteCustomersCustomerCardsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteCustomersCustomerCardsIdResponseValidator,
-          ),
+          handleResponse(ctx, deleteCustomersCustomerCardsIdResponseValidator),
         )
     },
   )
@@ -25655,7 +24754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerCardsId",
     "/v1/customers/:customer/cards/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCardsIdParamSchema,
@@ -25691,15 +24790,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerCardsId(input, responder, ctx, next)
+        .getCustomersCustomerCardsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerCardsIdResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getCustomersCustomerCardsIdResponseValidator))
     },
   )
 
@@ -25726,7 +24819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerCardsId",
     "/v1/customers/:customer/cards/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCardsIdParamSchema,
@@ -25755,14 +24848,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerCardsId(input, responder, ctx, next)
+        .postCustomersCustomerCardsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postCustomersCustomerCardsIdResponseValidator,
-          ),
+          handleResponse(ctx, postCustomersCustomerCardsIdResponseValidator),
         )
     },
   )
@@ -25786,7 +24875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerCashBalance",
     "/v1/customers/:customer/cash_balance",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceParamSchema,
@@ -25822,14 +24911,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerCashBalance(input, responder, ctx, next)
+        .getCustomersCustomerCashBalance(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerCashBalanceResponseValidator,
-          ),
+          handleResponse(ctx, getCustomersCustomerCashBalanceResponseValidator),
         )
     },
   )
@@ -25844,7 +24929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerCashBalance",
     "/v1/customers/:customer/cash_balance",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerCashBalanceParamSchema,
@@ -25873,12 +24958,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerCashBalance(input, responder, ctx, next)
+        .postCustomersCustomerCashBalance(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerCashBalanceResponseValidator,
           ),
         )
@@ -25920,7 +25004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerCashBalanceTransactions",
     "/v1/customers/:customer/cash_balance_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsParamSchema,
@@ -25979,17 +25063,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerCashBalanceTransactions(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getCustomersCustomerCashBalanceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerCashBalanceTransactionsResponseValidator,
           ),
         )
@@ -26018,7 +25096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerCashBalanceTransactionsTransaction",
     "/v1/customers/:customer/cash_balance_transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
@@ -26060,13 +25138,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator,
           ),
         )
@@ -26083,7 +25159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerDiscount",
     "/v1/customers/:customer/discount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerDiscountParamSchema,
@@ -26108,14 +25184,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomerDiscount(input, responder, ctx, next)
+        .deleteCustomersCustomerDiscount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteCustomersCustomerDiscountResponseValidator,
-          ),
+          handleResponse(ctx, deleteCustomersCustomerDiscountResponseValidator),
         )
     },
   )
@@ -26139,7 +25211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerDiscount",
     "/v1/customers/:customer/discount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerDiscountParamSchema,
@@ -26175,14 +25247,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerDiscount(input, responder, ctx, next)
+        .getCustomersCustomerDiscount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerDiscountResponseValidator,
-          ),
+          handleResponse(ctx, getCustomersCustomerDiscountResponseValidator),
         )
     },
   )
@@ -26197,7 +25265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerFundingInstructions",
     "/v1/customers/:customer/funding_instructions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerFundingInstructionsParamSchema,
@@ -26226,12 +25294,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerFundingInstructions(input, responder, ctx, next)
+        .postCustomersCustomerFundingInstructions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerFundingInstructionsResponseValidator,
           ),
         )
@@ -26326,7 +25393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerPaymentMethods",
     "/v1/customers/:customer/payment_methods",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsParamSchema,
@@ -26397,12 +25464,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerPaymentMethods(input, responder, ctx, next)
+        .getCustomersCustomerPaymentMethods(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerPaymentMethodsResponseValidator,
           ),
         )
@@ -26429,7 +25495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerPaymentMethodsPaymentMethod",
     "/v1/customers/:customer/payment_methods/:payment_method",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
@@ -26465,17 +25531,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerPaymentMethodsPaymentMethod(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getCustomersCustomerPaymentMethodsPaymentMethod(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator,
           ),
         )
@@ -26524,7 +25584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerSources",
     "/v1/customers/:customer/sources",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSourcesParamSchema,
@@ -26589,15 +25649,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerSources(input, responder, ctx, next)
+        .getCustomersCustomerSources(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerSourcesResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getCustomersCustomerSourcesResponseValidator))
     },
   )
 
@@ -26611,7 +25665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerSources",
     "/v1/customers/:customer/sources",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesParamSchema,
@@ -26640,14 +25694,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerSources(input, responder, ctx, next)
+        .postCustomersCustomerSources(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postCustomersCustomerSourcesResponseValidator,
-          ),
+          handleResponse(ctx, postCustomersCustomerSourcesResponseValidator),
         )
     },
   )
@@ -26671,7 +25721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerSourcesId",
     "/v1/customers/:customer/sources/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSourcesIdParamSchema,
@@ -26702,12 +25752,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomerSourcesId(input, responder, ctx, next)
+        .deleteCustomersCustomerSourcesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteCustomersCustomerSourcesIdResponseValidator,
           ),
         )
@@ -26734,7 +25783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerSourcesId",
     "/v1/customers/:customer/sources/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSourcesIdParamSchema,
@@ -26770,14 +25819,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerSourcesId(input, responder, ctx, next)
+        .getCustomersCustomerSourcesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerSourcesIdResponseValidator,
-          ),
+          handleResponse(ctx, getCustomersCustomerSourcesIdResponseValidator),
         )
     },
   )
@@ -26805,7 +25850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerSourcesId",
     "/v1/customers/:customer/sources/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdParamSchema,
@@ -26834,14 +25879,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerSourcesId(input, responder, ctx, next)
+        .postCustomersCustomerSourcesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postCustomersCustomerSourcesIdResponseValidator,
-          ),
+          handleResponse(ctx, postCustomersCustomerSourcesIdResponseValidator),
         )
     },
   )
@@ -26857,7 +25898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerSourcesIdVerify",
     "/v1/customers/:customer/sources/:id/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSourcesIdVerifyParamSchema,
@@ -26886,12 +25927,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerSourcesIdVerify(input, responder, ctx, next)
+        .postCustomersCustomerSourcesIdVerify(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerSourcesIdVerifyResponseValidator,
           ),
         )
@@ -26933,7 +25973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerSubscriptions",
     "/v1/customers/:customer/subscriptions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsParamSchema,
@@ -26992,12 +26032,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerSubscriptions(input, responder, ctx, next)
+        .getCustomersCustomerSubscriptions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerSubscriptionsResponseValidator,
           ),
         )
@@ -27014,7 +26053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerSubscriptions",
     "/v1/customers/:customer/subscriptions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsParamSchema,
@@ -27043,12 +26082,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerSubscriptions(input, responder, ctx, next)
+        .postCustomersCustomerSubscriptions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerSubscriptionsResponseValidator,
           ),
         )
@@ -27067,7 +26105,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerSubscriptionsSubscriptionExposedId",
     "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -27100,13 +26138,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -27135,7 +26171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerSubscriptionsSubscriptionExposedId",
     "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -27175,13 +26211,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -27200,7 +26234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerSubscriptionsSubscriptionExposedId",
     "/v1/customers/:customer/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -27233,13 +26267,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -27258,7 +26290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount",
     "/v1/customers/:customer/subscriptions/:subscription_exposed_id/discount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
@@ -27287,13 +26319,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator,
           ),
         )
@@ -27322,7 +26352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount",
     "/v1/customers/:customer/subscriptions/:subscription_exposed_id/discount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
@@ -27362,13 +26392,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator,
           ),
         )
@@ -27409,7 +26437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerTaxIds",
     "/v1/customers/:customer/tax_ids",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsParamSchema,
@@ -27468,15 +26496,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerTaxIds(input, responder, ctx, next)
+        .getCustomersCustomerTaxIds(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerTaxIdsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getCustomersCustomerTaxIdsResponseValidator))
     },
   )
 
@@ -27490,7 +26512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postCustomersCustomerTaxIds",
     "/v1/customers/:customer/tax_ids",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postCustomersCustomerTaxIdsParamSchema,
@@ -27519,15 +26541,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postCustomersCustomerTaxIds(input, responder, ctx, next)
+        .postCustomersCustomerTaxIds(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postCustomersCustomerTaxIdsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postCustomersCustomerTaxIdsResponseValidator))
     },
   )
 
@@ -27542,7 +26558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteCustomersCustomerTaxIdsId",
     "/v1/customers/:customer/tax_ids/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteCustomersCustomerTaxIdsIdParamSchema,
@@ -27567,14 +26583,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteCustomersCustomerTaxIdsId(input, responder, ctx, next)
+        .deleteCustomersCustomerTaxIdsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteCustomersCustomerTaxIdsIdResponseValidator,
-          ),
+          handleResponse(ctx, deleteCustomersCustomerTaxIdsIdResponseValidator),
         )
     },
   )
@@ -27599,7 +26611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getCustomersCustomerTaxIdsId",
     "/v1/customers/:customer/tax_ids/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getCustomersCustomerTaxIdsIdParamSchema,
@@ -27635,14 +26647,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getCustomersCustomerTaxIdsId(input, responder, ctx, next)
+        .getCustomersCustomerTaxIdsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getCustomersCustomerTaxIdsIdResponseValidator,
-          ),
+          handleResponse(ctx, getCustomersCustomerTaxIdsIdResponseValidator),
         )
     },
   )
@@ -27687,7 +26695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getDisputes", "/v1/disputes", async (ctx, next) => {
+  router.get("getDisputes", "/v1/disputes", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -27768,9 +26776,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getDisputes(input, responder, ctx, next)
+      .getDisputes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getDisputesResponseValidator))
+      .then(handleResponse(ctx, getDisputesResponseValidator))
   })
 
   const getDisputesDisputeParamSchema = z.object({
@@ -27791,50 +26799,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getDisputesDispute",
-    "/v1/disputes/:dispute",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getDisputesDisputeParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getDisputesDisputeQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getDisputesDispute", "/v1/disputes/:dispute", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getDisputesDisputeParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getDisputesDisputeQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_dispute>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_dispute>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getDisputesDispute(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getDisputesDisputeResponseValidator))
-    },
-  )
+    await implementation
+      .getDisputesDispute(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getDisputesDisputeResponseValidator))
+  })
 
   const postDisputesDisputeParamSchema = z.object({
     dispute: z.string().max(5000),
@@ -27845,43 +26849,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postDisputesDispute",
-    "/v1/disputes/:dispute",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postDisputesDisputeParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostDisputesDisputeRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postDisputesDispute", "/v1/disputes/:dispute", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postDisputesDisputeParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostDisputesDisputeRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_dispute>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_dispute>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postDisputesDispute(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postDisputesDisputeResponseValidator))
-    },
-  )
+    await implementation
+      .postDisputesDispute(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postDisputesDisputeResponseValidator))
+  })
 
   const postDisputesDisputeCloseParamSchema = z.object({
     dispute: z.string().max(5000),
@@ -27895,7 +26895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postDisputesDisputeClose",
     "/v1/disputes/:dispute/close",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postDisputesDisputeCloseParamSchema,
@@ -27924,11 +26924,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postDisputesDisputeClose(input, responder, ctx, next)
+        .postDisputesDisputeClose(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postDisputesDisputeCloseResponseValidator),
-        )
+        .then(handleResponse(ctx, postDisputesDisputeCloseResponseValidator))
     },
   )
 
@@ -27964,7 +26962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getEntitlementsActiveEntitlements",
     "/v1/entitlements/active_entitlements",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -28025,12 +27023,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getEntitlementsActiveEntitlements(input, responder, ctx, next)
+        .getEntitlementsActiveEntitlements(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getEntitlementsActiveEntitlementsResponseValidator,
           ),
         )
@@ -28059,7 +27056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getEntitlementsActiveEntitlementsId",
     "/v1/entitlements/active_entitlements/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getEntitlementsActiveEntitlementsIdParamSchema,
@@ -28095,12 +27092,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getEntitlementsActiveEntitlementsId(input, responder, ctx, next)
+        .getEntitlementsActiveEntitlementsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getEntitlementsActiveEntitlementsIdResponseValidator,
           ),
         )
@@ -28142,7 +27138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getEntitlementsFeatures",
     "/v1/entitlements/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -28209,11 +27205,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getEntitlementsFeatures(input, responder, ctx, next)
+        .getEntitlementsFeatures(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getEntitlementsFeaturesResponseValidator),
-        )
+        .then(handleResponse(ctx, getEntitlementsFeaturesResponseValidator))
     },
   )
 
@@ -28225,7 +27219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postEntitlementsFeatures",
     "/v1/entitlements/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -28250,11 +27244,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postEntitlementsFeatures(input, responder, ctx, next)
+        .postEntitlementsFeatures(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postEntitlementsFeaturesResponseValidator),
-        )
+        .then(handleResponse(ctx, postEntitlementsFeaturesResponseValidator))
     },
   )
 
@@ -28279,7 +27271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getEntitlementsFeaturesId",
     "/v1/entitlements/features/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getEntitlementsFeaturesIdParamSchema,
@@ -28315,11 +27307,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getEntitlementsFeaturesId(input, responder, ctx, next)
+        .getEntitlementsFeaturesId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getEntitlementsFeaturesIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getEntitlementsFeaturesIdResponseValidator))
     },
   )
 
@@ -28335,7 +27325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postEntitlementsFeaturesId",
     "/v1/entitlements/features/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postEntitlementsFeaturesIdParamSchema,
@@ -28364,15 +27354,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postEntitlementsFeaturesId(input, responder, ctx, next)
+        .postEntitlementsFeaturesId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postEntitlementsFeaturesIdResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postEntitlementsFeaturesIdResponseValidator))
     },
   )
 
@@ -28381,7 +27365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postEphemeralKeys", "/v1/ephemeral_keys", async (ctx, next) => {
+  router.post("postEphemeralKeys", "/v1/ephemeral_keys", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -28406,9 +27390,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postEphemeralKeys(input, responder, ctx, next)
+      .postEphemeralKeys(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postEphemeralKeysResponseValidator))
+      .then(handleResponse(ctx, postEphemeralKeysResponseValidator))
   })
 
   const deleteEphemeralKeysKeyParamSchema = z.object({
@@ -28423,7 +27407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteEphemeralKeysKey",
     "/v1/ephemeral_keys/:key",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteEphemeralKeysKeyParamSchema,
@@ -28452,11 +27436,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteEphemeralKeysKey(input, responder, ctx, next)
+        .deleteEphemeralKeysKey(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, deleteEphemeralKeysKeyResponseValidator),
-        )
+        .then(handleResponse(ctx, deleteEphemeralKeysKeyResponseValidator))
     },
   )
 
@@ -28506,7 +27488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getEvents", "/v1/events", async (ctx, next) => {
+  router.get("getEvents", "/v1/events", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -28593,9 +27575,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getEvents(input, responder, ctx, next)
+      .getEvents(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getEventsResponseValidator))
+      .then(handleResponse(ctx, getEventsResponseValidator))
   })
 
   const getEventsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -28614,7 +27596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getEventsId", "/v1/events/:id", async (ctx, next) => {
+  router.get("getEventsId", "/v1/events/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getEventsIdParamSchema,
@@ -28650,9 +27632,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getEventsId(input, responder, ctx, next)
+      .getEventsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getEventsIdResponseValidator))
+      .then(handleResponse(ctx, getEventsIdResponseValidator))
   })
 
   const getExchangeRatesQuerySchema = z.object({
@@ -28682,7 +27664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getExchangeRates", "/v1/exchange_rates", async (ctx, next) => {
+  router.get("getExchangeRates", "/v1/exchange_rates", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -28737,9 +27719,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getExchangeRates(input, responder, ctx, next)
+      .getExchangeRates(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getExchangeRatesResponseValidator))
+      .then(handleResponse(ctx, getExchangeRatesResponseValidator))
   })
 
   const getExchangeRatesRateIdParamSchema = z.object({
@@ -28763,7 +27745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getExchangeRatesRateId",
     "/v1/exchange_rates/:rate_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getExchangeRatesRateIdParamSchema,
@@ -28799,11 +27781,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getExchangeRatesRateId(input, responder, ctx, next)
+        .getExchangeRatesRateId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getExchangeRatesRateIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getExchangeRatesRateIdResponseValidator))
     },
   )
 
@@ -28817,7 +27797,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postExternalAccountsId",
     "/v1/external_accounts/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postExternalAccountsIdParamSchema,
@@ -28846,11 +27826,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postExternalAccountsId(input, responder, ctx, next)
+        .postExternalAccountsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postExternalAccountsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, postExternalAccountsIdResponseValidator))
     },
   )
 
@@ -28894,7 +27872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getFileLinks", "/v1/file_links", async (ctx, next) => {
+  router.get("getFileLinks", "/v1/file_links", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -28975,9 +27953,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getFileLinks(input, responder, ctx, next)
+      .getFileLinks(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getFileLinksResponseValidator))
+      .then(handleResponse(ctx, getFileLinksResponseValidator))
   })
 
   const postFileLinksResponseValidator = responseValidationFactory(
@@ -28985,7 +27963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postFileLinks", "/v1/file_links", async (ctx, next) => {
+  router.post("postFileLinks", "/v1/file_links", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -29010,9 +27988,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postFileLinks(input, responder, ctx, next)
+      .postFileLinks(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postFileLinksResponseValidator))
+      .then(handleResponse(ctx, postFileLinksResponseValidator))
   })
 
   const getFileLinksLinkParamSchema = z.object({link: z.string()})
@@ -29031,7 +28009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getFileLinksLink", "/v1/file_links/:link", async (ctx, next) => {
+  router.get("getFileLinksLink", "/v1/file_links/:link", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getFileLinksLinkParamSchema,
@@ -29067,9 +28045,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getFileLinksLink(input, responder, ctx, next)
+      .getFileLinksLink(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getFileLinksLinkResponseValidator))
+      .then(handleResponse(ctx, getFileLinksLinkResponseValidator))
   })
 
   const postFileLinksLinkParamSchema = z.object({link: z.string()})
@@ -29079,43 +28057,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postFileLinksLink",
-    "/v1/file_links/:link",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postFileLinksLinkParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostFileLinksLinkRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postFileLinksLink", "/v1/file_links/:link", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postFileLinksLinkParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostFileLinksLinkRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_file_link>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_file_link>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postFileLinksLink(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postFileLinksLinkResponseValidator))
-    },
-  )
+    await implementation
+      .postFileLinksLink(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postFileLinksLinkResponseValidator))
+  })
 
   const getFilesQuerySchema = z.object({
     created: z
@@ -29176,7 +28150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getFiles", "/v1/files", async (ctx, next) => {
+  router.get("getFiles", "/v1/files", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -29251,9 +28225,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getFiles(input, responder, ctx, next)
+      .getFiles(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getFilesResponseValidator))
+      .then(handleResponse(ctx, getFilesResponseValidator))
   })
 
   const postFilesResponseValidator = responseValidationFactory(
@@ -29261,7 +28235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postFiles", "/v1/files", async (ctx, next) => {
+  router.post("postFiles", "/v1/files", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -29287,9 +28261,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postFiles(input, responder, ctx, next)
+      .postFiles(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postFilesResponseValidator))
+      .then(handleResponse(ctx, postFilesResponseValidator))
   })
 
   const getFilesFileParamSchema = z.object({file: z.string().max(5000)})
@@ -29308,7 +28282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getFilesFile", "/v1/files/:file", async (ctx, next) => {
+  router.get("getFilesFile", "/v1/files/:file", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getFilesFileParamSchema,
@@ -29344,9 +28318,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getFilesFile(input, responder, ctx, next)
+      .getFilesFile(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getFilesFileResponseValidator))
+      .then(handleResponse(ctx, getFilesFileResponseValidator))
   })
 
   const getFinancialConnectionsAccountsQuerySchema = z.object({
@@ -29390,7 +28364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsAccounts",
     "/v1/financial_connections/accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -29463,14 +28437,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsAccounts(input, responder, ctx, next)
+        .getFinancialConnectionsAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getFinancialConnectionsAccountsResponseValidator,
-          ),
+          handleResponse(ctx, getFinancialConnectionsAccountsResponseValidator),
         )
     },
   )
@@ -29497,7 +28467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsAccountsAccount",
     "/v1/financial_connections/accounts/:account",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountParamSchema,
@@ -29533,12 +28503,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsAccountsAccount(input, responder, ctx, next)
+        .getFinancialConnectionsAccountsAccount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getFinancialConnectionsAccountsAccountResponseValidator,
           ),
         )
@@ -29558,7 +28527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postFinancialConnectionsAccountsAccountDisconnect",
     "/v1/financial_connections/accounts/:account/disconnect",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountDisconnectParamSchema,
@@ -29591,13 +28560,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postFinancialConnectionsAccountsAccountDisconnectResponseValidator,
           ),
         )
@@ -29640,7 +28607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsAccountsAccountOwners",
     "/v1/financial_connections/accounts/:account/owners",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsAccountsAccountOwnersParamSchema,
@@ -29705,17 +28672,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsAccountsAccountOwners(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getFinancialConnectionsAccountsAccountOwners(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getFinancialConnectionsAccountsAccountOwnersResponseValidator,
           ),
         )
@@ -29735,7 +28696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postFinancialConnectionsAccountsAccountRefresh",
     "/v1/financial_connections/accounts/:account/refresh",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountRefreshParamSchema,
@@ -29764,17 +28725,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postFinancialConnectionsAccountsAccountRefresh(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postFinancialConnectionsAccountsAccountRefresh(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postFinancialConnectionsAccountsAccountRefreshResponseValidator,
           ),
         )
@@ -29794,7 +28749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postFinancialConnectionsAccountsAccountSubscribe",
     "/v1/financial_connections/accounts/:account/subscribe",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountSubscribeParamSchema,
@@ -29823,17 +28778,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postFinancialConnectionsAccountsAccountSubscribe(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postFinancialConnectionsAccountsAccountSubscribe(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postFinancialConnectionsAccountsAccountSubscribeResponseValidator,
           ),
         )
@@ -29852,7 +28801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postFinancialConnectionsAccountsAccountUnsubscribe",
     "/v1/financial_connections/accounts/:account/unsubscribe",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postFinancialConnectionsAccountsAccountUnsubscribeParamSchema,
@@ -29885,13 +28834,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postFinancialConnectionsAccountsAccountUnsubscribeResponseValidator,
           ),
         )
@@ -29907,7 +28854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postFinancialConnectionsSessions",
     "/v1/financial_connections/sessions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -29932,12 +28879,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postFinancialConnectionsSessions(input, responder, ctx, next)
+        .postFinancialConnectionsSessions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postFinancialConnectionsSessionsResponseValidator,
           ),
         )
@@ -29966,7 +28912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsSessionsSession",
     "/v1/financial_connections/sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsSessionsSessionParamSchema,
@@ -30002,12 +28948,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsSessionsSession(input, responder, ctx, next)
+        .getFinancialConnectionsSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getFinancialConnectionsSessionsSessionResponseValidator,
           ),
         )
@@ -30061,7 +29006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsTransactions",
     "/v1/financial_connections/transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -30142,12 +29087,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsTransactions(input, responder, ctx, next)
+        .getFinancialConnectionsTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getFinancialConnectionsTransactionsResponseValidator,
           ),
         )
@@ -30176,7 +29120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getFinancialConnectionsTransactionsTransaction",
     "/v1/financial_connections/transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getFinancialConnectionsTransactionsTransactionParamSchema,
@@ -30214,17 +29158,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getFinancialConnectionsTransactionsTransaction(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getFinancialConnectionsTransactionsTransaction(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getFinancialConnectionsTransactionsTransactionResponseValidator,
           ),
         )
@@ -30269,7 +29207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getForwardingRequests",
     "/v1/forwarding/requests",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -30338,9 +29276,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getForwardingRequests(input, responder, ctx, next)
+        .getForwardingRequests(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getForwardingRequestsResponseValidator))
+        .then(handleResponse(ctx, getForwardingRequestsResponseValidator))
     },
   )
 
@@ -30352,7 +29290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postForwardingRequests",
     "/v1/forwarding/requests",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -30377,11 +29315,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postForwardingRequests(input, responder, ctx, next)
+        .postForwardingRequests(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postForwardingRequestsResponseValidator),
-        )
+        .then(handleResponse(ctx, postForwardingRequestsResponseValidator))
     },
   )
 
@@ -30406,7 +29342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getForwardingRequestsId",
     "/v1/forwarding/requests/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getForwardingRequestsIdParamSchema,
@@ -30442,11 +29378,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getForwardingRequestsId(input, responder, ctx, next)
+        .getForwardingRequestsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getForwardingRequestsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getForwardingRequestsIdResponseValidator))
     },
   )
 
@@ -30498,7 +29432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIdentityVerificationReports",
     "/v1/identity/verification_reports",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -30585,14 +29519,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIdentityVerificationReports(input, responder, ctx, next)
+        .getIdentityVerificationReports(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getIdentityVerificationReportsResponseValidator,
-          ),
+          handleResponse(ctx, getIdentityVerificationReportsResponseValidator),
         )
     },
   )
@@ -30619,7 +29549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIdentityVerificationReportsReport",
     "/v1/identity/verification_reports/:report",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIdentityVerificationReportsReportParamSchema,
@@ -30655,12 +29585,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIdentityVerificationReportsReport(input, responder, ctx, next)
+        .getIdentityVerificationReportsReport(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIdentityVerificationReportsReportResponseValidator,
           ),
         )
@@ -30717,7 +29646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIdentityVerificationSessions",
     "/v1/identity/verification_sessions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -30804,14 +29733,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIdentityVerificationSessions(input, responder, ctx, next)
+        .getIdentityVerificationSessions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getIdentityVerificationSessionsResponseValidator,
-          ),
+          handleResponse(ctx, getIdentityVerificationSessionsResponseValidator),
         )
     },
   )
@@ -30825,7 +29750,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIdentityVerificationSessions",
     "/v1/identity/verification_sessions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -30850,12 +29775,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIdentityVerificationSessions(input, responder, ctx, next)
+        .postIdentityVerificationSessions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIdentityVerificationSessionsResponseValidator,
           ),
         )
@@ -30884,7 +29808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIdentityVerificationSessionsSession",
     "/v1/identity/verification_sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIdentityVerificationSessionsSessionParamSchema,
@@ -30920,12 +29844,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIdentityVerificationSessionsSession(input, responder, ctx, next)
+        .getIdentityVerificationSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIdentityVerificationSessionsSessionResponseValidator,
           ),
         )
@@ -30945,7 +29868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIdentityVerificationSessionsSession",
     "/v1/identity/verification_sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionParamSchema,
@@ -30974,12 +29897,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIdentityVerificationSessionsSession(input, responder, ctx, next)
+        .postIdentityVerificationSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIdentityVerificationSessionsSessionResponseValidator,
           ),
         )
@@ -30999,7 +29921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIdentityVerificationSessionsSessionCancel",
     "/v1/identity/verification_sessions/:session/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionCancelParamSchema,
@@ -31028,17 +29950,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIdentityVerificationSessionsSessionCancel(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postIdentityVerificationSessionsSessionCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIdentityVerificationSessionsSessionCancelResponseValidator,
           ),
         )
@@ -31058,7 +29974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIdentityVerificationSessionsSessionRedact",
     "/v1/identity/verification_sessions/:session/redact",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIdentityVerificationSessionsSessionRedactParamSchema,
@@ -31087,17 +30003,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIdentityVerificationSessionsSessionRedact(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postIdentityVerificationSessionsSessionRedact(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIdentityVerificationSessionsSessionRedactResponseValidator,
           ),
         )
@@ -31139,93 +30049,89 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getInvoicePayments",
-    "/v1/invoice_payments",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getInvoicePaymentsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "invoice",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "payment",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {
-                  payment_intent: {type: "string"},
-                  type: {type: "string"},
-                },
+  router.get("getInvoicePayments", "/v1/invoice_payments", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getInvoicePaymentsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "invoice",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "payment",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                payment_intent: {type: "string"},
+                type: {type: "string"},
               },
             },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "status",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_invoice_payment[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_invoice_payment[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getInvoicePayments(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getInvoicePaymentsResponseValidator))
-    },
-  )
+    await implementation
+      .getInvoicePayments(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getInvoicePaymentsResponseValidator))
+  })
 
   const getInvoicePaymentsInvoicePaymentParamSchema = z.object({
     invoice_payment: z.string().max(5000),
@@ -31246,7 +30152,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getInvoicePaymentsInvoicePayment",
     "/v1/invoice_payments/:invoice_payment",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getInvoicePaymentsInvoicePaymentParamSchema,
@@ -31282,12 +30188,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getInvoicePaymentsInvoicePayment(input, responder, ctx, next)
+        .getInvoicePaymentsInvoicePayment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getInvoicePaymentsInvoicePaymentResponseValidator,
           ),
         )
@@ -31326,7 +30231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getInvoiceRenderingTemplates",
     "/v1/invoice_rendering_templates",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -31387,14 +30292,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getInvoiceRenderingTemplates(input, responder, ctx, next)
+        .getInvoiceRenderingTemplates(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getInvoiceRenderingTemplatesResponseValidator,
-          ),
+          handleResponse(ctx, getInvoiceRenderingTemplatesResponseValidator),
         )
     },
   )
@@ -31419,7 +30320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getInvoiceRenderingTemplatesTemplate",
     "/v1/invoice_rendering_templates/:template",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getInvoiceRenderingTemplatesTemplateParamSchema,
@@ -31461,12 +30362,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getInvoiceRenderingTemplatesTemplate(input, responder, ctx, next)
+        .getInvoiceRenderingTemplatesTemplate(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getInvoiceRenderingTemplatesTemplateResponseValidator,
           ),
         )
@@ -31483,7 +30383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoiceRenderingTemplatesTemplateArchive",
     "/v1/invoice_rendering_templates/:template/archive",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoiceRenderingTemplatesTemplateArchiveParamSchema,
@@ -31512,17 +30412,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoiceRenderingTemplatesTemplateArchive(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postInvoiceRenderingTemplatesTemplateArchive(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postInvoiceRenderingTemplatesTemplateArchiveResponseValidator,
           ),
         )
@@ -31539,7 +30433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoiceRenderingTemplatesTemplateUnarchive",
     "/v1/invoice_rendering_templates/:template/unarchive",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
@@ -31568,17 +30462,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoiceRenderingTemplatesTemplateUnarchive(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postInvoiceRenderingTemplatesTemplateUnarchive(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator,
           ),
         )
@@ -31626,7 +30514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getInvoiceitems", "/v1/invoiceitems", async (ctx, next) => {
+  router.get("getInvoiceitems", "/v1/invoiceitems", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -31713,9 +30601,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getInvoiceitems(input, responder, ctx, next)
+      .getInvoiceitems(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getInvoiceitemsResponseValidator))
+      .then(handleResponse(ctx, getInvoiceitemsResponseValidator))
   })
 
   const postInvoiceitemsResponseValidator = responseValidationFactory(
@@ -31723,7 +30611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postInvoiceitems", "/v1/invoiceitems", async (ctx, next) => {
+  router.post("postInvoiceitems", "/v1/invoiceitems", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -31748,9 +30636,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postInvoiceitems(input, responder, ctx, next)
+      .postInvoiceitems(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postInvoiceitemsResponseValidator))
+      .then(handleResponse(ctx, postInvoiceitemsResponseValidator))
   })
 
   const deleteInvoiceitemsInvoiceitemParamSchema = z.object({
@@ -31763,7 +30651,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteInvoiceitemsInvoiceitem",
     "/v1/invoiceitems/:invoiceitem",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteInvoiceitemsInvoiceitemParamSchema,
@@ -31788,14 +30676,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteInvoiceitemsInvoiceitem(input, responder, ctx, next)
+        .deleteInvoiceitemsInvoiceitem(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteInvoiceitemsInvoiceitemResponseValidator,
-          ),
+          handleResponse(ctx, deleteInvoiceitemsInvoiceitemResponseValidator),
         )
     },
   )
@@ -31821,7 +30705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getInvoiceitemsInvoiceitem",
     "/v1/invoiceitems/:invoiceitem",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getInvoiceitemsInvoiceitemParamSchema,
@@ -31857,15 +30741,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getInvoiceitemsInvoiceitem(input, responder, ctx, next)
+        .getInvoiceitemsInvoiceitem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getInvoiceitemsInvoiceitemResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getInvoiceitemsInvoiceitemResponseValidator))
     },
   )
 
@@ -31879,7 +30757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoiceitemsInvoiceitem",
     "/v1/invoiceitems/:invoiceitem",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoiceitemsInvoiceitemParamSchema,
@@ -31908,15 +30786,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoiceitemsInvoiceitem(input, responder, ctx, next)
+        .postInvoiceitemsInvoiceitem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postInvoiceitemsInvoiceitemResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postInvoiceitemsInvoiceitemResponseValidator))
     },
   )
 
@@ -31977,7 +30849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getInvoices", "/v1/invoices", async (ctx, next) => {
+  router.get("getInvoices", "/v1/invoices", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -32084,9 +30956,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getInvoices(input, responder, ctx, next)
+      .getInvoices(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getInvoicesResponseValidator))
+      .then(handleResponse(ctx, getInvoicesResponseValidator))
   })
 
   const postInvoicesResponseValidator = responseValidationFactory(
@@ -32094,7 +30966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postInvoices", "/v1/invoices", async (ctx, next) => {
+  router.post("postInvoices", "/v1/invoices", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -32119,9 +30991,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postInvoices(input, responder, ctx, next)
+      .postInvoices(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postInvoicesResponseValidator))
+      .then(handleResponse(ctx, postInvoicesResponseValidator))
   })
 
   const postInvoicesCreatePreviewResponseValidator = responseValidationFactory(
@@ -32132,7 +31004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesCreatePreview",
     "/v1/invoices/create_preview",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -32157,11 +31029,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesCreatePreview(input, responder, ctx, next)
+        .postInvoicesCreatePreview(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postInvoicesCreatePreviewResponseValidator),
-        )
+        .then(handleResponse(ctx, postInvoicesCreatePreviewResponseValidator))
     },
   )
 
@@ -32194,7 +31064,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getInvoicesSearch", "/v1/invoices/search", async (ctx, next) => {
+  router.get("getInvoicesSearch", "/v1/invoices/search", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -32251,9 +31121,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getInvoicesSearch(input, responder, ctx, next)
+      .getInvoicesSearch(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getInvoicesSearchResponseValidator))
+      .then(handleResponse(ctx, getInvoicesSearchResponseValidator))
   })
 
   const deleteInvoicesInvoiceParamSchema = z.object({
@@ -32268,7 +31138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteInvoicesInvoice",
     "/v1/invoices/:invoice",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteInvoicesInvoiceParamSchema,
@@ -32293,9 +31163,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteInvoicesInvoice(input, responder, ctx, next)
+        .deleteInvoicesInvoice(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteInvoicesInvoiceResponseValidator))
+        .then(handleResponse(ctx, deleteInvoicesInvoiceResponseValidator))
     },
   )
 
@@ -32317,50 +31187,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getInvoicesInvoice",
-    "/v1/invoices/:invoice",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getInvoicesInvoiceParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getInvoicesInvoiceQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getInvoicesInvoice", "/v1/invoices/:invoice", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getInvoicesInvoiceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getInvoicesInvoiceQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_invoice>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_invoice>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getInvoicesInvoice(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getInvoicesInvoiceResponseValidator))
-    },
-  )
+    await implementation
+      .getInvoicesInvoice(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getInvoicesInvoiceResponseValidator))
+  })
 
   const postInvoicesInvoiceParamSchema = z.object({
     invoice: z.string().max(5000),
@@ -32371,43 +31237,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postInvoicesInvoice",
-    "/v1/invoices/:invoice",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postInvoicesInvoiceParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostInvoicesInvoiceRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postInvoicesInvoice", "/v1/invoices/:invoice", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postInvoicesInvoiceParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostInvoicesInvoiceRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_invoice>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_invoice>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postInvoicesInvoice(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postInvoicesInvoiceResponseValidator))
-    },
-  )
+    await implementation
+      .postInvoicesInvoice(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postInvoicesInvoiceResponseValidator))
+  })
 
   const postInvoicesInvoiceAddLinesParamSchema = z.object({
     invoice: z.string().max(5000),
@@ -32419,7 +31281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceAddLines",
     "/v1/invoices/:invoice/add_lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceAddLinesParamSchema,
@@ -32448,15 +31310,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceAddLines(input, responder, ctx, next)
+        .postInvoicesInvoiceAddLines(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postInvoicesInvoiceAddLinesResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postInvoicesInvoiceAddLinesResponseValidator))
     },
   )
 
@@ -32470,7 +31326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceAttachPayment",
     "/v1/invoices/:invoice/attach_payment",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceAttachPaymentParamSchema,
@@ -32499,12 +31355,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceAttachPayment(input, responder, ctx, next)
+        .postInvoicesInvoiceAttachPayment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postInvoicesInvoiceAttachPaymentResponseValidator,
           ),
         )
@@ -32521,7 +31376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceFinalize",
     "/v1/invoices/:invoice/finalize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceFinalizeParamSchema,
@@ -32550,15 +31405,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceFinalize(input, responder, ctx, next)
+        .postInvoicesInvoiceFinalize(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postInvoicesInvoiceFinalizeResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postInvoicesInvoiceFinalizeResponseValidator))
     },
   )
 
@@ -32596,7 +31445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getInvoicesInvoiceLines",
     "/v1/invoices/:invoice/lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getInvoicesInvoiceLinesParamSchema,
@@ -32655,11 +31504,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getInvoicesInvoiceLines(input, responder, ctx, next)
+        .getInvoicesInvoiceLines(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getInvoicesInvoiceLinesResponseValidator),
-        )
+        .then(handleResponse(ctx, getInvoicesInvoiceLinesResponseValidator))
     },
   )
 
@@ -32674,7 +31521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceLinesLineItemId",
     "/v1/invoices/:invoice/lines/:line_item_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceLinesLineItemIdParamSchema,
@@ -32703,12 +31550,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceLinesLineItemId(input, responder, ctx, next)
+        .postInvoicesInvoiceLinesLineItemId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postInvoicesInvoiceLinesLineItemIdResponseValidator,
           ),
         )
@@ -32725,7 +31571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceMarkUncollectible",
     "/v1/invoices/:invoice/mark_uncollectible",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceMarkUncollectibleParamSchema,
@@ -32754,12 +31600,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceMarkUncollectible(input, responder, ctx, next)
+        .postInvoicesInvoiceMarkUncollectible(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postInvoicesInvoiceMarkUncollectibleResponseValidator,
           ),
         )
@@ -32778,7 +31623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoicePay",
     "/v1/invoices/:invoice/pay",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoicePayParamSchema,
@@ -32807,11 +31652,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoicePay(input, responder, ctx, next)
+        .postInvoicesInvoicePay(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postInvoicesInvoicePayResponseValidator),
-        )
+        .then(handleResponse(ctx, postInvoicesInvoicePayResponseValidator))
     },
   )
 
@@ -32825,7 +31668,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceRemoveLines",
     "/v1/invoices/:invoice/remove_lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceRemoveLinesParamSchema,
@@ -32854,14 +31697,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceRemoveLines(input, responder, ctx, next)
+        .postInvoicesInvoiceRemoveLines(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postInvoicesInvoiceRemoveLinesResponseValidator,
-          ),
+          handleResponse(ctx, postInvoicesInvoiceRemoveLinesResponseValidator),
         )
     },
   )
@@ -32878,7 +31717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceSend",
     "/v1/invoices/:invoice/send",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceSendParamSchema,
@@ -32907,11 +31746,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceSend(input, responder, ctx, next)
+        .postInvoicesInvoiceSend(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postInvoicesInvoiceSendResponseValidator),
-        )
+        .then(handleResponse(ctx, postInvoicesInvoiceSendResponseValidator))
     },
   )
 
@@ -32925,7 +31762,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceUpdateLines",
     "/v1/invoices/:invoice/update_lines",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceUpdateLinesParamSchema,
@@ -32954,14 +31791,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceUpdateLines(input, responder, ctx, next)
+        .postInvoicesInvoiceUpdateLines(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postInvoicesInvoiceUpdateLinesResponseValidator,
-          ),
+          handleResponse(ctx, postInvoicesInvoiceUpdateLinesResponseValidator),
         )
     },
   )
@@ -32978,7 +31811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postInvoicesInvoiceVoid",
     "/v1/invoices/:invoice/void",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postInvoicesInvoiceVoidParamSchema,
@@ -33007,11 +31840,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postInvoicesInvoiceVoid(input, responder, ctx, next)
+        .postInvoicesInvoiceVoid(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postInvoicesInvoiceVoidResponseValidator),
-        )
+        .then(handleResponse(ctx, postInvoicesInvoiceVoidResponseValidator))
     },
   )
 
@@ -33062,7 +31893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingAuthorizations",
     "/v1/issuing/authorizations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -33149,11 +31980,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingAuthorizations(input, responder, ctx, next)
+        .getIssuingAuthorizations(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getIssuingAuthorizationsResponseValidator),
-        )
+        .then(handleResponse(ctx, getIssuingAuthorizationsResponseValidator))
     },
   )
 
@@ -33176,7 +32005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingAuthorizationsAuthorization",
     "/v1/issuing/authorizations/:authorization",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingAuthorizationsAuthorizationParamSchema,
@@ -33212,12 +32041,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingAuthorizationsAuthorization(input, responder, ctx, next)
+        .getIssuingAuthorizationsAuthorization(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIssuingAuthorizationsAuthorizationResponseValidator,
           ),
         )
@@ -33234,7 +32062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingAuthorizationsAuthorization",
     "/v1/issuing/authorizations/:authorization",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationParamSchema,
@@ -33263,12 +32091,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingAuthorizationsAuthorization(input, responder, ctx, next)
+        .postIssuingAuthorizationsAuthorization(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingAuthorizationsAuthorizationResponseValidator,
           ),
         )
@@ -33285,7 +32112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingAuthorizationsAuthorizationApprove",
     "/v1/issuing/authorizations/:authorization/approve",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationApproveParamSchema,
@@ -33314,17 +32141,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingAuthorizationsAuthorizationApprove(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postIssuingAuthorizationsAuthorizationApprove(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingAuthorizationsAuthorizationApproveResponseValidator,
           ),
         )
@@ -33341,7 +32162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingAuthorizationsAuthorizationDecline",
     "/v1/issuing/authorizations/:authorization/decline",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingAuthorizationsAuthorizationDeclineParamSchema,
@@ -33370,17 +32191,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingAuthorizationsAuthorizationDecline(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postIssuingAuthorizationsAuthorizationDecline(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingAuthorizationsAuthorizationDeclineResponseValidator,
           ),
         )
@@ -33435,7 +32250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingCardholders",
     "/v1/issuing/cardholders",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -33528,9 +32343,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingCardholders(input, responder, ctx, next)
+        .getIssuingCardholders(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getIssuingCardholdersResponseValidator))
+        .then(handleResponse(ctx, getIssuingCardholdersResponseValidator))
     },
   )
 
@@ -33542,7 +32357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingCardholders",
     "/v1/issuing/cardholders",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -33567,11 +32382,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingCardholders(input, responder, ctx, next)
+        .postIssuingCardholders(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postIssuingCardholdersResponseValidator),
-        )
+        .then(handleResponse(ctx, postIssuingCardholdersResponseValidator))
     },
   )
 
@@ -33594,7 +32407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingCardholdersCardholder",
     "/v1/issuing/cardholders/:cardholder",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingCardholdersCardholderParamSchema,
@@ -33630,14 +32443,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingCardholdersCardholder(input, responder, ctx, next)
+        .getIssuingCardholdersCardholder(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getIssuingCardholdersCardholderResponseValidator,
-          ),
+          handleResponse(ctx, getIssuingCardholdersCardholderResponseValidator),
         )
     },
   )
@@ -33652,7 +32461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingCardholdersCardholder",
     "/v1/issuing/cardholders/:cardholder",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingCardholdersCardholderParamSchema,
@@ -33681,12 +32490,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingCardholdersCardholder(input, responder, ctx, next)
+        .postIssuingCardholdersCardholder(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingCardholdersCardholderResponseValidator,
           ),
         )
@@ -33738,7 +32546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getIssuingCards", "/v1/issuing/cards", async (ctx, next) => {
+  router.get("getIssuingCards", "/v1/issuing/cards", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -33849,9 +32657,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getIssuingCards(input, responder, ctx, next)
+      .getIssuingCards(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getIssuingCardsResponseValidator))
+      .then(handleResponse(ctx, getIssuingCardsResponseValidator))
   })
 
   const postIssuingCardsResponseValidator = responseValidationFactory(
@@ -33859,7 +32667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postIssuingCards", "/v1/issuing/cards", async (ctx, next) => {
+  router.post("postIssuingCards", "/v1/issuing/cards", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -33884,9 +32692,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postIssuingCards(input, responder, ctx, next)
+      .postIssuingCards(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postIssuingCardsResponseValidator))
+      .then(handleResponse(ctx, postIssuingCardsResponseValidator))
   })
 
   const getIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
@@ -33905,50 +32713,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getIssuingCardsCard",
-    "/v1/issuing/cards/:card",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getIssuingCardsCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getIssuingCardsCardQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getIssuingCardsCard", "/v1/issuing/cards/:card", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getIssuingCardsCardParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getIssuingCardsCardQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_issuing_card>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_issuing_card>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getIssuingCardsCard(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getIssuingCardsCardResponseValidator))
-    },
-  )
+    await implementation
+      .getIssuingCardsCard(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getIssuingCardsCardResponseValidator))
+  })
 
   const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
@@ -33960,7 +32764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingCardsCard",
     "/v1/issuing/cards/:card",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingCardsCardParamSchema,
@@ -33989,9 +32793,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingCardsCard(input, responder, ctx, next)
+        .postIssuingCardsCard(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postIssuingCardsCardResponseValidator))
+        .then(handleResponse(ctx, postIssuingCardsCardResponseValidator))
     },
   )
 
@@ -34037,134 +32841,126 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getIssuingDisputes",
-    "/v1/issuing/disputes",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getIssuingDisputesQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "created",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {
-                  gt: {type: "number"},
-                  gte: {type: "number"},
-                  lt: {type: "number"},
-                  lte: {type: "number"},
-                },
+  router.get("getIssuingDisputes", "/v1/issuing/disputes", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getIssuingDisputesQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
               },
             },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "status",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "transaction",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "transaction",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_issuing_dispute[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_issuing_dispute[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getIssuingDisputes(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getIssuingDisputesResponseValidator))
-    },
-  )
+    await implementation
+      .getIssuingDisputes(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getIssuingDisputesResponseValidator))
+  })
 
   const postIssuingDisputesResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
     s_error,
   )
 
-  router.post(
-    "postIssuingDisputes",
-    "/v1/issuing/disputes",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostIssuingDisputesRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postIssuingDisputes", "/v1/issuing/disputes", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostIssuingDisputesRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_issuing_dispute>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_issuing_dispute>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postIssuingDisputes(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postIssuingDisputesResponseValidator))
-    },
-  )
+    await implementation
+      .postIssuingDisputes(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postIssuingDisputesResponseValidator))
+  })
 
   const getIssuingDisputesDisputeParamSchema = z.object({
     dispute: z.string().max(5000),
@@ -34187,7 +32983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingDisputesDispute",
     "/v1/issuing/disputes/:dispute",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingDisputesDisputeParamSchema,
@@ -34223,11 +33019,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingDisputesDispute(input, responder, ctx, next)
+        .getIssuingDisputesDispute(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getIssuingDisputesDisputeResponseValidator),
-        )
+        .then(handleResponse(ctx, getIssuingDisputesDisputeResponseValidator))
     },
   )
 
@@ -34243,7 +33037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingDisputesDispute",
     "/v1/issuing/disputes/:dispute",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingDisputesDisputeParamSchema,
@@ -34272,15 +33066,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingDisputesDispute(input, responder, ctx, next)
+        .postIssuingDisputesDispute(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postIssuingDisputesDisputeResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postIssuingDisputesDisputeResponseValidator))
     },
   )
 
@@ -34294,7 +33082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingDisputesDisputeSubmit",
     "/v1/issuing/disputes/:dispute/submit",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingDisputesDisputeSubmitParamSchema,
@@ -34323,12 +33111,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingDisputesDisputeSubmit(input, responder, ctx, next)
+        .postIssuingDisputesDisputeSubmit(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingDisputesDisputeSubmitResponseValidator,
           ),
         )
@@ -34382,7 +33169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingPersonalizationDesigns",
     "/v1/issuing/personalization_designs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -34461,12 +33248,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingPersonalizationDesigns(input, responder, ctx, next)
+        .getIssuingPersonalizationDesigns(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIssuingPersonalizationDesignsResponseValidator,
           ),
         )
@@ -34482,7 +33268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingPersonalizationDesigns",
     "/v1/issuing/personalization_designs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -34507,12 +33293,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingPersonalizationDesigns(input, responder, ctx, next)
+        .postIssuingPersonalizationDesigns(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingPersonalizationDesignsResponseValidator,
           ),
         )
@@ -34541,7 +33326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingPersonalizationDesignsPersonalizationDesign",
     "/v1/issuing/personalization_designs/:personalization_design",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
@@ -34581,13 +33366,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIssuingPersonalizationDesignsPersonalizationDesignResponseValidator,
           ),
         )
@@ -34606,7 +33389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingPersonalizationDesignsPersonalizationDesign",
     "/v1/issuing/personalization_designs/:personalization_design",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
@@ -34639,13 +33422,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingPersonalizationDesignsPersonalizationDesignResponseValidator,
           ),
         )
@@ -34687,7 +33468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingPhysicalBundles",
     "/v1/issuing/physical_bundles",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -34754,11 +33535,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingPhysicalBundles(input, responder, ctx, next)
+        .getIssuingPhysicalBundles(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getIssuingPhysicalBundlesResponseValidator),
-        )
+        .then(handleResponse(ctx, getIssuingPhysicalBundlesResponseValidator))
     },
   )
 
@@ -34781,7 +33560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingPhysicalBundlesPhysicalBundle",
     "/v1/issuing/physical_bundles/:physical_bundle",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingPhysicalBundlesPhysicalBundleParamSchema,
@@ -34817,12 +33596,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingPhysicalBundlesPhysicalBundle(input, responder, ctx, next)
+        .getIssuingPhysicalBundlesPhysicalBundle(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIssuingPhysicalBundlesPhysicalBundleResponseValidator,
           ),
         )
@@ -34848,7 +33626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingSettlementsSettlement",
     "/v1/issuing/settlements/:settlement",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingSettlementsSettlementParamSchema,
@@ -34884,14 +33662,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingSettlementsSettlement(input, responder, ctx, next)
+        .getIssuingSettlementsSettlement(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getIssuingSettlementsSettlementResponseValidator,
-          ),
+          handleResponse(ctx, getIssuingSettlementsSettlementResponseValidator),
         )
     },
   )
@@ -34906,7 +33680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingSettlementsSettlement",
     "/v1/issuing/settlements/:settlement",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingSettlementsSettlementParamSchema,
@@ -34935,12 +33709,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingSettlementsSettlement(input, responder, ctx, next)
+        .postIssuingSettlementsSettlement(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingSettlementsSettlementResponseValidator,
           ),
         )
@@ -34987,7 +33760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getIssuingTokens", "/v1/issuing/tokens", async (ctx, next) => {
+  router.get("getIssuingTokens", "/v1/issuing/tokens", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -35068,9 +33841,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getIssuingTokens(input, responder, ctx, next)
+      .getIssuingTokens(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getIssuingTokensResponseValidator))
+      .then(handleResponse(ctx, getIssuingTokensResponseValidator))
   })
 
   const getIssuingTokensTokenParamSchema = z.object({
@@ -35094,7 +33867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingTokensToken",
     "/v1/issuing/tokens/:token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingTokensTokenParamSchema,
@@ -35130,9 +33903,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingTokensToken(input, responder, ctx, next)
+        .getIssuingTokensToken(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getIssuingTokensTokenResponseValidator))
+        .then(handleResponse(ctx, getIssuingTokensTokenResponseValidator))
     },
   )
 
@@ -35148,7 +33921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingTokensToken",
     "/v1/issuing/tokens/:token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingTokensTokenParamSchema,
@@ -35177,11 +33950,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingTokensToken(input, responder, ctx, next)
+        .postIssuingTokensToken(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postIssuingTokensTokenResponseValidator),
-        )
+        .then(handleResponse(ctx, postIssuingTokensTokenResponseValidator))
     },
   )
 
@@ -35232,7 +34003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingTransactions",
     "/v1/issuing/transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -35319,11 +34090,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingTransactions(input, responder, ctx, next)
+        .getIssuingTransactions(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getIssuingTransactionsResponseValidator),
-        )
+        .then(handleResponse(ctx, getIssuingTransactionsResponseValidator))
     },
   )
 
@@ -35346,7 +34115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getIssuingTransactionsTransaction",
     "/v1/issuing/transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getIssuingTransactionsTransactionParamSchema,
@@ -35382,12 +34151,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getIssuingTransactionsTransaction(input, responder, ctx, next)
+        .getIssuingTransactionsTransaction(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getIssuingTransactionsTransactionResponseValidator,
           ),
         )
@@ -35404,7 +34172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postIssuingTransactionsTransaction",
     "/v1/issuing/transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postIssuingTransactionsTransactionParamSchema,
@@ -35433,12 +34201,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postIssuingTransactionsTransaction(input, responder, ctx, next)
+        .postIssuingTransactionsTransaction(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postIssuingTransactionsTransactionResponseValidator,
           ),
         )
@@ -35453,7 +34220,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postLinkAccountSessions",
     "/v1/link_account_sessions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -35478,11 +34245,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postLinkAccountSessions(input, responder, ctx, next)
+        .postLinkAccountSessions(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postLinkAccountSessionsResponseValidator),
-        )
+        .then(handleResponse(ctx, postLinkAccountSessionsResponseValidator))
     },
   )
 
@@ -35508,7 +34273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getLinkAccountSessionsSession",
     "/v1/link_account_sessions/:session",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getLinkAccountSessionsSessionParamSchema,
@@ -35544,14 +34309,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getLinkAccountSessionsSession(input, responder, ctx, next)
+        .getLinkAccountSessionsSession(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getLinkAccountSessionsSessionResponseValidator,
-          ),
+          handleResponse(ctx, getLinkAccountSessionsSessionResponseValidator),
         )
     },
   )
@@ -35593,7 +34354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getLinkedAccounts", "/v1/linked_accounts", async (ctx, next) => {
+  router.get("getLinkedAccounts", "/v1/linked_accounts", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -35666,9 +34427,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getLinkedAccounts(input, responder, ctx, next)
+      .getLinkedAccounts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getLinkedAccountsResponseValidator))
+      .then(handleResponse(ctx, getLinkedAccountsResponseValidator))
   })
 
   const getLinkedAccountsAccountParamSchema = z.object({
@@ -35692,7 +34453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getLinkedAccountsAccount",
     "/v1/linked_accounts/:account",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getLinkedAccountsAccountParamSchema,
@@ -35728,11 +34489,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getLinkedAccountsAccount(input, responder, ctx, next)
+        .getLinkedAccountsAccount(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getLinkedAccountsAccountResponseValidator),
-        )
+        .then(handleResponse(ctx, getLinkedAccountsAccountResponseValidator))
     },
   )
 
@@ -35749,7 +34508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postLinkedAccountsAccountDisconnect",
     "/v1/linked_accounts/:account/disconnect",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postLinkedAccountsAccountDisconnectParamSchema,
@@ -35778,12 +34537,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postLinkedAccountsAccountDisconnect(input, responder, ctx, next)
+        .postLinkedAccountsAccountDisconnect(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postLinkedAccountsAccountDisconnectResponseValidator,
           ),
         )
@@ -35826,7 +34584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getLinkedAccountsAccountOwners",
     "/v1/linked_accounts/:account/owners",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getLinkedAccountsAccountOwnersParamSchema,
@@ -35891,14 +34649,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getLinkedAccountsAccountOwners(input, responder, ctx, next)
+        .getLinkedAccountsAccountOwners(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getLinkedAccountsAccountOwnersResponseValidator,
-          ),
+          handleResponse(ctx, getLinkedAccountsAccountOwnersResponseValidator),
         )
     },
   )
@@ -35916,7 +34670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postLinkedAccountsAccountRefresh",
     "/v1/linked_accounts/:account/refresh",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postLinkedAccountsAccountRefreshParamSchema,
@@ -35945,12 +34699,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postLinkedAccountsAccountRefresh(input, responder, ctx, next)
+        .postLinkedAccountsAccountRefresh(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postLinkedAccountsAccountRefreshResponseValidator,
           ),
         )
@@ -35973,50 +34726,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getMandatesMandate",
-    "/v1/mandates/:mandate",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getMandatesMandateParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getMandatesMandateQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getMandatesMandate", "/v1/mandates/:mandate", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getMandatesMandateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getMandatesMandateQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_mandate>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_mandate>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getMandatesMandate(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getMandatesMandateResponseValidator))
-    },
-  )
+    await implementation
+      .getMandatesMandate(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getMandatesMandateResponseValidator))
+  })
 
   const getPaymentIntentsQuerySchema = z.object({
     created: z
@@ -36057,7 +34806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPaymentIntents", "/v1/payment_intents", async (ctx, next) => {
+  router.get("getPaymentIntents", "/v1/payment_intents", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -36132,9 +34881,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPaymentIntents(input, responder, ctx, next)
+      .getPaymentIntents(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPaymentIntentsResponseValidator))
+      .then(handleResponse(ctx, getPaymentIntentsResponseValidator))
   })
 
   const postPaymentIntentsResponseValidator = responseValidationFactory(
@@ -36142,39 +34891,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postPaymentIntents",
-    "/v1/payment_intents",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostPaymentIntentsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postPaymentIntents", "/v1/payment_intents", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostPaymentIntentsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_payment_intent>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_payment_intent>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postPaymentIntents(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postPaymentIntentsResponseValidator))
-    },
-  )
+    await implementation
+      .postPaymentIntents(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postPaymentIntentsResponseValidator))
+  })
 
   const getPaymentIntentsSearchQuerySchema = z.object({
     expand: z
@@ -36208,7 +34953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentIntentsSearch",
     "/v1/payment_intents/search",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36265,11 +35010,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentIntentsSearch(input, responder, ctx, next)
+        .getPaymentIntentsSearch(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getPaymentIntentsSearchResponseValidator),
-        )
+        .then(handleResponse(ctx, getPaymentIntentsSearchResponseValidator))
     },
   )
 
@@ -36295,7 +35038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentIntentsIntent",
     "/v1/payment_intents/:intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentIntentsIntentParamSchema,
@@ -36337,11 +35080,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentIntentsIntent(input, responder, ctx, next)
+        .getPaymentIntentsIntent(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getPaymentIntentsIntentResponseValidator),
-        )
+        .then(handleResponse(ctx, getPaymentIntentsIntentResponseValidator))
     },
   )
 
@@ -36357,7 +35098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntent",
     "/v1/payment_intents/:intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentParamSchema,
@@ -36386,11 +35127,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntent(input, responder, ctx, next)
+        .postPaymentIntentsIntent(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postPaymentIntentsIntentResponseValidator),
-        )
+        .then(handleResponse(ctx, postPaymentIntentsIntentResponseValidator))
     },
   )
 
@@ -36404,7 +35143,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentApplyCustomerBalance",
     "/v1/payment_intents/:intent/apply_customer_balance",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentApplyCustomerBalanceParamSchema,
@@ -36433,17 +35172,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentApplyCustomerBalance(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postPaymentIntentsIntentApplyCustomerBalance(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentIntentsIntentApplyCustomerBalanceResponseValidator,
           ),
         )
@@ -36460,7 +35193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentCancel",
     "/v1/payment_intents/:intent/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentCancelParamSchema,
@@ -36489,14 +35222,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentCancel(input, responder, ctx, next)
+        .postPaymentIntentsIntentCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentIntentsIntentCancelResponseValidator,
-          ),
+          handleResponse(ctx, postPaymentIntentsIntentCancelResponseValidator),
         )
     },
   )
@@ -36511,7 +35240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentCapture",
     "/v1/payment_intents/:intent/capture",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentCaptureParamSchema,
@@ -36540,14 +35269,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentCapture(input, responder, ctx, next)
+        .postPaymentIntentsIntentCapture(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentIntentsIntentCaptureResponseValidator,
-          ),
+          handleResponse(ctx, postPaymentIntentsIntentCaptureResponseValidator),
         )
     },
   )
@@ -36562,7 +35287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentConfirm",
     "/v1/payment_intents/:intent/confirm",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentConfirmParamSchema,
@@ -36591,14 +35316,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentConfirm(input, responder, ctx, next)
+        .postPaymentIntentsIntentConfirm(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentIntentsIntentConfirmResponseValidator,
-          ),
+          handleResponse(ctx, postPaymentIntentsIntentConfirmResponseValidator),
         )
     },
   )
@@ -36613,7 +35334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentIncrementAuthorization",
     "/v1/payment_intents/:intent/increment_authorization",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentIncrementAuthorizationParamSchema,
@@ -36642,17 +35363,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentIncrementAuthorization(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postPaymentIntentsIntentIncrementAuthorization(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentIntentsIntentIncrementAuthorizationResponseValidator,
           ),
         )
@@ -36669,7 +35384,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentIntentsIntentVerifyMicrodeposits",
     "/v1/payment_intents/:intent/verify_microdeposits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentIntentsIntentVerifyMicrodepositsParamSchema,
@@ -36698,17 +35413,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentIntentsIntentVerifyMicrodeposits(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postPaymentIntentsIntentVerifyMicrodeposits(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentIntentsIntentVerifyMicrodepositsResponseValidator,
           ),
         )
@@ -36743,7 +35452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPaymentLinks", "/v1/payment_links", async (ctx, next) => {
+  router.get("getPaymentLinks", "/v1/payment_links", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -36804,9 +35513,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPaymentLinks(input, responder, ctx, next)
+      .getPaymentLinks(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPaymentLinksResponseValidator))
+      .then(handleResponse(ctx, getPaymentLinksResponseValidator))
   })
 
   const postPaymentLinksResponseValidator = responseValidationFactory(
@@ -36814,7 +35523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPaymentLinks", "/v1/payment_links", async (ctx, next) => {
+  router.post("postPaymentLinks", "/v1/payment_links", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -36839,9 +35548,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPaymentLinks(input, responder, ctx, next)
+      .postPaymentLinks(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPaymentLinksResponseValidator))
+      .then(handleResponse(ctx, postPaymentLinksResponseValidator))
   })
 
   const getPaymentLinksPaymentLinkParamSchema = z.object({
@@ -36865,7 +35574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentLinksPaymentLink",
     "/v1/payment_links/:payment_link",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkParamSchema,
@@ -36901,15 +35610,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentLinksPaymentLink(input, responder, ctx, next)
+        .getPaymentLinksPaymentLink(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getPaymentLinksPaymentLinkResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getPaymentLinksPaymentLinkResponseValidator))
     },
   )
 
@@ -36923,7 +35626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentLinksPaymentLink",
     "/v1/payment_links/:payment_link",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentLinksPaymentLinkParamSchema,
@@ -36952,15 +35655,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentLinksPaymentLink(input, responder, ctx, next)
+        .postPaymentLinksPaymentLink(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentLinksPaymentLinkResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postPaymentLinksPaymentLinkResponseValidator))
     },
   )
 
@@ -36999,7 +35696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentLinksPaymentLinkLineItems",
     "/v1/payment_links/:payment_link/line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentLinksPaymentLinkLineItemsParamSchema,
@@ -37058,12 +35755,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentLinksPaymentLinkLineItems(input, responder, ctx, next)
+        .getPaymentLinksPaymentLinkLineItems(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getPaymentLinksPaymentLinkLineItemsResponseValidator,
           ),
         )
@@ -37105,7 +35801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentMethodConfigurations",
     "/v1/payment_method_configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37166,14 +35862,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentMethodConfigurations(input, responder, ctx, next)
+        .getPaymentMethodConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getPaymentMethodConfigurationsResponseValidator,
-          ),
+          handleResponse(ctx, getPaymentMethodConfigurationsResponseValidator),
         )
     },
   )
@@ -37187,7 +35879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodConfigurations",
     "/v1/payment_method_configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37212,14 +35904,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodConfigurations(input, responder, ctx, next)
+        .postPaymentMethodConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentMethodConfigurationsResponseValidator,
-          ),
+          handleResponse(ctx, postPaymentMethodConfigurationsResponseValidator),
         )
     },
   )
@@ -37246,7 +35934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentMethodConfigurationsConfiguration",
     "/v1/payment_method_configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentMethodConfigurationsConfigurationParamSchema,
@@ -37282,17 +35970,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentMethodConfigurationsConfiguration(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getPaymentMethodConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getPaymentMethodConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -37312,7 +35994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodConfigurationsConfiguration",
     "/v1/payment_method_configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodConfigurationsConfigurationParamSchema,
@@ -37341,17 +36023,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodConfigurationsConfiguration(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postPaymentMethodConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentMethodConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -37393,7 +36069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentMethodDomains",
     "/v1/payment_method_domains",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37460,11 +36136,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentMethodDomains(input, responder, ctx, next)
+        .getPaymentMethodDomains(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getPaymentMethodDomainsResponseValidator),
-        )
+        .then(handleResponse(ctx, getPaymentMethodDomainsResponseValidator))
     },
   )
 
@@ -37476,7 +36150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodDomains",
     "/v1/payment_method_domains",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37501,11 +36175,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodDomains(input, responder, ctx, next)
+        .postPaymentMethodDomains(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postPaymentMethodDomainsResponseValidator),
-        )
+        .then(handleResponse(ctx, postPaymentMethodDomainsResponseValidator))
     },
   )
 
@@ -37528,7 +36200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentMethodDomainsPaymentMethodDomain",
     "/v1/payment_method_domains/:payment_method_domain",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentMethodDomainsPaymentMethodDomainParamSchema,
@@ -37564,12 +36236,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx, next)
+        .getPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getPaymentMethodDomainsPaymentMethodDomainResponseValidator,
           ),
         )
@@ -37586,7 +36257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodDomainsPaymentMethodDomain",
     "/v1/payment_method_domains/:payment_method_domain",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainParamSchema,
@@ -37615,17 +36286,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodDomainsPaymentMethodDomain(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentMethodDomainsPaymentMethodDomainResponseValidator,
           ),
         )
@@ -37641,7 +36306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodDomainsPaymentMethodDomainValidate",
     "/v1/payment_method_domains/:payment_method_domain/validate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema,
@@ -37674,13 +36339,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator,
           ),
         )
@@ -37767,7 +36430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPaymentMethods", "/v1/payment_methods", async (ctx, next) => {
+  router.get("getPaymentMethods", "/v1/payment_methods", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -37834,9 +36497,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPaymentMethods(input, responder, ctx, next)
+      .getPaymentMethods(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPaymentMethodsResponseValidator))
+      .then(handleResponse(ctx, getPaymentMethodsResponseValidator))
   })
 
   const postPaymentMethodsResponseValidator = responseValidationFactory(
@@ -37844,39 +36507,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postPaymentMethods",
-    "/v1/payment_methods",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostPaymentMethodsRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postPaymentMethods", "/v1/payment_methods", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostPaymentMethodsRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_payment_method>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_payment_method>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postPaymentMethods(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postPaymentMethodsResponseValidator))
-    },
-  )
+    await implementation
+      .postPaymentMethods(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postPaymentMethodsResponseValidator))
+  })
 
   const getPaymentMethodsPaymentMethodParamSchema = z.object({
     payment_method: z.string().max(5000),
@@ -37897,7 +36556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPaymentMethodsPaymentMethod",
     "/v1/payment_methods/:payment_method",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPaymentMethodsPaymentMethodParamSchema,
@@ -37933,14 +36592,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPaymentMethodsPaymentMethod(input, responder, ctx, next)
+        .getPaymentMethodsPaymentMethod(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getPaymentMethodsPaymentMethodResponseValidator,
-          ),
+          handleResponse(ctx, getPaymentMethodsPaymentMethodResponseValidator),
         )
     },
   )
@@ -37955,7 +36610,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodsPaymentMethod",
     "/v1/payment_methods/:payment_method",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodParamSchema,
@@ -37984,14 +36639,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodsPaymentMethod(input, responder, ctx, next)
+        .postPaymentMethodsPaymentMethod(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPaymentMethodsPaymentMethodResponseValidator,
-          ),
+          handleResponse(ctx, postPaymentMethodsPaymentMethodResponseValidator),
         )
     },
   )
@@ -38006,7 +36657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodsPaymentMethodAttach",
     "/v1/payment_methods/:payment_method/attach",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodAttachParamSchema,
@@ -38035,12 +36686,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodsPaymentMethodAttach(input, responder, ctx, next)
+        .postPaymentMethodsPaymentMethodAttach(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentMethodsPaymentMethodAttachResponseValidator,
           ),
         )
@@ -38057,7 +36707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPaymentMethodsPaymentMethodDetach",
     "/v1/payment_methods/:payment_method/detach",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPaymentMethodsPaymentMethodDetachParamSchema,
@@ -38086,12 +36736,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPaymentMethodsPaymentMethodDetach(input, responder, ctx, next)
+        .postPaymentMethodsPaymentMethodDetach(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postPaymentMethodsPaymentMethodDetachResponseValidator,
           ),
         )
@@ -38149,7 +36798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPayouts", "/v1/payouts", async (ctx, next) => {
+  router.get("getPayouts", "/v1/payouts", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -38244,9 +36893,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPayouts(input, responder, ctx, next)
+      .getPayouts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPayoutsResponseValidator))
+      .then(handleResponse(ctx, getPayoutsResponseValidator))
   })
 
   const postPayoutsResponseValidator = responseValidationFactory(
@@ -38254,7 +36903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPayouts", "/v1/payouts", async (ctx, next) => {
+  router.post("postPayouts", "/v1/payouts", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -38279,9 +36928,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPayouts(input, responder, ctx, next)
+      .postPayouts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPayoutsResponseValidator))
+      .then(handleResponse(ctx, postPayoutsResponseValidator))
   })
 
   const getPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
@@ -38300,7 +36949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
+  router.get("getPayoutsPayout", "/v1/payouts/:payout", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getPayoutsPayoutParamSchema,
@@ -38336,9 +36985,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPayoutsPayout(input, responder, ctx, next)
+      .getPayoutsPayout(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPayoutsPayoutResponseValidator))
+      .then(handleResponse(ctx, getPayoutsPayoutResponseValidator))
   })
 
   const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
@@ -38348,7 +36997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPayoutsPayout", "/v1/payouts/:payout", async (ctx, next) => {
+  router.post("postPayoutsPayout", "/v1/payouts/:payout", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postPayoutsPayoutParamSchema,
@@ -38377,9 +37026,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPayoutsPayout(input, responder, ctx, next)
+      .postPayoutsPayout(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPayoutsPayoutResponseValidator))
+      .then(handleResponse(ctx, postPayoutsPayoutResponseValidator))
   })
 
   const postPayoutsPayoutCancelParamSchema = z.object({
@@ -38394,7 +37043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPayoutsPayoutCancel",
     "/v1/payouts/:payout/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPayoutsPayoutCancelParamSchema,
@@ -38423,11 +37072,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPayoutsPayoutCancel(input, responder, ctx, next)
+        .postPayoutsPayoutCancel(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postPayoutsPayoutCancelResponseValidator),
-        )
+        .then(handleResponse(ctx, postPayoutsPayoutCancelResponseValidator))
     },
   )
 
@@ -38443,7 +37090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPayoutsPayoutReverse",
     "/v1/payouts/:payout/reverse",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPayoutsPayoutReverseParamSchema,
@@ -38472,11 +37119,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPayoutsPayoutReverse(input, responder, ctx, next)
+        .postPayoutsPayoutReverse(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postPayoutsPayoutReverseResponseValidator),
-        )
+        .then(handleResponse(ctx, postPayoutsPayoutReverseResponseValidator))
     },
   )
 
@@ -38520,7 +37165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPlans", "/v1/plans", async (ctx, next) => {
+  router.get("getPlans", "/v1/plans", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -38601,9 +37246,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPlans(input, responder, ctx, next)
+      .getPlans(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPlansResponseValidator))
+      .then(handleResponse(ctx, getPlansResponseValidator))
   })
 
   const postPlansResponseValidator = responseValidationFactory(
@@ -38611,7 +37256,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPlans", "/v1/plans", async (ctx, next) => {
+  router.post("postPlans", "/v1/plans", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -38636,9 +37281,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPlans(input, responder, ctx, next)
+      .postPlans(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPlansResponseValidator))
+      .then(handleResponse(ctx, postPlansResponseValidator))
   })
 
   const deletePlansPlanParamSchema = z.object({plan: z.string().max(5000)})
@@ -38648,7 +37293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.delete("deletePlansPlan", "/v1/plans/:plan", async (ctx, next) => {
+  router.delete("deletePlansPlan", "/v1/plans/:plan", async (ctx) => {
     const input = {
       params: parseRequestInput(
         deletePlansPlanParamSchema,
@@ -38673,9 +37318,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .deletePlansPlan(input, responder, ctx, next)
+      .deletePlansPlan(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, deletePlansPlanResponseValidator))
+      .then(handleResponse(ctx, deletePlansPlanResponseValidator))
   })
 
   const getPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
@@ -38694,7 +37339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
+  router.get("getPlansPlan", "/v1/plans/:plan", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getPlansPlanParamSchema,
@@ -38730,9 +37375,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPlansPlan(input, responder, ctx, next)
+      .getPlansPlan(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPlansPlanResponseValidator))
+      .then(handleResponse(ctx, getPlansPlanResponseValidator))
   })
 
   const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
@@ -38742,7 +37387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPlansPlan", "/v1/plans/:plan", async (ctx, next) => {
+  router.post("postPlansPlan", "/v1/plans/:plan", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postPlansPlanParamSchema,
@@ -38771,9 +37416,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPlansPlan(input, responder, ctx, next)
+      .postPlansPlan(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPlansPlanResponseValidator))
+      .then(handleResponse(ctx, postPlansPlanResponseValidator))
   })
 
   const getPricesQuerySchema = z.object({
@@ -38831,7 +37476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPrices", "/v1/prices", async (ctx, next) => {
+  router.get("getPrices", "/v1/prices", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -38943,9 +37588,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPrices(input, responder, ctx, next)
+      .getPrices(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPricesResponseValidator))
+      .then(handleResponse(ctx, getPricesResponseValidator))
   })
 
   const postPricesResponseValidator = responseValidationFactory(
@@ -38953,7 +37598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPrices", "/v1/prices", async (ctx, next) => {
+  router.post("postPrices", "/v1/prices", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -38978,9 +37623,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPrices(input, responder, ctx, next)
+      .postPrices(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPricesResponseValidator))
+      .then(handleResponse(ctx, postPricesResponseValidator))
   })
 
   const getPricesSearchQuerySchema = z.object({
@@ -39012,7 +37657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPricesSearch", "/v1/prices/search", async (ctx, next) => {
+  router.get("getPricesSearch", "/v1/prices/search", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -39069,9 +37714,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPricesSearch(input, responder, ctx, next)
+      .getPricesSearch(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPricesSearchResponseValidator))
+      .then(handleResponse(ctx, getPricesSearchResponseValidator))
   })
 
   const getPricesPriceParamSchema = z.object({price: z.string().max(5000)})
@@ -39090,7 +37735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPricesPrice", "/v1/prices/:price", async (ctx, next) => {
+  router.get("getPricesPrice", "/v1/prices/:price", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getPricesPriceParamSchema,
@@ -39126,9 +37771,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPricesPrice(input, responder, ctx, next)
+      .getPricesPrice(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPricesPriceResponseValidator))
+      .then(handleResponse(ctx, getPricesPriceResponseValidator))
   })
 
   const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
@@ -39138,7 +37783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postPricesPrice", "/v1/prices/:price", async (ctx, next) => {
+  router.post("postPricesPrice", "/v1/prices/:price", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postPricesPriceParamSchema,
@@ -39167,9 +37812,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postPricesPrice(input, responder, ctx, next)
+      .postPricesPrice(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postPricesPriceResponseValidator))
+      .then(handleResponse(ctx, postPricesPriceResponseValidator))
   })
 
   const getProductsQuerySchema = z.object({
@@ -39219,7 +37864,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getProducts", "/v1/products", async (ctx, next) => {
+  router.get("getProducts", "/v1/products", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -39307,9 +37952,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getProducts(input, responder, ctx, next)
+      .getProducts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getProductsResponseValidator))
+      .then(handleResponse(ctx, getProductsResponseValidator))
   })
 
   const postProductsResponseValidator = responseValidationFactory(
@@ -39317,7 +37962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postProducts", "/v1/products", async (ctx, next) => {
+  router.post("postProducts", "/v1/products", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -39342,9 +37987,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postProducts(input, responder, ctx, next)
+      .postProducts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postProductsResponseValidator))
+      .then(handleResponse(ctx, postProductsResponseValidator))
   })
 
   const getProductsSearchQuerySchema = z.object({
@@ -39376,7 +38021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getProductsSearch", "/v1/products/search", async (ctx, next) => {
+  router.get("getProductsSearch", "/v1/products/search", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -39433,9 +38078,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getProductsSearch(input, responder, ctx, next)
+      .getProductsSearch(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getProductsSearchResponseValidator))
+      .then(handleResponse(ctx, getProductsSearchResponseValidator))
   })
 
   const deleteProductsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -39445,7 +38090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.delete("deleteProductsId", "/v1/products/:id", async (ctx, next) => {
+  router.delete("deleteProductsId", "/v1/products/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         deleteProductsIdParamSchema,
@@ -39470,9 +38115,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .deleteProductsId(input, responder, ctx, next)
+      .deleteProductsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, deleteProductsIdResponseValidator))
+      .then(handleResponse(ctx, deleteProductsIdResponseValidator))
   })
 
   const getProductsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -39491,7 +38136,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getProductsId", "/v1/products/:id", async (ctx, next) => {
+  router.get("getProductsId", "/v1/products/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getProductsIdParamSchema,
@@ -39527,9 +38172,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getProductsId(input, responder, ctx, next)
+      .getProductsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getProductsIdResponseValidator))
+      .then(handleResponse(ctx, getProductsIdResponseValidator))
   })
 
   const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -39539,7 +38184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postProductsId", "/v1/products/:id", async (ctx, next) => {
+  router.post("postProductsId", "/v1/products/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postProductsIdParamSchema,
@@ -39568,9 +38213,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postProductsId(input, responder, ctx, next)
+      .postProductsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postProductsIdResponseValidator))
+      .then(handleResponse(ctx, postProductsIdResponseValidator))
   })
 
   const getProductsProductFeaturesParamSchema = z.object({
@@ -39607,7 +38252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getProductsProductFeatures",
     "/v1/products/:product/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getProductsProductFeaturesParamSchema,
@@ -39666,15 +38311,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getProductsProductFeatures(input, responder, ctx, next)
+        .getProductsProductFeatures(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getProductsProductFeaturesResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getProductsProductFeaturesResponseValidator))
     },
   )
 
@@ -39688,7 +38327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postProductsProductFeatures",
     "/v1/products/:product/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postProductsProductFeaturesParamSchema,
@@ -39717,15 +38356,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postProductsProductFeatures(input, responder, ctx, next)
+        .postProductsProductFeatures(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postProductsProductFeaturesResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postProductsProductFeaturesResponseValidator))
     },
   )
 
@@ -39740,7 +38373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteProductsProductFeaturesId",
     "/v1/products/:product/features/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteProductsProductFeaturesIdParamSchema,
@@ -39765,14 +38398,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteProductsProductFeaturesId(input, responder, ctx, next)
+        .deleteProductsProductFeaturesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteProductsProductFeaturesIdResponseValidator,
-          ),
+          handleResponse(ctx, deleteProductsProductFeaturesIdResponseValidator),
         )
     },
   )
@@ -39797,7 +38426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getProductsProductFeaturesId",
     "/v1/products/:product/features/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getProductsProductFeaturesIdParamSchema,
@@ -39833,14 +38462,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getProductsProductFeaturesId(input, responder, ctx, next)
+        .getProductsProductFeaturesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getProductsProductFeaturesIdResponseValidator,
-          ),
+          handleResponse(ctx, getProductsProductFeaturesIdResponseValidator),
         )
     },
   )
@@ -39887,7 +38512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getPromotionCodes", "/v1/promotion_codes", async (ctx, next) => {
+  router.get("getPromotionCodes", "/v1/promotion_codes", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -39980,9 +38605,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPromotionCodes(input, responder, ctx, next)
+      .getPromotionCodes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPromotionCodesResponseValidator))
+      .then(handleResponse(ctx, getPromotionCodesResponseValidator))
   })
 
   const postPromotionCodesResponseValidator = responseValidationFactory(
@@ -39990,39 +38615,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postPromotionCodes",
-    "/v1/promotion_codes",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostPromotionCodesRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postPromotionCodes", "/v1/promotion_codes", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostPromotionCodesRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_promotion_code>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_promotion_code>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postPromotionCodes(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postPromotionCodesResponseValidator))
-    },
-  )
+    await implementation
+      .postPromotionCodes(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postPromotionCodesResponseValidator))
+  })
 
   const getPromotionCodesPromotionCodeParamSchema = z.object({
     promotion_code: z.string().max(5000),
@@ -40043,7 +38664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getPromotionCodesPromotionCode",
     "/v1/promotion_codes/:promotion_code",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getPromotionCodesPromotionCodeParamSchema,
@@ -40079,14 +38700,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getPromotionCodesPromotionCode(input, responder, ctx, next)
+        .getPromotionCodesPromotionCode(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getPromotionCodesPromotionCodeResponseValidator,
-          ),
+          handleResponse(ctx, getPromotionCodesPromotionCodeResponseValidator),
         )
     },
   )
@@ -40101,7 +38718,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postPromotionCodesPromotionCode",
     "/v1/promotion_codes/:promotion_code",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postPromotionCodesPromotionCodeParamSchema,
@@ -40130,14 +38747,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postPromotionCodesPromotionCode(input, responder, ctx, next)
+        .postPromotionCodesPromotionCode(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postPromotionCodesPromotionCodeResponseValidator,
-          ),
+          handleResponse(ctx, postPromotionCodesPromotionCodeResponseValidator),
         )
     },
   )
@@ -40172,7 +38785,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getQuotes", "/v1/quotes", async (ctx, next) => {
+  router.get("getQuotes", "/v1/quotes", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -40245,9 +38858,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getQuotes(input, responder, ctx, next)
+      .getQuotes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getQuotesResponseValidator))
+      .then(handleResponse(ctx, getQuotesResponseValidator))
   })
 
   const postQuotesResponseValidator = responseValidationFactory(
@@ -40255,7 +38868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postQuotes", "/v1/quotes", async (ctx, next) => {
+  router.post("postQuotes", "/v1/quotes", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -40280,9 +38893,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postQuotes(input, responder, ctx, next)
+      .postQuotes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postQuotesResponseValidator))
+      .then(handleResponse(ctx, postQuotesResponseValidator))
   })
 
   const getQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
@@ -40301,7 +38914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
+  router.get("getQuotesQuote", "/v1/quotes/:quote", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getQuotesQuoteParamSchema,
@@ -40337,9 +38950,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getQuotesQuote(input, responder, ctx, next)
+      .getQuotesQuote(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getQuotesQuoteResponseValidator))
+      .then(handleResponse(ctx, getQuotesQuoteResponseValidator))
   })
 
   const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
@@ -40349,7 +38962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postQuotesQuote", "/v1/quotes/:quote", async (ctx, next) => {
+  router.post("postQuotesQuote", "/v1/quotes/:quote", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postQuotesQuoteParamSchema,
@@ -40378,9 +38991,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postQuotesQuote(input, responder, ctx, next)
+      .postQuotesQuote(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postQuotesQuoteResponseValidator))
+      .then(handleResponse(ctx, postQuotesQuoteResponseValidator))
   })
 
   const postQuotesQuoteAcceptParamSchema = z.object({
@@ -40395,7 +39008,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postQuotesQuoteAccept",
     "/v1/quotes/:quote/accept",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postQuotesQuoteAcceptParamSchema,
@@ -40424,9 +39037,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postQuotesQuoteAccept(input, responder, ctx, next)
+        .postQuotesQuoteAccept(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postQuotesQuoteAcceptResponseValidator))
+        .then(handleResponse(ctx, postQuotesQuoteAcceptResponseValidator))
     },
   )
 
@@ -40442,7 +39055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postQuotesQuoteCancel",
     "/v1/quotes/:quote/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postQuotesQuoteCancelParamSchema,
@@ -40471,9 +39084,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postQuotesQuoteCancel(input, responder, ctx, next)
+        .postQuotesQuoteCancel(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postQuotesQuoteCancelResponseValidator))
+        .then(handleResponse(ctx, postQuotesQuoteCancelResponseValidator))
     },
   )
 
@@ -40512,7 +39125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getQuotesQuoteComputedUpfrontLineItems",
     "/v1/quotes/:quote/computed_upfront_line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getQuotesQuoteComputedUpfrontLineItemsParamSchema,
@@ -40571,12 +39184,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getQuotesQuoteComputedUpfrontLineItems(input, responder, ctx, next)
+        .getQuotesQuoteComputedUpfrontLineItems(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getQuotesQuoteComputedUpfrontLineItemsResponseValidator,
           ),
         )
@@ -40595,7 +39207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postQuotesQuoteFinalize",
     "/v1/quotes/:quote/finalize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postQuotesQuoteFinalizeParamSchema,
@@ -40624,11 +39236,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postQuotesQuoteFinalize(input, responder, ctx, next)
+        .postQuotesQuoteFinalize(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postQuotesQuoteFinalizeResponseValidator),
-        )
+        .then(handleResponse(ctx, postQuotesQuoteFinalizeResponseValidator))
     },
   )
 
@@ -40666,7 +39276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getQuotesQuoteLineItems",
     "/v1/quotes/:quote/line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getQuotesQuoteLineItemsParamSchema,
@@ -40725,11 +39335,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getQuotesQuoteLineItems(input, responder, ctx, next)
+        .getQuotesQuoteLineItems(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getQuotesQuoteLineItemsResponseValidator),
-        )
+        .then(handleResponse(ctx, getQuotesQuoteLineItemsResponseValidator))
     },
   )
 
@@ -40749,50 +39357,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getQuotesQuotePdf",
-    "/v1/quotes/:quote/pdf",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getQuotesQuotePdfParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getQuotesQuotePdfQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getQuotesQuotePdf", "/v1/quotes/:quote/pdf", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getQuotesQuotePdfParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getQuotesQuotePdfQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<Blob>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<Blob>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getQuotesQuotePdf(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getQuotesQuotePdfResponseValidator))
-    },
-  )
+    await implementation
+      .getQuotesQuotePdf(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getQuotesQuotePdfResponseValidator))
+  })
 
   const getRadarEarlyFraudWarningsQuerySchema = z.object({
     charge: z.string().optional(),
@@ -40840,7 +39444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getRadarEarlyFraudWarnings",
     "/v1/radar/early_fraud_warnings",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -40921,15 +39525,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getRadarEarlyFraudWarnings(input, responder, ctx, next)
+        .getRadarEarlyFraudWarnings(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getRadarEarlyFraudWarningsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getRadarEarlyFraudWarningsResponseValidator))
     },
   )
 
@@ -40952,7 +39550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getRadarEarlyFraudWarningsEarlyFraudWarning",
     "/v1/radar/early_fraud_warnings/:early_fraud_warning",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
@@ -40988,17 +39586,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getRadarEarlyFraudWarningsEarlyFraudWarning(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getRadarEarlyFraudWarningsEarlyFraudWarning(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator,
           ),
         )
@@ -41051,7 +39643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getRadarValueListItems",
     "/v1/radar/value_list_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -41132,11 +39724,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getRadarValueListItems(input, responder, ctx, next)
+        .getRadarValueListItems(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getRadarValueListItemsResponseValidator),
-        )
+        .then(handleResponse(ctx, getRadarValueListItemsResponseValidator))
     },
   )
 
@@ -41148,7 +39738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postRadarValueListItems",
     "/v1/radar/value_list_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -41173,11 +39763,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postRadarValueListItems(input, responder, ctx, next)
+        .postRadarValueListItems(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postRadarValueListItemsResponseValidator),
-        )
+        .then(handleResponse(ctx, postRadarValueListItemsResponseValidator))
     },
   )
 
@@ -41194,7 +39782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteRadarValueListItemsItem",
     "/v1/radar/value_list_items/:item",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteRadarValueListItemsItemParamSchema,
@@ -41219,14 +39807,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteRadarValueListItemsItem(input, responder, ctx, next)
+        .deleteRadarValueListItemsItem(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteRadarValueListItemsItemResponseValidator,
-          ),
+          handleResponse(ctx, deleteRadarValueListItemsItemResponseValidator),
         )
     },
   )
@@ -41252,7 +39836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getRadarValueListItemsItem",
     "/v1/radar/value_list_items/:item",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getRadarValueListItemsItemParamSchema,
@@ -41288,15 +39872,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getRadarValueListItemsItem(input, responder, ctx, next)
+        .getRadarValueListItemsItem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getRadarValueListItemsItemResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getRadarValueListItemsItemResponseValidator))
     },
   )
 
@@ -41340,134 +39918,126 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getRadarValueLists",
-    "/v1/radar/value_lists",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getRadarValueListsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "alias",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "contains",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "created",
-              explode: true,
-              style: "deepObject",
-              schema: {
-                type: "object",
-                properties: {
-                  gt: {type: "number"},
-                  gte: {type: "number"},
-                  lt: {type: "number"},
-                  lte: {type: "number"},
-                },
+  router.get("getRadarValueLists", "/v1/radar/value_lists", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getRadarValueListsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "alias",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "contains",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "created",
+            explode: true,
+            style: "deepObject",
+            schema: {
+              type: "object",
+              properties: {
+                gt: {type: "number"},
+                gte: {type: "number"},
+                lt: {type: "number"},
+                lte: {type: "number"},
               },
             },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_radar_value_list[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_radar_value_list[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getRadarValueLists(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getRadarValueListsResponseValidator))
-    },
-  )
+    await implementation
+      .getRadarValueLists(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getRadarValueListsResponseValidator))
+  })
 
   const postRadarValueListsResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list]],
     s_error,
   )
 
-  router.post(
-    "postRadarValueLists",
-    "/v1/radar/value_lists",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostRadarValueListsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postRadarValueLists", "/v1/radar/value_lists", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostRadarValueListsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_radar_value_list>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_radar_value_list>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postRadarValueLists(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postRadarValueListsResponseValidator))
-    },
-  )
+    await implementation
+      .postRadarValueLists(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postRadarValueListsResponseValidator))
+  })
 
   const deleteRadarValueListsValueListParamSchema = z.object({
     value_list: z.string().max(5000),
@@ -41479,7 +40049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteRadarValueListsValueList",
     "/v1/radar/value_lists/:value_list",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteRadarValueListsValueListParamSchema,
@@ -41504,14 +40074,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteRadarValueListsValueList(input, responder, ctx, next)
+        .deleteRadarValueListsValueList(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteRadarValueListsValueListResponseValidator,
-          ),
+          handleResponse(ctx, deleteRadarValueListsValueListResponseValidator),
         )
     },
   )
@@ -41535,7 +40101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getRadarValueListsValueList",
     "/v1/radar/value_lists/:value_list",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getRadarValueListsValueListParamSchema,
@@ -41571,15 +40137,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getRadarValueListsValueList(input, responder, ctx, next)
+        .getRadarValueListsValueList(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getRadarValueListsValueListResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getRadarValueListsValueListResponseValidator))
     },
   )
 
@@ -41593,7 +40153,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postRadarValueListsValueList",
     "/v1/radar/value_lists/:value_list",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postRadarValueListsValueListParamSchema,
@@ -41622,14 +40182,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postRadarValueListsValueList(input, responder, ctx, next)
+        .postRadarValueListsValueList(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postRadarValueListsValueListResponseValidator,
-          ),
+          handleResponse(ctx, postRadarValueListsValueListResponseValidator),
         )
     },
   )
@@ -41674,7 +40230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getRefunds", "/v1/refunds", async (ctx, next) => {
+  router.get("getRefunds", "/v1/refunds", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -41755,9 +40311,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getRefunds(input, responder, ctx, next)
+      .getRefunds(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getRefundsResponseValidator))
+      .then(handleResponse(ctx, getRefundsResponseValidator))
   })
 
   const postRefundsResponseValidator = responseValidationFactory(
@@ -41765,7 +40321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postRefunds", "/v1/refunds", async (ctx, next) => {
+  router.post("postRefunds", "/v1/refunds", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -41790,9 +40346,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postRefunds(input, responder, ctx, next)
+      .postRefunds(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postRefundsResponseValidator))
+      .then(handleResponse(ctx, postRefundsResponseValidator))
   })
 
   const getRefundsRefundParamSchema = z.object({refund: z.string()})
@@ -41811,7 +40367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
+  router.get("getRefundsRefund", "/v1/refunds/:refund", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getRefundsRefundParamSchema,
@@ -41847,9 +40403,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getRefundsRefund(input, responder, ctx, next)
+      .getRefundsRefund(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getRefundsRefundResponseValidator))
+      .then(handleResponse(ctx, getRefundsRefundResponseValidator))
   })
 
   const postRefundsRefundParamSchema = z.object({refund: z.string()})
@@ -41859,7 +40415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postRefundsRefund", "/v1/refunds/:refund", async (ctx, next) => {
+  router.post("postRefundsRefund", "/v1/refunds/:refund", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postRefundsRefundParamSchema,
@@ -41888,9 +40444,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postRefundsRefund(input, responder, ctx, next)
+      .postRefundsRefund(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postRefundsRefundResponseValidator))
+      .then(handleResponse(ctx, postRefundsRefundResponseValidator))
   })
 
   const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
@@ -41903,7 +40459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postRefundsRefundCancel",
     "/v1/refunds/:refund/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postRefundsRefundCancelParamSchema,
@@ -41932,11 +40488,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postRefundsRefundCancel(input, responder, ctx, next)
+        .postRefundsRefundCancel(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postRefundsRefundCancelResponseValidator),
-        )
+        .then(handleResponse(ctx, postRefundsRefundCancelResponseValidator))
     },
   )
 
@@ -41984,7 +40538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getReportingReportRuns",
     "/v1/reporting/report_runs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -42053,11 +40607,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getReportingReportRuns(input, responder, ctx, next)
+        .getReportingReportRuns(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getReportingReportRunsResponseValidator),
-        )
+        .then(handleResponse(ctx, getReportingReportRunsResponseValidator))
     },
   )
 
@@ -42069,7 +40621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postReportingReportRuns",
     "/v1/reporting/report_runs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -42094,11 +40646,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postReportingReportRuns(input, responder, ctx, next)
+        .postReportingReportRuns(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postReportingReportRunsResponseValidator),
-        )
+        .then(handleResponse(ctx, postReportingReportRunsResponseValidator))
     },
   )
 
@@ -42121,7 +40671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getReportingReportRunsReportRun",
     "/v1/reporting/report_runs/:report_run",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getReportingReportRunsReportRunParamSchema,
@@ -42157,14 +40707,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getReportingReportRunsReportRun(input, responder, ctx, next)
+        .getReportingReportRunsReportRun(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getReportingReportRunsReportRunResponseValidator,
-          ),
+          handleResponse(ctx, getReportingReportRunsReportRunResponseValidator),
         )
     },
   )
@@ -42196,7 +40742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getReportingReportTypes",
     "/v1/reporting/report_types",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -42233,11 +40779,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getReportingReportTypes(input, responder, ctx, next)
+        .getReportingReportTypes(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getReportingReportTypesResponseValidator),
-        )
+        .then(handleResponse(ctx, getReportingReportTypesResponseValidator))
     },
   )
 
@@ -42260,7 +40804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getReportingReportTypesReportType",
     "/v1/reporting/report_types/:report_type",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getReportingReportTypesReportTypeParamSchema,
@@ -42296,12 +40840,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getReportingReportTypesReportType(input, responder, ctx, next)
+        .getReportingReportTypesReportType(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getReportingReportTypesReportTypeResponseValidator,
           ),
         )
@@ -42346,7 +40889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getReviews", "/v1/reviews", async (ctx, next) => {
+  router.get("getReviews", "/v1/reviews", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -42415,9 +40958,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getReviews(input, responder, ctx, next)
+      .getReviews(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getReviewsResponseValidator))
+      .then(handleResponse(ctx, getReviewsResponseValidator))
   })
 
   const getReviewsReviewParamSchema = z.object({review: z.string().max(5000)})
@@ -42436,7 +40979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getReviewsReview", "/v1/reviews/:review", async (ctx, next) => {
+  router.get("getReviewsReview", "/v1/reviews/:review", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getReviewsReviewParamSchema,
@@ -42472,9 +41015,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getReviewsReview(input, responder, ctx, next)
+      .getReviewsReview(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getReviewsReviewResponseValidator))
+      .then(handleResponse(ctx, getReviewsReviewResponseValidator))
   })
 
   const postReviewsReviewApproveParamSchema = z.object({
@@ -42489,7 +41032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postReviewsReviewApprove",
     "/v1/reviews/:review/approve",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postReviewsReviewApproveParamSchema,
@@ -42518,11 +41061,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postReviewsReviewApprove(input, responder, ctx, next)
+        .postReviewsReviewApprove(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postReviewsReviewApproveResponseValidator),
-        )
+        .then(handleResponse(ctx, postReviewsReviewApproveResponseValidator))
     },
   )
 
@@ -42565,7 +41106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getSetupAttempts", "/v1/setup_attempts", async (ctx, next) => {
+  router.get("getSetupAttempts", "/v1/setup_attempts", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -42640,9 +41181,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getSetupAttempts(input, responder, ctx, next)
+      .getSetupAttempts(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getSetupAttemptsResponseValidator))
+      .then(handleResponse(ctx, getSetupAttemptsResponseValidator))
   })
 
   const getSetupIntentsQuerySchema = z.object({
@@ -42686,7 +41227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getSetupIntents", "/v1/setup_intents", async (ctx, next) => {
+  router.get("getSetupIntents", "/v1/setup_intents", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -42773,9 +41314,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getSetupIntents(input, responder, ctx, next)
+      .getSetupIntents(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getSetupIntentsResponseValidator))
+      .then(handleResponse(ctx, getSetupIntentsResponseValidator))
   })
 
   const postSetupIntentsResponseValidator = responseValidationFactory(
@@ -42783,7 +41324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postSetupIntents", "/v1/setup_intents", async (ctx, next) => {
+  router.post("postSetupIntents", "/v1/setup_intents", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -42808,9 +41349,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postSetupIntents(input, responder, ctx, next)
+      .postSetupIntents(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postSetupIntentsResponseValidator))
+      .then(handleResponse(ctx, postSetupIntentsResponseValidator))
   })
 
   const getSetupIntentsIntentParamSchema = z.object({
@@ -42835,7 +41376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSetupIntentsIntent",
     "/v1/setup_intents/:intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSetupIntentsIntentParamSchema,
@@ -42877,9 +41418,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSetupIntentsIntent(input, responder, ctx, next)
+        .getSetupIntentsIntent(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getSetupIntentsIntentResponseValidator))
+        .then(handleResponse(ctx, getSetupIntentsIntentResponseValidator))
     },
   )
 
@@ -42895,7 +41436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSetupIntentsIntent",
     "/v1/setup_intents/:intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentParamSchema,
@@ -42924,11 +41465,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSetupIntentsIntent(input, responder, ctx, next)
+        .postSetupIntentsIntent(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postSetupIntentsIntentResponseValidator),
-        )
+        .then(handleResponse(ctx, postSetupIntentsIntentResponseValidator))
     },
   )
 
@@ -42942,7 +41481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSetupIntentsIntentCancel",
     "/v1/setup_intents/:intent/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentCancelParamSchema,
@@ -42971,14 +41510,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSetupIntentsIntentCancel(input, responder, ctx, next)
+        .postSetupIntentsIntentCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postSetupIntentsIntentCancelResponseValidator,
-          ),
+          handleResponse(ctx, postSetupIntentsIntentCancelResponseValidator),
         )
     },
   )
@@ -42993,7 +41528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSetupIntentsIntentConfirm",
     "/v1/setup_intents/:intent/confirm",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentConfirmParamSchema,
@@ -43022,14 +41557,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSetupIntentsIntentConfirm(input, responder, ctx, next)
+        .postSetupIntentsIntentConfirm(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postSetupIntentsIntentConfirmResponseValidator,
-          ),
+          handleResponse(ctx, postSetupIntentsIntentConfirmResponseValidator),
         )
     },
   )
@@ -43044,7 +41575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSetupIntentsIntentVerifyMicrodeposits",
     "/v1/setup_intents/:intent/verify_microdeposits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSetupIntentsIntentVerifyMicrodepositsParamSchema,
@@ -43073,12 +41604,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSetupIntentsIntentVerifyMicrodeposits(input, responder, ctx, next)
+        .postSetupIntentsIntentVerifyMicrodeposits(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSetupIntentsIntentVerifyMicrodepositsResponseValidator,
           ),
         )
@@ -43125,7 +41655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getShippingRates", "/v1/shipping_rates", async (ctx, next) => {
+  router.get("getShippingRates", "/v1/shipping_rates", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -43206,9 +41736,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getShippingRates(input, responder, ctx, next)
+      .getShippingRates(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getShippingRatesResponseValidator))
+      .then(handleResponse(ctx, getShippingRatesResponseValidator))
   })
 
   const postShippingRatesResponseValidator = responseValidationFactory(
@@ -43216,7 +41746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postShippingRates", "/v1/shipping_rates", async (ctx, next) => {
+  router.post("postShippingRates", "/v1/shipping_rates", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -43241,9 +41771,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postShippingRates(input, responder, ctx, next)
+      .postShippingRates(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postShippingRatesResponseValidator))
+      .then(handleResponse(ctx, postShippingRatesResponseValidator))
   })
 
   const getShippingRatesShippingRateTokenParamSchema = z.object({
@@ -43265,7 +41795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getShippingRatesShippingRateToken",
     "/v1/shipping_rates/:shipping_rate_token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getShippingRatesShippingRateTokenParamSchema,
@@ -43301,12 +41831,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getShippingRatesShippingRateToken(input, responder, ctx, next)
+        .getShippingRatesShippingRateToken(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getShippingRatesShippingRateTokenResponseValidator,
           ),
         )
@@ -43323,7 +41852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postShippingRatesShippingRateToken",
     "/v1/shipping_rates/:shipping_rate_token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postShippingRatesShippingRateTokenParamSchema,
@@ -43352,12 +41881,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postShippingRatesShippingRateToken(input, responder, ctx, next)
+        .postShippingRatesShippingRateToken(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postShippingRatesShippingRateTokenResponseValidator,
           ),
         )
@@ -43376,7 +41904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSigmaSavedQueriesId",
     "/v1/sigma/saved_queries/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSigmaSavedQueriesIdParamSchema,
@@ -43405,11 +41933,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSigmaSavedQueriesId(input, responder, ctx, next)
+        .postSigmaSavedQueriesId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postSigmaSavedQueriesIdResponseValidator),
-        )
+        .then(handleResponse(ctx, postSigmaSavedQueriesIdResponseValidator))
     },
   )
 
@@ -43446,7 +41972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSigmaScheduledQueryRuns",
     "/v1/sigma/scheduled_query_runs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -43501,15 +42027,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSigmaScheduledQueryRuns(input, responder, ctx, next)
+        .getSigmaScheduledQueryRuns(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getSigmaScheduledQueryRunsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getSigmaScheduledQueryRunsResponseValidator))
     },
   )
 
@@ -43532,7 +42052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSigmaScheduledQueryRunsScheduledQueryRun",
     "/v1/sigma/scheduled_query_runs/:scheduled_query_run",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
@@ -43568,17 +42088,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSigmaScheduledQueryRunsScheduledQueryRun(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getSigmaScheduledQueryRunsScheduledQueryRun(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator,
           ),
         )
@@ -43590,7 +42104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postSources", "/v1/sources", async (ctx, next) => {
+  router.post("postSources", "/v1/sources", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -43615,9 +42129,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postSources(input, responder, ctx, next)
+      .postSources(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postSourcesResponseValidator))
+      .then(handleResponse(ctx, postSourcesResponseValidator))
   })
 
   const getSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
@@ -43637,7 +42151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getSourcesSource", "/v1/sources/:source", async (ctx, next) => {
+  router.get("getSourcesSource", "/v1/sources/:source", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getSourcesSourceParamSchema,
@@ -43679,9 +42193,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getSourcesSource(input, responder, ctx, next)
+      .getSourcesSource(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getSourcesSourceResponseValidator))
+      .then(handleResponse(ctx, getSourcesSourceResponseValidator))
   })
 
   const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
@@ -43691,7 +42205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postSourcesSource", "/v1/sources/:source", async (ctx, next) => {
+  router.post("postSourcesSource", "/v1/sources/:source", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postSourcesSourceParamSchema,
@@ -43720,9 +42234,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postSourcesSource(input, responder, ctx, next)
+      .postSourcesSource(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postSourcesSourceResponseValidator))
+      .then(handleResponse(ctx, postSourcesSourceResponseValidator))
   })
 
   const getSourcesSourceMandateNotificationsMandateNotificationParamSchema =
@@ -43747,7 +42261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSourcesSourceMandateNotificationsMandateNotification",
     "/v1/sources/:source/mandate_notifications/:mandate_notification",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSourcesSourceMandateNotificationsMandateNotificationParamSchema,
@@ -43787,13 +42301,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSourcesSourceMandateNotificationsMandateNotificationResponseValidator,
           ),
         )
@@ -43835,7 +42347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSourcesSourceSourceTransactions",
     "/v1/sources/:source/source_transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsParamSchema,
@@ -43894,12 +42406,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSourcesSourceSourceTransactions(input, responder, ctx, next)
+        .getSourcesSourceSourceTransactions(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSourcesSourceSourceTransactionsResponseValidator,
           ),
         )
@@ -43928,7 +42439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSourcesSourceSourceTransactionsSourceTransaction",
     "/v1/sources/:source/source_transactions/:source_transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSourcesSourceSourceTransactionsSourceTransactionParamSchema,
@@ -43968,13 +42479,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSourcesSourceSourceTransactionsSourceTransactionResponseValidator,
           ),
         )
@@ -43993,7 +42502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSourcesSourceVerify",
     "/v1/sources/:source/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSourcesSourceVerifyParamSchema,
@@ -44022,11 +42531,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSourcesSourceVerify(input, responder, ctx, next)
+        .postSourcesSourceVerify(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postSourcesSourceVerifyResponseValidator),
-        )
+        .then(handleResponse(ctx, postSourcesSourceVerifyResponseValidator))
     },
   )
 
@@ -44061,75 +42568,71 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getSubscriptionItems",
-    "/v1/subscription_items",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getSubscriptionItemsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "subscription",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getSubscriptionItems", "/v1/subscription_items", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getSubscriptionItemsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "subscription",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_subscription_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_subscription_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getSubscriptionItems(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getSubscriptionItemsResponseValidator))
-    },
-  )
+    await implementation
+      .getSubscriptionItems(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getSubscriptionItemsResponseValidator))
+  })
 
   const postSubscriptionItemsResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
@@ -44139,7 +42642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionItems",
     "/v1/subscription_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -44164,9 +42667,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionItems(input, responder, ctx, next)
+        .postSubscriptionItems(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postSubscriptionItemsResponseValidator))
+        .then(handleResponse(ctx, postSubscriptionItemsResponseValidator))
     },
   )
 
@@ -44180,7 +42683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteSubscriptionItemsItem",
     "/v1/subscription_items/:item",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteSubscriptionItemsItemParamSchema,
@@ -44209,15 +42712,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteSubscriptionItemsItem(input, responder, ctx, next)
+        .deleteSubscriptionItemsItem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteSubscriptionItemsItemResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, deleteSubscriptionItemsItemResponseValidator))
     },
   )
 
@@ -44242,7 +42739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSubscriptionItemsItem",
     "/v1/subscription_items/:item",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSubscriptionItemsItemParamSchema,
@@ -44278,11 +42775,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSubscriptionItemsItem(input, responder, ctx, next)
+        .getSubscriptionItemsItem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getSubscriptionItemsItemResponseValidator),
-        )
+        .then(handleResponse(ctx, getSubscriptionItemsItemResponseValidator))
     },
   )
 
@@ -44298,7 +42793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionItemsItem",
     "/v1/subscription_items/:item",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionItemsItemParamSchema,
@@ -44327,11 +42822,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionItemsItem(input, responder, ctx, next)
+        .postSubscriptionItemsItem(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postSubscriptionItemsItemResponseValidator),
-        )
+        .then(handleResponse(ctx, postSubscriptionItemsItemResponseValidator))
     },
   )
 
@@ -44414,7 +42907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSubscriptionSchedules",
     "/v1/subscription_schedules",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -44537,11 +43030,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSubscriptionSchedules(input, responder, ctx, next)
+        .getSubscriptionSchedules(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getSubscriptionSchedulesResponseValidator),
-        )
+        .then(handleResponse(ctx, getSubscriptionSchedulesResponseValidator))
     },
   )
 
@@ -44553,7 +43044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionSchedules",
     "/v1/subscription_schedules",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -44578,11 +43069,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionSchedules(input, responder, ctx, next)
+        .postSubscriptionSchedules(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postSubscriptionSchedulesResponseValidator),
-        )
+        .then(handleResponse(ctx, postSubscriptionSchedulesResponseValidator))
     },
   )
 
@@ -44605,7 +43094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSubscriptionSchedulesSchedule",
     "/v1/subscription_schedules/:schedule",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSubscriptionSchedulesScheduleParamSchema,
@@ -44641,12 +43130,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSubscriptionSchedulesSchedule(input, responder, ctx, next)
+        .getSubscriptionSchedulesSchedule(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSubscriptionSchedulesScheduleResponseValidator,
           ),
         )
@@ -44663,7 +43151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionSchedulesSchedule",
     "/v1/subscription_schedules/:schedule",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleParamSchema,
@@ -44692,12 +43180,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionSchedulesSchedule(input, responder, ctx, next)
+        .postSubscriptionSchedulesSchedule(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionSchedulesScheduleResponseValidator,
           ),
         )
@@ -44714,7 +43201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionSchedulesScheduleCancel",
     "/v1/subscription_schedules/:schedule/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleCancelParamSchema,
@@ -44743,12 +43230,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionSchedulesScheduleCancel(input, responder, ctx, next)
+        .postSubscriptionSchedulesScheduleCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionSchedulesScheduleCancelResponseValidator,
           ),
         )
@@ -44765,7 +43251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionSchedulesScheduleRelease",
     "/v1/subscription_schedules/:schedule/release",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionSchedulesScheduleReleaseParamSchema,
@@ -44794,12 +43280,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionSchedulesScheduleRelease(input, responder, ctx, next)
+        .postSubscriptionSchedulesScheduleRelease(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionSchedulesScheduleReleaseResponseValidator,
           ),
         )
@@ -44887,7 +43372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getSubscriptions", "/v1/subscriptions", async (ctx, next) => {
+  router.get("getSubscriptions", "/v1/subscriptions", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -45020,9 +43505,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getSubscriptions(input, responder, ctx, next)
+      .getSubscriptions(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getSubscriptionsResponseValidator))
+      .then(handleResponse(ctx, getSubscriptionsResponseValidator))
   })
 
   const postSubscriptionsResponseValidator = responseValidationFactory(
@@ -45030,7 +43515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postSubscriptions", "/v1/subscriptions", async (ctx, next) => {
+  router.post("postSubscriptions", "/v1/subscriptions", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -45055,9 +43540,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postSubscriptions(input, responder, ctx, next)
+      .postSubscriptions(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postSubscriptionsResponseValidator))
+      .then(handleResponse(ctx, postSubscriptionsResponseValidator))
   })
 
   const getSubscriptionsSearchQuerySchema = z.object({
@@ -45092,7 +43577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSubscriptionsSearch",
     "/v1/subscriptions/search",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -45149,11 +43634,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSubscriptionsSearch(input, responder, ctx, next)
+        .getSubscriptionsSearch(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getSubscriptionsSearchResponseValidator),
-        )
+        .then(handleResponse(ctx, getSubscriptionsSearchResponseValidator))
     },
   )
 
@@ -45167,7 +43650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteSubscriptionsSubscriptionExposedId",
     "/v1/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdParamSchema,
@@ -45196,12 +43679,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
+        .deleteSubscriptionsSubscriptionExposedId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -45227,7 +43709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getSubscriptionsSubscriptionExposedId",
     "/v1/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getSubscriptionsSubscriptionExposedIdParamSchema,
@@ -45263,12 +43745,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
+        .getSubscriptionsSubscriptionExposedId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -45285,7 +43766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionsSubscriptionExposedId",
     "/v1/subscriptions/:subscription_exposed_id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionsSubscriptionExposedIdParamSchema,
@@ -45314,12 +43795,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
+        .postSubscriptionsSubscriptionExposedId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionsSubscriptionExposedIdResponseValidator,
           ),
         )
@@ -45336,7 +43816,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteSubscriptionsSubscriptionExposedIdDiscount",
     "/v1/subscriptions/:subscription_exposed_id/discount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
@@ -45361,17 +43841,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteSubscriptionsSubscriptionExposedIdDiscount(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .deleteSubscriptionsSubscriptionExposedIdDiscount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator,
           ),
         )
@@ -45388,7 +43862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionsSubscriptionMigrate",
     "/v1/subscriptions/:subscription/migrate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionsSubscriptionMigrateParamSchema,
@@ -45417,12 +43891,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionsSubscriptionMigrate(input, responder, ctx, next)
+        .postSubscriptionsSubscriptionMigrate(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionsSubscriptionMigrateResponseValidator,
           ),
         )
@@ -45439,7 +43912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postSubscriptionsSubscriptionResume",
     "/v1/subscriptions/:subscription/resume",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postSubscriptionsSubscriptionResumeParamSchema,
@@ -45468,12 +43941,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postSubscriptionsSubscriptionResume(input, responder, ctx, next)
+        .postSubscriptionsSubscriptionResume(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postSubscriptionsSubscriptionResumeResponseValidator,
           ),
         )
@@ -45485,39 +43957,35 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postTaxCalculations",
-    "/v1/tax/calculations",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostTaxCalculationsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postTaxCalculations", "/v1/tax/calculations", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostTaxCalculationsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_tax_calculation>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_tax_calculation>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postTaxCalculations(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTaxCalculationsResponseValidator))
-    },
-  )
+    await implementation
+      .postTaxCalculations(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postTaxCalculationsResponseValidator))
+  })
 
   const getTaxCalculationsCalculationParamSchema = z.object({
     calculation: z.string().max(5000),
@@ -45538,7 +44006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTaxCalculationsCalculation",
     "/v1/tax/calculations/:calculation",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTaxCalculationsCalculationParamSchema,
@@ -45574,14 +44042,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTaxCalculationsCalculation(input, responder, ctx, next)
+        .getTaxCalculationsCalculation(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTaxCalculationsCalculationResponseValidator,
-          ),
+          handleResponse(ctx, getTaxCalculationsCalculationResponseValidator),
         )
     },
   )
@@ -45624,7 +44088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTaxCalculationsCalculationLineItems",
     "/v1/tax/calculations/:calculation/line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTaxCalculationsCalculationLineItemsParamSchema,
@@ -45683,12 +44147,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTaxCalculationsCalculationLineItems(input, responder, ctx, next)
+        .getTaxCalculationsCalculationLineItems(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTaxCalculationsCalculationLineItemsResponseValidator,
           ),
         )
@@ -45723,114 +44186,106 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getTaxRegistrations",
-    "/v1/tax/registrations",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getTaxRegistrationsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "status",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getTaxRegistrations", "/v1/tax/registrations", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getTaxRegistrationsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_tax_registration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_tax_registration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getTaxRegistrations(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTaxRegistrationsResponseValidator))
-    },
-  )
+    await implementation
+      .getTaxRegistrations(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getTaxRegistrationsResponseValidator))
+  })
 
   const postTaxRegistrationsResponseValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
   )
 
-  router.post(
-    "postTaxRegistrations",
-    "/v1/tax/registrations",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostTaxRegistrationsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postTaxRegistrations", "/v1/tax/registrations", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostTaxRegistrationsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_tax_registration>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_tax_registration>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postTaxRegistrations(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTaxRegistrationsResponseValidator))
-    },
-  )
+    await implementation
+      .postTaxRegistrations(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postTaxRegistrationsResponseValidator))
+  })
 
   const getTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
@@ -45851,7 +44306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTaxRegistrationsId",
     "/v1/tax/registrations/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTaxRegistrationsIdParamSchema,
@@ -45887,9 +44342,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTaxRegistrationsId(input, responder, ctx, next)
+        .getTaxRegistrationsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTaxRegistrationsIdResponseValidator))
+        .then(handleResponse(ctx, getTaxRegistrationsIdResponseValidator))
     },
   )
 
@@ -45903,7 +44358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTaxRegistrationsId",
     "/v1/tax/registrations/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTaxRegistrationsIdParamSchema,
@@ -45932,11 +44387,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTaxRegistrationsId(input, responder, ctx, next)
+        .postTaxRegistrationsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postTaxRegistrationsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, postTaxRegistrationsIdResponseValidator))
     },
   )
 
@@ -45954,7 +44407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxSettings", "/v1/tax/settings", async (ctx, next) => {
+  router.get("getTaxSettings", "/v1/tax/settings", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -45986,9 +44439,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxSettings(input, responder, ctx, next)
+      .getTaxSettings(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxSettingsResponseValidator))
+      .then(handleResponse(ctx, getTaxSettingsResponseValidator))
   })
 
   const postTaxSettingsResponseValidator = responseValidationFactory(
@@ -45996,7 +44449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTaxSettings", "/v1/tax/settings", async (ctx, next) => {
+  router.post("postTaxSettings", "/v1/tax/settings", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -46021,9 +44474,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTaxSettings(input, responder, ctx, next)
+      .postTaxSettings(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTaxSettingsResponseValidator))
+      .then(handleResponse(ctx, postTaxSettingsResponseValidator))
   })
 
   const postTaxTransactionsCreateFromCalculationResponseValidator =
@@ -46032,7 +44485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTaxTransactionsCreateFromCalculation",
     "/v1/tax/transactions/create_from_calculation",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -46057,12 +44510,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTaxTransactionsCreateFromCalculation(input, responder, ctx, next)
+        .postTaxTransactionsCreateFromCalculation(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTaxTransactionsCreateFromCalculationResponseValidator,
           ),
         )
@@ -46075,7 +44527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTaxTransactionsCreateReversal",
     "/v1/tax/transactions/create_reversal",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -46100,12 +44552,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTaxTransactionsCreateReversal(input, responder, ctx, next)
+        .postTaxTransactionsCreateReversal(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTaxTransactionsCreateReversalResponseValidator,
           ),
         )
@@ -46131,7 +44582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTaxTransactionsTransaction",
     "/v1/tax/transactions/:transaction",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTaxTransactionsTransactionParamSchema,
@@ -46167,14 +44618,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTaxTransactionsTransaction(input, responder, ctx, next)
+        .getTaxTransactionsTransaction(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTaxTransactionsTransactionResponseValidator,
-          ),
+          handleResponse(ctx, getTaxTransactionsTransactionResponseValidator),
         )
     },
   )
@@ -46217,7 +44664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTaxTransactionsTransactionLineItems",
     "/v1/tax/transactions/:transaction/line_items",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTaxTransactionsTransactionLineItemsParamSchema,
@@ -46276,12 +44723,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTaxTransactionsTransactionLineItems(input, responder, ctx, next)
+        .getTaxTransactionsTransactionLineItems(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTaxTransactionsTransactionLineItemsResponseValidator,
           ),
         )
@@ -46315,7 +44761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxCodes", "/v1/tax_codes", async (ctx, next) => {
+  router.get("getTaxCodes", "/v1/tax_codes", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -46370,9 +44816,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxCodes(input, responder, ctx, next)
+      .getTaxCodes(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxCodesResponseValidator))
+      .then(handleResponse(ctx, getTaxCodesResponseValidator))
   })
 
   const getTaxCodesIdParamSchema = z.object({id: z.string().max(5000)})
@@ -46391,7 +44837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxCodesId", "/v1/tax_codes/:id", async (ctx, next) => {
+  router.get("getTaxCodesId", "/v1/tax_codes/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTaxCodesIdParamSchema,
@@ -46427,9 +44873,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxCodesId(input, responder, ctx, next)
+      .getTaxCodesId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxCodesIdResponseValidator))
+      .then(handleResponse(ctx, getTaxCodesIdResponseValidator))
   })
 
   const getTaxIdsQuerySchema = z.object({
@@ -46466,7 +44912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxIds", "/v1/tax_ids", async (ctx, next) => {
+  router.get("getTaxIds", "/v1/tax_ids", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -46534,9 +44980,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxIds(input, responder, ctx, next)
+      .getTaxIds(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxIdsResponseValidator))
+      .then(handleResponse(ctx, getTaxIdsResponseValidator))
   })
 
   const postTaxIdsResponseValidator = responseValidationFactory(
@@ -46544,7 +44990,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTaxIds", "/v1/tax_ids", async (ctx, next) => {
+  router.post("postTaxIds", "/v1/tax_ids", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -46569,9 +45015,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTaxIds(input, responder, ctx, next)
+      .postTaxIds(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTaxIdsResponseValidator))
+      .then(handleResponse(ctx, postTaxIdsResponseValidator))
   })
 
   const deleteTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -46581,7 +45027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.delete("deleteTaxIdsId", "/v1/tax_ids/:id", async (ctx, next) => {
+  router.delete("deleteTaxIdsId", "/v1/tax_ids/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         deleteTaxIdsIdParamSchema,
@@ -46606,9 +45052,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .deleteTaxIdsId(input, responder, ctx, next)
+      .deleteTaxIdsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, deleteTaxIdsIdResponseValidator))
+      .then(handleResponse(ctx, deleteTaxIdsIdResponseValidator))
   })
 
   const getTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
@@ -46627,7 +45073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxIdsId", "/v1/tax_ids/:id", async (ctx, next) => {
+  router.get("getTaxIdsId", "/v1/tax_ids/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTaxIdsIdParamSchema,
@@ -46663,9 +45109,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxIdsId(input, responder, ctx, next)
+      .getTaxIdsId(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxIdsIdResponseValidator))
+      .then(handleResponse(ctx, getTaxIdsIdResponseValidator))
   })
 
   const getTaxRatesQuerySchema = z.object({
@@ -46708,7 +45154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTaxRates", "/v1/tax_rates", async (ctx, next) => {
+  router.get("getTaxRates", "/v1/tax_rates", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -46789,9 +45235,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTaxRates(input, responder, ctx, next)
+      .getTaxRates(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTaxRatesResponseValidator))
+      .then(handleResponse(ctx, getTaxRatesResponseValidator))
   })
 
   const postTaxRatesResponseValidator = responseValidationFactory(
@@ -46799,7 +45245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTaxRates", "/v1/tax_rates", async (ctx, next) => {
+  router.post("postTaxRates", "/v1/tax_rates", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -46824,9 +45270,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTaxRates(input, responder, ctx, next)
+      .postTaxRates(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTaxRatesResponseValidator))
+      .then(handleResponse(ctx, postTaxRatesResponseValidator))
   })
 
   const getTaxRatesTaxRateParamSchema = z.object({
@@ -46847,50 +45293,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getTaxRatesTaxRate",
-    "/v1/tax_rates/:tax_rate",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getTaxRatesTaxRateParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getTaxRatesTaxRateQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getTaxRatesTaxRate", "/v1/tax_rates/:tax_rate", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getTaxRatesTaxRateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getTaxRatesTaxRateQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_tax_rate>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_tax_rate>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getTaxRatesTaxRate(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTaxRatesTaxRateResponseValidator))
-    },
-  )
+    await implementation
+      .getTaxRatesTaxRate(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getTaxRatesTaxRateResponseValidator))
+  })
 
   const postTaxRatesTaxRateParamSchema = z.object({
     tax_rate: z.string().max(5000),
@@ -46901,43 +45343,39 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post(
-    "postTaxRatesTaxRate",
-    "/v1/tax_rates/:tax_rate",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postTaxRatesTaxRateParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_PostTaxRatesTaxRateRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postTaxRatesTaxRate", "/v1/tax_rates/:tax_rate", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        postTaxRatesTaxRateParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_PostTaxRatesTaxRateRequestBody.optional(),
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_tax_rate>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_tax_rate>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postTaxRatesTaxRate(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTaxRatesTaxRateResponseValidator))
-    },
-  )
+    await implementation
+      .postTaxRatesTaxRate(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postTaxRatesTaxRateResponseValidator))
+  })
 
   const getTerminalConfigurationsQuerySchema = z.object({
     ending_before: z.string().max(5000).optional(),
@@ -46973,7 +45411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTerminalConfigurations",
     "/v1/terminal/configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -47034,11 +45472,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTerminalConfigurations(input, responder, ctx, next)
+        .getTerminalConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTerminalConfigurationsResponseValidator),
-        )
+        .then(handleResponse(ctx, getTerminalConfigurationsResponseValidator))
     },
   )
 
@@ -47050,7 +45486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalConfigurations",
     "/v1/terminal/configurations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -47075,15 +45511,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalConfigurations(input, responder, ctx, next)
+        .postTerminalConfigurations(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postTerminalConfigurationsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postTerminalConfigurationsResponseValidator))
     },
   )
 
@@ -47100,7 +45530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteTerminalConfigurationsConfiguration",
     "/v1/terminal/configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteTerminalConfigurationsConfigurationParamSchema,
@@ -47125,12 +45555,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteTerminalConfigurationsConfiguration(input, responder, ctx, next)
+        .deleteTerminalConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteTerminalConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -47167,7 +45596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTerminalConfigurationsConfiguration",
     "/v1/terminal/configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTerminalConfigurationsConfigurationParamSchema,
@@ -47205,12 +45634,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTerminalConfigurationsConfiguration(input, responder, ctx, next)
+        .getTerminalConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTerminalConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -47238,7 +45666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalConfigurationsConfiguration",
     "/v1/terminal/configurations/:configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalConfigurationsConfigurationParamSchema,
@@ -47269,12 +45697,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalConfigurationsConfiguration(input, responder, ctx, next)
+        .postTerminalConfigurationsConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalConfigurationsConfigurationResponseValidator,
           ),
         )
@@ -47287,7 +45714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalConnectionTokens",
     "/v1/terminal/connection_tokens",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -47312,14 +45739,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalConnectionTokens(input, responder, ctx, next)
+        .postTerminalConnectionTokens(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTerminalConnectionTokensResponseValidator,
-          ),
+          handleResponse(ctx, postTerminalConnectionTokensResponseValidator),
         )
     },
   )
@@ -47354,69 +45777,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getTerminalLocations",
-    "/v1/terminal/locations",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getTerminalLocationsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getTerminalLocations", "/v1/terminal/locations", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getTerminalLocationsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_terminal_location[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_terminal_location[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getTerminalLocations(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTerminalLocationsResponseValidator))
-    },
-  )
+    await implementation
+      .getTerminalLocations(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getTerminalLocationsResponseValidator))
+  })
 
   const postTerminalLocationsResponseValidator = responseValidationFactory(
     [["200", s_terminal_location]],
@@ -47426,7 +45845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalLocations",
     "/v1/terminal/locations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -47451,9 +45870,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalLocations(input, responder, ctx, next)
+        .postTerminalLocations(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTerminalLocationsResponseValidator))
+        .then(handleResponse(ctx, postTerminalLocationsResponseValidator))
     },
   )
 
@@ -47467,7 +45886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteTerminalLocationsLocation",
     "/v1/terminal/locations/:location",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteTerminalLocationsLocationParamSchema,
@@ -47492,14 +45911,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteTerminalLocationsLocation(input, responder, ctx, next)
+        .deleteTerminalLocationsLocation(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteTerminalLocationsLocationResponseValidator,
-          ),
+          handleResponse(ctx, deleteTerminalLocationsLocationResponseValidator),
         )
     },
   )
@@ -47526,7 +45941,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTerminalLocationsLocation",
     "/v1/terminal/locations/:location",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTerminalLocationsLocationParamSchema,
@@ -47564,14 +45979,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTerminalLocationsLocation(input, responder, ctx, next)
+        .getTerminalLocationsLocation(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTerminalLocationsLocationResponseValidator,
-          ),
+          handleResponse(ctx, getTerminalLocationsLocationResponseValidator),
         )
     },
   )
@@ -47589,7 +46000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalLocationsLocation",
     "/v1/terminal/locations/:location",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalLocationsLocationParamSchema,
@@ -47620,14 +46031,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalLocationsLocation(input, responder, ctx, next)
+        .postTerminalLocationsLocation(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTerminalLocationsLocationResponseValidator,
-          ),
+          handleResponse(ctx, postTerminalLocationsLocationResponseValidator),
         )
     },
   )
@@ -47675,132 +46082,124 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getTerminalReaders",
-    "/v1/terminal/readers",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getTerminalReadersQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "device_type",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "location",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "serial_number",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "status",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getTerminalReaders", "/v1/terminal/readers", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getTerminalReadersQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "device_type",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "location",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "serial_number",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "status",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_terminal_reader[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_terminal_reader[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getTerminalReaders(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTerminalReadersResponseValidator))
-    },
-  )
+    await implementation
+      .getTerminalReaders(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getTerminalReadersResponseValidator))
+  })
 
   const postTerminalReadersResponseValidator = responseValidationFactory(
     [["200", s_terminal_reader]],
     s_error,
   )
 
-  router.post(
-    "postTerminalReaders",
-    "/v1/terminal/readers",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostTerminalReadersRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postTerminalReaders", "/v1/terminal/readers", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostTerminalReadersRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_terminal_reader>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_terminal_reader>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postTerminalReaders(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTerminalReadersResponseValidator))
-    },
-  )
+    await implementation
+      .postTerminalReaders(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postTerminalReadersResponseValidator))
+  })
 
   const deleteTerminalReadersReaderParamSchema = z.object({
     reader: z.string().max(5000),
@@ -47812,7 +46211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteTerminalReadersReader",
     "/v1/terminal/readers/:reader",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteTerminalReadersReaderParamSchema,
@@ -47837,15 +46236,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteTerminalReadersReader(input, responder, ctx, next)
+        .deleteTerminalReadersReader(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            deleteTerminalReadersReaderResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, deleteTerminalReadersReaderResponseValidator))
     },
   )
 
@@ -47875,7 +46268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTerminalReadersReader",
     "/v1/terminal/readers/:reader",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTerminalReadersReaderParamSchema,
@@ -47913,11 +46306,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTerminalReadersReader(input, responder, ctx, next)
+        .getTerminalReadersReader(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTerminalReadersReaderResponseValidator),
-        )
+        .then(handleResponse(ctx, getTerminalReadersReaderResponseValidator))
     },
   )
 
@@ -47938,7 +46329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReader",
     "/v1/terminal/readers/:reader",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderParamSchema,
@@ -47969,11 +46360,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReader(input, responder, ctx, next)
+        .postTerminalReadersReader(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postTerminalReadersReaderResponseValidator),
-        )
+        .then(handleResponse(ctx, postTerminalReadersReaderResponseValidator))
     },
   )
 
@@ -47987,7 +46376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderCancelAction",
     "/v1/terminal/readers/:reader/cancel_action",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderCancelActionParamSchema,
@@ -48016,12 +46405,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderCancelAction(input, responder, ctx, next)
+        .postTerminalReadersReaderCancelAction(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderCancelActionResponseValidator,
           ),
         )
@@ -48038,7 +46426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderCollectInputs",
     "/v1/terminal/readers/:reader/collect_inputs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderCollectInputsParamSchema,
@@ -48067,12 +46455,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderCollectInputs(input, responder, ctx, next)
+        .postTerminalReadersReaderCollectInputs(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderCollectInputsResponseValidator,
           ),
         )
@@ -48089,7 +46476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderCollectPaymentMethod",
     "/v1/terminal/readers/:reader/collect_payment_method",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderCollectPaymentMethodParamSchema,
@@ -48118,17 +46505,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderCollectPaymentMethod(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTerminalReadersReaderCollectPaymentMethod(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderCollectPaymentMethodResponseValidator,
           ),
         )
@@ -48145,7 +46526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderConfirmPaymentIntent",
     "/v1/terminal/readers/:reader/confirm_payment_intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderConfirmPaymentIntentParamSchema,
@@ -48174,17 +46555,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderConfirmPaymentIntent(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTerminalReadersReaderConfirmPaymentIntent(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderConfirmPaymentIntentResponseValidator,
           ),
         )
@@ -48201,7 +46576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderProcessPaymentIntent",
     "/v1/terminal/readers/:reader/process_payment_intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderProcessPaymentIntentParamSchema,
@@ -48230,17 +46605,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderProcessPaymentIntent(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTerminalReadersReaderProcessPaymentIntent(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderProcessPaymentIntentResponseValidator,
           ),
         )
@@ -48257,7 +46626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderProcessSetupIntent",
     "/v1/terminal/readers/:reader/process_setup_intent",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderProcessSetupIntentParamSchema,
@@ -48286,17 +46655,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderProcessSetupIntent(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTerminalReadersReaderProcessSetupIntent(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderProcessSetupIntentResponseValidator,
           ),
         )
@@ -48313,7 +46676,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderRefundPayment",
     "/v1/terminal/readers/:reader/refund_payment",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderRefundPaymentParamSchema,
@@ -48342,12 +46705,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderRefundPayment(input, responder, ctx, next)
+        .postTerminalReadersReaderRefundPayment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderRefundPaymentResponseValidator,
           ),
         )
@@ -48364,7 +46726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTerminalReadersReaderSetReaderDisplay",
     "/v1/terminal/readers/:reader/set_reader_display",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTerminalReadersReaderSetReaderDisplayParamSchema,
@@ -48393,12 +46755,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTerminalReadersReaderSetReaderDisplay(input, responder, ctx, next)
+        .postTerminalReadersReaderSetReaderDisplay(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTerminalReadersReaderSetReaderDisplayResponseValidator,
           ),
         )
@@ -48411,7 +46772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersConfirmationTokens",
     "/v1/test_helpers/confirmation_tokens",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -48436,12 +46797,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersConfirmationTokens(input, responder, ctx, next)
+        .postTestHelpersConfirmationTokens(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersConfirmationTokensResponseValidator,
           ),
         )
@@ -48461,7 +46821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersCustomersCustomerFundCashBalance",
     "/v1/test_helpers/customers/:customer/fund_cash_balance",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersCustomersCustomerFundCashBalanceParamSchema,
@@ -48492,17 +46852,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersCustomersCustomerFundCashBalance(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersCustomersCustomerFundCashBalance(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersCustomersCustomerFundCashBalanceResponseValidator,
           ),
         )
@@ -48515,7 +46869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizations",
     "/v1/test_helpers/issuing/authorizations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -48540,12 +46894,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingAuthorizations(input, responder, ctx, next)
+        .postTestHelpersIssuingAuthorizations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsResponseValidator,
           ),
         )
@@ -48561,7 +46914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationCapture",
     "/v1/test_helpers/issuing/authorizations/:authorization/capture",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema,
@@ -48594,13 +46947,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseValidator,
           ),
         )
@@ -48616,7 +46967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationExpire",
     "/v1/test_helpers/issuing/authorizations/:authorization/expire",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
@@ -48649,13 +47000,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator,
           ),
         )
@@ -48671,7 +47020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount",
     "/v1/test_helpers/issuing/authorizations/:authorization/finalize_amount",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema,
@@ -48704,13 +47053,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseValidator,
           ),
         )
@@ -48726,7 +47073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond",
     "/v1/test_helpers/issuing/authorizations/:authorization/fraud_challenges/respond",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
@@ -48759,13 +47106,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator,
           ),
         )
@@ -48781,7 +47126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationIncrement",
     "/v1/test_helpers/issuing/authorizations/:authorization/increment",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
@@ -48814,13 +47159,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator,
           ),
         )
@@ -48836,7 +47179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingAuthorizationsAuthorizationReverse",
     "/v1/test_helpers/issuing/authorizations/:authorization/reverse",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema,
@@ -48869,13 +47212,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseValidator,
           ),
         )
@@ -48892,7 +47233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingCardsCardShippingDeliver",
     "/v1/test_helpers/issuing/cards/:card/shipping/deliver",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingDeliverParamSchema,
@@ -48921,17 +47262,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingCardsCardShippingDeliver(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersIssuingCardsCardShippingDeliver(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingCardsCardShippingDeliverResponseValidator,
           ),
         )
@@ -48948,7 +47283,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingCardsCardShippingFail",
     "/v1/test_helpers/issuing/cards/:card/shipping/fail",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingFailParamSchema,
@@ -48977,17 +47312,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingCardsCardShippingFail(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersIssuingCardsCardShippingFail(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingCardsCardShippingFailResponseValidator,
           ),
         )
@@ -49004,7 +47333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingCardsCardShippingReturn",
     "/v1/test_helpers/issuing/cards/:card/shipping/return",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingReturnParamSchema,
@@ -49033,17 +47362,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingCardsCardShippingReturn(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersIssuingCardsCardShippingReturn(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingCardsCardShippingReturnResponseValidator,
           ),
         )
@@ -49060,7 +47383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingCardsCardShippingShip",
     "/v1/test_helpers/issuing/cards/:card/shipping/ship",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingShipParamSchema,
@@ -49089,17 +47412,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingCardsCardShippingShip(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersIssuingCardsCardShippingShip(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingCardsCardShippingShipResponseValidator,
           ),
         )
@@ -49116,7 +47433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingCardsCardShippingSubmit",
     "/v1/test_helpers/issuing/cards/:card/shipping/submit",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingCardsCardShippingSubmitParamSchema,
@@ -49145,17 +47462,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingCardsCardShippingSubmit(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersIssuingCardsCardShippingSubmit(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingCardsCardShippingSubmitResponseValidator,
           ),
         )
@@ -49174,7 +47485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate",
     "/v1/test_helpers/issuing/personalization_designs/:personalization_design/activate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema,
@@ -49207,13 +47518,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator,
           ),
         )
@@ -49232,7 +47541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate",
     "/v1/test_helpers/issuing/personalization_designs/:personalization_design/deactivate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema,
@@ -49265,13 +47574,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator,
           ),
         )
@@ -49290,7 +47597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject",
     "/v1/test_helpers/issuing/personalization_designs/:personalization_design/reject",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema,
@@ -49323,13 +47630,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseValidator,
           ),
         )
@@ -49342,7 +47647,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingSettlements",
     "/v1/test_helpers/issuing/settlements",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -49367,12 +47672,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersIssuingSettlements(input, responder, ctx, next)
+        .postTestHelpersIssuingSettlements(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingSettlementsResponseValidator,
           ),
         )
@@ -49388,7 +47692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingSettlementsSettlementComplete",
     "/v1/test_helpers/issuing/settlements/:settlement/complete",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingSettlementsSettlementCompleteParamSchema,
@@ -49421,13 +47725,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingSettlementsSettlementCompleteResponseValidator,
           ),
         )
@@ -49440,7 +47742,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingTransactionsCreateForceCapture",
     "/v1/test_helpers/issuing/transactions/create_force_capture",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -49469,13 +47771,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingTransactionsCreateForceCaptureResponseValidator,
           ),
         )
@@ -49488,7 +47788,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingTransactionsCreateUnlinkedRefund",
     "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -49517,13 +47817,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseValidator,
           ),
         )
@@ -49539,7 +47837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersIssuingTransactionsTransactionRefund",
     "/v1/test_helpers/issuing/transactions/:transaction/refund",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersIssuingTransactionsTransactionRefundParamSchema,
@@ -49572,13 +47870,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersIssuingTransactionsTransactionRefundResponseValidator,
           ),
         )
@@ -49595,7 +47891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersRefundsRefundExpire",
     "/v1/test_helpers/refunds/:refund/expire",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersRefundsRefundExpireParamSchema,
@@ -49624,12 +47920,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersRefundsRefundExpire(input, responder, ctx, next)
+        .postTestHelpersRefundsRefundExpire(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersRefundsRefundExpireResponseValidator,
           ),
         )
@@ -49645,7 +47940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTerminalReadersReaderPresentPaymentMethod",
     "/v1/test_helpers/terminal/readers/:reader/present_payment_method",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
@@ -49678,13 +47973,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator,
           ),
         )
@@ -49700,7 +47993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTerminalReadersReaderSucceedInputCollection",
     "/v1/test_helpers/terminal/readers/:reader/succeed_input_collection",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
@@ -49733,13 +48026,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseValidator,
           ),
         )
@@ -49755,7 +48046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTerminalReadersReaderTimeoutInputCollection",
     "/v1/test_helpers/terminal/readers/:reader/timeout_input_collection",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
@@ -49788,13 +48079,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseValidator,
           ),
         )
@@ -49834,7 +48123,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTestHelpersTestClocks",
     "/v1/test_helpers/test_clocks",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -49889,11 +48178,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTestHelpersTestClocks(input, responder, ctx, next)
+        .getTestHelpersTestClocks(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTestHelpersTestClocksResponseValidator),
-        )
+        .then(handleResponse(ctx, getTestHelpersTestClocksResponseValidator))
     },
   )
 
@@ -49905,7 +48192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTestClocks",
     "/v1/test_helpers/test_clocks",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -49930,11 +48217,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTestClocks(input, responder, ctx, next)
+        .postTestHelpersTestClocks(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postTestHelpersTestClocksResponseValidator),
-        )
+        .then(handleResponse(ctx, postTestHelpersTestClocksResponseValidator))
     },
   )
 
@@ -49951,7 +48236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteTestHelpersTestClocksTestClock",
     "/v1/test_helpers/test_clocks/:test_clock",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteTestHelpersTestClocksTestClockParamSchema,
@@ -49976,12 +48261,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteTestHelpersTestClocksTestClock(input, responder, ctx, next)
+        .deleteTestHelpersTestClocksTestClock(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteTestHelpersTestClocksTestClockResponseValidator,
           ),
         )
@@ -50007,7 +48291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTestHelpersTestClocksTestClock",
     "/v1/test_helpers/test_clocks/:test_clock",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTestHelpersTestClocksTestClockParamSchema,
@@ -50043,12 +48327,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTestHelpersTestClocksTestClock(input, responder, ctx, next)
+        .getTestHelpersTestClocksTestClock(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTestHelpersTestClocksTestClockResponseValidator,
           ),
         )
@@ -50065,7 +48348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTestClocksTestClockAdvance",
     "/v1/test_helpers/test_clocks/:test_clock/advance",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTestClocksTestClockAdvanceParamSchema,
@@ -50094,12 +48377,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTestClocksTestClockAdvance(input, responder, ctx, next)
+        .postTestHelpersTestClocksTestClockAdvance(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTestClocksTestClockAdvanceResponseValidator,
           ),
         )
@@ -50116,7 +48398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryInboundTransfersIdFail",
     "/v1/test_helpers/treasury/inbound_transfers/:id/fail",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdFailParamSchema,
@@ -50145,17 +48427,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryInboundTransfersIdFail(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryInboundTransfersIdFail(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryInboundTransfersIdFailResponseValidator,
           ),
         )
@@ -50172,7 +48448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryInboundTransfersIdReturn",
     "/v1/test_helpers/treasury/inbound_transfers/:id/return",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
@@ -50201,17 +48477,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryInboundTransfersIdReturn(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryInboundTransfersIdReturn(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator,
           ),
         )
@@ -50228,7 +48498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryInboundTransfersIdSucceed",
     "/v1/test_helpers/treasury/inbound_transfers/:id/succeed",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
@@ -50257,17 +48527,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryInboundTransfersIdSucceed(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryInboundTransfersIdSucceed(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator,
           ),
         )
@@ -50284,7 +48548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundPaymentsId",
     "/v1/test_helpers/treasury/outbound_payments/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdParamSchema,
@@ -50313,12 +48577,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryOutboundPaymentsId(input, responder, ctx, next)
+        .postTestHelpersTreasuryOutboundPaymentsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundPaymentsIdResponseValidator,
           ),
         )
@@ -50335,7 +48598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundPaymentsIdFail",
     "/v1/test_helpers/treasury/outbound_payments/:id/fail",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
@@ -50364,17 +48627,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdFail(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryOutboundPaymentsIdFail(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator,
           ),
         )
@@ -50391,7 +48648,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundPaymentsIdPost",
     "/v1/test_helpers/treasury/outbound_payments/:id/post",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
@@ -50420,17 +48677,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdPost(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryOutboundPaymentsIdPost(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator,
           ),
         )
@@ -50447,7 +48698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundPaymentsIdReturn",
     "/v1/test_helpers/treasury/outbound_payments/:id/return",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
@@ -50476,17 +48727,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdReturn(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTestHelpersTreasuryOutboundPaymentsIdReturn(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator,
           ),
         )
@@ -50502,7 +48747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransfer",
     "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
@@ -50535,13 +48780,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator,
           ),
         )
@@ -50557,7 +48800,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferFail",
     "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/fail",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
@@ -50590,13 +48833,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator,
           ),
         )
@@ -50612,7 +48853,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferPost",
     "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/post",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
@@ -50645,13 +48886,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator,
           ),
         )
@@ -50667,7 +48906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn",
     "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer/return",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
@@ -50700,13 +48939,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator,
           ),
         )
@@ -50719,7 +48956,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryReceivedCredits",
     "/v1/test_helpers/treasury/received_credits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -50744,12 +48981,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryReceivedCredits(input, responder, ctx, next)
+        .postTestHelpersTreasuryReceivedCredits(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryReceivedCreditsResponseValidator,
           ),
         )
@@ -50762,7 +48998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTestHelpersTreasuryReceivedDebits",
     "/v1/test_helpers/treasury/received_debits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -50787,12 +49023,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTestHelpersTreasuryReceivedDebits(input, responder, ctx, next)
+        .postTestHelpersTreasuryReceivedDebits(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTestHelpersTreasuryReceivedDebitsResponseValidator,
           ),
         )
@@ -50804,7 +49039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTokens", "/v1/tokens", async (ctx, next) => {
+  router.post("postTokens", "/v1/tokens", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -50829,9 +49064,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTokens(input, responder, ctx, next)
+      .postTokens(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTokensResponseValidator))
+      .then(handleResponse(ctx, postTokensResponseValidator))
   })
 
   const getTokensTokenParamSchema = z.object({token: z.string().max(5000)})
@@ -50850,7 +49085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTokensToken", "/v1/tokens/:token", async (ctx, next) => {
+  router.get("getTokensToken", "/v1/tokens/:token", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTokensTokenParamSchema,
@@ -50886,9 +49121,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTokensToken(input, responder, ctx, next)
+      .getTokensToken(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTokensTokenResponseValidator))
+      .then(handleResponse(ctx, getTokensTokenResponseValidator))
   })
 
   const getTopupsQuerySchema = z.object({
@@ -50941,7 +49176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTopups", "/v1/topups", async (ctx, next) => {
+  router.get("getTopups", "/v1/topups", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -51030,9 +49265,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTopups(input, responder, ctx, next)
+      .getTopups(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTopupsResponseValidator))
+      .then(handleResponse(ctx, getTopupsResponseValidator))
   })
 
   const postTopupsResponseValidator = responseValidationFactory(
@@ -51040,7 +49275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTopups", "/v1/topups", async (ctx, next) => {
+  router.post("postTopups", "/v1/topups", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -51065,9 +49300,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTopups(input, responder, ctx, next)
+      .postTopups(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTopupsResponseValidator))
+      .then(handleResponse(ctx, postTopupsResponseValidator))
   })
 
   const getTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
@@ -51086,7 +49321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
+  router.get("getTopupsTopup", "/v1/topups/:topup", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTopupsTopupParamSchema,
@@ -51122,9 +49357,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTopupsTopup(input, responder, ctx, next)
+      .getTopupsTopup(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTopupsTopupResponseValidator))
+      .then(handleResponse(ctx, getTopupsTopupResponseValidator))
   })
 
   const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
@@ -51134,7 +49369,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTopupsTopup", "/v1/topups/:topup", async (ctx, next) => {
+  router.post("postTopupsTopup", "/v1/topups/:topup", async (ctx) => {
     const input = {
       params: parseRequestInput(
         postTopupsTopupParamSchema,
@@ -51163,9 +49398,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTopupsTopup(input, responder, ctx, next)
+      .postTopupsTopup(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTopupsTopupResponseValidator))
+      .then(handleResponse(ctx, postTopupsTopupResponseValidator))
   })
 
   const postTopupsTopupCancelParamSchema = z.object({
@@ -51180,7 +49415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTopupsTopupCancel",
     "/v1/topups/:topup/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTopupsTopupCancelParamSchema,
@@ -51209,9 +49444,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTopupsTopupCancel(input, responder, ctx, next)
+        .postTopupsTopupCancel(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTopupsTopupCancelResponseValidator))
+        .then(handleResponse(ctx, postTopupsTopupCancelResponseValidator))
     },
   )
 
@@ -51255,7 +49490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get("getTransfers", "/v1/transfers", async (ctx, next) => {
+  router.get("getTransfers", "/v1/transfers", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -51336,9 +49571,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTransfers(input, responder, ctx, next)
+      .getTransfers(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTransfersResponseValidator))
+      .then(handleResponse(ctx, getTransfersResponseValidator))
   })
 
   const postTransfersResponseValidator = responseValidationFactory(
@@ -51346,7 +49581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.post("postTransfers", "/v1/transfers", async (ctx, next) => {
+  router.post("postTransfers", "/v1/transfers", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -51371,9 +49606,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .postTransfers(input, responder, ctx, next)
+      .postTransfers(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postTransfersResponseValidator))
+      .then(handleResponse(ctx, postTransfersResponseValidator))
   })
 
   const getTransfersIdReversalsParamSchema = z.object({
@@ -51410,7 +49645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTransfersIdReversals",
     "/v1/transfers/:id/reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTransfersIdReversalsParamSchema,
@@ -51469,11 +49704,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTransfersIdReversals(input, responder, ctx, next)
+        .getTransfersIdReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTransfersIdReversalsResponseValidator),
-        )
+        .then(handleResponse(ctx, getTransfersIdReversalsResponseValidator))
     },
   )
 
@@ -51489,7 +49722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTransfersIdReversals",
     "/v1/transfers/:id/reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTransfersIdReversalsParamSchema,
@@ -51518,11 +49751,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTransfersIdReversals(input, responder, ctx, next)
+        .postTransfersIdReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postTransfersIdReversalsResponseValidator),
-        )
+        .then(handleResponse(ctx, postTransfersIdReversalsResponseValidator))
     },
   )
 
@@ -51544,50 +49775,46 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getTransfersTransfer",
-    "/v1/transfers/:transfer",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getTransfersTransferParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getTransfersTransferQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getTransfersTransfer", "/v1/transfers/:transfer", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getTransfersTransferParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        getTransfersTransferQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_transfer>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_transfer>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getTransfersTransfer(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getTransfersTransferResponseValidator))
-    },
-  )
+    await implementation
+      .getTransfersTransfer(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getTransfersTransferResponseValidator))
+  })
 
   const postTransfersTransferParamSchema = z.object({
     transfer: z.string().max(5000),
@@ -51601,7 +49828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTransfersTransfer",
     "/v1/transfers/:transfer",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTransfersTransferParamSchema,
@@ -51630,9 +49857,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTransfersTransfer(input, responder, ctx, next)
+        .postTransfersTransfer(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postTransfersTransferResponseValidator))
+        .then(handleResponse(ctx, postTransfersTransferResponseValidator))
     },
   )
 
@@ -51656,7 +49883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTransfersTransferReversalsId",
     "/v1/transfers/:transfer/reversals/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTransfersTransferReversalsIdParamSchema,
@@ -51692,14 +49919,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTransfersTransferReversalsId(input, responder, ctx, next)
+        .getTransfersTransferReversalsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTransfersTransferReversalsIdResponseValidator,
-          ),
+          handleResponse(ctx, getTransfersTransferReversalsIdResponseValidator),
         )
     },
   )
@@ -51715,7 +49938,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTransfersTransferReversalsId",
     "/v1/transfers/:transfer/reversals/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTransfersTransferReversalsIdParamSchema,
@@ -51744,12 +49967,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTransfersTransferReversalsId(input, responder, ctx, next)
+        .postTransfersTransferReversalsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTransfersTransferReversalsIdResponseValidator,
           ),
         )
@@ -51789,7 +50011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryCreditReversals",
     "/v1/treasury/credit_reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -51862,15 +50084,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryCreditReversals(input, responder, ctx, next)
+        .getTreasuryCreditReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryCreditReversalsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getTreasuryCreditReversalsResponseValidator))
     },
   )
 
@@ -51880,7 +50096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryCreditReversals",
     "/v1/treasury/credit_reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -51905,15 +50121,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryCreditReversals(input, responder, ctx, next)
+        .postTreasuryCreditReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryCreditReversalsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postTreasuryCreditReversalsResponseValidator))
     },
   )
 
@@ -51936,7 +50146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryCreditReversalsCreditReversal",
     "/v1/treasury/credit_reversals/:credit_reversal",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryCreditReversalsCreditReversalParamSchema,
@@ -51972,12 +50182,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryCreditReversalsCreditReversal(input, responder, ctx, next)
+        .getTreasuryCreditReversalsCreditReversal(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTreasuryCreditReversalsCreditReversalResponseValidator,
           ),
         )
@@ -52018,7 +50227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryDebitReversals",
     "/v1/treasury/debit_reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -52097,11 +50306,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryDebitReversals(input, responder, ctx, next)
+        .getTreasuryDebitReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTreasuryDebitReversalsResponseValidator),
-        )
+        .then(handleResponse(ctx, getTreasuryDebitReversalsResponseValidator))
     },
   )
 
@@ -52113,7 +50320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryDebitReversals",
     "/v1/treasury/debit_reversals",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -52138,15 +50345,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryDebitReversals(input, responder, ctx, next)
+        .postTreasuryDebitReversals(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryDebitReversalsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postTreasuryDebitReversalsResponseValidator))
     },
   )
 
@@ -52169,7 +50370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryDebitReversalsDebitReversal",
     "/v1/treasury/debit_reversals/:debit_reversal",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryDebitReversalsDebitReversalParamSchema,
@@ -52205,12 +50406,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryDebitReversalsDebitReversal(input, responder, ctx, next)
+        .getTreasuryDebitReversalsDebitReversal(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTreasuryDebitReversalsDebitReversalResponseValidator,
           ),
         )
@@ -52263,7 +50463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryFinancialAccounts",
     "/v1/treasury/financial_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -52338,14 +50538,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryFinancialAccounts(input, responder, ctx, next)
+        .getTreasuryFinancialAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryFinancialAccountsResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryFinancialAccountsResponseValidator),
         )
     },
   )
@@ -52356,7 +50552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryFinancialAccounts",
     "/v1/treasury/financial_accounts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -52381,14 +50577,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryFinancialAccounts(input, responder, ctx, next)
+        .postTreasuryFinancialAccounts(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryFinancialAccountsResponseValidator,
-          ),
+          handleResponse(ctx, postTreasuryFinancialAccountsResponseValidator),
         )
     },
   )
@@ -52412,7 +50604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryFinancialAccountsFinancialAccount",
     "/v1/treasury/financial_accounts/:financial_account",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountParamSchema,
@@ -52448,17 +50640,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryFinancialAccountsFinancialAccount(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getTreasuryFinancialAccountsFinancialAccount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTreasuryFinancialAccountsFinancialAccountResponseValidator,
           ),
         )
@@ -52475,7 +50661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryFinancialAccountsFinancialAccount",
     "/v1/treasury/financial_accounts/:financial_account",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountParamSchema,
@@ -52504,17 +50690,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryFinancialAccountsFinancialAccount(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .postTreasuryFinancialAccountsFinancialAccount(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryFinancialAccountsFinancialAccountResponseValidator,
           ),
         )
@@ -52530,7 +50710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryFinancialAccountsFinancialAccountClose",
     "/v1/treasury/financial_accounts/:financial_account/close",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountCloseParamSchema,
@@ -52563,13 +50743,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryFinancialAccountsFinancialAccountCloseResponseValidator,
           ),
         )
@@ -52598,7 +50776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryFinancialAccountsFinancialAccountFeatures",
     "/v1/treasury/financial_accounts/:financial_account/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
@@ -52640,13 +50818,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator,
           ),
         )
@@ -52665,7 +50841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryFinancialAccountsFinancialAccountFeatures",
     "/v1/treasury/financial_accounts/:financial_account/features",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
@@ -52700,13 +50876,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator,
           ),
         )
@@ -52748,7 +50922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryInboundTransfers",
     "/v1/treasury/inbound_transfers",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -52815,15 +50989,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryInboundTransfers(input, responder, ctx, next)
+        .getTreasuryInboundTransfers(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryInboundTransfersResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getTreasuryInboundTransfersResponseValidator))
     },
   )
 
@@ -52833,7 +51001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryInboundTransfers",
     "/v1/treasury/inbound_transfers",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -52858,14 +51026,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryInboundTransfers(input, responder, ctx, next)
+        .postTreasuryInboundTransfers(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryInboundTransfersResponseValidator,
-          ),
+          handleResponse(ctx, postTreasuryInboundTransfersResponseValidator),
         )
     },
   )
@@ -52889,7 +51053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryInboundTransfersId",
     "/v1/treasury/inbound_transfers/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryInboundTransfersIdParamSchema,
@@ -52925,14 +51089,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryInboundTransfersId(input, responder, ctx, next)
+        .getTreasuryInboundTransfersId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryInboundTransfersIdResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryInboundTransfersIdResponseValidator),
         )
     },
   )
@@ -52947,7 +51107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryInboundTransfersInboundTransferCancel",
     "/v1/treasury/inbound_transfers/:inbound_transfer/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryInboundTransfersInboundTransferCancelParamSchema,
@@ -52980,13 +51140,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryInboundTransfersInboundTransferCancelResponseValidator,
           ),
         )
@@ -53043,7 +51201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryOutboundPayments",
     "/v1/treasury/outbound_payments",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -53130,15 +51288,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryOutboundPayments(input, responder, ctx, next)
+        .getTreasuryOutboundPayments(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryOutboundPaymentsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getTreasuryOutboundPaymentsResponseValidator))
     },
   )
 
@@ -53148,7 +51300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryOutboundPayments",
     "/v1/treasury/outbound_payments",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -53173,14 +51325,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryOutboundPayments(input, responder, ctx, next)
+        .postTreasuryOutboundPayments(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryOutboundPaymentsResponseValidator,
-          ),
+          handleResponse(ctx, postTreasuryOutboundPaymentsResponseValidator),
         )
     },
   )
@@ -53204,7 +51352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryOutboundPaymentsId",
     "/v1/treasury/outbound_payments/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryOutboundPaymentsIdParamSchema,
@@ -53240,14 +51388,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryOutboundPaymentsId(input, responder, ctx, next)
+        .getTreasuryOutboundPaymentsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryOutboundPaymentsIdResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryOutboundPaymentsIdResponseValidator),
         )
     },
   )
@@ -53262,7 +51406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryOutboundPaymentsIdCancel",
     "/v1/treasury/outbound_payments/:id/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryOutboundPaymentsIdCancelParamSchema,
@@ -53291,12 +51435,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryOutboundPaymentsIdCancel(input, responder, ctx, next)
+        .postTreasuryOutboundPaymentsIdCancel(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryOutboundPaymentsIdCancelResponseValidator,
           ),
         )
@@ -53338,7 +51481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryOutboundTransfers",
     "/v1/treasury/outbound_transfers",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -53405,14 +51548,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryOutboundTransfers(input, responder, ctx, next)
+        .getTreasuryOutboundTransfers(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryOutboundTransfersResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryOutboundTransfersResponseValidator),
         )
     },
   )
@@ -53423,7 +51562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryOutboundTransfers",
     "/v1/treasury/outbound_transfers",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -53448,14 +51587,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postTreasuryOutboundTransfers(input, responder, ctx, next)
+        .postTreasuryOutboundTransfers(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            postTreasuryOutboundTransfersResponseValidator,
-          ),
+          handleResponse(ctx, postTreasuryOutboundTransfersResponseValidator),
         )
     },
   )
@@ -53479,7 +51614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryOutboundTransfersOutboundTransfer",
     "/v1/treasury/outbound_transfers/:outbound_transfer",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryOutboundTransfersOutboundTransferParamSchema,
@@ -53515,17 +51650,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryOutboundTransfersOutboundTransfer(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .getTreasuryOutboundTransfersOutboundTransfer(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getTreasuryOutboundTransfersOutboundTransferResponseValidator,
           ),
         )
@@ -53541,7 +51670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postTreasuryOutboundTransfersOutboundTransferCancel",
     "/v1/treasury/outbound_transfers/:outbound_transfer/cancel",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
@@ -53574,13 +51703,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator,
           ),
         )
@@ -53630,7 +51757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryReceivedCredits",
     "/v1/treasury/received_credits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -53706,15 +51833,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryReceivedCredits(input, responder, ctx, next)
+        .getTreasuryReceivedCredits(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryReceivedCreditsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getTreasuryReceivedCreditsResponseValidator))
     },
   )
 
@@ -53737,7 +51858,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryReceivedCreditsId",
     "/v1/treasury/received_credits/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryReceivedCreditsIdParamSchema,
@@ -53773,14 +51894,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryReceivedCreditsId(input, responder, ctx, next)
+        .getTreasuryReceivedCreditsId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryReceivedCreditsIdResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryReceivedCreditsIdResponseValidator),
         )
     },
   )
@@ -53817,7 +51934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryReceivedDebits",
     "/v1/treasury/received_debits",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -53884,11 +52001,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryReceivedDebits(input, responder, ctx, next)
+        .getTreasuryReceivedDebits(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTreasuryReceivedDebitsResponseValidator),
-        )
+        .then(handleResponse(ctx, getTreasuryReceivedDebitsResponseValidator))
     },
   )
 
@@ -53911,7 +52026,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryReceivedDebitsId",
     "/v1/treasury/received_debits/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryReceivedDebitsIdParamSchema,
@@ -53947,15 +52062,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryReceivedDebitsId(input, responder, ctx, next)
+        .getTreasuryReceivedDebitsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryReceivedDebitsIdResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getTreasuryReceivedDebitsIdResponseValidator))
     },
   )
 
@@ -54018,7 +52127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryTransactionEntries",
     "/v1/treasury/transaction_entries",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -54119,14 +52228,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryTransactionEntries(input, responder, ctx, next)
+        .getTreasuryTransactionEntries(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryTransactionEntriesResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryTransactionEntriesResponseValidator),
         )
     },
   )
@@ -54150,7 +52255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryTransactionEntriesId",
     "/v1/treasury/transaction_entries/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryTransactionEntriesIdParamSchema,
@@ -54186,14 +52291,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryTransactionEntriesId(input, responder, ctx, next)
+        .getTreasuryTransactionEntriesId(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getTreasuryTransactionEntriesIdResponseValidator,
-          ),
+          handleResponse(ctx, getTreasuryTransactionEntriesIdResponseValidator),
         )
     },
   )
@@ -54257,7 +52358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryTransactions",
     "/v1/treasury/transactions",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -54363,11 +52464,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryTransactions(input, responder, ctx, next)
+        .getTreasuryTransactions(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTreasuryTransactionsResponseValidator),
-        )
+        .then(handleResponse(ctx, getTreasuryTransactionsResponseValidator))
     },
   )
 
@@ -54392,7 +52491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getTreasuryTransactionsId",
     "/v1/treasury/transactions/:id",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getTreasuryTransactionsIdParamSchema,
@@ -54428,11 +52527,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getTreasuryTransactionsId(input, responder, ctx, next)
+        .getTreasuryTransactionsId(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getTreasuryTransactionsIdResponseValidator),
-        )
+        .then(handleResponse(ctx, getTreasuryTransactionsIdResponseValidator))
     },
   )
 
@@ -54463,108 +52560,100 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_error,
   )
 
-  router.get(
-    "getWebhookEndpoints",
-    "/v1/webhook_endpoints",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getWebhookEndpointsQuerySchema,
-          parseQueryParameters(ctx.querystring, [
-            {
-              name: "ending_before",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-            {
-              name: "expand",
-              explode: true,
-              style: "deepObject",
-              schema: {type: "array", items: {type: "string"}},
-            },
-            {
-              name: "limit",
-              explode: true,
-              style: "form",
-              schema: {type: "number"},
-            },
-            {
-              name: "starting_after",
-              explode: true,
-              style: "form",
-              schema: {type: "string"},
-            },
-          ]),
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getWebhookEndpoints", "/v1/webhook_endpoints", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getWebhookEndpointsQuerySchema,
+        parseQueryParameters(ctx.querystring, [
+          {
+            name: "ending_before",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+          {
+            name: "expand",
+            explode: true,
+            style: "deepObject",
+            schema: {type: "array", items: {type: "string"}},
+          },
+          {
+            name: "limit",
+            explode: true,
+            style: "form",
+            schema: {type: "number"},
+          },
+          {
+            name: "starting_after",
+            explode: true,
+            style: "form",
+            schema: {type: "string"},
+          },
+        ]),
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_webhook_endpoint[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_webhook_endpoint[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getWebhookEndpoints(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getWebhookEndpointsResponseValidator))
-    },
-  )
+    await implementation
+      .getWebhookEndpoints(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getWebhookEndpointsResponseValidator))
+  })
 
   const postWebhookEndpointsResponseValidator = responseValidationFactory(
     [["200", s_webhook_endpoint]],
     s_error,
   )
 
-  router.post(
-    "postWebhookEndpoints",
-    "/v1/webhook_endpoints",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_PostWebhookEndpointsRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("postWebhookEndpoints", "/v1/webhook_endpoints", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_PostWebhookEndpointsRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_webhook_endpoint>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_webhook_endpoint>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .postWebhookEndpoints(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, postWebhookEndpointsResponseValidator))
-    },
-  )
+    await implementation
+      .postWebhookEndpoints(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, postWebhookEndpointsResponseValidator))
+  })
 
   const deleteWebhookEndpointsWebhookEndpointParamSchema = z.object({
     webhook_endpoint: z.string().max(5000),
@@ -54576,7 +52665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteWebhookEndpointsWebhookEndpoint",
     "/v1/webhook_endpoints/:webhook_endpoint",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteWebhookEndpointsWebhookEndpointParamSchema,
@@ -54601,12 +52690,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
+        .deleteWebhookEndpointsWebhookEndpoint(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteWebhookEndpointsWebhookEndpointResponseValidator,
           ),
         )
@@ -54632,7 +52720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getWebhookEndpointsWebhookEndpoint",
     "/v1/webhook_endpoints/:webhook_endpoint",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getWebhookEndpointsWebhookEndpointParamSchema,
@@ -54668,12 +52756,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
+        .getWebhookEndpointsWebhookEndpoint(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getWebhookEndpointsWebhookEndpointResponseValidator,
           ),
         )
@@ -54690,7 +52777,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "postWebhookEndpointsWebhookEndpoint",
     "/v1/webhook_endpoints/:webhook_endpoint",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           postWebhookEndpointsWebhookEndpointParamSchema,
@@ -54719,12 +52806,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .postWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
+        .postWebhookEndpointsWebhookEndpoint(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postWebhookEndpointsWebhookEndpointResponseValidator,
           ),
         )

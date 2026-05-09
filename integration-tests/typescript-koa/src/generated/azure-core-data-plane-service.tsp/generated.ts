@@ -20,7 +20,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_Azure_Core_Foundations_Error,
@@ -132,7 +131,6 @@ export type GetServiceStatus = (
   >,
   respond: GetServiceStatusResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -175,7 +173,6 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
     >,
     respond: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
     ctx: RouterContext,
-    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Res<
@@ -213,7 +210,6 @@ export type WidgetsCreateOrUpdateWidget = (
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Widget>
@@ -238,7 +234,6 @@ export type WidgetsGetWidget = (
   >,
   respond: WidgetsGetWidgetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Widget>
@@ -266,7 +261,6 @@ export type WidgetsDeleteWidget = (
   >,
   respond: WidgetsDeleteWidgetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -297,7 +291,6 @@ export type WidgetsListWidgets = (
   >,
   respond: WidgetsListWidgetsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PagedWidget>
@@ -321,7 +314,6 @@ export type WidgetsGetAnalytics = (
   >,
   respond: WidgetsGetAnalyticsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_WidgetAnalytics>
@@ -346,7 +338,6 @@ export type WidgetsUpdateAnalytics = (
   >,
   respond: WidgetsUpdateAnalyticsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_WidgetAnalytics>
@@ -376,7 +367,6 @@ export type WidgetsGetRepairStatus = (
   >,
   respond: WidgetsGetRepairStatusResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -419,7 +409,6 @@ export type WidgetsScheduleRepairs = (
   >,
   respond: WidgetsScheduleRepairsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -462,7 +451,6 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
   >,
   respond: WidgetPartsGetWidgetPartOperationStatusResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -494,7 +482,6 @@ export type WidgetPartsCreateWidgetPart = (
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, void>
@@ -518,7 +505,6 @@ export type WidgetPartsListWidgetParts = (
   >,
   respond: WidgetPartsListWidgetPartsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PagedWidgetPart>
@@ -542,7 +528,6 @@ export type WidgetPartsGetWidgetPart = (
   >,
   respond: WidgetPartsGetWidgetPartResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_WidgetPart>
@@ -566,7 +551,6 @@ export type WidgetPartsDeleteWidgetPart = (
   >,
   respond: WidgetPartsDeleteWidgetPartResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -594,7 +578,6 @@ export type WidgetPartsReorderParts = (
   >,
   respond: WidgetPartsReorderPartsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -630,7 +613,6 @@ export type ManufacturersGetManufacturerOperationStatus = (
   >,
   respond: ManufacturersGetManufacturerOperationStatusResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -663,7 +645,6 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   >,
   respond: ManufacturersCreateOrReplaceManufacturerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Manufacturer>
@@ -688,7 +669,6 @@ export type ManufacturersGetManufacturer = (
   >,
   respond: ManufacturersGetManufacturerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Manufacturer>
@@ -716,7 +696,6 @@ export type ManufacturersDeleteManufacturer = (
   >,
   respond: ManufacturersDeleteManufacturerResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -747,7 +726,6 @@ export type ManufacturersListManufacturers = (
   >,
   respond: ManufacturersListManufacturersResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PagedManufacturer>
@@ -795,7 +773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
-  router.get("getServiceStatus", "/service-status", async (ctx, next) => {
+  router.get("getServiceStatus", "/service-status", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -828,9 +806,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getServiceStatus(input, responder, ctx, next)
+      .getServiceStatus(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getServiceStatusResponseValidator))
+      .then(handleResponse(ctx, getServiceStatusResponseValidator))
   })
 
   const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema =
@@ -865,7 +843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus",
     "/widgets/:widgetName/operations/:operationId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
@@ -912,13 +890,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator,
           ),
         )
@@ -955,7 +931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.patch(
     "widgetsCreateOrUpdateWidget",
     "/widgets/:widgetName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsCreateOrUpdateWidgetParamSchema,
@@ -997,15 +973,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetsCreateOrUpdateWidget(input, responder, ctx, next)
+        .widgetsCreateOrUpdateWidget(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            widgetsCreateOrUpdateWidgetResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, widgetsCreateOrUpdateWidgetResponseValidator))
     },
   )
 
@@ -1028,7 +998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
-  router.get("widgetsGetWidget", "/widgets/:widgetName", async (ctx, next) => {
+  router.get("widgetsGetWidget", "/widgets/:widgetName", async (ctx) => {
     const input = {
       params: parseRequestInput(
         widgetsGetWidgetParamSchema,
@@ -1063,9 +1033,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .widgetsGetWidget(input, responder, ctx, next)
+      .widgetsGetWidget(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, widgetsGetWidgetResponseValidator))
+      .then(handleResponse(ctx, widgetsGetWidgetResponseValidator))
   })
 
   const widgetsDeleteWidgetParamSchema = z.object({widgetName: z.string()})
@@ -1098,53 +1068,49 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
-  router.delete(
-    "widgetsDeleteWidget",
-    "/widgets/:widgetName",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          widgetsDeleteWidgetParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          widgetsDeleteWidgetQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: parseRequestInput(
-          widgetsDeleteWidgetRequestHeaderSchema,
-          Reflect.get(ctx.request, "headers"),
-          RequestInputType.RequestHeader,
-        ),
-      }
+  router.delete("widgetsDeleteWidget", "/widgets/:widgetName", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        widgetsDeleteWidgetParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        widgetsDeleteWidgetQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: parseRequestInput(
+        widgetsDeleteWidgetRequestHeaderSchema,
+        Reflect.get(ctx.request, "headers"),
+        RequestInputType.RequestHeader,
+      ),
+    }
 
-      const responder = {
-        with202() {
-          return new KoaRuntimeResponse<{
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            status: t_Azure_Core_Foundations_OperationState
-          }>(202)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>(
-            status,
-          )
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with202() {
+        return new KoaRuntimeResponse<{
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_Azure_Core_Foundations_OperationState
+        }>(202)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>(
+          status,
+        )
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .widgetsDeleteWidget(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, widgetsDeleteWidgetResponseValidator))
-    },
-  )
+    await implementation
+      .widgetsDeleteWidget(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, widgetsDeleteWidgetResponseValidator))
+  })
 
   const widgetsListWidgetsQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1168,7 +1134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
-  router.get("widgetsListWidgets", "/widgets", async (ctx, next) => {
+  router.get("widgetsListWidgets", "/widgets", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -1199,9 +1165,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .widgetsListWidgets(input, responder, ctx, next)
+      .widgetsListWidgets(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, widgetsListWidgetsResponseValidator))
+      .then(handleResponse(ctx, widgetsListWidgetsResponseValidator))
   })
 
   const widgetsGetAnalyticsParamSchema = z.object({widgetName: z.string()})
@@ -1226,7 +1192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetsGetAnalytics",
     "/widgets/:widgetName/analytics/current",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsGetAnalyticsParamSchema,
@@ -1261,9 +1227,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetsGetAnalytics(input, responder, ctx, next)
+        .widgetsGetAnalytics(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, widgetsGetAnalyticsResponseValidator))
+        .then(handleResponse(ctx, widgetsGetAnalyticsResponseValidator))
     },
   )
 
@@ -1294,7 +1260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.patch(
     "widgetsUpdateAnalytics",
     "/widgets/:widgetName/analytics/current",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsUpdateAnalyticsParamSchema,
@@ -1336,11 +1302,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetsUpdateAnalytics(input, responder, ctx, next)
+        .widgetsUpdateAnalytics(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, widgetsUpdateAnalyticsResponseValidator),
-        )
+        .then(handleResponse(ctx, widgetsUpdateAnalyticsResponseValidator))
     },
   )
 
@@ -1371,7 +1335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetsGetRepairStatus",
     "/widgets/:widgetId/repairs/:operationId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsGetRepairStatusParamSchema,
@@ -1407,11 +1371,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetsGetRepairStatus(input, responder, ctx, next)
+        .widgetsGetRepairStatus(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, widgetsGetRepairStatusResponseValidator),
-        )
+        .then(handleResponse(ctx, widgetsGetRepairStatusResponseValidator))
     },
   )
 
@@ -1453,7 +1415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "widgetsScheduleRepairs",
     "/widgets/:widgetName:scheduleRepairs",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetsScheduleRepairsParamSchema,
@@ -1503,11 +1465,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetsScheduleRepairs(input, responder, ctx, next)
+        .widgetsScheduleRepairs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, widgetsScheduleRepairsResponseValidator),
-        )
+        .then(handleResponse(ctx, widgetsScheduleRepairsResponseValidator))
     },
   )
 
@@ -1540,7 +1500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetPartsGetWidgetPartOperationStatus",
     "/widgets/:widgetName/parts/:widgetPartName/operations/:operationId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsGetWidgetPartOperationStatusParamSchema,
@@ -1576,12 +1536,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsGetWidgetPartOperationStatus(input, responder, ctx, next)
+        .widgetPartsGetWidgetPartOperationStatus(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             widgetPartsGetWidgetPartOperationStatusResponseValidator,
           ),
         )
@@ -1615,7 +1574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "widgetPartsCreateWidgetPart",
     "/widgets/:widgetName/parts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsCreateWidgetPartParamSchema,
@@ -1654,15 +1613,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsCreateWidgetPart(input, responder, ctx, next)
+        .widgetPartsCreateWidgetPart(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            widgetPartsCreateWidgetPartResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, widgetPartsCreateWidgetPartResponseValidator))
     },
   )
 
@@ -1686,7 +1639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetPartsListWidgetParts",
     "/widgets/:widgetName/parts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsListWidgetPartsParamSchema,
@@ -1721,15 +1674,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsListWidgetParts(input, responder, ctx, next)
+        .widgetPartsListWidgetParts(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            widgetPartsListWidgetPartsResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, widgetPartsListWidgetPartsResponseValidator))
     },
   )
 
@@ -1758,7 +1705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "widgetPartsGetWidgetPart",
     "/widgets/:widgetName/parts/:widgetPartName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsGetWidgetPartParamSchema,
@@ -1793,11 +1740,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsGetWidgetPart(input, responder, ctx, next)
+        .widgetPartsGetWidgetPart(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, widgetPartsGetWidgetPartResponseValidator),
-        )
+        .then(handleResponse(ctx, widgetPartsGetWidgetPartResponseValidator))
     },
   )
 
@@ -1829,7 +1774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "widgetPartsDeleteWidgetPart",
     "/widgets/:widgetName/parts/:widgetPartName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsDeleteWidgetPartParamSchema,
@@ -1864,15 +1809,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsDeleteWidgetPart(input, responder, ctx, next)
+        .widgetPartsDeleteWidgetPart(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            widgetPartsDeleteWidgetPartResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, widgetPartsDeleteWidgetPartResponseValidator))
     },
   )
 
@@ -1905,7 +1844,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "widgetPartsReorderParts",
     "/widgets/:widgetName/parts:reorderParts",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           widgetPartsReorderPartsParamSchema,
@@ -1948,11 +1887,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .widgetPartsReorderParts(input, responder, ctx, next)
+        .widgetPartsReorderParts(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, widgetPartsReorderPartsResponseValidator),
-        )
+        .then(handleResponse(ctx, widgetPartsReorderPartsResponseValidator))
     },
   )
 
@@ -1984,7 +1921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "manufacturersGetManufacturerOperationStatus",
     "/manufacturers/:manufacturerId/operations/:operationId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           manufacturersGetManufacturerOperationStatusParamSchema,
@@ -2020,17 +1957,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .manufacturersGetManufacturerOperationStatus(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .manufacturersGetManufacturerOperationStatus(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             manufacturersGetManufacturerOperationStatusResponseValidator,
           ),
         )
@@ -2067,7 +1998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.put(
     "manufacturersCreateOrReplaceManufacturer",
     "/manufacturers/:manufacturerId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           manufacturersCreateOrReplaceManufacturerParamSchema,
@@ -2109,12 +2040,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .manufacturersCreateOrReplaceManufacturer(input, responder, ctx, next)
+        .manufacturersCreateOrReplaceManufacturer(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             manufacturersCreateOrReplaceManufacturerResponseValidator,
           ),
         )
@@ -2146,7 +2076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "manufacturersGetManufacturer",
     "/manufacturers/:manufacturerId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           manufacturersGetManufacturerParamSchema,
@@ -2181,14 +2111,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .manufacturersGetManufacturer(input, responder, ctx, next)
+        .manufacturersGetManufacturer(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            manufacturersGetManufacturerResponseValidator,
-          ),
+          handleResponse(ctx, manufacturersGetManufacturerResponseValidator),
         )
     },
   )
@@ -2229,7 +2155,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "manufacturersDeleteManufacturer",
     "/manufacturers/:manufacturerId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           manufacturersDeleteManufacturerParamSchema,
@@ -2268,14 +2194,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .manufacturersDeleteManufacturer(input, responder, ctx, next)
+        .manufacturersDeleteManufacturer(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            manufacturersDeleteManufacturerResponseValidator,
-          ),
+          handleResponse(ctx, manufacturersDeleteManufacturerResponseValidator),
         )
     },
   )
@@ -2297,7 +2219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "manufacturersListManufacturers",
     "/manufacturers",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -2328,14 +2250,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .manufacturersListManufacturers(input, responder, ctx, next)
+        .manufacturersListManufacturers(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            manufacturersListManufacturersResponseValidator,
-          ),
+          handleResponse(ctx, manufacturersListManufacturersResponseValidator),
         )
     },
   )

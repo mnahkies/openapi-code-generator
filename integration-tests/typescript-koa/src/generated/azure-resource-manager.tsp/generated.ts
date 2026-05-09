@@ -20,7 +20,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -70,7 +69,6 @@ export type OperationsList = (
   params: Params<void, t_OperationsListQuerySchema, void, void>,
   respond: OperationsListResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OperationListResult>
@@ -94,7 +92,6 @@ export type EmployeesGet = (
   >,
   respond: EmployeesGetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Employee>
@@ -119,7 +116,6 @@ export type EmployeesCreateOrUpdate = (
   >,
   respond: EmployeesCreateOrUpdateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Employee>
@@ -144,7 +140,6 @@ export type EmployeesUpdate = (
   >,
   respond: EmployeesUpdateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Employee>
@@ -169,7 +164,6 @@ export type EmployeesDelete = (
   >,
   respond: EmployeesDeleteResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<202, void>
@@ -195,7 +189,6 @@ export type EmployeesCheckExistence = (
   >,
   respond: EmployeesCheckExistenceResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -220,7 +213,6 @@ export type EmployeesListByResourceGroup = (
   >,
   respond: EmployeesListByResourceGroupResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_EmployeeListResult>
@@ -244,7 +236,6 @@ export type EmployeesListBySubscription = (
   >,
   respond: EmployeesListBySubscriptionResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_EmployeeListResult>
@@ -268,7 +259,6 @@ export type EmployeesMove = (
   >,
   respond: EmployeesMoveResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_MoveResponse>
@@ -301,7 +291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "operationsList",
     "/providers/Microsoft.ContosoProviderHub/operations",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -328,9 +318,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .operationsList(input, responder, ctx, next)
+        .operationsList(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, operationsListResponseValidator))
+        .then(handleResponse(ctx, operationsListResponseValidator))
     },
   )
 
@@ -354,7 +344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "employeesGet",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesGetParamSchema,
@@ -385,9 +375,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesGet(input, responder, ctx, next)
+        .employeesGet(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, employeesGetResponseValidator))
+        .then(handleResponse(ctx, employeesGetResponseValidator))
     },
   )
 
@@ -416,7 +406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.put(
     "employeesCreateOrUpdate",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesCreateOrUpdateParamSchema,
@@ -454,11 +444,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesCreateOrUpdate(input, responder, ctx, next)
+        .employeesCreateOrUpdate(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, employeesCreateOrUpdateResponseValidator),
-        )
+        .then(handleResponse(ctx, employeesCreateOrUpdateResponseValidator))
     },
   )
 
@@ -484,7 +472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.patch(
     "employeesUpdate",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesUpdateParamSchema,
@@ -519,9 +507,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesUpdate(input, responder, ctx, next)
+        .employeesUpdate(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, employeesUpdateResponseValidator))
+        .then(handleResponse(ctx, employeesUpdateResponseValidator))
     },
   )
 
@@ -550,7 +538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "employeesDelete",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesDeleteParamSchema,
@@ -584,9 +572,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesDelete(input, responder, ctx, next)
+        .employeesDelete(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, employeesDeleteResponseValidator))
+        .then(handleResponse(ctx, employeesDeleteResponseValidator))
     },
   )
 
@@ -615,7 +603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.head(
     "employeesCheckExistence",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesCheckExistenceParamSchema,
@@ -649,11 +637,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesCheckExistence(input, responder, ctx, next)
+        .employeesCheckExistence(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, employeesCheckExistenceResponseValidator),
-        )
+        .then(handleResponse(ctx, employeesCheckExistenceResponseValidator))
     },
   )
 
@@ -679,7 +665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "employeesListByResourceGroup",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesListByResourceGroupParamSchema,
@@ -710,14 +696,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesListByResourceGroup(input, responder, ctx, next)
+        .employeesListByResourceGroup(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            employeesListByResourceGroupResponseValidator,
-          ),
+          handleResponse(ctx, employeesListByResourceGroupResponseValidator),
         )
     },
   )
@@ -739,7 +721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "employeesListBySubscription",
     "/subscriptions/:subscriptionId/providers/Microsoft.ContosoProviderHub/employees",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesListBySubscriptionParamSchema,
@@ -770,15 +752,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesListBySubscription(input, responder, ctx, next)
+        .employeesListBySubscription(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            employeesListBySubscriptionResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, employeesListBySubscriptionResponseValidator))
     },
   )
 
@@ -802,7 +778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "employeesMove",
     "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName/move",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           employeesMoveParamSchema,
@@ -837,9 +813,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .employeesMove(input, responder, ctx, next)
+        .employeesMove(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, employeesMoveResponseValidator))
+        .then(handleResponse(ctx, employeesMoveResponseValidator))
     },
   )
 

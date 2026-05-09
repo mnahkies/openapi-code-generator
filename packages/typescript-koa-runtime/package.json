@@ -81,7 +81,7 @@
   },
   "peerDependencies": {
     "@koa/cors": "^5.0.0",
-    "@koa/router": "^15.4.0",
+    "@koa/router": "^15.5.0",
     "joi": "^17.13.3 || ^18.0.1",
     "koa": "^3.2.0",
     "koa-body": "^7.0.1",
@@ -104,7 +104,7 @@
   "devDependencies": {
     "@jest/globals": "^30.3.0",
     "@koa/cors": "^5.0.0",
-    "@koa/router": "^15.4.0",
+    "@koa/router": "^15.5.0",
     "@types/koa": "^3.0.2",
     "@types/koa__cors": "^5.0.1",
     "jest": "^30.3.0",

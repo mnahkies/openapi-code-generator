@@ -19,7 +19,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_GetParamsDefaultObjectQuery200Response,
@@ -46,7 +45,6 @@ export type GetParamsSimpleQuery = (
   params: Params<void, t_GetParamsSimpleQueryQuerySchema, void, void>,
   respond: GetParamsSimpleQueryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetParamsSimpleQuery200Response>
@@ -61,7 +59,6 @@ export type GetParamsDefaultObjectQuery = (
   params: Params<void, t_GetParamsDefaultObjectQueryQuerySchema, void, void>,
   respond: GetParamsDefaultObjectQueryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetParamsDefaultObjectQuery200Response>
@@ -76,7 +73,6 @@ export type GetParamsUnexplodedObjectQuery = (
   params: Params<void, t_GetParamsUnexplodedObjectQueryQuerySchema, void, void>,
   respond: GetParamsUnexplodedObjectQueryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetParamsUnexplodedObjectQuery200Response>
@@ -91,7 +87,6 @@ export type GetParamsMixedQuery = (
   params: Params<void, t_GetParamsMixedQueryQuerySchema, void, void>,
   respond: GetParamsMixedQueryResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetParamsMixedQuery200Response>
@@ -120,36 +115,32 @@ export function createQueryParametersRouter(
     undefined,
   )
 
-  router.get(
-    "getParamsSimpleQuery",
-    "/params/simple-query",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getParamsSimpleQueryQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getParamsSimpleQuery", "/params/simple-query", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getParamsSimpleQueryQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_GetParamsSimpleQuery200Response>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_GetParamsSimpleQuery200Response>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getParamsSimpleQuery(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getParamsSimpleQueryResponseValidator))
-    },
-  )
+    await implementation
+      .getParamsSimpleQuery(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getParamsSimpleQueryResponseValidator))
+  })
 
   const getParamsDefaultObjectQueryQuerySchema = z.object({
     filter: z.object({name: z.string(), age: z.coerce.number()}),
@@ -164,7 +155,7 @@ export function createQueryParametersRouter(
   router.get(
     "getParamsDefaultObjectQuery",
     "/params/default-object-query",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -198,15 +189,9 @@ export function createQueryParametersRouter(
       }
 
       await implementation
-        .getParamsDefaultObjectQuery(input, responder, ctx, next)
+        .getParamsDefaultObjectQuery(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            getParamsDefaultObjectQueryResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, getParamsDefaultObjectQueryResponseValidator))
     },
   )
 
@@ -223,7 +208,7 @@ export function createQueryParametersRouter(
   router.get(
     "getParamsUnexplodedObjectQuery",
     "/params/unexploded-object-query",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -257,14 +242,10 @@ export function createQueryParametersRouter(
       }
 
       await implementation
-        .getParamsUnexplodedObjectQuery(input, responder, ctx, next)
+        .getParamsUnexplodedObjectQuery(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getParamsUnexplodedObjectQueryResponseValidator,
-          ),
+          handleResponse(ctx, getParamsUnexplodedObjectQueryResponseValidator),
         )
     },
   )
@@ -282,36 +263,32 @@ export function createQueryParametersRouter(
     undefined,
   )
 
-  router.get(
-    "getParamsMixedQuery",
-    "/params/mixed-query",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getParamsMixedQueryQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getParamsMixedQuery", "/params/mixed-query", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getParamsMixedQueryQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_GetParamsMixedQuery200Response>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_GetParamsMixedQuery200Response>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getParamsMixedQuery(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getParamsMixedQueryResponseValidator))
-    },
-  )
+    await implementation
+      .getParamsMixedQuery(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getParamsMixedQueryResponseValidator))
+  })
 
   return router
 }

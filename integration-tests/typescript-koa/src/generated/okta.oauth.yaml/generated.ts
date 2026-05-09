@@ -20,7 +20,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_AuthorizeCustomAsParamSchema,
@@ -132,7 +131,6 @@ export type GetWellKnownOpenIdConfiguration = (
   >,
   respond: GetWellKnownOpenIdConfigurationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OidcMetadata>
@@ -148,7 +146,6 @@ export type Authorize = (
   params: Params<void, t_AuthorizeQuerySchema, void, void>,
   respond: AuthorizeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
@@ -161,7 +158,6 @@ export type AuthorizeWithPost = (
   params: Params<void, void, t_AuthorizeWithPost, void>,
   respond: AuthorizeWithPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
@@ -177,7 +173,6 @@ export type BcAuthorize = (
   params: Params<void, void, t_BackchannelAuthorizeRequest, void>,
   respond: BcAuthorizeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_BackchannelAuthorizeResponse>
@@ -199,7 +194,6 @@ export type Challenge = (
   params: Params<void, void, t_ChallengeRequest, void>,
   respond: ChallengeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ChallengeResponse>
@@ -220,7 +214,6 @@ export type ListClients = (
   params: Params<void, t_ListClientsQuerySchema, void, void>,
   respond: ListClientsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Client[]>
@@ -240,7 +233,6 @@ export type CreateClient = (
   params: Params<void, void, t_Client, void>,
   respond: CreateClientResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, t_Client>
@@ -261,7 +253,6 @@ export type GetClient = (
   params: Params<t_GetClientParamSchema, void, void, void>,
   respond: GetClientResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Client>
@@ -283,7 +274,6 @@ export type ReplaceClient = (
   params: Params<t_ReplaceClientParamSchema, void, t_Client, void>,
   respond: ReplaceClientResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Client>
@@ -305,7 +295,6 @@ export type DeleteClient = (
   params: Params<t_DeleteClientParamSchema, void, void, void>,
   respond: DeleteClientResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -326,7 +315,6 @@ export type GenerateNewClientSecret = (
   params: Params<t_GenerateNewClientSecretParamSchema, void, void, void>,
   respond: GenerateNewClientSecretResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Client>
@@ -347,7 +335,6 @@ export type DeviceAuthorize = (
   params: Params<void, void, t_DeviceAuthorizeRequest, void>,
   respond: DeviceAuthorizeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_DeviceAuthorizeResponse>
@@ -368,7 +355,6 @@ export type GlobalTokenRevocation = (
   params: Params<void, void, t_GlobalTokenRevocationRequest, void>,
   respond: GlobalTokenRevocationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -389,7 +375,6 @@ export type Introspect = (
   params: Params<void, void, t_IntrospectionRequest, void>,
   respond: IntrospectResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_IntrospectionResponse>
@@ -408,7 +393,6 @@ export type OauthKeys = (
   params: Params<void, t_OauthKeysQuerySchema, void, void>,
   respond: OauthKeysResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OAuthKeys>
@@ -425,7 +409,6 @@ export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void, void>,
   respond: LogoutResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -442,7 +425,6 @@ export type LogoutWithPost = (
   params: Params<void, void, t_LogoutWithPost, void>,
   respond: LogoutWithPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -462,7 +444,6 @@ export type OobAuthenticate = (
   params: Params<void, void, t_OobAuthenticateRequest, void>,
   respond: OobAuthenticateResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OobAuthenticateResponse>
@@ -482,7 +463,6 @@ export type ParOptions = (
   params: Params<void, void, void, t_ParOptionsRequestHeaderSchema>,
   respond: ParOptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -502,7 +482,6 @@ export type Par = (
   params: Params<void, void, t_ParRequest, void>,
   respond: ParResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ParResponse>
@@ -524,7 +503,6 @@ export type Revoke = (
   params: Params<void, void, t_RevokeRequest, void>,
   respond: RevokeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -543,7 +521,6 @@ export type TokenOptions = (
   params: Params<void, void, void, t_TokenOptionsRequestHeaderSchema>,
   respond: TokenOptionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -562,7 +539,6 @@ export type Token = (
   params: Params<void, void, t_TokenRequest, void>,
   respond: TokenResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_TokenResponse>
@@ -583,7 +559,6 @@ export type Userinfo = (
   params: Params<void, void, void, void>,
   respond: UserinfoResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_UserInfo>
@@ -608,7 +583,6 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
   >,
   respond: GetWellKnownOAuthConfigurationCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OAuthMetadata>
@@ -632,7 +606,6 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
   >,
   respond: GetWellKnownOpenIdConfigurationCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OidcMetadata>
@@ -654,7 +627,6 @@ export type AuthorizeCustomAs = (
   >,
   respond: AuthorizeCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
@@ -672,7 +644,6 @@ export type AuthorizeCustomAsWithPost = (
   >,
   respond: AuthorizeCustomAsWithPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<429, t_Error> | typeof SkipResponse
 >
@@ -693,7 +664,6 @@ export type BcAuthorizeCustomAs = (
   >,
   respond: BcAuthorizeCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_BackchannelAuthorizeResponse>
@@ -720,7 +690,6 @@ export type ChallengeCustomAs = (
   >,
   respond: ChallengeCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ChallengeResponse>
@@ -747,7 +716,6 @@ export type DeviceAuthorizeCustomAs = (
   >,
   respond: DeviceAuthorizeCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_DeviceAuthorizeResponse>
@@ -773,7 +741,6 @@ export type IntrospectCustomAs = (
   >,
   respond: IntrospectCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_IntrospectionResponse>
@@ -792,7 +759,6 @@ export type OauthKeysCustomAs = (
   params: Params<t_OauthKeysCustomAsParamSchema, void, void, void>,
   respond: OauthKeysCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OAuthKeys>
@@ -814,7 +780,6 @@ export type LogoutCustomAs = (
   >,
   respond: LogoutCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -836,7 +801,6 @@ export type LogoutCustomAsWithPost = (
   >,
   respond: LogoutCustomAsWithPostResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -861,7 +825,6 @@ export type OobAuthenticateCustomAs = (
   >,
   respond: OobAuthenticateCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OobAuthenticateResponse>
@@ -886,7 +849,6 @@ export type ParOptionsCustomAs = (
   >,
   respond: ParOptionsCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -906,7 +868,6 @@ export type ParCustomAs = (
   params: Params<t_ParCustomAsParamSchema, void, t_ParRequest, void>,
   respond: ParCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_ParResponse>
@@ -928,7 +889,6 @@ export type RevokeCustomAs = (
   params: Params<t_RevokeCustomAsParamSchema, void, t_RevokeRequest, void>,
   respond: RevokeCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -952,7 +912,6 @@ export type TokenOptionsCustomAs = (
   >,
   respond: TokenOptionsCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -971,7 +930,6 @@ export type TokenCustomAs = (
   params: Params<t_TokenCustomAsParamSchema, void, t_TokenRequest, void>,
   respond: TokenCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_TokenResponse>
@@ -992,7 +950,6 @@ export type UserinfoCustomAs = (
   params: Params<t_UserinfoCustomAsParamSchema, void, void, void>,
   respond: UserinfoCustomAsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_UserInfo>
@@ -1066,7 +1023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getWellKnownOpenIdConfiguration",
     "/.well-known/openid-configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -1091,14 +1048,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getWellKnownOpenIdConfiguration(input, responder, ctx, next)
+        .getWellKnownOpenIdConfiguration(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            getWellKnownOpenIdConfigurationResponseValidator,
-          ),
+          handleResponse(ctx, getWellKnownOpenIdConfigurationResponseValidator),
         )
     },
   )
@@ -1131,7 +1084,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("authorize", "/oauth2/v1/authorize", async (ctx, next) => {
+  router.get("authorize", "/oauth2/v1/authorize", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -1153,9 +1106,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .authorize(input, responder, ctx, next)
+      .authorize(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, authorizeResponseValidator))
+      .then(handleResponse(ctx, authorizeResponseValidator))
   })
 
   const authorizeWithPostResponseValidator = responseValidationFactory(
@@ -1163,36 +1116,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post(
-    "authorizeWithPost",
-    "/oauth2/v1/authorize",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_AuthorizeWithPost,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("authorizeWithPost", "/oauth2/v1/authorize", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_AuthorizeWithPost,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with429() {
-          return new KoaRuntimeResponse<t_Error>(429)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .authorizeWithPost(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, authorizeWithPostResponseValidator))
-    },
-  )
+    await implementation
+      .authorizeWithPost(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, authorizeWithPostResponseValidator))
+  })
 
   const bcAuthorizeResponseValidator = responseValidationFactory(
     [
@@ -1204,7 +1153,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("bcAuthorize", "/oauth2/v1/bc/authorize", async (ctx, next) => {
+  router.post("bcAuthorize", "/oauth2/v1/bc/authorize", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1235,9 +1184,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .bcAuthorize(input, responder, ctx, next)
+      .bcAuthorize(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, bcAuthorizeResponseValidator))
+      .then(handleResponse(ctx, bcAuthorizeResponseValidator))
   })
 
   const challengeResponseValidator = responseValidationFactory(
@@ -1251,7 +1200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("challenge", "/oauth2/v1/challenge", async (ctx, next) => {
+  router.post("challenge", "/oauth2/v1/challenge", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1285,9 +1234,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .challenge(input, responder, ctx, next)
+      .challenge(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, challengeResponseValidator))
+      .then(handleResponse(ctx, challengeResponseValidator))
   })
 
   const listClientsQuerySchema = z.object({
@@ -1305,7 +1254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("listClients", "/oauth2/v1/clients", async (ctx, next) => {
+  router.get("listClients", "/oauth2/v1/clients", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -1333,9 +1282,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .listClients(input, responder, ctx, next)
+      .listClients(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, listClientsResponseValidator))
+      .then(handleResponse(ctx, listClientsResponseValidator))
   })
 
   const createClientResponseValidator = responseValidationFactory(
@@ -1348,7 +1297,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("createClient", "/oauth2/v1/clients", async (ctx, next) => {
+  router.post("createClient", "/oauth2/v1/clients", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1379,9 +1328,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .createClient(input, responder, ctx, next)
+      .createClient(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, createClientResponseValidator))
+      .then(handleResponse(ctx, createClientResponseValidator))
   })
 
   const getClientParamSchema = z.object({clientId: z.string()})
@@ -1396,7 +1345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getClient", "/oauth2/v1/clients/:clientId", async (ctx, next) => {
+  router.get("getClient", "/oauth2/v1/clients/:clientId", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getClientParamSchema,
@@ -1427,9 +1376,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getClient(input, responder, ctx, next)
+      .getClient(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getClientResponseValidator))
+      .then(handleResponse(ctx, getClientResponseValidator))
   })
 
   const replaceClientParamSchema = z.object({clientId: z.string()})
@@ -1445,52 +1394,48 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.put(
-    "replaceClient",
-    "/oauth2/v1/clients/:clientId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          replaceClientParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_Client,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.put("replaceClient", "/oauth2/v1/clients/:clientId", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        replaceClientParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_Client,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_Client>(200)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_Error>(400)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_Error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        with429() {
-          return new KoaRuntimeResponse<t_Error>(429)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_Client>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_Error>(400)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .replaceClient(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, replaceClientResponseValidator))
-    },
-  )
+    await implementation
+      .replaceClient(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, replaceClientResponseValidator))
+  })
 
   const deleteClientParamSchema = z.object({clientId: z.string()})
 
@@ -1504,45 +1449,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete(
-    "deleteClient",
-    "/oauth2/v1/clients/:clientId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          deleteClientParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deleteClient", "/oauth2/v1/clients/:clientId", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        deleteClientParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_Error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        with429() {
-          return new KoaRuntimeResponse<t_Error>(429)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deleteClient(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteClientResponseValidator))
-    },
-  )
+    await implementation
+      .deleteClient(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deleteClientResponseValidator))
+  })
 
   const generateNewClientSecretParamSchema = z.object({clientId: z.string()})
 
@@ -1559,7 +1500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "generateNewClientSecret",
     "/oauth2/v1/clients/:clientId/lifecycle/newSecret",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           generateNewClientSecretParamSchema,
@@ -1590,11 +1531,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .generateNewClientSecret(input, responder, ctx, next)
+        .generateNewClientSecret(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, generateNewClientSecretResponseValidator),
-        )
+        .then(handleResponse(ctx, generateNewClientSecretResponseValidator))
     },
   )
 
@@ -1608,45 +1547,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post(
-    "deviceAuthorize",
-    "/oauth2/v1/device/authorize",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_DeviceAuthorizeRequest,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("deviceAuthorize", "/oauth2/v1/device/authorize", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_DeviceAuthorizeRequest,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_DeviceAuthorizeResponse>(200)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_OAuthError>(400)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_OAuthError>(401)
-        },
-        with429() {
-          return new KoaRuntimeResponse<t_Error>(429)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_DeviceAuthorizeResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deviceAuthorize(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deviceAuthorizeResponseValidator))
-    },
-  )
+    await implementation
+      .deviceAuthorize(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deviceAuthorizeResponseValidator))
+  })
 
   const globalTokenRevocationResponseValidator = responseValidationFactory(
     [
@@ -1661,7 +1596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "globalTokenRevocation",
     "/oauth2/v1/global-token-revocation",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -1692,9 +1627,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .globalTokenRevocation(input, responder, ctx, next)
+        .globalTokenRevocation(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, globalTokenRevocationResponseValidator))
+        .then(handleResponse(ctx, globalTokenRevocationResponseValidator))
     },
   )
 
@@ -1708,7 +1643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("introspect", "/oauth2/v1/introspect", async (ctx, next) => {
+  router.post("introspect", "/oauth2/v1/introspect", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1739,9 +1674,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .introspect(input, responder, ctx, next)
+      .introspect(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, introspectResponseValidator))
+      .then(handleResponse(ctx, introspectResponseValidator))
   })
 
   const oauthKeysQuerySchema = z.object({client_id: z.string().optional()})
@@ -1754,7 +1689,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("oauthKeys", "/oauth2/v1/keys", async (ctx, next) => {
+  router.get("oauthKeys", "/oauth2/v1/keys", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -1779,9 +1714,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .oauthKeys(input, responder, ctx, next)
+      .oauthKeys(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, oauthKeysResponseValidator))
+      .then(handleResponse(ctx, oauthKeysResponseValidator))
   })
 
   const logoutQuerySchema = z.object({
@@ -1798,7 +1733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("logout", "/oauth2/v1/logout", async (ctx, next) => {
+  router.get("logout", "/oauth2/v1/logout", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -1823,9 +1758,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .logout(input, responder, ctx, next)
+      .logout(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, logoutResponseValidator))
+      .then(handleResponse(ctx, logoutResponseValidator))
   })
 
   const logoutWithPostResponseValidator = responseValidationFactory(
@@ -1836,7 +1771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("logoutWithPost", "/oauth2/v1/logout", async (ctx, next) => {
+  router.post("logoutWithPost", "/oauth2/v1/logout", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1861,9 +1796,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .logoutWithPost(input, responder, ctx, next)
+      .logoutWithPost(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, logoutWithPostResponseValidator))
+      .then(handleResponse(ctx, logoutWithPostResponseValidator))
   })
 
   const oobAuthenticateResponseValidator = responseValidationFactory(
@@ -1877,48 +1812,44 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post(
-    "oobAuthenticate",
-    "/oauth2/v1/oob-authenticate",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_OobAuthenticateRequest,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("oobAuthenticate", "/oauth2/v1/oob-authenticate", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_OobAuthenticateRequest,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_OobAuthenticateResponse>(200)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_OAuthError>(400)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_OAuthError>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_OAuthError>(403)
-        },
-        with429() {
-          return new KoaRuntimeResponse<t_OAuthError>(429)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_OobAuthenticateResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_OAuthError>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_OAuthError>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .oobAuthenticate(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, oobAuthenticateResponseValidator))
-    },
-  )
+    await implementation
+      .oobAuthenticate(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, oobAuthenticateResponseValidator))
+  })
 
   const parOptionsRequestHeaderSchema = z.object({
     origin: z.string().optional(),
@@ -1932,7 +1863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.options("parOptions", "/oauth2/v1/par", async (ctx, next) => {
+  router.options("parOptions", "/oauth2/v1/par", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1957,9 +1888,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .parOptions(input, responder, ctx, next)
+      .parOptions(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, parOptionsResponseValidator))
+      .then(handleResponse(ctx, parOptionsResponseValidator))
   })
 
   const parResponseValidator = responseValidationFactory(
@@ -1973,7 +1904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("par", "/oauth2/v1/par", async (ctx, next) => {
+  router.post("par", "/oauth2/v1/par", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2007,9 +1938,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .par(input, responder, ctx, next)
+      .par(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, parResponseValidator))
+      .then(handleResponse(ctx, parResponseValidator))
   })
 
   const revokeResponseValidator = responseValidationFactory(
@@ -2022,7 +1953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("revoke", "/oauth2/v1/revoke", async (ctx, next) => {
+  router.post("revoke", "/oauth2/v1/revoke", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2053,9 +1984,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .revoke(input, responder, ctx, next)
+      .revoke(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, revokeResponseValidator))
+      .then(handleResponse(ctx, revokeResponseValidator))
   })
 
   const tokenOptionsRequestHeaderSchema = z.object({
@@ -2070,7 +2001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.options("tokenOptions", "/oauth2/v1/token", async (ctx, next) => {
+  router.options("tokenOptions", "/oauth2/v1/token", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2095,9 +2026,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .tokenOptions(input, responder, ctx, next)
+      .tokenOptions(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, tokenOptionsResponseValidator))
+      .then(handleResponse(ctx, tokenOptionsResponseValidator))
   })
 
   const tokenResponseValidator = responseValidationFactory(
@@ -2110,7 +2041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("token", "/oauth2/v1/token", async (ctx, next) => {
+  router.post("token", "/oauth2/v1/token", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2141,9 +2072,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .token(input, responder, ctx, next)
+      .token(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, tokenResponseValidator))
+      .then(handleResponse(ctx, tokenResponseValidator))
   })
 
   const userinfoResponseValidator = responseValidationFactory(
@@ -2156,7 +2087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("userinfo", "/oauth2/v1/userinfo", async (ctx, next) => {
+  router.get("userinfo", "/oauth2/v1/userinfo", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2183,9 +2114,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .userinfo(input, responder, ctx, next)
+      .userinfo(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, userinfoResponseValidator))
+      .then(handleResponse(ctx, userinfoResponseValidator))
   })
 
   const getWellKnownOAuthConfigurationCustomAsParamSchema = z.object({
@@ -2209,7 +2140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getWellKnownOAuthConfigurationCustomAs",
     "/oauth2/:authorizationServerId/.well-known/oauth-authorization-server",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getWellKnownOAuthConfigurationCustomAsParamSchema,
@@ -2241,12 +2172,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getWellKnownOAuthConfigurationCustomAs(input, responder, ctx, next)
+        .getWellKnownOAuthConfigurationCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getWellKnownOAuthConfigurationCustomAsResponseValidator,
           ),
         )
@@ -2274,7 +2204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getWellKnownOpenIdConfigurationCustomAs",
     "/oauth2/:authorizationServerId/.well-known/openid-configuration",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getWellKnownOpenIdConfigurationCustomAsParamSchema,
@@ -2306,12 +2236,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getWellKnownOpenIdConfigurationCustomAs(input, responder, ctx, next)
+        .getWellKnownOpenIdConfigurationCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getWellKnownOpenIdConfigurationCustomAsResponseValidator,
           ),
         )
@@ -2353,7 +2282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "authorizeCustomAs",
     "/oauth2/:authorizationServerId/v1/authorize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           authorizeCustomAsParamSchema,
@@ -2379,9 +2308,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .authorizeCustomAs(input, responder, ctx, next)
+        .authorizeCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, authorizeCustomAsResponseValidator))
+        .then(handleResponse(ctx, authorizeCustomAsResponseValidator))
     },
   )
 
@@ -2397,7 +2326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "authorizeCustomAsWithPost",
     "/oauth2/:authorizationServerId/v1/authorize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           authorizeCustomAsWithPostParamSchema,
@@ -2423,11 +2352,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .authorizeCustomAsWithPost(input, responder, ctx, next)
+        .authorizeCustomAsWithPost(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, authorizeCustomAsWithPostResponseValidator),
-        )
+        .then(handleResponse(ctx, authorizeCustomAsWithPostResponseValidator))
     },
   )
 
@@ -2448,7 +2375,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "bcAuthorizeCustomAs",
     "/oauth2/:authorizationServerId/v1/bc/authorize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           bcAuthorizeCustomAsParamSchema,
@@ -2483,9 +2410,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .bcAuthorizeCustomAs(input, responder, ctx, next)
+        .bcAuthorizeCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, bcAuthorizeCustomAsResponseValidator))
+        .then(handleResponse(ctx, bcAuthorizeCustomAsResponseValidator))
     },
   )
 
@@ -2507,7 +2434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "challengeCustomAs",
     "/oauth2/:authorizationServerId/v1/challenge",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           challengeCustomAsParamSchema,
@@ -2545,9 +2472,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .challengeCustomAs(input, responder, ctx, next)
+        .challengeCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, challengeCustomAsResponseValidator))
+        .then(handleResponse(ctx, challengeCustomAsResponseValidator))
     },
   )
 
@@ -2568,7 +2495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "deviceAuthorizeCustomAs",
     "/oauth2/:authorizationServerId/v1/device/authorize",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deviceAuthorizeCustomAsParamSchema,
@@ -2603,11 +2530,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deviceAuthorizeCustomAs(input, responder, ctx, next)
+        .deviceAuthorizeCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, deviceAuthorizeCustomAsResponseValidator),
-        )
+        .then(handleResponse(ctx, deviceAuthorizeCustomAsResponseValidator))
     },
   )
 
@@ -2628,7 +2553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "introspectCustomAs",
     "/oauth2/:authorizationServerId/v1/introspect",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           introspectCustomAsParamSchema,
@@ -2663,9 +2588,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .introspectCustomAs(input, responder, ctx, next)
+        .introspectCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, introspectCustomAsResponseValidator))
+        .then(handleResponse(ctx, introspectCustomAsResponseValidator))
     },
   )
 
@@ -2684,7 +2609,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "oauthKeysCustomAs",
     "/oauth2/:authorizationServerId/v1/keys",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           oauthKeysCustomAsParamSchema,
@@ -2709,9 +2634,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .oauthKeysCustomAs(input, responder, ctx, next)
+        .oauthKeysCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, oauthKeysCustomAsResponseValidator))
+        .then(handleResponse(ctx, oauthKeysCustomAsResponseValidator))
     },
   )
 
@@ -2736,7 +2661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "logoutCustomAs",
     "/oauth2/:authorizationServerId/v1/logout",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           logoutCustomAsParamSchema,
@@ -2765,9 +2690,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .logoutCustomAs(input, responder, ctx, next)
+        .logoutCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, logoutCustomAsResponseValidator))
+        .then(handleResponse(ctx, logoutCustomAsResponseValidator))
     },
   )
 
@@ -2786,7 +2711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "logoutCustomAsWithPost",
     "/oauth2/:authorizationServerId/v1/logout",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           logoutCustomAsWithPostParamSchema,
@@ -2815,11 +2740,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .logoutCustomAsWithPost(input, responder, ctx, next)
+        .logoutCustomAsWithPost(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, logoutCustomAsWithPostResponseValidator),
-        )
+        .then(handleResponse(ctx, logoutCustomAsWithPostResponseValidator))
     },
   )
 
@@ -2841,7 +2764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "oobAuthenticateCustomAs",
     "/oauth2/:authorizationServerId/v1/oob-authenticate",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           oobAuthenticateCustomAsParamSchema,
@@ -2879,11 +2802,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .oobAuthenticateCustomAs(input, responder, ctx, next)
+        .oobAuthenticateCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, oobAuthenticateCustomAsResponseValidator),
-        )
+        .then(handleResponse(ctx, oobAuthenticateCustomAsResponseValidator))
     },
   )
 
@@ -2906,7 +2827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.options(
     "parOptionsCustomAs",
     "/oauth2/:authorizationServerId/v1/par",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           parOptionsCustomAsParamSchema,
@@ -2935,9 +2856,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .parOptionsCustomAs(input, responder, ctx, next)
+        .parOptionsCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, parOptionsCustomAsResponseValidator))
+        .then(handleResponse(ctx, parOptionsCustomAsResponseValidator))
     },
   )
 
@@ -2957,7 +2878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "parCustomAs",
     "/oauth2/:authorizationServerId/v1/par",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           parCustomAsParamSchema,
@@ -2995,9 +2916,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .parCustomAs(input, responder, ctx, next)
+        .parCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, parCustomAsResponseValidator))
+        .then(handleResponse(ctx, parCustomAsResponseValidator))
     },
   )
 
@@ -3018,7 +2939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "revokeCustomAs",
     "/oauth2/:authorizationServerId/v1/revoke",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           revokeCustomAsParamSchema,
@@ -3053,9 +2974,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .revokeCustomAs(input, responder, ctx, next)
+        .revokeCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, revokeCustomAsResponseValidator))
+        .then(handleResponse(ctx, revokeCustomAsResponseValidator))
     },
   )
 
@@ -3078,7 +2999,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.options(
     "tokenOptionsCustomAs",
     "/oauth2/:authorizationServerId/v1/token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           tokenOptionsCustomAsParamSchema,
@@ -3107,9 +3028,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .tokenOptionsCustomAs(input, responder, ctx, next)
+        .tokenOptionsCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, tokenOptionsCustomAsResponseValidator))
+        .then(handleResponse(ctx, tokenOptionsCustomAsResponseValidator))
     },
   )
 
@@ -3128,7 +3049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "tokenCustomAs",
     "/oauth2/:authorizationServerId/v1/token",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           tokenCustomAsParamSchema,
@@ -3163,9 +3084,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .tokenCustomAs(input, responder, ctx, next)
+        .tokenCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, tokenCustomAsResponseValidator))
+        .then(handleResponse(ctx, tokenCustomAsResponseValidator))
     },
   )
 
@@ -3186,7 +3107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "userinfoCustomAs",
     "/oauth2/:authorizationServerId/v1/userinfo",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           userinfoCustomAsParamSchema,
@@ -3217,9 +3138,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .userinfoCustomAs(input, responder, ctx, next)
+        .userinfoCustomAs(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, userinfoCustomAsResponseValidator))
+        .then(handleResponse(ctx, userinfoCustomAsResponseValidator))
     },
   )
 

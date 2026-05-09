@@ -18,7 +18,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_Enumerations,
@@ -52,7 +51,6 @@ export type GetValidationNumbersRandomNumber = (
   >,
   respond: GetValidationNumbersRandomNumberResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, t_RandomNumber> | typeof SkipResponse
 >
@@ -65,7 +63,6 @@ export type PostValidationEnums = (
   params: Params<void, void, t_Enumerations, void>,
   respond: PostValidationEnumsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, t_Enumerations> | typeof SkipResponse
 >
@@ -84,7 +81,6 @@ export type PostValidationOptionalBody = (
   >,
   respond: PostValidationOptionalBodyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PostValidationOptionalBody200Response>
@@ -100,7 +96,6 @@ export type GetResponses500 = (
   params: Params<void, void, void, void>,
   respond: GetResponses500Responder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<500, void> | typeof SkipResponse>
 
 export type GetResponsesDefaultResponder = {
@@ -114,7 +109,6 @@ export type GetResponsesDefault = (
   params: Params<void, t_GetResponsesDefaultQuerySchema, void, void>,
   respond: GetResponsesDefaultResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_GetResponsesDefault200Response>
@@ -130,7 +124,6 @@ export type GetResponsesEmpty = (
   params: Params<void, void, void, void>,
   respond: GetResponsesEmptyResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ValidationImplementation = {
@@ -164,7 +157,7 @@ export function createValidationRouter(
   router.get(
     "getValidationNumbersRandomNumber",
     "/validation/numbers/random-number",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -186,12 +179,11 @@ export function createValidationRouter(
       }
 
       await implementation
-        .getValidationNumbersRandomNumber(input, responder, ctx, next)
+        .getValidationNumbersRandomNumber(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             getValidationNumbersRandomNumberResponseValidator,
           ),
         )
@@ -203,7 +195,7 @@ export function createValidationRouter(
     undefined,
   )
 
-  router.post("postValidationEnums", "/validation/enums", async (ctx, next) => {
+  router.post("postValidationEnums", "/validation/enums", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -225,9 +217,9 @@ export function createValidationRouter(
     }
 
     await implementation
-      .postValidationEnums(input, responder, ctx, next)
+      .postValidationEnums(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postValidationEnumsResponseValidator))
+      .then(handleResponse(ctx, postValidationEnumsResponseValidator))
   })
 
   const postValidationOptionalBodyResponseValidator = responseValidationFactory(
@@ -241,7 +233,7 @@ export function createValidationRouter(
   router.post(
     "postValidationOptionalBody",
     "/validation/optional-body",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -268,15 +260,9 @@ export function createValidationRouter(
       }
 
       await implementation
-        .postValidationOptionalBody(input, responder, ctx, next)
+        .postValidationOptionalBody(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            next,
-            postValidationOptionalBodyResponseValidator,
-          ),
-        )
+        .then(handleResponse(ctx, postValidationOptionalBodyResponseValidator))
     },
   )
 
@@ -285,7 +271,7 @@ export function createValidationRouter(
     undefined,
   )
 
-  router.get("getResponses500", "/responses/500", async (ctx, next) => {
+  router.get("getResponses500", "/responses/500", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -303,9 +289,9 @@ export function createValidationRouter(
     }
 
     await implementation
-      .getResponses500(input, responder, ctx, next)
+      .getResponses500(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getResponses500ResponseValidator))
+      .then(handleResponse(ctx, getResponses500ResponseValidator))
   })
 
   const getResponsesDefaultQuerySchema = z.object({
@@ -317,7 +303,7 @@ export function createValidationRouter(
     s_GetResponsesDefaultdefaultResponse,
   )
 
-  router.get("getResponsesDefault", "/responses/default", async (ctx, next) => {
+  router.get("getResponsesDefault", "/responses/default", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -344,9 +330,9 @@ export function createValidationRouter(
     }
 
     await implementation
-      .getResponsesDefault(input, responder, ctx, next)
+      .getResponsesDefault(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getResponsesDefaultResponseValidator))
+      .then(handleResponse(ctx, getResponsesDefaultResponseValidator))
   })
 
   const getResponsesEmptyResponseValidator = responseValidationFactory(
@@ -354,7 +340,7 @@ export function createValidationRouter(
     undefined,
   )
 
-  router.get("getResponsesEmpty", "/responses/empty", async (ctx, next) => {
+  router.get("getResponsesEmpty", "/responses/empty", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -372,9 +358,9 @@ export function createValidationRouter(
     }
 
     await implementation
-      .getResponsesEmpty(input, responder, ctx, next)
+      .getResponsesEmpty(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getResponsesEmptyResponseValidator))
+      .then(handleResponse(ctx, getResponsesEmptyResponseValidator))
   })
 
   return router

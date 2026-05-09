@@ -96,8 +96,8 @@ importers:
   e2e:
     dependencies:
       '@koa/router':
-        specifier: ^15.4.0
-        version: 15.4.0(koa@3.2.0)
+        specifier: ^15.5.0
+        version: 15.5.0(koa@3.2.0)
       '@nahkies/typescript-axios-runtime':
         specifier: workspace:*
         version: link:../packages/typescript-axios-runtime
@@ -254,8 +254,8 @@ importers:
   integration-tests/typescript-koa:
     dependencies:
       '@koa/router':
-        specifier: ^15.4.0
-        version: 15.4.0(koa@3.2.0)
+        specifier: ^15.5.0
+        version: 15.5.0(koa@3.2.0)
       '@nahkies/typescript-koa-runtime':
         specifier: workspace:*
         version: link:../../packages/typescript-koa-runtime
@@ -592,8 +592,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       '@koa/router':
-        specifier: ^15.4.0
-        version: 15.4.0(koa@3.2.0)
+        specifier: ^15.5.0
+        version: 15.5.0(koa@3.2.0)
       '@types/koa':
         specifier: ^3.0.2
         version: 3.0.2
@@ -2147,8 +2147,8 @@ packages:
     resolution: {integrity: sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==}
     engines: {node: '>= 14.0.0'}
 
-  '@koa/router@15.4.0':
-    resolution: {integrity: sha512-vKYlXtoCfcAN8z4dHiveYX55rTYOgHEYJNumK1WM9ZAwaArhreGVkyC1LTMGfUQUJyIO/SbwRFBOHeOCY8/MaQ==}
+  '@koa/router@15.5.0':
+    resolution: {integrity: sha512-KSC0oG/5t6ITu5wqX4lJseA/dngoj14hEaohrLZEXtlUT2RRyJvwaJ0KV+5uQoaWrY3A8ClHOrBEU4g8dujn8Q==}
     engines: {node: '>= 20'}
     peerDependencies:
       koa: ^2.0.0 || ^3.0.0
@@ -9786,7 +9786,7 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@koa/router@15.4.0(koa@3.2.0)':
+  '@koa/router@15.5.0(koa@3.2.0)':
     dependencies:
       debug: 4.4.3
       http-errors: 2.0.1

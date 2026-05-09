@@ -19,17 +19,17 @@ function createRouter() {
   const routeMatchingRouter = createRouteMatchingRouter()
 
   router.use(
-    requestHeadersRouter.allowedMethods(),
     requestHeadersRouter.routes(),
+    requestHeadersRouter.allowedMethods(),
   )
-  router.use(validationRouter.allowedMethods(), validationRouter.routes())
-  router.use(escapeHatchesRouter.allowedMethods(), escapeHatchesRouter.routes())
-  router.use(mediaTypesRouter.allowedMethods(), mediaTypesRouter.routes())
+  router.use(validationRouter.routes(), validationRouter.allowedMethods())
+  router.use(escapeHatchesRouter.routes(), escapeHatchesRouter.allowedMethods())
+  router.use(mediaTypesRouter.routes(), mediaTypesRouter.allowedMethods())
   router.use(
-    queryParametersRouter.allowedMethods(),
     queryParametersRouter.routes(),
+    queryParametersRouter.allowedMethods(),
   )
-  router.use(routeMatchingRouter.allowedMethods(), routeMatchingRouter.routes())
+  router.use(routeMatchingRouter.routes(), routeMatchingRouter.allowedMethods())
 
   return router
 }

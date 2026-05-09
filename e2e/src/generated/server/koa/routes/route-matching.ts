@@ -18,7 +18,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {t_RouteMatchingGetByIdParamSchema} from "../models.ts"
 
@@ -30,7 +29,6 @@ export type RouteMatchingGetByFixedField = (
   params: Params<void, void, void, void>,
   respond: RouteMatchingGetByFixedFieldResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, unknown> | typeof SkipResponse
 >
@@ -43,7 +41,6 @@ export type RouteMatchingGetById = (
   params: Params<t_RouteMatchingGetByIdParamSchema, void, void, void>,
   respond: RouteMatchingGetByIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, unknown> | typeof SkipResponse
 >
@@ -64,7 +61,7 @@ export function createRouteMatchingRouter(
   router.get(
     "routeMatchingGetByFixedField",
     "/route-matching/fixed-field",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -82,14 +79,10 @@ export function createRouteMatchingRouter(
       }
 
       await implementation
-        .routeMatchingGetByFixedField(input, responder, ctx, next)
+        .routeMatchingGetByFixedField(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            routeMatchingGetByFixedFieldResponseValidator,
-          ),
+          handleResponse(ctx, routeMatchingGetByFixedFieldResponseValidator),
         )
     },
   )
@@ -101,36 +94,32 @@ export function createRouteMatchingRouter(
     undefined,
   )
 
-  router.get(
-    "routeMatchingGetById",
-    "/route-matching/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          routeMatchingGetByIdParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("routeMatchingGetById", "/route-matching/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        routeMatchingGetByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<unknown>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<unknown>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .routeMatchingGetById(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, routeMatchingGetByIdResponseValidator))
-    },
-  )
+    await implementation
+      .routeMatchingGetById(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, routeMatchingGetByIdResponseValidator))
+  })
 
   return router
 }
