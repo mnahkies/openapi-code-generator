@@ -70,7 +70,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./dist && rm -f tsconfig.tsbuildinfo",
     "dev": "nodemon --watch ./src -e ts --delay 2 --exec 'pnpm build'",
     "build": "tsc -p ./tsconfig.json",
     "bundle": "tsdown",

@@ -70,7 +70,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./dist && rm -f tsconfig.tsbuildinfo",
     "build": "tsc -p tsconfig.json",
     "bundle": "tsdown",
     "test": "jest"
