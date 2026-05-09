@@ -4,24 +4,28 @@ import Cors from "@koa/cors"
 import type Router from "@koa/router"
 import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
-import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
+import {
+  type Res,
+  SkipResponse,
+  type StatusCode,
+} from "@nahkies/typescript-common-runtime/types"
 import Koa, {type Context, type Middleware} from "koa"
 import {type KoaBodyMiddlewareOptions, koaBody} from "koa-body"
 import {KoaRuntimeError} from "./errors.ts"
 
 export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
-export type {
-  Params,
-  Res,
-  StatusCode,
-  StatusCode1xx,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
-} from "@nahkies/typescript-common-runtime/types"
 
-export const SkipResponse = Symbol("skip response processing")
+export {
+  type Params,
+  type Res,
+  SkipResponse,
+  type StatusCode,
+  type StatusCode1xx,
+  type StatusCode2xx,
+  type StatusCode3xx,
+  type StatusCode4xx,
+  type StatusCode5xx,
+} from "@nahkies/typescript-common-runtime/types"
 
 export class KoaRuntimeResponse<Type> {
   private _body?: Type

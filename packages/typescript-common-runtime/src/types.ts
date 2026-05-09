@@ -58,6 +58,8 @@ export type Server<T> = string & {__server__: T}
 
 export type NonEmptyArray<T> = [T, ...T[]]
 
+export const SkipResponse = Symbol.for("skip response processing")
+
 export function isNonEmptyArray<T>(it: T[]): it is NonEmptyArray<T> {
   return Array.isArray(it) && it.length > 0
 }
