@@ -1,5 +1,13 @@
 import type {Server} from "node:http"
-import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals"
 import {
   ApiClient,
   E2ETestClientServers,
@@ -10,9 +18,13 @@ import {numberBetween} from "./test-utils.ts"
 
 describe.each(
   startServerFunctions,
-)("e2e - typescript-fetch client against $name server", ({startServer}) => {
+)("e2e - typescript-fetch client against $name server", ({
+  name,
+  startServer,
+}) => {
   let server: Server | undefined
   let client: ApiClient
+  const logSpy = jest.spyOn(console, "log").mockImplementation(() => {})
 
   beforeAll(async () => {
     const args = await startServer()
@@ -31,6 +43,11 @@ describe.each(
 
   afterAll(async () => {
     server?.close()
+    logSpy.mockRestore()
+  })
+
+  beforeEach(() => {
+    logSpy.mockClear()
   })
 
   describe("CORS", () => {
@@ -527,6 +544,15 @@ describe.each(
 
       expect(res.status).toBe(200)
       await expect(res.json()).resolves.toEqual({matched: "fixed-field"})
+
+      if (name === "koa") {
+        expect(logSpy).toHaveBeenCalledWith(
+          "Request started: GET /route-matching/fixed-field",
+        )
+        expect(logSpy).toHaveBeenCalledWith(
+          "Request completed: [200] GET /route-matching/fixed-field [object Object]",
+        )
+      }
     })
 
     it("should match parameterized route", async () => {
@@ -534,6 +560,15 @@ describe.each(
 
       expect(res.status).toBe(200)
       await expect(res.json()).resolves.toEqual({matched: "id", id: "123"})
+
+      if (name === "koa") {
+        expect(logSpy).toHaveBeenCalledWith(
+          "Request started: GET /route-matching/123",
+        )
+        expect(logSpy).toHaveBeenCalledWith(
+          "Request completed: [200] GET /route-matching/123 [object Object]",
+        )
+      }
     })
   })
 })

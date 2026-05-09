@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {
   handleImplementationError,
   handleResponse,
@@ -34,8 +34,13 @@ export type EscapeHatchesImplementation = {
 
 export function createEscapeHatchesRouter(
   implementation: EscapeHatchesImplementation,
+  options: {middleware?: RouterMiddleware[]} = {},
 ): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getEscapeHatchesPlainTextResponseValidator = responseValidationFactory(
     [["200", z.string()]],

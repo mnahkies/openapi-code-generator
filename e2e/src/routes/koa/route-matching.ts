@@ -1,8 +1,20 @@
+import type {RouterMiddleware} from "@koa/router"
 import {
   createRouter,
   type RouteMatchingGetByFixedField,
   type RouteMatchingGetById,
 } from "../../generated/server/koa/routes/route-matching.ts"
+
+export const routerMatchingLoggingMiddleware: RouterMiddleware = async (
+  ctx,
+  next,
+) => {
+  console.log(`Request started: ${ctx.method} ${ctx.path}`)
+  await next()
+  console.log(
+    `Request completed: [${ctx.status}] ${ctx.method} ${ctx.path} ${ctx.body}`,
+  )
+}
 
 const routeMatchingGetByFixedField: RouteMatchingGetByFixedField = async (
   _params,
@@ -19,8 +31,11 @@ const routeMatchingGetById: RouteMatchingGetById = async (
 }
 
 export function createRouteMatchingRouter() {
-  return createRouter({
-    routeMatchingGetByFixedField,
-    routeMatchingGetById,
-  })
+  return createRouter(
+    {
+      routeMatchingGetByFixedField,
+      routeMatchingGetById,
+    },
+    {middleware: [routerMatchingLoggingMiddleware]},
+  )
 }

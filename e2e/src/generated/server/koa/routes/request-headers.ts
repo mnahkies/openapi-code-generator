@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -65,8 +65,13 @@ export type RequestHeadersImplementation = {
 
 export function createRequestHeadersRouter(
   implementation: RequestHeadersImplementation,
+  options: {middleware?: RouterMiddleware[]} = {},
 ): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getHeadersUndeclaredResponseValidator = responseValidationFactory(
     [["200", s_GetHeadersUndeclared200Response]],

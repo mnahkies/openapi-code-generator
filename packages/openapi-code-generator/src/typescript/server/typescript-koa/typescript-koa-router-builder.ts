@@ -61,7 +61,10 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-koa-runtime/errors")
       .add("KoaRuntimeError", "RequestInputType")
 
-    this.imports.from("@koa/router").addType("RouterContext").all("KoaRouter")
+    this.imports
+      .from("@koa/router")
+      .addType("RouterContext", "RouterMiddleware")
+      .all("KoaRouter")
 
     const schemaBuilderType = this.schemaBuilder.type
 
@@ -256,8 +259,12 @@ ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
+export function ${createRouterExportName}(implementation: ${implementationExportName}, options: {middleware?: RouterMiddleware[]} = {}): KoaRouter {
   const router = new KoaRouter()
+
+  if(options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   ${routerStatements.join("\n\n")}
 
