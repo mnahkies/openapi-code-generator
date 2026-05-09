@@ -89,9 +89,6 @@
     "zod": "^3.25.74 || ^4.1.12"
   },
   "peerDependenciesMeta": {
-    "cors": {
-      "optional": true
-    },
     "joi": {
       "optional": true
     },
