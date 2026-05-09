@@ -2,18 +2,12 @@ import type {IFormatter} from "../../core/interfaces.ts"
 import {logger} from "../../core/logger.ts"
 
 export class TypescriptFormatterPrettier implements IFormatter {
-  // biome-ignore lint/suspicious/noExplicitAny: not important
-  prettier: any
-  // biome-ignore lint/suspicious/noExplicitAny: not important
-  plugins: any[]
-
-  private constructor() {
-    this.prettier = require("prettier/standalone")
-    this.plugins = [
-      require("prettier/plugins/estree"),
-      require("prettier/plugins/typescript"),
-    ]
-  }
+  private constructor(
+    // biome-ignore lint/suspicious/noExplicitAny: not important
+    private readonly prettier: any,
+    // biome-ignore lint/suspicious/noExplicitAny: not important
+    private readonly plugins: any[],
+  ) {}
 
   async format(
     filename: string,
@@ -43,6 +37,15 @@ export class TypescriptFormatterPrettier implements IFormatter {
   }
 
   static async create(): Promise<TypescriptFormatterPrettier> {
-    return new TypescriptFormatterPrettier()
+    const [prettier, estree, typescript] = await Promise.all([
+      import("prettier/standalone"),
+      import("prettier/plugins/estree"),
+      import("prettier/plugins/typescript"),
+    ])
+
+    return new TypescriptFormatterPrettier(prettier.default ?? prettier, [
+      estree.default ?? estree,
+      typescript.default ?? typescript,
+    ])
   }
 }

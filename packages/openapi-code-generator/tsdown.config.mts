@@ -16,6 +16,7 @@ export default defineConfig({
       "@nahkies/typescript-common-runtime",
       "@nahkies/typescript-common-runtime/*",
     ],
+    neverBundle: ["joi"],
   },
 
   format: {

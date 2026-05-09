@@ -1,8 +1,6 @@
 import {logger} from "./logger.ts"
 import type {ValidateFunction} from "./schemas/IValidateFunction.ts"
-// @ts-expect-error
 import validate3_0 from "./schemas/openapi-3.0-specification-validator.ts"
-// @ts-expect-error
 import validate3_1 from "./schemas/openapi-3.1-specification-validator.ts"
 
 export interface IOpenapiValidator {

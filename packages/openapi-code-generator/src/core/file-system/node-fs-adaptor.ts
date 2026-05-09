@@ -36,6 +36,9 @@ export class NodeFsAdaptor implements IFsAdaptor {
   }
 
   resolve(request: string, fromDir: string): string {
+    const require = createRequire(import.meta.url)
     return require.resolve(request, {paths: [fromDir]})
   }
 }
+
+import {createRequire} from "node:module"
