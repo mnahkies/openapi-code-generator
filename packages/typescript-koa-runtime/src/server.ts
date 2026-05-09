@@ -5,7 +5,7 @@ import type Router from "@koa/router"
 import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
 import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
 import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
-import Koa, {type Context, type Middleware, type Next} from "koa"
+import Koa, {type Context, type Middleware} from "koa"
 import {type KoaBodyMiddlewareOptions, koaBody} from "koa-body"
 import {KoaRuntimeError} from "./errors.ts"
 
@@ -40,7 +40,6 @@ export class KoaRuntimeResponse<Type> {
 
 export function handleResponse(
   ctx: Context,
-  next: Next,
   validator: (status: number, value: unknown) => unknown,
 ) {
   return async (
@@ -59,8 +58,6 @@ export function handleResponse(
 
     ctx.body = validator(status, body)
     ctx.status = status
-
-    return next()
   }
 }
 
@@ -155,8 +152,8 @@ export async function startServer({
     app.use(it)
   }
 
-  app.use(router.allowedMethods())
   app.use(router.routes())
+  app.use(router.allowedMethods())
 
   return new Promise((resolve, reject) => {
     try {

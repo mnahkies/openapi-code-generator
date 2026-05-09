@@ -38,7 +38,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
     this.imports
       .from("express")
       .add("Router")
-      .addType("Request", "Response", "NextFunction")
+      .addType("Request", "Response", "NextFunction", "RequestHandler")
 
     this.imports.from("express").all("express")
 
@@ -209,8 +209,12 @@ ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function ${createRouterExportName}(implementation: ${implementationExportName}): Router {
+export function ${createRouterExportName}(implementation: ${implementationExportName}, options: {middleware?: RequestHandler[]} = {}): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   ${statements.join("\n\n")}
 

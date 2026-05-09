@@ -1,5 +1,14 @@
 import type {Server} from "node:http"
-import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals"
 import {
   ApiClient,
   E2ETestClientServers,
@@ -518,6 +527,46 @@ describe.each(
         limit: 10,
         statuses: ["open", "closed"],
       })
+    })
+  })
+
+  describe("route matching", () => {
+    let logSpy: jest.SpiedFunction<typeof console.log>
+
+    beforeEach(() => {
+      logSpy = jest.spyOn(console, "log").mockImplementation(() => {})
+    })
+
+    afterEach(() => {
+      logSpy.mockRestore()
+    })
+
+    it("should match fixed field route over parameterized route", async () => {
+      const res = await client.routeMatchingGetByFixedField()
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toEqual({matched: "fixed-field"})
+
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request started: GET /route-matching/fixed-field",
+      )
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request completed: [200] GET /route-matching/fixed-field",
+      )
+    })
+
+    it("should match parameterized route", async () => {
+      const res = await client.routeMatchingGetById({id: "123"})
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toEqual({matched: "id", id: "123"})
+
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request started: GET /route-matching/123",
+      )
+      expect(logSpy).toHaveBeenCalledWith(
+        "Request completed: [200] GET /route-matching/123",
+      )
     })
   })
 })

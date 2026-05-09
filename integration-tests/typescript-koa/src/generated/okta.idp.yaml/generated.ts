@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -20,7 +20,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_AppAuthenticatorEnrollment,
@@ -108,7 +107,6 @@ export type CreateAppAuthenticatorEnrollment = (
   params: Params<void, void, t_AppAuthenticatorEnrollmentRequest, void>,
   respond: CreateAppAuthenticatorEnrollmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_AppAuthenticatorEnrollment>
@@ -134,7 +132,6 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
   >,
   respond: VerifyAppAuthenticatorPushNotificationChallengeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -159,7 +156,6 @@ export type UpdateAppAuthenticatorEnrollment = (
   >,
   respond: UpdateAppAuthenticatorEnrollmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_AppAuthenticatorEnrollment>
@@ -185,7 +181,6 @@ export type DeleteAppAuthenticatorEnrollment = (
   >,
   respond: DeleteAppAuthenticatorEnrollmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -209,7 +204,6 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   >,
   respond: ListAppAuthenticatorPendingPushNotificationChallengesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PushNotificationChallenge[]>
@@ -227,7 +221,6 @@ export type ListAuthenticators = (
   params: Params<void, t_ListAuthenticatorsQuerySchema, void, void>,
   respond: ListAuthenticatorsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Authenticator[]>
@@ -252,7 +245,6 @@ export type GetAuthenticator = (
   >,
   respond: GetAuthenticatorResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Authenticator>
@@ -273,7 +265,6 @@ export type ListEnrollments = (
   params: Params<t_ListEnrollmentsParamSchema, void, void, void>,
   respond: ListEnrollmentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_AuthenticatorEnrollment[]>
@@ -294,7 +285,6 @@ export type GetEnrollment = (
   params: Params<t_GetEnrollmentParamSchema, void, void, void>,
   respond: GetEnrollmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_AuthenticatorEnrollment>
@@ -320,7 +310,6 @@ export type UpdateEnrollment = (
   >,
   respond: UpdateEnrollmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_AuthenticatorEnrollment>
@@ -339,7 +328,6 @@ export type ListEmails = (
   params: Params<void, void, void, void>,
   respond: ListEmailsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Email[]>
@@ -359,7 +347,6 @@ export type CreateEmail = (
   params: Params<void, void, t_CreateEmailRequestBody, void>,
   respond: CreateEmailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, t_Email>
@@ -379,7 +366,6 @@ export type GetEmail = (
   params: Params<t_GetEmailParamSchema, void, void, void>,
   respond: GetEmailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Email>
@@ -398,7 +384,6 @@ export type DeleteEmail = (
   params: Params<t_DeleteEmailParamSchema, void, void, void>,
   respond: DeleteEmailResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -445,7 +430,6 @@ export type SendEmailChallenge = (
   >,
   respond: SendEmailChallengeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -510,7 +494,6 @@ export type PollChallengeForEmailMagicLink = (
   params: Params<t_PollChallengeForEmailMagicLinkParamSchema, void, void, void>,
   respond: PollChallengeForEmailMagicLinkResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -559,7 +542,6 @@ export type VerifyEmailOtp = (
   >,
   respond: VerifyEmailOtpResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, void>
@@ -578,7 +560,6 @@ export type ListOktaApplications = (
   params: Params<void, void, void, void>,
   respond: ListOktaApplicationsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OktaApplication[]>
@@ -595,7 +576,6 @@ export type GetOrganization = (
   params: Params<void, void, void, void>,
   respond: GetOrganizationResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Organization>
@@ -612,7 +592,6 @@ export type GetPassword = (
   params: Params<void, void, void, void>,
   respond: GetPasswordResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PasswordResponse>
@@ -631,7 +610,6 @@ export type CreatePassword = (
   params: Params<void, void, t_CreatePasswordRequestBody, void>,
   respond: CreatePasswordResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, t_PasswordResponse>
@@ -652,7 +630,6 @@ export type ReplacePassword = (
   params: Params<void, void, t_ReplacePasswordRequestBody, void>,
   respond: ReplacePasswordResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, t_PasswordResponse>
@@ -672,7 +649,6 @@ export type DeletePassword = (
   params: Params<void, void, void, void>,
   respond: DeletePasswordResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -690,7 +666,6 @@ export type ListPhones = (
   params: Params<void, void, void, void>,
   respond: ListPhonesResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Phone[]>
@@ -711,7 +686,6 @@ export type CreatePhone = (
   params: Params<void, void, t_CreatePhoneRequestBody, void>,
   respond: CreatePhoneResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<201, t_Phone>
@@ -733,7 +707,6 @@ export type GetPhone = (
   params: Params<t_GetPhoneParamSchema, void, void, void>,
   respond: GetPhoneResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Phone>
@@ -753,7 +726,6 @@ export type DeletePhone = (
   params: Params<t_DeletePhoneParamSchema, void, void, void>,
   respond: DeletePhoneResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -790,7 +762,6 @@ export type SendPhoneChallenge = (
   >,
   respond: SendPhoneChallengeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -832,7 +803,6 @@ export type VerifyPhoneChallenge = (
   >,
   respond: VerifyPhoneChallengeResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -853,7 +823,6 @@ export type GetProfile = (
   params: Params<void, void, void, void>,
   respond: GetProfileResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Profile>
@@ -871,7 +840,6 @@ export type ReplaceProfile = (
   params: Params<void, void, t_ReplaceProfileRequestBody, void>,
   respond: ReplaceProfileResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Profile>
@@ -889,7 +857,6 @@ export type GetProfileSchema = (
   params: Params<void, void, void, void>,
   respond: GetProfileSchemaResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Schema>
@@ -907,7 +874,6 @@ export type DeleteSessions = (
   params: Params<void, void, void, void>,
   respond: DeleteSessionsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -952,8 +918,15 @@ export type Implementation = {
   deleteSessions: DeleteSessions
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createRouter(
+  implementation: Implementation,
+  options: {middleware?: RouterMiddleware[]} = {},
+): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const createAppAuthenticatorEnrollmentResponseValidator =
     responseValidationFactory(
@@ -970,7 +943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "createAppAuthenticatorEnrollment",
     "/idp/myaccount/app-authenticators",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -1004,12 +977,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .createAppAuthenticatorEnrollment(input, responder, ctx, next)
+        .createAppAuthenticatorEnrollment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             createAppAuthenticatorEnrollmentResponseValidator,
           ),
         )
@@ -1033,7 +1005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "verifyAppAuthenticatorPushNotificationChallenge",
     "/idp/myaccount/app-authenticators/challenge/:challengeId/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           verifyAppAuthenticatorPushNotificationChallengeParamSchema,
@@ -1065,17 +1037,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .verifyAppAuthenticatorPushNotificationChallenge(
-          input,
-          responder,
-          ctx,
-          next,
-        )
+        .verifyAppAuthenticatorPushNotificationChallenge(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             verifyAppAuthenticatorPushNotificationChallengeResponseValidator,
           ),
         )
@@ -1100,7 +1066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.patch(
     "updateAppAuthenticatorEnrollment",
     "/idp/myaccount/app-authenticators/:enrollmentId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           updateAppAuthenticatorEnrollmentParamSchema,
@@ -1135,12 +1101,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .updateAppAuthenticatorEnrollment(input, responder, ctx, next)
+        .updateAppAuthenticatorEnrollment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             updateAppAuthenticatorEnrollmentResponseValidator,
           ),
         )
@@ -1165,7 +1130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.delete(
     "deleteAppAuthenticatorEnrollment",
     "/idp/myaccount/app-authenticators/:enrollmentId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           deleteAppAuthenticatorEnrollmentParamSchema,
@@ -1196,12 +1161,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .deleteAppAuthenticatorEnrollment(input, responder, ctx, next)
+        .deleteAppAuthenticatorEnrollment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             deleteAppAuthenticatorEnrollmentResponseValidator,
           ),
         )
@@ -1223,7 +1187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "listAppAuthenticatorPendingPushNotificationChallenges",
     "/idp/myaccount/app-authenticators/:enrollmentId/push/notifications",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           listAppAuthenticatorPendingPushNotificationChallengesParamSchema,
@@ -1252,13 +1216,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
-          next,
         )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             listAppAuthenticatorPendingPushNotificationChallengesResponseValidator,
           ),
         )
@@ -1281,7 +1243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "listAuthenticators",
     "/idp/myaccount/authenticators",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -1309,9 +1271,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .listAuthenticators(input, responder, ctx, next)
+        .listAuthenticators(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, listAuthenticatorsResponseValidator))
+        .then(handleResponse(ctx, listAuthenticatorsResponseValidator))
     },
   )
 
@@ -1332,7 +1294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getAuthenticator",
     "/idp/myaccount/authenticators/:authenticatorId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getAuthenticatorParamSchema,
@@ -1367,9 +1329,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getAuthenticator(input, responder, ctx, next)
+        .getAuthenticator(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getAuthenticatorResponseValidator))
+        .then(handleResponse(ctx, getAuthenticatorResponseValidator))
     },
   )
 
@@ -1388,7 +1350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "listEnrollments",
     "/idp/myaccount/authenticators/:authenticatorId/enrollments",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           listEnrollmentsParamSchema,
@@ -1419,9 +1381,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .listEnrollments(input, responder, ctx, next)
+        .listEnrollments(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, listEnrollmentsResponseValidator))
+        .then(handleResponse(ctx, listEnrollmentsResponseValidator))
     },
   )
 
@@ -1443,7 +1405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getEnrollment",
     "/idp/myaccount/authenticators/:authenticatorId/enrollments/:enrollmentId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           getEnrollmentParamSchema,
@@ -1474,9 +1436,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getEnrollment(input, responder, ctx, next)
+        .getEnrollment(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getEnrollmentResponseValidator))
+        .then(handleResponse(ctx, getEnrollmentResponseValidator))
     },
   )
 
@@ -1498,7 +1460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.patch(
     "updateEnrollment",
     "/idp/myaccount/authenticators/:authenticatorId/enrollments/:enrollmentId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           updateEnrollmentParamSchema,
@@ -1533,9 +1495,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .updateEnrollment(input, responder, ctx, next)
+        .updateEnrollment(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, updateEnrollmentResponseValidator))
+        .then(handleResponse(ctx, updateEnrollmentResponseValidator))
     },
   )
 
@@ -1547,7 +1509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("listEmails", "/idp/myaccount/emails", async (ctx, next) => {
+  router.get("listEmails", "/idp/myaccount/emails", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1568,9 +1530,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .listEmails(input, responder, ctx, next)
+      .listEmails(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, listEmailsResponseValidator))
+      .then(handleResponse(ctx, listEmailsResponseValidator))
   })
 
   const createEmailResponseValidator = responseValidationFactory(
@@ -1584,7 +1546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("createEmail", "/idp/myaccount/emails", async (ctx, next) => {
+  router.post("createEmail", "/idp/myaccount/emails", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -1618,9 +1580,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .createEmail(input, responder, ctx, next)
+      .createEmail(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, createEmailResponseValidator))
+      .then(handleResponse(ctx, createEmailResponseValidator))
   })
 
   const getEmailParamSchema = z.object({id: z.string()})
@@ -1633,7 +1595,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getEmail", "/idp/myaccount/emails/:id", async (ctx, next) => {
+  router.get("getEmail", "/idp/myaccount/emails/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getEmailParamSchema,
@@ -1658,9 +1620,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getEmail(input, responder, ctx, next)
+      .getEmail(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getEmailResponseValidator))
+      .then(handleResponse(ctx, getEmailResponseValidator))
   })
 
   const deleteEmailParamSchema = z.object({id: z.string()})
@@ -1675,45 +1637,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete(
-    "deleteEmail",
-    "/idp/myaccount/emails/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          deleteEmailParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deleteEmail", "/idp/myaccount/emails/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        deleteEmailParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_Error>(400)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_Error>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deleteEmail(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteEmailResponseValidator))
-    },
-  )
+    await implementation
+      .deleteEmail(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deleteEmailResponseValidator))
+  })
 
   const sendEmailChallengeParamSchema = z.object({id: z.string()})
 
@@ -1748,7 +1706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "sendEmailChallenge",
     "/idp/myaccount/emails/:id/challenge",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           sendEmailChallengeParamSchema,
@@ -1804,9 +1762,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .sendEmailChallenge(input, responder, ctx, next)
+        .sendEmailChallenge(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, sendEmailChallengeResponseValidator))
+        .then(handleResponse(ctx, sendEmailChallengeResponseValidator))
     },
   )
 
@@ -1850,7 +1808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "pollChallengeForEmailMagicLink",
     "/idp/myaccount/emails/:id/challenge/:challengeId",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           pollChallengeForEmailMagicLinkParamSchema,
@@ -1899,14 +1857,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .pollChallengeForEmailMagicLink(input, responder, ctx, next)
+        .pollChallengeForEmailMagicLink(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(
-            ctx,
-            next,
-            pollChallengeForEmailMagicLinkResponseValidator,
-          ),
+          handleResponse(ctx, pollChallengeForEmailMagicLinkResponseValidator),
         )
     },
   )
@@ -1929,7 +1883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "verifyEmailOtp",
     "/idp/myaccount/emails/:id/challenge/:challengeId/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           verifyEmailOtpParamSchema,
@@ -1964,9 +1918,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .verifyEmailOtp(input, responder, ctx, next)
+        .verifyEmailOtp(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, verifyEmailOtpResponseValidator))
+        .then(handleResponse(ctx, verifyEmailOtpResponseValidator))
     },
   )
 
@@ -1981,7 +1935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "listOktaApplications",
     "/idp/myaccount/okta-applications",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -2002,9 +1956,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .listOktaApplications(input, responder, ctx, next)
+        .listOktaApplications(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, listOktaApplicationsResponseValidator))
+        .then(handleResponse(ctx, listOktaApplicationsResponseValidator))
     },
   )
 
@@ -2016,35 +1970,31 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get(
-    "getOrganization",
-    "/idp/myaccount/organization",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.get("getOrganization", "/idp/myaccount/organization", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_Organization>(200)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_Organization>(200)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .getOrganization(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getOrganizationResponseValidator))
-    },
-  )
+    await implementation
+      .getOrganization(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getOrganizationResponseValidator))
+  })
 
   const getPasswordResponseValidator = responseValidationFactory(
     [
@@ -2054,7 +2004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getPassword", "/idp/myaccount/password", async (ctx, next) => {
+  router.get("getPassword", "/idp/myaccount/password", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2075,9 +2025,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPassword(input, responder, ctx, next)
+      .getPassword(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPasswordResponseValidator))
+      .then(handleResponse(ctx, getPasswordResponseValidator))
   })
 
   const createPasswordResponseValidator = responseValidationFactory(
@@ -2090,45 +2040,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post(
-    "createPassword",
-    "/idp/myaccount/password",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_CreatePasswordRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("createPassword", "/idp/myaccount/password", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_CreatePasswordRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_PasswordResponse>(201)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_Error>(400)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_Error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with201() {
+        return new KoaRuntimeResponse<t_PasswordResponse>(201)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_Error>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .createPassword(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, createPasswordResponseValidator))
-    },
-  )
+    await implementation
+      .createPassword(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, createPasswordResponseValidator))
+  })
 
   const replacePasswordResponseValidator = responseValidationFactory(
     [
@@ -2140,45 +2086,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.put(
-    "replacePassword",
-    "/idp/myaccount/password",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_ReplacePasswordRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.put("replacePassword", "/idp/myaccount/password", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        s_ReplacePasswordRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_PasswordResponse>(201)
-        },
-        with400() {
-          return new KoaRuntimeResponse<t_Error>(400)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_Error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with201() {
+        return new KoaRuntimeResponse<t_PasswordResponse>(201)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_Error>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .replacePassword(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, replacePasswordResponseValidator))
-    },
-  )
+    await implementation
+      .replacePassword(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, replacePasswordResponseValidator))
+  })
 
   const deletePasswordResponseValidator = responseValidationFactory(
     [
@@ -2189,38 +2131,34 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete(
-    "deletePassword",
-    "/idp/myaccount/password",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deletePassword", "/idp/myaccount/password", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deletePassword(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deletePasswordResponseValidator))
-    },
-  )
+    await implementation
+      .deletePassword(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deletePasswordResponseValidator))
+  })
 
   const listPhonesResponseValidator = responseValidationFactory(
     [
@@ -2230,7 +2168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("listPhones", "/idp/myaccount/phones", async (ctx, next) => {
+  router.get("listPhones", "/idp/myaccount/phones", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2251,9 +2189,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .listPhones(input, responder, ctx, next)
+      .listPhones(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, listPhonesResponseValidator))
+      .then(handleResponse(ctx, listPhonesResponseValidator))
   })
 
   const createPhoneResponseValidator = responseValidationFactory(
@@ -2268,7 +2206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("createPhone", "/idp/myaccount/phones", async (ctx, next) => {
+  router.post("createPhone", "/idp/myaccount/phones", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2305,9 +2243,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .createPhone(input, responder, ctx, next)
+      .createPhone(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, createPhoneResponseValidator))
+      .then(handleResponse(ctx, createPhoneResponseValidator))
   })
 
   const getPhoneParamSchema = z.object({id: z.string()})
@@ -2321,7 +2259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getPhone", "/idp/myaccount/phones/:id", async (ctx, next) => {
+  router.get("getPhone", "/idp/myaccount/phones/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getPhoneParamSchema,
@@ -2349,9 +2287,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getPhone(input, responder, ctx, next)
+      .getPhone(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getPhoneResponseValidator))
+      .then(handleResponse(ctx, getPhoneResponseValidator))
   })
 
   const deletePhoneParamSchema = z.object({id: z.string()})
@@ -2366,45 +2304,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete(
-    "deletePhone",
-    "/idp/myaccount/phones/:id",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          deletePhoneParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deletePhone", "/idp/myaccount/phones/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        deletePhoneParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_Error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_Error>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deletePhone(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deletePhoneResponseValidator))
-    },
-  )
+    await implementation
+      .deletePhone(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deletePhoneResponseValidator))
+  })
 
   const sendPhoneChallengeParamSchema = z.object({id: z.string()})
 
@@ -2437,7 +2371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "sendPhoneChallenge",
     "/idp/myaccount/phones/:id/challenge",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           sendPhoneChallengeParamSchema,
@@ -2487,9 +2421,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .sendPhoneChallenge(input, responder, ctx, next)
+        .sendPhoneChallenge(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, sendPhoneChallengeResponseValidator))
+        .then(handleResponse(ctx, sendPhoneChallengeResponseValidator))
     },
   )
 
@@ -2510,7 +2444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.post(
     "verifyPhoneChallenge",
     "/idp/myaccount/phones/:id/verify",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: parseRequestInput(
           verifyPhoneChallengeParamSchema,
@@ -2551,9 +2485,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .verifyPhoneChallenge(input, responder, ctx, next)
+        .verifyPhoneChallenge(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, verifyPhoneChallengeResponseValidator))
+        .then(handleResponse(ctx, verifyPhoneChallengeResponseValidator))
     },
   )
 
@@ -2565,7 +2499,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getProfile", "/idp/myaccount/profile", async (ctx, next) => {
+  router.get("getProfile", "/idp/myaccount/profile", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2586,9 +2520,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getProfile(input, responder, ctx, next)
+      .getProfile(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getProfileResponseValidator))
+      .then(handleResponse(ctx, getProfileResponseValidator))
   })
 
   const replaceProfileResponseValidator = responseValidationFactory(
@@ -2600,7 +2534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.put("replaceProfile", "/idp/myaccount/profile", async (ctx, next) => {
+  router.put("replaceProfile", "/idp/myaccount/profile", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -2628,9 +2562,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .replaceProfile(input, responder, ctx, next)
+      .replaceProfile(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, replaceProfileResponseValidator))
+      .then(handleResponse(ctx, replaceProfileResponseValidator))
   })
 
   const getProfileSchemaResponseValidator = responseValidationFactory(
@@ -2644,7 +2578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   router.get(
     "getProfileSchema",
     "/idp/myaccount/profile/schema",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -2665,9 +2599,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       await implementation
-        .getProfileSchema(input, responder, ctx, next)
+        .getProfileSchema(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, getProfileSchemaResponseValidator))
+        .then(handleResponse(ctx, getProfileSchemaResponseValidator))
     },
   )
 
@@ -2680,38 +2614,34 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.delete(
-    "deleteSessions",
-    "/idp/myaccount/sessions",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
+  router.delete("deleteSessions", "/idp/myaccount/sessions", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_Error>(401)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_Error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .deleteSessions(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, deleteSessionsResponseValidator))
-    },
-  )
+    await implementation
+      .deleteSessions(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, deleteSessionsResponseValidator))
+  })
 
   return router
 }

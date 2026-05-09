@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -19,7 +19,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {t_ProductOrder} from "../models.ts"
 import {s_ProductOrder} from "../schemas.ts"
@@ -32,7 +31,6 @@ export type PostMediaTypesText = (
   params: Params<void, void, string, void>,
   respond: PostMediaTypesTextResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
@@ -45,7 +43,6 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   params: Params<void, void, t_ProductOrder, void>,
   respond: PostMediaTypesXWwwFormUrlencodedResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, t_ProductOrder> | typeof SkipResponse
 >
@@ -58,7 +55,6 @@ export type PostMediaTypesOctetStream = (
   params: Params<void, void, Blob, void>,
   respond: PostMediaTypesOctetStreamResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<200, Blob> | typeof SkipResponse>
 
 export type MediaTypesImplementation = {
@@ -69,15 +65,20 @@ export type MediaTypesImplementation = {
 
 export function createMediaTypesRouter(
   implementation: MediaTypesImplementation,
+  options: {middleware?: RouterMiddleware[]} = {},
 ): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const postMediaTypesTextResponseValidator = responseValidationFactory(
     [["200", z.string()]],
     undefined,
   )
 
-  router.post("postMediaTypesText", "/media-types/text", async (ctx, next) => {
+  router.post("postMediaTypesText", "/media-types/text", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -99,9 +100,9 @@ export function createMediaTypesRouter(
     }
 
     await implementation
-      .postMediaTypesText(input, responder, ctx, next)
+      .postMediaTypesText(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, postMediaTypesTextResponseValidator))
+      .then(handleResponse(ctx, postMediaTypesTextResponseValidator))
   })
 
   const postMediaTypesXWwwFormUrlencodedResponseValidator =
@@ -110,7 +111,7 @@ export function createMediaTypesRouter(
   router.post(
     "postMediaTypesXWwwFormUrlencoded",
     "/media-types/x-www-form-urlencoded",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -132,12 +133,11 @@ export function createMediaTypesRouter(
       }
 
       await implementation
-        .postMediaTypesXWwwFormUrlencoded(input, responder, ctx, next)
+        .postMediaTypesXWwwFormUrlencoded(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            next,
             postMediaTypesXWwwFormUrlencodedResponseValidator,
           ),
         )
@@ -152,7 +152,7 @@ export function createMediaTypesRouter(
   router.post(
     "postMediaTypesOctetStream",
     "/media-types/octet-stream",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -174,11 +174,9 @@ export function createMediaTypesRouter(
       }
 
       await implementation
-        .postMediaTypesOctetStream(input, responder, ctx, next)
+        .postMediaTypesOctetStream(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, postMediaTypesOctetStreamResponseValidator),
-        )
+        .then(handleResponse(ctx, postMediaTypesOctetStreamResponseValidator))
     },
   )
 

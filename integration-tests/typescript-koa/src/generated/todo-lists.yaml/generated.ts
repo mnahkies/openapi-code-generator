@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -23,7 +23,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_CreateTodoListItemParamSchema,
@@ -56,7 +55,6 @@ export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void, void>,
   respond: GetTodoListsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, t_TodoList[]> | typeof SkipResponse
 >
@@ -71,7 +69,6 @@ export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
   respond: GetTodoListByIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_TodoList>
@@ -95,7 +92,6 @@ export type UpdateTodoListById = (
   >,
   respond: UpdateTodoListByIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_TodoList>
@@ -114,7 +110,6 @@ export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
   respond: DeleteTodoListByIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -140,7 +135,6 @@ export type GetTodoListItems = (
   params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
   respond: GetTodoListItemsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<
@@ -175,7 +169,6 @@ export type CreateTodoListItem = (
   >,
   respond: CreateTodoListItemResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ListAttachmentsResponder = {
@@ -186,7 +179,6 @@ export type ListAttachments = (
   params: Params<void, void, void, void>,
   respond: ListAttachmentsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_UnknownObject[]>
@@ -201,7 +193,6 @@ export type UploadAttachment = (
   params: Params<void, void, never, void>,
   respond: UploadAttachmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
 
 export type ReplaceAttachmentResponder = {
@@ -212,7 +203,6 @@ export type ReplaceAttachment = (
   params: Params<t_ReplaceAttachmentParamSchema, void, Blob, void>,
   respond: ReplaceAttachmentResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<202, void> | typeof SkipResponse>
 
 export type Implementation = {
@@ -227,8 +217,15 @@ export type Implementation = {
   replaceAttachment: ReplaceAttachment
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createRouter(
+  implementation: Implementation,
+  options: {middleware?: RouterMiddleware[]} = {},
+): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getTodoListsQuerySchema = z.object({
     created: z.iso.datetime({offset: true}).optional(),
@@ -251,7 +248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getTodoLists", "/list", async (ctx, next) => {
+  router.get("getTodoLists", "/list", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -273,9 +270,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTodoLists(input, responder, ctx, next)
+      .getTodoLists(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTodoListsResponseValidator))
+      .then(handleResponse(ctx, getTodoListsResponseValidator))
   })
 
   const getTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -288,7 +285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.undefined(),
   )
 
-  router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
+  router.get("getTodoListById", "/list/:listId", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTodoListByIdParamSchema,
@@ -316,9 +313,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTodoListById(input, responder, ctx, next)
+      .getTodoListById(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTodoListByIdResponseValidator))
+      .then(handleResponse(ctx, getTodoListByIdResponseValidator))
   })
 
   const updateTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -331,7 +328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.undefined(),
   )
 
-  router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
+  router.put("updateTodoListById", "/list/:listId", async (ctx) => {
     const input = {
       params: parseRequestInput(
         updateTodoListByIdParamSchema,
@@ -363,9 +360,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .updateTodoListById(input, responder, ctx, next)
+      .updateTodoListById(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, updateTodoListByIdResponseValidator))
+      .then(handleResponse(ctx, updateTodoListByIdResponseValidator))
   })
 
   const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -378,7 +375,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.undefined(),
   )
 
-  router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
+  router.delete("deleteTodoListById", "/list/:listId", async (ctx) => {
     const input = {
       params: parseRequestInput(
         deleteTodoListByIdParamSchema,
@@ -406,9 +403,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .deleteTodoListById(input, responder, ctx, next)
+      .deleteTodoListById(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, deleteTodoListByIdResponseValidator))
+      .then(handleResponse(ctx, deleteTodoListByIdResponseValidator))
   })
 
   const getTodoListItemsParamSchema = z.object({listId: z.string()})
@@ -429,7 +426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("getTodoListItems", "/list/:listId/items", async (ctx, next) => {
+  router.get("getTodoListItems", "/list/:listId/items", async (ctx) => {
     const input = {
       params: parseRequestInput(
         getTodoListItemsParamSchema,
@@ -462,9 +459,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .getTodoListItems(input, responder, ctx, next)
+      .getTodoListItems(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, getTodoListItemsResponseValidator))
+      .then(handleResponse(ctx, getTodoListItemsResponseValidator))
   })
 
   const createTodoListItemParamSchema = z.object({listId: z.string()})
@@ -474,47 +471,43 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post(
-    "createTodoListItem",
-    "/list/:listId/items",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          createTodoListItemParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_CreateTodoListItemRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
+  router.post("createTodoListItem", "/list/:listId/items", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        createTodoListItemParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: parseRequestInput(
+        s_CreateTodoListItemRequestBody,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
 
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
 
-      await implementation
-        .createTodoListItem(input, responder, ctx, next)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, next, createTodoListItemResponseValidator))
-    },
-  )
+    await implementation
+      .createTodoListItem(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, createTodoListItemResponseValidator))
+  })
 
   const listAttachmentsResponseValidator = responseValidationFactory(
     [["200", z.array(s_UnknownObject)]],
     undefined,
   )
 
-  router.get("listAttachments", "/attachments", async (ctx, next) => {
+  router.get("listAttachments", "/attachments", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -532,9 +525,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .listAttachments(input, responder, ctx, next)
+      .listAttachments(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, listAttachmentsResponseValidator))
+      .then(handleResponse(ctx, listAttachmentsResponseValidator))
   })
 
   const uploadAttachmentResponseValidator = responseValidationFactory(
@@ -542,7 +535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.post("uploadAttachment", "/attachments", async (ctx, next) => {
+  router.post("uploadAttachment", "/attachments", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -565,9 +558,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .uploadAttachment(input, responder, ctx, next)
+      .uploadAttachment(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, uploadAttachmentResponseValidator))
+      .then(handleResponse(ctx, uploadAttachmentResponseValidator))
   })
 
   const replaceAttachmentParamSchema = z.object({id: z.string().optional()})
@@ -577,7 +570,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.put("replaceAttachment", "/attachments/:id", async (ctx, next) => {
+  router.put("replaceAttachment", "/attachments/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         replaceAttachmentParamSchema,
@@ -603,9 +596,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .replaceAttachment(input, responder, ctx, next)
+      .replaceAttachment(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, replaceAttachmentResponseValidator))
+      .then(handleResponse(ctx, replaceAttachmentResponseValidator))
   })
 
   return router

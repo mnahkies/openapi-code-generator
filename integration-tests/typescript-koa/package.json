@@ -10,7 +10,7 @@
     "validate": "tsgo -p ./tsconfig.json"
   },
   "dependencies": {
-    "@koa/router": "^14.0.0",
+    "@koa/router": "^15.5.0",
     "@nahkies/typescript-koa-runtime": "workspace:*",
     "joi": "^18.1.2",
     "koa": "^3.2.0",
@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@types/koa": "^3.0.2",
-    "@types/koa__router": "^12.0.5",
     "@typescript/native-preview": "^7.0.0-dev.20260421.2"
   }
 }

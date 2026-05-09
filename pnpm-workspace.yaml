@@ -21,7 +21,8 @@ linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
 
-minimumReleaseAgeExclude: []
+minimumReleaseAgeExclude:
+  - '@koa/router@15.5.0'
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 

@@ -7,6 +7,7 @@ tags:
   - name: validation
   - name: escape hatches
   - name: media types
+  - name: route matching
 servers:
   - url: '{protocol}://{host}:{port}'
     variables:
@@ -196,6 +197,7 @@ paths:
                     type: array
                     items:
                       type: string
+
   /validation/numbers/random-number:
     get:
       tags:
@@ -383,6 +385,36 @@ paths:
             text/plain:
               schema:
                 type: string
+
+  /route-matching/fixed-field:
+    get:
+      operationId: routeMatchingGetByFixedField
+      tags:
+        - route matching
+      responses:
+        200:
+          description: 'ok'
+          content:
+            application/json:
+              schema: {}
+
+  /route-matching/{id}:
+    get:
+      operationId: routeMatchingGetById
+      tags:
+        - route matching
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'ok'
+          content:
+            application/json:
+              schema: {}
 
 components:
   responses:

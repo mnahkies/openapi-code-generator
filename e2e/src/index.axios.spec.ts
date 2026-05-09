@@ -516,4 +516,20 @@ describe.each(
       })
     })
   })
+
+  describe("route matching", () => {
+    it("should match fixed field route over parameterized route", async () => {
+      const {status, data} = await client.routeMatchingGetByFixedField()
+
+      expect(status).toBe(200)
+      expect(data).toEqual({matched: "fixed-field"})
+    })
+
+    it("should match parameterized route", async () => {
+      const {status, data} = await client.routeMatchingGetById({id: "123"})
+
+      expect(status).toBe(200)
+      expect(data).toEqual({matched: "id", id: "123"})
+    })
+  })
 })

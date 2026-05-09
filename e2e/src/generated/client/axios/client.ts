@@ -512,6 +512,45 @@ export class E2ETestClient extends AbstractAxiosClient {
 
     return {...res, data: z.string().parse(res.data)}
   }
+
+  async routeMatchingGetByFixedField(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<unknown>> {
+    const url = `/route-matching/fixed-field`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: z.unknown().parse(res.data)}
+  }
+
+  async routeMatchingGetById(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<unknown>> {
+    const url = `/route-matching/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: z.unknown().parse(res.data)}
+  }
 }
 
 export {E2ETestClient as ApiClient}

@@ -4,6 +4,7 @@ import {createEscapeHatchesRouter} from "./routes/express/escape-hatches.ts"
 import {createMediaTypesRouter} from "./routes/express/media-types.ts"
 import {createQueryParametersRouter} from "./routes/express/query-parameters.ts"
 import {createRequestHeadersRouter} from "./routes/express/request-headers.ts"
+import {createRouteMatchingRouter} from "./routes/express/route-matching.ts"
 import {createValidationRouter} from "./routes/express/validation.ts"
 import {createErrorResponse} from "./shared.ts"
 
@@ -15,12 +16,14 @@ function createRouter() {
   const escapeHatchesRouter = createEscapeHatchesRouter()
   const mediaTypesRouter = createMediaTypesRouter()
   const queryParametersRouter = createQueryParametersRouter()
+  const routeMatchingRouter = createRouteMatchingRouter()
 
   router.use(requestHeadersRouter)
   router.use(validationRouter)
   router.use(escapeHatchesRouter)
   router.use(mediaTypesRouter)
   router.use(queryParametersRouter)
+  router.use(routeMatchingRouter)
 
   return router
 }

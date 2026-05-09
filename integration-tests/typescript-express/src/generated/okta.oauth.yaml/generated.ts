@@ -18,7 +18,13 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
+import {
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from "express"
 import {z} from "zod/v4"
 import type {
   t_AuthorizeCustomAsParamSchema,
@@ -831,8 +837,15 @@ export type Implementation = {
   userinfoCustomAs: UserinfoCustomAs
 }
 
-export function createRouter(implementation: Implementation): Router {
+export function createRouter(
+  implementation: Implementation,
+  options: {middleware?: RequestHandler[]} = {},
+): Router {
   const router = Router()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getWellKnownOpenIdConfigurationQuerySchema = z.object({
     client_id: z.string().optional(),

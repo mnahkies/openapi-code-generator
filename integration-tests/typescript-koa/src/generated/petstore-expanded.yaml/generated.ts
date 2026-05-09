@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -20,7 +20,6 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 import type {
   t_DeletePetParamSchema,
@@ -41,7 +40,6 @@ export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void, void>,
   respond: FindPetsResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Pet[]>
@@ -58,7 +56,6 @@ export type AddPet = (
   params: Params<void, void, t_NewPet, void>,
   respond: AddPetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Pet>
@@ -75,7 +72,6 @@ export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void, void>,
   respond: FindPetByIdResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Pet>
@@ -92,7 +88,6 @@ export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void, void>,
   respond: DeletePetResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
@@ -107,8 +102,15 @@ export type Implementation = {
   deletePet: DeletePet
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createRouter(
+  implementation: Implementation,
+  options: {middleware?: RouterMiddleware[]} = {},
+): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const findPetsQuerySchema = z.object({
     tags: z
@@ -125,7 +127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Error,
   )
 
-  router.get("findPets", "/pets", async (ctx, next) => {
+  router.get("findPets", "/pets", async (ctx) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
@@ -150,9 +152,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .findPets(input, responder, ctx, next)
+      .findPets(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, findPetsResponseValidator))
+      .then(handleResponse(ctx, findPetsResponseValidator))
   })
 
   const addPetResponseValidator = responseValidationFactory(
@@ -160,7 +162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Error,
   )
 
-  router.post("addPet", "/pets", async (ctx, next) => {
+  router.post("addPet", "/pets", async (ctx) => {
     const input = {
       params: undefined,
       query: undefined,
@@ -185,9 +187,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .addPet(input, responder, ctx, next)
+      .addPet(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, addPetResponseValidator))
+      .then(handleResponse(ctx, addPetResponseValidator))
   })
 
   const findPetByIdParamSchema = z.object({id: z.coerce.number()})
@@ -197,7 +199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Error,
   )
 
-  router.get("findPetById", "/pets/:id", async (ctx, next) => {
+  router.get("findPetById", "/pets/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         findPetByIdParamSchema,
@@ -222,9 +224,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .findPetById(input, responder, ctx, next)
+      .findPetById(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, findPetByIdResponseValidator))
+      .then(handleResponse(ctx, findPetByIdResponseValidator))
   })
 
   const deletePetParamSchema = z.object({id: z.coerce.number()})
@@ -234,7 +236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     s_Error,
   )
 
-  router.delete("deletePet", "/pets/:id", async (ctx, next) => {
+  router.delete("deletePet", "/pets/:id", async (ctx) => {
     const input = {
       params: parseRequestInput(
         deletePetParamSchema,
@@ -259,9 +261,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     await implementation
-      .deletePet(input, responder, ctx, next)
+      .deletePet(input, responder, ctx)
       .catch(handleImplementationError)
-      .then(handleResponse(ctx, next, deletePetResponseValidator))
+      .then(handleResponse(ctx, deletePetResponseValidator))
   })
 
   return router

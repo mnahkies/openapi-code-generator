@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {
   handleImplementationError,
   handleResponse,
@@ -14,7 +14,6 @@ import {
   type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
 import {z} from "zod/v4"
 
 export type GetEscapeHatchesPlainTextResponder = {
@@ -25,7 +24,6 @@ export type GetEscapeHatchesPlainText = (
   params: Params<void, void, void, void>,
   respond: GetEscapeHatchesPlainTextResponder,
   ctx: RouterContext,
-  next: Next,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Res<200, string> | typeof SkipResponse
 >
@@ -36,8 +34,13 @@ export type EscapeHatchesImplementation = {
 
 export function createEscapeHatchesRouter(
   implementation: EscapeHatchesImplementation,
+  options: {middleware?: RouterMiddleware[]} = {},
 ): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getEscapeHatchesPlainTextResponseValidator = responseValidationFactory(
     [["200", z.string()]],
@@ -47,7 +50,7 @@ export function createEscapeHatchesRouter(
   router.get(
     "getEscapeHatchesPlainText",
     "/escape-hatches/plain-text",
-    async (ctx, next) => {
+    async (ctx) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -65,11 +68,9 @@ export function createEscapeHatchesRouter(
       }
 
       await implementation
-        .getEscapeHatchesPlainText(input, responder, ctx, next)
+        .getEscapeHatchesPlainText(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, next, getEscapeHatchesPlainTextResponseValidator),
-        )
+        .then(handleResponse(ctx, getEscapeHatchesPlainTextResponseValidator))
     },
   )
 

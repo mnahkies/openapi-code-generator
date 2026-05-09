@@ -61,8 +61,10 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-koa-runtime/errors")
       .add("KoaRuntimeError", "RequestInputType")
 
-    this.imports.from("koa").addType("Next")
-    this.imports.from("@koa/router").addType("RouterContext").all("KoaRouter")
+    this.imports
+      .from("@koa/router")
+      .addType("RouterContext", "RouterMiddleware")
+      .all("KoaRouter")
 
     const schemaBuilderType = this.schemaBuilder.type
 
@@ -131,7 +133,6 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
                     params: ${params.type},
                     respond: ${symbols.responderName},
                     ctx: RouterContext,
-                    next: Next
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
                       (it) => `Res<${it.statusType}, ${it.type}>`,
@@ -186,14 +187,14 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
-router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.route}', async (ctx, next) => {
+router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.route}', async (ctx) => {
    const input = ${inputObject}
 
    const responder = ${responder.implementation}
 
-   await implementation.${symbols.implPropName}(input, responder, ctx, next)
+   await implementation.${symbols.implPropName}(input, responder, ctx)
     .catch(handleImplementationError)
-    .then(handleResponse(ctx, next, ${symbols.responseBodyValidator}))
+    .then(handleResponse(ctx, ${symbols.responseBodyValidator}))
 })`)
 
     return statements.join("\n\n")
@@ -258,8 +259,12 @@ ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
+export function ${createRouterExportName}(implementation: ${implementationExportName}, options: {middleware?: RouterMiddleware[]} = {}): KoaRouter {
   const router = new KoaRouter()
+
+  if(options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   ${routerStatements.join("\n\n")}
 

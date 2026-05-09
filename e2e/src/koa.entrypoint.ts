@@ -4,6 +4,7 @@ import {createEscapeHatchesRouter} from "./routes/koa/escape-hatches.ts"
 import {createMediaTypesRouter} from "./routes/koa/media-types.ts"
 import {createQueryParametersRouter} from "./routes/koa/query-parameters.ts"
 import {createRequestHeadersRouter} from "./routes/koa/request-headers.ts"
+import {createRouteMatchingRouter} from "./routes/koa/route-matching.ts"
 import {createValidationRouter} from "./routes/koa/validation.ts"
 import {createErrorResponse} from "./shared.ts"
 
@@ -15,18 +16,20 @@ function createRouter() {
   const escapeHatchesRouter = createEscapeHatchesRouter()
   const mediaTypesRouter = createMediaTypesRouter()
   const queryParametersRouter = createQueryParametersRouter()
+  const routeMatchingRouter = createRouteMatchingRouter()
 
   router.use(
-    requestHeadersRouter.allowedMethods(),
     requestHeadersRouter.routes(),
+    requestHeadersRouter.allowedMethods(),
   )
-  router.use(validationRouter.allowedMethods(), validationRouter.routes())
-  router.use(escapeHatchesRouter.allowedMethods(), escapeHatchesRouter.routes())
-  router.use(mediaTypesRouter.allowedMethods(), mediaTypesRouter.routes())
+  router.use(validationRouter.routes(), validationRouter.allowedMethods())
+  router.use(escapeHatchesRouter.routes(), escapeHatchesRouter.allowedMethods())
+  router.use(mediaTypesRouter.routes(), mediaTypesRouter.allowedMethods())
   router.use(
-    queryParametersRouter.allowedMethods(),
     queryParametersRouter.routes(),
+    queryParametersRouter.allowedMethods(),
   )
+  router.use(routeMatchingRouter.routes(), routeMatchingRouter.allowedMethods())
 
   return router
 }
