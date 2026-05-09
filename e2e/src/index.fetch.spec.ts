@@ -19,10 +19,7 @@ import {numberBetween} from "./test-utils.ts"
 
 describe.each(
   startServerFunctions,
-)("e2e - typescript-fetch client against $name server", ({
-  name,
-  startServer,
-}) => {
+)("e2e - typescript-fetch client against $name server", ({startServer}) => {
   let server: Server | undefined
   let client: ApiClient
 

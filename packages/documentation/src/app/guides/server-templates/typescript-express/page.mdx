@@ -141,6 +141,27 @@ https
   .listen(433)
 ```
 
+### Middleware
+Each `createRouter` function accepts an optional `options: {middleware: RequestHandler[]}` parameter. You can use this
+to add middleware to the router.
+
+```typescript
+import {createRouter} from "../generated"
+
+const router = createRouter({/*route implementations*/}, {
+  middleware: [
+    // example logging middleware
+    (req, res, next) => {
+      console.log(`Request started: ${req.method} ${req.path}`)
+      res.on("finish", () => {
+        console.log(`Request completed: [${res.statusCode}] ${req.method} ${req.path}`)
+      })
+      next()
+    }
+  ]
+})
+```
+
 ### Error Handling
 
 Any errors thrown during the request processing will be wrapped in `ExpressRuntimeError` objects,

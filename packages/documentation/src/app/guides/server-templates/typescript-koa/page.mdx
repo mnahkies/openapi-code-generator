@@ -19,7 +19,7 @@ See [integration-tests/typescript-koa](https://github.com/mnahkies/openapi-code-
 ### Install dependencies
 First install the CLI and the required runtime packages to your project:
 ```sh npm2yarn
-npm i --save-dev @nahkies/openapi-code-generator @types/koa @types/koa__router
+npm i --save-dev @nahkies/openapi-code-generator @types/koa
 npm i --save @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
 ```
 
@@ -143,6 +143,25 @@ https
     app.callback(),
   )
   .listen(433)
+```
+
+### Middleware
+Each `createRouter` function accepts an optional `options: {middleware: RouterMiddleware[]}` parameter. You can use this
+to add middleware to the router.
+
+```typescript
+import {createRouter} from "../generated"
+
+const router = createRouter({/*route implementations*/}, {
+  middleware: [
+    // example logging middleware
+    async (ctx, next) => {
+      console.log(`Request started: ${ctx.method} ${ctx.path}`)
+      await next()
+      console.log(`Request completed: [${ctx.status}] ${ctx.method} ${ctx.path}`)
+    },
+  ]
+})
 ```
 
 ### Error Handling
