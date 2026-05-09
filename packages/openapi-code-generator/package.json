@@ -18,7 +18,7 @@
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
   "bin": {
-    "openapi-code-generator": "./dist/cjs/cli.cjs"
+    "openapi-code-generator": "./dist/esm/cli.mjs"
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
