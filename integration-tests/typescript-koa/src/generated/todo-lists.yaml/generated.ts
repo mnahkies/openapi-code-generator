@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {type RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext, type RouterMiddleware} from "@koa/router"
 import {RequestInputType} from "@nahkies/typescript-koa-runtime/errors"
 import {
   handleImplementationError,
@@ -217,8 +217,15 @@ export type Implementation = {
   replaceAttachment: ReplaceAttachment
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createRouter(
+  implementation: Implementation,
+  options: {middleware?: RouterMiddleware[]} = {},
+): KoaRouter {
   const router = new KoaRouter()
+
+  if (options.middleware?.length) {
+    router.use(...options.middleware)
+  }
 
   const getTodoListsQuerySchema = z.object({
     created: z.iso.datetime({offset: true}).optional(),
