@@ -1,12 +1,12 @@
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import {testVersions, unitTestInput} from "../../../test/input.test-utils"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
-import type {TypeBuilderConfig} from "./type-builder"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import {testVersions, unitTestInput} from "../../../test/input.test-utils.ts"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
 import {
   type TypeBuilderTestHarness,
   typeBuilderTestHarness,
-} from "./type-builder.test-utils"
+} from "./type-builder.test-utils.ts"
+import type {TypeBuilderConfig} from "./type-builder.ts"
 
 describe.each(
   testVersions,

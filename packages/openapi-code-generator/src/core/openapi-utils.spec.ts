@@ -4,7 +4,7 @@ import {
   getNameFromRef,
   getRawNameFromRef,
   isRef,
-} from "./openapi-utils"
+} from "./openapi-utils.ts"
 
 describe("core/openapi-utils", () => {
   describe("#isRef", () => {

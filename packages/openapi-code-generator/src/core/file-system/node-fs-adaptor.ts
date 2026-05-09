@@ -1,6 +1,6 @@
 import {existsSync} from "node:fs"
 import fs from "node:fs/promises"
-import type {IFsAdaptor} from "./fs-adaptor"
+import type {IFsAdaptor} from "./fs-adaptor.ts"
 
 export class NodeFsAdaptor implements IFsAdaptor {
   async readFile(path: string) {

@@ -1,13 +1,13 @@
-import type {Input} from "../../core/input"
-import type {IROperation} from "../../core/openapi-types-normalized"
-import {CompilationUnit, type ICompilable} from "../common/compilation-units"
-import type {ImportBuilder} from "../common/import-builder"
-import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder/type-builder"
+import type {Input} from "../../core/input.ts"
+import type {IROperation} from "../../core/openapi-types-normalized.ts"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units.ts"
+import type {ImportBuilder} from "../common/import-builder.ts"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../common/type-builder/type-builder.ts"
 import {
   ServerOperationBuilder,
   type ServerSymbols,
-} from "./server-operation-builder"
+} from "./server-operation-builder.ts"
 
 export abstract class AbstractRouterBuilder implements ICompilable {
   protected readonly capabilities = {

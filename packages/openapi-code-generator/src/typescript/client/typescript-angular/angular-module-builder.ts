@@ -1,5 +1,8 @@
-import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
-import type {ImportBuilder} from "../../common/import-builder"
+import {
+  CompilationUnit,
+  type ICompilable,
+} from "../../common/compilation-units.ts"
+import type {ImportBuilder} from "../../common/import-builder.ts"
 
 export class AngularModuleBuilder implements ICompilable {
   private readonly ngImports = new Set<string>()

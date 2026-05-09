@@ -1,6 +1,9 @@
-import type {Input} from "../../../core/input"
-import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
-import type {ImportBuilder} from "../../common/import-builder"
+import type {Input} from "../../../core/input.ts"
+import {
+  CompilationUnit,
+  type ICompilable,
+} from "../../common/compilation-units.ts"
+import type {ImportBuilder} from "../../common/import-builder.ts"
 
 export class KoaServerBuilder implements ICompilable {
   constructor(

@@ -1,12 +1,12 @@
-import type {ISchemaProvider} from "../../../core/input"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import {logger} from "../../../core/logger"
-import type {Reference} from "../../../core/openapi-types"
-import type {MaybeIRModel} from "../../../core/openapi-types-normalized"
-import {getNameFromRef, isRef} from "../../../core/openapi-utils"
-import {hasSingleElement} from "../../../core/utils"
-import {CompilationUnit, type ICompilable} from "../compilation-units"
-import type {ImportBuilder} from "../import-builder"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import {logger} from "../../../core/logger.ts"
+import type {Reference} from "../../../core/openapi-types.ts"
+import type {MaybeIRModel} from "../../../core/openapi-types-normalized.ts"
+import {getNameFromRef, isRef} from "../../../core/openapi-utils.ts"
+import {hasSingleElement} from "../../../core/utils.ts"
+import {CompilationUnit, type ICompilable} from "../compilation-units.ts"
+import type {ImportBuilder} from "../import-builder.ts"
 import {
   array,
   coerceToString,
@@ -15,8 +15,8 @@ import {
   objectProperty,
   quotedStringLiteral,
   union,
-} from "../type-utils"
-import {buildExport} from "../typescript-common"
+} from "../type-utils.ts"
+import {buildExport} from "../typescript-common.ts"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",

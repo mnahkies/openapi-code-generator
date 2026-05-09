@@ -1,14 +1,14 @@
 import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
-import {generationLib} from "../generation-lib"
-import type {InputConfig} from "../input"
-import {logger} from "../logger"
+import {generationLib} from "../generation-lib.ts"
+import type {InputConfig} from "../input.ts"
+import {logger} from "../logger.ts"
 import type {
   Reference,
   Schema,
   SchemaNumber,
   SchemaObject,
   SchemaString,
-} from "../openapi-types"
+} from "../openapi-types.ts"
 import type {
   IRModel,
   IRModelAny,
@@ -23,8 +23,8 @@ import type {
   IRModelUnion,
   IRRef,
   MaybeIRModel,
-} from "../openapi-types-normalized"
-import {isRef} from "../openapi-utils"
+} from "../openapi-types-normalized.ts"
+import {isRef} from "../openapi-utils.ts"
 
 export class SchemaNormalizer {
   constructor(readonly config: InputConfig) {}

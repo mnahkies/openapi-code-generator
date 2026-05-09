@@ -1,9 +1,9 @@
 import path from "node:path"
 import yaml from "js-yaml"
 import json5 from "json5"
-import type {IFsAdaptor} from "../file-system/fs-adaptor"
-import {logger} from "../logger"
-import {isRemote} from "./utils"
+import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
+import {logger} from "../logger.ts"
+import {isRemote} from "./utils.ts"
 
 export type GenericLoaderRequestHeaders = {
   [uri: string]: {name: string; value: string}[]

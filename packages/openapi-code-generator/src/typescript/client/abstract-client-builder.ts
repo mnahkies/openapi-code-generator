@@ -1,12 +1,12 @@
-import type {Input} from "../../core/input"
-import type {IROperation} from "../../core/openapi-types-normalized"
-import {CompilationUnit, type ICompilable} from "../common/compilation-units"
-import type {ImportBuilder} from "../common/import-builder"
-import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder/type-builder"
-import {union} from "../common/type-utils"
-import {ClientOperationBuilder} from "./client-operation-builder"
-import {ClientServersBuilder} from "./client-servers-builder"
+import type {Input} from "../../core/input.ts"
+import type {IROperation} from "../../core/openapi-types-normalized.ts"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units.ts"
+import type {ImportBuilder} from "../common/import-builder.ts"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../common/type-builder/type-builder.ts"
+import {union} from "../common/type-utils.ts"
+import {ClientOperationBuilder} from "./client-operation-builder.ts"
+import {ClientServersBuilder} from "./client-servers-builder.ts"
 
 export type ClientBuilderCapabilities = {
   requestBody: {mediaTypes: string[]}

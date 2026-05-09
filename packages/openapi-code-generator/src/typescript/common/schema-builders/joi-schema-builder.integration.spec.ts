@@ -1,11 +1,11 @@
 import vm from "node:vm"
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import {testVersions} from "../../../test/input.test-utils"
-import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
+import {testVersions} from "../../../test/input.test-utils.ts"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
 import {
   type SchemaBuilderIntegrationTestHarness,
   schemaBuilderIntegrationTestHarness,
-} from "./schema-builder.test-utils"
+} from "./schema-builder.test-utils.ts"
 
 describe.each(
   testVersions,

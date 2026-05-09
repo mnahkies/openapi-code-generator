@@ -1,22 +1,22 @@
-import {generationLib} from "../../core/generation-lib"
-import type {Input} from "../../core/input"
-import {logger} from "../../core/logger"
+import {generationLib} from "../../core/generation-lib.ts"
+import type {Input} from "../../core/input.ts"
+import {logger} from "../../core/logger.ts"
 import type {
   IROperation,
   MaybeIRModel,
-} from "../../core/openapi-types-normalized"
-import {extractPlaceholders} from "../../core/openapi-utils"
-import {camelCase, isDefined} from "../../core/utils"
-import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder/type-builder"
-import {object, quotedStringLiteral} from "../common/type-utils"
+} from "../../core/openapi-types-normalized.ts"
+import {extractPlaceholders} from "../../core/openapi-utils.ts"
+import {camelCase, isDefined} from "../../core/utils.ts"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../common/type-builder/type-builder.ts"
+import {object, quotedStringLiteral} from "../common/type-utils.ts"
 import {
   combineParams,
   type MethodParameterDefinition,
   type RequestBodyAsParameter,
   requestBodyAsParameter,
   statusStringToType,
-} from "../common/typescript-common"
+} from "../common/typescript-common.ts"
 
 export type ClientOperationResponseSchemas = {
   specific: {

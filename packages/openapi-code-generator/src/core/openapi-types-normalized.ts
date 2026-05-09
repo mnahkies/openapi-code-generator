@@ -1,6 +1,6 @@
 import type {NonEmptyArray} from "@nahkies/typescript-common-runtime/types"
-import type {Reference, Style} from "./openapi-types"
-import type {HttpMethod} from "./utils"
+import type {Reference, Style} from "./openapi-types.ts"
+import type {HttpMethod} from "./utils.ts"
 
 export interface IRRef {
   "x-internal-preprocess"?: MaybeIRPreprocess | undefined

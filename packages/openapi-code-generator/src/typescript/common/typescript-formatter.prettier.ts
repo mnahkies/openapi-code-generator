@@ -1,5 +1,5 @@
-import type {IFormatter} from "../../core/interfaces"
-import {logger} from "../../core/logger"
+import type {IFormatter} from "../../core/interfaces.ts"
+import {logger} from "../../core/logger.ts"
 
 export class TypescriptFormatterPrettier implements IFormatter {
   // biome-ignore lint/suspicious/noExplicitAny: not important

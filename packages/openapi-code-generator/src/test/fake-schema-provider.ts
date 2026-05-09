@@ -1,11 +1,11 @@
-import type {ISchemaProvider} from "../core/input"
+import type {ISchemaProvider} from "../core/input.ts"
 import type {
   IRModel,
   IRPreprocess,
   IRRef,
   MaybeIRModel,
-} from "../core/openapi-types-normalized"
-import {getRawNameFromRef, isRef} from "../core/openapi-utils"
+} from "../core/openapi-types-normalized.ts"
+import {getRawNameFromRef, isRef} from "../core/openapi-utils.ts"
 
 export class FakeSchemaProvider implements ISchemaProvider {
   private readonly testRefs: Record<string, IRModel> = {}

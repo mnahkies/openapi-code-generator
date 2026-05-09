@@ -1,10 +1,10 @@
 import {
   buildDependencyGraph,
   type DependencyGraph,
-} from "../../../core/dependency-graph"
-import type {ISchemaProvider} from "../../../core/input"
-import {logger} from "../../../core/logger"
-import type {Reference} from "../../../core/openapi-types"
+} from "../../../core/dependency-graph.ts"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import {logger} from "../../../core/logger.ts"
+import type {Reference} from "../../../core/openapi-types.ts"
 import type {
   IRModelArray,
   IRModelBase,
@@ -13,13 +13,13 @@ import type {
   IRModelRecord,
   IRModelString,
   MaybeIRModel,
-} from "../../../core/openapi-types-normalized"
-import {getNameFromRef, isRef} from "../../../core/openapi-utils"
-import {CompilationUnit, type ICompilable} from "../compilation-units"
-import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder/type-builder"
-import {buildExport, type ExportDefinition} from "../typescript-common"
-import type {SchemaBuilderType} from "./schema-builder"
+} from "../../../core/openapi-types-normalized.ts"
+import {getNameFromRef, isRef} from "../../../core/openapi-utils.ts"
+import {CompilationUnit, type ICompilable} from "../compilation-units.ts"
+import type {ImportBuilder} from "../import-builder.ts"
+import type {TypeBuilder} from "../type-builder/type-builder.ts"
+import {buildExport, type ExportDefinition} from "../typescript-common.ts"
+import type {SchemaBuilderType} from "./schema-builder.ts"
 
 export type SchemaBuilderConfig = {
   allowAny: boolean

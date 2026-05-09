@@ -1,6 +1,6 @@
 import {describe, expect, it, jest} from "@jest/globals"
-import {WebFsAdaptor} from "../file-system/web-fs-adaptor"
-import {loadTsConfigCompilerOptions} from "./tsconfig.loader"
+import {WebFsAdaptor} from "../file-system/web-fs-adaptor.ts"
+import {loadTsConfigCompilerOptions} from "./tsconfig.loader.ts"
 
 function fsAdaptor(files: Record<string, string>) {
   return new WebFsAdaptor(new Map(Object.entries(files)))

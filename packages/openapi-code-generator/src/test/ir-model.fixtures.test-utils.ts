@@ -16,7 +16,7 @@ import type {
   IRParameterPath,
   IRParameterQuery,
   IRRef,
-} from "../core/openapi-types-normalized"
+} from "../core/openapi-types-normalized.ts"
 
 const base = {
   any: {

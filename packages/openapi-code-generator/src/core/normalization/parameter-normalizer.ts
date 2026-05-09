@@ -1,11 +1,11 @@
-import type {OpenapiLoader} from "../loaders/openapi-loader"
+import type {OpenapiLoader} from "../loaders/openapi-loader.ts"
 import type {
   Parameter,
   Reference,
   Schema,
   SchemaObject,
   Style,
-} from "../openapi-types"
+} from "../openapi-types.ts"
 import type {
   IROperationParameters,
   IRParameter,
@@ -14,10 +14,10 @@ import type {
   IRParameterHeader,
   IRParameterPath,
   IRParameterQuery,
-} from "../openapi-types-normalized"
-import type {SyntheticNameGenerator} from "../synthetic-name-generator"
-import {lowerFirst} from "../utils"
-import type {SchemaNormalizer} from "./schema-normalizer"
+} from "../openapi-types-normalized.ts"
+import type {SyntheticNameGenerator} from "../synthetic-name-generator.ts"
+import {lowerFirst} from "../utils.ts"
+import type {SchemaNormalizer} from "./schema-normalizer.ts"
 
 export class ParameterNormalizer {
   constructor(

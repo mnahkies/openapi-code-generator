@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {ImportBuilder, naturalCompare} from "./import-builder"
+import {ImportBuilder, naturalCompare} from "./import-builder.ts"
 
 describe("typescript/common/import-builder", () => {
   describe("naturalCompare", () => {

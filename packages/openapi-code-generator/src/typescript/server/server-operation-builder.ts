@@ -3,18 +3,18 @@ import type {
   SchemaStructure,
 } from "@nahkies/typescript-common-runtime/query-parser"
 import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
-import type {Input} from "../../core/input"
-import {logger} from "../../core/logger"
-import type {IRModel, IROperation} from "../../core/openapi-types-normalized"
-import {extractPlaceholders} from "../../core/openapi-utils"
-import {convertBytesToHuman} from "../../core/utils"
-import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../common/type-builder/type-builder"
-import {intersect, object} from "../common/type-utils"
+import type {Input} from "../../core/input.ts"
+import {logger} from "../../core/logger.ts"
+import type {IRModel, IROperation} from "../../core/openapi-types-normalized.ts"
+import {extractPlaceholders} from "../../core/openapi-utils.ts"
+import {convertBytesToHuman} from "../../core/utils.ts"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../common/type-builder/type-builder.ts"
+import {intersect, object} from "../common/type-utils.ts"
 import {
   requestBodyAsParameter,
   statusStringToType,
-} from "../common/typescript-common"
+} from "../common/typescript-common.ts"
 
 export type ServerSymbols = {
   implPropName: string

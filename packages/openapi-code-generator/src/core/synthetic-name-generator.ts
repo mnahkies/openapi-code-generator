@@ -1,5 +1,5 @@
-import type {InputConfig} from "./input"
-import {mediaTypeToIdentifier, upperFirst} from "./utils"
+import type {InputConfig} from "./input.ts"
+import {mediaTypeToIdentifier, upperFirst} from "./utils.ts"
 
 /**
  * During code generation, we occasionally need to generate names for entities

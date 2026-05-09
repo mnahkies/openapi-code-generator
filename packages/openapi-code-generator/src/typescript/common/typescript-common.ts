@@ -1,11 +1,11 @@
-import {logger} from "../../core/logger"
-import type {Encoding} from "../../core/openapi-types"
+import {logger} from "../../core/logger.ts"
+import type {Encoding} from "../../core/openapi-types.ts"
 import type {
   IRMediaType,
   IROperation,
   IRParameterRequestBody,
-} from "../../core/openapi-types-normalized"
-import {isDefined} from "../../core/utils"
+} from "../../core/openapi-types-normalized.ts"
+import {isDefined} from "../../core/utils.ts"
 
 export type MethodParameterDefinition = {
   name: string

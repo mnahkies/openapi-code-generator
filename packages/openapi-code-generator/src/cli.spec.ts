@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {boolParser, remoteSpecRequestHeadersParser} from "./cli"
+import {boolParser, remoteSpecRequestHeadersParser} from "./cli.ts"
 
 describe("cli", () => {
   describe("boolParser", () => {

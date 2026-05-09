@@ -14,7 +14,7 @@ import {
   snakeCase,
   titleCase,
   upperFirst,
-} from "./utils"
+} from "./utils.ts"
 
 describe("core/utils", () => {
   describe("#isDefined", () => {

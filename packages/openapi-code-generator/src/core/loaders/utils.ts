@@ -1,5 +1,5 @@
 import path from "node:path"
-import type {IFsAdaptor} from "../file-system/fs-adaptor"
+import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
 
 export function isRemote(location: string): boolean {
   return location.startsWith("http://") || location.startsWith("https://")

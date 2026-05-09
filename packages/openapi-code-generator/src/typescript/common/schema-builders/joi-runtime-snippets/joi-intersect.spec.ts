@@ -1,6 +1,6 @@
 import {describe, expect, it} from "@jest/globals"
 import joi from "joi"
-import {joiIntersect} from "./joi-intersect"
+import {joiIntersect} from "./joi-intersect.ts"
 
 describe("typescript/common/schema-builders/joi-runtime-snippets/joi-intersect", () => {
   const A = joi

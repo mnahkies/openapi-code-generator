@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {TestOutputTypeChecker} from "./typescript-compiler.test-utils"
+import {TestOutputTypeChecker} from "./typescript-compiler.test-utils.ts"
 
 describe("test/typescript-compiler", () => {
   const typechecker = new TestOutputTypeChecker()

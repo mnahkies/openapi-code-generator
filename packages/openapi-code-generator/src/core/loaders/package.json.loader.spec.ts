@@ -1,26 +1,28 @@
 import path from "node:path"
 import {describe, expect, it} from "@jest/globals"
-import {NodeFsAdaptor} from "../file-system/node-fs-adaptor"
-import {loadPackageJson} from "./package.json.loader"
+import {NodeFsAdaptor} from "../file-system/node-fs-adaptor.ts"
+import {loadPackageJson} from "./package.json.loader.ts"
 
 describe("core/loaders/package.json.loader", () => {
   const fsAdaptor = new NodeFsAdaptor()
 
-  it("should load the nearest package.json (commonjs)", async () => {
+  it("should load the nearest package.json (cwd)", async () => {
     const actual = await loadPackageJson(__dirname, fsAdaptor)
 
     expect(actual).toEqual({
-      type: "commonjs",
+      name: "@nahkies/openapi-code-generator",
+      type: "module",
     })
   })
 
-  it("should load the nearest package.json (esm)", async () => {
+  it("should load the nearest package.json (monorepo-root)", async () => {
     const actual = await loadPackageJson(
-      path.join(__dirname, "../../../../../e2e"),
+      path.join(__dirname, "../../../../"),
       fsAdaptor,
     )
     expect(actual).toEqual({
-      type: "module",
+      name: "openapi-code-generator-root",
+      type: "commonjs",
     })
   })
 

@@ -3,9 +3,9 @@ import {
   createTestInputFromYamlString,
   testVersions,
   unitTestInput,
-} from "../test/input.test-utils"
-import {buildDependencyGraph} from "./dependency-graph"
-import {getNameFromRef} from "./openapi-utils"
+} from "../test/input.test-utils.ts"
+import {buildDependencyGraph} from "./dependency-graph.ts"
+import {getNameFromRef} from "./openapi-utils.ts"
 
 describe.each(testVersions)("%s - core/dependency-graph", (version) => {
   it("works", async () => {

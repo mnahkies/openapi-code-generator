@@ -1,5 +1,5 @@
-import type {ISchemaProvider} from "../../../core/input"
-import type {Reference} from "../../../core/openapi-types"
+import type {ISchemaProvider} from "../../../core/input.ts"
+import type {Reference} from "../../../core/openapi-types.ts"
 import type {
   IRModel,
   IRModelArray,
@@ -8,17 +8,17 @@ import type {
   IRModelRecord,
   IRModelString,
   MaybeIRModel,
-} from "../../../core/openapi-types-normalized"
-import {isRef} from "../../../core/openapi-utils"
-import {hasSingleElement, isDefined} from "../../../core/utils"
-import type {ImportBuilder} from "../import-builder"
-import type {TypeBuilder} from "../type-builder/type-builder"
-import {quotedStringLiteral} from "../type-utils"
-import type {ExportDefinition} from "../typescript-common"
+} from "../../../core/openapi-types-normalized.ts"
+import {isRef} from "../../../core/openapi-utils.ts"
+import {hasSingleElement, isDefined} from "../../../core/utils.ts"
+import type {ImportBuilder} from "../import-builder.ts"
+import type {TypeBuilder} from "../type-builder/type-builder.ts"
+import {quotedStringLiteral} from "../type-utils.ts"
+import type {ExportDefinition} from "../typescript-common.ts"
 import {
   AbstractSchemaBuilder,
   type SchemaBuilderConfig,
-} from "./abstract-schema-builder"
+} from "./abstract-schema-builder.ts"
 
 const zod = "z"
 

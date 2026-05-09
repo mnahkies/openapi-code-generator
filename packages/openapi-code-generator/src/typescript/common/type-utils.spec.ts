@@ -5,7 +5,7 @@ import {
   object,
   objectProperty,
   union,
-} from "./type-utils"
+} from "./type-utils.ts"
 
 describe("typescript/common/type-utils", () => {
   describe("union", () => {

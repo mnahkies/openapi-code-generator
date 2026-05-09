@@ -2,12 +2,12 @@ import type {
   IROperation,
   IRServer,
   IRServerVariable,
-} from "../../core/openapi-types-normalized"
-import {extractPlaceholders} from "../../core/openapi-utils"
-import {isDefined} from "../../core/utils"
-import {CompilationUnit, type ICompilable} from "../common/compilation-units"
-import type {ImportBuilder} from "../common/import-builder"
-import {quotedStringLiteral, union} from "../common/type-utils"
+} from "../../core/openapi-types-normalized.ts"
+import {extractPlaceholders} from "../../core/openapi-utils.ts"
+import {isDefined} from "../../core/utils.ts"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units.ts"
+import type {ImportBuilder} from "../common/import-builder.ts"
+import {quotedStringLiteral, union} from "../common/type-utils.ts"
 
 export class ClientServersBuilder implements ICompilable {
   readonly operations: Pick<IROperation, "operationId" | "servers">[] = []

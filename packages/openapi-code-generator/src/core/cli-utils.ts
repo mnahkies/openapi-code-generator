@@ -1,5 +1,5 @@
 import readline from "node:readline"
-import {logger} from "./logger"
+import {logger} from "./logger.ts"
 
 export async function promptContinue(
   question: string,

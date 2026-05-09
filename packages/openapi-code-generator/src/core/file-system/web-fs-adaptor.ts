@@ -1,5 +1,5 @@
 import pathModule from "node:path"
-import type {IFsAdaptor} from "./fs-adaptor"
+import type {IFsAdaptor} from "./fs-adaptor.ts"
 
 export class WebFsAdaptor implements IFsAdaptor {
   constructor(readonly files = new Map<string, string>()) {}
