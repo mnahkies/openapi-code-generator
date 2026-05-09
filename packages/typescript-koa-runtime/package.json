@@ -87,13 +87,7 @@
     "zod": "^3.25.74 || ^4.1.12"
   },
   "peerDependenciesMeta": {
-    "@koa/cors": {
-      "optional": true
-    },
     "joi": {
-      "optional": true
-    },
-    "koa-body": {
       "optional": true
     },
     "zod": {
