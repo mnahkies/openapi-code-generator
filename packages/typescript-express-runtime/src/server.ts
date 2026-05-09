@@ -1,6 +1,10 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
-import type {Res, StatusCode} from "@nahkies/typescript-common-runtime/types"
+import {
+  type Res,
+  SkipResponse,
+  type StatusCode,
+} from "@nahkies/typescript-common-runtime/types"
 import type {OptionsJson, OptionsText, OptionsUrlencoded} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
 import type {Response} from "express"
@@ -21,21 +25,20 @@ import {
   type SizeLimit,
 } from "@nahkies/typescript-common-runtime/request-bodies"
 
-export type {
-  Params,
-  Res,
-  StatusCode,
-  StatusCode1xx,
-  StatusCode2xx,
-  StatusCode3xx,
-  StatusCode4xx,
-  StatusCode5xx,
+export {
+  type Params,
+  type Res,
+  SkipResponse,
+  type StatusCode,
+  type StatusCode1xx,
+  type StatusCode2xx,
+  type StatusCode3xx,
+  type StatusCode4xx,
+  type StatusCode5xx,
 } from "@nahkies/typescript-common-runtime/types"
 
 // biome-ignore lint/suspicious/noExplicitAny: needed
 export type ResponseValidator = (status: number, value: unknown) => any
-
-export const SkipResponse = Symbol("skip response processing")
 
 export class ExpressRuntimeResponse<Type> {
   private _body?: Type
