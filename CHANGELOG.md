@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0...v0.23.0) (2026-05-09)
+
+### Bug Fixes
+
+- clean works when already clean ([#460](https://github.com/mnahkies/openapi-code-generator/issues/460)) ([8c18a69](https://github.com/mnahkies/openapi-code-generator/commit/8c18a69534ffa0c6d0413550ac43c827bbf07505))
+- correctly output Record<string, unknown> when irrelevant properties present ([#402](https://github.com/mnahkies/openapi-code-generator/issues/402)) ([7c4bacb](https://github.com/mnahkies/openapi-code-generator/commit/7c4bacba9165524111e8c1e6f4128a920e12bf1e))
+- devDependency not dependency ([#457](https://github.com/mnahkies/openapi-code-generator/issues/457)) ([87991f2](https://github.com/mnahkies/openapi-code-generator/commit/87991f2491994320398774da0f33b7dc80cf2bde))
+- drop broken readOnly modifier support ([#409](https://github.com/mnahkies/openapi-code-generator/issues/409)) ([d93d4d3](https://github.com/mnahkies/openapi-code-generator/commit/d93d4d35789a8e9f71dfe8047ed3f80be6e83975))
+- **fetch:** type narrowing with default response types ([#443](https://github.com/mnahkies/openapi-code-generator/issues/443)) ([e22f3b0](https://github.com/mnahkies/openapi-code-generator/commit/e22f3b00bcb5c5d303a9bb8eb138e26372791ca0)), closes [#439](https://github.com/mnahkies/openapi-code-generator/issues/439) [#444](https://github.com/mnahkies/openapi-code-generator/issues/444)
+- handle boolean exclusiveMaximum / exclusiveMinimum ([#386](https://github.com/mnahkies/openapi-code-generator/issues/386)) ([c5f7ef7](https://github.com/mnahkies/openapi-code-generator/commit/c5f7ef78f05a97959051db4595d920c775ff6456))
+- handle missing type when enum is defined ([#407](https://github.com/mnahkies/openapi-code-generator/issues/407)) ([3dcc463](https://github.com/mnahkies/openapi-code-generator/commit/3dcc46327b190b4b4bdd06f1dd814e3f283b60d6))
+- improve handling of allOf / anyOf / oneOf ([#410](https://github.com/mnahkies/openapi-code-generator/issues/410)) ([8c7de1f](https://github.com/mnahkies/openapi-code-generator/commit/8c7de1fc06d25b3c463d354f3170ecc87ef5fcd8))
+- logger disables color based on NO_COLOR / etc ([#414](https://github.com/mnahkies/openapi-code-generator/issues/414)) ([a7f9090](https://github.com/mnahkies/openapi-code-generator/commit/a7f9090b1de5ce7525b9abcf01a89331670bbd1b))
+- make custom jest reporter more agent friendly ([#411](https://github.com/mnahkies/openapi-code-generator/issues/411)) ([c67bcc8](https://github.com/mnahkies/openapi-code-generator/commit/c67bcc856a4e2a4a524f3f3cb34e7f546e1f1121))
+- only package dist/esm, dist/cjs ([#453](https://github.com/mnahkies/openapi-code-generator/issues/453)) ([66e9be5](https://github.com/mnahkies/openapi-code-generator/commit/66e9be5a28c8bed5b6932d59be3602c4f7ebe85a))
+- patch axios temporarily / bump version ([#427](https://github.com/mnahkies/openapi-code-generator/issues/427)) ([05928e3](https://github.com/mnahkies/openapi-code-generator/commit/05928e3b7a68c321b260858d6a079faab54eb13f))
+- remove an instance of double normalization ([#391](https://github.com/mnahkies/openapi-code-generator/issues/391)) ([5fefbcc](https://github.com/mnahkies/openapi-code-generator/commit/5fefbcca6e223166d014be8e370effd490daba7e)), closes [#386](https://github.com/mnahkies/openapi-code-generator/issues/386)
+- remove import 'joi' from bundle ([#458](https://github.com/mnahkies/openapi-code-generator/issues/458)) ([156bec8](https://github.com/mnahkies/openapi-code-generator/commit/156bec8e4b9fa2bf96b1b6b9b91a9ebdec5527a8))
+- remove request body indirection ([#399](https://github.com/mnahkies/openapi-code-generator/issues/399)) ([6c12d63](https://github.com/mnahkies/openapi-code-generator/commit/6c12d63be7c2e971d599c4a5e09cd51b897ab17f)), closes [#398](https://github.com/mnahkies/openapi-code-generator/issues/398)
+- required peer dependencies ([#459](https://github.com/mnahkies/openapi-code-generator/issues/459)) ([2ebc911](https://github.com/mnahkies/openapi-code-generator/commit/2ebc9113ad81439c725eb734a0af02477bc4c4f7))
+- tsconfig loading when no compilerOptions ([#382](https://github.com/mnahkies/openapi-code-generator/issues/382)) ([cac042e](https://github.com/mnahkies/openapi-code-generator/commit/cac042e204cd0a167bf9270955e99429b48a40f8))
+- use global symbol for SkipResponse ([#455](https://github.com/mnahkies/openapi-code-generator/issues/455)) ([05f4e6e](https://github.com/mnahkies/openapi-code-generator/commit/05f4e6e9206c7a89ac7d0f3687e6b8a6de2df888))
+- use schema types rather than ir ([#390](https://github.com/mnahkies/openapi-code-generator/issues/390)) ([43cfe2b](https://github.com/mnahkies/openapi-code-generator/commit/43cfe2ba7111302c0864203323de7bf132d5dd84)), closes [#386](https://github.com/mnahkies/openapi-code-generator/issues/386)
+
+- refactor!: move more response processing into runtime package (#405) ([b47bb5a](https://github.com/mnahkies/openapi-code-generator/commit/b47bb5a0b157f8e7bc8c745c5d481f4c7e6c0c93)), closes [#405](https://github.com/mnahkies/openapi-code-generator/issues/405)
+- feat!: introduce a new common runtime (#401) ([1306741](https://github.com/mnahkies/openapi-code-generator/commit/13067416c6882375cc72f5af21dd18c7f950259b)), closes [#401](https://github.com/mnahkies/openapi-code-generator/issues/401) [#381](https://github.com/mnahkies/openapi-code-generator/issues/381)
+- feat!: move virtual schemas (#398) ([f2d6b8a](https://github.com/mnahkies/openapi-code-generator/commit/f2d6b8abd4ddb0965dd665bd29d51fd67f6be29b)), closes [#398](https://github.com/mnahkies/openapi-code-generator/issues/398)
+
+### Features
+
+- adopt tsdown for cli package, inline the typescript-common-runtime ([#456](https://github.com/mnahkies/openapi-code-generator/issues/456)) ([a4ca411](https://github.com/mnahkies/openapi-code-generator/commit/a4ca411802ca8f805b3edb639a55c69acebb9b23))
+- bundle esm + cjs variants of runtime packages using tsdown ([#452](https://github.com/mnahkies/openapi-code-generator/issues/452)) ([7a6dc89](https://github.com/mnahkies/openapi-code-generator/commit/7a6dc8966638565fa8a67d482ffd791054647c70))
+- enable publint and attw ([#454](https://github.com/mnahkies/openapi-code-generator/issues/454)) ([4b24679](https://github.com/mnahkies/openapi-code-generator/commit/4b24679e69ee2d5555419549ec00f399c53d8e78))
+- improve Record / additionalProperties handling ([#408](https://github.com/mnahkies/openapi-code-generator/issues/408)) ([85cf790](https://github.com/mnahkies/openapi-code-generator/commit/85cf7906f3285ba3c0a97de8013a058f60b975a0))
+- support application/octet-stream (Blob) req/res bodies ([#359](https://github.com/mnahkies/openapi-code-generator/issues/359)) ([b043ead](https://github.com/mnahkies/openapi-code-generator/commit/b043eadd4893a6aa782a33fca84aaa64c5189e78))
+- use tsgo for most integration test builds ([#451](https://github.com/mnahkies/openapi-code-generator/issues/451)) ([b2ad05e](https://github.com/mnahkies/openapi-code-generator/commit/b2ad05e91796dd15e25251d6bec48281b46a41e3))
+
+### BREAKING CHANGES
+
+- `Response` exported from the runtime packages is now
+  exported as `Res`, regenerating should adjust
+- deprecated exports removed, regenerate using the latest
+  cli to avoid issues
+- generated names of some output types/schemas have
+  changed, sorry
+
 # [0.22.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0-alpha.0...v0.22.0) (2025-11-02)
 
 **Note:** Version bump only for package openapi-code-generator-root
