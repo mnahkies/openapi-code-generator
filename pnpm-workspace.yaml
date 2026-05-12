@@ -23,6 +23,8 @@ minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@koa/router@15.5.0'
+  # Renovate security update: next@16.2.6
+  - next@16.2.6
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
