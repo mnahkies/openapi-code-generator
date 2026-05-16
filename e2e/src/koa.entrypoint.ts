@@ -5,6 +5,7 @@ import {createMediaTypesRouter} from "./routes/koa/media-types.ts"
 import {createQueryParametersRouter} from "./routes/koa/query-parameters.ts"
 import {createRequestHeadersRouter} from "./routes/koa/request-headers.ts"
 import {createRouteMatchingRouter} from "./routes/koa/route-matching.ts"
+import {createTimeoutRouter} from "./routes/koa/timeout.ts"
 import {createValidationRouter} from "./routes/koa/validation.ts"
 import {createErrorResponse} from "./shared.ts"
 
@@ -17,6 +18,7 @@ function createRouter() {
   const mediaTypesRouter = createMediaTypesRouter()
   const queryParametersRouter = createQueryParametersRouter()
   const routeMatchingRouter = createRouteMatchingRouter()
+  const timeoutRouter = createTimeoutRouter()
 
   router.use(
     requestHeadersRouter.routes(),
@@ -30,6 +32,7 @@ function createRouter() {
     queryParametersRouter.allowedMethods(),
   )
   router.use(routeMatchingRouter.routes(), routeMatchingRouter.allowedMethods())
+  router.use(timeoutRouter.routes(), timeoutRouter.allowedMethods())
 
   return router
 }

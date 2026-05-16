@@ -21,10 +21,10 @@ export type {
 } from "@nahkies/typescript-common-runtime/types"
 
 export interface AbstractAxiosConfig {
-  axios?: AxiosInstance
+  axios?: AxiosInstance | undefined
   basePath: string
-  defaultHeaders?: Record<string, string>
-  defaultTimeout?: number
+  defaultHeaders?: Record<string, string> | undefined
+  defaultTimeout?: number | undefined
 }
 
 export abstract class AbstractAxiosClient {
@@ -44,10 +44,12 @@ export abstract class AbstractAxiosClient {
     opts: AxiosRequestConfig,
   ): Promise<R> {
     const headers = opts.headers ?? this._headers()
+    const timeout = opts.timeout ?? this.defaultTimeout
 
     return this.axios.request({
       baseURL: this.basePath,
       ...opts,
+      ...(timeout !== undefined ? {timeout} : {}),
       headers,
     })
   }

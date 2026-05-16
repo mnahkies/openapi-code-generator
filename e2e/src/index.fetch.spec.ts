@@ -22,15 +22,17 @@ describe.each(
 )("e2e - typescript-fetch client against $name server", ({startServer}) => {
   let server: Server | undefined
   let client: ApiClient
+  let basePath: string
 
   beforeAll(async () => {
     const args = await startServer()
+    basePath = E2ETestClientServers.server("{protocol}://{host}:{port}").build(
+      undefined,
+      undefined,
+      args.address.port.toString(),
+    )
     client = new ApiClient({
-      basePath: E2ETestClientServers.server("{protocol}://{host}:{port}").build(
-        undefined,
-        undefined,
-        args.address.port.toString(),
-      ),
+      basePath,
       defaultHeaders: {
         Authorization: "Bearer default-header",
       },
@@ -566,6 +568,27 @@ describe.each(
       )
       expect(logSpy).toHaveBeenCalledWith(
         "Request completed: [200] GET /route-matching/123",
+      )
+    })
+  })
+
+  describe("timeouts", () => {
+    it("should respect the default timeout", async () => {
+      const clientWithTimeout = new ApiClient({
+        basePath,
+        defaultTimeout: 200,
+      })
+
+      const wait = clientWithTimeout.getTimeout({ms: 500})
+      await expect(wait).rejects.toThrow(
+        "The operation was aborted due to timeout",
+      )
+    })
+
+    it("should respect the request level timeout", async () => {
+      const wait = client.getTimeout({ms: 150}, 100)
+      await expect(wait).rejects.toThrow(
+        "The operation was aborted due to timeout",
       )
     })
   })
