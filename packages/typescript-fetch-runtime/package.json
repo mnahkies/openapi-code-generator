@@ -81,11 +81,11 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "^30.3.0",
+    "@jest/globals": "^30.4.1",
     "@nahkies/typescript-common-runtime": "workspace:^",
-    "jest": "^30.3.0",
-    "joi": "^18.1.2",
-    "tsdown": "^0.21.10",
+    "jest": "^30.4.2",
+    "joi": "^18.2.1",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "zod": "^3.25.76"
   },

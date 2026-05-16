@@ -19,18 +19,18 @@
     "@nahkies/typescript-express-runtime": "workspace:*",
     "@nahkies/typescript-fetch-runtime": "workspace:*",
     "@nahkies/typescript-koa-runtime": "workspace:*",
-    "axios": "^1.15.2",
+    "axios": "^1.16.0",
     "express": "^5.2.1",
     "koa": "^3.2.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@jest/globals": "^30.3.0",
+    "@jest/globals": "^30.4.1",
     "@nahkies/openapi-code-generator": "workspace:*",
     "@types/express": "^5.0.6",
     "@types/koa": "^3.0.2",
-    "expect": "^30.3.0",
-    "jest": "^30.3.0",
+    "expect": "^30.4.1",
+    "jest": "^30.4.2",
     "typescript": "^6.0.3"
   }
 }
