@@ -416,6 +416,28 @@ paths:
             application/json:
               schema: {}
 
+  /timeout:
+    get:
+      operationId: getTimeout
+      tags:
+        - timeout
+      parameters:
+        - name: ms
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ms:
+                    type: number
+
 components:
   responses:
     GetHeaders:

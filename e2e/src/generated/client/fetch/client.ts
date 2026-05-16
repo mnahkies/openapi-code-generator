@@ -21,6 +21,7 @@ import type {
   t_GetParamsUnexplodedObjectQuery200Response,
   t_GetResponsesDefault200Response,
   t_GetResponsesDefaultdefaultResponse,
+  t_GetTimeout200Response,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
@@ -37,6 +38,7 @@ import {
   s_GetParamsUnexplodedObjectQuery200Response,
   s_GetResponsesDefault200Response,
   s_GetResponsesDefaultdefaultResponse,
+  s_GetTimeout200Response,
   s_PostValidationOptionalBody200Response,
   s_ProductOrder,
   s_RandomNumber,
@@ -507,6 +509,29 @@ export class E2ETestClient extends AbstractFetchClient {
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["200", z.unknown()]], undefined)(res)
+  }
+
+  async getTimeout(
+    p: {
+      ms: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_GetTimeout200Response>> {
+    const url = this.basePath + `/timeout`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({ms: p["ms"]})
+
+    const res = this._fetch(
+      url + query,
+      {method: "GET", ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [["200", s_GetTimeout200Response]],
+      undefined,
+    )(res)
   }
 }
 

@@ -80,3 +80,7 @@ export const s_GetResponsesDefault200Response = z.object({
 export const s_GetResponsesDefaultdefaultResponse = z.object({
   error: z.string().optional(),
 })
+
+export const s_GetTimeout200Response = z.object({
+  ms: z.coerce.number().optional(),
+})

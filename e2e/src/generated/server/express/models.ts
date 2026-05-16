@@ -107,6 +107,14 @@ export type t_GetResponsesDefaultdefaultResponse = {
   error?: string | undefined
 }
 
+export type t_GetTimeout200Response = {
+  ms?: number | undefined
+}
+
+export type t_GetTimeoutQuerySchema = {
+  ms: number
+}
+
 export type t_GetValidationNumbersRandomNumberQuerySchema = {
   forbidden?: number[] | undefined
   max?: number | undefined

@@ -14,15 +14,17 @@ describe.each(
 )("e2e - typescript-axios client against $name server", ({startServer}) => {
   let server: Server | undefined
   let client: ApiClient
+  let basePath: string
 
   beforeAll(async () => {
     const args = await startServer()
+    basePath = E2ETestClientServers.server("{protocol}://{host}:{port}").build(
+      undefined,
+      undefined,
+      args.address.port.toString(),
+    )
     client = new ApiClient({
-      basePath: E2ETestClientServers.server("{protocol}://{host}:{port}").build(
-        undefined,
-        undefined,
-        args.address.port.toString(),
-      ),
+      basePath,
       defaultHeaders: {
         Authorization: "Bearer default-header",
       },
@@ -530,6 +532,37 @@ describe.each(
 
       expect(status).toBe(200)
       expect(data).toEqual({matched: "id", id: "123"})
+    })
+  })
+
+  describe("timeouts", () => {
+    it("should respect the default timeout", async () => {
+      const clientWithTimeout = new ApiClient({
+        basePath,
+        defaultTimeout: 200,
+      })
+
+      const err = await clientWithTimeout.getTimeout({ms: 500}).then(
+        () => {
+          throw new Error("expected request to fail")
+        },
+        (err: AxiosError) => err,
+      )
+
+      expect(err.code).toBe("ECONNABORTED")
+      expect(err.message).toMatch(/timeout of 200ms exceeded/)
+    })
+
+    it("should respect the request level timeout", async () => {
+      const err = await client.getTimeout({ms: 150}, 100).then(
+        () => {
+          throw new Error("expected request to fail")
+        },
+        (err: AxiosError) => err,
+      )
+
+      expect(err.code).toBe("ECONNABORTED")
+      expect(err.message).toMatch(/timeout of 100ms exceeded/)
     })
   })
 })

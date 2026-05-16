@@ -18,6 +18,7 @@ import type {
   t_GetParamsSimpleQuery200Response,
   t_GetParamsUnexplodedObjectQuery200Response,
   t_GetResponsesDefault200Response,
+  t_GetTimeout200Response,
   t_PostValidationOptionalBody200Response,
   t_PostValidationOptionalBodyRequestBody,
   t_ProductOrder,
@@ -33,6 +34,7 @@ import {
   s_GetParamsSimpleQuery200Response,
   s_GetParamsUnexplodedObjectQuery200Response,
   s_GetResponsesDefault200Response,
+  s_GetTimeout200Response,
   s_PostValidationOptionalBody200Response,
   s_ProductOrder,
   s_RandomNumber,
@@ -550,6 +552,28 @@ export class E2ETestClient extends AbstractAxiosClient {
     })
 
     return {...res, data: z.unknown().parse(res.data)}
+  }
+
+  async getTimeout(
+    p: {
+      ms: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_GetTimeout200Response>> {
+    const url = `/timeout`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({ms: p["ms"]})
+
+    const res = await this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: s_GetTimeout200Response.parse(res.data)}
   }
 }
 

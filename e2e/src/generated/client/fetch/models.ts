@@ -79,6 +79,10 @@ export type t_GetResponsesDefaultdefaultResponse = {
   error?: string | undefined
 }
 
+export type t_GetTimeout200Response = {
+  ms?: number | undefined
+}
+
 export type t_PostValidationOptionalBody200Response = {
   id?: string | undefined
 }
