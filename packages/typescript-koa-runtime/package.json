@@ -95,17 +95,17 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "^30.3.0",
+    "@jest/globals": "^30.4.1",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^15.5.0",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "@types/koa": "^3.0.2",
     "@types/koa__cors": "^5.0.1",
-    "jest": "^30.3.0",
-    "joi": "^18.1.2",
+    "jest": "^30.4.2",
+    "joi": "^18.2.1",
     "koa": "^3.2.0",
     "koa-body": "^7.0.1",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "zod": "^3.25.76"
   },
