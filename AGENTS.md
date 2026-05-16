@@ -48,6 +48,8 @@ This is a monorepo managed with `pnpm`. It produces a CLI tool for generating hi
 
 ## Project Structure
 
+For a detailed overview of the system's design, internal patterns (such as Builders and the Intermediate Representation), and data flows, please refer to [docs/architecture.md](docs/architecture.md).
+
 - `packages/*`: Implementation of the generator and its runtimes.
 - `integration-tests-definitions`: OpenAPI/TypeSpec definitions for testing.
 - `integration-tests`: Generated code from the above definitions.
