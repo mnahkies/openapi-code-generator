@@ -14,6 +14,8 @@ export default defineConfig({
   target: "esnext",
   dts: true,
   sourcemap: true,
+  failOnWarn: true,
+  logLevel: "warn",
   publint: true,
   attw: {profile: "node16"},
 
