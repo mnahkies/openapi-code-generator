@@ -14,7 +14,7 @@ export type t_AppAuthenticatorEnrollment = {
     createdDate?: string
     id?: string
     lastUpdated?: string
-    status?: "ACTIVE" | UnknownEnumStringValue
+    status?: "ACTIVE"
   }
   id?: string
   lastUpdated?: string
@@ -34,7 +34,7 @@ export type t_AppAuthenticatorEnrollment = {
       links?: {
         pending?: {
           hints?: {
-            allow?: ("GET" | UnknownEnumStringValue)[]
+            allow?: "GET"[]
           }
           href?: string
         }
@@ -192,9 +192,9 @@ export type t_HttpMethod =
   | UnknownEnumStringValue
 
 export type t_KeyEC = {
-  crv: "P-256" | UnknownEnumStringValue
+  crv: "P-256"
   kid: string
-  kty: "EC" | UnknownEnumStringValue
+  kty: "EC"
   "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
   x: string
   y: string
@@ -205,7 +205,7 @@ export type t_KeyObject = t_KeyEC | t_KeyRSA
 export type t_KeyRSA = {
   e: string
   kid: string
-  kty: "RSA" | UnknownEnumStringValue
+  kty: "RSA"
   n: string
   "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
 }
@@ -220,7 +220,7 @@ export type t_Organization = {
   _links?: {
     self?: {
       hints?: {
-        allow?: ("GET" | UnknownEnumStringValue)[]
+        allow?: "GET"[]
       }
       href?: string
     }
@@ -290,12 +290,12 @@ export type t_Profile = {
 
 export type t_PushNotificationChallenge = {
   challenge?: string
-  payloadVersion?: "IDXv1" | UnknownEnumStringValue
+  payloadVersion?: "IDXv1"
 }
 
 export type t_PushNotificationVerification = {
   challengeResponse?: string
-  method?: "push" | UnknownEnumStringValue
+  method?: "push"
 }
 
 export type t_Schema = {

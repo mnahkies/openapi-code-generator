@@ -85,6 +85,41 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       )
     })
 
+    it("supports single element closed numeric enums as literal", async () => {
+      const enumValues = [200]
+
+      const {code, execute} = await getActual(
+        ir.number({
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.any().valid(200).required()"`,
+      )
+
+      await expect(execute(200)).resolves.toBe(200)
+
+      await expect(execute(404)).rejects.toThrow(/"value" must be \[200\]/)
+    })
+
+    it("supports single element open numeric enums as number", async () => {
+      const enumValues = [200]
+
+      const {code, execute} = await getActual(
+        ir.number({
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"const x = joi.number().required()"`)
+
+      await expect(execute(200)).resolves.toBe(200)
+      await expect(execute(404)).resolves.toBe(404)
+    })
+
     it("supports inclusiveMinimum", async () => {
       const {code, execute} = await getActual(ir.number({inclusiveMinimum: 10}))
 
@@ -281,6 +316,41 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       await expect(execute("orange")).rejects.toThrow(
         '"value" must be one of [red, blue, green]',
       )
+    })
+
+    it("supports single element closed string enums as literal", async () => {
+      const enumValues = ["red"]
+
+      const {code, execute} = await getActual(
+        ir.string({
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.any().valid("red").required()"`,
+      )
+
+      await expect(execute("red")).resolves.toBe("red")
+
+      await expect(execute("orange")).rejects.toThrow(/"value" must be \[red\]/)
+    })
+
+    it("supports single element open string enums as string", async () => {
+      const enumValues = ["red"]
+
+      const {code, execute} = await getActual(
+        ir.string({
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"const x = joi.string().required()"`)
+
+      await expect(execute("red")).resolves.toBe("red")
+      await expect(execute("orange")).resolves.toBe("orange")
     })
 
     it("supports open string enums", async () => {
@@ -544,6 +614,8 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       )
 
       await expect(execute(true)).resolves.toBe(true)
+      await expect(execute("true")).resolves.toBe(true)
+      await expect(execute(1)).resolves.toBe(true)
       await expect(execute(false)).rejects.toThrow('"value" must be [true]')
     })
 
@@ -559,6 +631,8 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       )
 
       await expect(execute(false)).resolves.toBe(false)
+      await expect(execute("false")).resolves.toBe(false)
+      await expect(execute(0)).resolves.toBe(false)
       await expect(execute(true)).rejects.toThrow('"value" must be [false]')
     })
   })

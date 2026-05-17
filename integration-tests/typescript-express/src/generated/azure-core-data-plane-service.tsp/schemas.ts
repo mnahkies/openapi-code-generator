@@ -19,7 +19,7 @@ export const s_Azure_Core_eTag = z.string()
 export const s_Azure_Core_uuid = z.string()
 
 export const s_WidgetAnalytics = z.object({
-  id: z.enum(["current"]),
+  id: z.literal("current"),
   useCount: z.coerce.number(),
   repairCount: z.coerce.number(),
 })

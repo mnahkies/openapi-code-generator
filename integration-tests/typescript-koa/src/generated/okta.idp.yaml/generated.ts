@@ -1687,11 +1687,11 @@ export function createRouter(
           _links: z.object({
             verify: z.object({
               href: z.string().min(1),
-              hints: z.object({allow: z.array(z.enum(["POST"]))}),
+              hints: z.object({allow: z.array(z.literal("POST"))}),
             }),
             poll: z.object({
               href: z.string().min(1),
-              hints: z.object({allow: z.array(z.enum(["GET"]))}),
+              hints: z.object({allow: z.array(z.literal("GET"))}),
             }),
           }),
         }),
@@ -2352,7 +2352,7 @@ export function createRouter(
               verify: z
                 .object({
                   href: z.string().min(1),
-                  hints: z.object({allow: z.array(z.enum(["GET"]))}),
+                  hints: z.object({allow: z.array(z.literal("GET"))}),
                 })
                 .optional(),
             })

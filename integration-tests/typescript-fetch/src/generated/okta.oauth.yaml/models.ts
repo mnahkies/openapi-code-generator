@@ -135,7 +135,7 @@ export type t_Client = {
   tos_uri?: string | null
 }
 
-export type t_CodeChallengeMethod = "S256" | UnknownEnumStringValue
+export type t_CodeChallengeMethod = "S256"
 
 export type t_DeviceAuthorizeRequest = {
   client_id?: string
@@ -376,7 +376,7 @@ export type t_SigningAlgorithm =
 
 export type t_SubjectType = "pairwise" | "public" | UnknownEnumStringValue
 
-export type t_TokenDeliveryMode = "poll" | UnknownEnumStringValue
+export type t_TokenDeliveryMode = "poll"
 
 export type t_TokenRequest = {
   grant_type?: t_GrantType
@@ -425,6 +425,6 @@ export type t_UserInfo = {
 }
 
 export type t_sub_id = {
-  format?: "opaque" | UnknownEnumStringValue
+  format?: "opaque"
   id?: string
 }

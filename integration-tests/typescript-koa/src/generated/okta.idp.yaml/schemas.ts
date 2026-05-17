@@ -19,7 +19,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
   device: z
     .object({
       id: z.string().optional(),
-      status: z.enum(["ACTIVE"]).optional(),
+      status: z.literal("ACTIVE").optional(),
       createdDate: z.iso.datetime({offset: true}).optional(),
       lastUpdated: z.iso.datetime({offset: true}).optional(),
       clientInstanceId: z.string().optional(),
@@ -52,7 +52,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
                 .object({
                   href: z.string().min(1).optional(),
                   hints: z
-                    .object({allow: z.array(z.enum(["GET"])).optional()})
+                    .object({allow: z.array(z.literal("GET")).optional()})
                     .optional(),
                 })
                 .optional(),
@@ -159,9 +159,9 @@ export const s_Error = z.object({
 export const s_HttpMethod = z.enum(["DELETE", "GET", "POST", "PUT"])
 
 export const s_KeyEC = z.object({
-  crv: z.enum(["P-256"]),
+  crv: z.literal("P-256"),
   kid: z.string(),
-  kty: z.enum(["EC"]),
+  kty: z.literal("EC"),
   "okta:kpr": z.enum(["HARDWARE", "SOFTWARE"]),
   x: z.string(),
   y: z.string(),
@@ -170,7 +170,7 @@ export const s_KeyEC = z.object({
 export const s_KeyRSA = z.object({
   e: z.string(),
   kid: z.string(),
-  kty: z.enum(["RSA"]),
+  kty: z.literal("RSA"),
   n: z.string(),
   "okta:kpr": z.enum(["HARDWARE", "SOFTWARE"]),
 })
@@ -192,7 +192,7 @@ export const s_Organization = z.object({
         .object({
           href: z.string().min(1).optional(),
           hints: z
-            .object({allow: z.array(z.enum(["GET"])).optional()})
+            .object({allow: z.array(z.literal("GET")).optional()})
             .optional(),
         })
         .optional(),
@@ -279,12 +279,12 @@ export const s_Profile = z.object({
 
 export const s_PushNotificationChallenge = z.object({
   challenge: z.string().optional(),
-  payloadVersion: z.enum(["IDXv1"]).optional(),
+  payloadVersion: z.literal("IDXv1").optional(),
 })
 
 export const s_PushNotificationVerification = z.object({
   challengeResponse: z.string().optional(),
-  method: z.enum(["push"]).optional(),
+  method: z.literal("push").optional(),
 })
 
 export const s_Schema = z.object({

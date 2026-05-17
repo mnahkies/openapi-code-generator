@@ -632,7 +632,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_account[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -944,7 +944,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_capability[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -1051,7 +1051,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: (t_bank_account | t_card)[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -1267,7 +1267,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_person[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -1471,7 +1471,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_person[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -1697,7 +1697,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_apple_pay_domain[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -1827,7 +1827,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_application_fee[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2010,7 +2010,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_fee_refund[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2094,7 +2094,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_apps_secret[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2279,7 +2279,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_balance_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2372,7 +2372,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_balance_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2442,7 +2442,7 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getBillingAlerts(
     p: {
-      alertType?: "usage_threshold" | UnknownEnumStringValue
+      alertType?: "usage_threshold"
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -2455,7 +2455,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_alert[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2661,7 +2661,7 @@ export class StripeApi extends AbstractAxiosClient {
       filter: {
         applicability_scope?:
           | {
-              price_type?: ("metered" | UnknownEnumStringValue) | undefined
+              price_type?: "metered" | undefined
               prices?:
                 | {
                     id: string
@@ -2716,7 +2716,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_credit_balance_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -2791,7 +2791,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_credit_grant[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -3067,7 +3067,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_meter[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -3249,7 +3249,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_meter_event_summary[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -3334,7 +3334,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_billing_portal_configuration[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -3524,7 +3524,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_charge[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -3617,7 +3617,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_charge[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -3907,7 +3907,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_refund[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4071,7 +4071,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_checkout_session[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4294,7 +4294,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4337,7 +4337,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_climate_order[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4514,7 +4514,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_climate_product[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4586,7 +4586,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_climate_supplier[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4687,7 +4687,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_country_spec[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4767,7 +4767,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_coupon[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -4949,7 +4949,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_credit_note[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -5040,10 +5040,9 @@ export class StripeApi extends AbstractAxiosClient {
                   taxable_amount: number
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
         type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
@@ -5144,10 +5143,9 @@ export class StripeApi extends AbstractAxiosClient {
                   taxable_amount: number
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
         type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
@@ -5177,7 +5175,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_credit_note_line_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -5250,7 +5248,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_credit_note_line_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -5435,7 +5433,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_customer[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -5529,7 +5527,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_customer[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -5667,7 +5665,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_customer_balance_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -5810,7 +5808,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_bank_account[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -6037,7 +6035,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_card[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -6292,7 +6290,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_customer_cash_balance_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -6500,7 +6498,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_method[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -6577,7 +6575,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: (t_bank_account | t_card | t_source)[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -6805,7 +6803,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_subscription[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7072,7 +7070,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_id[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7205,7 +7203,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_dispute[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7359,7 +7357,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_entitlements_active_entitlement[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7434,7 +7432,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_entitlements_feature[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7657,7 +7655,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_event[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7741,7 +7739,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_exchange_rate[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -7861,7 +7859,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_file_link[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8035,7 +8033,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_file[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8142,7 +8140,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_financial_connections_account[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8258,7 +8256,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_financial_connections_account_owner[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8469,7 +8467,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_financial_connections_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8558,7 +8556,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_forwarding_request[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8678,7 +8676,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_identity_verification_report[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8774,7 +8772,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_identity_verification_session[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -8999,7 +8997,7 @@ export class StripeApi extends AbstractAxiosClient {
       limit?: number
       payment?: {
         payment_intent?: string | undefined
-        type: "payment_intent" | UnknownEnumStringValue
+        type: "payment_intent"
       }
       startingAfter?: string
       status?: "canceled" | "open" | "paid" | UnknownEnumStringValue
@@ -9010,7 +9008,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_invoice_payment[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -9090,7 +9088,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_invoice_rendering_template[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -9247,7 +9245,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_invoiceitem[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -9454,7 +9452,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_invoice[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -9603,7 +9601,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_invoice[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -9852,7 +9850,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_line_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -10164,7 +10162,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_authorization[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -10367,7 +10365,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_cardholder[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -10540,7 +10538,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_card[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -10714,7 +10712,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_dispute[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -10917,7 +10915,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_personalization_design[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11076,7 +11074,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_physical_bundle[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11231,7 +11229,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_token[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11351,7 +11349,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_issuing_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11535,7 +11533,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_financial_connections_account[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11651,7 +11649,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_financial_connections_account_owner[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11764,7 +11762,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_intent[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -11853,7 +11851,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_payment_intent[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -12195,7 +12193,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_link[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -12367,7 +12365,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -12399,7 +12397,7 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getPaymentMethodConfigurations(
     p: {
-      application?: string | "" | UnknownEnumStringValue
+      application?: string | ""
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -12411,7 +12409,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_method_configuration[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -12665,7 +12663,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_method_domain[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -12891,7 +12889,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payment_method[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -13178,7 +13176,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_payout[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -13412,7 +13410,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_plan[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -13602,7 +13600,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_price[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -13701,7 +13699,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_price[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -13824,7 +13822,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_product[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -13915,7 +13913,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_product[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -14052,7 +14050,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_product_feature[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14187,7 +14185,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_promotion_code[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14345,7 +14343,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_quote[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14593,7 +14591,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14673,7 +14671,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14759,7 +14757,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_radar_early_fraud_warning[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14848,7 +14846,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_radar_value_list_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -14985,7 +14983,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_radar_value_list[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15160,7 +15158,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_refund[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15356,7 +15354,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_reporting_report_run[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15460,7 +15458,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_reporting_report_type[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15535,7 +15533,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_review[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15657,7 +15655,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_setup_attempt[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -15717,7 +15715,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_setup_intent[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -16004,7 +16002,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_shipping_rate[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -16189,7 +16187,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_scheduled_query_run[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -16403,7 +16401,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_source_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -16508,7 +16506,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_subscription_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -16724,7 +16722,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_subscription_schedule[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17015,7 +17013,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_subscription[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17131,7 +17129,7 @@ export class StripeApi extends AbstractAxiosClient {
       data: t_subscription[]
       has_more: boolean
       next_page?: (string | null) | undefined
-      object: "search_result" | UnknownEnumStringValue
+      object: "search_result"
       total_count?: number | undefined
       url: string
     }>
@@ -17446,7 +17444,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_calculation_line_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17495,7 +17493,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_registration[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17794,7 +17792,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_transaction_line_item[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17837,7 +17835,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_code[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -17919,7 +17917,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_id[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -18055,7 +18053,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_tax_rate[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -18202,7 +18200,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_terminal_configuration[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -18418,7 +18416,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_terminal_location[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -18594,7 +18592,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_terminal_reader[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -19914,7 +19912,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_test_helpers_test_clock[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -20605,7 +20603,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_topup[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -20801,7 +20799,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_transfer[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -20882,7 +20880,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_transfer_reversal[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21099,7 +21097,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_credit_reversal[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21208,7 +21206,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_debit_reversal[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21323,7 +21321,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_financial_account[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21592,7 +21590,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_inbound_transfer[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21749,7 +21747,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_outbound_payment[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -21906,7 +21904,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_outbound_transfer[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -22059,7 +22057,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_received_credit[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -22140,7 +22138,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_received_debit[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -22233,7 +22231,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_transaction_entry[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -22342,7 +22340,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_treasury_transaction[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {
@@ -22427,7 +22425,7 @@ export class StripeApi extends AbstractAxiosClient {
     AxiosResponse<{
       data: t_webhook_endpoint[]
       has_more: boolean
-      object: "list" | UnknownEnumStringValue
+      object: "list"
       url: string
     }>
   > {

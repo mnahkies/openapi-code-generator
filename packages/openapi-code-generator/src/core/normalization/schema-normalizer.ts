@@ -33,6 +33,16 @@ export class SchemaNormalizer {
     return schema && Reflect.get(schema, "isIRModel")
   }
 
+  private getEnumExtensibility(
+    schemaObject: {"x-enum-extensibility"?: "open" | "closed" | undefined},
+    enumValues: unknown[],
+  ) {
+    return (
+      schemaObject["x-enum-extensibility"] ??
+      (enumValues.length === 1 ? "closed" : this.config.enumExtensibility)
+    )
+  }
+
   private hasPropertiesOrComposition(schema: SchemaObject): boolean {
     return Boolean(
       schema.allOf?.length ||
@@ -292,8 +302,7 @@ export class SchemaNormalizer {
           ...calcMaximums(),
           ...calcMinimums(),
           "x-enum-extensibility": enumValues.length
-            ? (schemaObject["x-enum-extensibility"] ??
-              self.config.enumExtensibility)
+            ? this.getEnumExtensibility(schemaObject, enumValues)
             : undefined,
         } satisfies IRModelNumeric
       }
@@ -315,8 +324,7 @@ export class SchemaNormalizer {
           pattern: schemaObject.pattern,
 
           "x-enum-extensibility": enumValues.length
-            ? (schemaObject["x-enum-extensibility"] ??
-              self.config.enumExtensibility)
+            ? this.getEnumExtensibility(schemaObject, enumValues)
             : undefined,
         } satisfies IRModelString
       }

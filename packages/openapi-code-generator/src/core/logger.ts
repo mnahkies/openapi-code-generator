@@ -8,10 +8,26 @@ enum Color {
   Reset = "\x1b[0m",
 }
 
-const ConsoleSink = {
-  info: (it: string) => console.info(it),
-  warn: (it: string) => console.info(it),
-  error: (it: string) => console.info(it),
+const ConsoleSinkFactory = (level: "info" | "warn" | "error") => {
+  const levelNumber = level === "info" ? 0 : level === "warn" ? 1 : 2
+
+  return {
+    info: (it: string) => {
+      if (levelNumber <= 0) {
+        console.info(it)
+      }
+    },
+    warn: (it: string) => {
+      if (levelNumber <= 1) {
+        console.info(it)
+      }
+    },
+    error: (it: string) => {
+      if (levelNumber <= 2) {
+        console.info(it)
+      }
+    },
+  }
 }
 
 const shouldColor = (isTTY: boolean) => {
@@ -37,7 +53,7 @@ export class Logger {
   constructor(
     private readonly isTTY: boolean,
     private readonly format = defaultFormat,
-    private readonly sink = ConsoleSink,
+    private readonly sink = ConsoleSinkFactory("info"),
   ) {}
 
   readonly info = (message: string, meta?: LoggerMeta): void => {
@@ -122,4 +138,8 @@ function diff(start: bigint, end: bigint) {
   return Number((end - start) / BigInt(1000000))
 }
 
-export const logger = new Logger(process.stdout.isTTY)
+export const logger = new Logger(
+  process.stdout.isTTY,
+  defaultFormat,
+  ConsoleSinkFactory(process.env.NODE_ENV === "test" ? "warn" : "info"),
+)

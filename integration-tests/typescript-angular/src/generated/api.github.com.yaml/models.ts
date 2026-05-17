@@ -324,7 +324,7 @@ export type t_app_permissions = {
   metadata?: "read" | "write" | UnknownEnumStringValue
   organization_administration?: "read" | "write" | UnknownEnumStringValue
   organization_announcement_banners?: "read" | "write" | UnknownEnumStringValue
-  organization_copilot_seat_management?: "write" | UnknownEnumStringValue
+  organization_copilot_seat_management?: "write"
   organization_custom_org_roles?: "read" | "write" | UnknownEnumStringValue
   organization_custom_properties?:
     | "read"
@@ -332,7 +332,7 @@ export type t_app_permissions = {
     | "admin"
     | UnknownEnumStringValue
   organization_custom_roles?: "read" | "write" | UnknownEnumStringValue
-  organization_events?: "read" | UnknownEnumStringValue
+  organization_events?: "read"
   organization_hooks?: "read" | "write" | UnknownEnumStringValue
   organization_packages?: "read" | "write" | UnknownEnumStringValue
   organization_personal_access_token_requests?:
@@ -343,14 +343,14 @@ export type t_app_permissions = {
     | "read"
     | "write"
     | UnknownEnumStringValue
-  organization_plan?: "read" | UnknownEnumStringValue
+  organization_plan?: "read"
   organization_projects?: "read" | "write" | "admin" | UnknownEnumStringValue
   organization_secrets?: "read" | "write" | UnknownEnumStringValue
   organization_self_hosted_runners?: "read" | "write" | UnknownEnumStringValue
   organization_user_blocking?: "read" | "write" | UnknownEnumStringValue
   packages?: "read" | "write" | UnknownEnumStringValue
   pages?: "read" | "write" | UnknownEnumStringValue
-  profile?: "write" | UnknownEnumStringValue
+  profile?: "write"
   pull_requests?: "read" | "write" | UnknownEnumStringValue
   repository_custom_properties?: "read" | "write" | UnknownEnumStringValue
   repository_hooks?: "read" | "write" | UnknownEnumStringValue
@@ -363,7 +363,7 @@ export type t_app_permissions = {
   statuses?: "read" | "write" | UnknownEnumStringValue
   team_discussions?: "read" | "write" | UnknownEnumStringValue
   vulnerability_alerts?: "read" | "write" | UnknownEnumStringValue
-  workflows?: "write" | UnknownEnumStringValue
+  workflows?: "write"
 }
 
 export type t_artifact = {
@@ -1167,7 +1167,7 @@ export type t_code_scanning_default_setup = {
   query_suite?: "default" | "extended" | UnknownEnumStringValue
   runner_label?: string | null
   runner_type?: "standard" | "labeled" | UnknownEnumStringValue | null
-  schedule?: "weekly" | UnknownEnumStringValue | null
+  schedule?: "weekly" | null
   state?: "configured" | "not-configured" | UnknownEnumStringValue
   threat_model?: "remote" | "remote_and_local" | UnknownEnumStringValue
   updated_at?: string | null
@@ -1893,7 +1893,7 @@ export type t_content_file = {
   size: number
   submodule_git_url?: string
   target?: string
-  type: "file" | UnknownEnumStringValue
+  type: "file"
   url: string
 }
 
@@ -1911,7 +1911,7 @@ export type t_content_submodule = {
   sha: string
   size: number
   submodule_git_url: string
-  type: "submodule" | UnknownEnumStringValue
+  type: "submodule"
   url: string
 }
 
@@ -1929,7 +1929,7 @@ export type t_content_symlink = {
   sha: string
   size: number
   target: string
-  type: "symlink" | UnknownEnumStringValue
+  type: "symlink"
   url: string
 }
 
@@ -6301,14 +6301,14 @@ export type t_repository_rule_branch_name_pattern = {
       | UnknownEnumStringValue
     pattern: string
   }
-  type: "branch_name_pattern" | UnknownEnumStringValue
+  type: "branch_name_pattern"
 }
 
 export type t_repository_rule_code_scanning = {
   parameters?: {
     code_scanning_tools: t_repository_rule_params_code_scanning_tool[]
   }
-  type: "code_scanning" | UnknownEnumStringValue
+  type: "code_scanning"
 }
 
 export type t_repository_rule_commit_author_email_pattern = {
@@ -6323,7 +6323,7 @@ export type t_repository_rule_commit_author_email_pattern = {
       | UnknownEnumStringValue
     pattern: string
   }
-  type: "commit_author_email_pattern" | UnknownEnumStringValue
+  type: "commit_author_email_pattern"
 }
 
 export type t_repository_rule_commit_message_pattern = {
@@ -6338,7 +6338,7 @@ export type t_repository_rule_commit_message_pattern = {
       | UnknownEnumStringValue
     pattern: string
   }
-  type: "commit_message_pattern" | UnknownEnumStringValue
+  type: "commit_message_pattern"
 }
 
 export type t_repository_rule_committer_email_pattern = {
@@ -6353,15 +6353,15 @@ export type t_repository_rule_committer_email_pattern = {
       | UnknownEnumStringValue
     pattern: string
   }
-  type: "committer_email_pattern" | UnknownEnumStringValue
+  type: "committer_email_pattern"
 }
 
 export type t_repository_rule_creation = {
-  type: "creation" | UnknownEnumStringValue
+  type: "creation"
 }
 
 export type t_repository_rule_deletion = {
-  type: "deletion" | UnknownEnumStringValue
+  type: "deletion"
 }
 
 export type t_repository_rule_detailed =
@@ -6399,28 +6399,28 @@ export type t_repository_rule_file_extension_restriction = {
   parameters?: {
     restricted_file_extensions: string[]
   }
-  type: "file_extension_restriction" | UnknownEnumStringValue
+  type: "file_extension_restriction"
 }
 
 export type t_repository_rule_file_path_restriction = {
   parameters?: {
     restricted_file_paths: string[]
   }
-  type: "file_path_restriction" | UnknownEnumStringValue
+  type: "file_path_restriction"
 }
 
 export type t_repository_rule_max_file_path_length = {
   parameters?: {
     max_file_path_length: number
   }
-  type: "max_file_path_length" | UnknownEnumStringValue
+  type: "max_file_path_length"
 }
 
 export type t_repository_rule_max_file_size = {
   parameters?: {
     max_file_size: number
   }
-  type: "max_file_size" | UnknownEnumStringValue
+  type: "max_file_size"
 }
 
 export type t_repository_rule_merge_queue = {
@@ -6433,11 +6433,11 @@ export type t_repository_rule_merge_queue = {
     min_entries_to_merge: number
     min_entries_to_merge_wait_minutes: number
   }
-  type: "merge_queue" | UnknownEnumStringValue
+  type: "merge_queue"
 }
 
 export type t_repository_rule_non_fast_forward = {
-  type: "non_fast_forward" | UnknownEnumStringValue
+  type: "non_fast_forward"
 }
 
 export type t_repository_rule_params_code_scanning_tool = {
@@ -6484,22 +6484,22 @@ export type t_repository_rule_pull_request = {
     required_approving_review_count: number
     required_review_thread_resolution: boolean
   }
-  type: "pull_request" | UnknownEnumStringValue
+  type: "pull_request"
 }
 
 export type t_repository_rule_required_deployments = {
   parameters?: {
     required_deployment_environments: string[]
   }
-  type: "required_deployments" | UnknownEnumStringValue
+  type: "required_deployments"
 }
 
 export type t_repository_rule_required_linear_history = {
-  type: "required_linear_history" | UnknownEnumStringValue
+  type: "required_linear_history"
 }
 
 export type t_repository_rule_required_signatures = {
-  type: "required_signatures" | UnknownEnumStringValue
+  type: "required_signatures"
 }
 
 export type t_repository_rule_required_status_checks = {
@@ -6508,7 +6508,7 @@ export type t_repository_rule_required_status_checks = {
     required_status_checks: t_repository_rule_params_status_check_configuration[]
     strict_required_status_checks_policy: boolean
   }
-  type: "required_status_checks" | UnknownEnumStringValue
+  type: "required_status_checks"
 }
 
 export type t_repository_rule_ruleset_info = {
@@ -6529,14 +6529,14 @@ export type t_repository_rule_tag_name_pattern = {
       | UnknownEnumStringValue
     pattern: string
   }
-  type: "tag_name_pattern" | UnknownEnumStringValue
+  type: "tag_name_pattern"
 }
 
 export type t_repository_rule_update = {
   parameters?: {
     update_allows_fetch_and_merge: boolean
   }
-  type: "update" | UnknownEnumStringValue
+  type: "update"
 }
 
 export type t_repository_rule_violation_error = {
@@ -6558,7 +6558,7 @@ export type t_repository_rule_workflows = {
     do_not_enforce_on_create?: boolean
     workflows: t_repository_rule_params_workflow_file_reference[]
   }
-  type: "workflows" | UnknownEnumStringValue
+  type: "workflows"
 }
 
 export type t_repository_ruleset = {
@@ -8547,7 +8547,7 @@ export type t_ChecksCreateRequestBody = {
         | "stale"
         | "timed_out"
         | UnknownEnumStringValue
-      status: "completed" | UnknownEnumStringValue
+      status: "completed"
       [key: string]: unknown | undefined
     }
   | {
@@ -8633,7 +8633,7 @@ export type t_ChecksUpdateRequestBody = {
         | "stale"
         | "timed_out"
         | UnknownEnumStringValue
-      status?: "completed" | UnknownEnumStringValue
+      status?: "completed"
       [key: string]: unknown | undefined
     }
   | {
@@ -9501,7 +9501,7 @@ export type t_MigrationsSetLfsPreferenceRequestBody = {
 }
 
 export type t_MigrationsStartForAuthenticatedUserRequestBody = {
-  exclude?: ("repositories" | UnknownEnumStringValue)[]
+  exclude?: "repositories"[]
   exclude_attachments?: boolean
   exclude_git_data?: boolean
   exclude_metadata?: boolean
@@ -9513,7 +9513,7 @@ export type t_MigrationsStartForAuthenticatedUserRequestBody = {
 }
 
 export type t_MigrationsStartForOrgRequestBody = {
-  exclude?: ("repositories" | UnknownEnumStringValue)[]
+  exclude?: "repositories"[]
   exclude_attachments?: boolean
   exclude_git_data?: boolean
   exclude_metadata?: boolean
@@ -9653,15 +9653,15 @@ export type t_OrgsUpdateRequestBody = {
 }
 
 export type t_OrgsUpdateMembershipForAuthenticatedUserRequestBody = {
-  state: "active" | UnknownEnumStringValue
+  state: "active"
 }
 
 export type t_OrgsUpdatePatAccessRequestBody = {
-  action: "revoke" | UnknownEnumStringValue
+  action: "revoke"
 }
 
 export type t_OrgsUpdatePatAccessesRequestBody = {
-  action: "revoke" | UnknownEnumStringValue
+  action: "revoke"
   pat_ids: number[]
 }
 
@@ -9843,7 +9843,7 @@ export type t_PullsCreateReviewCommentRequestBody = {
 }
 
 export type t_PullsDismissReviewRequestBody = {
-  event?: "DISMISS" | UnknownEnumStringValue
+  event?: "DISMISS"
   message: string
 }
 

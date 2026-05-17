@@ -12409,7 +12409,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_account)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/accounts")),
         }),
       ],
@@ -12968,7 +12968,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_capability)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -13206,7 +13206,7 @@ export function createRouter(
               z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
             ),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -13640,7 +13640,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_person)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -14006,7 +14006,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_person)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -14412,7 +14412,7 @@ export function createRouter(
         z.object({
           data: z.array(s_apple_pay_domain),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/apple_pay/domains")),
         }),
       ],
@@ -14691,7 +14691,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_application_fee)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/application_fees")),
         }),
       ],
@@ -15065,7 +15065,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_fee_refund)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -15230,7 +15230,7 @@ export function createRouter(
         z.object({
           data: z.array(s_apps_secret),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/apps/secrets")),
         }),
       ],
@@ -15588,7 +15588,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -15810,7 +15810,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -16003,7 +16003,7 @@ export function createRouter(
   )
 
   const getBillingAlertsQuerySchema = z.object({
-    alert_type: z.enum(["usage_threshold"]).optional(),
+    alert_type: z.literal("usage_threshold").optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -16023,7 +16023,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_billing_alert)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/billing/alerts")),
         }),
       ],
@@ -16398,7 +16398,7 @@ export function createRouter(
     filter: z.object({
       applicability_scope: z
         .object({
-          price_type: z.enum(["metered"]).optional(),
+          price_type: z.literal("metered").optional(),
           prices: z.array(z.object({id: z.string().max(5000)})).optional(),
         })
         .optional(),
@@ -16521,7 +16521,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_billing_credit_balance_transaction)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -16724,7 +16724,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_billing_credit_grant)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -17202,7 +17202,7 @@ export function createRouter(
         z.object({
           data: z.array(s_billing_meter),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/billing/meters")),
         }),
       ],
@@ -17529,7 +17529,7 @@ export function createRouter(
           z.object({
             data: z.array(s_billing_meter_event_summary),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -17720,7 +17720,7 @@ export function createRouter(
           z.object({
             data: z.array(s_billing_portal_configuration),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -18095,7 +18095,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_charge)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/charges")),
         }),
       ],
@@ -18269,7 +18269,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_charge)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -18767,7 +18767,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_refund)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -19068,7 +19068,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_checkout_session)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -19448,7 +19448,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -19555,7 +19555,7 @@ export function createRouter(
         z.object({
           data: z.array(s_climate_order),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/orders")),
         }),
       ],
@@ -19873,7 +19873,7 @@ export function createRouter(
         z.object({
           data: z.array(s_climate_product),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/products")),
         }),
       ],
@@ -20041,7 +20041,7 @@ export function createRouter(
         z.object({
           data: z.array(s_climate_supplier),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/climate/suppliers")),
         }),
       ],
@@ -20291,7 +20291,7 @@ export function createRouter(
         z.object({
           data: z.array(s_country_spec),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/country_specs")),
         }),
       ],
@@ -20472,7 +20472,7 @@ export function createRouter(
         z.object({
           data: z.array(s_coupon),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/coupons")),
         }),
       ],
@@ -20804,7 +20804,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_credit_note)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -20982,11 +20982,11 @@ export function createRouter(
                     taxable_amount: z.coerce.number(),
                   }),
                 ),
-                z.enum([""]),
+                z.literal(""),
               ])
               .optional(),
             tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
+              .union([z.array(z.string().max(5000)), z.literal("")])
               .optional(),
             type: z.enum(["custom_line_item", "invoice_line_item"]),
             unit_amount: z.coerce.number().optional(),
@@ -21224,11 +21224,11 @@ export function createRouter(
                     taxable_amount: z.coerce.number(),
                   }),
                 ),
-                z.enum([""]),
+                z.literal(""),
               ])
               .optional(),
             tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
+              .union([z.array(z.string().max(5000)), z.literal("")])
               .optional(),
             type: z.enum(["custom_line_item", "invoice_line_item"]),
             unit_amount: z.coerce.number().optional(),
@@ -21274,7 +21274,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_credit_note_line_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -21498,7 +21498,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_credit_note_line_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -21827,7 +21827,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_customer)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/customers")),
         }),
       ],
@@ -21995,7 +21995,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_customer)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -22271,7 +22271,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_customer_balance_transaction)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -22605,7 +22605,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_bank_account)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -23046,7 +23046,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_card)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -23544,7 +23544,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -23982,7 +23982,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_payment_method)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -24193,7 +24193,7 @@ export function createRouter(
               ]),
             ),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -24634,7 +24634,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_subscription)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -25146,7 +25146,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_tax_id)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -25445,7 +25445,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_dispute)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/disputes")),
         }),
       ],
@@ -25743,7 +25743,7 @@ export function createRouter(
           z.object({
             data: z.array(s_entitlements_active_entitlement),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -25933,7 +25933,7 @@ export function createRouter(
           z.object({
             data: z.array(s_entitlements_feature),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -26330,7 +26330,7 @@ export function createRouter(
         z.object({
           data: z.array(s_event),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/events")),
         }),
       ],
@@ -26528,7 +26528,7 @@ export function createRouter(
         z.object({
           data: z.array(s_exchange_rate),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/exchange_rates")),
         }),
       ],
@@ -26762,7 +26762,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_file_link)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
         }),
       ],
@@ -27078,7 +27078,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_file)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/files")),
         }),
       ],
@@ -27316,7 +27316,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_financial_connections_account)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -27595,7 +27595,7 @@ export function createRouter(
           z.object({
             data: z.array(s_financial_connections_account_owner),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -28057,7 +28057,7 @@ export function createRouter(
           z.object({
             data: z.array(s_financial_connections_transaction),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -28284,7 +28284,7 @@ export function createRouter(
         z.object({
           data: z.array(s_forwarding_request),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -28526,7 +28526,7 @@ export function createRouter(
           z.object({
             data: z.array(s_identity_verification_report),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -28765,7 +28765,7 @@ export function createRouter(
           z.object({
             data: z.array(s_identity_verification_session),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -29227,7 +29227,7 @@ export function createRouter(
     payment: z
       .object({
         payment_intent: z.string().max(5000).optional(),
-        type: z.enum(["payment_intent"]),
+        type: z.literal("payment_intent"),
       })
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -29241,7 +29241,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_invoice_payment)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -29438,7 +29438,7 @@ export function createRouter(
           z.object({
             data: z.array(s_invoice_rendering_template),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -29767,7 +29767,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_invoiceitem)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoiceitems")),
         }),
       ],
@@ -30147,7 +30147,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_invoice)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoices")),
         }),
       ],
@@ -30384,7 +30384,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_invoice)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -30820,7 +30820,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_line_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -31317,7 +31317,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_issuing_authorization)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -31726,7 +31726,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_issuing_cardholder)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -32055,7 +32055,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_issuing_card)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cards")),
         }),
       ],
@@ -32384,7 +32384,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_issuing_dispute)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/disputes")),
         }),
       ],
@@ -32743,7 +32743,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_issuing_personalization_design)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -33075,7 +33075,7 @@ export function createRouter(
           z.object({
             data: z.array(s_issuing_physical_bundle),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -33409,7 +33409,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_issuing_token)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -33670,7 +33670,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_issuing_transaction)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -34065,7 +34065,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_financial_connections_account)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -34324,7 +34324,7 @@ export function createRouter(
           z.object({
             data: z.array(s_financial_connections_account_owner),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -34576,7 +34576,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_payment_intent)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_intents")),
         }),
       ],
@@ -34739,7 +34739,7 @@ export function createRouter(
             data: z.array(z.lazy(() => s_payment_intent)),
             has_more: PermissiveBoolean,
             next_page: z.string().max(5000).nullable().optional(),
-            object: z.enum(["search_result"]),
+            object: z.literal("search_result"),
             total_count: z.coerce.number().optional(),
             url: z.string().max(5000),
           }),
@@ -35313,7 +35313,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_payment_link)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_links")),
         }),
       ],
@@ -35592,7 +35592,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -35681,7 +35681,7 @@ export function createRouter(
   )
 
   const getPaymentMethodConfigurationsQuerySchema = z.object({
-    application: z.union([z.string().max(100), z.enum([""])]).optional(),
+    application: z.union([z.string().max(100), z.literal("")]).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -35701,7 +35701,7 @@ export function createRouter(
           z.object({
             data: z.array(s_payment_method_configuration),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -36016,7 +36016,7 @@ export function createRouter(
           z.object({
             data: z.array(s_payment_method_domain),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -36425,7 +36425,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_payment_method)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_methods")),
         }),
       ],
@@ -36849,7 +36849,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_payout)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payouts")),
         }),
       ],
@@ -37262,7 +37262,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_plan)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/plans")),
         }),
       ],
@@ -37619,7 +37619,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_price)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/prices")),
         }),
       ],
@@ -37818,7 +37818,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_price)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -38056,7 +38056,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_product)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/products")),
         }),
       ],
@@ -38236,7 +38236,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_product)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -38504,7 +38504,7 @@ export function createRouter(
           z.object({
             data: z.array(s_product_feature),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -38805,7 +38805,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_promotion_code)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/promotion_codes")),
         }),
       ],
@@ -39114,7 +39114,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_quote)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/quotes")),
         }),
       ],
@@ -39497,7 +39497,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -39666,7 +39666,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_item)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -39852,7 +39852,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -40076,7 +40076,7 @@ export function createRouter(
         z.object({
           data: z.array(s_radar_value_list_item),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -40389,7 +40389,7 @@ export function createRouter(
         z.object({
           data: z.array(s_radar_value_list),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/radar/value_lists")),
         }),
       ],
@@ -40746,7 +40746,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_refund)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/refunds")),
         }),
       ],
@@ -41090,7 +41090,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_reporting_report_run)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -41321,7 +41321,7 @@ export function createRouter(
           z.object({
             data: z.array(s_reporting_report_type),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -41487,7 +41487,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_review)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -41730,7 +41730,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_setup_attempt)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_attempts")),
         }),
       ],
@@ -41862,7 +41862,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_setup_intent)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_intents")),
         }),
       ],
@@ -42346,7 +42346,7 @@ export function createRouter(
         z.object({
           data: z.array(s_shipping_rate),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/shipping_rates")),
         }),
       ],
@@ -42692,7 +42692,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_scheduled_query_run)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -43133,7 +43133,7 @@ export function createRouter(
           z.object({
             data: z.array(s_source_transaction),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -43374,7 +43374,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_subscription_item)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -43746,7 +43746,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_subscription_schedule)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -44261,7 +44261,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_subscription)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/subscriptions")),
         }),
       ],
@@ -44484,7 +44484,7 @@ export function createRouter(
           data: z.array(z.lazy(() => s_subscription)),
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
-          object: z.enum(["search_result"]),
+          object: z.literal("search_result"),
           total_count: z.coerce.number().optional(),
           url: z.string().max(5000),
         }),
@@ -45077,7 +45077,7 @@ export function createRouter(
           z.object({
             data: z.array(s_tax_calculation_line_item),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -45194,7 +45194,7 @@ export function createRouter(
         z.object({
           data: z.array(s_tax_registration),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/tax/registrations")),
         }),
       ],
@@ -45741,7 +45741,7 @@ export function createRouter(
           z.object({
             data: z.array(s_tax_transaction_line_item),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -45857,7 +45857,7 @@ export function createRouter(
         z.object({
           data: z.array(s_tax_code),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -46030,7 +46030,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_tax_id)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -46310,7 +46310,7 @@ export function createRouter(
         z.object({
           data: z.array(s_tax_rate),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/tax_rates")),
         }),
       ],
@@ -46600,7 +46600,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_terminal_configuration)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -47027,7 +47027,7 @@ export function createRouter(
         z.object({
           data: z.array(s_terminal_location),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z
             .string()
             .max(5000)
@@ -47374,7 +47374,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_terminal_reader)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000),
         }),
       ],
@@ -49719,7 +49719,7 @@ export function createRouter(
           z.object({
             data: z.array(s_test_helpers_test_clock),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -50953,7 +50953,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_topup)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/topups")),
         }),
       ],
@@ -51309,7 +51309,7 @@ export function createRouter(
         z.object({
           data: z.array(z.lazy(() => s_transfer)),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/transfers")),
         }),
       ],
@@ -51481,7 +51481,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_transfer_reversal)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -51890,7 +51890,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_credit_reversal)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -52141,7 +52141,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_debit_reversal)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -52403,7 +52403,7 @@ export function createRouter(
           z.object({
             data: z.array(s_treasury_financial_account),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -52926,7 +52926,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -53237,7 +53237,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_outbound_payment)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -53559,7 +53559,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -53872,7 +53872,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_received_credit)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -54072,7 +54072,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_received_debit)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -54283,7 +54283,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_transaction_entry)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z
               .string()
               .max(5000)
@@ -54538,7 +54538,7 @@ export function createRouter(
           z.object({
             data: z.array(z.lazy(() => s_treasury_transaction)),
             has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
+            object: z.literal("list"),
             url: z.string().max(5000),
           }),
         ],
@@ -54759,7 +54759,7 @@ export function createRouter(
         z.object({
           data: z.array(s_webhook_endpoint),
           has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
+          object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/webhook_endpoints")),
         }),
       ],

@@ -231,8 +231,24 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     return this.fromModel(model, true)
   }
 
+  protected literal(value: string | number | boolean): string {
+    return [
+      zod,
+      `literal(${typeof value === "string" ? quotedStringLiteral(value) : value})`,
+    ]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected number(model: IRModelNumeric) {
     if (model.enum) {
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
+
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumNumberValue",
@@ -285,6 +301,13 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
 
   protected string(model: IRModelString) {
     if (model.enum) {
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
+
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumStringValue",

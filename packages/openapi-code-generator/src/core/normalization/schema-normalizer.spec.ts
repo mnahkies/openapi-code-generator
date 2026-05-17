@@ -74,6 +74,33 @@ describe("core/input - SchemaNormalizer", () => {
         expect(actual).toStrictEqual(ir.string())
       })
 
+      it("defaults to closed for single element enums", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "string",
+          enum: ["a"],
+        })
+        expect(actual).toStrictEqual(
+          ir.string({
+            enum: ["a"],
+            "x-enum-extensibility": "closed",
+          }),
+        )
+      })
+
+      it("respects explicit open extensibility for single element enums", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "string",
+          enum: ["a"],
+          "x-enum-extensibility": "open",
+        })
+        expect(actual).toStrictEqual(
+          ir.string({
+            enum: ["a"],
+            "x-enum-extensibility": "open",
+          }),
+        )
+      })
+
       it("passes through string specific modifiers", () => {
         const actual = schemaNormalizer.normalize({
           type: "string",
@@ -416,7 +443,7 @@ describe("core/input - SchemaNormalizer", () => {
                   properties: {
                     type: ir.string({
                       enum: ["foo"],
-                      "x-enum-extensibility": "open",
+                      "x-enum-extensibility": "closed",
                     }),
                   },
                 }),
@@ -424,7 +451,7 @@ describe("core/input - SchemaNormalizer", () => {
                   properties: {
                     type: ir.string({
                       enum: ["bar"],
-                      "x-enum-extensibility": "open",
+                      "x-enum-extensibility": "closed",
                     }),
                   },
                 }),
@@ -457,7 +484,7 @@ describe("core/input - SchemaNormalizer", () => {
                   properties: {
                     type: ir.string({
                       enum: ["foo"],
-                      "x-enum-extensibility": "open",
+                      "x-enum-extensibility": "closed",
                     }),
                   },
                 }),
@@ -465,7 +492,7 @@ describe("core/input - SchemaNormalizer", () => {
                   properties: {
                     type: ir.string({
                       enum: ["bar"],
-                      "x-enum-extensibility": "open",
+                      "x-enum-extensibility": "closed",
                     }),
                   },
                 }),

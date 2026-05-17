@@ -392,13 +392,13 @@ export class MyAccountManagement extends AbstractAxiosClient {
       _links: {
         poll: {
           hints: {
-            allow: ("GET" | UnknownEnumStringValue)[]
+            allow: "GET"[]
           }
           href: string
         }
         verify: {
           hints: {
-            allow: ("POST" | UnknownEnumStringValue)[]
+            allow: "POST"[]
           }
           href: string
         }
@@ -713,7 +713,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
             verify?:
               | {
                   hints: {
-                    allow: ("GET" | UnknownEnumStringValue)[]
+                    allow: "GET"[]
                   }
                   href: string
                 }
