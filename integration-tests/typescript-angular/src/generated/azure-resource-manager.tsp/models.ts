@@ -12,10 +12,7 @@ export type t_Azure_Core_azureLocation = string
 
 export type t_Azure_Core_uuid = string
 
-export type t_Azure_ResourceManager_CommonTypes_ActionType =
-  | "Internal"
-  | UnknownEnumStringValue
-  | string
+export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
   info?: unknown

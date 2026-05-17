@@ -24,7 +24,7 @@ export const s_Azure_Core_azureLocation = z.string()
 export const s_Azure_Core_uuid = z.string()
 
 export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
-  z.enum(["Internal"]),
+  z.literal("Internal"),
   z.string(),
 ])
 

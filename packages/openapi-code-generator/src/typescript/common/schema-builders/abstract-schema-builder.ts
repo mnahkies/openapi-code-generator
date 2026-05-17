@@ -375,6 +375,8 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract arrayItems(model: MaybeIRModel): string
 
+  protected abstract literal(value: string | number | boolean): string
+
   protected abstract number(model: IRModelNumeric): string
 
   protected abstract string(model: IRModelString): string

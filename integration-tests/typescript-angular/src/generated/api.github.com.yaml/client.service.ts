@@ -1767,7 +1767,7 @@ export class GitHubV3RestApiService {
     ecosystem?: string
     package?: string
     epssPercentage?: string
-    has?: string | ("patch" | UnknownEnumStringValue)[]
+    has?: string | "patch"[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -6176,7 +6176,7 @@ export class GitHubV3RestApiService {
     ecosystem?: string
     package?: string
     epssPercentage?: string
-    has?: string | ("patch" | UnknownEnumStringValue)[]
+    has?: string | "patch"[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -7753,7 +7753,7 @@ export class GitHubV3RestApiService {
     org: string
     perPage?: number
     page?: number
-    exclude?: ("repositories" | UnknownEnumStringValue)[]
+    exclude?: "repositories"[]
   }): Observable<
     (HttpResponse<t_migration[]> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -7810,7 +7810,7 @@ export class GitHubV3RestApiService {
   migrationsGetStatusForOrg(p: {
     org: string
     migrationId: number
-    exclude?: ("repositories" | UnknownEnumStringValue)[]
+    exclude?: "repositories"[]
   }): Observable<
     | (HttpResponse<t_migration> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -8509,7 +8509,7 @@ export class GitHubV3RestApiService {
     org: string
     perPage?: number
     page?: number
-    sort?: "created_at" | UnknownEnumStringValue
+    sort?: "created_at"
     direction?: "asc" | "desc" | UnknownEnumStringValue
     owner?: string[]
     repository?: string
@@ -8657,7 +8657,7 @@ export class GitHubV3RestApiService {
     org: string
     perPage?: number
     page?: number
-    sort?: "created_at" | UnknownEnumStringValue
+    sort?: "created_at"
     direction?: "asc" | "desc" | UnknownEnumStringValue
     owner?: string[]
     repository?: string
@@ -15210,7 +15210,7 @@ export class GitHubV3RestApiService {
     ref?: t_code_scanning_ref
     sarifId?: t_code_scanning_analysis_sarif_id
     direction?: "asc" | "desc" | UnknownEnumStringValue
-    sort?: "created" | UnknownEnumStringValue
+    sort?: "created"
   }): Observable<
     | (HttpResponse<t_code_scanning_analysis[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -16842,7 +16842,7 @@ export class GitHubV3RestApiService {
     package?: string
     manifest?: string
     epssPercentage?: string
-    has?: string | ("patch" | UnknownEnumStringValue)[]
+    has?: string | "patch"[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -23934,7 +23934,7 @@ export class GitHubV3RestApiService {
 
   searchCode(p: {
     q: string
-    sort?: "indexed" | UnknownEnumStringValue
+    sort?: "indexed"
     order?: "desc" | "asc" | UnknownEnumStringValue
     perPage?: number
     page?: number

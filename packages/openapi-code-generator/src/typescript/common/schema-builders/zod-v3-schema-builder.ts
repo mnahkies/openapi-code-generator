@@ -228,9 +228,25 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     return this.fromModel(model, true)
   }
 
+  protected literal(value: string | number | boolean): string {
+    return [
+      zod,
+      `literal(${typeof value === "string" ? quotedStringLiteral(value) : value})`,
+    ]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
+
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
 
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
@@ -284,6 +300,13 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
 
   protected string(model: IRModelString) {
     if (model.enum) {
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
+
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumStringValue",
@@ -338,7 +361,6 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     // todo: switch to stricter parsing when property is part of a request body/response
     // todo: might be nice to have an x-extension prop that lets the user define the
     //       true/false mapping in their schema.
-
     if (model.enum) {
       this.addStaticSchema("PermissiveBoolean")
 

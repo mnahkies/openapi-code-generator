@@ -64,9 +64,28 @@ enum:
 For server templates, we just generate the exact `enum` values, meaning that an error will be raised both
 if a client sends us an unknown value, or the server attempts to respond with one.
 
+If an enum has multiple values, it is generated as a `z.enum`:
+
 ```typescript
 export type t_Fruit = "Apple" | "Banana" | "Orange"
 export const s_Fruit = z.enum(["Apple", "Banana", "Orange"])
+```
+
+#### Optimization for single-element enums
+
+If an enum contains only a single element, it is automatically treated as `closed` (even if the global default is `open`) and is generated as a `z.literal`. This is more efficient and provides better type inference in some scenarios.
+
+```yaml
+type: string
+enum:
+  - Apple
+```
+
+Generates:
+
+```typescript
+export type t_Fruit = "Apple"
+export const s_Fruit = z.literal("Apple")
 ```
 
 ### Client code (open enum)
@@ -132,7 +151,21 @@ There are two ways you can customize this behavior
 
 Where `<value>` is either `open` or `closed`.
 
-Example:
+### Exceptions: single-element enums and booleans
+
+- **Single-element enums**: These default to `closed` to allow the use of `z.literal` (or equivalent) for better type narrowing and validation efficiency. You can still explicitly set `x-enum-extensibility: open` if you need an extensible single-value enum.
+- **Booleans**: The `x-enum-extensibility` extension is not supported for boolean types. Boolean enums are always treated according to their defined values.
+
+Example of overriding a single-element enum to be open:
+
+```yaml
+type: string
+x-enum-extensibility: open
+enum:
+  - Apple
+```
+
+Example of explicitly closing an enum:
 
 ```yaml
 type: string

@@ -362,13 +362,13 @@ export class MyAccountManagement extends AbstractFetchClient {
           _links: {
             poll: {
               hints: {
-                allow: ("GET" | UnknownEnumStringValue)[]
+                allow: "GET"[]
               }
               href: string
             }
             verify: {
               hints: {
-                allow: ("POST" | UnknownEnumStringValue)[]
+                allow: "POST"[]
               }
               href: string
             }
@@ -634,7 +634,7 @@ export class MyAccountManagement extends AbstractFetchClient {
           _links?: {
             verify?: {
               hints: {
-                allow: ("GET" | UnknownEnumStringValue)[]
+                allow: "GET"[]
               }
               href: string
             }

@@ -66,7 +66,7 @@ export type t_Widget = {
 }
 
 export type t_WidgetAnalytics = {
-  id: "current" | UnknownEnumStringValue
+  id: "current"
   repairCount: number
   useCount: number
 }

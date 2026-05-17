@@ -250,10 +250,27 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return this.fromModel(model, false)
   }
 
+  protected literal(value: string | number | boolean): string {
+    return [
+      joi,
+      "any()",
+      `valid(${typeof value === "string" ? quotedStringLiteral(value) : value})`,
+    ]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected number(model: IRModelNumeric) {
     const result = [joi, "number()"].filter(isDefined).join(".")
 
     if (model.enum) {
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
+
       if (model["x-enum-extensibility"] === "open") {
         return result
       }
@@ -289,6 +306,13 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     const result = [joi, "string()"].filter(isDefined).join(".")
 
     if (model.enum) {
+      if (
+        hasSingleElement(model.enum) &&
+        model["x-enum-extensibility"] !== "open"
+      ) {
+        return this.literal(model.enum[0])
+      }
+
       if (model["x-enum-extensibility"] === "open") {
         return result
       }
@@ -320,8 +344,8 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   }
 
   protected boolean(model: IRModelBoolean) {
-    const truthy = "truthy(1, '1')"
-    const falsy = "falsy(0, '0')"
+    const truthy = 'truthy(1, "1")'
+    const falsy = 'falsy(0, "0")'
 
     if (model.enum) {
       return [

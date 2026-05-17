@@ -15,7 +15,7 @@ export type t_AppAuthenticatorEnrollment = {
         createdDate?: string | undefined
         id?: string | undefined
         lastUpdated?: string | undefined
-        status?: ("ACTIVE" | UnknownEnumStringValue) | undefined
+        status?: "ACTIVE" | undefined
       }
     | undefined
   id?: string | undefined
@@ -49,9 +49,7 @@ export type t_AppAuthenticatorEnrollment = {
                       | {
                           hints?:
                             | {
-                                allow?:
-                                  | ("GET" | UnknownEnumStringValue)[]
-                                  | undefined
+                                allow?: "GET"[] | undefined
                               }
                             | undefined
                           href?: string | undefined
@@ -272,9 +270,9 @@ export type t_HttpMethod =
   | UnknownEnumStringValue
 
 export type t_KeyEC = {
-  crv: "P-256" | UnknownEnumStringValue
+  crv: "P-256"
   kid: string
-  kty: "EC" | UnknownEnumStringValue
+  kty: "EC"
   "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
   x: string
   y: string
@@ -285,7 +283,7 @@ export type t_KeyObject = t_KeyEC | t_KeyRSA
 export type t_KeyRSA = {
   e: string
   kid: string
-  kty: "RSA" | UnknownEnumStringValue
+  kty: "RSA"
   n: string
   "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
 }
@@ -303,7 +301,7 @@ export type t_Organization = {
           | {
               hints?:
                 | {
-                    allow?: ("GET" | UnknownEnumStringValue)[] | undefined
+                    allow?: "GET"[] | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -422,12 +420,12 @@ export type t_Profile = {
 
 export type t_PushNotificationChallenge = {
   challenge?: string | undefined
-  payloadVersion?: ("IDXv1" | UnknownEnumStringValue) | undefined
+  payloadVersion?: "IDXv1" | undefined
 }
 
 export type t_PushNotificationVerification = {
   challengeResponse?: string | undefined
-  method?: ("push" | UnknownEnumStringValue) | undefined
+  method?: "push" | undefined
 }
 
 export type t_Schema = {

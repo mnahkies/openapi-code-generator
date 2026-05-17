@@ -93,6 +93,44 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       )
     })
 
+    it("supports single element closed numeric enums as literal", async () => {
+      const enumValues = [200]
+
+      const {code, execute} = await getActual(
+        ir.number({
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"const x = z.literal(200)"`)
+
+      await expect(execute(200)).resolves.toBe(200)
+
+      await expect(execute(404)).rejects.toThrow(/200/)
+    })
+
+    it("supports single element open numeric enums as number", async () => {
+      const enumValues = [200]
+
+      const {code, execute} = await getActual(
+        ir.number({
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "const x = z.union([
+          z.literal(200),
+          z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
+        ])"
+      `)
+
+      await expect(execute(200)).resolves.toBe(200)
+      await expect(execute(404)).resolves.toBe(404)
+    })
+
     it("supports inclusiveMinimum", async () => {
       const {code, execute} = await getActual(ir.number({inclusiveMinimum: 10}))
 
@@ -291,6 +329,44 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       await expect(execute("orange")).rejects.toThrow(
         "Invalid enum value. Expected 'red' | 'blue' | 'green', received 'orange'",
       )
+    })
+
+    it("supports single element closed string enums as literal", async () => {
+      const enumValues = ["red"]
+
+      const {code, execute} = await getActual(
+        ir.string({
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`"const x = z.literal("red")"`)
+
+      await expect(execute("red")).resolves.toBe("red")
+
+      await expect(execute("orange")).rejects.toThrow(/red/)
+    })
+
+    it("supports single element open string enums as enum", async () => {
+      const enumValues = ["red"]
+
+      const {code, execute} = await getActual(
+        ir.string({
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "const x = z.union([
+          z.enum(["red"]),
+          z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+        ])"
+      `)
+
+      await expect(execute("red")).resolves.toBe("red")
+      await expect(execute("orange")).resolves.toBe("orange")
     })
 
     it("supports open string enums", async () => {
@@ -587,24 +663,28 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       const codeWithoutImport = inlineStaticSchemas(code)
 
       expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
-          const PermissiveLiteralTrue = z.preprocess((value) => {
-                    return PermissiveBoolean.parse(value)
-                  }, z.literal(true))
+        "const PermissiveBoolean = z.preprocess((value) => {
+                  if(typeof value === "string" && (value === "true" || value === "false")) {
+                    return value === "true"
+                  } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                    return value === 1
+                  }
+                  return value
+                }, z.boolean())
+        const PermissiveLiteralTrue = z.preprocess((value) => {
+                  return PermissiveBoolean.parse(value)
+                }, z.literal(true))
 
-          const x = PermissiveLiteralTrue"
-        `)
+        const x = PermissiveLiteralTrue"
+      `)
 
       await expect(executeBooleanTest(codeWithoutImport, true)).resolves.toBe(
         true,
       )
+      await expect(executeBooleanTest(codeWithoutImport, "true")).resolves.toBe(
+        true,
+      )
+      await expect(executeBooleanTest(codeWithoutImport, 1)).resolves.toBe(true)
       await expect(
         executeBooleanTest(codeWithoutImport, false),
       ).rejects.toThrow("Invalid literal value, expected true")
@@ -616,22 +696,28 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       const codeWithoutImport = inlineStaticSchemas(code)
 
       expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
-          const PermissiveLiteralFalse = z.preprocess((value) => {
-                    return PermissiveBoolean.parse(value)
-                  }, z.literal(false))
+        "const PermissiveBoolean = z.preprocess((value) => {
+                  if(typeof value === "string" && (value === "true" || value === "false")) {
+                    return value === "true"
+                  } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                    return value === 1
+                  }
+                  return value
+                }, z.boolean())
+        const PermissiveLiteralFalse = z.preprocess((value) => {
+                  return PermissiveBoolean.parse(value)
+                }, z.literal(false))
 
-          const x = PermissiveLiteralFalse"
-        `)
+        const x = PermissiveLiteralFalse"
+      `)
 
       await expect(executeBooleanTest(codeWithoutImport, false)).resolves.toBe(
+        false,
+      )
+      await expect(
+        executeBooleanTest(codeWithoutImport, "false"),
+      ).resolves.toBe(false)
+      await expect(executeBooleanTest(codeWithoutImport, 0)).resolves.toBe(
         false,
       )
       await expect(executeBooleanTest(codeWithoutImport, true)).rejects.toThrow(

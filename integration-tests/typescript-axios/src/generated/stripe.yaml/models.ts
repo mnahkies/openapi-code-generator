@@ -31,7 +31,7 @@ export type t_account = {
     | {
         data: (t_bank_account | t_card)[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -40,7 +40,7 @@ export type t_account = {
   id: string
   individual?: t_person | undefined
   metadata?: Record<string, string> | undefined
-  object: "account" | UnknownEnumStringValue
+  object: "account"
   payouts_enabled?: boolean | undefined
   requirements?: t_account_requirements | undefined
   settings?: (t_account_settings | null) | undefined
@@ -393,7 +393,7 @@ export type t_account_invoices_settings = {
 export type t_account_link = {
   created: number
   expires_at: number
-  object: "account_link" | UnknownEnumStringValue
+  object: "account_link"
   url: string
 }
 
@@ -561,7 +561,7 @@ export type t_account_session = {
   components: t_connect_embedded_account_session_create_components
   expires_at: number
   livemode: boolean
-  object: "account_session" | UnknownEnumStringValue
+  object: "account_session"
 }
 
 export type t_account_settings = {
@@ -635,7 +635,7 @@ export type t_address = {
 
 export type t_amazon_pay_underlying_payment_method_funding_details = {
   card?: t_payment_method_details_passthrough_card | undefined
-  type?: ("card" | UnknownEnumStringValue | null) | undefined
+  type?: ("card" | null) | undefined
 }
 
 export type t_api_errors = {
@@ -667,13 +667,13 @@ export type t_apple_pay_domain = {
   domain_name: string
   id: string
   livemode: boolean
-  object: "apple_pay_domain" | UnknownEnumStringValue
+  object: "apple_pay_domain"
 }
 
 export type t_application = {
   id: string
   name?: (string | null) | undefined
-  object: "application" | UnknownEnumStringValue
+  object: "application"
 }
 
 export type t_application_fee = {
@@ -688,13 +688,13 @@ export type t_application_fee = {
   fee_source?: (t_platform_earning_fee_source | null) | undefined
   id: string
   livemode: boolean
-  object: "application_fee" | UnknownEnumStringValue
+  object: "application_fee"
   originating_transaction?: (string | t_charge | null) | undefined
   refunded: boolean
   refunds: {
     data: t_fee_refund[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
 }
@@ -706,7 +706,7 @@ export type t_apps_secret = {
   id: string
   livemode: boolean
   name: string
-  object: "apps.secret" | UnknownEnumStringValue
+  object: "apps.secret"
   payload?: (string | null) | undefined
   scope: t_secret_service_resource_scope
 }
@@ -740,7 +740,7 @@ export type t_balance = {
   instant_available?: t_balance_amount_net[] | undefined
   issuing?: t_balance_detail | undefined
   livemode: boolean
-  object: "balance" | UnknownEnumStringValue
+  object: "balance"
   pending: t_balance_amount[]
   refund_and_dispute_prefunding?: t_balance_detail_ungated | undefined
 }
@@ -798,7 +798,7 @@ export type t_balance_transaction = {
   fee_details: t_fee[]
   id: string
   net: number
-  object: "balance_transaction" | UnknownEnumStringValue
+  object: "balance_transaction"
   reporting_category: string
   source?:
     | (
@@ -889,7 +889,7 @@ export type t_bank_account = {
   id: string
   last4: string
   metadata?: (Record<string, string> | null) | undefined
-  object: "bank_account" | UnknownEnumStringValue
+  object: "bank_account"
   requirements?: (t_external_account_requirements | null) | undefined
   routing_number?: (string | null) | undefined
   status: string
@@ -964,10 +964,10 @@ export type t_bank_connections_resource_transaction_resource_status_transitions 
   }
 
 export type t_billing_alert = {
-  alert_type: "usage_threshold" | UnknownEnumStringValue
+  alert_type: "usage_threshold"
   id: string
   livemode: boolean
-  object: "billing.alert" | UnknownEnumStringValue
+  object: "billing.alert"
   status?:
     | ("active" | "archived" | "inactive" | UnknownEnumStringValue | null)
     | undefined
@@ -981,7 +981,7 @@ export type t_billing_credit_balance_summary = {
   balances: t_credit_balance[]
   customer: string | t_customer | t_deleted_customer
   livemode: boolean
-  object: "billing.credit_balance_summary" | UnknownEnumStringValue
+  object: "billing.credit_balance_summary"
 }
 
 export type t_billing_credit_balance_transaction = {
@@ -992,7 +992,7 @@ export type t_billing_credit_balance_transaction = {
   effective_at: number
   id: string
   livemode: boolean
-  object: "billing.credit_balance_transaction" | UnknownEnumStringValue
+  object: "billing.credit_balance_transaction"
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   type?: ("credit" | "debit" | UnknownEnumStringValue | null) | undefined
 }
@@ -1009,7 +1009,7 @@ export type t_billing_credit_grant = {
   livemode: boolean
   metadata: Record<string, string>
   name?: (string | null) | undefined
-  object: "billing.credit_grant" | UnknownEnumStringValue
+  object: "billing.credit_grant"
   priority?: (number | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   updated: number
@@ -1027,7 +1027,7 @@ export type t_billing_meter = {
     | undefined
   id: string
   livemode: boolean
-  object: "billing.meter" | UnknownEnumStringValue
+  object: "billing.meter"
   status: "active" | "inactive" | UnknownEnumStringValue
   status_transitions: t_billing_meter_resource_billing_meter_status_transitions
   updated: number
@@ -1039,7 +1039,7 @@ export type t_billing_meter_event = {
   event_name: string
   identifier: string
   livemode: boolean
-  object: "billing.meter_event" | UnknownEnumStringValue
+  object: "billing.meter_event"
   payload: Record<string, string>
   timestamp: number
 }
@@ -1050,9 +1050,9 @@ export type t_billing_meter_event_adjustment = {
     | undefined
   event_name: string
   livemode: boolean
-  object: "billing.meter_event_adjustment" | UnknownEnumStringValue
+  object: "billing.meter_event_adjustment"
   status: "complete" | "pending" | UnknownEnumStringValue
-  type: "cancel" | UnknownEnumStringValue
+  type: "cancel"
 }
 
 export type t_billing_meter_event_summary = {
@@ -1061,7 +1061,7 @@ export type t_billing_meter_event_summary = {
   id: string
   livemode: boolean
   meter: string
-  object: "billing.meter_event_summary" | UnknownEnumStringValue
+  object: "billing.meter_event_summary"
   start_time: number
 }
 
@@ -1069,7 +1069,7 @@ export type t_billing_bill_resource_invoice_item_parents_invoice_item_parent = {
   subscription_details?:
     | (t_billing_bill_resource_invoice_item_parents_invoice_item_subscription_parent | null)
     | undefined
-  type: "subscription_details" | UnknownEnumStringValue
+  type: "subscription_details"
 }
 
 export type t_billing_bill_resource_invoice_item_parents_invoice_item_subscription_parent =
@@ -1149,7 +1149,7 @@ export type t_billing_bill_resource_invoicing_pricing_pricing = {
   price_details?:
     | t_billing_bill_resource_invoicing_pricing_pricing_price_details
     | undefined
-  type: "price_details" | UnknownEnumStringValue
+  type: "price_details"
   unit_amount_decimal?: (string | null) | undefined
 }
 
@@ -1183,7 +1183,7 @@ export type t_billing_bill_resource_invoicing_taxes_tax = {
     | "zero_rated"
     | UnknownEnumStringValue
   taxable_amount?: (number | null) | undefined
-  type: "tax_rate_details" | UnknownEnumStringValue
+  type: "tax_rate_details"
 }
 
 export type t_billing_bill_resource_invoicing_taxes_tax_rate_details = {
@@ -1205,7 +1205,7 @@ export type t_billing_credit_grants_resource_amount = {
   monetary?:
     | (t_billing_credit_grants_resource_monetary_amount | null)
     | undefined
-  type: "monetary" | UnknownEnumStringValue
+  type: "monetary"
 }
 
 export type t_billing_credit_grants_resource_applicability_config = {
@@ -1256,7 +1256,7 @@ export type t_billing_credit_grants_resource_monetary_amount = {
 }
 
 export type t_billing_credit_grants_resource_scope = {
-  price_type?: ("metered" | UnknownEnumStringValue) | undefined
+  price_type?: "metered" | undefined
   prices?: t_billing_credit_grants_resource_applicable_price[] | undefined
 }
 
@@ -1286,7 +1286,7 @@ export type t_billing_meter_resource_billing_meter_value = {
 
 export type t_billing_meter_resource_customer_mapping_settings = {
   event_payload_key: string
-  type: "by_id" | UnknownEnumStringValue
+  type: "by_id"
 }
 
 export type t_billing_portal_configuration = {
@@ -1303,7 +1303,7 @@ export type t_billing_portal_configuration = {
   livemode: boolean
   login_page: t_portal_login_page
   metadata?: (Record<string, string> | null) | undefined
-  object: "billing_portal.configuration" | UnknownEnumStringValue
+  object: "billing_portal.configuration"
   updated: number
 }
 
@@ -1367,7 +1367,7 @@ export type t_billing_portal_session = {
         | null
       )
     | undefined
-  object: "billing_portal.session" | UnknownEnumStringValue
+  object: "billing_portal.session"
   on_behalf_of?: (string | null) | undefined
   return_url?: (string | null) | undefined
   url: string
@@ -1404,7 +1404,7 @@ export type t_capability = {
   account: string | t_account
   future_requirements?: t_account_capability_future_requirements | undefined
   id: string
-  object: "capability" | UnknownEnumStringValue
+  object: "capability"
   requested: boolean
   requested_at?: (number | null) | undefined
   requirements?: t_account_capability_requirements | undefined
@@ -1449,7 +1449,7 @@ export type t_card = {
   metadata?: (Record<string, string> | null) | undefined
   name?: (string | null) | undefined
   networks?: t_token_card_networks | undefined
-  object: "card" | UnknownEnumStringValue
+  object: "card"
   regulated_status?:
     | ("regulated" | "unregulated" | UnknownEnumStringValue | null)
     | undefined
@@ -1474,7 +1474,7 @@ export type t_cash_balance = {
   available?: (Record<string, number> | null) | undefined
   customer: string
   livemode: boolean
-  object: "cash_balance" | UnknownEnumStringValue
+  object: "cash_balance"
   settings: t_customer_balance_customer_balance_settings
 }
 
@@ -1503,7 +1503,7 @@ export type t_charge = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "charge" | UnknownEnumStringValue
+  object: "charge"
   on_behalf_of?: (string | t_account | null) | undefined
   outcome?: (t_charge_outcome | null) | undefined
   paid: boolean
@@ -1522,7 +1522,7 @@ export type t_charge = {
     | ({
         data: t_refund[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       } | null)
     | undefined
@@ -1618,7 +1618,7 @@ export type t_checkout_session = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -1672,7 +1672,7 @@ export type t_checkout_session = {
     | undefined
   metadata?: (Record<string, string> | null) | undefined
   mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
-  object: "checkout.session" | UnknownEnumStringValue
+  object: "checkout.session"
   optional_items?:
     | (t_payment_pages_checkout_session_optional_item[] | null)
     | undefined
@@ -1777,15 +1777,15 @@ export type t_checkout_acss_debit_payment_method_options = {
 }
 
 export type t_checkout_affirm_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_afterpay_clearpay_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_alipay_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_amazon_pay_payment_method_options = {
@@ -1795,7 +1795,7 @@ export type t_checkout_amazon_pay_payment_method_options = {
 }
 
 export type t_checkout_au_becs_debit_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
   target_date?: string | undefined
 }
 
@@ -1810,7 +1810,7 @@ export type t_checkout_bacs_debit_payment_method_options = {
 }
 
 export type t_checkout_bancontact_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_boleto_payment_method_options = {
@@ -1854,7 +1854,7 @@ export type t_checkout_card_payment_method_options = {
 }
 
 export type t_checkout_cashapp_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_customer_balance_bank_transfer_payment_method_options = {
@@ -1890,32 +1890,32 @@ export type t_checkout_customer_balance_payment_method_options = {
   bank_transfer?:
     | t_checkout_customer_balance_bank_transfer_payment_method_options
     | undefined
-  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  funding_type?: ("bank_transfer" | null) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_eps_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_fpx_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_giropay_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_grab_pay_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_ideal_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_kakao_pay_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
@@ -1929,11 +1929,11 @@ export type t_checkout_klarna_payment_method_options = {
 
 export type t_checkout_konbini_payment_method_options = {
   expires_after_days?: (number | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_kr_card_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
@@ -1950,15 +1950,15 @@ export type t_checkout_link_wallet_options = {
 }
 
 export type t_checkout_mobilepay_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_multibanco_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_naver_pay_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
@@ -1966,15 +1966,15 @@ export type t_checkout_naver_pay_payment_method_options = {
 
 export type t_checkout_oxxo_payment_method_options = {
   expires_after_days: number
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_p24_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_payco_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
 }
 
 export type t_checkout_payment_method_options_mandate_options_bacs_debit = {
@@ -1986,11 +1986,11 @@ export type t_checkout_payment_method_options_mandate_options_sepa_debit = {
 }
 
 export type t_checkout_paynow_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_paypal_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   preferred_locale?: (string | null) | undefined
   reference?: (string | null) | undefined
   setup_future_usage?:
@@ -2000,7 +2000,7 @@ export type t_checkout_paypal_payment_method_options = {
 
 export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: (number | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
@@ -2010,7 +2010,7 @@ export type t_checkout_revolut_pay_payment_method_options = {
 }
 
 export type t_checkout_samsung_pay_payment_method_options = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
 }
 
 export type t_checkout_sepa_debit_payment_method_options = {
@@ -2074,7 +2074,7 @@ export type t_checkout_session_wallet_options = {
 }
 
 export type t_checkout_sofort_payment_method_options = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_swish_payment_method_options = {
@@ -2119,7 +2119,7 @@ export type t_climate_order = {
   livemode: boolean
   metadata: Record<string, string>
   metric_tons: string
-  object: "climate.order" | UnknownEnumStringValue
+  object: "climate.order"
   product: string | t_climate_product
   product_substituted_at?: (number | null) | undefined
   status:
@@ -2142,7 +2142,7 @@ export type t_climate_product = {
   livemode: boolean
   metric_tons_available: string
   name: string
-  object: "climate.product" | UnknownEnumStringValue
+  object: "climate.product"
   suppliers: t_climate_supplier[]
 }
 
@@ -2152,7 +2152,7 @@ export type t_climate_supplier = {
   livemode: boolean
   locations: t_climate_removals_location[]
   name: string
-  object: "climate.supplier" | UnknownEnumStringValue
+  object: "climate.supplier"
   removal_pathway:
     | "biomass_carbon_removal_and_storage"
     | "direct_air_capture"
@@ -2194,7 +2194,7 @@ export type t_confirmation_token = {
   mandate_data?:
     | (t_confirmation_tokens_resource_mandate_data | null)
     | undefined
-  object: "confirmation_token" | UnknownEnumStringValue
+  object: "confirmation_token"
   payment_intent?: (string | null) | undefined
   payment_method_options?:
     | (t_confirmation_tokens_resource_payment_method_options | null)
@@ -2375,7 +2375,7 @@ export type t_connect_collection_transfer = {
   destination: string | t_account
   id: string
   livemode: boolean
-  object: "connect_collection_transfer" | UnknownEnumStringValue
+  object: "connect_collection_transfer"
 }
 
 export type t_connect_embedded_account_config_claim = {
@@ -2524,7 +2524,7 @@ export type t_connect_embedded_payouts_features = {
 export type t_country_spec = {
   default_currency: string
   id: string
-  object: "country_spec" | UnknownEnumStringValue
+  object: "country_spec"
   supported_bank_account_currencies: Record<string, string[]>
   supported_payment_currencies: string[]
   supported_payment_methods: string[]
@@ -2555,7 +2555,7 @@ export type t_coupon = {
   max_redemptions?: (number | null) | undefined
   metadata?: (Record<string, string> | null) | undefined
   name?: (string | null) | undefined
-  object: "coupon" | UnknownEnumStringValue
+  object: "coupon"
   percent_off?: (number | null) | undefined
   redeem_by?: (number | null) | undefined
   times_redeemed: number
@@ -2592,14 +2592,14 @@ export type t_credit_note = {
   lines: {
     data: t_credit_note_line_item[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   livemode: boolean
   memo?: (string | null) | undefined
   metadata?: (Record<string, string> | null) | undefined
   number: string
-  object: "credit_note" | UnknownEnumStringValue
+  object: "credit_note"
   out_of_band_amount?: (number | null) | undefined
   pdf: string
   post_payment_amount: number
@@ -2637,7 +2637,7 @@ export type t_credit_note_line_item = {
   id: string
   invoice_line_item?: string | undefined
   livemode: boolean
-  object: "credit_note_line_item" | UnknownEnumStringValue
+  object: "credit_note_line_item"
   pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: (number | null) | undefined
   tax_rates: t_tax_rate[]
@@ -2704,7 +2704,7 @@ export type t_customer = {
   metadata?: Record<string, string> | undefined
   name?: (string | null) | undefined
   next_invoice_sequence?: number | undefined
-  object: "customer" | UnknownEnumStringValue
+  object: "customer"
   phone?: (string | null) | undefined
   preferred_locales?: (string[] | null) | undefined
   shipping?: (t_shipping | null) | undefined
@@ -2712,7 +2712,7 @@ export type t_customer = {
     | {
         data: (t_bank_account | t_card | t_source)[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -2720,7 +2720,7 @@ export type t_customer = {
     | {
         data: t_subscription[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -2732,7 +2732,7 @@ export type t_customer = {
     | {
         data: t_tax_id[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -2848,7 +2848,7 @@ export type t_customer_balance_transaction = {
   invoice?: (string | t_invoice | null) | undefined
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "customer_balance_transaction" | UnknownEnumStringValue
+  object: "customer_balance_transaction"
   type:
     | "adjustment"
     | "applied_to_invoice"
@@ -2882,7 +2882,7 @@ export type t_customer_cash_balance_transaction = {
   id: string
   livemode: boolean
   net_amount: number
-  object: "customer_cash_balance_transaction" | UnknownEnumStringValue
+  object: "customer_cash_balance_transaction"
   refunded_from_payment?:
     | t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction
     | undefined
@@ -2912,7 +2912,7 @@ export type t_customer_session = {
   customer: string | t_customer
   expires_at: number
   livemode: boolean
-  object: "customer_session" | UnknownEnumStringValue
+  object: "customer_session"
 }
 
 export type t_customer_session_resource_components = {
@@ -2978,46 +2978,46 @@ export type t_customer_tax_location = {
 export type t_deleted_account = {
   deleted: true
   id: string
-  object: "account" | UnknownEnumStringValue
+  object: "account"
 }
 
 export type t_deleted_apple_pay_domain = {
   deleted: true
   id: string
-  object: "apple_pay_domain" | UnknownEnumStringValue
+  object: "apple_pay_domain"
 }
 
 export type t_deleted_application = {
   deleted: true
   id: string
   name?: (string | null) | undefined
-  object: "application" | UnknownEnumStringValue
+  object: "application"
 }
 
 export type t_deleted_bank_account = {
   currency?: (string | null) | undefined
   deleted: true
   id: string
-  object: "bank_account" | UnknownEnumStringValue
+  object: "bank_account"
 }
 
 export type t_deleted_card = {
   currency?: (string | null) | undefined
   deleted: true
   id: string
-  object: "card" | UnknownEnumStringValue
+  object: "card"
 }
 
 export type t_deleted_coupon = {
   deleted: true
   id: string
-  object: "coupon" | UnknownEnumStringValue
+  object: "coupon"
 }
 
 export type t_deleted_customer = {
   deleted: true
   id: string
-  object: "customer" | UnknownEnumStringValue
+  object: "customer"
 }
 
 export type t_deleted_discount = {
@@ -3028,7 +3028,7 @@ export type t_deleted_discount = {
   id: string
   invoice?: (string | null) | undefined
   invoice_item?: (string | null) | undefined
-  object: "discount" | UnknownEnumStringValue
+  object: "discount"
   promotion_code?: (string | t_promotion_code | null) | undefined
   start: number
   subscription?: (string | null) | undefined
@@ -3040,13 +3040,13 @@ export type t_deleted_external_account = t_deleted_bank_account | t_deleted_card
 export type t_deleted_invoice = {
   deleted: true
   id: string
-  object: "invoice" | UnknownEnumStringValue
+  object: "invoice"
 }
 
 export type t_deleted_invoiceitem = {
   deleted: true
   id: string
-  object: "invoiceitem" | UnknownEnumStringValue
+  object: "invoiceitem"
 }
 
 export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
@@ -3054,85 +3054,85 @@ export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
 export type t_deleted_person = {
   deleted: true
   id: string
-  object: "person" | UnknownEnumStringValue
+  object: "person"
 }
 
 export type t_deleted_plan = {
   deleted: true
   id: string
-  object: "plan" | UnknownEnumStringValue
+  object: "plan"
 }
 
 export type t_deleted_price = {
   deleted: true
   id: string
-  object: "price" | UnknownEnumStringValue
+  object: "price"
 }
 
 export type t_deleted_product = {
   deleted: true
   id: string
-  object: "product" | UnknownEnumStringValue
+  object: "product"
 }
 
 export type t_deleted_product_feature = {
   deleted: true
   id: string
-  object: "product_feature" | UnknownEnumStringValue
+  object: "product_feature"
 }
 
 export type t_deleted_radar_value_list = {
   deleted: true
   id: string
-  object: "radar.value_list" | UnknownEnumStringValue
+  object: "radar.value_list"
 }
 
 export type t_deleted_radar_value_list_item = {
   deleted: true
   id: string
-  object: "radar.value_list_item" | UnknownEnumStringValue
+  object: "radar.value_list_item"
 }
 
 export type t_deleted_subscription_item = {
   deleted: true
   id: string
-  object: "subscription_item" | UnknownEnumStringValue
+  object: "subscription_item"
 }
 
 export type t_deleted_tax_id = {
   deleted: true
   id: string
-  object: "tax_id" | UnknownEnumStringValue
+  object: "tax_id"
 }
 
 export type t_deleted_terminal_configuration = {
   deleted: true
   id: string
-  object: "terminal.configuration" | UnknownEnumStringValue
+  object: "terminal.configuration"
 }
 
 export type t_deleted_terminal_location = {
   deleted: true
   id: string
-  object: "terminal.location" | UnknownEnumStringValue
+  object: "terminal.location"
 }
 
 export type t_deleted_terminal_reader = {
   deleted: true
   id: string
-  object: "terminal.reader" | UnknownEnumStringValue
+  object: "terminal.reader"
 }
 
 export type t_deleted_test_helpers_test_clock = {
   deleted: true
   id: string
-  object: "test_helpers.test_clock" | UnknownEnumStringValue
+  object: "test_helpers.test_clock"
 }
 
 export type t_deleted_webhook_endpoint = {
   deleted: true
   id: string
-  object: "webhook_endpoint" | UnknownEnumStringValue
+  object: "webhook_endpoint"
 }
 
 export type t_destination_details_unimplemented = Record<string, unknown>
@@ -3145,7 +3145,7 @@ export type t_discount = {
   id: string
   invoice?: (string | null) | undefined
   invoice_item?: (string | null) | undefined
-  object: "discount" | UnknownEnumStringValue
+  object: "discount"
   promotion_code?: (string | t_promotion_code | null) | undefined
   start: number
   subscription?: (string | null) | undefined
@@ -3180,7 +3180,7 @@ export type t_dispute = {
   is_charge_refundable: boolean
   livemode: boolean
   metadata: Record<string, string>
-  object: "dispute" | UnknownEnumStringValue
+  object: "dispute"
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_method_details?: t_dispute_payment_method_details | undefined
   reason: string
@@ -3354,7 +3354,7 @@ export type t_entitlements_active_entitlement = {
   id: string
   livemode: boolean
   lookup_key: string
-  object: "entitlements.active_entitlement" | UnknownEnumStringValue
+  object: "entitlements.active_entitlement"
 }
 
 export type t_entitlements_feature = {
@@ -3364,7 +3364,7 @@ export type t_entitlements_feature = {
   lookup_key: string
   metadata: Record<string, string>
   name: string
-  object: "entitlements.feature" | UnknownEnumStringValue
+  object: "entitlements.feature"
 }
 
 export type t_ephemeral_key = {
@@ -3372,7 +3372,7 @@ export type t_ephemeral_key = {
   expires: number
   id: string
   livemode: boolean
-  object: "ephemeral_key" | UnknownEnumStringValue
+  object: "ephemeral_key"
   secret?: string | undefined
 }
 
@@ -3388,7 +3388,7 @@ export type t_event = {
   data: t_notification_event_data
   id: string
   livemode: boolean
-  object: "event" | UnknownEnumStringValue
+  object: "event"
   pending_webhooks: number
   request?: (t_notification_event_request | null) | undefined
   type: string
@@ -3396,7 +3396,7 @@ export type t_event = {
 
 export type t_exchange_rate = {
   id: string
-  object: "exchange_rate" | UnknownEnumStringValue
+  object: "exchange_rate"
   rates: Record<string, number>
 }
 
@@ -3425,7 +3425,7 @@ export type t_fee_refund = {
   fee: string | t_application_fee
   id: string
   metadata?: (Record<string, string> | null) | undefined
-  object: "fee_refund" | UnknownEnumStringValue
+  object: "fee_refund"
 }
 
 export type t_file = {
@@ -3437,11 +3437,11 @@ export type t_file = {
     | ({
         data: t_file_link[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       } | null)
     | undefined
-  object: "file" | UnknownEnumStringValue
+  object: "file"
   purpose:
     | "account_requirement"
     | "additional_verification"
@@ -3475,7 +3475,7 @@ export type t_file_link = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "file_link" | UnknownEnumStringValue
+  object: "file_link"
   url?: (string | null) | undefined
 }
 
@@ -3494,7 +3494,7 @@ export type t_financial_connections_account = {
   institution_name: string
   last4?: (string | null) | undefined
   livemode: boolean
-  object: "financial_connections.account" | UnknownEnumStringValue
+  object: "financial_connections.account"
   ownership?:
     | (string | t_financial_connections_account_ownership | null)
     | undefined
@@ -3522,9 +3522,7 @@ export type t_financial_connections_account = {
     | "other"
     | "savings"
     | UnknownEnumStringValue
-  subscriptions?:
-    | (("transactions" | UnknownEnumStringValue)[] | null)
-    | undefined
+  subscriptions?: ("transactions"[] | null) | undefined
   supported_payment_method_types: (
     | "link"
     | "us_bank_account"
@@ -3539,7 +3537,7 @@ export type t_financial_connections_account_owner = {
   email?: (string | null) | undefined
   id: string
   name: string
-  object: "financial_connections.account_owner" | UnknownEnumStringValue
+  object: "financial_connections.account_owner"
   ownership: string
   phone?: (string | null) | undefined
   raw_address?: (string | null) | undefined
@@ -3549,11 +3547,11 @@ export type t_financial_connections_account_owner = {
 export type t_financial_connections_account_ownership = {
   created: number
   id: string
-  object: "financial_connections.account_ownership" | UnknownEnumStringValue
+  object: "financial_connections.account_ownership"
   owners: {
     data: t_financial_connections_account_owner[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
 }
@@ -3565,14 +3563,14 @@ export type t_financial_connections_session = {
   accounts: {
     data: t_financial_connections_account[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   client_secret: string
   filters?: t_bank_connections_resource_link_account_session_filters | undefined
   id: string
   livemode: boolean
-  object: "financial_connections.session" | UnknownEnumStringValue
+  object: "financial_connections.session"
   permissions: (
     | "balances"
     | "ownership"
@@ -3596,7 +3594,7 @@ export type t_financial_connections_transaction = {
   description: string
   id: string
   livemode: boolean
-  object: "financial_connections.transaction" | UnknownEnumStringValue
+  object: "financial_connections.transaction"
   status: "pending" | "posted" | "void" | UnknownEnumStringValue
   status_transitions: t_bank_connections_resource_transaction_resource_status_transitions
   transacted_at: number
@@ -3623,7 +3621,7 @@ export type t_forwarded_request_context = {
 export type t_forwarded_request_details = {
   body: string
   headers: t_forwarded_request_header[]
-  http_method: "POST" | UnknownEnumStringValue
+  http_method: "POST"
 }
 
 export type t_forwarded_request_header = {
@@ -3642,7 +3640,7 @@ export type t_forwarding_request = {
   id: string
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "forwarding.request" | UnknownEnumStringValue
+  object: "forwarding.request"
   payment_method: string
   replacements: (
     | "card_cvc"
@@ -3661,9 +3659,9 @@ export type t_forwarding_request = {
 export type t_funding_instructions = {
   bank_transfer: t_funding_instructions_bank_transfer
   currency: string
-  funding_type: "bank_transfer" | UnknownEnumStringValue
+  funding_type: "bank_transfer"
   livemode: boolean
-  object: "funding_instructions" | UnknownEnumStringValue
+  object: "funding_instructions"
 }
 
 export type t_funding_instructions_bank_transfer = {
@@ -4042,7 +4040,7 @@ export type t_identity_verification_report = {
   id: string
   id_number?: t_gelato_id_number_report | undefined
   livemode: boolean
-  object: "identity.verification_report" | UnknownEnumStringValue
+  object: "identity.verification_report"
   options?: t_gelato_verification_report_options | undefined
   phone?: t_gelato_phone_report | undefined
   selfie?: t_gelato_selfie_report | undefined
@@ -4062,7 +4060,7 @@ export type t_identity_verification_session = {
     | undefined
   livemode: boolean
   metadata: Record<string, string>
-  object: "identity.verification_session" | UnknownEnumStringValue
+  object: "identity.verification_session"
   options?: (t_gelato_verification_session_options | null) | undefined
   provided_details?: (t_gelato_provided_details | null) | undefined
   redaction?: (t_verification_session_redaction | null) | undefined
@@ -4082,7 +4080,7 @@ export type t_identity_verification_session = {
 
 export type t_inbound_transfers = {
   billing_details: t_treasury_shared_resource_billing_details
-  type: "us_bank_account" | UnknownEnumStringValue
+  type: "us_bank_account"
   us_bank_account?:
     | t_inbound_transfers_payment_method_details_us_bank_account
     | undefined
@@ -4099,7 +4097,7 @@ export type t_inbound_transfers_payment_method_details_us_bank_account = {
   fingerprint?: (string | null) | undefined
   last4?: (string | null) | undefined
   mandate?: (string | t_mandate) | undefined
-  network: "ach" | UnknownEnumStringValue
+  network: "ach"
   routing_number?: (string | null) | undefined
 }
 
@@ -4186,14 +4184,14 @@ export type t_invoice = {
   lines: {
     data: t_line_item[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
   next_payment_attempt?: (number | null) | undefined
   number?: (string | null) | undefined
-  object: "invoice" | UnknownEnumStringValue
+  object: "invoice"
   on_behalf_of?: (string | t_account | null) | undefined
   parent?:
     | (t_billing_bill_resource_invoicing_parents_invoice_parent | null)
@@ -4203,7 +4201,7 @@ export type t_invoice = {
     | {
         data: t_invoice_payment[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -4278,7 +4276,7 @@ export type t_invoice_payment = {
   invoice: string | t_invoice | t_deleted_invoice
   is_default: boolean
   livemode: boolean
-  object: "invoice_payment" | UnknownEnumStringValue
+  object: "invoice_payment"
   payment: t_invoices_payments_invoice_payment_associated_payment
   status: string
   status_transitions: t_invoices_payments_invoice_payment_status_transitions
@@ -4314,7 +4312,7 @@ export type t_invoice_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_invoice_payment_method_options_customer_balance_bank_transfer
     | undefined
-  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
+  funding_type?: ("bank_transfer" | null) | undefined
 }
 
 export type t_invoice_payment_method_options_customer_balance_bank_transfer = {
@@ -4391,7 +4389,7 @@ export type t_invoice_rendering_template = {
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
   nickname?: (string | null) | undefined
-  object: "invoice_rendering_template" | UnknownEnumStringValue
+  object: "invoice_rendering_template"
   status: "active" | "archived" | UnknownEnumStringValue
   version: number
 }
@@ -4458,7 +4456,7 @@ export type t_invoiceitem = {
   invoice?: (string | t_invoice | null) | undefined
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "invoiceitem" | UnknownEnumStringValue
+  object: "invoiceitem"
   parent?:
     | (t_billing_bill_resource_invoice_item_parents_invoice_item_parent | null)
     | undefined
@@ -4737,7 +4735,7 @@ export type t_issuing_authorization = {
   merchant_data: t_issuing_authorization_merchant_data
   metadata: Record<string, string>
   network_data?: (t_issuing_authorization_network_data | null) | undefined
-  object: "issuing.authorization" | UnknownEnumStringValue
+  object: "issuing.authorization"
   pending_request?: (t_issuing_authorization_pending_request | null) | undefined
   request_history: t_issuing_authorization_request[]
   status: "closed" | "expired" | "pending" | "reversed" | UnknownEnumStringValue
@@ -4766,7 +4764,7 @@ export type t_issuing_card = {
   livemode: boolean
   metadata: Record<string, string>
   number?: string | undefined
-  object: "issuing.card" | UnknownEnumStringValue
+  object: "issuing.card"
   personalization_design?:
     | (string | t_issuing_personalization_design | null)
     | undefined
@@ -4799,7 +4797,7 @@ export type t_issuing_cardholder = {
   livemode: boolean
   metadata: Record<string, string>
   name: string
-  object: "issuing.cardholder" | UnknownEnumStringValue
+  object: "issuing.cardholder"
   phone_number?: (string | null) | undefined
   preferred_locales?:
     | (("de" | "en" | "es" | "fr" | "it" | UnknownEnumStringValue)[] | null)
@@ -4846,7 +4844,7 @@ export type t_issuing_dispute = {
       )
     | undefined
   metadata: Record<string, string>
-  object: "issuing.dispute" | UnknownEnumStringValue
+  object: "issuing.dispute"
   status:
     | "expired"
     | "lost"
@@ -4869,7 +4867,7 @@ export type t_issuing_personalization_design = {
   lookup_key?: (string | null) | undefined
   metadata: Record<string, string>
   name?: (string | null) | undefined
-  object: "issuing.personalization_design" | UnknownEnumStringValue
+  object: "issuing.personalization_design"
   physical_bundle: string | t_issuing_physical_bundle
   preferences: t_issuing_personalization_design_preferences
   rejection_reasons: t_issuing_personalization_design_rejection_reasons
@@ -4881,7 +4879,7 @@ export type t_issuing_physical_bundle = {
   id: string
   livemode: boolean
   name: string
-  object: "issuing.physical_bundle" | UnknownEnumStringValue
+  object: "issuing.physical_bundle"
   status: "active" | "inactive" | "review" | UnknownEnumStringValue
   type: "custom" | "standard" | UnknownEnumStringValue
 }
@@ -4899,7 +4897,7 @@ export type t_issuing_settlement = {
   network: "maestro" | "visa" | UnknownEnumStringValue
   network_fees_amount: number
   network_settlement_identifier: string
-  object: "issuing.settlement" | UnknownEnumStringValue
+  object: "issuing.settlement"
   settlement_service: string
   status: "complete" | "pending" | UnknownEnumStringValue
   transaction_amount: number
@@ -4916,7 +4914,7 @@ export type t_issuing_token = {
   network: "mastercard" | "visa" | UnknownEnumStringValue
   network_data?: t_issuing_network_token_network_data | undefined
   network_updated_at: number
-  object: "issuing.token" | UnknownEnumStringValue
+  object: "issuing.token"
   status:
     | "active"
     | "deleted"
@@ -4945,7 +4943,7 @@ export type t_issuing_transaction = {
   merchant_data: t_issuing_authorization_merchant_data
   metadata: Record<string, string>
   network_data?: (t_issuing_transaction_network_data | null) | undefined
-  object: "issuing.transaction" | UnknownEnumStringValue
+  object: "issuing.transaction"
   purchase_details?: (t_issuing_transaction_purchase_details | null) | undefined
   token?: (string | t_issuing_token | null) | undefined
   treasury?: (t_issuing_transaction_treasury | null) | undefined
@@ -5033,7 +5031,7 @@ export type t_issuing_authorization_fleet_tax_data = {
 }
 
 export type t_issuing_authorization_fraud_challenge = {
-  channel: "sms" | UnknownEnumStringValue
+  channel: "sms"
   status:
     | "expired"
     | "pending"
@@ -7552,7 +7550,7 @@ export type t_item = {
   description?: (string | null) | undefined
   discounts?: t_line_items_discount_amount[] | undefined
   id: string
-  object: "item" | UnknownEnumStringValue
+  object: "item"
   price?: (t_price | null) | undefined
   quantity?: (number | null) | undefined
   taxes?: t_line_items_tax_amount[] | undefined
@@ -7698,7 +7696,7 @@ export type t_line_item = {
   invoice?: (string | null) | undefined
   livemode: boolean
   metadata: Record<string, string>
-  object: "line_item" | UnknownEnumStringValue
+  object: "line_item"
   parent?:
     | (t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_parent | null)
     | undefined
@@ -7770,7 +7768,7 @@ export type t_linked_account_options_common = {
 
 export type t_login_link = {
   created: number
-  object: "login_link" | UnknownEnumStringValue
+  object: "login_link"
   url: string
 }
 
@@ -7779,7 +7777,7 @@ export type t_mandate = {
   id: string
   livemode: boolean
   multi_use?: t_mandate_multi_use | undefined
-  object: "mandate" | UnknownEnumStringValue
+  object: "mandate"
   on_behalf_of?: string | undefined
   payment_method: string | t_payment_method
   payment_method_details: t_mandate_payment_method_details
@@ -7883,7 +7881,7 @@ export type t_mandate_single_use = {
 }
 
 export type t_mandate_us_bank_account = {
-  collection_method?: ("paper" | UnknownEnumStringValue) | undefined
+  collection_method?: "paper" | undefined
 }
 
 export type t_networks = {
@@ -7921,7 +7919,7 @@ export type t_outbound_payments_payment_method_details = {
 
 export type t_outbound_payments_payment_method_details_financial_account = {
   id: string
-  network: "stripe" | UnknownEnumStringValue
+  network: "stripe"
 }
 
 export type t_outbound_payments_payment_method_details_us_bank_account = {
@@ -7952,7 +7950,7 @@ export type t_outbound_transfers_payment_method_details = {
 
 export type t_outbound_transfers_payment_method_details_financial_account = {
   id: string
-  network: "stripe" | UnknownEnumStringValue
+  network: "stripe"
 }
 
 export type t_outbound_transfers_payment_method_details_us_bank_account = {
@@ -8060,7 +8058,7 @@ export type t_payment_flows_private_payment_methods_financial_connections_common
 
 export type t_payment_flows_private_payment_methods_kakao_pay_payment_method_options =
   {
-    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    capture_method?: "manual" | undefined
     setup_future_usage?:
       | ("none" | "off_session" | UnknownEnumStringValue)
       | undefined
@@ -8074,7 +8072,7 @@ export type t_payment_flows_private_payment_methods_klarna_dob = {
 
 export type t_payment_flows_private_payment_methods_naver_pay_payment_method_options =
   {
-    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    capture_method?: "manual" | undefined
     setup_future_usage?:
       | ("none" | "off_session" | UnknownEnumStringValue)
       | undefined
@@ -8082,12 +8080,12 @@ export type t_payment_flows_private_payment_methods_naver_pay_payment_method_opt
 
 export type t_payment_flows_private_payment_methods_payco_payment_method_options =
   {
-    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    capture_method?: "manual" | undefined
   }
 
 export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_options =
   {
-    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    capture_method?: "manual" | undefined
   }
 
 export type t_payment_intent = {
@@ -8134,7 +8132,7 @@ export type t_payment_intent = {
   livemode: boolean
   metadata?: Record<string, string> | undefined
   next_action?: (t_payment_intent_next_action | null) | undefined
-  object: "payment_intent" | UnknownEnumStringValue
+  object: "payment_intent"
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method?: (string | t_payment_method | null) | undefined
   payment_method_configuration_details?:
@@ -8727,11 +8725,11 @@ export type t_payment_intent_payment_method_options_bacs_debit = {
 }
 
 export type t_payment_intent_payment_method_options_blik = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_intent_payment_method_options_card = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   installments?: (t_payment_method_options_card_installments | null) | undefined
   mandate_options?:
     | (t_payment_method_options_card_mandate_options | null)
@@ -8779,11 +8777,11 @@ export type t_payment_intent_payment_method_options_card = {
 }
 
 export type t_payment_intent_payment_method_options_eps = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_intent_payment_method_options_link = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
@@ -8812,8 +8810,8 @@ export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
   }
 
 export type t_payment_intent_payment_method_options_mobilepay = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_intent_payment_method_options_nz_bank_account = {
@@ -8835,7 +8833,7 @@ export type t_payment_intent_payment_method_options_sepa_debit = {
 
 export type t_payment_intent_payment_method_options_swish = {
   reference?: (string | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_intent_payment_method_options_us_bank_account = {
@@ -8857,7 +8855,7 @@ export type t_payment_intent_payment_method_options_us_bank_account = {
 
 export type t_payment_intent_processing = {
   card?: t_payment_intent_card_processing | undefined
-  type: "card" | UnknownEnumStringValue
+  type: "card"
 }
 
 export type t_payment_intent_processing_customer_notification = {
@@ -8908,13 +8906,13 @@ export type t_payment_link = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
   livemode: boolean
   metadata: Record<string, string>
-  object: "payment_link" | UnknownEnumStringValue
+  object: "payment_link"
   on_behalf_of?: (string | t_account | null) | undefined
   optional_items?: (t_payment_links_resource_optional_item[] | null) | undefined
   payment_intent_data?:
@@ -9045,7 +9043,7 @@ export type t_payment_links_resource_custom_fields_dropdown_option = {
 
 export type t_payment_links_resource_custom_fields_label = {
   custom?: (string | null) | undefined
-  type: "custom" | UnknownEnumStringValue
+  type: "custom"
 }
 
 export type t_payment_links_resource_custom_fields_numeric = {
@@ -9457,7 +9455,7 @@ export type t_payment_method = {
   multibanco?: t_payment_method_multibanco | undefined
   naver_pay?: t_payment_method_naver_pay | undefined
   nz_bank_account?: t_payment_method_nz_bank_account | undefined
-  object: "payment_method" | UnknownEnumStringValue
+  object: "payment_method"
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
   pay_by_bank?: t_payment_method_pay_by_bank | undefined
@@ -9798,7 +9796,7 @@ export type t_payment_method_configuration = {
   nz_bank_account?:
     | t_payment_method_config_resource_payment_method_properties
     | undefined
-  object: "payment_method_configuration" | UnknownEnumStringValue
+  object: "payment_method_configuration"
   oxxo?: t_payment_method_config_resource_payment_method_properties | undefined
   p24?: t_payment_method_config_resource_payment_method_properties | undefined
   parent?: (string | null) | undefined
@@ -10035,7 +10033,7 @@ export type t_payment_method_details_card_installments = {
 
 export type t_payment_method_details_card_installments_plan = {
   count?: (number | null) | undefined
-  interval?: ("month" | UnknownEnumStringValue | null) | undefined
+  interval?: ("month" | null) | undefined
   type: "bonus" | "fixed_count" | "revolving" | UnknownEnumStringValue
 }
 
@@ -10084,7 +10082,7 @@ export type t_payment_method_details_card_present = {
 
 export type t_payment_method_details_card_present_offline = {
   stored_at?: (number | null) | undefined
-  type?: ("deferred" | UnknownEnumStringValue | null) | undefined
+  type?: ("deferred" | null) | undefined
 }
 
 export type t_payment_method_details_card_present_receipt = {
@@ -10608,7 +10606,7 @@ export type t_payment_method_domain = {
   klarna: t_payment_method_domain_resource_payment_method_status
   link: t_payment_method_domain_resource_payment_method_status
   livemode: boolean
-  object: "payment_method_domain" | UnknownEnumStringValue
+  object: "payment_method_domain"
   paypal: t_payment_method_domain_resource_payment_method_status
 }
 
@@ -10830,15 +10828,15 @@ export type t_payment_method_nz_bank_account = {
 }
 
 export type t_payment_method_options_affirm = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   preferred_locale?: string | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_afterpay_clearpay = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   reference?: (string | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_alipay = {
@@ -10848,11 +10846,11 @@ export type t_payment_method_options_alipay = {
 }
 
 export type t_payment_method_options_alma = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
 }
 
 export type t_payment_method_options_amazon_pay = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
@@ -10866,7 +10864,7 @@ export type t_payment_method_options_bancontact = {
 }
 
 export type t_payment_method_options_billie = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
 }
 
 export type t_payment_method_options_boleto = {
@@ -10899,7 +10897,7 @@ export type t_payment_method_options_card_mandate_options = {
   interval_count?: (number | null) | undefined
   reference: string
   start_date: number
-  supported_types?: (("india" | UnknownEnumStringValue)[] | null) | undefined
+  supported_types?: ("india"[] | null) | undefined
 }
 
 export type t_payment_method_options_card_present = {
@@ -10915,22 +10913,22 @@ export type t_payment_method_options_card_present_routing = {
 }
 
 export type t_payment_method_options_cashapp = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
     | undefined
 }
 
 export type t_payment_method_options_crypto = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_payment_method_options_customer_balance_bank_transfer
     | undefined
-  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  funding_type?: ("bank_transfer" | null) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_customer_balance_bank_transfer = {
@@ -10967,15 +10965,15 @@ export type t_payment_method_options_customer_balance_eu_bank_account = {
 }
 
 export type t_payment_method_options_fpx = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_giropay = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_grabpay = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_ideal = {
@@ -10987,7 +10985,7 @@ export type t_payment_method_options_ideal = {
 export type t_payment_method_options_interac_present = Record<string, unknown>
 
 export type t_payment_method_options_klarna = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   preferred_locale?: (string | null) | undefined
   setup_future_usage?:
     | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
@@ -10999,37 +10997,37 @@ export type t_payment_method_options_konbini = {
   expires_after_days?: (number | null) | undefined
   expires_at?: (number | null) | undefined
   product_description?: (string | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_kr_card = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
 }
 
 export type t_payment_method_options_multibanco = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_oxxo = {
   expires_after_days: number
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_p24 = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_pay_by_bank = Record<string, unknown>
 
 export type t_payment_method_options_paynow = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_paypal = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   preferred_locale?: (string | null) | undefined
   reference?: (string | null) | undefined
   setup_future_usage?:
@@ -11040,22 +11038,22 @@ export type t_payment_method_options_paypal = {
 export type t_payment_method_options_pix = {
   expires_after_seconds?: (number | null) | undefined
   expires_at?: (number | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_promptpay = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_revolut_pay = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
 }
 
 export type t_payment_method_options_satispay = {
-  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  capture_method?: "manual" | undefined
 }
 
 export type t_payment_method_options_sofort = {
@@ -11078,11 +11076,11 @@ export type t_payment_method_options_sofort = {
 }
 
 export type t_payment_method_options_twint = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_us_bank_account_mandate_options = {
-  collection_method?: ("paper" | UnknownEnumStringValue) | undefined
+  collection_method?: "paper" | undefined
 }
 
 export type t_payment_method_options_wechat_pay = {
@@ -11090,11 +11088,11 @@ export type t_payment_method_options_wechat_pay = {
   client?:
     | ("android" | "ios" | "web" | UnknownEnumStringValue | null)
     | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_zip = {
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_oxxo = Record<string, unknown>
@@ -11279,7 +11277,7 @@ export type t_payment_pages_checkout_session_consent = {
   promotions?:
     | ("opt_in" | "opt_out" | UnknownEnumStringValue | null)
     | undefined
-  terms_of_service?: ("accepted" | UnknownEnumStringValue | null) | undefined
+  terms_of_service?: ("accepted" | null) | undefined
 }
 
 export type t_payment_pages_checkout_session_consent_collection = {
@@ -11317,7 +11315,7 @@ export type t_payment_pages_checkout_session_custom_fields_dropdown = {
 
 export type t_payment_pages_checkout_session_custom_fields_label = {
   custom?: (string | null) | undefined
-  type: "custom" | UnknownEnumStringValue
+  type: "custom"
 }
 
 export type t_payment_pages_checkout_session_custom_fields_numeric = {
@@ -11872,7 +11870,7 @@ export type t_payout = {
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
   method: string
-  object: "payout" | UnknownEnumStringValue
+  object: "payout"
   original_payout?: (string | t_payout | null) | undefined
   reconciliation_status:
     | "completed"
@@ -11930,7 +11928,7 @@ export type t_person = {
   maiden_name?: (string | null) | undefined
   metadata?: Record<string, string> | undefined
   nationality?: (string | null) | undefined
-  object: "person" | UnknownEnumStringValue
+  object: "person"
   phone?: (string | null) | undefined
   political_exposure?:
     | ("existing" | "none" | UnknownEnumStringValue)
@@ -12057,7 +12055,7 @@ export type t_plan = {
   metadata?: (Record<string, string> | null) | undefined
   meter?: (string | null) | undefined
   nickname?: (string | null) | undefined
-  object: "plan" | UnknownEnumStringValue
+  object: "plan"
   product?: (string | t_product | t_deleted_product | null) | undefined
   tiers?: t_plan_tier[] | undefined
   tiers_mode?:
@@ -12171,7 +12169,7 @@ export type t_portal_flows_flow_subscription_update_confirm = {
 
 export type t_portal_flows_retention = {
   coupon_offer?: (t_portal_flows_coupon_offer | null) | undefined
-  type: "coupon_offer" | UnknownEnumStringValue
+  type: "coupon_offer"
 }
 
 export type t_portal_flows_subscription_update_confirm_discount = {
@@ -12276,7 +12274,7 @@ export type t_price = {
   lookup_key?: (string | null) | undefined
   metadata: Record<string, string>
   nickname?: (string | null) | undefined
-  object: "price" | UnknownEnumStringValue
+  object: "price"
   product: string | t_product | t_deleted_product
   recurring?: (t_recurring | null) | undefined
   tax_behavior?:
@@ -12317,7 +12315,7 @@ export type t_product = {
   marketing_features: t_product_marketing_feature[]
   metadata: Record<string, string>
   name: string
-  object: "product" | UnknownEnumStringValue
+  object: "product"
   package_dimensions?: (t_package_dimensions | null) | undefined
   shippable?: (boolean | null) | undefined
   statement_descriptor?: (string | null) | undefined
@@ -12331,7 +12329,7 @@ export type t_product_feature = {
   entitlement_feature: t_entitlements_feature
   id: string
   livemode: boolean
-  object: "product_feature" | UnknownEnumStringValue
+  object: "product_feature"
 }
 
 export type t_product_marketing_feature = {
@@ -12349,7 +12347,7 @@ export type t_promotion_code = {
   livemode: boolean
   max_redemptions?: (number | null) | undefined
   metadata?: (Record<string, string> | null) | undefined
-  object: "promotion_code" | UnknownEnumStringValue
+  object: "promotion_code"
   restrictions: t_promotion_codes_resource_restrictions
   times_redeemed: number
 }
@@ -12398,14 +12396,14 @@ export type t_quote = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
   livemode: boolean
   metadata: Record<string, string>
   number?: (string | null) | undefined
-  object: "quote" | UnknownEnumStringValue
+  object: "quote"
   on_behalf_of?: (string | t_account | null) | undefined
   status: "accepted" | "canceled" | "draft" | "open" | UnknownEnumStringValue
   status_transitions: t_quotes_resource_status_transitions
@@ -12493,7 +12491,7 @@ export type t_quotes_resource_upfront = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       }
     | undefined
@@ -12507,7 +12505,7 @@ export type t_radar_early_fraud_warning = {
   fraud_type: string
   id: string
   livemode: boolean
-  object: "radar.early_fraud_warning" | UnknownEnumStringValue
+  object: "radar.early_fraud_warning"
   payment_intent?: (string | t_payment_intent) | undefined
 }
 
@@ -12531,13 +12529,13 @@ export type t_radar_value_list = {
   list_items: {
     data: t_radar_value_list_item[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   livemode: boolean
   metadata: Record<string, string>
   name: string
-  object: "radar.value_list" | UnknownEnumStringValue
+  object: "radar.value_list"
 }
 
 export type t_radar_value_list_item = {
@@ -12545,7 +12543,7 @@ export type t_radar_value_list_item = {
   created_by: string
   id: string
   livemode: boolean
-  object: "radar.value_list_item" | UnknownEnumStringValue
+  object: "radar.value_list_item"
   value: string
   value_list: string
 }
@@ -12571,7 +12569,7 @@ export type t_radar_review_resource_session = {
 
 export type t_received_payment_method_details_financial_account = {
   id: string
-  network: "stripe" | UnknownEnumStringValue
+  network: "stripe"
 }
 
 export type t_recurring = {
@@ -12595,7 +12593,7 @@ export type t_refund = {
   instructions_email?: string | undefined
   metadata?: (Record<string, string> | null) | undefined
   next_action?: t_refund_next_action | undefined
-  object: "refund" | UnknownEnumStringValue
+  object: "refund"
   payment_intent?: (string | t_payment_intent | null) | undefined
   pending_reason?:
     | (
@@ -12743,7 +12741,7 @@ export type t_reporting_report_run = {
   error?: (string | null) | undefined
   id: string
   livemode: boolean
-  object: "reporting.report_run" | UnknownEnumStringValue
+  object: "reporting.report_run"
   parameters: t_financial_reporting_finance_report_run_run_parameters
   report_type: string
   result?: (t_file | null) | undefined
@@ -12758,7 +12756,7 @@ export type t_reporting_report_type = {
   id: string
   livemode: boolean
   name: string
-  object: "reporting.report_type" | UnknownEnumStringValue
+  object: "reporting.report_type"
   updated: number
   version: number
 }
@@ -12768,7 +12766,7 @@ export type t_reserve_transaction = {
   currency: string
   description?: (string | null) | undefined
   id: string
-  object: "reserve_transaction" | UnknownEnumStringValue
+  object: "reserve_transaction"
 }
 
 export type t_review = {
@@ -12791,7 +12789,7 @@ export type t_review = {
   ip_address?: (string | null) | undefined
   ip_address_location?: (t_radar_review_resource_location | null) | undefined
   livemode: boolean
-  object: "review" | UnknownEnumStringValue
+  object: "review"
   open: boolean
   opened_reason: "manual" | "rule" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent) | undefined
@@ -12801,7 +12799,7 @@ export type t_review = {
 
 export type t_revolut_pay_underlying_payment_method_funding_details = {
   card?: t_payment_method_details_passthrough_card | undefined
-  type?: ("card" | UnknownEnumStringValue | null) | undefined
+  type?: ("card" | null) | undefined
 }
 
 export type t_rule = {
@@ -12817,7 +12815,7 @@ export type t_scheduled_query_run = {
   file?: (t_file | null) | undefined
   id: string
   livemode: boolean
-  object: "scheduled_query_run" | UnknownEnumStringValue
+  object: "scheduled_query_run"
   result_available_until: number
   sql: string
   status: string
@@ -12825,9 +12823,7 @@ export type t_scheduled_query_run = {
 }
 
 export type t_schedules_phase_automatic_tax = {
-  disabled_reason?:
-    | ("requires_location_inputs" | UnknownEnumStringValue | null)
-    | undefined
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -12852,7 +12848,7 @@ export type t_setup_attempt = {
     | undefined
   id: string
   livemode: boolean
-  object: "setup_attempt" | UnknownEnumStringValue
+  object: "setup_attempt"
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method: string | t_payment_method
   payment_method_details: t_setup_attempt_payment_method_details
@@ -13116,7 +13112,7 @@ export type t_setup_intent = {
   mandate?: (string | t_mandate | null) | undefined
   metadata?: (Record<string, string> | null) | undefined
   next_action?: (t_setup_intent_next_action | null) | undefined
-  object: "setup_intent" | UnknownEnumStringValue
+  object: "setup_intent"
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method?: (string | t_payment_method | null) | undefined
   payment_method_configuration_details?:
@@ -13291,7 +13287,7 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
   interval_count?: (number | null) | undefined
   reference: string
   start_date: number
-  supported_types?: (("india" | UnknownEnumStringValue)[] | null) | undefined
+  supported_types?: ("india"[] | null) | undefined
 }
 
 export type t_setup_intent_payment_method_options_card_present = Record<
@@ -13371,7 +13367,7 @@ export type t_shipping_rate = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "shipping_rate" | UnknownEnumStringValue
+  object: "shipping_rate"
   tax_behavior?:
     | (
         | "exclusive"
@@ -13382,7 +13378,7 @@ export type t_shipping_rate = {
       )
     | undefined
   tax_code?: (string | t_tax_code | null) | undefined
-  type: "fixed_amount" | UnknownEnumStringValue
+  type: "fixed_amount"
 }
 
 export type t_shipping_rate_currency_option = {
@@ -13421,7 +13417,7 @@ export type t_sigma_sigma_api_query = {
   id: string
   livemode: boolean
   name: string
-  object: "sigma.sigma_api_query" | UnknownEnumStringValue
+  object: "sigma.sigma_api_query"
   sql: string
 }
 
@@ -13456,7 +13452,7 @@ export type t_source = {
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
   multibanco?: t_source_type_multibanco | undefined
-  object: "source" | UnknownEnumStringValue
+  object: "source"
   owner?: (t_source_owner | null) | undefined
   p24?: t_source_type_p24 | undefined
   receiver?: t_source_receiver_flow | undefined
@@ -13503,7 +13499,7 @@ export type t_source_mandate_notification = {
   created: number
   id: string
   livemode: boolean
-  object: "source_mandate_notification" | UnknownEnumStringValue
+  object: "source_mandate_notification"
   reason: string
   sepa_debit?: t_source_mandate_notification_sepa_debit_data | undefined
   source: t_source
@@ -13584,7 +13580,7 @@ export type t_source_transaction = {
     | undefined
   id: string
   livemode: boolean
-  object: "source_transaction" | UnknownEnumStringValue
+  object: "source_transaction"
   paper_check?: t_source_transaction_paper_check_data | undefined
   sepa_credit_transfer?:
     | t_source_transaction_sepa_credit_transfer_data
@@ -13892,14 +13888,14 @@ export type t_subscription = {
   items: {
     data: t_subscription_item[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   latest_invoice?: (string | t_invoice | null) | undefined
   livemode: boolean
   metadata: Record<string, string>
   next_pending_invoice_item_invoice?: (number | null) | undefined
-  object: "subscription" | UnknownEnumStringValue
+  object: "subscription"
   on_behalf_of?: (string | t_account | null) | undefined
   pause_collection?:
     | (t_subscriptions_resource_pause_collection | null)
@@ -13934,9 +13930,7 @@ export type t_subscription = {
 }
 
 export type t_subscription_automatic_tax = {
-  disabled_reason?:
-    | ("requires_location_inputs" | UnknownEnumStringValue | null)
-    | undefined
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -13956,7 +13950,7 @@ export type t_subscription_item = {
   discounts: (string | t_discount)[]
   id: string
   metadata: Record<string, string>
-  object: "subscription_item" | UnknownEnumStringValue
+  object: "subscription_item"
   price: t_price
   quantity?: number | undefined
   subscription: string
@@ -14013,7 +14007,7 @@ export type t_subscription_schedule = {
   id: string
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "subscription_schedule" | UnknownEnumStringValue
+  object: "subscription_schedule"
   phases: t_subscription_schedule_phase_configuration[]
   released_at?: (number | null) | undefined
   released_subscription?: (string | null) | undefined
@@ -14102,9 +14096,7 @@ export type t_subscription_schedules_resource_default_settings = {
 }
 
 export type t_subscription_schedules_resource_default_settings_automatic_tax = {
-  disabled_reason?:
-    | ("requires_location_inputs" | UnknownEnumStringValue | null)
-    | undefined
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -14244,12 +14236,12 @@ export type t_tax_calculation = {
     | ({
         data: t_tax_calculation_line_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       } | null)
     | undefined
   livemode: boolean
-  object: "tax.calculation" | UnknownEnumStringValue
+  object: "tax.calculation"
   ship_from_details?:
     | (t_tax_product_resource_ship_from_details | null)
     | undefined
@@ -14268,7 +14260,7 @@ export type t_tax_calculation_line_item = {
   id: string
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "tax.calculation_line_item" | UnknownEnumStringValue
+  object: "tax.calculation_line_item"
   product?: (string | null) | undefined
   quantity: number
   reference: string
@@ -14287,7 +14279,7 @@ export type t_tax_registration = {
   expires_at?: (number | null) | undefined
   id: string
   livemode: boolean
-  object: "tax.registration" | UnknownEnumStringValue
+  object: "tax.registration"
   status: "active" | "expired" | "scheduled" | UnknownEnumStringValue
 }
 
@@ -14297,7 +14289,7 @@ export type t_tax_settings = {
     | (t_tax_product_resource_tax_settings_head_office | null)
     | undefined
   livemode: boolean
-  object: "tax.settings" | UnknownEnumStringValue
+  object: "tax.settings"
   status: "active" | "pending" | UnknownEnumStringValue
   status_details: t_tax_product_resource_tax_settings_status_details
 }
@@ -14312,13 +14304,13 @@ export type t_tax_transaction = {
     | ({
         data: t_tax_transaction_line_item[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       } | null)
     | undefined
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "tax.transaction" | UnknownEnumStringValue
+  object: "tax.transaction"
   posted_at: number
   reference: string
   reversal?:
@@ -14340,7 +14332,7 @@ export type t_tax_transaction_line_item = {
   id: string
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "tax.transaction_line_item" | UnknownEnumStringValue
+  object: "tax.transaction_line_item"
   product?: (string | null) | undefined
   quantity: number
   reference: string
@@ -14356,12 +14348,12 @@ export type t_tax_code = {
   description: string
   id: string
   name: string
-  object: "tax_code" | UnknownEnumStringValue
+  object: "tax_code"
 }
 
 export type t_tax_deducted_at_source = {
   id: string
-  object: "tax_deducted_at_source" | UnknownEnumStringValue
+  object: "tax_deducted_at_source"
   period_end: number
   period_start: number
   tax_deduction_account_number: string
@@ -14380,7 +14372,7 @@ export type t_tax_id = {
   customer?: (string | t_customer | null) | undefined
   id: string
   livemode: boolean
-  object: "tax_id" | UnknownEnumStringValue
+  object: "tax_id"
   owner?: (t_tax_i_ds_owner | null) | undefined
   type:
     | "ad_nrt"
@@ -14723,7 +14715,7 @@ export type t_tax_product_registrations_resource_country_options_canada = {
 }
 
 export type t_tax_product_registrations_resource_country_options_default = {
-  type: "standard" | UnknownEnumStringValue
+  type: "standard"
 }
 
 export type t_tax_product_registrations_resource_country_options_default_inbound_goods =
@@ -14731,7 +14723,7 @@ export type t_tax_product_registrations_resource_country_options_default_inbound
     standard?:
       | t_tax_product_registrations_resource_country_options_default_standard
       | undefined
-    type: "standard" | UnknownEnumStringValue
+    type: "standard"
   }
 
 export type t_tax_product_registrations_resource_country_options_default_standard =
@@ -14763,7 +14755,7 @@ export type t_tax_product_registrations_resource_country_options_europe = {
 }
 
 export type t_tax_product_registrations_resource_country_options_simplified = {
-  type: "simplified" | UnknownEnumStringValue
+  type: "simplified"
 }
 
 export type t_tax_product_registrations_resource_country_options_united_states =
@@ -15158,7 +15150,7 @@ export type t_tax_rate = {
     | undefined
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
-  object: "tax_rate" | UnknownEnumStringValue
+  object: "tax_rate"
   percentage: number
   rate_type?:
     | ("flat_amount" | "percentage" | UnknownEnumStringValue | null)
@@ -15199,7 +15191,7 @@ export type t_terminal_configuration = {
   is_account_default?: (boolean | null) | undefined
   livemode: boolean
   name?: (string | null) | undefined
-  object: "terminal.configuration" | UnknownEnumStringValue
+  object: "terminal.configuration"
   offline?:
     | t_terminal_configuration_configuration_resource_offline_config
     | undefined
@@ -15218,7 +15210,7 @@ export type t_terminal_configuration = {
 
 export type t_terminal_connection_token = {
   location?: string | undefined
-  object: "terminal.connection_token" | UnknownEnumStringValue
+  object: "terminal.connection_token"
   secret: string
 }
 
@@ -15229,7 +15221,7 @@ export type t_terminal_location = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "terminal.location" | UnknownEnumStringValue
+  object: "terminal.location"
 }
 
 export type t_terminal_reader = {
@@ -15252,7 +15244,7 @@ export type t_terminal_reader = {
   livemode: boolean
   location?: (string | t_terminal_location | null) | undefined
   metadata: Record<string, string>
-  object: "terminal.reader" | UnknownEnumStringValue
+  object: "terminal.reader"
   serial_number: string
   status?: ("offline" | "online" | UnknownEnumStringValue | null) | undefined
 }
@@ -15561,7 +15553,7 @@ export type t_terminal_reader_reader_resource_selection = {
 
 export type t_terminal_reader_reader_resource_set_reader_display_action = {
   cart?: (t_terminal_reader_reader_resource_cart | null) | undefined
-  type: "cart" | UnknownEnumStringValue
+  type: "cart"
 }
 
 export type t_terminal_reader_reader_resource_signature = {
@@ -15592,7 +15584,7 @@ export type t_test_helpers_test_clock = {
   id: string
   livemode: boolean
   name?: (string | null) | undefined
-  object: "test_helpers.test_clock" | UnknownEnumStringValue
+  object: "test_helpers.test_clock"
   status: "advancing" | "internal_failure" | "ready" | UnknownEnumStringValue
   status_details: t_billing_clocks_resource_status_details_status_details
 }
@@ -15683,14 +15675,14 @@ export type t_three_d_secure_usage = {
 
 export type t_thresholds_resource_usage_alert_filter = {
   customer?: (string | t_customer | null) | undefined
-  type: "customer" | UnknownEnumStringValue
+  type: "customer"
 }
 
 export type t_thresholds_resource_usage_threshold_config = {
   filters?: (t_thresholds_resource_usage_alert_filter[] | null) | undefined
   gte: number
   meter: string | t_billing_meter
-  recurrence: "one_time" | UnknownEnumStringValue
+  recurrence: "one_time"
 }
 
 export type t_token = {
@@ -15700,7 +15692,7 @@ export type t_token = {
   created: number
   id: string
   livemode: boolean
-  object: "token" | UnknownEnumStringValue
+  object: "token"
   type: string
   used: boolean
 }
@@ -15721,7 +15713,7 @@ export type t_topup = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "topup" | UnknownEnumStringValue
+  object: "topup"
   source?: (t_source | null) | undefined
   statement_descriptor?: (string | null) | undefined
   status:
@@ -15746,11 +15738,11 @@ export type t_transfer = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "transfer" | UnknownEnumStringValue
+  object: "transfer"
   reversals: {
     data: t_transfer_reversal[]
     has_more: boolean
-    object: "list" | UnknownEnumStringValue
+    object: "list"
     url: string
   }
   reversed: boolean
@@ -15772,7 +15764,7 @@ export type t_transfer_reversal = {
   destination_payment_refund?: (string | t_refund | null) | undefined
   id: string
   metadata?: (Record<string, string> | null) | undefined
-  object: "transfer_reversal" | UnknownEnumStringValue
+  object: "transfer_reversal"
   source_refund?: (string | t_refund | null) | undefined
   transfer: string | t_transfer
 }
@@ -15817,7 +15809,7 @@ export type t_treasury_credit_reversal = {
   livemode: boolean
   metadata: Record<string, string>
   network: "ach" | "stripe" | UnknownEnumStringValue
-  object: "treasury.credit_reversal" | UnknownEnumStringValue
+  object: "treasury.credit_reversal"
   received_credit: string
   status: "canceled" | "posted" | "processing" | UnknownEnumStringValue
   status_transitions: t_treasury_received_credits_resource_status_transitions
@@ -15837,7 +15829,7 @@ export type t_treasury_debit_reversal = {
   livemode: boolean
   metadata: Record<string, string>
   network: "ach" | "card" | UnknownEnumStringValue
-  object: "treasury.debit_reversal" | UnknownEnumStringValue
+  object: "treasury.debit_reversal"
   received_debit: string
   status: "failed" | "processing" | "succeeded" | UnknownEnumStringValue
   status_transitions: t_treasury_received_debits_resource_status_transitions
@@ -15871,7 +15863,7 @@ export type t_treasury_financial_account = {
   livemode: boolean
   metadata?: (Record<string, string> | null) | undefined
   nickname?: (string | null) | undefined
-  object: "treasury.financial_account" | UnknownEnumStringValue
+  object: "treasury.financial_account"
   pending_features?:
     | (
         | "card_issuing"
@@ -15928,7 +15920,7 @@ export type t_treasury_financial_account_features = {
   intra_stripe_flows?:
     | t_treasury_financial_accounts_resource_toggle_settings
     | undefined
-  object: "treasury.financial_account_features" | UnknownEnumStringValue
+  object: "treasury.financial_account_features"
   outbound_payments?:
     | t_treasury_financial_accounts_resource_outbound_payments
     | undefined
@@ -15952,7 +15944,7 @@ export type t_treasury_inbound_transfer = {
   linked_flows: t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows
   livemode: boolean
   metadata: Record<string, string>
-  object: "treasury.inbound_transfer" | UnknownEnumStringValue
+  object: "treasury.inbound_transfer"
   origin_payment_method?: (string | null) | undefined
   origin_payment_method_details?: (t_inbound_transfers | null) | undefined
   returned?: (boolean | null) | undefined
@@ -15987,7 +15979,7 @@ export type t_treasury_outbound_payment = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "treasury.outbound_payment" | UnknownEnumStringValue
+  object: "treasury.outbound_payment"
   returned_details?:
     | (t_treasury_outbound_payments_resource_returned_status | null)
     | undefined
@@ -16020,7 +16012,7 @@ export type t_treasury_outbound_transfer = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "treasury.outbound_transfer" | UnknownEnumStringValue
+  object: "treasury.outbound_transfer"
   returned_details?:
     | (t_treasury_outbound_transfers_resource_returned_details | null)
     | undefined
@@ -16066,7 +16058,7 @@ export type t_treasury_received_credit = {
     | "stripe"
     | "us_domestic_wire"
     | UnknownEnumStringValue
-  object: "treasury.received_credit" | UnknownEnumStringValue
+  object: "treasury.received_credit"
   reversal_details?:
     | (t_treasury_received_credits_resource_reversal_details | null)
     | undefined
@@ -16099,7 +16091,7 @@ export type t_treasury_received_debit = {
   linked_flows: t_treasury_received_debits_resource_linked_flows
   livemode: boolean
   network: "ach" | "card" | "stripe" | UnknownEnumStringValue
-  object: "treasury.received_debit" | UnknownEnumStringValue
+  object: "treasury.received_debit"
   reversal_details?:
     | (t_treasury_received_debits_resource_reversal_details | null)
     | undefined
@@ -16117,7 +16109,7 @@ export type t_treasury_transaction = {
     | ({
         data: t_treasury_transaction_entry[]
         has_more: boolean
-        object: "list" | UnknownEnumStringValue
+        object: "list"
         url: string
       } | null)
     | undefined
@@ -16139,7 +16131,7 @@ export type t_treasury_transaction = {
     | UnknownEnumStringValue
   id: string
   livemode: boolean
-  object: "treasury.transaction" | UnknownEnumStringValue
+  object: "treasury.transaction"
   status: "open" | "posted" | "void" | UnknownEnumStringValue
   status_transitions: t_treasury_transactions_resource_abstract_transaction_resource_status_transitions
 }
@@ -16167,7 +16159,7 @@ export type t_treasury_transaction_entry = {
     | UnknownEnumStringValue
   id: string
   livemode: boolean
-  object: "treasury.transaction_entry" | UnknownEnumStringValue
+  object: "treasury.transaction_entry"
   transaction: string | t_treasury_transaction
   type:
     | "credit_reversal"
@@ -16227,7 +16219,7 @@ export type t_treasury_financial_accounts_resource_financial_address = {
   supported_networks?:
     | ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
     | undefined
-  type: "aba" | UnknownEnumStringValue
+  type: "aba"
 }
 
 export type t_treasury_financial_accounts_resource_financial_addresses_features =
@@ -16529,7 +16521,7 @@ export type t_treasury_shared_resource_billing_details = {
 
 export type t_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details =
   {
-    balance?: ("payments" | UnknownEnumStringValue) | undefined
+    balance?: "payments" | undefined
     billing_details: t_treasury_shared_resource_billing_details
     financial_account?:
       | t_received_payment_method_details_financial_account
@@ -16606,7 +16598,7 @@ export type t_webhook_endpoint = {
   id: string
   livemode: boolean
   metadata: Record<string, string>
-  object: "webhook_endpoint" | UnknownEnumStringValue
+  object: "webhook_endpoint"
   secret?: string | undefined
   status: string
   url: string
@@ -16646,7 +16638,7 @@ export type t_DeleteSubscriptionItemsItemRequestBody = {
 export type t_DeleteSubscriptionsSubscriptionExposedIdRequestBody = {
   cancellation_details?:
     | {
-        comment?: (string | "" | UnknownEnumStringValue) | undefined
+        comment?: (string | "") | undefined
         feedback?:
           | (
               | ""
@@ -16924,7 +16916,7 @@ export type t_PostAccountsRequestBody = {
                     | undefined
                 }
               | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -16971,7 +16963,7 @@ export type t_PostAccountsRequestBody = {
           | undefined
         support_email?: string | undefined
         support_phone?: string | undefined
-        support_url?: (string | "" | UnknownEnumStringValue) | undefined
+        support_url?: (string | "") | undefined
         url?: string | undefined
       }
     | undefined
@@ -17356,7 +17348,6 @@ export type t_PostAccountsRequestBody = {
                   year: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         registration_number?: string | undefined
@@ -17488,7 +17479,7 @@ export type t_PostAccountsRequestBody = {
   external_account?: string | undefined
   groups?:
     | {
-        payments_pricing?: (string | "" | UnknownEnumStringValue) | undefined
+        payments_pricing?: (string | "") | undefined
       }
     | undefined
   individual?:
@@ -17533,14 +17524,13 @@ export type t_PostAccountsRequestBody = {
                   year: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         email?: string | undefined
         first_name?: string | undefined
         first_name_kana?: string | undefined
         first_name_kanji?: string | undefined
-        full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+        full_name_aliases?: (string[] | "") | undefined
         gender?: string | undefined
         id_number?: string | undefined
         id_number_secondary?: string | undefined
@@ -17548,9 +17538,7 @@ export type t_PostAccountsRequestBody = {
         last_name_kana?: string | undefined
         last_name_kanji?: string | undefined
         maiden_name?: string | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
+        metadata?: (Record<string, string> | "") | undefined
         phone?: string | undefined
         political_exposure?:
           | ("existing" | "none" | UnknownEnumStringValue)
@@ -17570,9 +17558,7 @@ export type t_PostAccountsRequestBody = {
               director?: boolean | undefined
               executive?: boolean | undefined
               owner?: boolean | undefined
-              percent_ownership?:
-                | (number | "" | UnknownEnumStringValue)
-                | undefined
+              percent_ownership?: (number | "") | undefined
               title?: string | undefined
             }
           | undefined
@@ -17595,7 +17581,7 @@ export type t_PostAccountsRequestBody = {
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   settings?:
     | {
         bacs_debit_payments?:
@@ -17617,9 +17603,7 @@ export type t_PostAccountsRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -17633,12 +17617,8 @@ export type t_PostAccountsRequestBody = {
                   }
                 | undefined
               statement_descriptor_prefix?: string | undefined
-              statement_descriptor_prefix_kana?:
-                | (string | "" | UnknownEnumStringValue)
-                | undefined
-              statement_descriptor_prefix_kanji?:
-                | (string | "" | UnknownEnumStringValue)
-                | undefined
+              statement_descriptor_prefix_kana?: (string | "") | undefined
+              statement_descriptor_prefix_kanji?: (string | "") | undefined
             }
           | undefined
         invoices?:
@@ -17660,9 +17640,7 @@ export type t_PostAccountsRequestBody = {
               debit_negative_balances?: boolean | undefined
               schedule?:
                 | {
-                    delay_days?:
-                      | ("minimum" | UnknownEnumStringValue | number)
-                      | undefined
+                    delay_days?: ("minimum" | number) | undefined
                     interval?:
                       | (
                           | "daily"
@@ -17709,9 +17687,7 @@ export type t_PostAccountsRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -17774,7 +17750,7 @@ export type t_PostAccountsAccountRequestBody = {
           | undefined
         support_email?: string | undefined
         support_phone?: string | undefined
-        support_url?: (string | "" | UnknownEnumStringValue) | undefined
+        support_url?: (string | "") | undefined
         url?: string | undefined
       }
     | undefined
@@ -18159,7 +18135,6 @@ export type t_PostAccountsAccountRequestBody = {
                   year: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         registration_number?: string | undefined
@@ -18262,7 +18237,7 @@ export type t_PostAccountsAccountRequestBody = {
   external_account?: string | undefined
   groups?:
     | {
-        payments_pricing?: (string | "" | UnknownEnumStringValue) | undefined
+        payments_pricing?: (string | "") | undefined
       }
     | undefined
   individual?:
@@ -18307,14 +18282,13 @@ export type t_PostAccountsAccountRequestBody = {
                   year: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         email?: string | undefined
         first_name?: string | undefined
         first_name_kana?: string | undefined
         first_name_kanji?: string | undefined
-        full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+        full_name_aliases?: (string[] | "") | undefined
         gender?: string | undefined
         id_number?: string | undefined
         id_number_secondary?: string | undefined
@@ -18322,9 +18296,7 @@ export type t_PostAccountsAccountRequestBody = {
         last_name_kana?: string | undefined
         last_name_kanji?: string | undefined
         maiden_name?: string | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
+        metadata?: (Record<string, string> | "") | undefined
         phone?: string | undefined
         political_exposure?:
           | ("existing" | "none" | UnknownEnumStringValue)
@@ -18344,9 +18316,7 @@ export type t_PostAccountsAccountRequestBody = {
               director?: boolean | undefined
               executive?: boolean | undefined
               owner?: boolean | undefined
-              percent_ownership?:
-                | (number | "" | UnknownEnumStringValue)
-                | undefined
+              percent_ownership?: (number | "") | undefined
               title?: string | undefined
             }
           | undefined
@@ -18369,7 +18339,7 @@ export type t_PostAccountsAccountRequestBody = {
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   settings?:
     | {
         bacs_debit_payments?:
@@ -18391,9 +18361,7 @@ export type t_PostAccountsAccountRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -18407,19 +18375,13 @@ export type t_PostAccountsAccountRequestBody = {
                   }
                 | undefined
               statement_descriptor_prefix?: string | undefined
-              statement_descriptor_prefix_kana?:
-                | (string | "" | UnknownEnumStringValue)
-                | undefined
-              statement_descriptor_prefix_kanji?:
-                | (string | "" | UnknownEnumStringValue)
-                | undefined
+              statement_descriptor_prefix_kana?: (string | "") | undefined
+              statement_descriptor_prefix_kanji?: (string | "") | undefined
             }
           | undefined
         invoices?:
           | {
-              default_account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              default_account_tax_ids?: (string[] | "") | undefined
               hosted_payment_method_save?:
                 | ("always" | "never" | "offer" | UnknownEnumStringValue)
                 | undefined
@@ -18437,9 +18399,7 @@ export type t_PostAccountsAccountRequestBody = {
               debit_negative_balances?: boolean | undefined
               schedule?:
                 | {
-                    delay_days?:
-                      | ("minimum" | UnknownEnumStringValue | number)
-                      | undefined
+                    delay_days?: ("minimum" | number) | undefined
                     interval?:
                       | (
                           | "daily"
@@ -18486,9 +18446,7 @@ export type t_PostAccountsAccountRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -18534,7 +18492,7 @@ export type t_PostAccountsAccountBankAccountsRequestBody = {
                     | undefined
                 }
               | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -18573,7 +18531,7 @@ export type t_PostAccountsAccountBankAccountsIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
 }
 
@@ -18611,7 +18569,7 @@ export type t_PostAccountsAccountExternalAccountsRequestBody = {
                     | undefined
                 }
               | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -18650,7 +18608,7 @@ export type t_PostAccountsAccountExternalAccountsIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
 }
 
@@ -18665,7 +18623,7 @@ export type t_PostAccountsAccountPeopleRequestBody = {
           | {
               date?: number | undefined
               ip?: string | undefined
-              user_agent?: (string | "" | UnknownEnumStringValue) | undefined
+              user_agent?: (string | "") | undefined
             }
           | undefined
       }
@@ -18710,24 +18668,23 @@ export type t_PostAccountsAccountPeopleRequestBody = {
             year: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   documents?:
     | {
         company_authorization?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         passport?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         visa?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
       }
@@ -18737,7 +18694,7 @@ export type t_PostAccountsAccountPeopleRequestBody = {
   first_name?: string | undefined
   first_name_kana?: string | undefined
   first_name_kanji?: string | undefined
-  full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+  full_name_aliases?: (string[] | "") | undefined
   gender?: string | undefined
   id_number?: string | undefined
   id_number_secondary?: string | undefined
@@ -18745,7 +18702,7 @@ export type t_PostAccountsAccountPeopleRequestBody = {
   last_name_kana?: string | undefined
   last_name_kanji?: string | undefined
   maiden_name?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nationality?: string | undefined
   person_token?: string | undefined
   phone?: string | undefined
@@ -18769,7 +18726,7 @@ export type t_PostAccountsAccountPeopleRequestBody = {
         executive?: boolean | undefined
         legal_guardian?: boolean | undefined
         owner?: boolean | undefined
-        percent_ownership?: (number | "" | UnknownEnumStringValue) | undefined
+        percent_ownership?: (number | "") | undefined
         representative?: boolean | undefined
         title?: string | undefined
       }
@@ -18856,7 +18813,7 @@ export type t_PostAccountsAccountPeoplePersonRequestBody = {
           | {
               date?: number | undefined
               ip?: string | undefined
-              user_agent?: (string | "" | UnknownEnumStringValue) | undefined
+              user_agent?: (string | "") | undefined
             }
           | undefined
       }
@@ -18901,24 +18858,23 @@ export type t_PostAccountsAccountPeoplePersonRequestBody = {
             year: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   documents?:
     | {
         company_authorization?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         passport?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         visa?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
       }
@@ -18928,7 +18884,7 @@ export type t_PostAccountsAccountPeoplePersonRequestBody = {
   first_name?: string | undefined
   first_name_kana?: string | undefined
   first_name_kanji?: string | undefined
-  full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+  full_name_aliases?: (string[] | "") | undefined
   gender?: string | undefined
   id_number?: string | undefined
   id_number_secondary?: string | undefined
@@ -18936,7 +18892,7 @@ export type t_PostAccountsAccountPeoplePersonRequestBody = {
   last_name_kana?: string | undefined
   last_name_kanji?: string | undefined
   maiden_name?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nationality?: string | undefined
   person_token?: string | undefined
   phone?: string | undefined
@@ -18960,7 +18916,7 @@ export type t_PostAccountsAccountPeoplePersonRequestBody = {
         executive?: boolean | undefined
         legal_guardian?: boolean | undefined
         owner?: boolean | undefined
-        percent_ownership?: (number | "" | UnknownEnumStringValue) | undefined
+        percent_ownership?: (number | "") | undefined
         representative?: boolean | undefined
         title?: string | undefined
       }
@@ -19047,7 +19003,7 @@ export type t_PostAccountsAccountPersonsRequestBody = {
           | {
               date?: number | undefined
               ip?: string | undefined
-              user_agent?: (string | "" | UnknownEnumStringValue) | undefined
+              user_agent?: (string | "") | undefined
             }
           | undefined
       }
@@ -19092,24 +19048,23 @@ export type t_PostAccountsAccountPersonsRequestBody = {
             year: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   documents?:
     | {
         company_authorization?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         passport?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         visa?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
       }
@@ -19119,7 +19074,7 @@ export type t_PostAccountsAccountPersonsRequestBody = {
   first_name?: string | undefined
   first_name_kana?: string | undefined
   first_name_kanji?: string | undefined
-  full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+  full_name_aliases?: (string[] | "") | undefined
   gender?: string | undefined
   id_number?: string | undefined
   id_number_secondary?: string | undefined
@@ -19127,7 +19082,7 @@ export type t_PostAccountsAccountPersonsRequestBody = {
   last_name_kana?: string | undefined
   last_name_kanji?: string | undefined
   maiden_name?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nationality?: string | undefined
   person_token?: string | undefined
   phone?: string | undefined
@@ -19151,7 +19106,7 @@ export type t_PostAccountsAccountPersonsRequestBody = {
         executive?: boolean | undefined
         legal_guardian?: boolean | undefined
         owner?: boolean | undefined
-        percent_ownership?: (number | "" | UnknownEnumStringValue) | undefined
+        percent_ownership?: (number | "") | undefined
         representative?: boolean | undefined
         title?: string | undefined
       }
@@ -19238,7 +19193,7 @@ export type t_PostAccountsAccountPersonsPersonRequestBody = {
           | {
               date?: number | undefined
               ip?: string | undefined
-              user_agent?: (string | "" | UnknownEnumStringValue) | undefined
+              user_agent?: (string | "") | undefined
             }
           | undefined
       }
@@ -19283,24 +19238,23 @@ export type t_PostAccountsAccountPersonsPersonRequestBody = {
             year: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   documents?:
     | {
         company_authorization?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         passport?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
         visa?:
           | {
-              files?: (string | "" | UnknownEnumStringValue)[] | undefined
+              files?: (string | "")[] | undefined
             }
           | undefined
       }
@@ -19310,7 +19264,7 @@ export type t_PostAccountsAccountPersonsPersonRequestBody = {
   first_name?: string | undefined
   first_name_kana?: string | undefined
   first_name_kanji?: string | undefined
-  full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+  full_name_aliases?: (string[] | "") | undefined
   gender?: string | undefined
   id_number?: string | undefined
   id_number_secondary?: string | undefined
@@ -19318,7 +19272,7 @@ export type t_PostAccountsAccountPersonsPersonRequestBody = {
   last_name_kana?: string | undefined
   last_name_kanji?: string | undefined
   maiden_name?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nationality?: string | undefined
   person_token?: string | undefined
   phone?: string | undefined
@@ -19342,7 +19296,7 @@ export type t_PostAccountsAccountPersonsPersonRequestBody = {
         executive?: boolean | undefined
         legal_guardian?: boolean | undefined
         owner?: boolean | undefined
-        percent_ownership?: (number | "" | UnknownEnumStringValue) | undefined
+        percent_ownership?: (number | "") | undefined
         representative?: boolean | undefined
         title?: string | undefined
       }
@@ -19434,7 +19388,7 @@ export type t_PostApplePayDomainsRequestBody = {
 
 export type t_PostApplicationFeesFeeRefundsIdRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostApplicationFeesIdRefundRequestBody = {
@@ -19470,7 +19424,7 @@ export type t_PostAppsSecretsDeleteRequestBody = {
 }
 
 export type t_PostBillingAlertsRequestBody = {
-  alert_type: "usage_threshold" | UnknownEnumStringValue
+  alert_type: "usage_threshold"
   expand?: string[] | undefined
   title: string
   usage_threshold?:
@@ -19478,12 +19432,12 @@ export type t_PostBillingAlertsRequestBody = {
         filters?:
           | {
               customer?: string | undefined
-              type: "customer" | UnknownEnumStringValue
+              type: "customer"
             }[]
           | undefined
         gte: number
         meter: string
-        recurrence: "one_time" | UnknownEnumStringValue
+        recurrence: "one_time"
       }
     | undefined
 }
@@ -19508,11 +19462,11 @@ export type t_PostBillingCreditGrantsRequestBody = {
           value: number
         }
       | undefined
-    type: "monetary" | UnknownEnumStringValue
+    type: "monetary"
   }
   applicability_config: {
     scope: {
-      price_type?: ("metered" | UnknownEnumStringValue) | undefined
+      price_type?: "metered" | undefined
       prices?:
         | {
             id: string
@@ -19532,7 +19486,7 @@ export type t_PostBillingCreditGrantsRequestBody = {
 
 export type t_PostBillingCreditGrantsIdRequestBody = {
   expand?: string[] | undefined
-  expires_at?: (number | "" | UnknownEnumStringValue) | undefined
+  expires_at?: (number | "") | undefined
   metadata?: Record<string, string> | undefined
 }
 
@@ -19552,7 +19506,7 @@ export type t_PostBillingMeterEventAdjustmentsRequestBody = {
     | undefined
   event_name: string
   expand?: string[] | undefined
-  type: "cancel" | UnknownEnumStringValue
+  type: "cancel"
 }
 
 export type t_PostBillingMeterEventsRequestBody = {
@@ -19567,7 +19521,7 @@ export type t_PostBillingMetersRequestBody = {
   customer_mapping?:
     | {
         event_payload_key: string
-        type: "by_id" | UnknownEnumStringValue
+        type: "by_id"
       }
     | undefined
   default_aggregation: {
@@ -19600,12 +19554,12 @@ export type t_PostBillingMetersIdReactivateRequestBody = {
 export type t_PostBillingPortalConfigurationsRequestBody = {
   business_profile?:
     | {
-        headline?: (string | "" | UnknownEnumStringValue) | undefined
+        headline?: (string | "") | undefined
         privacy_policy_url?: string | undefined
         terms_of_service_url?: string | undefined
       }
     | undefined
-  default_return_url?: (string | "" | UnknownEnumStringValue) | undefined
+  default_return_url?: (string | "") | undefined
   expand?: string[] | undefined
   features: {
     customer_update?:
@@ -19622,7 +19576,6 @@ export type t_PostBillingPortalConfigurationsRequestBody = {
                     | UnknownEnumStringValue
                   )[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           enabled: boolean
@@ -19656,7 +19609,6 @@ export type t_PostBillingPortalConfigurationsRequestBody = {
                       | UnknownEnumStringValue
                     )[]
                   | ""
-                  | UnknownEnumStringValue
               }
             | undefined
           enabled: boolean
@@ -19684,7 +19636,6 @@ export type t_PostBillingPortalConfigurationsRequestBody = {
                     | UnknownEnumStringValue
                   )[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           enabled: boolean
@@ -19702,7 +19653,6 @@ export type t_PostBillingPortalConfigurationsRequestBody = {
                     product: string
                   }[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           proration_behavior?:
@@ -19740,14 +19690,12 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
   active?: boolean | undefined
   business_profile?:
     | {
-        headline?: (string | "" | UnknownEnumStringValue) | undefined
-        privacy_policy_url?: (string | "" | UnknownEnumStringValue) | undefined
-        terms_of_service_url?:
-          | (string | "" | UnknownEnumStringValue)
-          | undefined
+        headline?: (string | "") | undefined
+        privacy_policy_url?: (string | "") | undefined
+        terms_of_service_url?: (string | "") | undefined
       }
     | undefined
-  default_return_url?: (string | "" | UnknownEnumStringValue) | undefined
+  default_return_url?: (string | "") | undefined
   expand?: string[] | undefined
   features?:
     | {
@@ -19765,7 +19713,6 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
                         | UnknownEnumStringValue
                       )[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               enabled?: boolean | undefined
@@ -19800,7 +19747,6 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
                               | UnknownEnumStringValue
                             )[]
                           | ""
-                          | UnknownEnumStringValue
                         )
                       | undefined
                   }
@@ -19830,7 +19776,6 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
                         | UnknownEnumStringValue
                       )[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               enabled?: boolean | undefined
@@ -19848,7 +19793,6 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
                         product: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               proration_behavior?:
@@ -19870,7 +19814,6 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
                                 | UnknownEnumStringValue
                             }[]
                           | ""
-                          | UnknownEnumStringValue
                         )
                       | undefined
                   }
@@ -19884,7 +19827,7 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBody = {
         enabled: boolean
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostBillingPortalSessionsRequestBody = {
@@ -19919,7 +19862,7 @@ export type t_PostBillingPortalSessionsRequestBody = {
                     coupon_offer: {
                       coupon: string
                     }
-                    type: "coupon_offer" | UnknownEnumStringValue
+                    type: "coupon_offer"
                   }
                 | undefined
               subscription: string
@@ -20030,7 +19973,7 @@ export type t_PostChargesRequestBody = {
             metadata?: Record<string, string> | undefined
             name?: string | undefined
             number: string
-            object?: ("card" | UnknownEnumStringValue) | undefined
+            object?: "card" | undefined
           }
         | string
       )
@@ -20048,7 +19991,7 @@ export type t_PostChargesRequestBody = {
       )
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   on_behalf_of?: string | undefined
   radar_options?:
     | {
@@ -20093,7 +20036,7 @@ export type t_PostChargesChargeRequestBody = {
         user_report: "" | "fraudulent" | "safe" | UnknownEnumStringValue
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   receipt_email?: string | undefined
   shipping?:
     | {
@@ -20153,21 +20096,13 @@ export type t_PostChargesChargeDisputeRequestBody = {
                     | {
                         disputed_transaction?:
                           | {
-                              customer_account_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_account_id?: (string | "") | undefined
                               customer_device_fingerprint?:
-                                | (string | "" | UnknownEnumStringValue)
+                                | (string | "")
                                 | undefined
-                              customer_device_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_email_address?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_purchase_ip?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
                               merchandise_or_services?:
                                 | (
                                     | "merchandise"
@@ -20175,29 +20110,15 @@ export type t_PostChargesChargeDisputeRequestBody = {
                                     | UnknownEnumStringValue
                                   )
                                 | undefined
-                              product_description?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              product_description?: (string | "") | undefined
                               shipping_address?:
                                 | {
-                                    city?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    country?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line1?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line2?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    postal_code?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    state?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
                                   }
                                 | undefined
                             }
@@ -20205,44 +20126,22 @@ export type t_PostChargesChargeDisputeRequestBody = {
                         prior_undisputed_transactions?:
                           | {
                               charge: string
-                              customer_account_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_account_id?: (string | "") | undefined
                               customer_device_fingerprint?:
-                                | (string | "" | UnknownEnumStringValue)
+                                | (string | "")
                                 | undefined
-                              customer_device_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_email_address?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_purchase_ip?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              product_description?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
+                              product_description?: (string | "") | undefined
                               shipping_address?:
                                 | {
-                                    city?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    country?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line1?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line2?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    postal_code?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    state?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
                                   }
                                 | undefined
                             }[]
@@ -20256,7 +20155,6 @@ export type t_PostChargesChargeDisputeRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         product_description?: string | undefined
@@ -20276,7 +20174,7 @@ export type t_PostChargesChargeDisputeRequestBody = {
       }
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   submit?: boolean | undefined
 }
 
@@ -20288,7 +20186,7 @@ export type t_PostChargesChargeRefundRequestBody = {
   amount?: number | undefined
   expand?: string[] | undefined
   instructions_email?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   payment_intent?: string | undefined
   reason?:
     | (
@@ -20308,8 +20206,8 @@ export type t_PostChargesChargeRefundsRequestBody = {
   customer?: string | undefined
   expand?: string[] | undefined
   instructions_email?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
-  origin?: ("customer_balance" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
+  origin?: "customer_balance" | undefined
   payment_intent?: string | undefined
   reason?:
     | (
@@ -20325,7 +20223,7 @@ export type t_PostChargesChargeRefundsRequestBody = {
 
 export type t_PostChargesChargeRefundsRefundRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostCheckoutSessionsRequestBody = {
@@ -20389,7 +20287,7 @@ export type t_PostCheckoutSessionsRequestBody = {
         key: string
         label: {
           custom: string
-          type: "custom" | UnknownEnumStringValue
+          type: "custom"
         }
         numeric?:
           | {
@@ -20417,7 +20315,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         shipping_address?:
@@ -20426,7 +20323,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         submit?:
@@ -20435,7 +20331,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         terms_of_service_acceptance?:
@@ -20444,7 +20339,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -20474,9 +20368,7 @@ export type t_PostCheckoutSessionsRequestBody = {
         enabled: boolean
         invoice_data?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               custom_fields?:
                 | (
                     | {
@@ -20484,7 +20376,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                         value: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               description?: string | undefined
@@ -20510,7 +20401,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                         template?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -20695,9 +20585,7 @@ export type t_PostCheckoutSessionsRequestBody = {
               currency?: ("cad" | "usd" | UnknownEnumStringValue) | undefined
               mandate_options?:
                 | {
-                    custom_mandate_url?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    custom_mandate_url?: (string | "") | undefined
                     default_for?:
                       | ("invoice" | "subscription" | UnknownEnumStringValue)[]
                       | undefined
@@ -20736,17 +20624,17 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         affirm?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         afterpay_clearpay?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         alipay?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         amazon_pay?:
@@ -20758,7 +20646,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         au_becs_debit?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
               target_date?: string | undefined
             }
           | undefined
@@ -20766,9 +20654,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
               setup_future_usage?:
@@ -20784,7 +20670,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         bancontact?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         boleto?:
@@ -20884,40 +20770,38 @@ export type t_PostCheckoutSessionsRequestBody = {
                       | UnknownEnumStringValue
                   }
                 | undefined
-              funding_type?:
-                | ("bank_transfer" | UnknownEnumStringValue)
-                | undefined
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              funding_type?: "bank_transfer" | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         eps?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         fpx?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         giropay?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         grabpay?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         ideal?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         kakao_pay?:
           | {
-              capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+              capture_method?: "manual" | undefined
               setup_future_usage?:
                 | ("none" | "off_session" | UnknownEnumStringValue)
                 | undefined
@@ -20925,7 +20809,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         klarna?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
               subscriptions?:
                 | (
                     | {
@@ -20944,7 +20828,6 @@ export type t_PostCheckoutSessionsRequestBody = {
                         reference: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -20952,12 +20835,12 @@ export type t_PostCheckoutSessionsRequestBody = {
         konbini?:
           | {
               expires_after_days?: number | undefined
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         kr_card?:
           | {
-              capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+              capture_method?: "manual" | undefined
               setup_future_usage?:
                 | ("none" | "off_session" | UnknownEnumStringValue)
                 | undefined
@@ -20972,17 +20855,17 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         mobilepay?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         multibanco?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         naver_pay?:
           | {
-              capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+              capture_method?: "manual" | undefined
               setup_future_usage?:
                 | ("none" | "off_session" | UnknownEnumStringValue)
                 | undefined
@@ -20991,24 +20874,24 @@ export type t_PostCheckoutSessionsRequestBody = {
         oxxo?:
           | {
               expires_after_days?: number | undefined
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         p24?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
               tos_shown_and_accepted?: boolean | undefined
             }
           | undefined
         pay_by_bank?: Record<string, unknown> | undefined
         payco?:
           | {
-              capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+              capture_method?: "manual" | undefined
             }
           | undefined
         paynow?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         paypal?:
@@ -21052,7 +20935,7 @@ export type t_PostCheckoutSessionsRequestBody = {
         pix?:
           | {
               expires_after_seconds?: number | undefined
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         revolut_pay?:
@@ -21064,16 +20947,14 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         samsung_pay?:
           | {
-              capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+              capture_method?: "manual" | undefined
             }
           | undefined
         sepa_debit?:
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
               setup_future_usage?:
@@ -21089,7 +20970,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | undefined
         sofort?:
           | {
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         swish?:
@@ -21138,7 +21019,7 @@ export type t_PostCheckoutSessionsRequestBody = {
           | {
               app_id?: string | undefined
               client: "android" | "ios" | "web" | UnknownEnumStringValue
-              setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
       }
@@ -21543,7 +21424,7 @@ export type t_PostCheckoutSessionsRequestBody = {
                   )
                 | undefined
               tax_code?: string | undefined
-              type?: ("fixed_amount" | UnknownEnumStringValue) | undefined
+              type?: "fixed_amount" | undefined
             }
           | undefined
       }[]
@@ -21647,7 +21528,7 @@ export type t_PostCheckoutSessionsSessionRequestBody = {
       }
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   shipping_options?:
     | (
         | {
@@ -21715,12 +21596,11 @@ export type t_PostCheckoutSessionsSessionRequestBody = {
                       )
                     | undefined
                   tax_code?: string | undefined
-                  type?: ("fixed_amount" | UnknownEnumStringValue) | undefined
+                  type?: "fixed_amount" | undefined
                 }
               | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -21747,10 +21627,9 @@ export type t_PostClimateOrdersOrderRequestBody = {
   beneficiary?:
     | (
         | {
-            public_name: string | "" | UnknownEnumStringValue
+            public_name: string | ""
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
@@ -21784,7 +21663,7 @@ export type t_PostCouponsRequestBody = {
   expand?: string[] | undefined
   id?: string | undefined
   max_redemptions?: number | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   percent_off?: number | undefined
   redeem_by?: number | undefined
@@ -21800,7 +21679,7 @@ export type t_PostCouponsCouponRequestBody = {
       >
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
 }
 
@@ -21825,10 +21704,9 @@ export type t_PostCreditNotesRequestBody = {
                   taxable_amount: number
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
         type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
@@ -21929,7 +21807,6 @@ export type t_PostCustomersRequestBody = {
             state?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   balance?: number | undefined
@@ -21962,7 +21839,6 @@ export type t_PostCustomersRequestBody = {
                   value: string
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         default_payment_method?: string | undefined
@@ -21981,12 +21857,11 @@ export type t_PostCustomersRequestBody = {
                   template?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   next_invoice_sequence?: number | undefined
   payment_method?: string | undefined
@@ -22007,13 +21882,12 @@ export type t_PostCustomersRequestBody = {
             phone?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   source?: string | undefined
   tax?:
     | {
-        ip_address?: (string | "" | UnknownEnumStringValue) | undefined
+        ip_address?: (string | "") | undefined
         validate_location?:
           | ("deferred" | "immediately" | UnknownEnumStringValue)
           | undefined
@@ -22154,7 +22028,6 @@ export type t_PostCustomersCustomerRequestBody = {
             state?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   balance?: number | undefined
@@ -22168,7 +22041,7 @@ export type t_PostCustomersCustomerRequestBody = {
             account_number: string
             country: string
             currency?: string | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -22189,7 +22062,7 @@ export type t_PostCustomersCustomerRequestBody = {
             metadata?: Record<string, string> | undefined
             name?: string | undefined
             number: string
-            object?: ("card" | UnknownEnumStringValue) | undefined
+            object?: "card" | undefined
           }
         | string
       )
@@ -22227,7 +22100,6 @@ export type t_PostCustomersCustomerRequestBody = {
                   value: string
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         default_payment_method?: string | undefined
@@ -22246,12 +22118,11 @@ export type t_PostCustomersCustomerRequestBody = {
                   template?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   next_invoice_sequence?: number | undefined
   phone?: string | undefined
@@ -22271,13 +22142,12 @@ export type t_PostCustomersCustomerRequestBody = {
             phone?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   source?: string | undefined
   tax?:
     | {
-        ip_address?: (string | "" | UnknownEnumStringValue) | undefined
+        ip_address?: (string | "") | undefined
         validate_location?:
           | ("auto" | "deferred" | "immediately" | UnknownEnumStringValue)
           | undefined
@@ -22293,13 +22163,13 @@ export type t_PostCustomersCustomerBalanceTransactionsRequestBody = {
   currency: string
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostCustomersCustomerBalanceTransactionsTransactionRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostCustomersCustomerBankAccountsRequestBody = {
@@ -22314,7 +22184,7 @@ export type t_PostCustomersCustomerBankAccountsRequestBody = {
             account_number: string
             country: string
             currency?: string | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -22335,7 +22205,7 @@ export type t_PostCustomersCustomerBankAccountsRequestBody = {
             metadata?: Record<string, string> | undefined
             name?: string | undefined
             number: string
-            object?: ("card" | UnknownEnumStringValue) | undefined
+            object?: "card" | undefined
           }
         | string
       )
@@ -22359,7 +22229,7 @@ export type t_PostCustomersCustomerBankAccountsIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   owner?:
     | {
@@ -22397,7 +22267,7 @@ export type t_PostCustomersCustomerCardsRequestBody = {
             account_number: string
             country: string
             currency?: string | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -22418,7 +22288,7 @@ export type t_PostCustomersCustomerCardsRequestBody = {
             metadata?: Record<string, string> | undefined
             name?: string | undefined
             number: string
-            object?: ("card" | UnknownEnumStringValue) | undefined
+            object?: "card" | undefined
           }
         | string
       )
@@ -22442,7 +22312,7 @@ export type t_PostCustomersCustomerCardsIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   owner?:
     | {
@@ -22499,7 +22369,7 @@ export type t_PostCustomersCustomerFundingInstructionsRequestBody = {
   }
   currency: string
   expand?: string[] | undefined
-  funding_type: "bank_transfer" | UnknownEnumStringValue
+  funding_type: "bank_transfer"
 }
 
 export type t_PostCustomersCustomerSourcesRequestBody = {
@@ -22514,7 +22384,7 @@ export type t_PostCustomersCustomerSourcesRequestBody = {
             account_number: string
             country: string
             currency?: string | undefined
-            object?: ("bank_account" | UnknownEnumStringValue) | undefined
+            object?: "bank_account" | undefined
             routing_number?: string | undefined
           }
         | string
@@ -22535,7 +22405,7 @@ export type t_PostCustomersCustomerSourcesRequestBody = {
             metadata?: Record<string, string> | undefined
             name?: string | undefined
             number: string
-            object?: ("card" | UnknownEnumStringValue) | undefined
+            object?: "card" | undefined
           }
         | string
       )
@@ -22559,7 +22429,7 @@ export type t_PostCustomersCustomerSourcesIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   owner?:
     | {
@@ -22613,10 +22483,10 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_percent?: (number | "") | undefined
   automatic_tax?:
     | {
         enabled: boolean
@@ -22637,7 +22507,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
             reset_billing_cycle_anchor?: boolean | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   cancel_at?:
@@ -22651,7 +22520,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
   days_until_due?: number | undefined
   default_payment_method?: string | undefined
   default_source?: string | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  default_tax_rates?: (string[] | "") | undefined
   discounts?:
     | (
         | {
@@ -22660,13 +22529,12 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   invoice_settings?:
     | {
-        account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+        account_tax_ids?: (string[] | "") | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -22683,7 +22551,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                   usage_gte: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         discounts?:
@@ -22694,7 +22561,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         metadata?: Record<string, string> | undefined
@@ -22725,10 +22591,10 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   off_session?: boolean | undefined
   payment_behavior?:
     | (
@@ -22767,7 +22633,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               bancontact?:
@@ -22778,7 +22643,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               card?:
@@ -22821,7 +22685,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               customer_balance?:
@@ -22840,15 +22703,10 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                         funding_type?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              konbini?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
-              sepa_debit?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
+              konbini?: (Record<string, unknown> | "") | undefined
+              sepa_debit?: (Record<string, unknown> | "") | undefined
               us_bank_account?:
                 | (
                     | {
@@ -22894,7 +22752,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -22944,7 +22801,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                   | UnknownEnumStringValue
                 )[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         save_default_payment_method?:
@@ -22959,7 +22815,6 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
             interval_count?: number | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   proration_behavior?:
@@ -22971,7 +22826,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
         destination: string
       }
     | undefined
-  trial_end?: ("now" | UnknownEnumStringValue | number) | undefined
+  trial_end?: ("now" | number) | undefined
   trial_from_plan?: boolean | undefined
   trial_period_days?: number | undefined
   trial_settings?:
@@ -23016,10 +22871,10 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               }
             | undefined
           quantity?: number | undefined
-          tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
       | undefined
-    application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+    application_fee_percent?: (number | "") | undefined
     automatic_tax?:
       | {
           enabled: boolean
@@ -23041,22 +22896,21 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               reset_billing_cycle_anchor?: boolean | undefined
             }
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     cancel_at?:
       | (
           | number
           | ""
-          | UnknownEnumStringValue
           | "max_period_end"
           | "min_period_end"
+          | UnknownEnumStringValue
         )
       | undefined
     cancel_at_period_end?: boolean | undefined
     cancellation_details?:
       | {
-          comment?: (string | "" | UnknownEnumStringValue) | undefined
+          comment?: (string | "") | undefined
           feedback?:
             | (
                 | ""
@@ -23078,8 +22932,8 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
       | undefined
     days_until_due?: number | undefined
     default_payment_method?: string | undefined
-    default_source?: (string | "" | UnknownEnumStringValue) | undefined
-    default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+    default_source?: (string | "") | undefined
+    default_tax_rates?: (string[] | "") | undefined
     discounts?:
       | (
           | {
@@ -23088,13 +22942,12 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               promotion_code?: string | undefined
             }[]
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     expand?: string[] | undefined
     invoice_settings?:
       | {
-          account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+          account_tax_ids?: (string[] | "") | undefined
           issuer?:
             | {
                 account?: string | undefined
@@ -23111,7 +22964,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                     usage_gte: number
                   }
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           clear_usage?: boolean | undefined
@@ -23124,13 +22976,10 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                     promotion_code?: string | undefined
                   }[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           id?: string | undefined
-          metadata?:
-            | (Record<string, string> | "" | UnknownEnumStringValue)
-            | undefined
+          metadata?: (Record<string, string> | "") | undefined
           price?: string | undefined
           price_data?:
             | {
@@ -23158,12 +23007,10 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               }
             | undefined
           quantity?: number | undefined
-          tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
       | undefined
-    metadata?:
-      | (Record<string, string> | "" | UnknownEnumStringValue)
-      | undefined
+    metadata?: (Record<string, string> | "") | undefined
     off_session?: boolean | undefined
     pause_collection?:
       | (
@@ -23176,7 +23023,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               resumes_at?: number | undefined
             }
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     payment_behavior?:
@@ -23216,7 +23062,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                             | undefined
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
                 bancontact?:
@@ -23233,7 +23078,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                             | undefined
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
                 card?:
@@ -23280,7 +23124,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                             | undefined
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
                 customer_balance?:
@@ -23299,15 +23142,10 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                           funding_type?: string | undefined
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
-                konbini?:
-                  | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                  | undefined
-                sepa_debit?:
-                  | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                  | undefined
+                konbini?: (Record<string, unknown> | "") | undefined
+                sepa_debit?: (Record<string, unknown> | "") | undefined
                 us_bank_account?:
                   | (
                       | {
@@ -23353,7 +23191,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                             | undefined
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
               }
@@ -23403,7 +23240,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                     | UnknownEnumStringValue
                   )[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           save_default_payment_method?:
@@ -23423,7 +23259,6 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               interval_count?: number | undefined
             }
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     proration_behavior?:
@@ -23442,10 +23277,9 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
               destination: string
             }
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
-    trial_end?: ("now" | UnknownEnumStringValue | number) | undefined
+    trial_end?: ("now" | number) | undefined
     trial_from_plan?: boolean | undefined
     trial_settings?:
       | {
@@ -23600,21 +23434,13 @@ export type t_PostDisputesDisputeRequestBody = {
                     | {
                         disputed_transaction?:
                           | {
-                              customer_account_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_account_id?: (string | "") | undefined
                               customer_device_fingerprint?:
-                                | (string | "" | UnknownEnumStringValue)
+                                | (string | "")
                                 | undefined
-                              customer_device_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_email_address?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_purchase_ip?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
                               merchandise_or_services?:
                                 | (
                                     | "merchandise"
@@ -23622,29 +23448,15 @@ export type t_PostDisputesDisputeRequestBody = {
                                     | UnknownEnumStringValue
                                   )
                                 | undefined
-                              product_description?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              product_description?: (string | "") | undefined
                               shipping_address?:
                                 | {
-                                    city?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    country?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line1?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line2?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    postal_code?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    state?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
                                   }
                                 | undefined
                             }
@@ -23652,44 +23464,22 @@ export type t_PostDisputesDisputeRequestBody = {
                         prior_undisputed_transactions?:
                           | {
                               charge: string
-                              customer_account_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_account_id?: (string | "") | undefined
                               customer_device_fingerprint?:
-                                | (string | "" | UnknownEnumStringValue)
+                                | (string | "")
                                 | undefined
-                              customer_device_id?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_email_address?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              customer_purchase_ip?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
-                              product_description?:
-                                | (string | "" | UnknownEnumStringValue)
-                                | undefined
+                              customer_device_id?: (string | "") | undefined
+                              customer_email_address?: (string | "") | undefined
+                              customer_purchase_ip?: (string | "") | undefined
+                              product_description?: (string | "") | undefined
                               shipping_address?:
                                 | {
-                                    city?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    country?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line1?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    line2?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    postal_code?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
-                                    state?:
-                                      | (string | "" | UnknownEnumStringValue)
-                                      | undefined
+                                    city?: (string | "") | undefined
+                                    country?: (string | "") | undefined
+                                    line1?: (string | "") | undefined
+                                    line2?: (string | "") | undefined
+                                    postal_code?: (string | "") | undefined
+                                    state?: (string | "") | undefined
                                   }
                                 | undefined
                             }[]
@@ -23703,7 +23493,6 @@ export type t_PostDisputesDisputeRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         product_description?: string | undefined
@@ -23723,7 +23512,7 @@ export type t_PostDisputesDisputeRequestBody = {
       }
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   submit?: boolean | undefined
 }
 
@@ -23741,7 +23530,7 @@ export type t_PostEntitlementsFeaturesRequestBody = {
 export type t_PostEntitlementsFeaturesIdRequestBody = {
   active?: boolean | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
 }
 
@@ -23780,7 +23569,7 @@ export type t_PostExternalAccountsIdRequestBody = {
   exp_month?: string | undefined
   exp_year?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
 }
 
@@ -23788,13 +23577,13 @@ export type t_PostFileLinksRequestBody = {
   expand?: string[] | undefined
   expires_at?: number | undefined
   file: string
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostFileLinksLinkRequestBody = {
   expand?: string[] | undefined
-  expires_at?: ("now" | UnknownEnumStringValue | number | "") | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  expires_at?: ("now" | number | "") | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostFinancialConnectionsAccountsAccountDisconnectRequestBody = {
@@ -23813,12 +23602,12 @@ export type t_PostFinancialConnectionsAccountsAccountRefreshRequestBody = {
 
 export type t_PostFinancialConnectionsAccountsAccountSubscribeRequestBody = {
   expand?: string[] | undefined
-  features: ("transactions" | UnknownEnumStringValue)[]
+  features: "transactions"[]
 }
 
 export type t_PostFinancialConnectionsAccountsAccountUnsubscribeRequestBody = {
   expand?: string[] | undefined
-  features: ("transactions" | UnknownEnumStringValue)[]
+  features: "transactions"[]
 }
 
 export type t_PostFinancialConnectionsSessionsRequestBody = {
@@ -23904,7 +23693,6 @@ export type t_PostIdentityVerificationSessionsRequestBody = {
                   require_matching_selfie?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -23948,7 +23736,6 @@ export type t_PostIdentityVerificationSessionsSessionRequestBody = {
                   require_matching_selfie?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -23992,12 +23779,11 @@ export type t_PostInvoiceitemsRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   invoice?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   period?:
     | {
         end: number
@@ -24025,7 +23811,7 @@ export type t_PostInvoiceitemsRequestBody = {
   tax_behavior?:
     | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
     | undefined
-  tax_code?: (string | "" | UnknownEnumStringValue) | undefined
+  tax_code?: (string | "") | undefined
   tax_rates?: string[] | undefined
   unit_amount_decimal?: string | undefined
 }
@@ -24042,11 +23828,10 @@ export type t_PostInvoiceitemsInvoiceitemRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   period?:
     | {
         end: number
@@ -24073,13 +23858,13 @@ export type t_PostInvoiceitemsInvoiceitemRequestBody = {
   tax_behavior?:
     | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
     | undefined
-  tax_code?: (string | "" | UnknownEnumStringValue) | undefined
-  tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  tax_code?: (string | "") | undefined
+  tax_rates?: (string[] | "") | undefined
   unit_amount_decimal?: string | undefined
 }
 
 export type t_PostInvoicesRequestBody = {
-  account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+  account_tax_ids?: (string[] | "") | undefined
   application_fee_amount?: number | undefined
   auto_advance?: boolean | undefined
   automatic_tax?:
@@ -24105,7 +23890,6 @@ export type t_PostInvoicesRequestBody = {
             value: string
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   customer?: string | undefined
@@ -24122,7 +23906,6 @@ export type t_PostInvoicesRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   due_date?: number | undefined
@@ -24131,7 +23914,7 @@ export type t_PostInvoicesRequestBody = {
   footer?: string | undefined
   from_invoice?:
     | {
-        action: "revision" | UnknownEnumStringValue
+        action: "revision"
         invoice: string
       }
     | undefined
@@ -24141,12 +23924,12 @@ export type t_PostInvoicesRequestBody = {
         type: "account" | "self" | UnknownEnumStringValue
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   number?: string | undefined
   on_behalf_of?: string | undefined
   payment_settings?:
     | {
-        default_mandate?: (string | "" | UnknownEnumStringValue) | undefined
+        default_mandate?: (string | "") | undefined
         payment_method_options?:
           | {
               acss_debit?:
@@ -24173,7 +23956,6 @@ export type t_PostInvoicesRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               bancontact?:
@@ -24184,7 +23966,6 @@ export type t_PostInvoicesRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               card?:
@@ -24197,9 +23978,7 @@ export type t_PostInvoicesRequestBody = {
                                 | (
                                     | {
                                         count?: number | undefined
-                                        interval?:
-                                          | ("month" | UnknownEnumStringValue)
-                                          | undefined
+                                        interval?: "month" | undefined
                                         type:
                                           | "bonus"
                                           | "fixed_count"
@@ -24207,7 +23986,6 @@ export type t_PostInvoicesRequestBody = {
                                           | UnknownEnumStringValue
                                       }
                                     | ""
-                                    | UnknownEnumStringValue
                                   )
                                 | undefined
                             }
@@ -24222,7 +24000,6 @@ export type t_PostInvoicesRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               customer_balance?:
@@ -24241,15 +24018,10 @@ export type t_PostInvoicesRequestBody = {
                         funding_type?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              konbini?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
-              sepa_debit?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
+              konbini?: (Record<string, unknown> | "") | undefined
+              sepa_debit?: (Record<string, unknown> | "") | undefined
               us_bank_account?:
                 | (
                     | {
@@ -24295,7 +24067,6 @@ export type t_PostInvoicesRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -24345,7 +24116,6 @@ export type t_PostInvoicesRequestBody = {
                   | UnknownEnumStringValue
                 )[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -24371,7 +24141,7 @@ export type t_PostInvoicesRequestBody = {
             }
           | undefined
         template?: string | undefined
-        template_version?: (number | "" | UnknownEnumStringValue) | undefined
+        template_version?: (number | "") | undefined
       }
     | undefined
   shipping_cost?:
@@ -24440,7 +24210,7 @@ export type t_PostInvoicesRequestBody = {
                   )
                 | undefined
               tax_code?: string | undefined
-              type?: ("fixed_amount" | UnknownEnumStringValue) | undefined
+              type?: "fixed_amount" | undefined
             }
           | undefined
       }
@@ -24456,7 +24226,7 @@ export type t_PostInvoicesRequestBody = {
           state?: string | undefined
         }
         name: string
-        phone?: (string | "" | UnknownEnumStringValue) | undefined
+        phone?: (string | "") | undefined
       }
     | undefined
   statement_descriptor?: string | undefined
@@ -24496,7 +24266,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   state?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         shipping?:
@@ -24514,12 +24283,11 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   phone?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         tax?:
           | {
-              ip_address?: (string | "" | UnknownEnumStringValue) | undefined
+              ip_address?: (string | "") | undefined
             }
           | undefined
         tax_exempt?:
@@ -24652,7 +24420,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
@@ -24670,13 +24437,10 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         invoiceitem?: string | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
+        metadata?: (Record<string, string> | "") | undefined
         period?:
           | {
               end: number
@@ -24704,8 +24468,8 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
         tax_behavior?:
           | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
           | undefined
-        tax_code?: (string | "" | UnknownEnumStringValue) | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_code?: (string | "") | undefined
+        tax_rates?: (string[] | "") | undefined
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
       }[]
@@ -24716,7 +24480,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
         type: "account" | "self" | UnknownEnumStringValue
       }
     | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  on_behalf_of?: (string | "") | undefined
   preview_mode?: ("next" | "recurring" | UnknownEnumStringValue) | undefined
   schedule?: string | undefined
   schedule_details?:
@@ -24758,9 +24522,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                         }
                       | undefined
                     quantity?: number | undefined
-                    tax_rates?:
-                      | (string[] | "" | UnknownEnumStringValue)
-                      | undefined
+                    tax_rates?: (string[] | "") | undefined
                   }[]
                 | undefined
               application_fee_percent?: number | undefined
@@ -24785,7 +24547,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                         reset_billing_cycle_anchor?: boolean | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               collection_method?:
@@ -24796,10 +24557,8 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   )
                 | undefined
               default_payment_method?: string | undefined
-              default_tax_rates?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
-              description?: (string | "" | UnknownEnumStringValue) | undefined
+              default_tax_rates?: (string[] | "") | undefined
+              description?: (string | "") | undefined
               discounts?:
                 | (
                     | {
@@ -24808,7 +24567,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                         promotion_code?: string | undefined
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               duration?:
@@ -24822,12 +24580,10 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                     interval_count?: number | undefined
                   }
                 | undefined
-              end_date?: (number | "now" | UnknownEnumStringValue) | undefined
+              end_date?: (number | "now") | undefined
               invoice_settings?:
                 | {
-                    account_tax_ids?:
-                      | (string[] | "" | UnknownEnumStringValue)
-                      | undefined
+                    account_tax_ids?: (string[] | "") | undefined
                     days_until_due?: number | undefined
                     issuer?:
                       | {
@@ -24844,7 +24600,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                           usage_gte: number
                         }
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
                 discounts?:
@@ -24855,7 +24610,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                           promotion_code?: string | undefined
                         }[]
                       | ""
-                      | UnknownEnumStringValue
                     )
                   | undefined
                 metadata?: Record<string, string> | undefined
@@ -24886,7 +24640,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                     }
                   | undefined
                 quantity?: number | undefined
-                tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+                tax_rates?: (string[] | "") | undefined
               }[]
               iterations?: number | undefined
               metadata?: Record<string, string> | undefined
@@ -24899,7 +24653,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                     | UnknownEnumStringValue
                   )
                 | undefined
-              start_date?: (number | "now" | UnknownEnumStringValue) | undefined
+              start_date?: (number | "now") | undefined
               transfer_data?:
                 | {
                     amount_percent?: number | undefined
@@ -24907,7 +24661,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   }
                 | undefined
               trial?: boolean | undefined
-              trial_end?: (number | "now" | UnknownEnumStringValue) | undefined
+              trial_end?: (number | "now") | undefined
             }[]
           | undefined
         proration_behavior?:
@@ -24935,14 +24689,14 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
           | (
               | number
               | ""
-              | UnknownEnumStringValue
               | "max_period_end"
               | "min_period_end"
+              | UnknownEnumStringValue
             )
           | undefined
         cancel_at_period_end?: boolean | undefined
         cancel_now?: boolean | undefined
-        default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        default_tax_rates?: (string[] | "") | undefined
         items?:
           | {
               billing_thresholds?:
@@ -24951,7 +24705,6 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                         usage_gte: number
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               clear_usage?: boolean | undefined
@@ -24964,13 +24717,10 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                         promotion_code?: string | undefined
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               id?: string | undefined
-              metadata?:
-                | (Record<string, string> | "" | UnknownEnumStringValue)
-                | undefined
+              metadata?: (Record<string, string> | "") | undefined
               price?: string | undefined
               price_data?:
                 | {
@@ -24998,7 +24748,7 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
                   }
                 | undefined
               quantity?: number | undefined
-              tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+              tax_rates?: (string[] | "") | undefined
             }[]
           | undefined
         proration_behavior?:
@@ -25010,15 +24760,15 @@ export type t_PostInvoicesCreatePreviewRequestBody = {
             )
           | undefined
         proration_date?: number | undefined
-        resume_at?: ("now" | UnknownEnumStringValue) | undefined
+        resume_at?: "now" | undefined
         start_date?: number | undefined
-        trial_end?: ("now" | UnknownEnumStringValue | number) | undefined
+        trial_end?: ("now" | number) | undefined
       }
     | undefined
 }
 
 export type t_PostInvoicesInvoiceRequestBody = {
-  account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+  account_tax_ids?: (string[] | "") | undefined
   application_fee_amount?: number | undefined
   auto_advance?: boolean | undefined
   automatic_tax?:
@@ -25043,13 +24793,12 @@ export type t_PostInvoicesInvoiceRequestBody = {
             value: string
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   days_until_due?: number | undefined
   default_payment_method?: string | undefined
-  default_source?: (string | "" | UnknownEnumStringValue) | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  default_source?: (string | "") | undefined
+  default_tax_rates?: (string[] | "") | undefined
   description?: string | undefined
   discounts?:
     | (
@@ -25059,11 +24808,10 @@ export type t_PostInvoicesInvoiceRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   due_date?: number | undefined
-  effective_at?: (number | "" | UnknownEnumStringValue) | undefined
+  effective_at?: (number | "") | undefined
   expand?: string[] | undefined
   footer?: string | undefined
   issuer?:
@@ -25072,12 +24820,12 @@ export type t_PostInvoicesInvoiceRequestBody = {
         type: "account" | "self" | UnknownEnumStringValue
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
-  number?: (string | "" | UnknownEnumStringValue) | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
+  number?: (string | "") | undefined
+  on_behalf_of?: (string | "") | undefined
   payment_settings?:
     | {
-        default_mandate?: (string | "" | UnknownEnumStringValue) | undefined
+        default_mandate?: (string | "") | undefined
         payment_method_options?:
           | {
               acss_debit?:
@@ -25104,7 +24852,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               bancontact?:
@@ -25115,7 +24862,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               card?:
@@ -25128,9 +24874,7 @@ export type t_PostInvoicesInvoiceRequestBody = {
                                 | (
                                     | {
                                         count?: number | undefined
-                                        interval?:
-                                          | ("month" | UnknownEnumStringValue)
-                                          | undefined
+                                        interval?: "month" | undefined
                                         type:
                                           | "bonus"
                                           | "fixed_count"
@@ -25138,7 +24882,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                                           | UnknownEnumStringValue
                                       }
                                     | ""
-                                    | UnknownEnumStringValue
                                   )
                                 | undefined
                             }
@@ -25153,7 +24896,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               customer_balance?:
@@ -25172,15 +24914,10 @@ export type t_PostInvoicesInvoiceRequestBody = {
                         funding_type?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              konbini?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
-              sepa_debit?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
+              konbini?: (Record<string, unknown> | "") | undefined
+              sepa_debit?: (Record<string, unknown> | "") | undefined
               us_bank_account?:
                 | (
                     | {
@@ -25226,7 +24963,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -25276,7 +25012,6 @@ export type t_PostInvoicesInvoiceRequestBody = {
                   | UnknownEnumStringValue
                 )[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -25299,7 +25034,7 @@ export type t_PostInvoicesInvoiceRequestBody = {
             }
           | undefined
         template?: string | undefined
-        template_version?: (number | "" | UnknownEnumStringValue) | undefined
+        template_version?: (number | "") | undefined
       }
     | undefined
   shipping_cost?:
@@ -25369,12 +25104,11 @@ export type t_PostInvoicesInvoiceRequestBody = {
                       )
                     | undefined
                   tax_code?: string | undefined
-                  type?: ("fixed_amount" | UnknownEnumStringValue) | undefined
+                  type?: "fixed_amount" | undefined
                 }
               | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   shipping_details?:
@@ -25389,10 +25123,9 @@ export type t_PostInvoicesInvoiceRequestBody = {
               state?: string | undefined
             }
             name: string
-            phone?: (string | "" | UnknownEnumStringValue) | undefined
+            phone?: (string | "") | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   statement_descriptor?: string | undefined
@@ -25403,16 +25136,13 @@ export type t_PostInvoicesInvoiceRequestBody = {
             destination: string
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
 
 export type t_PostInvoicesInvoiceAddLinesRequestBody = {
   expand?: string[] | undefined
-  invoice_metadata?:
-    | (Record<string, string> | "" | UnknownEnumStringValue)
-    | undefined
+  invoice_metadata?: (Record<string, string> | "") | undefined
   lines: {
     amount?: number | undefined
     description?: string | undefined
@@ -25425,13 +25155,10 @@ export type t_PostInvoicesInvoiceAddLinesRequestBody = {
               promotion_code?: string | undefined
             }[]
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     invoice_item?: string | undefined
-    metadata?:
-      | (Record<string, string> | "" | UnknownEnumStringValue)
-      | undefined
+    metadata?: (Record<string, string> | "") | undefined
     period?:
       | {
           end: number
@@ -25535,10 +25262,9 @@ export type t_PostInvoicesInvoiceAddLinesRequestBody = {
               taxable_amount: number
             }[]
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
-    tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+    tax_rates?: (string[] | "") | undefined
   }[]
 }
 
@@ -25564,11 +25290,10 @@ export type t_PostInvoicesInvoiceLinesLineItemIdRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   period?:
     | {
         end: number
@@ -25667,10 +25392,9 @@ export type t_PostInvoicesInvoiceLinesLineItemIdRequestBody = {
             taxable_amount: number
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
-  tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  tax_rates?: (string[] | "") | undefined
 }
 
 export type t_PostInvoicesInvoiceMarkUncollectibleRequestBody = {
@@ -25680,7 +25404,7 @@ export type t_PostInvoicesInvoiceMarkUncollectibleRequestBody = {
 export type t_PostInvoicesInvoicePayRequestBody = {
   expand?: string[] | undefined
   forgive?: boolean | undefined
-  mandate?: (string | "" | UnknownEnumStringValue) | undefined
+  mandate?: (string | "") | undefined
   off_session?: boolean | undefined
   paid_out_of_band?: boolean | undefined
   payment_method?: string | undefined
@@ -25689,9 +25413,7 @@ export type t_PostInvoicesInvoicePayRequestBody = {
 
 export type t_PostInvoicesInvoiceRemoveLinesRequestBody = {
   expand?: string[] | undefined
-  invoice_metadata?:
-    | (Record<string, string> | "" | UnknownEnumStringValue)
-    | undefined
+  invoice_metadata?: (Record<string, string> | "") | undefined
   lines: {
     behavior: "delete" | "unassign" | UnknownEnumStringValue
     id: string
@@ -25704,9 +25426,7 @@ export type t_PostInvoicesInvoiceSendRequestBody = {
 
 export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
   expand?: string[] | undefined
-  invoice_metadata?:
-    | (Record<string, string> | "" | UnknownEnumStringValue)
-    | undefined
+  invoice_metadata?: (Record<string, string> | "") | undefined
   lines: {
     amount?: number | undefined
     description?: string | undefined
@@ -25719,13 +25439,10 @@ export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
               promotion_code?: string | undefined
             }[]
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     id: string
-    metadata?:
-      | (Record<string, string> | "" | UnknownEnumStringValue)
-      | undefined
+    metadata?: (Record<string, string> | "") | undefined
     period?:
       | {
           end: number
@@ -25829,10 +25546,9 @@ export type t_PostInvoicesInvoiceUpdateLinesRequestBody = {
               taxable_amount: number
             }[]
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
-    tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+    tax_rates?: (string[] | "") | undefined
   }[]
 }
 
@@ -25842,18 +25558,18 @@ export type t_PostInvoicesInvoiceVoidRequestBody = {
 
 export type t_PostIssuingAuthorizationsAuthorizationRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostIssuingAuthorizationsAuthorizationApproveRequestBody = {
   amount?: number | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostIssuingAuthorizationsAuthorizationDeclineRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostIssuingCardholdersRequestBody = {
@@ -25882,9 +25598,7 @@ export type t_PostIssuingCardholdersRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -26868,9 +26582,7 @@ export type t_PostIssuingCardholdersCardholderRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -27840,7 +27552,7 @@ export type t_PostIssuingCardsRequestBody = {
   replacement_reason?:
     | ("damaged" | "expired" | "lost" | "stolen" | UnknownEnumStringValue)
     | undefined
-  second_line?: (string | "" | UnknownEnumStringValue) | undefined
+  second_line?: (string | "") | undefined
   shipping?:
     | {
         address: {
@@ -28800,7 +28512,7 @@ export type t_PostIssuingCardsRequestBody = {
 export type t_PostIssuingCardsCardRequestBody = {
   cancellation_reason?: ("lost" | "stolen" | UnknownEnumStringValue) | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   personalization_design?: string | undefined
   pin?:
     | {
@@ -29771,27 +29483,13 @@ export type t_PostIssuingDisputesRequestBody = {
         canceled?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  canceled_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_policy_provided?:
-                    | (boolean | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_reason?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expected_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_policy_provided?: (boolean | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
@@ -29803,67 +29501,40 @@ export type t_PostIssuingDisputesRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  returned_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  returned_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         duplicate?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  card_statement?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  cash_receipt?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  check_image?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  card_statement?: (string | "") | undefined
+                  cash_receipt?: (string | "") | undefined
+                  check_image?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                   original_transaction?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         fraudulent?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         merchandise_not_as_described?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  received_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  return_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
+                  return_description?: (string | "") | undefined
                   return_status?:
                     | (
                         | ""
@@ -29872,69 +29543,45 @@ export type t_PostIssuingDisputesRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  returned_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  returned_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         no_valid_authorization?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         not_received?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expected_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         other?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         reason?:
@@ -29953,24 +29600,13 @@ export type t_PostIssuingDisputesRequestBody = {
         service_not_as_described?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  canceled_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_reason?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  received_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -29992,27 +29628,13 @@ export type t_PostIssuingDisputesDisputeRequestBody = {
         canceled?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  canceled_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_policy_provided?:
-                    | (boolean | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_reason?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expected_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_policy_provided?: (boolean | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
@@ -30024,67 +29646,40 @@ export type t_PostIssuingDisputesDisputeRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  returned_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  returned_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         duplicate?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  card_statement?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  cash_receipt?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  check_image?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  card_statement?: (string | "") | undefined
+                  cash_receipt?: (string | "") | undefined
+                  check_image?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                   original_transaction?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         fraudulent?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         merchandise_not_as_described?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  received_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  return_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
+                  return_description?: (string | "") | undefined
                   return_status?:
                     | (
                         | ""
@@ -30093,69 +29688,45 @@ export type t_PostIssuingDisputesDisputeRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  returned_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  returned_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         no_valid_authorization?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         not_received?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expected_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  expected_at?: (number | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         other?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  product_description?: (string | "") | undefined
                   product_type?:
                     | ("" | "merchandise" | "service" | UnknownEnumStringValue)
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         reason?:
@@ -30174,45 +29745,34 @@ export type t_PostIssuingDisputesDisputeRequestBody = {
         service_not_as_described?:
           | (
               | {
-                  additional_documentation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  canceled_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  cancellation_reason?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  explanation?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  received_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
+                  additional_documentation?: (string | "") | undefined
+                  canceled_at?: (number | "") | undefined
+                  cancellation_reason?: (string | "") | undefined
+                  explanation?: (string | "") | undefined
+                  received_at?: (number | "") | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostIssuingDisputesDisputeSubmitRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostIssuingPersonalizationDesignsRequestBody = {
   card_logo?: string | undefined
   carrier_text?:
     | {
-        footer_body?: (string | "" | UnknownEnumStringValue) | undefined
-        footer_title?: (string | "" | UnknownEnumStringValue) | undefined
-        header_body?: (string | "" | UnknownEnumStringValue) | undefined
-        header_title?: (string | "" | UnknownEnumStringValue) | undefined
+        footer_body?: (string | "") | undefined
+        footer_title?: (string | "") | undefined
+        header_body?: (string | "") | undefined
+        header_title?: (string | "") | undefined
       }
     | undefined
   expand?: string[] | undefined
@@ -30230,23 +29790,22 @@ export type t_PostIssuingPersonalizationDesignsRequestBody = {
 
 export type t_PostIssuingPersonalizationDesignsPersonalizationDesignRequestBody =
   {
-    card_logo?: (string | "" | UnknownEnumStringValue) | undefined
+    card_logo?: (string | "") | undefined
     carrier_text?:
       | (
           | {
-              footer_body?: (string | "" | UnknownEnumStringValue) | undefined
-              footer_title?: (string | "" | UnknownEnumStringValue) | undefined
-              header_body?: (string | "" | UnknownEnumStringValue) | undefined
-              header_title?: (string | "" | UnknownEnumStringValue) | undefined
+              footer_body?: (string | "") | undefined
+              footer_title?: (string | "") | undefined
+              header_body?: (string | "") | undefined
+              header_title?: (string | "") | undefined
             }
           | ""
-          | UnknownEnumStringValue
         )
       | undefined
     expand?: string[] | undefined
-    lookup_key?: (string | "" | UnknownEnumStringValue) | undefined
+    lookup_key?: (string | "") | undefined
     metadata?: Record<string, string> | undefined
-    name?: (string | "" | UnknownEnumStringValue) | undefined
+    name?: (string | "") | undefined
     physical_bundle?: string | undefined
     preferences?:
       | {
@@ -30268,7 +29827,7 @@ export type t_PostIssuingTokensTokenRequestBody = {
 
 export type t_PostIssuingTransactionsTransactionRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostLinkAccountSessionsRequestBody = {
@@ -30361,7 +29920,6 @@ export type t_PostPaymentIntentsRequestBody = {
             }
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   metadata?: Record<string, string> | undefined
@@ -30415,12 +29973,11 @@ export type t_PostPaymentIntentsRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -30702,9 +30259,7 @@ export type t_PostPaymentIntentsRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        custom_mandate_url?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        custom_mandate_url?: (string | "") | undefined
                         interval_description?: string | undefined
                         payment_schedule?:
                           | (
@@ -30739,7 +30294,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         affirm?:
@@ -30749,12 +30303,9 @@ export type t_PostPaymentIntentsRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   preferred_locale?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         afterpay_clearpay?:
@@ -30764,12 +30315,9 @@ export type t_PostPaymentIntentsRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   reference?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alipay?:
@@ -30780,7 +30328,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alma?:
@@ -30791,7 +30338,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         amazon_pay?:
@@ -30805,7 +30351,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         au_becs_debit?:
@@ -30823,7 +30368,6 @@ export type t_PostPaymentIntentsRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bacs_debit?:
@@ -30831,9 +30375,7 @@ export type t_PostPaymentIntentsRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -30848,7 +30390,6 @@ export type t_PostPaymentIntentsRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bancontact?:
@@ -30862,7 +30403,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         billie?:
@@ -30873,7 +30413,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         blik?:
@@ -30885,7 +30424,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         boleto?:
@@ -30903,7 +30441,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card?:
@@ -30920,9 +30457,7 @@ export type t_PostPaymentIntentsRequestBody = {
                           | (
                               | {
                                   count?: number | undefined
-                                  interval?:
-                                    | ("month" | UnknownEnumStringValue)
-                                    | undefined
+                                  interval?: "month" | undefined
                                   type:
                                     | "bonus"
                                     | "fixed_count"
@@ -30930,7 +30465,6 @@ export type t_PostPaymentIntentsRequestBody = {
                                     | UnknownEnumStringValue
                                 }
                               | ""
-                              | UnknownEnumStringValue
                             )
                           | undefined
                       }
@@ -30954,9 +30488,7 @@ export type t_PostPaymentIntentsRequestBody = {
                         interval_count?: number | undefined
                         reference: string
                         start_date: number
-                        supported_types?:
-                          | ("india" | UnknownEnumStringValue)[]
-                          | undefined
+                        supported_types?: "india"[] | undefined
                       }
                     | undefined
                   network?:
@@ -31007,12 +30539,8 @@ export type t_PostPaymentIntentsRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  statement_descriptor_suffix_kana?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  statement_descriptor_suffix_kanji?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  statement_descriptor_suffix_kana?: (string | "") | undefined
+                  statement_descriptor_suffix_kanji?: (string | "") | undefined
                   three_d_secure?:
                     | {
                         ares_trans_status?:
@@ -31070,7 +30598,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card_present?:
@@ -31093,7 +30620,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         cashapp?:
@@ -31113,18 +30639,14 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         crypto?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         customer_balance?:
@@ -31158,59 +30680,42 @@ export type t_PostPaymentIntentsRequestBody = {
                           | UnknownEnumStringValue
                       }
                     | undefined
-                  funding_type?:
-                    | ("bank_transfer" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  funding_type?: "bank_transfer" | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         eps?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         fpx?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         giropay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         grabpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         ideal?:
@@ -31221,12 +30726,9 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        interac_present?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        interac_present?: (Record<string, unknown> | "") | undefined
         kakao_pay?:
           | (
               | {
@@ -31238,7 +30740,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         klarna?:
@@ -31343,35 +30844,22 @@ export type t_PostPaymentIntentsRequestBody = {
                             reference: string
                           }[]
                         | ""
-                        | UnknownEnumStringValue
                       )
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         konbini?:
           | (
               | {
-                  confirmation_number?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_after_days?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  confirmation_number?: (string | "") | undefined
+                  expires_after_days?: (number | "") | undefined
+                  expires_at?: (number | "") | undefined
+                  product_description?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         kr_card?:
@@ -31385,7 +30873,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         link?:
@@ -31399,7 +30886,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         mobilepay?:
@@ -31408,23 +30894,17 @@ export type t_PostPaymentIntentsRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         multibanco?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         naver_pay?:
@@ -31438,7 +30918,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         nz_bank_account?:
@@ -31456,36 +30935,27 @@ export type t_PostPaymentIntentsRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         oxxo?:
           | (
               | {
                   expires_after_days?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         p24?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                   tos_shown_and_accepted?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        pay_by_bank?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        pay_by_bank?: (Record<string, unknown> | "") | undefined
         payco?:
           | (
               | {
@@ -31494,18 +30964,14 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paynow?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paypal?:
@@ -31547,7 +31013,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         pix?:
@@ -31555,23 +31020,17 @@ export type t_PostPaymentIntentsRequestBody = {
               | {
                   expires_after_seconds?: number | undefined
                   expires_at?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         promptpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         revolut_pay?:
@@ -31585,7 +31044,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         samsung_pay?:
@@ -31596,7 +31054,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         satispay?:
@@ -31607,7 +31064,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sepa_debit?:
@@ -31615,9 +31071,7 @@ export type t_PostPaymentIntentsRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -31632,7 +31086,6 @@ export type t_PostPaymentIntentsRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sofort?:
@@ -31656,30 +31109,23 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         swish?:
           | (
               | {
-                  reference?: (string | "" | UnknownEnumStringValue) | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  reference?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         twint?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         us_bank_account?:
@@ -31759,7 +31205,6 @@ export type t_PostPaymentIntentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         wechat_pay?:
@@ -31769,23 +31214,17 @@ export type t_PostPaymentIntentsRequestBody = {
                   client?:
                     | ("android" | "ios" | "web" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         zip?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -31831,7 +31270,7 @@ export type t_PostPaymentIntentsRequestBody = {
 
 export type t_PostPaymentIntentsIntentRequestBody = {
   amount?: number | undefined
-  application_fee_amount?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_amount?: (number | "") | undefined
   capture_method?:
     | ("automatic" | "automatic_async" | "manual" | UnknownEnumStringValue)
     | undefined
@@ -31839,7 +31278,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
   customer?: string | undefined
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   payment_method?: string | undefined
   payment_method_configuration?: string | undefined
   payment_method_data?:
@@ -31886,12 +31325,11 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -32173,9 +31611,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        custom_mandate_url?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        custom_mandate_url?: (string | "") | undefined
                         interval_description?: string | undefined
                         payment_schedule?:
                           | (
@@ -32210,7 +31646,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         affirm?:
@@ -32220,12 +31655,9 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   preferred_locale?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         afterpay_clearpay?:
@@ -32235,12 +31667,9 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   reference?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alipay?:
@@ -32251,7 +31680,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alma?:
@@ -32262,7 +31690,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         amazon_pay?:
@@ -32276,7 +31703,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         au_becs_debit?:
@@ -32294,7 +31720,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bacs_debit?:
@@ -32302,9 +31727,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -32319,7 +31742,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bancontact?:
@@ -32333,7 +31755,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         billie?:
@@ -32344,7 +31765,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         blik?:
@@ -32356,7 +31776,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         boleto?:
@@ -32374,7 +31793,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card?:
@@ -32391,9 +31809,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                           | (
                               | {
                                   count?: number | undefined
-                                  interval?:
-                                    | ("month" | UnknownEnumStringValue)
-                                    | undefined
+                                  interval?: "month" | undefined
                                   type:
                                     | "bonus"
                                     | "fixed_count"
@@ -32401,7 +31817,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                                     | UnknownEnumStringValue
                                 }
                               | ""
-                              | UnknownEnumStringValue
                             )
                           | undefined
                       }
@@ -32425,9 +31840,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                         interval_count?: number | undefined
                         reference: string
                         start_date: number
-                        supported_types?:
-                          | ("india" | UnknownEnumStringValue)[]
-                          | undefined
+                        supported_types?: "india"[] | undefined
                       }
                     | undefined
                   network?:
@@ -32478,12 +31891,8 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  statement_descriptor_suffix_kana?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  statement_descriptor_suffix_kanji?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  statement_descriptor_suffix_kana?: (string | "") | undefined
+                  statement_descriptor_suffix_kanji?: (string | "") | undefined
                   three_d_secure?:
                     | {
                         ares_trans_status?:
@@ -32541,7 +31950,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card_present?:
@@ -32564,7 +31972,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         cashapp?:
@@ -32584,18 +31991,14 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         crypto?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         customer_balance?:
@@ -32629,59 +32032,42 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                           | UnknownEnumStringValue
                       }
                     | undefined
-                  funding_type?:
-                    | ("bank_transfer" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  funding_type?: "bank_transfer" | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         eps?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         fpx?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         giropay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         grabpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         ideal?:
@@ -32692,12 +32078,9 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        interac_present?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        interac_present?: (Record<string, unknown> | "") | undefined
         kakao_pay?:
           | (
               | {
@@ -32709,7 +32092,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         klarna?:
@@ -32814,35 +32196,22 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                             reference: string
                           }[]
                         | ""
-                        | UnknownEnumStringValue
                       )
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         konbini?:
           | (
               | {
-                  confirmation_number?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_after_days?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  confirmation_number?: (string | "") | undefined
+                  expires_after_days?: (number | "") | undefined
+                  expires_at?: (number | "") | undefined
+                  product_description?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         kr_card?:
@@ -32856,7 +32225,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         link?:
@@ -32870,7 +32238,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         mobilepay?:
@@ -32879,23 +32246,17 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         multibanco?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         naver_pay?:
@@ -32909,7 +32270,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         nz_bank_account?:
@@ -32927,36 +32287,27 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         oxxo?:
           | (
               | {
                   expires_after_days?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         p24?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                   tos_shown_and_accepted?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        pay_by_bank?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        pay_by_bank?: (Record<string, unknown> | "") | undefined
         payco?:
           | (
               | {
@@ -32965,18 +32316,14 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paynow?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paypal?:
@@ -33018,7 +32365,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         pix?:
@@ -33026,23 +32372,17 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | {
                   expires_after_seconds?: number | undefined
                   expires_at?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         promptpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         revolut_pay?:
@@ -33056,7 +32396,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         samsung_pay?:
@@ -33067,7 +32406,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         satispay?:
@@ -33078,7 +32416,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sepa_debit?:
@@ -33086,9 +32423,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -33103,7 +32438,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sofort?:
@@ -33127,30 +32461,23 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         swish?:
           | (
               | {
-                  reference?: (string | "" | UnknownEnumStringValue) | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  reference?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         twint?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         us_bank_account?:
@@ -33230,7 +32557,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         wechat_pay?:
@@ -33240,29 +32566,23 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   client?:
                     | ("android" | "ios" | "web" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         zip?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
     | undefined
   payment_method_types?: string[] | undefined
-  receipt_email?: (string | "" | UnknownEnumStringValue) | undefined
+  receipt_email?: (string | "") | undefined
   setup_future_usage?:
     | ("" | "off_session" | "on_session" | UnknownEnumStringValue)
     | undefined
@@ -33283,7 +32603,6 @@ export type t_PostPaymentIntentsIntentRequestBody = {
             tracking_number?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   statement_descriptor?: string | undefined
@@ -33320,7 +32639,7 @@ export type t_PostPaymentIntentsIntentCaptureRequestBody = {
   application_fee_amount?: number | undefined
   expand?: string[] | undefined
   final_capture?: boolean | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   statement_descriptor?: string | undefined
   statement_descriptor_suffix?: string | undefined
   transfer_data?:
@@ -33355,14 +32674,13 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
             }
           }
         | ""
-        | UnknownEnumStringValue
         | {
             customer_acceptance: {
               online: {
                 ip_address?: string | undefined
                 user_agent?: string | undefined
               }
-              type: "online" | UnknownEnumStringValue
+              type: "online"
             }
           }
       )
@@ -33415,12 +32733,11 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -33702,9 +33019,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        custom_mandate_url?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        custom_mandate_url?: (string | "") | undefined
                         interval_description?: string | undefined
                         payment_schedule?:
                           | (
@@ -33739,7 +33054,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         affirm?:
@@ -33749,12 +33063,9 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   preferred_locale?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         afterpay_clearpay?:
@@ -33764,12 +33075,9 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
                   reference?: string | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alipay?:
@@ -33780,7 +33088,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         alma?:
@@ -33791,7 +33098,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         amazon_pay?:
@@ -33805,7 +33111,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         au_becs_debit?:
@@ -33823,7 +33128,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bacs_debit?:
@@ -33831,9 +33135,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -33848,7 +33150,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         bancontact?:
@@ -33862,7 +33163,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         billie?:
@@ -33873,7 +33173,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         blik?:
@@ -33885,7 +33184,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         boleto?:
@@ -33903,7 +33201,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card?:
@@ -33920,9 +33217,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                           | (
                               | {
                                   count?: number | undefined
-                                  interval?:
-                                    | ("month" | UnknownEnumStringValue)
-                                    | undefined
+                                  interval?: "month" | undefined
                                   type:
                                     | "bonus"
                                     | "fixed_count"
@@ -33930,7 +33225,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                                     | UnknownEnumStringValue
                                 }
                               | ""
-                              | UnknownEnumStringValue
                             )
                           | undefined
                       }
@@ -33954,9 +33248,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                         interval_count?: number | undefined
                         reference: string
                         start_date: number
-                        supported_types?:
-                          | ("india" | UnknownEnumStringValue)[]
-                          | undefined
+                        supported_types?: "india"[] | undefined
                       }
                     | undefined
                   network?:
@@ -34007,12 +33299,8 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                         | UnknownEnumStringValue
                       )
                     | undefined
-                  statement_descriptor_suffix_kana?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  statement_descriptor_suffix_kanji?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
+                  statement_descriptor_suffix_kana?: (string | "") | undefined
+                  statement_descriptor_suffix_kanji?: (string | "") | undefined
                   three_d_secure?:
                     | {
                         ares_trans_status?:
@@ -34070,7 +33358,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         card_present?:
@@ -34093,7 +33380,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         cashapp?:
@@ -34113,18 +33399,14 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         crypto?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         customer_balance?:
@@ -34158,59 +33440,42 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                           | UnknownEnumStringValue
                       }
                     | undefined
-                  funding_type?:
-                    | ("bank_transfer" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  funding_type?: "bank_transfer" | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         eps?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         fpx?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         giropay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         grabpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         ideal?:
@@ -34221,12 +33486,9 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        interac_present?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        interac_present?: (Record<string, unknown> | "") | undefined
         kakao_pay?:
           | (
               | {
@@ -34238,7 +33500,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         klarna?:
@@ -34343,35 +33604,22 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                             reference: string
                           }[]
                         | ""
-                        | UnknownEnumStringValue
                       )
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         konbini?:
           | (
               | {
-                  confirmation_number?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_after_days?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  expires_at?:
-                    | (number | "" | UnknownEnumStringValue)
-                    | undefined
-                  product_description?:
-                    | (string | "" | UnknownEnumStringValue)
-                    | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  confirmation_number?: (string | "") | undefined
+                  expires_after_days?: (number | "") | undefined
+                  expires_at?: (number | "") | undefined
+                  product_description?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         kr_card?:
@@ -34385,7 +33633,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         link?:
@@ -34399,7 +33646,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         mobilepay?:
@@ -34408,23 +33654,17 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         multibanco?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         naver_pay?:
@@ -34438,7 +33678,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         nz_bank_account?:
@@ -34456,36 +33695,27 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         oxxo?:
           | (
               | {
                   expires_after_days?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         p24?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                   tos_shown_and_accepted?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        pay_by_bank?:
-          | (Record<string, unknown> | "" | UnknownEnumStringValue)
-          | undefined
+        pay_by_bank?: (Record<string, unknown> | "") | undefined
         payco?:
           | (
               | {
@@ -34494,18 +33724,14 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paynow?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         paypal?:
@@ -34547,7 +33773,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         pix?:
@@ -34555,23 +33780,17 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | {
                   expires_after_seconds?: number | undefined
                   expires_at?: number | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         promptpay?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         revolut_pay?:
@@ -34585,7 +33804,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         samsung_pay?:
@@ -34596,7 +33814,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         satispay?:
@@ -34607,7 +33824,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sepa_debit?:
@@ -34615,9 +33831,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
               | {
                   mandate_options?:
                     | {
-                        reference_prefix?:
-                          | (string | "" | UnknownEnumStringValue)
-                          | undefined
+                        reference_prefix?: (string | "") | undefined
                       }
                     | undefined
                   setup_future_usage?:
@@ -34632,7 +33846,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   target_date?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         sofort?:
@@ -34656,30 +33869,23 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         swish?:
           | (
               | {
-                  reference?: (string | "" | UnknownEnumStringValue) | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  reference?: (string | "") | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         twint?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         us_bank_account?:
@@ -34759,7 +33965,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         wechat_pay?:
@@ -34769,23 +33974,17 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   client?:
                     | ("android" | "ios" | "web" | UnknownEnumStringValue)
                     | undefined
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         zip?:
           | (
               | {
-                  setup_future_usage?:
-                    | ("none" | UnknownEnumStringValue)
-                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -34796,7 +33995,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
         session?: string | undefined
       }
     | undefined
-  receipt_email?: (string | "" | UnknownEnumStringValue) | undefined
+  receipt_email?: (string | "") | undefined
   return_url?: string | undefined
   setup_future_usage?:
     | ("" | "off_session" | "on_session" | UnknownEnumStringValue)
@@ -34818,7 +34017,6 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
             tracking_number?: string | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   use_stripe_sdk?: boolean | undefined
@@ -34906,7 +34104,7 @@ export type t_PostPaymentLinksRequestBody = {
         key: string
         label: {
           custom: string
-          type: "custom" | UnknownEnumStringValue
+          type: "custom"
         }
         numeric?:
           | {
@@ -34934,7 +34132,6 @@ export type t_PostPaymentLinksRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         shipping_address?:
@@ -34943,7 +34140,6 @@ export type t_PostPaymentLinksRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         submit?:
@@ -34952,7 +34148,6 @@ export type t_PostPaymentLinksRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         terms_of_service_acceptance?:
@@ -34961,7 +34156,6 @@ export type t_PostPaymentLinksRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -34976,9 +34170,7 @@ export type t_PostPaymentLinksRequestBody = {
         enabled: boolean
         invoice_data?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               custom_fields?:
                 | (
                     | {
@@ -34986,7 +34178,6 @@ export type t_PostPaymentLinksRequestBody = {
                         value: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               description?: string | undefined
@@ -34997,9 +34188,7 @@ export type t_PostPaymentLinksRequestBody = {
                     type: "account" | "self" | UnknownEnumStringValue
                   }
                 | undefined
-              metadata?:
-                | (Record<string, string> | "" | UnknownEnumStringValue)
-                | undefined
+              metadata?: (Record<string, string> | "") | undefined
               rendering_options?:
                 | (
                     | {
@@ -35014,7 +34203,6 @@ export type t_PostPaymentLinksRequestBody = {
                         template?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -35511,7 +34699,7 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
             key: string
             label: {
               custom: string
-              type: "custom" | UnknownEnumStringValue
+              type: "custom"
             }
             numeric?:
               | {
@@ -35531,7 +34719,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
             type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   custom_text?:
@@ -35542,7 +34729,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         shipping_address?:
@@ -35551,7 +34737,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         submit?:
@@ -35560,7 +34745,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         terms_of_service_acceptance?:
@@ -35569,7 +34753,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                   message: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -35578,15 +34761,13 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
     | ("always" | "if_required" | UnknownEnumStringValue)
     | undefined
   expand?: string[] | undefined
-  inactive_message?: (string | "" | UnknownEnumStringValue) | undefined
+  inactive_message?: (string | "") | undefined
   invoice_creation?:
     | {
         enabled: boolean
         invoice_data?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               custom_fields?:
                 | (
                     | {
@@ -35594,7 +34775,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                         value: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               description?: string | undefined
@@ -35605,9 +34785,7 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                     type: "account" | "self" | UnknownEnumStringValue
                   }
                 | undefined
-              metadata?:
-                | (Record<string, string> | "" | UnknownEnumStringValue)
-                | undefined
+              metadata?: (Record<string, string> | "") | undefined
               rendering_options?:
                 | (
                     | {
@@ -35622,7 +34800,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                         template?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -35645,17 +34822,11 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
   metadata?: Record<string, string> | undefined
   payment_intent_data?:
     | {
-        description?: (string | "" | UnknownEnumStringValue) | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
-        statement_descriptor?:
-          | (string | "" | UnknownEnumStringValue)
-          | undefined
-        statement_descriptor_suffix?:
-          | (string | "" | UnknownEnumStringValue)
-          | undefined
-        transfer_group?: (string | "" | UnknownEnumStringValue) | undefined
+        description?: (string | "") | undefined
+        metadata?: (Record<string, string> | "") | undefined
+        statement_descriptor?: (string | "") | undefined
+        statement_descriptor_suffix?: (string | "") | undefined
+        transfer_group?: (string | "") | undefined
       }
     | undefined
   payment_method_collection?:
@@ -35704,7 +34875,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
             | UnknownEnumStringValue
           )[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   phone_number_collection?:
@@ -35720,7 +34890,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
             }
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   shipping_address_collection?:
@@ -35969,7 +35138,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
             )[]
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   submit_type?:
@@ -35994,10 +35162,8 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                 | undefined
             }
           | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
-        trial_period_days?: (number | "" | UnknownEnumStringValue) | undefined
+        metadata?: (Record<string, string> | "") | undefined
+        trial_period_days?: (number | "") | undefined
         trial_settings?:
           | (
               | {
@@ -36010,7 +35176,6 @@ export type t_PostPaymentLinksPaymentLinkRequestBody = {
                   }
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -37239,12 +36404,11 @@ export type t_PostPaymentMethodsRequestBody = {
                   state?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        email?: (string | "" | UnknownEnumStringValue) | undefined
-        name?: (string | "" | UnknownEnumStringValue) | undefined
-        phone?: (string | "" | UnknownEnumStringValue) | undefined
+        email?: (string | "") | undefined
+        name?: (string | "") | undefined
+        phone?: (string | "") | undefined
         tax_id?: string | undefined
       }
     | undefined
@@ -37568,12 +36732,11 @@ export type t_PostPaymentMethodsPaymentMethodRequestBody = {
                   state?: string | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
-        email?: (string | "" | UnknownEnumStringValue) | undefined
-        name?: (string | "" | UnknownEnumStringValue) | undefined
-        phone?: (string | "" | UnknownEnumStringValue) | undefined
+        email?: (string | "") | undefined
+        name?: (string | "") | undefined
+        phone?: (string | "") | undefined
         tax_id?: string | undefined
       }
     | undefined
@@ -37598,7 +36761,7 @@ export type t_PostPaymentMethodsPaymentMethodRequestBody = {
     | undefined
   expand?: string[] | undefined
   link?: Record<string, unknown> | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   pay_by_bank?: Record<string, unknown> | undefined
   us_bank_account?:
     | {
@@ -37637,7 +36800,7 @@ export type t_PostPayoutsRequestBody = {
 
 export type t_PostPayoutsPayoutRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostPayoutsPayoutCancelRequestBody = {
@@ -37659,7 +36822,7 @@ export type t_PostPlansRequestBody = {
   id?: string | undefined
   interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count?: number | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   meter?: string | undefined
   nickname?: string | undefined
   product?:
@@ -37682,7 +36845,7 @@ export type t_PostPlansRequestBody = {
         flat_amount_decimal?: string | undefined
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
-        up_to: "inf" | UnknownEnumStringValue | number
+        up_to: "inf" | number
       }[]
     | undefined
   tiers_mode?: ("graduated" | "volume" | UnknownEnumStringValue) | undefined
@@ -37699,7 +36862,7 @@ export type t_PostPlansRequestBody = {
 export type t_PostPlansPlanRequestBody = {
   active?: boolean | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nickname?: string | undefined
   product?: string | undefined
   trial_period_days?: number | undefined
@@ -37735,7 +36898,7 @@ export type t_PostPricesRequestBody = {
                 flat_amount_decimal?: string | undefined
                 unit_amount?: number | undefined
                 unit_amount_decimal?: string | undefined
-                up_to: "inf" | UnknownEnumStringValue | number
+                up_to: "inf" | number
               }[]
             | undefined
           unit_amount?: number | undefined
@@ -37786,7 +36949,7 @@ export type t_PostPricesRequestBody = {
         flat_amount_decimal?: string | undefined
         unit_amount?: number | undefined
         unit_amount_decimal?: string | undefined
-        up_to: "inf" | UnknownEnumStringValue | number
+        up_to: "inf" | number
       }[]
     | undefined
   tiers_mode?: ("graduated" | "volume" | UnknownEnumStringValue) | undefined
@@ -37830,7 +36993,7 @@ export type t_PostPricesPriceRequestBody = {
                     flat_amount_decimal?: string | undefined
                     unit_amount?: number | undefined
                     unit_amount_decimal?: string | undefined
-                    up_to: "inf" | UnknownEnumStringValue | number
+                    up_to: "inf" | number
                   }[]
                 | undefined
               unit_amount?: number | undefined
@@ -37838,12 +37001,11 @@ export type t_PostPricesPriceRequestBody = {
             }
           >
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   lookup_key?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   nickname?: string | undefined
   tax_behavior?:
     | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
@@ -37882,7 +37044,7 @@ export type t_PostProductsRequestBody = {
                       flat_amount_decimal?: string | undefined
                       unit_amount?: number | undefined
                       unit_amount_decimal?: string | undefined
-                      up_to: "inf" | UnknownEnumStringValue | number
+                      up_to: "inf" | number
                     }[]
                   | undefined
                 unit_amount?: number | undefined
@@ -37946,19 +37108,18 @@ export type t_PostProductsRequestBody = {
 export type t_PostProductsIdRequestBody = {
   active?: boolean | undefined
   default_price?: string | undefined
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  description?: (string | "") | undefined
   expand?: string[] | undefined
-  images?: (string[] | "" | UnknownEnumStringValue) | undefined
+  images?: (string[] | "") | undefined
   marketing_features?:
     | (
         | {
             name: string
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   name?: string | undefined
   package_dimensions?:
     | (
@@ -37969,14 +37130,13 @@ export type t_PostProductsIdRequestBody = {
             width: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   shippable?: boolean | undefined
   statement_descriptor?: string | undefined
-  tax_code?: (string | "" | UnknownEnumStringValue) | undefined
-  unit_label?: (string | "" | UnknownEnumStringValue) | undefined
-  url?: (string | "" | UnknownEnumStringValue) | undefined
+  tax_code?: (string | "") | undefined
+  unit_label?: (string | "") | undefined
+  url?: (string | "") | undefined
 }
 
 export type t_PostProductsProductFeaturesRequestBody = {
@@ -38013,7 +37173,7 @@ export type t_PostPromotionCodesRequestBody = {
 export type t_PostPromotionCodesPromotionCodeRequestBody = {
   active?: boolean | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   restrictions?:
     | {
         currency_options?:
@@ -38029,8 +37189,8 @@ export type t_PostPromotionCodesPromotionCodeRequestBody = {
 }
 
 export type t_PostQuotesRequestBody = {
-  application_fee_amount?: (number | "" | UnknownEnumStringValue) | undefined
-  application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_amount?: (number | "") | undefined
+  application_fee_percent?: (number | "") | undefined
   automatic_tax?:
     | {
         enabled: boolean
@@ -38046,8 +37206,8 @@ export type t_PostQuotesRequestBody = {
     | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
     | undefined
   customer?: string | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  default_tax_rates?: (string[] | "") | undefined
+  description?: (string | "") | undefined
   discounts?:
     | (
         | {
@@ -38056,19 +37216,18 @@ export type t_PostQuotesRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   expires_at?: number | undefined
-  footer?: (string | "" | UnknownEnumStringValue) | undefined
+  footer?: (string | "") | undefined
   from_quote?:
     | {
         is_revision?: boolean | undefined
         quote: string
       }
     | undefined
-  header?: (string | "" | UnknownEnumStringValue) | undefined
+  header?: (string | "") | undefined
   invoice_settings?:
     | {
         days_until_due?: number | undefined
@@ -38090,7 +37249,6 @@ export type t_PostQuotesRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         price?: string | undefined
@@ -38122,11 +37280,11 @@ export type t_PostQuotesRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
   metadata?: Record<string, string> | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  on_behalf_of?: (string | "") | undefined
   subscription_data?:
     | {
         billing_mode?:
@@ -38135,11 +37293,9 @@ export type t_PostQuotesRequestBody = {
             }
           | undefined
         description?: string | undefined
-        effective_date?:
-          | ("current_period_end" | UnknownEnumStringValue | number | "")
-          | undefined
+        effective_date?: ("current_period_end" | number | "") | undefined
         metadata?: Record<string, string> | undefined
-        trial_period_days?: (number | "" | UnknownEnumStringValue) | undefined
+        trial_period_days?: (number | "") | undefined
       }
     | undefined
   test_clock?: string | undefined
@@ -38151,14 +37307,13 @@ export type t_PostQuotesRequestBody = {
             destination: string
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
 
 export type t_PostQuotesQuoteRequestBody = {
-  application_fee_amount?: (number | "" | UnknownEnumStringValue) | undefined
-  application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_amount?: (number | "") | undefined
+  application_fee_percent?: (number | "") | undefined
   automatic_tax?:
     | {
         enabled: boolean
@@ -38174,8 +37329,8 @@ export type t_PostQuotesQuoteRequestBody = {
     | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
     | undefined
   customer?: string | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  default_tax_rates?: (string[] | "") | undefined
+  description?: (string | "") | undefined
   discounts?:
     | (
         | {
@@ -38184,13 +37339,12 @@ export type t_PostQuotesQuoteRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   expires_at?: number | undefined
-  footer?: (string | "" | UnknownEnumStringValue) | undefined
-  header?: (string | "" | UnknownEnumStringValue) | undefined
+  footer?: (string | "") | undefined
+  header?: (string | "") | undefined
   invoice_settings?:
     | {
         days_until_due?: number | undefined
@@ -38212,7 +37366,6 @@ export type t_PostQuotesQuoteRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         id?: string | undefined
@@ -38245,19 +37398,17 @@ export type t_PostQuotesQuoteRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
   metadata?: Record<string, string> | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  on_behalf_of?: (string | "") | undefined
   subscription_data?:
     | {
-        description?: (string | "" | UnknownEnumStringValue) | undefined
-        effective_date?:
-          | ("current_period_end" | UnknownEnumStringValue | number | "")
-          | undefined
+        description?: (string | "") | undefined
+        effective_date?: ("current_period_end" | number | "") | undefined
         metadata?: Record<string, string> | undefined
-        trial_period_days?: (number | "" | UnknownEnumStringValue) | undefined
+        trial_period_days?: (number | "") | undefined
       }
     | undefined
   transfer_data?:
@@ -38268,7 +37419,6 @@ export type t_PostQuotesQuoteRequestBody = {
             destination: string
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -38328,8 +37478,8 @@ export type t_PostRefundsRequestBody = {
   customer?: string | undefined
   expand?: string[] | undefined
   instructions_email?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
-  origin?: ("customer_balance" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
+  origin?: "customer_balance" | undefined
   payment_intent?: string | undefined
   reason?:
     | (
@@ -38345,7 +37495,7 @@ export type t_PostRefundsRequestBody = {
 
 export type t_PostRefundsRefundRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostRefundsRefundCancelRequestBody = {
@@ -39051,7 +38201,6 @@ export type t_PostSetupIntentsRequestBody = {
             }
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   metadata?: Record<string, string> | undefined
@@ -39102,12 +38251,11 @@ export type t_PostSetupIntentsRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -39389,9 +38537,7 @@ export type t_PostSetupIntentsRequestBody = {
               currency?: ("cad" | "usd" | UnknownEnumStringValue) | undefined
               mandate_options?:
                 | {
-                    custom_mandate_url?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    custom_mandate_url?: (string | "") | undefined
                     default_for?:
                       | ("invoice" | "subscription" | UnknownEnumStringValue)[]
                       | undefined
@@ -39424,9 +38570,7 @@ export type t_PostSetupIntentsRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -39450,9 +38594,7 @@ export type t_PostSetupIntentsRequestBody = {
                     interval_count?: number | undefined
                     reference: string
                     start_date: number
-                    supported_types?:
-                      | ("india" | UnknownEnumStringValue)[]
-                      | undefined
+                    supported_types?: "india"[] | undefined
                   }
                 | undefined
               network?:
@@ -39618,7 +38760,6 @@ export type t_PostSetupIntentsRequestBody = {
                         reference: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -39633,9 +38774,7 @@ export type t_PostSetupIntentsRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -39721,7 +38860,7 @@ export type t_PostSetupIntentsIntentRequestBody = {
   flow_directions?:
     | ("inbound" | "outbound" | UnknownEnumStringValue)[]
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   payment_method?: string | undefined
   payment_method_configuration?: string | undefined
   payment_method_data?:
@@ -39768,12 +38907,11 @@ export type t_PostSetupIntentsIntentRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -40055,9 +39193,7 @@ export type t_PostSetupIntentsIntentRequestBody = {
               currency?: ("cad" | "usd" | UnknownEnumStringValue) | undefined
               mandate_options?:
                 | {
-                    custom_mandate_url?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    custom_mandate_url?: (string | "") | undefined
                     default_for?:
                       | ("invoice" | "subscription" | UnknownEnumStringValue)[]
                       | undefined
@@ -40090,9 +39226,7 @@ export type t_PostSetupIntentsIntentRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -40116,9 +39250,7 @@ export type t_PostSetupIntentsIntentRequestBody = {
                     interval_count?: number | undefined
                     reference: string
                     start_date: number
-                    supported_types?:
-                      | ("india" | UnknownEnumStringValue)[]
-                      | undefined
+                    supported_types?: "india"[] | undefined
                   }
                 | undefined
               network?:
@@ -40284,7 +39416,6 @@ export type t_PostSetupIntentsIntentRequestBody = {
                         reference: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -40299,9 +39430,7 @@ export type t_PostSetupIntentsIntentRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -40402,14 +39531,13 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
             }
           }
         | ""
-        | UnknownEnumStringValue
         | {
             customer_acceptance: {
               online: {
                 ip_address?: string | undefined
                 user_agent?: string | undefined
               }
-              type: "online" | UnknownEnumStringValue
+              type: "online"
             }
           }
       )
@@ -40459,12 +39587,11 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -40746,9 +39873,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
               currency?: ("cad" | "usd" | UnknownEnumStringValue) | undefined
               mandate_options?:
                 | {
-                    custom_mandate_url?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    custom_mandate_url?: (string | "") | undefined
                     default_for?:
                       | ("invoice" | "subscription" | UnknownEnumStringValue)[]
                       | undefined
@@ -40781,9 +39906,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -40807,9 +39930,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                     interval_count?: number | undefined
                     reference: string
                     start_date: number
-                    supported_types?:
-                      | ("india" | UnknownEnumStringValue)[]
-                      | undefined
+                    supported_types?: "india"[] | undefined
                   }
                 | undefined
               network?:
@@ -40975,7 +40096,6 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
                         reference: string
                       }[]
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -40990,9 +40110,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBody = {
           | {
               mandate_options?:
                 | {
-                    reference_prefix?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    reference_prefix?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -41127,7 +40245,7 @@ export type t_PostShippingRatesRequestBody = {
     | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
     | undefined
   tax_code?: string | undefined
-  type?: ("fixed_amount" | UnknownEnumStringValue) | undefined
+  type?: "fixed_amount" | undefined
 }
 
 export type t_PostShippingRatesShippingRateTokenRequestBody = {
@@ -41153,7 +40271,7 @@ export type t_PostShippingRatesShippingRateTokenRequestBody = {
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   tax_behavior?:
     | ("exclusive" | "inclusive" | "unspecified" | UnknownEnumStringValue)
     | undefined
@@ -41207,7 +40325,7 @@ export type t_PostSourcesRequestBody = {
               user_agent?: string | undefined
             }
           | undefined
-        amount?: (number | "" | UnknownEnumStringValue) | undefined
+        amount?: (number | "") | undefined
         currency?: string | undefined
         interval?:
           | ("one_time" | "scheduled" | "variable" | UnknownEnumStringValue)
@@ -41330,7 +40448,7 @@ export type t_PostSourcesSourceRequestBody = {
               user_agent?: string | undefined
             }
           | undefined
-        amount?: (number | "" | UnknownEnumStringValue) | undefined
+        amount?: (number | "") | undefined
         currency?: string | undefined
         interval?:
           | ("one_time" | "scheduled" | "variable" | UnknownEnumStringValue)
@@ -41347,7 +40465,7 @@ export type t_PostSourcesSourceRequestBody = {
           | undefined
       }
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   owner?:
     | {
         address?:
@@ -41417,7 +40535,6 @@ export type t_PostSubscriptionItemsRequestBody = {
             usage_gte: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   discounts?:
@@ -41428,7 +40545,6 @@ export type t_PostSubscriptionItemsRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
@@ -41464,7 +40580,7 @@ export type t_PostSubscriptionItemsRequestBody = {
   proration_date?: number | undefined
   quantity?: number | undefined
   subscription: string
-  tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  tax_rates?: (string[] | "") | undefined
 }
 
 export type t_PostSubscriptionItemsItemRequestBody = {
@@ -41474,7 +40590,6 @@ export type t_PostSubscriptionItemsItemRequestBody = {
             usage_gte: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   discounts?:
@@ -41485,11 +40600,10 @@ export type t_PostSubscriptionItemsItemRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   off_session?: boolean | undefined
   payment_behavior?:
     | (
@@ -41521,7 +40635,7 @@ export type t_PostSubscriptionItemsItemRequestBody = {
     | undefined
   proration_date?: number | undefined
   quantity?: number | undefined
-  tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  tax_rates?: (string[] | "") | undefined
 }
 
 export type t_PostSubscriptionSchedulesRequestBody = {
@@ -41555,19 +40669,16 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                   reset_billing_cycle_anchor?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         collection_method?:
           | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
           | undefined
         default_payment_method?: string | undefined
-        description?: (string | "" | UnknownEnumStringValue) | undefined
+        description?: (string | "") | undefined
         invoice_settings?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               days_until_due?: number | undefined
               issuer?:
                 | {
@@ -41577,7 +40688,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                 | undefined
             }
           | undefined
-        on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+        on_behalf_of?: (string | "") | undefined
         transfer_data?:
           | (
               | {
@@ -41585,7 +40696,6 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                   destination: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -41595,7 +40705,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
     | undefined
   expand?: string[] | undefined
   from_subscription?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   phases?:
     | {
         add_invoice_items?:
@@ -41625,7 +40735,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                   }
                 | undefined
               quantity?: number | undefined
-              tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+              tax_rates?: (string[] | "") | undefined
             }[]
           | undefined
         application_fee_percent?: number | undefined
@@ -41650,7 +40760,6 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                   reset_billing_cycle_anchor?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         collection_method?:
@@ -41658,8 +40767,8 @@ export type t_PostSubscriptionSchedulesRequestBody = {
           | undefined
         currency?: string | undefined
         default_payment_method?: string | undefined
-        default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
-        description?: (string | "" | UnknownEnumStringValue) | undefined
+        default_tax_rates?: (string[] | "") | undefined
+        description?: (string | "") | undefined
         discounts?:
           | (
               | {
@@ -41668,7 +40777,6 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         duration?:
@@ -41685,9 +40793,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
         end_date?: number | undefined
         invoice_settings?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               days_until_due?: number | undefined
               issuer?:
                 | {
@@ -41704,7 +40810,6 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                     usage_gte: number
                   }
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           discounts?:
@@ -41715,7 +40820,6 @@ export type t_PostSubscriptionSchedulesRequestBody = {
                     promotion_code?: string | undefined
                   }[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           metadata?: Record<string, string> | undefined
@@ -41746,7 +40850,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
               }
             | undefined
           quantity?: number | undefined
-          tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
         iterations?: number | undefined
         metadata?: Record<string, string> | undefined
@@ -41769,7 +40873,7 @@ export type t_PostSubscriptionSchedulesRequestBody = {
         trial_end?: number | undefined
       }[]
     | undefined
-  start_date?: (number | "now" | UnknownEnumStringValue) | undefined
+  start_date?: (number | "now") | undefined
 }
 
 export type t_PostSubscriptionSchedulesScheduleRequestBody = {
@@ -41797,19 +40901,16 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                   reset_billing_cycle_anchor?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         collection_method?:
           | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
           | undefined
         default_payment_method?: string | undefined
-        description?: (string | "" | UnknownEnumStringValue) | undefined
+        description?: (string | "") | undefined
         invoice_settings?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               days_until_due?: number | undefined
               issuer?:
                 | {
@@ -41819,7 +40920,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                 | undefined
             }
           | undefined
-        on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+        on_behalf_of?: (string | "") | undefined
         transfer_data?:
           | (
               | {
@@ -41827,7 +40928,6 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                   destination: string
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -41836,7 +40936,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
     | ("cancel" | "none" | "release" | "renew" | UnknownEnumStringValue)
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   phases?:
     | {
         add_invoice_items?:
@@ -41866,7 +40966,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                   }
                 | undefined
               quantity?: number | undefined
-              tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+              tax_rates?: (string[] | "") | undefined
             }[]
           | undefined
         application_fee_percent?: number | undefined
@@ -41891,15 +40991,14 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                   reset_billing_cycle_anchor?: boolean | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         collection_method?:
           | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
           | undefined
         default_payment_method?: string | undefined
-        default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
-        description?: (string | "" | UnknownEnumStringValue) | undefined
+        default_tax_rates?: (string[] | "") | undefined
+        description?: (string | "") | undefined
         discounts?:
           | (
               | {
@@ -41908,7 +41007,6 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         duration?:
@@ -41922,12 +41020,10 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
               interval_count?: number | undefined
             }
           | undefined
-        end_date?: (number | "now" | UnknownEnumStringValue) | undefined
+        end_date?: (number | "now") | undefined
         invoice_settings?:
           | {
-              account_tax_ids?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              account_tax_ids?: (string[] | "") | undefined
               days_until_due?: number | undefined
               issuer?:
                 | {
@@ -41944,7 +41040,6 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                     usage_gte: number
                   }
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           discounts?:
@@ -41955,7 +41050,6 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
                     promotion_code?: string | undefined
                   }[]
                 | ""
-                | UnknownEnumStringValue
               )
             | undefined
           metadata?: Record<string, string> | undefined
@@ -41986,7 +41080,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
               }
             | undefined
           quantity?: number | undefined
-          tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+          tax_rates?: (string[] | "") | undefined
         }[]
         iterations?: number | undefined
         metadata?: Record<string, string> | undefined
@@ -41999,7 +41093,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
               | UnknownEnumStringValue
             )
           | undefined
-        start_date?: (number | "now" | UnknownEnumStringValue) | undefined
+        start_date?: (number | "now") | undefined
         transfer_data?:
           | {
               amount_percent?: number | undefined
@@ -42007,7 +41101,7 @@ export type t_PostSubscriptionSchedulesScheduleRequestBody = {
             }
           | undefined
         trial?: boolean | undefined
-        trial_end?: (number | "now" | UnknownEnumStringValue) | undefined
+        trial_end?: (number | "now") | undefined
       }[]
     | undefined
   proration_behavior?:
@@ -42054,10 +41148,10 @@ export type t_PostSubscriptionsRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_percent?: (number | "") | undefined
   automatic_tax?:
     | {
         enabled: boolean
@@ -42092,7 +41186,6 @@ export type t_PostSubscriptionsRequestBody = {
             reset_billing_cycle_anchor?: boolean | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   cancel_at?:
@@ -42107,7 +41200,7 @@ export type t_PostSubscriptionsRequestBody = {
   days_until_due?: number | undefined
   default_payment_method?: string | undefined
   default_source?: string | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+  default_tax_rates?: (string[] | "") | undefined
   description?: string | undefined
   discounts?:
     | (
@@ -42117,13 +41210,12 @@ export type t_PostSubscriptionsRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   invoice_settings?:
     | {
-        account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+        account_tax_ids?: (string[] | "") | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -42140,7 +41232,6 @@ export type t_PostSubscriptionsRequestBody = {
                   usage_gte: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         discounts?:
@@ -42151,7 +41242,6 @@ export type t_PostSubscriptionsRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         metadata?: Record<string, string> | undefined
@@ -42182,12 +41272,12 @@ export type t_PostSubscriptionsRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   off_session?: boolean | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  on_behalf_of?: (string | "") | undefined
   payment_behavior?:
     | (
         | "allow_incomplete"
@@ -42225,7 +41315,6 @@ export type t_PostSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               bancontact?:
@@ -42236,7 +41325,6 @@ export type t_PostSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               card?:
@@ -42279,7 +41367,6 @@ export type t_PostSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               customer_balance?:
@@ -42298,15 +41385,10 @@ export type t_PostSubscriptionsRequestBody = {
                         funding_type?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              konbini?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
-              sepa_debit?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
+              konbini?: (Record<string, unknown> | "") | undefined
+              sepa_debit?: (Record<string, unknown> | "") | undefined
               us_bank_account?:
                 | (
                     | {
@@ -42352,7 +41434,6 @@ export type t_PostSubscriptionsRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -42402,7 +41483,6 @@ export type t_PostSubscriptionsRequestBody = {
                   | UnknownEnumStringValue
                 )[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         save_default_payment_method?:
@@ -42417,7 +41497,6 @@ export type t_PostSubscriptionsRequestBody = {
             interval_count?: number | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   proration_behavior?:
@@ -42429,7 +41508,7 @@ export type t_PostSubscriptionsRequestBody = {
         destination: string
       }
     | undefined
-  trial_end?: ("now" | UnknownEnumStringValue | number) | undefined
+  trial_end?: ("now" | number) | undefined
   trial_from_plan?: boolean | undefined
   trial_period_days?: number | undefined
   trial_settings?:
@@ -42473,10 +41552,10 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  application_fee_percent?: (number | "" | UnknownEnumStringValue) | undefined
+  application_fee_percent?: (number | "") | undefined
   automatic_tax?:
     | {
         enabled: boolean
@@ -42498,22 +41577,21 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             reset_billing_cycle_anchor?: boolean | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   cancel_at?:
     | (
         | number
         | ""
-        | UnknownEnumStringValue
         | "max_period_end"
         | "min_period_end"
+        | UnknownEnumStringValue
       )
     | undefined
   cancel_at_period_end?: boolean | undefined
   cancellation_details?:
     | {
-        comment?: (string | "" | UnknownEnumStringValue) | undefined
+        comment?: (string | "") | undefined
         feedback?:
           | (
               | ""
@@ -42535,9 +41613,9 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
     | undefined
   days_until_due?: number | undefined
   default_payment_method?: string | undefined
-  default_source?: (string | "" | UnknownEnumStringValue) | undefined
-  default_tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  default_source?: (string | "") | undefined
+  default_tax_rates?: (string[] | "") | undefined
+  description?: (string | "") | undefined
   discounts?:
     | (
         | {
@@ -42546,13 +41624,12 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             promotion_code?: string | undefined
           }[]
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
   invoice_settings?:
     | {
-        account_tax_ids?: (string[] | "" | UnknownEnumStringValue) | undefined
+        account_tax_ids?: (string[] | "") | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -42569,7 +41646,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                   usage_gte: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         clear_usage?: boolean | undefined
@@ -42582,13 +41658,10 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                   promotion_code?: string | undefined
                 }[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         id?: string | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
+        metadata?: (Record<string, string> | "") | undefined
         price?: string | undefined
         price_data?:
           | {
@@ -42616,12 +41689,12 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             }
           | undefined
         quantity?: number | undefined
-        tax_rates?: (string[] | "" | UnknownEnumStringValue) | undefined
+        tax_rates?: (string[] | "") | undefined
       }[]
     | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   off_session?: boolean | undefined
-  on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
+  on_behalf_of?: (string | "") | undefined
   pause_collection?:
     | (
         | {
@@ -42633,7 +41706,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             resumes_at?: number | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   payment_behavior?:
@@ -42673,7 +41745,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               bancontact?:
@@ -42684,7 +41755,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               card?:
@@ -42727,7 +41797,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               customer_balance?:
@@ -42746,15 +41815,10 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                         funding_type?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              konbini?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
-              sepa_debit?:
-                | (Record<string, unknown> | "" | UnknownEnumStringValue)
-                | undefined
+              konbini?: (Record<string, unknown> | "") | undefined
+              sepa_debit?: (Record<string, unknown> | "") | undefined
               us_bank_account?:
                 | (
                     | {
@@ -42800,7 +41864,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                           | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
             }
@@ -42850,7 +41913,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                   | UnknownEnumStringValue
                 )[]
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         save_default_payment_method?:
@@ -42865,7 +41927,6 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             interval_count?: number | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   proration_behavior?:
@@ -42879,10 +41940,9 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
             destination: string
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
-  trial_end?: ("now" | UnknownEnumStringValue | number) | undefined
+  trial_end?: ("now" | number) | undefined
   trial_from_plan?: boolean | undefined
   trial_settings?:
     | {
@@ -42899,7 +41959,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
 
 export type t_PostSubscriptionsSubscriptionMigrateRequestBody = {
   billing_mode: {
-    type: "flexible" | UnknownEnumStringValue
+    type: "flexible"
   }
   expand?: string[] | undefined
 }
@@ -42922,12 +41982,12 @@ export type t_PostTaxCalculationsRequestBody = {
     | {
         address?:
           | {
-              city?: (string | "" | UnknownEnumStringValue) | undefined
+              city?: (string | "") | undefined
               country: string
-              line1?: (string | "" | UnknownEnumStringValue) | undefined
-              line2?: (string | "" | UnknownEnumStringValue) | undefined
-              postal_code?: (string | "" | UnknownEnumStringValue) | undefined
-              state?: (string | "" | UnknownEnumStringValue) | undefined
+              line1?: (string | "") | undefined
+              line2?: (string | "") | undefined
+              postal_code?: (string | "") | undefined
+              state?: (string | "") | undefined
             }
           | undefined
         address_source?:
@@ -43076,12 +42136,12 @@ export type t_PostTaxCalculationsRequestBody = {
   ship_from_details?:
     | {
         address: {
-          city?: (string | "" | UnknownEnumStringValue) | undefined
+          city?: (string | "") | undefined
           country: string
-          line1?: (string | "" | UnknownEnumStringValue) | undefined
-          line2?: (string | "" | UnknownEnumStringValue) | undefined
-          postal_code?: (string | "" | UnknownEnumStringValue) | undefined
-          state?: (string | "" | UnknownEnumStringValue) | undefined
+          line1?: (string | "") | undefined
+          line2?: (string | "") | undefined
+          postal_code?: (string | "") | undefined
+          state?: (string | "") | undefined
         }
       }
     | undefined
@@ -43266,7 +42326,7 @@ export type t_PostTaxRatesTaxRateRequestBody = {
   display_name?: string | undefined
   expand?: string[] | undefined
   jurisdiction?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   state?: string | undefined
   tax_type?:
     | (
@@ -43290,7 +42350,7 @@ export type t_PostTaxRatesTaxRateRequestBody = {
 }
 
 export type t_PostTaxRegistrationsRequestBody = {
-  active_from: "now" | UnknownEnumStringValue | number
+  active_from: "now" | number
   country: string
   country_options: {
     ae?:
@@ -43302,7 +42362,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     al?:
@@ -43314,12 +42374,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     am?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ao?:
@@ -43331,7 +42391,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     at?:
@@ -43362,7 +42422,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     aw?:
@@ -43374,12 +42434,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     az?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ba?:
@@ -43391,7 +42451,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     bb?:
@@ -43403,7 +42463,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     bd?:
@@ -43415,7 +42475,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     be?:
@@ -43446,7 +42506,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     bg?:
@@ -43477,12 +42537,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     bj?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     bs?:
@@ -43494,12 +42554,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     by?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ca?:
@@ -43525,7 +42585,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     ch?:
@@ -43537,32 +42597,32 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     cl?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     cm?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     co?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     cr?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     cv?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     cy?:
@@ -43643,7 +42703,7 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     ec?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ee?:
@@ -43667,7 +42727,7 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     eg?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     es?:
@@ -43698,7 +42758,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     fi?:
@@ -43748,12 +42808,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     ge?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     gn?:
@@ -43765,7 +42825,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     gr?:
@@ -43827,7 +42887,7 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     id?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ie?:
@@ -43851,7 +42911,7 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     in?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     is?:
@@ -43863,7 +42923,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     it?:
@@ -43894,37 +42954,37 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     ke?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     kg?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     kh?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     kr?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     kz?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     la?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     lt?:
@@ -43986,12 +43046,12 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     ma?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     md?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     me?:
@@ -44003,7 +43063,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     mk?:
@@ -44015,7 +43075,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     mr?:
@@ -44027,7 +43087,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     mt?:
@@ -44051,17 +43111,17 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     mx?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     my?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ng?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     nl?:
@@ -44092,12 +43152,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     np?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     nz?:
@@ -44109,7 +43169,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     om?:
@@ -44121,17 +43181,17 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     pe?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ph?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     pl?:
@@ -44200,17 +43260,17 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     ru?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     sa?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     se?:
@@ -44241,7 +43301,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     si?:
@@ -44284,7 +43344,7 @@ export type t_PostTaxRegistrationsRequestBody = {
       | undefined
     sn?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     sr?:
@@ -44296,37 +43356,37 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     th?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     tj?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     tr?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     tz?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ua?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     ug?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     us?:
@@ -44372,17 +43432,17 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     uz?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     vn?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     za?:
@@ -44394,12 +43454,12 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
     zm?:
       | {
-          type: "simplified" | UnknownEnumStringValue
+          type: "simplified"
         }
       | undefined
     zw?:
@@ -44411,7 +43471,7 @@ export type t_PostTaxRegistrationsRequestBody = {
                   | undefined
               }
             | undefined
-          type: "standard" | UnknownEnumStringValue
+          type: "standard"
         }
       | undefined
   }
@@ -44420,9 +43480,9 @@ export type t_PostTaxRegistrationsRequestBody = {
 }
 
 export type t_PostTaxRegistrationsIdRequestBody = {
-  active_from?: ("now" | UnknownEnumStringValue | number) | undefined
+  active_from?: ("now" | number) | undefined
   expand?: string[] | undefined
-  expires_at?: ("now" | UnknownEnumStringValue | number | "") | undefined
+  expires_at?: ("now" | number | "") | undefined
 }
 
 export type t_PostTaxSettingsRequestBody = {
@@ -44490,7 +43550,7 @@ export type t_PostTaxTransactionsCreateReversalRequestBody = {
 export type t_PostTerminalConfigurationsRequestBody = {
   bbpos_wisepos_e?:
     | {
-        splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+        splashscreen?: (string | "") | undefined
       }
     | undefined
   expand?: string[] | undefined
@@ -44501,7 +43561,6 @@ export type t_PostTerminalConfigurationsRequestBody = {
             enabled: boolean
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   reboot_window?:
@@ -44512,7 +43571,7 @@ export type t_PostTerminalConfigurationsRequestBody = {
     | undefined
   stripe_s700?:
     | {
-        splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+        splashscreen?: (string | "") | undefined
       }
     | undefined
   tipping?:
@@ -44660,12 +43719,11 @@ export type t_PostTerminalConfigurationsRequestBody = {
               | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   verifone_p400?:
     | {
-        splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+        splashscreen?: (string | "") | undefined
       }
     | undefined
   wifi?:
@@ -44701,7 +43759,6 @@ export type t_PostTerminalConfigurationsRequestBody = {
               | UnknownEnumStringValue
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -44710,10 +43767,9 @@ export type t_PostTerminalConfigurationsConfigurationRequestBody = {
   bbpos_wisepos_e?:
     | (
         | {
-            splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+            splashscreen?: (string | "") | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   expand?: string[] | undefined
@@ -44724,7 +43780,6 @@ export type t_PostTerminalConfigurationsConfigurationRequestBody = {
             enabled: boolean
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   reboot_window?:
@@ -44734,16 +43789,14 @@ export type t_PostTerminalConfigurationsConfigurationRequestBody = {
             start_hour: number
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   stripe_s700?:
     | (
         | {
-            splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+            splashscreen?: (string | "") | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   tipping?:
@@ -44891,16 +43944,14 @@ export type t_PostTerminalConfigurationsConfigurationRequestBody = {
               | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   verifone_p400?:
     | (
         | {
-            splashscreen?: (string | "" | UnknownEnumStringValue) | undefined
+            splashscreen?: (string | "") | undefined
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
   wifi?:
@@ -44936,7 +43987,6 @@ export type t_PostTerminalConfigurationsConfigurationRequestBody = {
               | UnknownEnumStringValue
           }
         | ""
-        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -44958,7 +44008,7 @@ export type t_PostTerminalLocationsRequestBody = {
   configuration_overrides?: string | undefined
   display_name: string
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTerminalLocationsLocationRequestBody = {
@@ -44972,24 +44022,24 @@ export type t_PostTerminalLocationsLocationRequestBody = {
         state?: string | undefined
       }
     | undefined
-  configuration_overrides?: (string | "" | UnknownEnumStringValue) | undefined
-  display_name?: (string | "" | UnknownEnumStringValue) | undefined
+  configuration_overrides?: (string | "") | undefined
+  display_name?: (string | "") | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTerminalReadersRequestBody = {
   expand?: string[] | undefined
   label?: string | undefined
   location?: string | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   registration_code: string
 }
 
 export type t_PostTerminalReadersReaderRequestBody = {
   expand?: string[] | undefined
-  label?: (string | "" | UnknownEnumStringValue) | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  label?: (string | "") | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTerminalReadersReaderCancelActionRequestBody = {
@@ -45127,7 +44177,7 @@ export type t_PostTerminalReadersReaderSetReaderDisplayRequestBody = {
       }
     | undefined
   expand?: string[] | undefined
-  type: "cart" | UnknownEnumStringValue
+  type: "cart"
 }
 
 export type t_PostTestHelpersConfirmationTokensRequestBody = {
@@ -45177,12 +44227,11 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
               tax_id?: string | undefined
             }
           | undefined
@@ -45465,7 +44514,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
                 | {
                     plan: {
                       count?: number | undefined
-                      interval?: ("month" | UnknownEnumStringValue) | undefined
+                      interval?: "month" | undefined
                       type:
                         | "bonus"
                         | "fixed_count"
@@ -45493,7 +44542,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBody = {
           state?: string | undefined
         }
         name: string
-        phone?: (string | "" | UnknownEnumStringValue) | undefined
+        phone?: (string | "") | undefined
       }
     | undefined
 }
@@ -47344,7 +46393,7 @@ export type t_PostTestHelpersTreasuryReceivedCreditsRequestBody = {
   financial_account: string
   initiating_payment_method_details?:
     | {
-        type: "us_bank_account" | UnknownEnumStringValue
+        type: "us_bank_account"
         us_bank_account?:
           | {
               account_holder_name?: string | undefined
@@ -47365,7 +46414,7 @@ export type t_PostTestHelpersTreasuryReceivedDebitsRequestBody = {
   financial_account: string
   initiating_payment_method_details?:
     | {
-        type: "us_bank_account" | UnknownEnumStringValue
+        type: "us_bank_account"
         us_bank_account?:
           | {
               account_holder_name?: string | undefined
@@ -47375,7 +46424,7 @@ export type t_PostTestHelpersTreasuryReceivedDebitsRequestBody = {
           | undefined
       }
     | undefined
-  network: "ach" | UnknownEnumStringValue
+  network: "ach"
 }
 
 export type t_PostTokensRequestBody = {
@@ -47464,7 +46513,6 @@ export type t_PostTokensRequestBody = {
                         year: number
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               registration_number?: string | undefined
@@ -47554,16 +46602,13 @@ export type t_PostTokensRequestBody = {
                         year: number
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
               email?: string | undefined
               first_name?: string | undefined
               first_name_kana?: string | undefined
               first_name_kanji?: string | undefined
-              full_name_aliases?:
-                | (string[] | "" | UnknownEnumStringValue)
-                | undefined
+              full_name_aliases?: (string[] | "") | undefined
               gender?: string | undefined
               id_number?: string | undefined
               id_number_secondary?: string | undefined
@@ -47571,9 +46616,7 @@ export type t_PostTokensRequestBody = {
               last_name_kana?: string | undefined
               last_name_kanji?: string | undefined
               maiden_name?: string | undefined
-              metadata?:
-                | (Record<string, string> | "" | UnknownEnumStringValue)
-                | undefined
+              metadata?: (Record<string, string> | "") | undefined
               phone?: string | undefined
               political_exposure?:
                 | ("existing" | "none" | UnknownEnumStringValue)
@@ -47593,9 +46636,7 @@ export type t_PostTokensRequestBody = {
                     director?: boolean | undefined
                     executive?: boolean | undefined
                     owner?: boolean | undefined
-                    percent_ownership?:
-                      | (number | "" | UnknownEnumStringValue)
-                      | undefined
+                    percent_ownership?: (number | "") | undefined
                     title?: string | undefined
                   }
                 | undefined
@@ -47683,9 +46724,7 @@ export type t_PostTokensRequestBody = {
                 | {
                     date?: number | undefined
                     ip?: string | undefined
-                    user_agent?:
-                      | (string | "" | UnknownEnumStringValue)
-                      | undefined
+                    user_agent?: (string | "") | undefined
                   }
                 | undefined
             }
@@ -47730,24 +46769,23 @@ export type t_PostTokensRequestBody = {
                   year: number
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
         documents?:
           | {
               company_authorization?:
                 | {
-                    files?: (string | "" | UnknownEnumStringValue)[] | undefined
+                    files?: (string | "")[] | undefined
                   }
                 | undefined
               passport?:
                 | {
-                    files?: (string | "" | UnknownEnumStringValue)[] | undefined
+                    files?: (string | "")[] | undefined
                   }
                 | undefined
               visa?:
                 | {
-                    files?: (string | "" | UnknownEnumStringValue)[] | undefined
+                    files?: (string | "")[] | undefined
                   }
                 | undefined
             }
@@ -47756,7 +46794,7 @@ export type t_PostTokensRequestBody = {
         first_name?: string | undefined
         first_name_kana?: string | undefined
         first_name_kanji?: string | undefined
-        full_name_aliases?: (string[] | "" | UnknownEnumStringValue) | undefined
+        full_name_aliases?: (string[] | "") | undefined
         gender?: string | undefined
         id_number?: string | undefined
         id_number_secondary?: string | undefined
@@ -47764,9 +46802,7 @@ export type t_PostTokensRequestBody = {
         last_name_kana?: string | undefined
         last_name_kanji?: string | undefined
         maiden_name?: string | undefined
-        metadata?:
-          | (Record<string, string> | "" | UnknownEnumStringValue)
-          | undefined
+        metadata?: (Record<string, string> | "") | undefined
         nationality?: string | undefined
         phone?: string | undefined
         political_exposure?:
@@ -47789,9 +46825,7 @@ export type t_PostTokensRequestBody = {
               executive?: boolean | undefined
               legal_guardian?: boolean | undefined
               owner?: boolean | undefined
-              percent_ownership?:
-                | (number | "" | UnknownEnumStringValue)
-                | undefined
+              percent_ownership?: (number | "") | undefined
               representative?: boolean | undefined
               title?: string | undefined
             }
@@ -47883,7 +46917,7 @@ export type t_PostTopupsRequestBody = {
   currency: string
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   source?: string | undefined
   statement_descriptor?: string | undefined
   transfer_group?: string | undefined
@@ -47892,7 +46926,7 @@ export type t_PostTopupsRequestBody = {
 export type t_PostTopupsTopupRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTopupsTopupCancelRequestBody = {
@@ -47917,19 +46951,19 @@ export type t_PostTransfersIdReversalsRequestBody = {
   amount?: number | undefined
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   refund_application_fee?: boolean | undefined
 }
 
 export type t_PostTransfersTransferRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTransfersTransferReversalsIdRequestBody = {
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
 }
 
 export type t_PostTreasuryCreditReversalsRequestBody = {
@@ -48012,7 +47046,7 @@ export type t_PostTreasuryFinancialAccountsRequestBody = {
       }
     | undefined
   metadata?: Record<string, string> | undefined
-  nickname?: (string | "" | UnknownEnumStringValue) | undefined
+  nickname?: (string | "") | undefined
   platform_restrictions?:
     | {
         inbound_flows?:
@@ -48101,7 +47135,7 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountRequestBody = {
       }
     | undefined
   metadata?: Record<string, string> | undefined
-  nickname?: (string | "" | UnknownEnumStringValue) | undefined
+  nickname?: (string | "") | undefined
   platform_restrictions?:
     | {
         inbound_flows?:
@@ -48227,12 +47261,11 @@ export type t_PostTreasuryOutboundPaymentsRequestBody = {
                         state?: string | undefined
                       }
                     | ""
-                    | UnknownEnumStringValue
                   )
                 | undefined
-              email?: (string | "" | UnknownEnumStringValue) | undefined
-              name?: (string | "" | UnknownEnumStringValue) | undefined
-              phone?: (string | "" | UnknownEnumStringValue) | undefined
+              email?: (string | "") | undefined
+              name?: (string | "") | undefined
+              phone?: (string | "") | undefined
             }
           | undefined
         financial_account?: string | undefined
@@ -48263,7 +47296,6 @@ export type t_PostTreasuryOutboundPaymentsRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -48292,7 +47324,7 @@ export type t_PostTreasuryOutboundTransfersRequestBody = {
   destination_payment_method_data?:
     | {
         financial_account?: string | undefined
-        type: "financial_account" | UnknownEnumStringValue
+        type: "financial_account"
       }
     | undefined
   destination_payment_method_options?:
@@ -48305,7 +47337,6 @@ export type t_PostTreasuryOutboundTransfersRequestBody = {
                     | undefined
                 }
               | ""
-              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -48441,7 +47472,7 @@ export type t_PostWebhookEndpointsRequestBody = {
       )
     | undefined
   connect?: boolean | undefined
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  description?: (string | "") | undefined
   enabled_events: (
     | "*"
     | "account.application.authorized"
@@ -48689,12 +47720,12 @@ export type t_PostWebhookEndpointsRequestBody = {
     | UnknownEnumStringValue
   )[]
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   url: string
 }
 
 export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
-  description?: (string | "" | UnknownEnumStringValue) | undefined
+  description?: (string | "") | undefined
   disabled?: boolean | undefined
   enabled_events?:
     | (
@@ -48945,6 +47976,6 @@ export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
       )[]
     | undefined
   expand?: string[] | undefined
-  metadata?: (Record<string, string> | "" | UnknownEnumStringValue) | undefined
+  metadata?: (Record<string, string> | "") | undefined
   url?: string | undefined
 }

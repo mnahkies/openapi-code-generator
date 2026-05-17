@@ -71,7 +71,7 @@ export const s_Channel = z.enum(["push", "sms", "voice"])
 
 export const s_Claim = z.string()
 
-export const s_CodeChallengeMethod = z.enum(["S256"])
+export const s_CodeChallengeMethod = z.literal("S256")
 
 export const s_DeviceAuthorizeRequest = z.object({
   client_id: z.string().optional(),
@@ -228,7 +228,7 @@ export const s_SigningAlgorithm = z.enum([
 
 export const s_SubjectType = z.enum(["pairwise", "public"])
 
-export const s_TokenDeliveryMode = z.enum(["poll"])
+export const s_TokenDeliveryMode = z.literal("poll")
 
 export const s_TokenResponseTokenType = z.enum(["Bearer", "N_A"])
 
@@ -262,7 +262,7 @@ export const s_UserInfo = z.intersection(
 )
 
 export const s_sub_id = z.object({
-  format: z.enum(["opaque"]).optional(),
+  format: z.literal("opaque").optional(),
   id: z.string().optional(),
 })
 

@@ -1613,7 +1613,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      has?: string | ("patch" | UnknownEnumStringValue)[]
+      has?: string | "patch"[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -5776,7 +5776,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      has?: string | ("patch" | UnknownEnumStringValue)[]
+      has?: string | "patch"[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -7274,7 +7274,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      exclude?: ("repositories" | UnknownEnumStringValue)[]
+      exclude?: "repositories"[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7329,7 +7329,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       migrationId: number
-      exclude?: ("repositories" | UnknownEnumStringValue)[]
+      exclude?: "repositories"[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7981,7 +7981,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at" | UnknownEnumStringValue
+      sort?: "created_at"
       direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
@@ -8110,7 +8110,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at" | UnknownEnumStringValue
+      sort?: "created_at"
       direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
@@ -14335,7 +14335,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ref?: t_code_scanning_ref
       sarifId?: t_code_scanning_analysis_sarif_id
       direction?: "asc" | "desc" | UnknownEnumStringValue
-      sort?: "created" | UnknownEnumStringValue
+      sort?: "created"
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15733,7 +15733,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       package?: string
       manifest?: string
       epssPercentage?: string
-      has?: string | ("patch" | UnknownEnumStringValue)[]
+      has?: string | "patch"[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -22363,7 +22363,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async searchCode(
     p: {
       q: string
-      sort?: "indexed" | UnknownEnumStringValue
+      sort?: "indexed"
       order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number

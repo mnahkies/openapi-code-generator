@@ -28477,7 +28477,7 @@ export function createRouter(
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
-    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
+    has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -37997,7 +37997,7 @@ export function createRouter(
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
-    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
+    has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -41102,7 +41102,7 @@ export function createRouter(
     exclude: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(z.enum(["repositories"])),
+        z.array(z.literal("repositories")),
       )
       .optional(),
   })
@@ -41200,7 +41200,7 @@ export function createRouter(
     exclude: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(z.enum(["repositories"])),
+        z.array(z.literal("repositories")),
       )
       .optional(),
   })
@@ -42681,7 +42681,7 @@ export function createRouter(
   const orgsListPatGrantRequestsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    sort: z.enum(["created_at"]).optional().default("created_at"),
+    sort: z.literal("created_at").optional().default("created_at"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     owner: z
       .preprocess(
@@ -42967,7 +42967,7 @@ export function createRouter(
   const orgsListPatGrantsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    sort: z.enum(["created_at"]).optional().default("created_at"),
+    sort: z.literal("created_at").optional().default("created_at"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     owner: z
       .preprocess(
@@ -56479,7 +56479,7 @@ export function createRouter(
     ref: s_code_scanning_ref.optional(),
     sarif_id: s_code_scanning_analysis_sarif_id.optional(),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    sort: z.enum(["created"]).optional().default("created"),
+    sort: z.literal("created").optional().default("created"),
   })
 
   const codeScanningListRecentAnalysesResponseValidator =
@@ -60027,7 +60027,7 @@ export function createRouter(
     package: z.string().optional(),
     manifest: z.string().optional(),
     epss_percentage: z.string().optional(),
-    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
+    has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -74392,7 +74392,7 @@ export function createRouter(
 
   const searchCodeQuerySchema = z.object({
     q: z.string(),
-    sort: z.enum(["indexed"]).optional(),
+    sort: z.literal("indexed").optional(),
     order: z.enum(["desc", "asc"]).optional().default("desc"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
