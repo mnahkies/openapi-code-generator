@@ -554,6 +554,7 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
         )
         await expect(execute("some string")).rejects.toThrow("Invalid email")
       })
+
       it("supports date-time", async () => {
         const {code, execute} = await getActual(
           ir.string({format: "date-time"}),
@@ -570,6 +571,25 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
           "Invalid ISO datetime",
         )
       })
+
+      it("supports date", async () => {
+        const {code, execute} = await getActual(ir.string({format: "date"}))
+
+        expect(code).toMatchInlineSnapshot('"const x = z.iso.date()"')
+
+        await expect(execute("2024-05-25")).resolves.toBe("2024-05-25")
+        await expect(execute("some string")).rejects.toThrow("Invalid ISO date")
+      })
+
+      it("supports time", async () => {
+        const {code, execute} = await getActual(ir.string({format: "time"}))
+
+        expect(code).toMatchInlineSnapshot('"const x = z.iso.time()"')
+
+        await expect(execute("08:20:00")).resolves.toBe("08:20:00")
+        await expect(execute("some string")).rejects.toThrow("Invalid ISO time")
+      })
+
       it("supports binary", async () => {
         const {code} = await getActual(ir.string({format: "binary"}))
 

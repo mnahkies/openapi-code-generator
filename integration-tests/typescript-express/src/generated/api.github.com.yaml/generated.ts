@@ -87698,7 +87698,7 @@ export function createRouter(
 
   const metaGetAllVersionsResponseBodyValidator = responseValidationFactory(
     [
-      ["200", z.array(z.string())],
+      ["200", z.array(z.iso.date())],
       ["404", s_basic_error],
     ],
     undefined,
