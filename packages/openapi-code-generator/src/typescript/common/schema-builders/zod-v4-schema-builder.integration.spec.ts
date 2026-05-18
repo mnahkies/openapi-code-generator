@@ -43,7 +43,7 @@ describe.each(
         export const s_SimpleObject = z.object({
           str: z.string(),
           num: z.coerce.number(),
-          date: z.string(),
+          date: z.iso.date(),
           datetime: z.iso.datetime({ offset: true }),
           optional_str: z.string().optional(),
           required_nullable: z.string().nullable(),

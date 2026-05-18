@@ -329,13 +329,13 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       )
     }
 
-    // todo: add support for date, time
     const base =
-      model.format === "date-time"
-        ? "iso.datetime({offset:true})"
-        : model.format === "email"
-          ? "email()"
-          : "string()"
+      [
+        ["date-time", "iso.datetime({offset:true})"],
+        ["date", "iso.date()"],
+        ["time", "iso.time()"],
+        ["email", "email()"],
+      ].find((it) => it[0] === model.format)?.[1] ?? "string()"
 
     return [
       zod,

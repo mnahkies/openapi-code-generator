@@ -2543,7 +2543,7 @@ export const s_pages_https_certificate = z.object({
   ]),
   description: z.string(),
   domains: z.array(z.string()),
-  expires_at: z.string().optional(),
+  expires_at: z.iso.date().optional(),
 })
 
 export const s_pages_source_hash = z.object({
@@ -4011,7 +4011,7 @@ export const s_copilot_organization_details = z.intersection(
 
 export const s_copilot_usage_metrics_day = z.intersection(
   z.object({
-    date: z.string(),
+    date: z.iso.date(),
     total_active_users: z.coerce.number().optional(),
     total_engaged_users: z.coerce.number().optional(),
     copilot_ide_code_completions: s_copilot_ide_code_completions.optional(),
@@ -6485,7 +6485,7 @@ export const s_copilot_seat_details = z.object({
   assignee: s_nullable_simple_user.optional(),
   organization: s_nullable_organization_simple.optional(),
   assigning_team: z.union([s_team, s_enterprise_team]).nullable().optional(),
-  pending_cancellation_date: z.string().nullable().optional(),
+  pending_cancellation_date: z.iso.date().nullable().optional(),
   last_activity_at: z.iso.datetime({offset: true}).nullable().optional(),
   last_activity_editor: z.string().nullable().optional(),
   created_at: z.iso.datetime({offset: true}),
