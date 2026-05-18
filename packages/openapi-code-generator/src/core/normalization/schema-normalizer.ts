@@ -1,8 +1,9 @@
 import {isNonEmptyArray} from "@nahkies/typescript-common-runtime/types"
 import {generationLib} from "../generation-lib.ts"
-import type {InputConfig} from "../input.ts"
+import type {InputConfig, ISchemaProvider} from "../input.ts"
 import {logger} from "../logger.ts"
 import type {
+  Discriminator,
   Reference,
   Schema,
   SchemaNumber,
@@ -24,10 +25,13 @@ import type {
   IRRef,
   MaybeIRModel,
 } from "../openapi-types-normalized.ts"
-import {isRef} from "../openapi-utils.ts"
+import {getRawNameFromRef, isRef} from "../openapi-utils.ts"
 
 export class SchemaNormalizer {
-  constructor(readonly config: InputConfig) {}
+  constructor(
+    private readonly config: InputConfig,
+    private readonly schemaProvider: ISchemaProvider,
+  ) {}
 
   public isNormalized(schema: Schema | IRModel): schema is IRModel {
     return schema && Reflect.get(schema, "isIRModel")
@@ -201,7 +205,11 @@ export class SchemaNormalizer {
           {...base, nullable},
           hasOwnProperties ? [...allOf, result] : allOf,
         )
-        const maybeUnion = this.union({...base, nullable}, [...oneOf, ...anyOf])
+        const maybeUnion = this.union(
+          {...base, nullable},
+          [...oneOf, ...anyOf],
+          schemaObject.discriminator,
+        )
 
         if (maybeIntersection && maybeUnion) {
           return this.intersection({...base, nullable}, [
@@ -383,6 +391,54 @@ export class SchemaNormalizer {
     }
   }
 
+  private normalizeDiscriminator(
+    discriminator: Discriminator | undefined,
+    schemas: MaybeIRModel[],
+  ): IRModelUnion["discriminator"] | undefined {
+    if (!discriminator) {
+      return undefined
+    }
+
+    const referencedSchemas = schemas.filter((it) => isRef(it))
+
+    const includesInlineSchemas = referencedSchemas.length !== schemas.length
+
+    if (includesInlineSchemas) {
+      logger.info(
+        `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as the union includes inline schemas`,
+      )
+      return undefined
+    }
+
+    // todo: infinite loop possibility? might make more sense to go to the loader.
+    const everyAlternativeIsObject = referencedSchemas.every(
+      (it) => this.schemaProvider.schema(it).type === "object",
+    )
+
+    if (!everyAlternativeIsObject) {
+      logger.info(
+        `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as the union references non-object schemas`,
+      )
+      return undefined
+    }
+
+    // note: mapping is optional, where the default is ${NAME} -> '#/components/schemas/${NAME}'
+    const mapping =
+      discriminator.mapping ??
+      Object.fromEntries(
+        referencedSchemas.map((it) => [getRawNameFromRef(it), it.$ref]),
+      )
+
+    return {
+      propertyName: discriminator.propertyName,
+      mapping: Object.fromEntries(
+        Object.entries(mapping).map(([key, value]) => {
+          return [key, {$ref: value}]
+        }),
+      ),
+    }
+  }
+
   private normalizeComposition(
     items: (Schema | Reference)[] = [],
     parent: SchemaObject,
@@ -519,6 +575,7 @@ export class SchemaNormalizer {
   private union(
     base: IRModelBase,
     schemas: MaybeIRModel[],
+    discriminator: Discriminator | undefined,
   ): MaybeIRModel | IRModelUnion | undefined {
     // (A|B)|(C|D) is the same as (A|B|C|D)
     // todo: merge repeated in-line schemas
@@ -538,6 +595,7 @@ export class SchemaNormalizer {
       return {
         ...base,
         type: "union",
+        discriminator: this.normalizeDiscriminator(discriminator, schemas),
         schemas,
       }
     }

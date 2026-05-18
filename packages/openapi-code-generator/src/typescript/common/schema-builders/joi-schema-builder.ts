@@ -146,6 +146,13 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected discriminatedUnion(
+    propertyName: string,
+    mapping: Record<string, string>,
+  ): string {
+    return this.union(Object.values(mapping))
+  }
+
   protected preprocess(
     schema: string,
     transformation: string | ((it: unknown) => unknown),

@@ -244,42 +244,42 @@ openapi specification / json schema validation specifications.
 
 Most notable exception is `readOnly` / `writeOnly` which are currently ignored, planned to be addressed prior to v1.
 
-| Attribute            | Supported | Notes                                                                                                                                                    |
-|:---------------------|:---------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| title                |  __N/A__  |                                                                                                                                                          |
-| multipleOf           |     ✅     | Applies to `type: number`                                                                                                                                |
-| maximum              |     ✅     | Applies to `type: number`                                                                                                                                |
-| exclusiveMaximum     |     ✅     | Applies to `type: number`                                                                                                                                |
-| minimum              |     ✅     | Applies to `type: number`                                                                                                                                |
-| exclusiveMinimum     |     ✅     | Applies to `type: number`                                                                                                                                |
-| maxLength            |     ✅     | Applies to `type: string`                                                                                                                                |
-| minLength            |     ✅     | Applies to `type: string`                                                                                                                                |
-| pattern              |     ✅     | Support for `type: string`                                                                                                                               |
-| maxItems             |     ✅     | Applies to `type: array`                                                                                                                                 |
-| minItems             |     ✅     | Applies to `type: array`                                                                                                                                 |
-| uniqueItems          |     ✅     | Applies to  `type: array`                                                                                                                                |
-| maxProperties        |    🚫     | Not yet supported                                                                                                                                        |
-| minProperties        |    🚫     | Not yet supported                                                                                                                                        |
-| required             |     ✅     | Controls whether `undefined` is allowed for each value in `properties`                                                                                   |
-| enum                 |     ✅     | Applies to `type: number`, `type: string` and `type: boolean`                                                                                            |
-| type                 |     ✅     |                                                                                                                                                          |
-| not                  |    🚫     | Not yet supported                                                                                                                                        |
-| allOf                |     ✅     | Produces a intersection type like `A & B`                                                                                                                |
-| oneOf                |     ✅     | Produces a union type like `A \| B`                                                                                                                      |
-| anyOf                |     ✅     | Produces a union type like `A \| B`                                                                                                                      |
-| items                |     ✅     | Applies to `type: array`                                                                                                                                 |
-| properties           |     ✅     | Applies to `type: object`                                                                                                                                |
-| additionalProperties |     ✅     | Fairly comprehensive support, produces `Record<string, T>` or `unknown`/`any` (dependent on [`--ts-allow-any`](../reference/cli-options#--ts-allow-any)) |
-| format               |   ✅/🚧    | Limited support for format `email` and `date-time`                                                                                                       |
-| default              |     ✅     |                                                                                                                                                          |
-| nullable             |     ✅     | Also supports `type: null` as an alternative                                                                                                             |
-| discriminator        |    🚫     | Ignored. Union / Intersection types are usd based on `anyOf` / `allOf` / `oneOf`.                                                                        |
-| readOnly             |    🚫     | Not yet supported                                                                                                                                        |
-| writeOnly            |    🚫     | Not yet supported                                                                                                                                        |
-| example              |  __N/A__  | Ignored                                                                                                                                                  |
-| externalDocs         |  __N/A__  | Ignored                                                                                                                                                  |
-| deprecated           |    🚫     | Not yet supported                                                                                                                                        |
-| xml                  |    🚫     | Not yet supported                                                                                                                                        |
+| Attribute            | Supported | Notes                                                                                                                      |
+|:---------------------|:---------:|:---------------------------------------------------------------------------------------------------------------------------|
+| title                |  __N/A__  |                                                                                                                            |
+| multipleOf           |     ✅     | Applies to `type: number`                                                                                                  |
+| maximum              |     ✅     | Applies to `type: number`                                                                                                  |
+| exclusiveMaximum     |     ✅     | Applies to `type: number`                                                                                                  |
+| minimum              |     ✅     | Applies to `type: number`                                                                                                  |
+| exclusiveMinimum     |     ✅     | Applies to `type: number`                                                                                                  |
+| maxLength            |     ✅     | Applies to `type: string`                                                                                                  |
+| minLength            |     ✅     | Applies to `type: string`                                                                                                  |
+| pattern              |     ✅     | Support for `type: string`                                                                                                 |
+| maxItems             |     ✅     | Applies to `type: array`                                                                                                   |
+| minItems             |     ✅     | Applies to `type: array`                                                                                                   |
+| uniqueItems          |     ✅     | Applies to  `type: array`                                                                                                  |
+| maxProperties        |    🚫     | Not yet supported                                                                                                          |
+| minProperties        |    🚫     | Not yet supported                                                                                                          |
+| required             |     ✅     | Controls whether `undefined` is allowed for each value in `properties`                                                     |
+| enum                 |     ✅     | Applies to `type: number`, `type: string` and `type: boolean`                                                              |
+| type                 |     ✅     |                                                                                                                            |
+| not                  |    🚫     | Not yet supported                                                                                                          |
+| allOf                |     ✅     | Produces a intersection type like `A & B`                                                                                  |
+| oneOf                |     ✅     | Produces a union type like `A \| B`                                                                                        |
+| anyOf                |     ✅     | Produces a union type like `A \| B`                                                                                        |
+| items                |     ✅     | Applies to `type: array`                                                                                                   |
+| properties           |     ✅     | Applies to `type: object`                                                                                                  |
+| additionalProperties |     ✅     | Produces `Record<string, T>` or `unknown`/`any` (dependent on [`--ts-allow-any`](../reference/cli-options#--ts-allow-any)) |
+| format               |   ✅/🚧    | Limited support for format `binary`, `email` and `date-time`                                                               |
+| default              |     ✅     |                                                                                                                            |
+| nullable             |     ✅     | Also supports `type: null` as an alternative                                                                               |
+| discriminator        |    🚫     | Ignored. Union / Intersection types are usd based on `anyOf` / `allOf` / `oneOf`.                                          |
+| readOnly             |    🚫     | Not yet supported                                                                                                          |
+| writeOnly            |    🚫     | Not yet supported                                                                                                          |
+| example              |  __N/A__  | Ignored                                                                                                                    |
+| externalDocs         |  __N/A__  | Ignored                                                                                                                    |
+| deprecated           |    🚫     | Not yet supported                                                                                                          |
+| xml                  |    🚫     | Not yet supported                                                                                                          |
 
 ### Encoding Object
 | Attribute     | Supported | Notes                                                              |

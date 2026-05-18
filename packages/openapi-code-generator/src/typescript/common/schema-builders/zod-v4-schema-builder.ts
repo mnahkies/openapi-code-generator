@@ -156,6 +156,22 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected discriminatedUnion(
+    propertyName: string,
+    mapping: Record<string, string>,
+  ): string {
+    const schemas = Object.values(mapping)
+
+    return [
+      zod,
+      `discriminatedUnion("${propertyName}", [\n${schemas
+        .map((it) => `${it},`)
+        .join("\n")}\n])`,
+    ]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected preprocess(
     schema: string,
     transformation: string | ((it: unknown) => unknown),

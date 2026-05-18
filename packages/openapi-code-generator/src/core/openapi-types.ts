@@ -359,8 +359,9 @@ export interface xInternalPreproccess {
 export interface Discriminator {
   propertyName: string
   mapping?: {
-    [k: string]: string
+    [propertyValue: string]: string
   }
+  defaultMapping?: string
 }
 
 export interface Example {
