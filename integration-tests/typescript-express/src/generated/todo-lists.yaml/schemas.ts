@@ -24,8 +24,6 @@ export const s_TodoList = z.object({
 
 export const s_UnknownObject = z.record(z.string(), z.unknown())
 
-export const s_CreateTodoListItemRequestBody = z.object({
-  id: z.string(),
-  content: z.string(),
-  completedAt: z.iso.datetime({offset: true}).optional(),
-})
+export const s_CreateTodoListItemRequestBody = z
+  .object({id: z.string(), content: z.string()})
+  .merge(z.object({completedAt: z.iso.datetime({offset: true}).optional()}))

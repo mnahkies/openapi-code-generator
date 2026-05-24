@@ -27,9 +27,10 @@ export type t_CreateTodoListItemParamSchema = {
 }
 
 export type t_CreateTodoListItemRequestBody = {
-  completedAt?: string | undefined
   content: string
   id: string
+} & {
+  completedAt?: string | undefined
 }
 
 export type t_DeleteTodoListByIdParamSchema = {
