@@ -173,13 +173,18 @@ paths:
           required: true
           schema:
             type: number
-        - name: authorIds
+        - name: author_ids
           in: query
           required: true
           schema:
             type: array
             items:
               type: integer
+        - name: kebab-case
+          in: query
+          required: true
+          schema:
+            type: string
         - name: statuses
           in: query
           required: true
@@ -204,7 +209,9 @@ paths:
                     type: array
                     items:
                       type: string
-                  authorIds:
+                  kebab-case:
+                    type: string
+                  author_ids:
                     type: array
                     items:
                       type: integer

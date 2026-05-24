@@ -231,6 +231,7 @@ export class E2ETestClient extends AbstractFetchClient {
     p: {
       limit: number
       authorIds: number[]
+      kebabCase: string
       statuses: ("open" | "closed" | UnknownEnumStringValue)[]
     },
     timeout?: number,
@@ -239,9 +240,14 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/params/mixed-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {limit: p["limit"], authorIds: p["authorIds"], statuses: p["statuses"]},
       {
-        authorIds: {
+        limit: p["limit"],
+        author_ids: p["authorIds"],
+        "kebab-case": p["kebabCase"],
+        statuses: p["statuses"],
+      },
+      {
+        author_ids: {
           style: "form",
           explode: true,
         },
