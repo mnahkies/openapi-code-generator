@@ -13,6 +13,7 @@ import type {
   t_application_fee,
   t_apps_secret,
   t_balance,
+  t_balance_settings,
   t_balance_transaction,
   t_bank_account,
   t_billing_alert,
@@ -101,11 +102,14 @@ import type {
   t_line_item,
   t_login_link,
   t_mandate,
+  t_payment_attempt_record,
   t_payment_intent,
+  t_payment_intent_amount_details_line_item,
   t_payment_link,
   t_payment_method,
   t_payment_method_configuration,
   t_payment_method_domain,
+  t_payment_record,
   t_payment_source,
   t_payout,
   t_person,
@@ -116,6 +120,7 @@ import type {
   t_promotion_code,
   t_quote,
   t_radar_early_fraud_warning,
+  t_radar_payment_evaluation,
   t_radar_value_list,
   t_radar_value_list_item,
   t_refund,
@@ -133,6 +138,7 @@ import type {
   t_subscription,
   t_subscription_item,
   t_subscription_schedule,
+  t_tax_association,
   t_tax_calculation,
   t_tax_calculation_line_item,
   t_tax_code,
@@ -145,7 +151,9 @@ import type {
   t_terminal_configuration,
   t_terminal_connection_token,
   t_terminal_location,
+  t_terminal_onboarding_link,
   t_terminal_reader,
+  t_terminal_refund,
   t_test_helpers_test_clock,
   t_token,
   t_topup,
@@ -261,6 +269,7 @@ export type QueryParams = {
     | string
     | number
     | boolean
+    | number[]
     | string[]
     | undefined
     | null
@@ -1915,6 +1924,58 @@ export class StripeApiService {
     )
   }
 
+  getBalanceSettings(
+    p: {expand?: string[]; requestBody?: never} = {},
+  ): Observable<
+    | (HttpResponse<t_balance_settings> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/balance_settings`,
+      {
+        params,
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBalanceSettings(
+    p: {requestBody?: never} = {},
+  ): Observable<
+    | (HttpResponse<t_balance_settings> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/balance_settings`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getBalanceTransactions(
     p: {
       created?:
@@ -2188,7 +2249,8 @@ export class StripeApiService {
   }
 
   getBillingCreditBalanceSummary(p: {
-    customer: string
+    customer?: string
+    customerAccount?: string
     expand?: string[]
     filter: {
       applicability_scope?: {
@@ -2208,7 +2270,12 @@ export class StripeApiService {
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
-      {customer: p["customer"], expand: p["expand"], filter: p["filter"]},
+      {
+        customer: p["customer"],
+        customer_account: p["customerAccount"],
+        expand: p["expand"],
+        filter: p["filter"],
+      },
       {
         expand: {
           style: "deepObject",
@@ -2234,15 +2301,18 @@ export class StripeApiService {
     )
   }
 
-  getBillingCreditBalanceTransactions(p: {
-    creditGrant?: string
-    customer: string
-    endingBefore?: string
-    expand?: string[]
-    limit?: number
-    startingAfter?: string
-    requestBody?: never
-  }): Observable<
+  getBillingCreditBalanceTransactions(
+    p: {
+      creditGrant?: string
+      customer?: string
+      customerAccount?: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: never
+    } = {},
+  ): Observable<
     | (HttpResponse<{
         data: t_billing_credit_balance_transaction[]
         has_more: boolean
@@ -2257,6 +2327,7 @@ export class StripeApiService {
       {
         credit_grant: p["creditGrant"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -2320,6 +2391,7 @@ export class StripeApiService {
   getBillingCreditGrants(
     p: {
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -2340,6 +2412,7 @@ export class StripeApiService {
     const params = this._query(
       {
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -2880,9 +2953,9 @@ export class StripeApiService {
     )
   }
 
-  postBillingPortalSessions(p: {
-    requestBody: never
-  }): Observable<
+  postBillingPortalSessions(
+    p: {requestBody?: never} = {},
+  ): Observable<
     | (HttpResponse<t_billing_portal_session> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
@@ -3349,6 +3422,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       customerDetails?: {
         email: string
       }
@@ -3377,6 +3451,7 @@ export class StripeApiService {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         customer_details: p["customerDetails"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -4148,6 +4223,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       invoice?: string
@@ -4170,6 +4246,7 @@ export class StripeApiService {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -4233,6 +4310,7 @@ export class StripeApiService {
       amount?: number
       description?: string
       invoice_line_item?: string
+      metadata?: Record<string, string>
       quantity?: number
       tax_amounts?:
         | {
@@ -4258,7 +4336,12 @@ export class StripeApiService {
     refundAmount?: number
     refunds?: {
       amount_refunded?: number
+      payment_record_refund?: {
+        payment_record: string
+        refund_group: string
+      }
       refund?: string
+      type?: "payment_record_refund" | "refund" | UnknownEnumStringValue
     }[]
     shippingCost?: {
       shipping_rate?: string
@@ -4337,6 +4420,7 @@ export class StripeApiService {
       amount?: number
       description?: string
       invoice_line_item?: string
+      metadata?: Record<string, string>
       quantity?: number
       tax_amounts?:
         | {
@@ -4362,7 +4446,12 @@ export class StripeApiService {
     refundAmount?: number
     refunds?: {
       amount_refunded?: number
+      payment_record_refund?: {
+        payment_record: string
+        refund_group: string
+      }
       refund?: string
+      type?: "payment_record_refund" | "refund" | UnknownEnumStringValue
     }[]
     shippingCost?: {
       shipping_rate?: string
@@ -4791,9 +4880,18 @@ export class StripeApiService {
   }
 
   getCustomersCustomerBalanceTransactions(p: {
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     customer: string
     endingBefore?: string
     expand?: string[]
+    invoice?: string
     limit?: number
     startingAfter?: string
     requestBody?: never
@@ -4810,12 +4908,18 @@ export class StripeApiService {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
       {
+        created: p["created"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
+        invoice: p["invoice"],
         limit: p["limit"],
         starting_after: p["startingAfter"],
       },
       {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,
@@ -5483,11 +5587,13 @@ export class StripeApiService {
       | "bacs_debit"
       | "bancontact"
       | "billie"
+      | "bizum"
       | "blik"
       | "boleto"
       | "card"
       | "cashapp"
       | "crypto"
+      | "custom"
       | "customer_balance"
       | "eps"
       | "fpx"
@@ -5499,6 +5605,7 @@ export class StripeApiService {
       | "konbini"
       | "kr_card"
       | "link"
+      | "mb_way"
       | "mobilepay"
       | "multibanco"
       | "naver_pay"
@@ -5509,15 +5616,19 @@ export class StripeApiService {
       | "payco"
       | "paynow"
       | "paypal"
+      | "payto"
       | "pix"
       | "promptpay"
       | "revolut_pay"
       | "samsung_pay"
       | "satispay"
+      | "scalapay"
       | "sepa_debit"
       | "sofort"
+      | "sunbit"
       | "swish"
       | "twint"
+      | "upi"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -6878,10 +6989,14 @@ export class StripeApiService {
         | "identity_document_downloadable"
         | "issuing_regulatory_reporting"
         | "pci_document"
+        | "platform_terms_of_service"
         | "selfie"
         | "sigma_scheduled_query"
         | "tax_document_user_upload"
+        | "terminal_android_apk"
         | "terminal_reader_splashscreen"
+        | "terminal_wifi_certificate"
+        | "terminal_wifi_private_key"
         | UnknownEnumStringValue
       startingAfter?: string
       requestBody?: never
@@ -6991,6 +7106,7 @@ export class StripeApiService {
       accountHolder?: {
         account?: string
         customer?: string
+        customer_account?: string
       }
       endingBefore?: string
       expand?: string[]
@@ -7602,6 +7718,7 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       relatedCustomer?: string
+      relatedCustomerAccount?: string
       startingAfter?: string
       status?:
         | "canceled"
@@ -7630,6 +7747,7 @@ export class StripeApiService {
         expand: p["expand"],
         limit: p["limit"],
         related_customer: p["relatedCustomer"],
+        related_customer_account: p["relatedCustomerAccount"],
         starting_after: p["startingAfter"],
         status: p["status"],
       },
@@ -7784,13 +7902,22 @@ export class StripeApiService {
 
   getInvoicePayments(
     p: {
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       invoice?: string
       limit?: number
       payment?: {
         payment_intent?: string
-        type: "payment_intent"
+        payment_record?: string
+        type: "payment_intent" | "payment_record" | UnknownEnumStringValue
       }
       startingAfter?: string
       status?: "canceled" | "open" | "paid" | UnknownEnumStringValue
@@ -7809,6 +7936,7 @@ export class StripeApiService {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
       {
+        created: p["created"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -7818,6 +7946,10 @@ export class StripeApiService {
         status: p["status"],
       },
       {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,
@@ -8015,6 +8147,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       invoice?: string
@@ -8038,6 +8171,7 @@ export class StripeApiService {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -8070,9 +8204,9 @@ export class StripeApiService {
     )
   }
 
-  postInvoiceitems(p: {
-    requestBody: never
-  }): Observable<
+  postInvoiceitems(
+    p: {requestBody?: never} = {},
+  ): Observable<
     | (HttpResponse<t_invoiceitem> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
@@ -8183,6 +8317,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       dueDate?:
         | {
             gt?: number
@@ -8221,6 +8356,7 @@ export class StripeApiService {
         collection_method: p["collectionMethod"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         due_date: p["dueDate"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -9915,6 +10051,7 @@ export class StripeApiService {
       accountHolder?: {
         account?: string
         customer?: string
+        customer_account?: string
       }
       endingBefore?: string
       expand?: string[]
@@ -10126,6 +10263,84 @@ export class StripeApiService {
     )
   }
 
+  getPaymentAttemptRecords(p: {
+    expand?: string[]
+    limit?: number
+    paymentRecord: string
+    startingAfter?: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<{
+        data: t_payment_attempt_record[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_record: p["paymentRecord"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/payment_attempt_records`,
+      {
+        params,
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentAttemptRecordsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<t_payment_attempt_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/payment_attempt_records/${p["id"]}`,
+      {
+        params,
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getPaymentIntents(
     p: {
       created?:
@@ -10137,6 +10352,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -10158,6 +10374,7 @@ export class StripeApiService {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -10304,6 +10521,53 @@ export class StripeApiService {
       "POST",
       this.config.basePath + `/v1/payment_intents/${p["intent"]}`,
       {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentIntentsIntentAmountDetailsLineItems(p: {
+    endingBefore?: string
+    expand?: string[]
+    intent: string
+    limit?: number
+    startingAfter?: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<{
+        data: t_payment_intent_amount_details_line_item[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/payment_intents/${p["intent"]}/amount_details_line_items`,
+      {
+        params,
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
@@ -10620,6 +10884,7 @@ export class StripeApiService {
 
   getPaymentMethodConfigurations(
     p: {
+      active?: boolean
       application?: string | ""
       endingBefore?: string
       expand?: string[]
@@ -10640,6 +10905,7 @@ export class StripeApiService {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
       {
+        active: p["active"],
         application: p["application"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -10903,7 +11169,13 @@ export class StripeApiService {
 
   getPaymentMethods(
     p: {
+      allowRedisplay?:
+        | "always"
+        | "limited"
+        | "unspecified"
+        | UnknownEnumStringValue
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -10919,11 +11191,13 @@ export class StripeApiService {
         | "bacs_debit"
         | "bancontact"
         | "billie"
+        | "bizum"
         | "blik"
         | "boleto"
         | "card"
         | "cashapp"
         | "crypto"
+        | "custom"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -10935,6 +11209,7 @@ export class StripeApiService {
         | "konbini"
         | "kr_card"
         | "link"
+        | "mb_way"
         | "mobilepay"
         | "multibanco"
         | "naver_pay"
@@ -10945,15 +11220,19 @@ export class StripeApiService {
         | "payco"
         | "paynow"
         | "paypal"
+        | "payto"
         | "pix"
         | "promptpay"
         | "revolut_pay"
         | "samsung_pay"
         | "satispay"
+        | "scalapay"
         | "sepa_debit"
         | "sofort"
+        | "sunbit"
         | "swish"
         | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -10973,7 +11252,9 @@ export class StripeApiService {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query(
       {
+        allow_redisplay: p["allowRedisplay"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -11079,7 +11360,7 @@ export class StripeApiService {
 
   postPaymentMethodsPaymentMethodAttach(p: {
     paymentMethod: string
-    requestBody: never
+    requestBody?: never
   }): Observable<
     | (HttpResponse<t_payment_method> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
@@ -11112,6 +11393,197 @@ export class StripeApiService {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/v1/payment_methods/${p["paymentMethod"]}/detach`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsReportPayment(p: {
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/payment_records/report_payment`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentRecordsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/payment_records/${p["id"]}`,
+      {
+        params,
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportPaymentAttempt(p: {
+    id: string
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_records/${p["id"]}/report_payment_attempt`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportPaymentAttemptCanceled(p: {
+    id: string
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_records/${p["id"]}/report_payment_attempt_canceled`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportPaymentAttemptFailed(p: {
+    id: string
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_records/${p["id"]}/report_payment_attempt_failed`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportPaymentAttemptGuaranteed(p: {
+    id: string
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_records/${p["id"]}/report_payment_attempt_guaranteed`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportPaymentAttemptInformational(p: {
+    id: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_records/${p["id"]}/report_payment_attempt_informational`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentRecordsIdReportRefund(p: {
+    id: string
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_payment_record> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/payment_records/${p["id"]}/report_refund`,
       {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
@@ -12043,6 +12515,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -12067,6 +12540,7 @@ export class StripeApiService {
         coupon: p["coupon"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -12176,6 +12650,7 @@ export class StripeApiService {
   getQuotes(
     p: {
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -12203,6 +12678,7 @@ export class StripeApiService {
     const params = this._query(
       {
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -12595,6 +13071,27 @@ export class StripeApiService {
         `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`,
       {
         params,
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postRadarPaymentEvaluations(p: {
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_radar_payment_evaluation> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/radar/payment_evaluations`,
+      {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
@@ -13435,6 +13932,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -13458,6 +13956,7 @@ export class StripeApiService {
         attach_to_self: p["attachToSelf"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -14263,6 +14762,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -14295,6 +14795,7 @@ export class StripeApiService {
         completed_at: p["completedAt"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -14495,6 +14996,7 @@ export class StripeApiService {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -14534,6 +15036,7 @@ export class StripeApiService {
         current_period_end: p["currentPeriodEnd"],
         current_period_start: p["currentPeriodStart"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -14579,9 +15082,9 @@ export class StripeApiService {
     )
   }
 
-  postSubscriptions(p: {
-    requestBody: never
-  }): Observable<
+  postSubscriptions(
+    p: {requestBody?: never} = {},
+  ): Observable<
     | (HttpResponse<t_subscription> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
@@ -14783,6 +15286,39 @@ export class StripeApiService {
       "POST",
       this.config.basePath + `/v1/subscriptions/${p["subscription"]}/resume`,
       {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getTaxAssociationsFind(p: {
+    expand?: string[]
+    paymentIntent: string
+    requestBody?: never
+  }): Observable<
+    | (HttpResponse<t_tax_association> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query(
+      {expand: p["expand"], payment_intent: p["paymentIntent"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax/associations/find`,
+      {
+        params,
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
@@ -15284,6 +15820,7 @@ export class StripeApiService {
       owner?: {
         account?: string
         customer?: string
+        customer_account?: string
         type:
           | "account"
           | "application"
@@ -15776,9 +16313,9 @@ export class StripeApiService {
     )
   }
 
-  postTerminalLocations(p: {
-    requestBody: never
-  }): Observable<
+  postTerminalLocations(
+    p: {requestBody?: never} = {},
+  ): Observable<
     | (HttpResponse<t_terminal_location> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
@@ -15878,6 +16415,27 @@ export class StripeApiService {
     )
   }
 
+  postTerminalOnboardingLinks(p: {
+    requestBody: never
+  }): Observable<
+    | (HttpResponse<t_terminal_onboarding_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/terminal/onboarding_links`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getTerminalReaders(
     p: {
       deviceType?:
@@ -15886,10 +16444,20 @@ export class StripeApiService {
         | "bbpos_wisepos_e"
         | "mobile_phone_reader"
         | "simulated_stripe_s700"
+        | "simulated_stripe_s710"
+        | "simulated_verifone_m425"
+        | "simulated_verifone_p630"
+        | "simulated_verifone_ux700"
+        | "simulated_verifone_v660p"
         | "simulated_wisepos_e"
         | "stripe_m2"
         | "stripe_s700"
+        | "stripe_s710"
         | "verifone_P400"
+        | "verifone_m425"
+        | "verifone_p630"
+        | "verifone_ux700"
+        | "verifone_v660p"
         | UnknownEnumStringValue
       endingBefore?: string
       expand?: string[]
@@ -16220,6 +16788,27 @@ export class StripeApiService {
       "POST",
       this.config.basePath +
         `/v1/terminal/readers/${p["reader"]}/set_reader_display`,
+      {
+        headers,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTerminalRefunds(
+    p: {requestBody?: never} = {},
+  ): Observable<
+    | (HttpResponse<t_terminal_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/terminal/refunds`,
       {
         headers,
         // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,

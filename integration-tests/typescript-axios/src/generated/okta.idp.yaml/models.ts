@@ -120,6 +120,11 @@ export type t_Authenticator = {
   enrollable?: boolean | undefined
   id?: string | undefined
   key?: t_AuthenticatorKey | undefined
+  logo?:
+    | {
+        uri?: string | undefined
+      }
+    | undefined
   name?: string | undefined
 }
 
@@ -132,7 +137,9 @@ export type t_AuthenticatorEnrollment = {
         unenroll?: t_HrefObject | undefined
       }
     | undefined
+  canChangePassword?: boolean | undefined
   canReset?: boolean | undefined
+  canResetPassword?: boolean | undefined
   canUnenroll?: boolean | undefined
   created?: string | undefined
   id?: string | undefined
@@ -159,6 +166,13 @@ export type t_AuthenticatorKey =
   | "webauthn"
   | "yubikey_token"
   | UnknownEnumStringValue
+
+export type t_CreateWebAuthnRequest = {
+  attestation: string
+  clientData: string
+  clientExtensions?: string | undefined
+  transports?: string | undefined
+}
 
 export type t_Email = {
   _links?:
@@ -245,6 +259,14 @@ export type t_Error = {
         errorSummary?: string | undefined
       }[]
     | undefined
+  errorCode?: string | undefined
+  errorId?: string | undefined
+  errorLink?: string | undefined
+  errorSummary?: string | undefined
+}
+
+export type t_Error406 = {
+  errorCauses?: string | undefined
   errorCode?: string | undefined
   errorId?: string | undefined
   errorLink?: string | undefined
@@ -468,6 +490,117 @@ export type t_UpdateAuthenticatorEnrollmentRequest = {
   nickname?: string | undefined
 }
 
+export type t_WebAuthn = {
+  _links?:
+    | {
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?:
+                      | ("DELETE" | "GET" | UnknownEnumStringValue)[]
+                      | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  created?: string | undefined
+  credentialId?: string | undefined
+  id?: string | undefined
+  key?: string | undefined
+  lastUpdated?: string | undefined
+  name?: string | undefined
+  status?:
+    | ("ACTIVE" | "SUSPENDED" | "EXPIRED" | UnknownEnumStringValue)
+    | undefined
+  type?: "security_key" | undefined
+}
+
+export type t_WebAuthnRegistrationOptions = {
+  _links?:
+    | {
+        enroll?:
+          | {
+              hints?:
+                | {
+                    allow?: "POST"[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  expiresAt?: string | undefined
+  options?:
+    | {
+        attestation?:
+          | (
+              | "none"
+              | "indirect"
+              | "direct"
+              | "enterprise"
+              | UnknownEnumStringValue
+            )
+          | undefined
+        authenticatorSelection?:
+          | {
+              requireResidentKey?: boolean | undefined
+              residentKey?:
+                | (
+                    | "required"
+                    | "preferred"
+                    | "discouraged"
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              userVerification?:
+                | (
+                    | "required"
+                    | "preferred"
+                    | "discouraged"
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+            }
+          | undefined
+        challenge?: string | undefined
+        excludeCredentials?:
+          | {
+              id?: string | undefined
+              type?: "public-key" | undefined
+            }[]
+          | undefined
+        pubKeyCredParams?:
+          | {
+              alg?: number | undefined
+              type?: "public-key" | undefined
+            }[]
+          | undefined
+        rp?:
+          | {
+              name?: string | undefined
+            }
+          | undefined
+        u2fParams?:
+          | {
+              appid?: string | undefined
+            }
+          | undefined
+        user?:
+          | {
+              displayName?: string | undefined
+              id?: string | undefined
+              name?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+}
+
 export type t_CreateEmailRequestBody = {
   profile: {
     email: string
@@ -508,6 +641,11 @@ export type t_SendEmailChallengeRequestBody = {
 export type t_SendPhoneChallengeRequestBody = {
   method: "SMS" | "CALL" | UnknownEnumStringValue
   retry?: boolean | undefined
+}
+
+export type t_UpdatePasswordRequestBody = {
+  newPassword: string
+  oldPassword: string
 }
 
 export type t_VerifyEmailOtpRequestBody = {

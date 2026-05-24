@@ -92,6 +92,9 @@ export type t_Authenticator = {
   enrollable?: boolean
   id?: string
   key?: t_AuthenticatorKey
+  logo?: {
+    uri?: string
+  }
   name?: string
 }
 
@@ -102,7 +105,9 @@ export type t_AuthenticatorEnrollment = {
     self?: t_HrefObject
     unenroll?: t_HrefObject
   }
+  canChangePassword?: boolean
   canReset?: boolean
+  canResetPassword?: boolean
   canUnenroll?: boolean
   created?: string
   id?: string
@@ -129,6 +134,13 @@ export type t_AuthenticatorKey =
   | "webauthn"
   | "yubikey_token"
   | UnknownEnumStringValue
+
+export type t_CreateWebAuthnRequest = {
+  attestation: string
+  clientData: string
+  clientExtensions?: string
+  transports?: string
+}
 
 export type t_Email = {
   _links?: {
@@ -169,6 +181,14 @@ export type t_Error = {
   errorCauses?: {
     errorSummary?: string
   }[]
+  errorCode?: string
+  errorId?: string
+  errorLink?: string
+  errorSummary?: string
+}
+
+export type t_Error406 = {
+  errorCauses?: string
   errorCode?: string
   errorId?: string
   errorLink?: string
@@ -326,6 +346,78 @@ export type t_UpdateAuthenticatorEnrollmentRequest = {
   nickname?: string
 }
 
+export type t_WebAuthn = {
+  _links?: {
+    self?: {
+      hints?: {
+        allow?: ("DELETE" | "GET" | UnknownEnumStringValue)[]
+      }
+      href?: string
+    }
+  }
+  created?: string
+  credentialId?: string
+  id?: string
+  key?: string
+  lastUpdated?: string
+  name?: string
+  status?: "ACTIVE" | "SUSPENDED" | "EXPIRED" | UnknownEnumStringValue
+  type?: "security_key"
+}
+
+export type t_WebAuthnRegistrationOptions = {
+  _links?: {
+    enroll?: {
+      hints?: {
+        allow?: "POST"[]
+      }
+      href?: string
+    }
+  }
+  expiresAt?: string
+  options?: {
+    attestation?:
+      | "none"
+      | "indirect"
+      | "direct"
+      | "enterprise"
+      | UnknownEnumStringValue
+    authenticatorSelection?: {
+      requireResidentKey?: boolean
+      residentKey?:
+        | "required"
+        | "preferred"
+        | "discouraged"
+        | UnknownEnumStringValue
+      userVerification?:
+        | "required"
+        | "preferred"
+        | "discouraged"
+        | UnknownEnumStringValue
+    }
+    challenge?: string
+    excludeCredentials?: {
+      id?: string
+      type?: "public-key"
+    }[]
+    pubKeyCredParams?: {
+      alg?: number
+      type?: "public-key"
+    }[]
+    rp?: {
+      name?: string
+    }
+    u2fParams?: {
+      appid?: string
+    }
+    user?: {
+      displayName?: string
+      id?: string
+      name?: string
+    }
+  }
+}
+
 export type t_CreateEmailRequestBody = {
   profile: {
     email: string
@@ -366,6 +458,11 @@ export type t_SendEmailChallengeRequestBody = {
 export type t_SendPhoneChallengeRequestBody = {
   method: "SMS" | "CALL" | UnknownEnumStringValue
   retry?: boolean
+}
+
+export type t_UpdatePasswordRequestBody = {
+  newPassword: string
+  oldPassword: string
 }
 
 export type t_VerifyEmailOtpRequestBody = {

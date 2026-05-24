@@ -63,6 +63,7 @@ export const s_GetParamsUnexplodedObjectQuery200Response = z.object({
 export const s_GetParamsMixedQuery200Response = z.object({
   limit: z.coerce.number().optional(),
   statuses: z.array(z.string()).optional(),
+  authorIds: z.array(z.coerce.number()).optional(),
 })
 
 export const s_PostValidationOptionalBodyRequestBody = z.object({

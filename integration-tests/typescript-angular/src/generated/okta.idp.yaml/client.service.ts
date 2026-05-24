@@ -13,8 +13,10 @@ import type {
   t_CreateEmailRequestBody,
   t_CreatePasswordRequestBody,
   t_CreatePhoneRequestBody,
+  t_CreateWebAuthnRequest,
   t_Email,
   t_Error,
+  t_Error406,
   t_OktaApplication,
   t_Organization,
   t_PasswordResponse,
@@ -29,8 +31,11 @@ import type {
   t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_UpdatePasswordRequestBody,
   t_VerifyEmailOtpRequestBody,
   t_VerifyPhoneChallengeRequestBody,
+  t_WebAuthn,
+  t_WebAuthnRegistrationOptions,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -98,6 +103,7 @@ export type QueryParams = {
     | string
     | number
     | boolean
+    | number[]
     | string[]
     | undefined
     | null
@@ -164,6 +170,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -191,6 +198,7 @@ export class MyAccountManagementService {
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -220,6 +228,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -248,6 +257,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -269,6 +279,7 @@ export class MyAccountManagementService {
   }): Observable<
     | (HttpResponse<t_PushNotificationChallenge[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -286,10 +297,11 @@ export class MyAccountManagementService {
   }
 
   listAuthenticators(
-    p: {expand?: string} = {},
+    p: {expand?: "enrollments" | "requirements" | UnknownEnumStringValue} = {},
   ): Observable<
     | (HttpResponse<t_Authenticator[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
@@ -310,11 +322,12 @@ export class MyAccountManagementService {
 
   getAuthenticator(p: {
     authenticatorId: string
-    expand?: string
+    expand?: "enrollments" | "requirements" | UnknownEnumStringValue
   }): Observable<
     | (HttpResponse<t_Authenticator> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
@@ -340,6 +353,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_AuthenticatorEnrollment[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
@@ -364,6 +378,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_AuthenticatorEnrollment> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
@@ -390,6 +405,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -414,6 +430,7 @@ export class MyAccountManagementService {
   listEmails(): Observable<
     | (HttpResponse<t_Email[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -436,6 +453,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
@@ -462,6 +480,7 @@ export class MyAccountManagementService {
   }): Observable<
     | (HttpResponse<t_Email> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -484,6 +503,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -528,6 +548,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -588,6 +609,7 @@ export class MyAccountManagementService {
       }> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -613,6 +635,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -637,6 +660,7 @@ export class MyAccountManagementService {
   listOktaApplications(): Observable<
     | (HttpResponse<t_OktaApplication[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -655,6 +679,7 @@ export class MyAccountManagementService {
   getOrganization(): Observable<
     | (HttpResponse<t_Organization> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -673,6 +698,7 @@ export class MyAccountManagementService {
   getPassword(): Observable<
     | (HttpResponse<t_PasswordResponse> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -695,6 +721,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -722,6 +749,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -746,6 +774,7 @@ export class MyAccountManagementService {
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -761,9 +790,55 @@ export class MyAccountManagementService {
     )
   }
 
+  updatePassword(p: {
+    requestBody: t_UpdatePasswordRequestBody
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/idp/myaccount/password/change-password`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPasswordRequirements(): Observable<
+    | (HttpResponse<t_PasswordResponse> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/password/complexity-requirements`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   listPhones(): Observable<
     | (HttpResponse<t_Phone[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -786,6 +861,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 409})
     | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
@@ -814,6 +890,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Phone> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -836,6 +913,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -869,6 +947,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
   > {
@@ -899,6 +978,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 403})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
     | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
@@ -923,6 +1003,7 @@ export class MyAccountManagementService {
   getProfile(): Observable<
     | (HttpResponse<t_Profile> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -944,6 +1025,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Profile> & {status: 200})
     | (HttpResponse<t_Error> & {status: 400})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -967,6 +1049,7 @@ export class MyAccountManagementService {
   getProfileSchema(): Observable<
     | (HttpResponse<t_Schema> & {status: 200})
     | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -986,6 +1069,7 @@ export class MyAccountManagementService {
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 406})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -993,6 +1077,118 @@ export class MyAccountManagementService {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/sessions`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  listWebAuthn(): Observable<
+    | (HttpResponse<t_WebAuthn> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error406> & {status: 406})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/webauthn`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  createWebAuthnEnrollment(p: {
+    requestBody: t_CreateWebAuthnRequest
+  }): Observable<
+    | (HttpResponse<t_WebAuthn> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/idp/myaccount/webauthn`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  startWebAuthnEnrollment(): Observable<
+    | (HttpResponse<t_WebAuthnRegistrationOptions> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error406> & {status: 406})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/idp/myaccount/webauthn/registration`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getWebAuthn(p: {
+    id: string
+  }): Observable<
+    | (HttpResponse<t_WebAuthn> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/webauthn/${p["id"]}`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  deleteWebAuthn(p: {
+    id: string
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error406> & {status: 406})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/idp/myaccount/webauthn/${p["id"]}`,
       {
         headers,
         observe: "response",

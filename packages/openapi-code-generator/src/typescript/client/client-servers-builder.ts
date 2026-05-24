@@ -225,7 +225,7 @@ export class ClientServersBuilder implements ICompilable {
          operations.length
            ? `static readonly operations = ${this.classExportName}Operations`
            : ""
-       }
+}
     }
     `
   }

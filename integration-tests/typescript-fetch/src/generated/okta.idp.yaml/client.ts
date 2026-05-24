@@ -16,8 +16,10 @@ import type {
   t_CreateEmailRequestBody,
   t_CreatePasswordRequestBody,
   t_CreatePhoneRequestBody,
+  t_CreateWebAuthnRequest,
   t_Email,
   t_Error,
+  t_Error406,
   t_OktaApplication,
   t_Organization,
   t_PasswordResponse,
@@ -32,8 +34,11 @@ import type {
   t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_UpdatePasswordRequestBody,
   t_VerifyEmailOtpRequestBody,
   t_VerifyPhoneChallengeRequestBody,
+  t_WebAuthn,
+  t_WebAuthnRegistrationOptions,
   UnknownEnumStringValue,
 } from "./models.ts"
 
@@ -85,6 +90,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/app-authenticators`
     const headers = this._headers(
@@ -106,7 +112,9 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, void> | Res<204, void> | Res<400, void>> {
+  ): Promise<
+    Res<200, void> | Res<204, void> | Res<400, void> | Res<406, t_Error406>
+  > {
     const url =
       this.basePath +
       `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
@@ -134,6 +142,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
@@ -156,7 +165,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
+    | Res<204, void>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
@@ -171,7 +184,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_PushNotificationChallenge[]> | Res<401, t_Error>> {
+  ): Promise<
+    | Res<200, t_PushNotificationChallenge[]>
+    | Res<401, t_Error>
+    | Res<406, t_Error406>
+  > {
     const url =
       this.basePath +
       `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
@@ -182,12 +199,15 @@ export class MyAccountManagement extends AbstractFetchClient {
 
   async listAuthenticators(
     p: {
-      expand?: string
+      expand?: "enrollments" | "requirements" | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_Authenticator[]> | Res<403, t_Error> | Res<429, t_Error>
+    | Res<200, t_Authenticator[]>
+    | Res<403, t_Error>
+    | Res<406, t_Error406>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/authenticators`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -199,7 +219,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getAuthenticator(
     p: {
       authenticatorId: string
-      expand?: string
+      expand?: "enrollments" | "requirements" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -207,6 +227,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<200, t_Authenticator>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
     | Res<429, t_Error>
   > {
     const url =
@@ -227,6 +248,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<200, t_AuthenticatorEnrollment[]>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
     | Res<429, t_Error>
   > {
     const url =
@@ -248,6 +270,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<200, t_AuthenticatorEnrollment>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
     | Res<429, t_Error>
   > {
     const url =
@@ -271,6 +294,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error>
   > {
     const url =
       this.basePath +
@@ -290,7 +314,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async listEmails(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Email[]> | Res<401, t_Error>> {
+  ): Promise<Res<200, t_Email[]> | Res<401, t_Error> | Res<406, t_Error406>> {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -308,6 +332,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<400, t_Error>
     | Res<401, t_Error>
     | Res<403, t_Error>
+    | Res<406, t_Error406>
     | Res<409, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/emails`
@@ -326,7 +351,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Email> | Res<401, t_Error>> {
+  ): Promise<Res<200, t_Email> | Res<401, t_Error> | Res<406, t_Error406>> {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -340,7 +365,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<404, t_Error>
+    | Res<204, void>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -384,6 +413,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}/challenge`
     const headers = this._headers(
@@ -442,6 +472,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       >
     | Res<401, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url =
       this.basePath +
@@ -460,7 +491,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
+    | Res<200, void>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url =
       this.basePath +
@@ -477,7 +512,9 @@ export class MyAccountManagement extends AbstractFetchClient {
   async listOktaApplications(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_OktaApplication[]> | Res<400, t_Error>> {
+  ): Promise<
+    Res<200, t_OktaApplication[]> | Res<400, t_Error> | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/okta-applications`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -487,7 +524,9 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getOrganization(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Organization> | Res<401, t_Error>> {
+  ): Promise<
+    Res<200, t_Organization> | Res<401, t_Error> | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/organization`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -497,7 +536,9 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getPassword(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_PasswordResponse> | Res<401, t_Error>> {
+  ): Promise<
+    Res<200, t_PasswordResponse> | Res<401, t_Error> | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -515,6 +556,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<400, t_Error>
     | Res<401, t_Error>
     | Res<403, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
@@ -537,6 +579,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<400, t_Error>
     | Res<401, t_Error>
     | Res<403, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
@@ -551,17 +594,52 @@ export class MyAccountManagement extends AbstractFetchClient {
   async deletePassword(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async updatePassword(
+    p: {
+      requestBody: t_UpdatePasswordRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<403, t_Error>
+  > {
+    const url = this.basePath + `/idp/myaccount/password/change-password`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async getPasswordRequirements(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_PasswordResponse> | Res<401, t_Error>> {
+    const url =
+      this.basePath + `/idp/myaccount/password/complexity-requirements`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async listPhones(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Phone[]> | Res<401, t_Error>> {
+  ): Promise<Res<200, t_Phone[]> | Res<401, t_Error> | Res<406, t_Error406>> {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -579,6 +657,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<400, t_Error>
     | Res<401, t_Error>
     | Res<403, t_Error>
+    | Res<406, t_Error406>
     | Res<409, t_Error>
     | Res<500, t_Error>
   > {
@@ -598,7 +677,12 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Phone> | Res<401, t_Error> | Res<404, t_Error>> {
+  ): Promise<
+    | Res<200, t_Phone>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -612,7 +696,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
+    | Res<204, void>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -645,6 +733,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
     | Res<500, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/challenge`
@@ -670,6 +759,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     | Res<401, t_Error>
     | Res<403, t_Error>
     | Res<404, t_Error>
+    | Res<406, t_Error406>
     | Res<409, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/verify`
@@ -685,7 +775,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getProfile(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Profile> | Res<401, t_Error>> {
+  ): Promise<Res<200, t_Profile> | Res<401, t_Error> | Res<406, t_Error406>> {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -698,7 +788,12 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>> {
+  ): Promise<
+    | Res<200, t_Profile>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<406, t_Error406>
+  > {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -712,7 +807,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getProfileSchema(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_Schema> | Res<401, t_Error>> {
+  ): Promise<Res<200, t_Schema> | Res<401, t_Error> | Res<406, t_Error406>> {
     const url = this.basePath + `/idp/myaccount/profile/schema`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -722,8 +817,95 @@ export class MyAccountManagement extends AbstractFetchClient {
   async deleteSessions(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
+  ): Promise<
+    Res<204, void> | Res<401, t_Error> | Res<404, t_Error> | Res<406, t_Error>
+  > {
     const url = this.basePath + `/idp/myaccount/sessions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async listWebAuthn(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_WebAuthn> | Res<401, t_Error> | Res<406, t_Error406>> {
+    const url = this.basePath + `/idp/myaccount/webauthn`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async createWebAuthnEnrollment(
+    p: {
+      requestBody: t_CreateWebAuthnRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_WebAuthn>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
+  > {
+    const url = this.basePath + `/idp/myaccount/webauthn`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async startWebAuthnEnrollment(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_WebAuthnRegistrationOptions>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<406, t_Error406>
+  > {
+    const url = this.basePath + `/idp/myaccount/webauthn/registration`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
+  }
+
+  async getWebAuthn(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_WebAuthn>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
+  > {
+    const url = this.basePath + `/idp/myaccount/webauthn/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async deleteWebAuthn(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_Error>
+    | Res<404, t_Error>
+    | Res<406, t_Error406>
+  > {
+    const url = this.basePath + `/idp/myaccount/webauthn/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)

@@ -75,6 +75,7 @@ export type QueryParams = {
     | string
     | number
     | boolean
+    | number[]
     | string[]
     | undefined
     | null

@@ -103,6 +103,7 @@ export type t_account_capabilities = {
     | "inactive"
     | "pending"
     | UnknownEnumStringValue
+  app_distribution?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   au_becs_debit_payments?:
     | "active"
     | "inactive"
@@ -124,6 +125,7 @@ export type t_account_capabilities = {
     | "pending"
     | UnknownEnumStringValue
   billie_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  bizum_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   blik_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   boleto_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   card_issuing?: "active" | "inactive" | "pending" | UnknownEnumStringValue
@@ -166,6 +168,7 @@ export type t_account_capabilities = {
   kr_card_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   legacy_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   link_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  mb_way_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   mobilepay_payments?:
     | "active"
     | "inactive"
@@ -200,6 +203,7 @@ export type t_account_capabilities = {
     | UnknownEnumStringValue
   payco_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   paynow_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  payto_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   pix_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   promptpay_payments?:
     | "active"
@@ -217,6 +221,7 @@ export type t_account_capabilities = {
     | "pending"
     | UnknownEnumStringValue
   satispay_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  scalapay_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   sepa_bank_transfer_payments?:
     | "active"
     | "inactive"
@@ -228,6 +233,7 @@ export type t_account_capabilities = {
     | "pending"
     | UnknownEnumStringValue
   sofort_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  sunbit_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   swish_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   tax_reporting_us_1099_k?:
     | "active"
@@ -242,6 +248,7 @@ export type t_account_capabilities = {
   transfers?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   treasury?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   twint_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  upi_payments?: "active" | "inactive" | "pending" | UnknownEnumStringValue
   us_bank_account_ach_payments?:
     | "active"
     | "inactive"
@@ -423,6 +430,7 @@ export type t_account_requirements_alternative = {
 
 export type t_account_requirements_error = {
   code:
+    | "external_request"
     | "information_missing"
     | "invalid_address_city_state_postal_code"
     | "invalid_address_highway_contract_box"
@@ -464,6 +472,7 @@ export type t_account_requirements_error = {
     | "invalid_url_website_incomplete_under_construction"
     | "invalid_url_website_other"
     | "invalid_value_other"
+    | "unsupported_business_type"
     | "verification_directors_mismatch"
     | "verification_document_address_mismatch"
     | "verification_document_address_missing"
@@ -598,6 +607,10 @@ export type t_address = {
   line2?: string | null
   postal_code?: string | null
   state?: string | null
+}
+
+export type t_alma_installments = {
+  count: number
 }
 
 export type t_amazon_pay_underlying_payment_method_funding_details = {
@@ -740,13 +753,73 @@ export type t_balance_net_available = {
   source_types?: t_balance_amount_by_source_type
 }
 
+export type t_balance_settings = {
+  object: "balance_settings"
+  payments: t_balance_settings_resource_payments
+}
+
+export type t_balance_settings_resource_automatic_transfer_rule = {
+  payout_method: string
+  transfer_up_to_amount?: number | null
+  type: "transfer_all" | "transfer_up_to_amount" | UnknownEnumStringValue
+}
+
+export type t_balance_settings_resource_payments = {
+  debit_negative_balances?: boolean | null
+  payouts?: t_balance_settings_resource_payouts | null
+  settlement_timing: t_balance_settings_resource_settlement_timing
+}
+
+export type t_balance_settings_resource_payout_schedule = {
+  interval?:
+    | "daily"
+    | "manual"
+    | "monthly"
+    | "weekly"
+    | UnknownEnumStringValue
+    | null
+  monthly_payout_days?: number[]
+  weekly_payout_days?: (
+    | "friday"
+    | "monday"
+    | "thursday"
+    | "tuesday"
+    | "wednesday"
+    | UnknownEnumStringValue
+  )[]
+}
+
+export type t_balance_settings_resource_payouts = {
+  automatic_transfer_rules_by_currency?: Record<
+    string,
+    t_balance_settings_resource_automatic_transfer_rule[]
+  > | null
+  minimum_balance_by_currency?: Record<string, number> | null
+  schedule?: t_balance_settings_resource_payout_schedule | null
+  statement_descriptor?: string | null
+  status: "disabled" | "enabled" | UnknownEnumStringValue
+}
+
+export type t_balance_settings_resource_settlement_timing = {
+  delay_days: number
+  delay_days_override?: number
+  start_of_day?: t_balance_settings_resource_start_of_day | null
+}
+
+export type t_balance_settings_resource_start_of_day = {
+  hour: number
+  minutes: number
+  timezone: string
+}
+
 export type t_balance_transaction = {
   amount: number
   available_on: number
-  balance_type?:
+  balance_type:
     | "issuing"
     | "payments"
     | "refund_and_dispute_prefunding"
+    | "risk_reserved"
     | UnknownEnumStringValue
   created: number
   currency: string
@@ -790,6 +863,9 @@ export type t_balance_transaction = {
     | "climate_order_refund"
     | "connect_collection_transfer"
     | "contribution"
+    | "fee_credit_funding"
+    | "inbound_transfer"
+    | "inbound_transfer_reversal"
     | "issuing_authorization_hold"
     | "issuing_authorization_release"
     | "issuing_dispute"
@@ -810,6 +886,8 @@ export type t_balance_transaction = {
     | "payout_minimum_balance_release"
     | "refund"
     | "refund_failure"
+    | "reserve_hold"
+    | "reserve_release"
     | "reserve_transaction"
     | "reserved_funds"
     | "stripe_balance_payment_debit"
@@ -850,9 +928,20 @@ export type t_bank_account = {
   status: string
 }
 
+export type t_bank_connections_resource_account_number_details = {
+  expected_expiry_date?: number | null
+  identifier_type:
+    | "account_number"
+    | "tokenized_account_number"
+    | UnknownEnumStringValue
+  status: "deactivated" | "transactable" | UnknownEnumStringValue
+  supported_networks: "ach"[]
+}
+
 export type t_bank_connections_resource_accountholder = {
   account?: string | t_account
   customer?: string | t_customer
+  customer_account?: string
   type: "account" | "customer" | UnknownEnumStringValue
 }
 
@@ -924,6 +1013,7 @@ export type t_billing_alert = {
 export type t_billing_credit_balance_summary = {
   balances: t_credit_balance[]
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   livemode: boolean
   object: "billing.credit_balance_summary"
 }
@@ -947,6 +1037,7 @@ export type t_billing_credit_grant = {
   category: "paid" | "promotional" | UnknownEnumStringValue
   created: number
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   effective_at?: number | null
   expires_at?: number | null
   id: string
@@ -1076,7 +1167,7 @@ export type t_billing_bill_resource_invoicing_pricing_pricing = {
 }
 
 export type t_billing_bill_resource_invoicing_pricing_pricing_price_details = {
-  price: string
+  price: string | t_price
   product: string
 }
 
@@ -1107,7 +1198,7 @@ export type t_billing_bill_resource_invoicing_taxes_tax = {
 }
 
 export type t_billing_bill_resource_invoicing_taxes_tax_rate_details = {
-  tax_rate: string
+  tax_rate: string | t_tax_rate
 }
 
 export type t_billing_clocks_resource_status_details_advancing_status_details =
@@ -1213,6 +1304,7 @@ export type t_billing_portal_configuration = {
   livemode: boolean
   login_page: t_portal_login_page
   metadata?: Record<string, string> | null
+  name?: string | null
   object: "billing_portal.configuration"
   updated: number
 }
@@ -1221,6 +1313,7 @@ export type t_billing_portal_session = {
   configuration: string | t_billing_portal_configuration
   created: number
   customer: string
+  customer_account?: string | null
   flow?: t_portal_flows_flow | null
   id: string
   livemode: boolean
@@ -1294,6 +1387,7 @@ export type t_cancellation_details = {
     | UnknownEnumStringValue
     | null
   reason?:
+    | "canceled_by_retention_policy"
     | "cancellation_requested"
     | "payment_disputed"
     | "payment_failed"
@@ -1375,6 +1469,7 @@ export type t_card_mandate_payment_method_details = Record<string, unknown>
 export type t_cash_balance = {
   available?: Record<string, number> | null
   customer: string
+  customer_account?: string | null
   livemode: boolean
   object: "cash_balance"
   settings: t_customer_balance_customer_balance_settings
@@ -1473,6 +1568,7 @@ export type t_checkout_session = {
     | "required"
     | UnknownEnumStringValue
     | null
+  branding_settings?: t_payment_pages_checkout_session_branding_settings
   cancel_url?: string | null
   client_reference_id?: string | null
   client_secret?: string | null
@@ -1485,12 +1581,15 @@ export type t_checkout_session = {
   custom_fields: t_payment_pages_checkout_session_custom_fields[]
   custom_text: t_payment_pages_checkout_session_custom_text
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   customer_creation?: "always" | "if_required" | UnknownEnumStringValue | null
   customer_details?: t_payment_pages_checkout_session_customer_details | null
   customer_email?: string | null
   discounts?: t_payment_pages_checkout_session_discount[] | null
+  excluded_payment_method_types?: string[]
   expires_at: number
   id: string
+  integration_identifier?: string | null
   invoice?: string | t_invoice | null
   invoice_creation?: t_payment_pages_checkout_session_invoice_creation | null
   line_items?: {
@@ -1544,8 +1643,10 @@ export type t_checkout_session = {
     | "zh-TW"
     | UnknownEnumStringValue
     | null
+  managed_payments?: t_payment_pages_checkout_session_managed_payments | null
   metadata?: Record<string, string> | null
   mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
+  name_collection?: t_payment_pages_checkout_session_name_collection
   object: "checkout.session"
   optional_items?: t_payment_pages_checkout_session_optional_item[] | null
   origin_context?: "mobile_app" | "web" | UnknownEnumStringValue | null
@@ -1592,7 +1693,12 @@ export type t_checkout_session = {
   success_url?: string | null
   tax_id_collection?: t_payment_pages_checkout_session_tax_id_collection
   total_details?: t_payment_pages_checkout_session_total_details | null
-  ui_mode?: "custom" | "embedded" | "hosted" | UnknownEnumStringValue | null
+  ui_mode?:
+    | "elements"
+    | "embedded_page"
+    | "hosted_page"
+    | UnknownEnumStringValue
+    | null
   url?: string | null
   wallet_options?: t_checkout_session_wallet_options | null
 }
@@ -1627,10 +1733,12 @@ export type t_checkout_acss_debit_payment_method_options = {
 }
 
 export type t_checkout_affirm_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none"
 }
 
 export type t_checkout_afterpay_clearpay_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none"
 }
 
@@ -1638,7 +1746,12 @@ export type t_checkout_alipay_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_alma_payment_method_options = {
+  capture_method?: "manual"
+}
+
 export type t_checkout_amazon_pay_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
@@ -1661,6 +1774,10 @@ export type t_checkout_bancontact_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_billie_payment_method_options = {
+  capture_method?: "manual"
+}
+
 export type t_checkout_boleto_payment_method_options = {
   expires_after_days: number
   setup_future_usage?:
@@ -1675,6 +1792,7 @@ export type t_checkout_card_installments_options = {
 }
 
 export type t_checkout_card_payment_method_options = {
+  capture_method?: "manual"
   installments?: t_checkout_card_installments_options
   request_extended_authorization?:
     | "if_available"
@@ -1702,6 +1820,7 @@ export type t_checkout_card_payment_method_options = {
 }
 
 export type t_checkout_cashapp_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none"
 }
 
@@ -1759,6 +1878,7 @@ export type t_checkout_kakao_pay_payment_method_options = {
 }
 
 export type t_checkout_klarna_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?:
     | "none"
     | "off_session"
@@ -1777,6 +1897,7 @@ export type t_checkout_kr_card_payment_method_options = {
 }
 
 export type t_checkout_link_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
@@ -1785,6 +1906,7 @@ export type t_checkout_link_wallet_options = {
 }
 
 export type t_checkout_mobilepay_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none"
 }
 
@@ -1829,16 +1951,32 @@ export type t_checkout_paypal_payment_method_options = {
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
+export type t_checkout_payto_payment_method_options = {
+  mandate_options?: t_mandate_options_payto
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+}
+
 export type t_checkout_pix_payment_method_options = {
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue
   expires_after_seconds?: number | null
-  setup_future_usage?: "none"
+  mandate_options?: t_payment_method_options_mandate_options_pix
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
 export type t_checkout_samsung_pay_payment_method_options = {
+  capture_method?: "manual"
+}
+
+export type t_checkout_satispay_payment_method_options = {
+  capture_method?: "manual"
+}
+
+export type t_checkout_scalapay_payment_method_options = {
   capture_method?: "manual"
 }
 
@@ -1857,10 +1995,12 @@ export type t_checkout_session_payment_method_options = {
   affirm?: t_checkout_affirm_payment_method_options
   afterpay_clearpay?: t_checkout_afterpay_clearpay_payment_method_options
   alipay?: t_checkout_alipay_payment_method_options
+  alma?: t_checkout_alma_payment_method_options
   amazon_pay?: t_checkout_amazon_pay_payment_method_options
   au_becs_debit?: t_checkout_au_becs_debit_payment_method_options
   bacs_debit?: t_checkout_bacs_debit_payment_method_options
   bancontact?: t_checkout_bancontact_payment_method_options
+  billie?: t_checkout_billie_payment_method_options
   boleto?: t_checkout_boleto_payment_method_options
   card?: t_checkout_card_payment_method_options
   cashapp?: t_checkout_cashapp_payment_method_options
@@ -1883,12 +2023,17 @@ export type t_checkout_session_payment_method_options = {
   payco?: t_checkout_payco_payment_method_options
   paynow?: t_checkout_paynow_payment_method_options
   paypal?: t_checkout_paypal_payment_method_options
+  payto?: t_checkout_payto_payment_method_options
   pix?: t_checkout_pix_payment_method_options
   revolut_pay?: t_checkout_revolut_pay_payment_method_options
   samsung_pay?: t_checkout_samsung_pay_payment_method_options
+  satispay?: t_checkout_satispay_payment_method_options
+  scalapay?: t_checkout_scalapay_payment_method_options
   sepa_debit?: t_checkout_sepa_debit_payment_method_options
   sofort?: t_checkout_sofort_payment_method_options
   swish?: t_checkout_swish_payment_method_options
+  twint?: t_checkout_twint_payment_method_options
+  upi?: t_checkout_upi_payment_method_options
   us_bank_account?: t_checkout_us_bank_account_payment_method_options
 }
 
@@ -1902,6 +2047,19 @@ export type t_checkout_sofort_payment_method_options = {
 
 export type t_checkout_swish_payment_method_options = {
   reference?: string | null
+}
+
+export type t_checkout_twint_payment_method_options = {
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+}
+
+export type t_checkout_upi_payment_method_options = {
+  mandate_options?: t_mandate_options_upi
+  setup_future_usage?:
+    | "none"
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
 }
 
 export type t_checkout_us_bank_account_payment_method_options = {
@@ -1977,6 +2135,7 @@ export type t_climate_supplier = {
     | "biomass_carbon_removal_and_storage"
     | "direct_air_capture"
     | "enhanced_weathering"
+    | "marine_carbon_removal"
     | UnknownEnumStringValue
 }
 
@@ -2075,6 +2234,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   bancontact?: t_payment_method_bancontact
   billie?: t_payment_method_billie
   billing_details: t_billing_details
+  bizum?: t_payment_method_bizum
   blik?: t_payment_method_blik
   boleto?: t_payment_method_boleto
   card?: t_payment_method_card
@@ -2082,6 +2242,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   cashapp?: t_payment_method_cashapp
   crypto?: t_payment_method_crypto
   customer?: string | t_customer | null
+  customer_account?: string | null
   customer_balance?: t_payment_method_customer_balance
   eps?: t_payment_method_eps
   fpx?: t_payment_method_fpx
@@ -2094,6 +2255,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   konbini?: t_payment_method_konbini
   kr_card?: t_payment_method_kr_card
   link?: t_payment_method_link
+  mb_way?: t_payment_method_mb_way
   mobilepay?: t_payment_method_mobilepay
   multibanco?: t_payment_method_multibanco
   naver_pay?: t_payment_method_naver_pay
@@ -2104,13 +2266,16 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   payco?: t_payment_method_payco
   paynow?: t_payment_method_paynow
   paypal?: t_payment_method_paypal
+  payto?: t_payment_method_payto
   pix?: t_payment_method_pix
   promptpay?: t_payment_method_promptpay
   revolut_pay?: t_payment_method_revolut_pay
   samsung_pay?: t_payment_method_samsung_pay
   satispay?: t_payment_method_satispay
+  scalapay?: t_payment_method_scalapay
   sepa_debit?: t_payment_method_sepa_debit
   sofort?: t_payment_method_sofort
+  sunbit?: t_payment_method_sunbit
   swish?: t_payment_method_swish
   twint?: t_payment_method_twint
   type:
@@ -2124,12 +2289,14 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "bacs_debit"
     | "bancontact"
     | "billie"
+    | "bizum"
     | "blik"
     | "boleto"
     | "card"
     | "card_present"
     | "cashapp"
     | "crypto"
+    | "custom"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -2142,6 +2309,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "konbini"
     | "kr_card"
     | "link"
+    | "mb_way"
     | "mobilepay"
     | "multibanco"
     | "naver_pay"
@@ -2152,19 +2320,24 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "payco"
     | "paynow"
     | "paypal"
+    | "payto"
     | "pix"
     | "promptpay"
     | "revolut_pay"
     | "samsung_pay"
     | "satispay"
+    | "scalapay"
     | "sepa_debit"
     | "sofort"
+    | "sunbit"
     | "swish"
     | "twint"
+    | "upi"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
     | UnknownEnumStringValue
+  upi?: t_payment_method_upi
   us_bank_account?: t_payment_method_us_bank_account
   wechat_pay?: t_payment_method_wechat_pay
   zip?: t_payment_method_zip
@@ -2203,6 +2376,7 @@ export type t_connect_embedded_account_features_claim = {
 export type t_connect_embedded_account_session_create_components = {
   account_management: t_connect_embedded_account_config_claim
   account_onboarding: t_connect_embedded_account_config_claim
+  balance_report: t_connect_embedded_base_config_claim
   balances: t_connect_embedded_payouts_config
   disputes_list: t_connect_embedded_disputes_list_config
   documents: t_connect_embedded_base_config_claim
@@ -2215,6 +2389,8 @@ export type t_connect_embedded_account_session_create_components = {
   payment_details: t_connect_embedded_payments_config_claim
   payment_disputes: t_connect_embedded_payment_disputes_config
   payments: t_connect_embedded_payments_config_claim
+  payout_details: t_connect_embedded_base_config_claim
+  payout_reconciliation_report: t_connect_embedded_base_config_claim
   payouts: t_connect_embedded_payouts_config
   payouts_list: t_connect_embedded_base_config_claim
   tax_registrations: t_connect_embedded_base_config_claim
@@ -2393,6 +2569,7 @@ export type t_credit_note = {
   created: number
   currency: string
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   customer_balance_transaction?: string | t_customer_balance_transaction | null
   discount_amount: number
   discount_amounts: t_discounts_resource_discount_amount[]
@@ -2442,6 +2619,7 @@ export type t_credit_note_line_item = {
   id: string
   invoice_line_item?: string
   livemode: boolean
+  metadata?: Record<string, string> | null
   object: "credit_note_line_item"
   pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: number | null
@@ -2454,7 +2632,14 @@ export type t_credit_note_line_item = {
 
 export type t_credit_note_refund = {
   amount_refunded: number
+  payment_record_refund?: t_credit_notes_payment_record_refund | null
   refund: string | t_refund
+  type?: "payment_record_refund" | "refund" | UnknownEnumStringValue | null
+}
+
+export type t_credit_notes_payment_record_refund = {
+  payment_record: string
+  refund_group: string
 }
 
 export type t_credit_notes_pretax_credit_amount = {
@@ -2462,6 +2647,11 @@ export type t_credit_notes_pretax_credit_amount = {
   credit_balance_transaction?: string | t_billing_credit_balance_transaction
   discount?: string | t_discount | t_deleted_discount
   type: "credit_balance_transaction" | "discount" | UnknownEnumStringValue
+}
+
+export type t_credited_items_invoice_line_items = {
+  invoice: string
+  invoice_line_items: string[]
 }
 
 export type t_currency_option = {
@@ -2477,6 +2667,11 @@ export type t_currency_option = {
   unit_amount_decimal?: string | null
 }
 
+export type t_custom_logo = {
+  content_type?: string | null
+  url: string
+}
+
 export type t_custom_unit_amount = {
   maximum?: number | null
   minimum?: number | null
@@ -2486,15 +2681,18 @@ export type t_custom_unit_amount = {
 export type t_customer = {
   address?: t_address | null
   balance?: number
+  business_name?: string
   cash_balance?: t_cash_balance | null
   created: number
   currency?: string | null
+  customer_account?: string | null
   default_source?: string | t_bank_account | t_card | t_source | null
   delinquent?: boolean | null
   description?: string | null
   discount?: t_discount | null
   email?: string | null
   id: string
+  individual_name?: string
   invoice_credit_balance?: Record<string, number>
   invoice_prefix?: string | null
   invoice_settings?: t_invoice_setting_customer_setting
@@ -2622,6 +2820,7 @@ export type t_customer_balance_transaction = {
   credit_note?: string | t_credit_note | null
   currency: string
   customer: string | t_customer
+  customer_account?: string | null
   description?: string | null
   ending_balance: number
   id: string
@@ -2651,6 +2850,7 @@ export type t_customer_cash_balance_transaction = {
   created: number
   currency: string
   customer: string | t_customer
+  customer_account?: string | null
   ending_balance: number
   funded?: t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction
   id: string
@@ -2678,6 +2878,7 @@ export type t_customer_session = {
   components?: t_customer_session_resource_components
   created: number
   customer: string | t_customer
+  customer_account?: string | null
   expires_at: number
   livemode: boolean
   object: "customer_session"
@@ -2685,6 +2886,8 @@ export type t_customer_session = {
 
 export type t_customer_session_resource_components = {
   buy_button: t_customer_session_resource_components_resource_buy_button
+  customer_sheet: t_customer_session_resource_components_resource_customer_sheet
+  mobile_payment_element: t_customer_session_resource_components_resource_mobile_payment_element
   payment_element: t_customer_session_resource_components_resource_payment_element
   pricing_table: t_customer_session_resource_components_resource_pricing_table
 }
@@ -2692,6 +2895,53 @@ export type t_customer_session_resource_components = {
 export type t_customer_session_resource_components_resource_buy_button = {
   enabled: boolean
 }
+
+export type t_customer_session_resource_components_resource_customer_sheet = {
+  enabled: boolean
+  features?: t_customer_session_resource_components_resource_customer_sheet_resource_features | null
+}
+
+export type t_customer_session_resource_components_resource_customer_sheet_resource_features =
+  {
+    payment_method_allow_redisplay_filters?:
+      | ("always" | "limited" | "unspecified" | UnknownEnumStringValue)[]
+      | null
+    payment_method_remove?:
+      | "disabled"
+      | "enabled"
+      | UnknownEnumStringValue
+      | null
+  }
+
+export type t_customer_session_resource_components_resource_mobile_payment_element =
+  {
+    enabled: boolean
+    features?: t_customer_session_resource_components_resource_mobile_payment_element_resource_features | null
+  }
+
+export type t_customer_session_resource_components_resource_mobile_payment_element_resource_features =
+  {
+    payment_method_allow_redisplay_filters?:
+      | ("always" | "limited" | "unspecified" | UnknownEnumStringValue)[]
+      | null
+    payment_method_redisplay?:
+      | "disabled"
+      | "enabled"
+      | UnknownEnumStringValue
+      | null
+    payment_method_remove?:
+      | "disabled"
+      | "enabled"
+      | UnknownEnumStringValue
+      | null
+    payment_method_save?: "disabled" | "enabled" | UnknownEnumStringValue | null
+    payment_method_save_allow_redisplay_override?:
+      | "always"
+      | "limited"
+      | "unspecified"
+      | UnknownEnumStringValue
+      | null
+  }
 
 export type t_customer_session_resource_components_resource_payment_element = {
   enabled: boolean
@@ -2730,6 +2980,7 @@ export type t_customer_tax = {
     | UnknownEnumStringValue
   ip_address?: string | null
   location?: t_customer_tax_location | null
+  provider: "anrok" | "avalara" | "sphere" | "stripe" | UnknownEnumStringValue
 }
 
 export type t_customer_tax_location = {
@@ -2790,14 +3041,15 @@ export type t_deleted_customer = {
 
 export type t_deleted_discount = {
   checkout_session?: string | null
-  coupon: t_coupon
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   deleted: true
   id: string
   invoice?: string | null
   invoice_item?: string | null
   object: "discount"
   promotion_code?: string | t_promotion_code | null
+  source: t_discount_source
   start: number
   subscription?: string | null
   subscription_item?: string | null
@@ -2887,8 +3139,30 @@ export type t_deleted_terminal_location = {
 
 export type t_deleted_terminal_reader = {
   deleted: true
+  device_type:
+    | "bbpos_chipper2x"
+    | "bbpos_wisepad3"
+    | "bbpos_wisepos_e"
+    | "mobile_phone_reader"
+    | "simulated_stripe_s700"
+    | "simulated_stripe_s710"
+    | "simulated_verifone_m425"
+    | "simulated_verifone_p630"
+    | "simulated_verifone_ux700"
+    | "simulated_verifone_v660p"
+    | "simulated_wisepos_e"
+    | "stripe_m2"
+    | "stripe_s700"
+    | "stripe_s710"
+    | "verifone_P400"
+    | "verifone_m425"
+    | "verifone_p630"
+    | "verifone_ux700"
+    | "verifone_v660p"
+    | UnknownEnumStringValue
   id: string
   object: "terminal.reader"
+  serial_number: string
 }
 
 export type t_deleted_test_helpers_test_clock = {
@@ -2907,17 +3181,23 @@ export type t_destination_details_unimplemented = Record<string, unknown>
 
 export type t_discount = {
   checkout_session?: string | null
-  coupon: t_coupon
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   end?: number | null
   id: string
   invoice?: string | null
   invoice_item?: string | null
   object: "discount"
   promotion_code?: string | t_promotion_code | null
+  source: t_discount_source
   start: number
   subscription?: string | null
   subscription_item?: string | null
+}
+
+export type t_discount_source = {
+  coupon?: string | t_coupon | null
+  type: "coupon"
 }
 
 export type t_discounts_resource_discount_amount = {
@@ -2925,7 +3205,7 @@ export type t_discounts_resource_discount_amount = {
   discount: string | t_discount | t_deleted_discount
 }
 
-export type t_discounts_resource_stackable_discount = {
+export type t_discounts_resource_stackable_discount_with_discount_end = {
   coupon?: string | t_coupon | null
   discount?: string | t_discount | null
   promotion_code?: string | t_promotion_code | null
@@ -2955,6 +3235,7 @@ export type t_dispute = {
   status:
     | "lost"
     | "needs_response"
+    | "prevented"
     | "under_review"
     | "warning_closed"
     | "warning_needs_response"
@@ -3058,11 +3339,18 @@ export type t_dispute_payment_method_details_amazon_pay = {
 
 export type t_dispute_payment_method_details_card = {
   brand: string
-  case_type: "chargeback" | "compliance" | "inquiry" | UnknownEnumStringValue
+  case_type:
+    | "block"
+    | "chargeback"
+    | "compliance"
+    | "inquiry"
+    | "resolution"
+    | UnknownEnumStringValue
   network_reason_code?: string | null
 }
 
 export type t_dispute_payment_method_details_klarna = {
+  chargeback_loss_reason_code?: string
   reason_code?: string | null
 }
 
@@ -3216,10 +3504,14 @@ export type t_file = {
     | "identity_document_downloadable"
     | "issuing_regulatory_reporting"
     | "pci_document"
+    | "platform_terms_of_service"
     | "selfie"
     | "sigma_scheduled_query"
     | "tax_document_user_upload"
+    | "terminal_android_apk"
     | "terminal_reader_splashscreen"
+    | "terminal_wifi_certificate"
+    | "terminal_wifi_private_key"
     | UnknownEnumStringValue
   size: number
   title?: string | null
@@ -3241,6 +3533,7 @@ export type t_file_link = {
 
 export type t_financial_connections_account = {
   account_holder?: t_bank_connections_resource_accountholder | null
+  account_numbers?: t_bank_connections_resource_account_number_details[] | null
   balance?: t_bank_connections_resource_balance | null
   balance_refresh?: t_bank_connections_resource_balance_refresh | null
   category: "cash" | "credit" | "investment" | "other" | UnknownEnumStringValue
@@ -3311,7 +3604,7 @@ export type t_financial_connections_session = {
     object: "list"
     url: string
   }
-  client_secret: string
+  client_secret?: string | null
   filters?: t_bank_connections_resource_link_account_session_filters
   id: string
   livemode: boolean
@@ -3786,6 +4079,7 @@ export type t_identity_verification_session = {
   provided_details?: t_gelato_provided_details | null
   redaction?: t_verification_session_redaction | null
   related_customer?: string | null
+  related_customer_account?: string | null
   related_person?: t_gelato_related_person
   status:
     | "canceled"
@@ -3816,6 +4110,251 @@ export type t_inbound_transfers_payment_method_details_us_bank_account = {
   routing_number?: string | null
 }
 
+export type t_insights_resources_payment_evaluation_address = {
+  city?: string | null
+  country?: string | null
+  line1?: string | null
+  line2?: string | null
+  postal_code?: string | null
+  state?: string | null
+}
+
+export type t_insights_resources_payment_evaluation_billing_details = {
+  address: t_insights_resources_payment_evaluation_address
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+}
+
+export type t_insights_resources_payment_evaluation_client_device_metadata = {
+  radar_session: string
+}
+
+export type t_insights_resources_payment_evaluation_customer_details = {
+  customer?: string | null
+  customer_account?: string | null
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+}
+
+export type t_insights_resources_payment_evaluation_dispute_opened = {
+  amount: number
+  currency: string
+  reason:
+    | "account_not_available"
+    | "credit_not_processed"
+    | "customer_initiated"
+    | "duplicate"
+    | "fraudulent"
+    | "general"
+    | "noncompliant"
+    | "product_not_received"
+    | "product_unacceptable"
+    | "subscription_canceled"
+    | "unrecognized"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_early_fraud_warning_received =
+  {
+    fraud_type:
+      | "made_with_lost_card"
+      | "made_with_stolen_card"
+      | "other"
+      | "unauthorized_use_of_card"
+      | UnknownEnumStringValue
+  }
+
+export type t_insights_resources_payment_evaluation_event = {
+  dispute_opened?: t_insights_resources_payment_evaluation_dispute_opened
+  early_fraud_warning_received?: t_insights_resources_payment_evaluation_early_fraud_warning_received
+  occurred_at: number
+  refunded?: t_insights_resources_payment_evaluation_refunded
+  type:
+    | "dispute_opened"
+    | "early_fraud_warning_received"
+    | "refunded"
+    | "user_intervention_raised"
+    | "user_intervention_resolved"
+    | UnknownEnumStringValue
+  user_intervention_raised?: t_insights_resources_payment_evaluation_user_intervention_raised
+  user_intervention_resolved?: t_insights_resources_payment_evaluation_user_intervention_resolved
+}
+
+export type t_insights_resources_payment_evaluation_merchant_blocked = {
+  reason:
+    | "authentication_required"
+    | "blocked_for_fraud"
+    | "invalid_payment"
+    | "other"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_money_movement_card = {
+  customer_presence?:
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
+    | null
+  payment_type?:
+    | "one_off"
+    | "recurring"
+    | "setup_one_off"
+    | "setup_recurring"
+    | UnknownEnumStringValue
+    | null
+}
+
+export type t_insights_resources_payment_evaluation_money_movement_details = {
+  card?: t_insights_resources_payment_evaluation_money_movement_card | null
+  money_movement_type: "card"
+}
+
+export type t_insights_resources_payment_evaluation_outcome = {
+  merchant_blocked?: t_insights_resources_payment_evaluation_merchant_blocked
+  payment_intent_id?: string
+  rejected?: t_insights_resources_payment_evaluation_rejected
+  succeeded?: t_insights_resources_payment_evaluation_succeeded
+  type:
+    | "failed"
+    | "merchant_blocked"
+    | "rejected"
+    | "succeeded"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_payment_details = {
+  amount: number
+  currency: string
+  description?: string | null
+  money_movement_details?: t_insights_resources_payment_evaluation_money_movement_details | null
+  payment_method_details?: t_insights_resources_payment_evaluation_payment_method_details | null
+  shipping_details?: t_insights_resources_payment_evaluation_shipping | null
+  statement_descriptor?: string | null
+}
+
+export type t_insights_resources_payment_evaluation_payment_method_details = {
+  billing_details?: t_insights_resources_payment_evaluation_billing_details | null
+  payment_method: string | t_payment_method
+}
+
+export type t_insights_resources_payment_evaluation_refunded = {
+  amount: number
+  currency: string
+  reason:
+    | "duplicate"
+    | "fraudulent"
+    | "other"
+    | "requested_by_customer"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_rejected = {
+  card?: t_insights_resources_payment_evaluation_rejected_card
+}
+
+export type t_insights_resources_payment_evaluation_rejected_card = {
+  address_line1_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+  address_postal_code_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+  cvc_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+  reason:
+    | "authentication_failed"
+    | "do_not_honor"
+    | "expired"
+    | "incorrect_cvc"
+    | "incorrect_number"
+    | "incorrect_postal_code"
+    | "insufficient_funds"
+    | "invalid_account"
+    | "lost_card"
+    | "other"
+    | "processing_error"
+    | "reported_stolen"
+    | "try_again_later"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_shipping = {
+  address: t_insights_resources_payment_evaluation_address
+  name?: string | null
+  phone?: string | null
+}
+
+export type t_insights_resources_payment_evaluation_signal_v2 = {
+  evaluated_at: number
+  risk_level:
+    | "elevated"
+    | "highest"
+    | "low"
+    | "normal"
+    | "not_assessed"
+    | "unknown"
+    | UnknownEnumStringValue
+  score: number
+}
+
+export type t_insights_resources_payment_evaluation_signals = {
+  fraudulent_payment: t_insights_resources_payment_evaluation_signal_v2
+}
+
+export type t_insights_resources_payment_evaluation_succeeded = {
+  card?: t_insights_resources_payment_evaluation_succeeded_card
+}
+
+export type t_insights_resources_payment_evaluation_succeeded_card = {
+  address_line1_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+  address_postal_code_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+  cvc_check:
+    | "fail"
+    | "pass"
+    | "unavailable"
+    | "unchecked"
+    | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_user_intervention_raised = {
+  custom?: t_insights_resources_payment_evaluation_user_intervention_raised_custom
+  key: string
+  type: "3ds" | "captcha" | "custom" | UnknownEnumStringValue
+}
+
+export type t_insights_resources_payment_evaluation_user_intervention_raised_custom =
+  {
+    type: string
+  }
+
+export type t_insights_resources_payment_evaluation_user_intervention_resolved =
+  {
+    key: string
+    outcome?: "abandoned" | "failed" | "passed" | UnknownEnumStringValue | null
+  }
+
 export type t_internal_card = {
   brand?: string | null
   country?: string | null
@@ -3831,6 +4370,7 @@ export type t_invoice = {
   amount_due: number
   amount_overpaid: number
   amount_paid: number
+  amount_paid_off_stripe: number
   amount_remaining: number
   amount_shipping: number
   application?: string | t_application | t_deleted_application | null
@@ -3860,6 +4400,7 @@ export type t_invoice = {
   currency: string
   custom_fields?: t_invoice_setting_custom_field[] | null
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   customer_address?: t_address | null
   customer_email?: string | null
   customer_name?: string | null
@@ -3945,6 +4486,12 @@ export type t_invoice_installments_card = {
   enabled?: boolean | null
 }
 
+export type t_invoice_item_proration_credited_items = {
+  invoice_item?: string
+  invoice_line_item_details?: t_credited_items_invoice_line_items
+  type: "invoice_item" | "invoice_line_items" | UnknownEnumStringValue
+}
+
 export type t_invoice_item_threshold_reason = {
   line_item_ids: string[]
   usage_gte: number
@@ -3959,6 +4506,25 @@ export type t_invoice_mandate_options_card = {
   amount?: number | null
   amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
   description?: string | null
+}
+
+export type t_invoice_mandate_options_payto = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  purpose?:
+    | "dependant_support"
+    | "government"
+    | "loan"
+    | "mortgage"
+    | "other"
+    | "pension"
+    | "personal"
+    | "retail"
+    | "salary"
+    | "tax"
+    | "utility"
+    | UnknownEnumStringValue
+    | null
 }
 
 export type t_invoice_payment = {
@@ -4020,10 +4586,30 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
 
 export type t_invoice_payment_method_options_konbini = Record<string, unknown>
 
+export type t_invoice_payment_method_options_mandate_options_upi = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  description?: string | null
+  end_date?: number | null
+}
+
+export type t_invoice_payment_method_options_payto = {
+  mandate_options?: t_invoice_mandate_options_payto
+}
+
+export type t_invoice_payment_method_options_pix = {
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue | null
+  expires_after_seconds?: number
+}
+
 export type t_invoice_payment_method_options_sepa_debit = Record<
   string,
   unknown
 >
+
+export type t_invoice_payment_method_options_upi = {
+  mandate_options?: t_invoice_payment_method_options_mandate_options_upi
+}
 
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?: t_invoice_payment_method_options_us_bank_account_linked_account_options
@@ -4117,6 +4703,7 @@ export type t_invoiceitem = {
   amount: number
   currency: string
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   date: number
   description?: string | null
   discountable: boolean
@@ -4125,12 +4712,15 @@ export type t_invoiceitem = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: Record<string, string> | null
+  net_amount?: number
   object: "invoiceitem"
   parent?: t_billing_bill_resource_invoice_item_parents_invoice_item_parent | null
   period: t_invoice_line_item_period
   pricing?: t_billing_bill_resource_invoicing_pricing_pricing | null
   proration: boolean
+  proration_details?: t_proration_details
   quantity: number
+  quantity_decimal: string
   tax_rates?: t_tax_rate[] | null
   test_clock?: string | t_test_helpers_test_clock | null
 }
@@ -4141,7 +4731,10 @@ export type t_invoices_payment_method_options = {
   card?: t_invoice_payment_method_options_card | null
   customer_balance?: t_invoice_payment_method_options_customer_balance | null
   konbini?: t_invoice_payment_method_options_konbini | null
+  payto?: t_invoice_payment_method_options_payto | null
+  pix?: t_invoice_payment_method_options_pix | null
   sepa_debit?: t_invoice_payment_method_options_sepa_debit | null
+  upi?: t_invoice_payment_method_options_upi | null
   us_bank_account?: t_invoice_payment_method_options_us_bank_account | null
 }
 
@@ -4162,6 +4755,7 @@ export type t_invoices_payment_settings = {
         | "card"
         | "cashapp"
         | "crypto"
+        | "custom"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -4178,15 +4772,20 @@ export type t_invoices_payment_settings = {
         | "naver_pay"
         | "nz_bank_account"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
+        | "payto"
+        | "pix"
         | "promptpay"
         | "revolut_pay"
         | "sepa_credit_transfer"
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | UnknownEnumStringValue
@@ -4197,7 +4796,8 @@ export type t_invoices_payment_settings = {
 export type t_invoices_payments_invoice_payment_associated_payment = {
   charge?: string | t_charge
   payment_intent?: string | t_payment_intent
-  type: "charge" | "payment_intent" | UnknownEnumStringValue
+  payment_record?: string | t_payment_record
+  type: "charge" | "payment_intent" | "payment_record" | UnknownEnumStringValue
 }
 
 export type t_invoices_payments_invoice_payment_status_transitions = {
@@ -4269,8 +4869,10 @@ export type t_invoices_resource_invoice_tax_id = {
     | "et_tin"
     | "eu_oss_vat"
     | "eu_vat"
+    | "fo_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gi_tin"
     | "gn_nif"
     | "hk_br"
     | "hr_oib"
@@ -4279,6 +4881,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "il_vat"
     | "in_gst"
     | "is_vat"
+    | "it_cf"
     | "jp_cn"
     | "jp_rn"
     | "jp_trn"
@@ -4290,6 +4893,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "la_tin"
     | "li_uid"
     | "li_vat"
+    | "lk_vat"
     | "ma_vat"
     | "md_vat"
     | "me_pib"
@@ -4307,6 +4911,8 @@ export type t_invoices_resource_invoice_tax_id = {
     | "om_vat"
     | "pe_ruc"
     | "ph_tin"
+    | "pl_nip"
+    | "py_ruc"
     | "ro_tin"
     | "rs_pib"
     | "ru_inn"
@@ -4377,6 +4983,7 @@ export type t_issuing_authorization = {
     | UnknownEnumStringValue
   balance_transactions: t_balance_transaction[]
   card: t_issuing_card
+  card_presence?: "not_present" | "present" | UnknownEnumStringValue | null
   cardholder?: string | t_issuing_cardholder | null
   created: number
   currency: string
@@ -4406,6 +5013,7 @@ export type t_issuing_card = {
   brand: string
   cancellation_reason?:
     | "design_rejected"
+    | "fulfillment_error"
     | "lost"
     | "stolen"
     | UnknownEnumStringValue
@@ -4419,6 +5027,8 @@ export type t_issuing_card = {
   financial_account?: string | null
   id: string
   last4: string
+  latest_fraud_warning?: t_issuing_card_fraud_warning | null
+  lifecycle_controls?: t_issuing_card_lifecycle_controls | null
   livemode: boolean
   metadata: Record<string, string>
   number?: string
@@ -4429,10 +5039,12 @@ export type t_issuing_card = {
   replacement_reason?:
     | "damaged"
     | "expired"
+    | "fulfillment_error"
     | "lost"
     | "stolen"
     | UnknownEnumStringValue
     | null
+  second_line?: string | null
   shipping?: t_issuing_card_shipping | null
   spending_controls: t_issuing_card_authorization_controls
   status: "active" | "canceled" | "inactive" | UnknownEnumStringValue
@@ -4540,7 +5152,7 @@ export type t_issuing_settlement = {
   livemode: boolean
   metadata: Record<string, string>
   net_total_amount: number
-  network: "maestro" | "visa" | UnknownEnumStringValue
+  network: "maestro" | "mastercard" | "visa" | UnknownEnumStringValue
   network_fees_amount: number
   network_settlement_identifier: string
   object: "issuing.settlement"
@@ -4814,6 +5426,9 @@ export type t_issuing_card_apple_pay = {
 }
 
 export type t_issuing_card_authorization_controls = {
+  allowed_card_presences?:
+    | ("not_present" | "present" | UnknownEnumStringValue)[]
+    | null
   allowed_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -5115,6 +5730,9 @@ export type t_issuing_card_authorization_controls = {
       )[]
     | null
   allowed_merchant_countries?: string[] | null
+  blocked_card_presences?:
+    | ("not_present" | "present" | UnknownEnumStringValue)[]
+    | null
   blocked_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -5420,6 +6038,17 @@ export type t_issuing_card_authorization_controls = {
   spending_limits_currency?: string | null
 }
 
+export type t_issuing_card_fraud_warning = {
+  started_at?: number | null
+  type?:
+    | "card_testing_exposure"
+    | "fraud_dispute_filed"
+    | "third_party_reported"
+    | "user_indicated_fraud"
+    | UnknownEnumStringValue
+    | null
+}
+
 export type t_issuing_card_google_pay = {
   eligible: boolean
   ineligible_reason?:
@@ -5428,6 +6057,14 @@ export type t_issuing_card_google_pay = {
     | "unsupported_region"
     | UnknownEnumStringValue
     | null
+}
+
+export type t_issuing_card_lifecycle_conditions = {
+  payment_count: number
+}
+
+export type t_issuing_card_lifecycle_controls = {
+  cancel_after: t_issuing_card_lifecycle_conditions
 }
 
 export type t_issuing_card_shipping = {
@@ -5803,6 +6440,9 @@ export type t_issuing_cardholder_address = {
 }
 
 export type t_issuing_cardholder_authorization_controls = {
+  allowed_card_presences?:
+    | ("not_present" | "present" | UnknownEnumStringValue)[]
+    | null
   allowed_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -6104,6 +6744,9 @@ export type t_issuing_cardholder_authorization_controls = {
       )[]
     | null
   allowed_merchant_countries?: string[] | null
+  blocked_card_presences?:
+    | ("not_present" | "present" | UnknownEnumStringValue)[]
+    | null
   blocked_categories?:
     | (
         | "ac_refrigeration_repair"
@@ -6910,7 +7553,7 @@ export type t_issuing_network_token_network_data = {
 }
 
 export type t_issuing_network_token_visa = {
-  card_reference_id: string
+  card_reference_id?: string | null
   token_reference_id: string
   token_requestor_id: string
   token_risk_score?: string
@@ -7111,6 +7754,7 @@ export type t_issuing_transaction_treasury = {
 }
 
 export type t_item = {
+  adjustable_quantity?: t_line_items_adjustable_quantity | null
   amount_discount: number
   amount_subtotal: number
   amount_tax: number
@@ -7119,6 +7763,7 @@ export type t_item = {
   description?: string | null
   discounts?: t_line_items_discount_amount[]
   id: string
+  metadata?: Record<string, string> | null
   object: "item"
   price?: t_price | null
   quantity?: number | null
@@ -7153,6 +7798,7 @@ export type t_legal_entity_company = {
     | UnknownEnumStringValue
   phone?: string | null
   registration_date?: t_legal_entity_registration_date
+  representative_declaration?: t_legal_entity_representative_declaration | null
   structure?:
     | "free_zone_establishment"
     | "free_zone_llc"
@@ -7238,6 +7884,12 @@ export type t_legal_entity_registration_date = {
   year?: number | null
 }
 
+export type t_legal_entity_representative_declaration = {
+  date?: number | null
+  ip?: string | null
+  user_agent?: string | null
+}
+
 export type t_legal_entity_ubo_declaration = {
   date?: number | null
   ip?: string | null
@@ -7261,8 +7913,16 @@ export type t_line_item = {
   pretax_credit_amounts?: t_invoices_resource_pretax_credit_amount[] | null
   pricing?: t_billing_bill_resource_invoicing_pricing_pricing | null
   quantity?: number | null
+  quantity_decimal?: string | null
   subscription?: string | t_subscription | null
+  subtotal: number
   taxes?: t_billing_bill_resource_invoicing_taxes_tax[] | null
+}
+
+export type t_line_items_adjustable_quantity = {
+  enabled: boolean
+  maximum?: number | null
+  minimum?: number | null
 }
 
 export type t_line_items_discount_amount = {
@@ -7347,6 +8007,7 @@ export type t_mandate_au_becs_debit = {
 }
 
 export type t_mandate_bacs_debit = {
+  display_name?: string | null
   network_status:
     | "accepted"
     | "pending"
@@ -7362,6 +8023,7 @@ export type t_mandate_bacs_debit = {
     | "debit_not_authorized"
     | UnknownEnumStringValue
     | null
+  service_user_number?: string | null
   url: string
 }
 
@@ -7375,11 +8037,54 @@ export type t_mandate_kr_card = Record<string, unknown>
 
 export type t_mandate_link = Record<string, unknown>
 
-export type t_mandate_multi_use = Record<string, unknown>
+export type t_mandate_multi_use = {
+  amount?: number
+  currency?: string
+}
 
 export type t_mandate_naver_pay = Record<string, unknown>
 
 export type t_mandate_nz_bank_account = Record<string, unknown>
+
+export type t_mandate_options_payto = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  end_date?: string | null
+  payment_schedule?:
+    | "adhoc"
+    | "annual"
+    | "daily"
+    | "fortnightly"
+    | "monthly"
+    | "quarterly"
+    | "semi_annual"
+    | "weekly"
+    | UnknownEnumStringValue
+    | null
+  payments_per_period?: number | null
+  purpose?:
+    | "dependant_support"
+    | "government"
+    | "loan"
+    | "mortgage"
+    | "other"
+    | "pension"
+    | "personal"
+    | "retail"
+    | "salary"
+    | "tax"
+    | "utility"
+    | UnknownEnumStringValue
+    | null
+  start_date?: string | null
+}
+
+export type t_mandate_options_upi = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  description?: string | null
+  end_date?: number | null
+}
 
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit
@@ -7395,15 +8100,66 @@ export type t_mandate_payment_method_details = {
   naver_pay?: t_mandate_naver_pay
   nz_bank_account?: t_mandate_nz_bank_account
   paypal?: t_mandate_paypal
+  payto?: t_mandate_payto
+  pix?: t_mandate_pix
   revolut_pay?: t_mandate_revolut_pay
   sepa_debit?: t_mandate_sepa_debit
+  twint?: t_mandate_twint
   type: string
+  upi?: t_mandate_upi
   us_bank_account?: t_mandate_us_bank_account
 }
 
 export type t_mandate_paypal = {
   billing_agreement_id?: string | null
   payer_id?: string | null
+}
+
+export type t_mandate_payto = {
+  amount?: number | null
+  amount_type: "fixed" | "maximum" | UnknownEnumStringValue
+  end_date?: string | null
+  payment_schedule:
+    | "adhoc"
+    | "annual"
+    | "daily"
+    | "fortnightly"
+    | "monthly"
+    | "quarterly"
+    | "semi_annual"
+    | "weekly"
+    | UnknownEnumStringValue
+  payments_per_period?: number | null
+  purpose?:
+    | "dependant_support"
+    | "government"
+    | "loan"
+    | "mortgage"
+    | "other"
+    | "pension"
+    | "personal"
+    | "retail"
+    | "salary"
+    | "tax"
+    | "utility"
+    | UnknownEnumStringValue
+    | null
+  start_date?: string | null
+}
+
+export type t_mandate_pix = {
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+  end_date?: string
+  payment_schedule?:
+    | "halfyearly"
+    | "monthly"
+    | "quarterly"
+    | "weekly"
+    | "yearly"
+    | UnknownEnumStringValue
+  reference?: string
+  start_date?: string
 }
 
 export type t_mandate_revolut_pay = Record<string, unknown>
@@ -7416,6 +8172,15 @@ export type t_mandate_sepa_debit = {
 export type t_mandate_single_use = {
   amount: number
   currency: string
+}
+
+export type t_mandate_twint = Record<string, unknown>
+
+export type t_mandate_upi = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  description?: string | null
+  end_date?: number | null
 }
 
 export type t_mandate_us_bank_account = {
@@ -7497,7 +8262,50 @@ export type t_package_dimensions = {
   width: number
 }
 
+export type t_payment_attempt_record = {
+  amount: t_payments_primitives_payment_records_resource_amount
+  amount_authorized: t_payments_primitives_payment_records_resource_amount
+  amount_canceled: t_payments_primitives_payment_records_resource_amount
+  amount_failed: t_payments_primitives_payment_records_resource_amount
+  amount_guaranteed: t_payments_primitives_payment_records_resource_amount
+  amount_refunded: t_payments_primitives_payment_records_resource_amount
+  amount_requested: t_payments_primitives_payment_records_resource_amount
+  application?: string | null
+  created: number
+  customer_details?: t_payments_primitives_payment_records_resource_customer_details | null
+  customer_presence?:
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
+    | null
+  description?: string | null
+  id: string
+  livemode: boolean
+  metadata: Record<string, string>
+  object: "payment_attempt_record"
+  payment_method_details?: t_payments_primitives_payment_records_resource_payment_method_details | null
+  payment_record?: string | null
+  processor_details: t_payments_primitives_payment_records_resource_processor_details
+  reported_by: "self" | "stripe" | UnknownEnumStringValue
+  shipping_details?: t_payments_primitives_payment_records_resource_shipping_details | null
+}
+
+export type t_payment_data = {
+  description?: string
+  metadata?: Record<string, string>
+}
+
 export type t_payment_flows_amount_details = {
+  discount_amount?: number
+  error?: t_payment_flows_amount_details_resource_error
+  line_items?: {
+    data: t_payment_intent_amount_details_line_item[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }
+  shipping?: t_payment_flows_amount_details_resource_shipping
+  tax?: t_payment_flows_amount_details_resource_tax
   tip?: t_payment_flows_amount_details_client_resource_tip
 }
 
@@ -7507,6 +8315,38 @@ export type t_payment_flows_amount_details_client = {
 
 export type t_payment_flows_amount_details_client_resource_tip = {
   amount?: number
+}
+
+export type t_payment_flows_amount_details_resource_error = {
+  code?:
+    | "amount_details_amount_mismatch"
+    | "amount_details_tax_shipping_discount_greater_than_amount"
+    | UnknownEnumStringValue
+    | null
+  message?: string | null
+}
+
+export type t_payment_flows_amount_details_resource_line_items_list_resource_line_item_resource_payment_method_options =
+  {
+    card?: t_payment_flows_private_payment_methods_card_payment_intent_amount_details_line_item_payment_method_options
+    card_present?: t_payment_flows_private_payment_methods_card_present_amount_details_line_item_payment_method_options
+    klarna?: t_payment_flows_private_payment_methods_klarna_payment_intent_amount_details_line_item_payment_method_options
+    paypal?: t_payment_flows_private_payment_methods_paypal_amount_details_line_item_payment_method_options
+  }
+
+export type t_payment_flows_amount_details_resource_line_items_list_resource_line_item_resource_tax =
+  {
+    total_tax_amount: number
+  }
+
+export type t_payment_flows_amount_details_resource_shipping = {
+  amount?: number | null
+  from_postal_code?: string | null
+  to_postal_code?: string | null
+}
+
+export type t_payment_flows_amount_details_resource_tax = {
+  total_tax_amount?: number | null
 }
 
 export type t_payment_flows_automatic_payment_methods_payment_intent = {
@@ -7523,6 +8363,24 @@ export type t_payment_flows_installment_options = {
   enabled: boolean
   plan?: t_payment_method_details_card_installments_plan
 }
+
+export type t_payment_flows_payment_details = {
+  customer_reference?: string | null
+  order_reference?: string | null
+}
+
+export type t_payment_flows_payment_intent_async_workflows = {
+  inputs?: t_payment_flows_payment_intent_async_workflows_resource_inputs
+}
+
+export type t_payment_flows_payment_intent_async_workflows_resource_inputs = {
+  tax?: t_payment_flows_payment_intent_async_workflows_resource_inputs_resource_tax
+}
+
+export type t_payment_flows_payment_intent_async_workflows_resource_inputs_resource_tax =
+  {
+    calculation: string
+  }
 
 export type t_payment_flows_payment_intent_presentment_details = {
   presentment_amount: number
@@ -7561,6 +8419,16 @@ export type t_payment_flows_private_payment_methods_card_details_api_resource_mu
     status: "available" | "unavailable" | UnknownEnumStringValue
   }
 
+export type t_payment_flows_private_payment_methods_card_payment_intent_amount_details_line_item_payment_method_options =
+  {
+    commodity_code?: string | null
+  }
+
+export type t_payment_flows_private_payment_methods_card_present_amount_details_line_item_payment_method_options =
+  {
+    commodity_code?: string | null
+  }
+
 export type t_payment_flows_private_payment_methods_card_present_common_wallet =
   {
     type:
@@ -7588,6 +8456,14 @@ export type t_payment_flows_private_payment_methods_klarna_dob = {
   year?: number | null
 }
 
+export type t_payment_flows_private_payment_methods_klarna_payment_intent_amount_details_line_item_payment_method_options =
+  {
+    image_url?: string | null
+    product_url?: string | null
+    reference?: string | null
+    subscription_reference?: string | null
+  }
+
 export type t_payment_flows_private_payment_methods_naver_pay_payment_method_options =
   {
     capture_method?: "manual"
@@ -7597,6 +8473,17 @@ export type t_payment_flows_private_payment_methods_naver_pay_payment_method_opt
 export type t_payment_flows_private_payment_methods_payco_payment_method_options =
   {
     capture_method?: "manual"
+  }
+
+export type t_payment_flows_private_payment_methods_paypal_amount_details_line_item_payment_method_options =
+  {
+    category?:
+      | "digital_goods"
+      | "donation"
+      | "physical_goods"
+      | UnknownEnumStringValue
+    description?: string
+    sold_by?: string
   }
 
 export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_options =
@@ -7636,15 +8523,77 @@ export type t_payment_intent = {
   created: number
   currency?: string
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   description?: string | null
+  excluded_payment_method_types?:
+    | (
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "bizum"
+        | "blik"
+        | "boleto"
+        | "card"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "mb_way"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "payto"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "scalapay"
+        | "sepa_debit"
+        | "sofort"
+        | "sunbit"
+        | "swish"
+        | "twint"
+        | "upi"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+        | UnknownEnumStringValue
+      )[]
+    | null
+  hooks?: t_payment_flows_payment_intent_async_workflows
   id: string
   last_payment_error?: t_api_errors | null
   latest_charge?: string | t_charge | null
   livemode: boolean
+  managed_payments?: t_smor_resource_managed_payments | null
   metadata?: Record<string, string>
   next_action?: t_payment_intent_next_action | null
   object: "payment_intent"
   on_behalf_of?: string | t_account | null
+  payment_details?: t_payment_flows_payment_details
   payment_method?: string | t_payment_method | null
   payment_method_configuration_details?: t_payment_method_config_biz_payment_method_configuration_details | null
   payment_method_options?: t_payment_intent_payment_method_options | null
@@ -7674,16 +8623,31 @@ export type t_payment_intent = {
   transfer_group?: string | null
 }
 
+export type t_payment_intent_amount_details_line_item = {
+  discount_amount?: number | null
+  id: string
+  object: "payment_intent_amount_details_line_item"
+  payment_method_options?: t_payment_flows_amount_details_resource_line_items_list_resource_line_item_resource_payment_method_options | null
+  product_code?: string | null
+  product_name: string
+  quantity: number
+  tax?: t_payment_flows_amount_details_resource_line_items_list_resource_line_item_resource_tax | null
+  unit_cost: number
+  unit_of_measure?: string | null
+}
+
 export type t_payment_intent_card_processing = {
   customer_notification?: t_payment_intent_processing_customer_notification
 }
 
 export type t_payment_intent_next_action = {
   alipay_handle_redirect?: t_payment_intent_next_action_alipay_handle_redirect
+  blik_authorize?: t_payment_intent_next_action_blik_authorize
   boleto_display_details?: t_payment_intent_next_action_boleto
   card_await_notification?: t_payment_intent_next_action_card_await_notification
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
   display_bank_transfer_instructions?: t_payment_intent_next_action_display_bank_transfer_instructions
+  klarna_display_qr_code?: t_payment_intent_next_action_klarna_display_qr_code
   konbini_display_details?: t_payment_intent_next_action_konbini
   multibanco_display_details?: t_payment_intent_next_action_display_multibanco_details
   oxxo_display_details?: t_payment_intent_next_action_display_oxxo_details
@@ -7693,6 +8657,7 @@ export type t_payment_intent_next_action = {
   redirect_to_url?: t_payment_intent_next_action_redirect_to_url
   swish_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code
   type: string
+  upi_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_upi_handle_redirect_or_display_qr_code
   use_stripe_sdk?: Record<string, unknown>
   verify_with_microdeposits?: t_payment_intent_next_action_verify_with_microdeposits
   wechat_pay_display_qr_code?: t_payment_intent_next_action_wechat_pay_display_qr_code
@@ -7706,6 +8671,11 @@ export type t_payment_intent_next_action_alipay_handle_redirect = {
   return_url?: string | null
   url?: string | null
 }
+
+export type t_payment_intent_next_action_blik_authorize = Record<
+  string,
+  unknown
+>
 
 export type t_payment_intent_next_action_boleto = {
   expires_at?: number | null
@@ -7758,6 +8728,13 @@ export type t_payment_intent_next_action_display_oxxo_details = {
   expires_after?: number | null
   hosted_voucher_url?: string | null
   number?: string | null
+}
+
+export type t_payment_intent_next_action_klarna_display_qr_code = {
+  data: string
+  expires_at?: number | null
+  image_url_png: string
+  image_url_svg: string
 }
 
 export type t_payment_intent_next_action_konbini = {
@@ -7832,6 +8809,18 @@ export type t_payment_intent_next_action_swish_qr_code = {
   image_url_svg: string
 }
 
+export type t_payment_intent_next_action_upi_handle_redirect_or_display_qr_code =
+  {
+    hosted_instructions_url: string
+    qr_code: t_payment_intent_next_action_upiqr_code
+  }
+
+export type t_payment_intent_next_action_upiqr_code = {
+  expires_at: number
+  image_url_png: string
+  image_url_svg: string
+}
+
 export type t_payment_intent_next_action_verify_with_microdeposits = {
   arrival_date: number
   hosted_verification_url: string
@@ -7895,6 +8884,9 @@ export type t_payment_intent_payment_method_options = {
   billie?:
     | t_payment_method_options_billie
     | t_payment_intent_type_specific_payment_method_options_client
+  bizum?:
+    | t_payment_method_options_bizum
+    | t_payment_intent_type_specific_payment_method_options_client
   blik?:
     | t_payment_intent_payment_method_options_blik
     | t_payment_intent_type_specific_payment_method_options_client
@@ -7949,6 +8941,9 @@ export type t_payment_intent_payment_method_options = {
   link?:
     | t_payment_intent_payment_method_options_link
     | t_payment_intent_type_specific_payment_method_options_client
+  mb_way?:
+    | t_payment_method_options_mb_way
+    | t_payment_intent_type_specific_payment_method_options_client
   mobilepay?:
     | t_payment_intent_payment_method_options_mobilepay
     | t_payment_intent_type_specific_payment_method_options_client
@@ -7979,6 +8974,9 @@ export type t_payment_intent_payment_method_options = {
   paypal?:
     | t_payment_method_options_paypal
     | t_payment_intent_type_specific_payment_method_options_client
+  payto?:
+    | t_payment_intent_payment_method_options_payto
+    | t_payment_intent_type_specific_payment_method_options_client
   pix?:
     | t_payment_method_options_pix
     | t_payment_intent_type_specific_payment_method_options_client
@@ -7994,6 +8992,9 @@ export type t_payment_intent_payment_method_options = {
   satispay?:
     | t_payment_method_options_satispay
     | t_payment_intent_type_specific_payment_method_options_client
+  scalapay?:
+    | t_payment_method_options_scalapay
+    | t_payment_intent_type_specific_payment_method_options_client
   sepa_debit?:
     | t_payment_intent_payment_method_options_sepa_debit
     | t_payment_intent_type_specific_payment_method_options_client
@@ -8005,6 +9006,9 @@ export type t_payment_intent_payment_method_options = {
     | t_payment_intent_type_specific_payment_method_options_client
   twint?:
     | t_payment_method_options_twint
+    | t_payment_intent_type_specific_payment_method_options_client
+  upi?:
+    | t_payment_method_options_upi
     | t_payment_intent_type_specific_payment_method_options_client
   us_bank_account?:
     | t_payment_intent_payment_method_options_us_bank_account
@@ -8128,6 +9132,38 @@ export type t_payment_intent_payment_method_options_mandate_options_bacs_debit =
     reference_prefix?: string
   }
 
+export type t_payment_intent_payment_method_options_mandate_options_payto = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  end_date?: string | null
+  payment_schedule?:
+    | "adhoc"
+    | "annual"
+    | "daily"
+    | "fortnightly"
+    | "monthly"
+    | "quarterly"
+    | "semi_annual"
+    | "weekly"
+    | UnknownEnumStringValue
+    | null
+  payments_per_period?: number | null
+  purpose?:
+    | "dependant_support"
+    | "government"
+    | "loan"
+    | "mortgage"
+    | "other"
+    | "pension"
+    | "personal"
+    | "retail"
+    | "salary"
+    | "tax"
+    | "utility"
+    | UnknownEnumStringValue
+    | null
+}
+
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
   {
     reference_prefix?: string
@@ -8145,6 +9181,11 @@ export type t_payment_intent_payment_method_options_nz_bank_account = {
     | "on_session"
     | UnknownEnumStringValue
   target_date?: string
+}
+
+export type t_payment_intent_payment_method_options_payto = {
+  mandate_options?: t_payment_intent_payment_method_options_mandate_options_payto
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
 export type t_payment_intent_payment_method_options_sepa_debit = {
@@ -8165,13 +9206,18 @@ export type t_payment_intent_payment_method_options_swish = {
 export type t_payment_intent_payment_method_options_us_bank_account = {
   financial_connections?: t_linked_account_options_common
   mandate_options?: t_payment_method_options_us_bank_account_mandate_options
-  preferred_settlement_speed?: "fastest" | "standard" | UnknownEnumStringValue
   setup_future_usage?:
     | "none"
     | "off_session"
     | "on_session"
     | UnknownEnumStringValue
   target_date?: string
+  transaction_purpose?:
+    | "goods"
+    | "other"
+    | "services"
+    | "unspecified"
+    | UnknownEnumStringValue
   verification_method?:
     | "automatic"
     | "instant"
@@ -8190,8 +9236,13 @@ export type t_payment_intent_processing_customer_notification = {
 }
 
 export type t_payment_intent_type_specific_payment_method_options_client = {
-  capture_method?: "manual" | "manual_preferred" | UnknownEnumStringValue
+  capture_method?:
+    | "automatic_delayed"
+    | "manual"
+    | "manual_preferred"
+    | UnknownEnumStringValue
   installments?: t_payment_flows_installment_options
+  mandate_options?: t_payment_intent_payment_method_options_mandate_options_payto
   request_incremental_authorization_support?: boolean
   require_cvc_recollection?: boolean
   routing?: t_payment_method_options_card_present_routing
@@ -8231,12 +9282,15 @@ export type t_payment_link = {
     url: string
   }
   livemode: boolean
+  managed_payments?: t_payment_pages_checkout_session_managed_payments | null
   metadata: Record<string, string>
+  name_collection?: t_payment_links_resource_name_collection
   object: "payment_link"
   on_behalf_of?: string | t_account | null
   optional_items?: t_payment_links_resource_optional_item[] | null
   payment_intent_data?: t_payment_links_resource_payment_intent_data | null
   payment_method_collection: "always" | "if_required" | UnknownEnumStringValue
+  payment_method_options?: t_payment_links_resource_payment_method_options | null
   payment_method_types?:
     | (
         | "affirm"
@@ -8247,6 +9301,7 @@ export type t_payment_link = {
         | "bacs_debit"
         | "bancontact"
         | "billie"
+        | "bizum"
         | "blik"
         | "boleto"
         | "card"
@@ -8259,6 +9314,7 @@ export type t_payment_link = {
         | "klarna"
         | "konbini"
         | "link"
+        | "mb_way"
         | "mobilepay"
         | "multibanco"
         | "oxxo"
@@ -8266,13 +9322,16 @@ export type t_payment_link = {
         | "pay_by_bank"
         | "paynow"
         | "paypal"
+        | "payto"
         | "pix"
         | "promptpay"
         | "satispay"
         | "sepa_debit"
         | "sofort"
+        | "sunbit"
         | "swish"
         | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -8305,6 +9364,25 @@ export type t_payment_links_resource_after_completion = {
 export type t_payment_links_resource_automatic_tax = {
   enabled: boolean
   liability?: t_connect_account_reference | null
+}
+
+export type t_payment_links_resource_business_name = {
+  enabled: boolean
+  optional: boolean
+}
+
+export type t_payment_links_resource_card_payment_method_options = {
+  restrictions?: t_payment_links_resource_card_restrictions | null
+}
+
+export type t_payment_links_resource_card_restrictions = {
+  brands_blocked: (
+    | "american_express"
+    | "discover_global_network"
+    | "mastercard"
+    | "visa"
+    | UnknownEnumStringValue
+  )[]
 }
 
 export type t_payment_links_resource_completed_sessions = {
@@ -8374,6 +9452,11 @@ export type t_payment_links_resource_custom_text_position = {
   message: string
 }
 
+export type t_payment_links_resource_individual_name = {
+  enabled: boolean
+  optional: boolean
+}
+
 export type t_payment_links_resource_invoice_creation = {
   enabled: boolean
   invoice_data?: t_payment_links_resource_invoice_settings | null
@@ -8387,6 +9470,11 @@ export type t_payment_links_resource_invoice_settings = {
   issuer?: t_connect_account_reference | null
   metadata?: Record<string, string> | null
   rendering_options?: t_invoice_setting_checkout_rendering_options | null
+}
+
+export type t_payment_links_resource_name_collection = {
+  business?: t_payment_links_resource_business_name
+  individual?: t_payment_links_resource_individual_name
 }
 
 export type t_payment_links_resource_optional_item = {
@@ -8418,6 +9506,10 @@ export type t_payment_links_resource_payment_intent_data = {
   statement_descriptor?: string | null
   statement_descriptor_suffix?: string | null
   transfer_group?: string | null
+}
+
+export type t_payment_links_resource_payment_method_options = {
+  card?: t_payment_links_resource_card_payment_method_options | null
 }
 
 export type t_payment_links_resource_payment_method_reuse_agreement = {
@@ -8720,6 +9812,7 @@ export type t_payment_method = {
   bancontact?: t_payment_method_bancontact
   billie?: t_payment_method_billie
   billing_details: t_billing_details
+  bizum?: t_payment_method_bizum
   blik?: t_payment_method_blik
   boleto?: t_payment_method_boleto
   card?: t_payment_method_card
@@ -8727,7 +9820,9 @@ export type t_payment_method = {
   cashapp?: t_payment_method_cashapp
   created: number
   crypto?: t_payment_method_crypto
+  custom?: t_payment_method_custom
   customer?: string | t_customer | null
+  customer_account?: string | null
   customer_balance?: t_payment_method_customer_balance
   eps?: t_payment_method_eps
   fpx?: t_payment_method_fpx
@@ -8742,6 +9837,7 @@ export type t_payment_method = {
   kr_card?: t_payment_method_kr_card
   link?: t_payment_method_link
   livemode: boolean
+  mb_way?: t_payment_method_mb_way
   metadata?: Record<string, string> | null
   mobilepay?: t_payment_method_mobilepay
   multibanco?: t_payment_method_multibanco
@@ -8754,14 +9850,17 @@ export type t_payment_method = {
   payco?: t_payment_method_payco
   paynow?: t_payment_method_paynow
   paypal?: t_payment_method_paypal
+  payto?: t_payment_method_payto
   pix?: t_payment_method_pix
   promptpay?: t_payment_method_promptpay
   radar_options?: t_radar_radar_options
   revolut_pay?: t_payment_method_revolut_pay
   samsung_pay?: t_payment_method_samsung_pay
   satispay?: t_payment_method_satispay
+  scalapay?: t_payment_method_scalapay
   sepa_debit?: t_payment_method_sepa_debit
   sofort?: t_payment_method_sofort
+  sunbit?: t_payment_method_sunbit
   swish?: t_payment_method_swish
   twint?: t_payment_method_twint
   type:
@@ -8775,12 +9874,14 @@ export type t_payment_method = {
     | "bacs_debit"
     | "bancontact"
     | "billie"
+    | "bizum"
     | "blik"
     | "boleto"
     | "card"
     | "card_present"
     | "cashapp"
     | "crypto"
+    | "custom"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -8793,6 +9894,7 @@ export type t_payment_method = {
     | "konbini"
     | "kr_card"
     | "link"
+    | "mb_way"
     | "mobilepay"
     | "multibanco"
     | "naver_pay"
@@ -8803,19 +9905,24 @@ export type t_payment_method = {
     | "payco"
     | "paynow"
     | "paypal"
+    | "payto"
     | "pix"
     | "promptpay"
     | "revolut_pay"
     | "samsung_pay"
     | "satispay"
+    | "scalapay"
     | "sepa_debit"
     | "sofort"
+    | "sunbit"
     | "swish"
     | "twint"
+    | "upi"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
     | UnknownEnumStringValue
+  upi?: t_payment_method_upi
   us_bank_account?: t_payment_method_us_bank_account
   wechat_pay?: t_payment_method_wechat_pay
   zip?: t_payment_method_zip
@@ -8852,6 +9959,8 @@ export type t_payment_method_bacs_debit = {
 export type t_payment_method_bancontact = Record<string, unknown>
 
 export type t_payment_method_billie = Record<string, unknown>
+
+export type t_payment_method_bizum = Record<string, unknown>
 
 export type t_payment_method_blik = Record<string, unknown>
 
@@ -9001,11 +10110,13 @@ export type t_payment_method_configuration = {
   bacs_debit?: t_payment_method_config_resource_payment_method_properties
   bancontact?: t_payment_method_config_resource_payment_method_properties
   billie?: t_payment_method_config_resource_payment_method_properties
+  bizum?: t_payment_method_config_resource_payment_method_properties
   blik?: t_payment_method_config_resource_payment_method_properties
   boleto?: t_payment_method_config_resource_payment_method_properties
   card?: t_payment_method_config_resource_payment_method_properties
   cartes_bancaires?: t_payment_method_config_resource_payment_method_properties
   cashapp?: t_payment_method_config_resource_payment_method_properties
+  crypto?: t_payment_method_config_resource_payment_method_properties
   customer_balance?: t_payment_method_config_resource_payment_method_properties
   eps?: t_payment_method_config_resource_payment_method_properties
   fpx?: t_payment_method_config_resource_payment_method_properties
@@ -9022,6 +10133,7 @@ export type t_payment_method_configuration = {
   kr_card?: t_payment_method_config_resource_payment_method_properties
   link?: t_payment_method_config_resource_payment_method_properties
   livemode: boolean
+  mb_way?: t_payment_method_config_resource_payment_method_properties
   mobilepay?: t_payment_method_config_resource_payment_method_properties
   multibanco?: t_payment_method_config_resource_payment_method_properties
   name: string
@@ -9035,21 +10147,31 @@ export type t_payment_method_configuration = {
   payco?: t_payment_method_config_resource_payment_method_properties
   paynow?: t_payment_method_config_resource_payment_method_properties
   paypal?: t_payment_method_config_resource_payment_method_properties
+  payto?: t_payment_method_config_resource_payment_method_properties
   pix?: t_payment_method_config_resource_payment_method_properties
   promptpay?: t_payment_method_config_resource_payment_method_properties
   revolut_pay?: t_payment_method_config_resource_payment_method_properties
   samsung_pay?: t_payment_method_config_resource_payment_method_properties
   satispay?: t_payment_method_config_resource_payment_method_properties
+  scalapay?: t_payment_method_config_resource_payment_method_properties
   sepa_debit?: t_payment_method_config_resource_payment_method_properties
   sofort?: t_payment_method_config_resource_payment_method_properties
+  sunbit?: t_payment_method_config_resource_payment_method_properties
   swish?: t_payment_method_config_resource_payment_method_properties
   twint?: t_payment_method_config_resource_payment_method_properties
+  upi?: t_payment_method_config_resource_payment_method_properties
   us_bank_account?: t_payment_method_config_resource_payment_method_properties
   wechat_pay?: t_payment_method_config_resource_payment_method_properties
   zip?: t_payment_method_config_resource_payment_method_properties
 }
 
 export type t_payment_method_crypto = Record<string, unknown>
+
+export type t_payment_method_custom = {
+  display_name?: string | null
+  logo?: t_custom_logo | null
+  type: string
+}
 
 export type t_payment_method_customer_balance = Record<string, unknown>
 
@@ -9066,6 +10188,7 @@ export type t_payment_method_details = {
   bacs_debit?: t_payment_method_details_bacs_debit
   bancontact?: t_payment_method_details_bancontact
   billie?: t_payment_method_details_billie
+  bizum?: t_payment_method_details_bizum
   blik?: t_payment_method_details_blik
   boleto?: t_payment_method_details_boleto
   card?: t_payment_method_details_card
@@ -9084,6 +10207,7 @@ export type t_payment_method_details = {
   konbini?: t_payment_method_details_konbini
   kr_card?: t_payment_method_details_kr_card
   link?: t_payment_method_details_link
+  mb_way?: t_payment_method_details_mb_way
   mobilepay?: t_payment_method_details_mobilepay
   multibanco?: t_payment_method_details_multibanco
   naver_pay?: t_payment_method_details_naver_pay
@@ -9094,17 +10218,21 @@ export type t_payment_method_details = {
   payco?: t_payment_method_details_payco
   paynow?: t_payment_method_details_paynow
   paypal?: t_payment_method_details_paypal
+  payto?: t_payment_method_details_payto
   pix?: t_payment_method_details_pix
   promptpay?: t_payment_method_details_promptpay
   revolut_pay?: t_payment_method_details_revolut_pay
   samsung_pay?: t_payment_method_details_samsung_pay
   satispay?: t_payment_method_details_satispay
+  scalapay?: t_payment_method_details_scalapay
   sepa_debit?: t_payment_method_details_sepa_debit
   sofort?: t_payment_method_details_sofort
   stripe_account?: t_payment_method_details_stripe_account
+  sunbit?: t_payment_method_details_sunbit
   swish?: t_payment_method_details_swish
   twint?: t_payment_method_details_twint
   type: string
+  upi?: t_payment_method_details_upi
   us_bank_account?: t_payment_method_details_us_bank_account
   wechat?: t_payment_method_details_wechat
   wechat_pay?: t_payment_method_details_wechat_pay
@@ -9129,6 +10257,7 @@ export type t_payment_method_details_ach_debit = {
 
 export type t_payment_method_details_acss_debit = {
   bank_name?: string | null
+  expected_debit_date?: string
   fingerprint?: string | null
   institution_number?: string | null
   last4?: string | null
@@ -9147,20 +10276,26 @@ export type t_payment_method_details_afterpay_clearpay = {
   reference?: string | null
 }
 
-export type t_payment_method_details_alma = Record<string, unknown>
+export type t_payment_method_details_alma = {
+  installments?: t_alma_installments
+  transaction_id?: string | null
+}
 
 export type t_payment_method_details_amazon_pay = {
   funding?: t_amazon_pay_underlying_payment_method_funding_details
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_au_becs_debit = {
   bsb_number?: string | null
+  expected_debit_date?: string
   fingerprint?: string | null
   last4?: string | null
   mandate?: string
 }
 
 export type t_payment_method_details_bacs_debit = {
+  expected_debit_date?: string
   fingerprint?: string | null
   last4?: string | null
   mandate?: string | null
@@ -9178,7 +10313,13 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_billie = Record<string, unknown>
+export type t_payment_method_details_billie = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_bizum = {
+  transaction_id?: string | null
+}
 
 export type t_payment_method_details_blik = {
   buyer_id?: string | null
@@ -9251,6 +10392,7 @@ export type t_payment_method_details_card_present = {
   incremental_authorization_supported: boolean
   issuer?: string | null
   last4?: string | null
+  location?: string
   network?: string | null
   network_transaction_id?: string | null
   offline?: t_payment_method_details_card_present_offline | null
@@ -9264,6 +10406,7 @@ export type t_payment_method_details_card_present = {
     | "magnetic_stripe_track2"
     | UnknownEnumStringValue
     | null
+  reader?: string
   receipt?: t_payment_method_details_card_present_receipt | null
   wallet?: t_payment_flows_private_payment_methods_card_present_common_wallet
 }
@@ -9354,8 +10497,20 @@ export type t_payment_method_details_cashapp = {
 
 export type t_payment_method_details_crypto = {
   buyer_address?: string
-  network?: "base" | "ethereum" | "polygon" | UnknownEnumStringValue
-  token_currency?: "usdc" | "usdg" | "usdp" | UnknownEnumStringValue
+  network?:
+    | "base"
+    | "ethereum"
+    | "polygon"
+    | "solana"
+    | "tempo"
+    | UnknownEnumStringValue
+  token_currency?:
+    | "phantom_cash"
+    | "usdc"
+    | "usdg"
+    | "usdp"
+    | "usdt"
+    | UnknownEnumStringValue
   transaction_hash?: string
 }
 
@@ -9438,12 +10593,15 @@ export type t_payment_method_details_grabpay = {
 export type t_payment_method_details_ideal = {
   bank?:
     | "abn_amro"
+    | "adyen"
     | "asn_bank"
     | "bunq"
     | "buut"
+    | "finom"
     | "handelsbanken"
     | "ing"
     | "knab"
+    | "mollie"
     | "moneyou"
     | "n26"
     | "nn"
@@ -9458,14 +10616,17 @@ export type t_payment_method_details_ideal = {
     | null
   bic?:
     | "ABNANL2A"
+    | "ADYBNL2A"
     | "ASNBNL21"
     | "BITSNL2A"
     | "BUNQNL2A"
     | "BUUTNL2A"
+    | "FNOMNL22"
     | "FVLBNL22"
     | "HANDNL2A"
     | "INGBNL2A"
     | "KNABNL2H"
+    | "MLLENL2A"
     | "MOYONL21"
     | "NNBANL2G"
     | "NTSBDEB1"
@@ -9480,6 +10641,7 @@ export type t_payment_method_details_ideal = {
   generated_sepa_debit?: string | t_payment_method | null
   generated_sepa_debit_mandate?: string | t_mandate | null
   iban_last4?: string | null
+  transaction_id?: string | null
   verified_name?: string | null
 }
 
@@ -9496,6 +10658,7 @@ export type t_payment_method_details_interac_present = {
   generated_card?: string | null
   issuer?: string | null
   last4?: string | null
+  location?: string
   network?: string | null
   network_transaction_id?: string | null
   preferred_locales?: string[] | null
@@ -9507,6 +10670,7 @@ export type t_payment_method_details_interac_present = {
     | "magnetic_stripe_track2"
     | UnknownEnumStringValue
     | null
+  reader?: string
   receipt?: t_payment_method_details_interac_present_receipt | null
 }
 
@@ -9524,12 +10688,15 @@ export type t_payment_method_details_interac_present_receipt = {
 
 export type t_payment_method_details_kakao_pay = {
   buyer_id?: string | null
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_klarna = {
+  location?: string
   payer_details?: t_klarna_payer_details | null
   payment_method_category?: string | null
   preferred_locale?: string | null
+  reader?: string
 }
 
 export type t_payment_method_details_konbini = {
@@ -9574,11 +10741,14 @@ export type t_payment_method_details_kr_card = {
     | null
   buyer_id?: string | null
   last4?: string | null
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_link = {
   country?: string | null
 }
+
+export type t_payment_method_details_mb_way = Record<string, unknown>
 
 export type t_payment_method_details_mobilepay = {
   card?: t_internal_card | null
@@ -9591,6 +10761,7 @@ export type t_payment_method_details_multibanco = {
 
 export type t_payment_method_details_naver_pay = {
   buyer_id?: string | null
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_nz_bank_account = {
@@ -9598,6 +10769,7 @@ export type t_payment_method_details_nz_bank_account = {
   bank_code: string
   bank_name: string
   branch_code: string
+  expected_debit_date?: string
   last4: string
   suffix?: string | null
 }
@@ -9653,9 +10825,370 @@ export type t_payment_method_details_pay_by_bank = Record<string, unknown>
 
 export type t_payment_method_details_payco = {
   buyer_id?: string | null
+  transaction_id?: string | null
 }
 
+export type t_payment_method_details_payment_record_acss_debit = {
+  bank_name?: string | null
+  expected_debit_date?: string
+  fingerprint?: string | null
+  institution_number?: string | null
+  last4?: string | null
+  mandate?: string
+  transit_number?: string | null
+}
+
+export type t_payment_method_details_payment_record_affirm = {
+  location?: string
+  reader?: string
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_afterpay_clearpay = {
+  order_id?: string | null
+  reference?: string | null
+}
+
+export type t_payment_method_details_payment_record_alma = {
+  installments?: t_payments_primitives_payment_records_resource_payment_method_alma_details_resource_installments
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_amazon_pay = {
+  funding?: t_payments_primitives_payment_records_resource_payment_method_amazon_pay_details_resource_funding
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_bancontact = {
+  bank_code?: string | null
+  bank_name?: string | null
+  bic?: string | null
+  generated_sepa_debit?: string | t_payment_method | null
+  generated_sepa_debit_mandate?: string | t_mandate | null
+  iban_last4?: string | null
+  preferred_language?: "de" | "en" | "fr" | "nl" | UnknownEnumStringValue | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_billie = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_bizum = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_blik = {
+  buyer_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_boleto = {
+  tax_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_cashapp = {
+  buyer_id?: string | null
+  cashtag?: string | null
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_eps = {
+  bank?:
+    | "arzte_und_apotheker_bank"
+    | "austrian_anadi_bank_ag"
+    | "bank_austria"
+    | "bankhaus_carl_spangler"
+    | "bankhaus_schelhammer_und_schattera_ag"
+    | "bawag_psk_ag"
+    | "bks_bank_ag"
+    | "brull_kallmus_bank_ag"
+    | "btv_vier_lander_bank"
+    | "capital_bank_grawe_gruppe_ag"
+    | "deutsche_bank_ag"
+    | "dolomitenbank"
+    | "easybank_ag"
+    | "erste_bank_und_sparkassen"
+    | "hypo_alpeadriabank_international_ag"
+    | "hypo_bank_burgenland_aktiengesellschaft"
+    | "hypo_noe_lb_fur_niederosterreich_u_wien"
+    | "hypo_oberosterreich_salzburg_steiermark"
+    | "hypo_tirol_bank_ag"
+    | "hypo_vorarlberg_bank_ag"
+    | "marchfelder_bank"
+    | "oberbank_ag"
+    | "raiffeisen_bankengruppe_osterreich"
+    | "schoellerbank_ag"
+    | "sparda_bank_wien"
+    | "volksbank_gruppe"
+    | "volkskreditbank_ag"
+    | "vr_bank_braunau"
+    | UnknownEnumStringValue
+    | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_giropay = {
+  bank_code?: string | null
+  bank_name?: string | null
+  bic?: string | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_ideal = {
+  bank?:
+    | "abn_amro"
+    | "adyen"
+    | "asn_bank"
+    | "bunq"
+    | "buut"
+    | "finom"
+    | "handelsbanken"
+    | "ing"
+    | "knab"
+    | "mollie"
+    | "moneyou"
+    | "n26"
+    | "nn"
+    | "rabobank"
+    | "regiobank"
+    | "revolut"
+    | "sns_bank"
+    | "triodos_bank"
+    | "van_lanschot"
+    | "yoursafe"
+    | UnknownEnumStringValue
+    | null
+  bic?:
+    | "ABNANL2A"
+    | "ADYBNL2A"
+    | "ASNBNL21"
+    | "BITSNL2A"
+    | "BUNQNL2A"
+    | "BUUTNL2A"
+    | "FNOMNL22"
+    | "FVLBNL22"
+    | "HANDNL2A"
+    | "INGBNL2A"
+    | "KNABNL2H"
+    | "MLLENL2A"
+    | "MOYONL21"
+    | "NNBANL2G"
+    | "NTSBDEB1"
+    | "RABONL2U"
+    | "RBRBNL21"
+    | "REVOIE23"
+    | "REVOLT21"
+    | "SNSBNL2A"
+    | "TRIONL2U"
+    | UnknownEnumStringValue
+    | null
+  generated_sepa_debit?: string | t_payment_method | null
+  generated_sepa_debit_mandate?: string | t_mandate | null
+  iban_last4?: string | null
+  transaction_id?: string | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_kakao_pay = {
+  buyer_id?: string | null
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_klarna = {
+  location?: string
+  payer_details?: t_payments_primitives_payment_records_resource_payment_method_klarna_details_resource_payer_details | null
+  payment_method_category?: string | null
+  preferred_locale?: string | null
+  reader?: string
+}
+
+export type t_payment_method_details_payment_record_konbini = {
+  store?: t_payments_primitives_payment_records_resource_payment_method_konbini_details_resource_store | null
+}
+
+export type t_payment_method_details_payment_record_link = {
+  country?: string | null
+}
+
+export type t_payment_method_details_payment_record_mb_way = Record<
+  string,
+  unknown
+>
+
+export type t_payment_method_details_payment_record_mobilepay = {
+  card?: t_payments_primitives_payment_records_resource_payment_method_mobilepay_details_resource_card | null
+}
+
+export type t_payment_method_details_payment_record_multibanco = {
+  entity?: string | null
+  reference?: string | null
+}
+
+export type t_payment_method_details_payment_record_naver_pay = {
+  buyer_id?: string | null
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_oxxo = {
+  number?: string | null
+}
+
+export type t_payment_method_details_payment_record_p24 = {
+  bank?:
+    | "alior_bank"
+    | "bank_millennium"
+    | "bank_nowy_bfg_sa"
+    | "bank_pekao_sa"
+    | "banki_spbdzielcze"
+    | "blik"
+    | "bnp_paribas"
+    | "boz"
+    | "citi_handlowy"
+    | "credit_agricole"
+    | "envelobank"
+    | "etransfer_pocztowy24"
+    | "getin_bank"
+    | "ideabank"
+    | "ing"
+    | "inteligo"
+    | "mbank_mtransfer"
+    | "nest_przelew"
+    | "noble_pay"
+    | "pbac_z_ipko"
+    | "plus_bank"
+    | "santander_przelew24"
+    | "tmobile_usbugi_bankowe"
+    | "toyota_bank"
+    | "velobank"
+    | "volkswagen_bank"
+    | UnknownEnumStringValue
+    | null
+  reference?: string | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_pay_by_bank = Record<
+  string,
+  unknown
+>
+
+export type t_payment_method_details_payment_record_payco = {
+  buyer_id?: string | null
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_paynow = {
+  location?: string
+  reader?: string
+  reference?: string | null
+}
+
+export type t_payment_method_details_payment_record_payto = {
+  bsb_number?: string | null
+  last4?: string | null
+  mandate?: string
+  pay_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_pix = {
+  bank_transaction_id?: string | null
+  mandate?: string
+}
+
+export type t_payment_method_details_payment_record_promptpay = {
+  reference?: string | null
+}
+
+export type t_payment_method_details_payment_record_revolut_pay = {
+  funding?: t_payments_primitives_payment_records_resource_payment_method_revolut_pay_details_resource_funding
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_samsung_pay = {
+  buyer_id?: string | null
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_satispay = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_scalapay = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_sepa_debit = {
+  bank_code?: string | null
+  branch_code?: string | null
+  country?: string | null
+  expected_debit_date?: string
+  fingerprint?: string | null
+  last4?: string | null
+  mandate?: string | null
+}
+
+export type t_payment_method_details_payment_record_sofort = {
+  bank_code?: string | null
+  bank_name?: string | null
+  bic?: string | null
+  country?: string | null
+  generated_sepa_debit?: string | t_payment_method | null
+  generated_sepa_debit_mandate?: string | t_mandate | null
+  iban_last4?: string | null
+  preferred_language?:
+    | "de"
+    | "en"
+    | "es"
+    | "fr"
+    | "it"
+    | "nl"
+    | "pl"
+    | UnknownEnumStringValue
+    | null
+  verified_name?: string | null
+}
+
+export type t_payment_method_details_payment_record_swish = {
+  fingerprint?: string | null
+  payment_reference?: string | null
+  verified_phone_last4?: string | null
+}
+
+export type t_payment_method_details_payment_record_twint = {
+  mandate?: string
+}
+
+export type t_payment_method_details_payment_record_upi = {
+  vpa?: string | null
+}
+
+export type t_payment_method_details_payment_record_us_bank_account = {
+  account_holder_type?: "company" | "individual" | UnknownEnumStringValue | null
+  account_type?: "checking" | "savings" | UnknownEnumStringValue | null
+  bank_name?: string | null
+  expected_debit_date?: string
+  fingerprint?: string | null
+  last4?: string | null
+  mandate?: string | t_mandate
+  payment_reference?: string | null
+  routing_number?: string | null
+}
+
+export type t_payment_method_details_payment_record_wechat_pay = {
+  fingerprint?: string | null
+  location?: string
+  reader?: string
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_payment_record_zip = Record<
+  string,
+  unknown
+>
+
 export type t_payment_method_details_paynow = {
+  location?: string
+  reader?: string
   reference?: string | null
 }
 
@@ -9668,8 +11201,16 @@ export type t_payment_method_details_paypal = {
   transaction_id?: string | null
 }
 
+export type t_payment_method_details_payto = {
+  bsb_number?: string | null
+  last4?: string | null
+  mandate?: string
+  pay_id?: string | null
+}
+
 export type t_payment_method_details_pix = {
   bank_transaction_id?: string | null
+  mandate?: string
 }
 
 export type t_payment_method_details_promptpay = {
@@ -9678,18 +11219,27 @@ export type t_payment_method_details_promptpay = {
 
 export type t_payment_method_details_revolut_pay = {
   funding?: t_revolut_pay_underlying_payment_method_funding_details
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_samsung_pay = {
   buyer_id?: string | null
+  transaction_id?: string | null
 }
 
-export type t_payment_method_details_satispay = Record<string, unknown>
+export type t_payment_method_details_satispay = {
+  transaction_id?: string | null
+}
+
+export type t_payment_method_details_scalapay = {
+  transaction_id?: string | null
+}
 
 export type t_payment_method_details_sepa_debit = {
   bank_code?: string | null
   branch_code?: string | null
   country?: string | null
+  expected_debit_date?: string
   fingerprint?: string | null
   last4?: string | null
   mandate?: string | null
@@ -9718,18 +11268,29 @@ export type t_payment_method_details_sofort = {
 
 export type t_payment_method_details_stripe_account = Record<string, unknown>
 
+export type t_payment_method_details_sunbit = {
+  transaction_id?: string | null
+}
+
 export type t_payment_method_details_swish = {
   fingerprint?: string | null
   payment_reference?: string | null
   verified_phone_last4?: string | null
 }
 
-export type t_payment_method_details_twint = Record<string, unknown>
+export type t_payment_method_details_twint = {
+  mandate?: string
+}
+
+export type t_payment_method_details_upi = {
+  vpa?: string | null
+}
 
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: "company" | "individual" | UnknownEnumStringValue | null
   account_type?: "checking" | "savings" | UnknownEnumStringValue | null
   bank_name?: string | null
+  expected_debit_date?: string
   fingerprint?: string | null
   last4?: string | null
   mandate?: string | t_mandate
@@ -9840,12 +11401,15 @@ export type t_payment_method_grabpay = Record<string, unknown>
 export type t_payment_method_ideal = {
   bank?:
     | "abn_amro"
+    | "adyen"
     | "asn_bank"
     | "bunq"
     | "buut"
+    | "finom"
     | "handelsbanken"
     | "ing"
     | "knab"
+    | "mollie"
     | "moneyou"
     | "n26"
     | "nn"
@@ -9860,14 +11424,17 @@ export type t_payment_method_ideal = {
     | null
   bic?:
     | "ABNANL2A"
+    | "ADYBNL2A"
     | "ASNBNL21"
     | "BITSNL2A"
     | "BUNQNL2A"
     | "BUUTNL2A"
+    | "FNOMNL22"
     | "FVLBNL22"
     | "HANDNL2A"
     | "INGBNL2A"
     | "KNABNL2H"
+    | "MLLENL2A"
     | "MOYONL21"
     | "NNBANL2G"
     | "NTSBDEB1"
@@ -9945,6 +11512,8 @@ export type t_payment_method_link = {
   email?: string | null
 }
 
+export type t_payment_method_mb_way = Record<string, unknown>
+
 export type t_payment_method_mobilepay = Record<string, unknown>
 
 export type t_payment_method_multibanco = Record<string, unknown>
@@ -9997,6 +11566,8 @@ export type t_payment_method_options_billie = {
   capture_method?: "manual"
 }
 
+export type t_payment_method_options_bizum = Record<string, unknown>
+
 export type t_payment_method_options_boleto = {
   expires_after_days: number
   setup_future_usage?:
@@ -10031,6 +11602,7 @@ export type t_payment_method_options_card_mandate_options = {
 }
 
 export type t_payment_method_options_card_present = {
+  capture_method?: "manual" | "manual_preferred" | UnknownEnumStringValue
   request_extended_authorization?: boolean | null
   request_incremental_authorization_support?: boolean | null
   routing?: t_payment_method_options_card_present_routing
@@ -10130,6 +11702,34 @@ export type t_payment_method_options_kr_card = {
   setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
+export type t_payment_method_options_mandate_options_pix = {
+  amount?: number
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue
+  currency?: string
+  end_date?: string
+  payment_schedule?:
+    | "halfyearly"
+    | "monthly"
+    | "quarterly"
+    | "weekly"
+    | "yearly"
+    | UnknownEnumStringValue
+  reference?: string
+  start_date?: string
+}
+
+export type t_payment_method_options_mandate_options_upi = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  description?: string | null
+  end_date?: number | null
+}
+
+export type t_payment_method_options_mb_way = {
+  setup_future_usage?: "none"
+}
+
 export type t_payment_method_options_multibanco = {
   setup_future_usage?: "none"
 }
@@ -10157,9 +11757,11 @@ export type t_payment_method_options_paypal = {
 }
 
 export type t_payment_method_options_pix = {
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue
   expires_after_seconds?: number | null
   expires_at?: number | null
-  setup_future_usage?: "none"
+  mandate_options?: t_payment_method_options_mandate_options_pix
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
 }
 
 export type t_payment_method_options_promptpay = {
@@ -10172,6 +11774,10 @@ export type t_payment_method_options_revolut_pay = {
 }
 
 export type t_payment_method_options_satispay = {
+  capture_method?: "manual"
+}
+
+export type t_payment_method_options_scalapay = {
   capture_method?: "manual"
 }
 
@@ -10190,7 +11796,11 @@ export type t_payment_method_options_sofort = {
 }
 
 export type t_payment_method_options_twint = {
-  setup_future_usage?: "none"
+  setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
+}
+
+export type t_payment_method_options_upi = {
+  setup_future_usage?: "off_session" | "on_session" | UnknownEnumStringValue
 }
 
 export type t_payment_method_options_us_bank_account_mandate_options = {
@@ -10253,6 +11863,12 @@ export type t_payment_method_paypal = {
   payer_id?: string | null
 }
 
+export type t_payment_method_payto = {
+  bsb_number?: string | null
+  last4?: string | null
+  pay_id?: string | null
+}
+
 export type t_payment_method_pix = Record<string, unknown>
 
 export type t_payment_method_promptpay = Record<string, unknown>
@@ -10262,6 +11878,8 @@ export type t_payment_method_revolut_pay = Record<string, unknown>
 export type t_payment_method_samsung_pay = Record<string, unknown>
 
 export type t_payment_method_satispay = Record<string, unknown>
+
+export type t_payment_method_scalapay = Record<string, unknown>
 
 export type t_payment_method_sepa_debit = {
   bank_code?: string | null
@@ -10276,9 +11894,15 @@ export type t_payment_method_sofort = {
   country?: string | null
 }
 
+export type t_payment_method_sunbit = Record<string, unknown>
+
 export type t_payment_method_swish = Record<string, unknown>
 
 export type t_payment_method_twint = Record<string, unknown>
+
+export type t_payment_method_upi = {
+  vpa?: string | null
+}
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: "company" | "individual" | UnknownEnumStringValue | null
@@ -10315,6 +11939,7 @@ export type t_payment_method_us_bank_account_blocked = {
     | "bank_account_restricted"
     | "bank_account_unusable"
     | "debit_not_authorized"
+    | "tokenized_account_number_deactivated"
     | UnknownEnumStringValue
     | null
 }
@@ -10354,12 +11979,41 @@ export type t_payment_pages_checkout_session_automatic_tax = {
     | null
 }
 
+export type t_payment_pages_checkout_session_branding_settings = {
+  background_color: string
+  border_style: "pill" | "rectangular" | "rounded" | UnknownEnumStringValue
+  button_color: string
+  display_name: string
+  font_family: string
+  icon?: t_payment_pages_checkout_session_branding_settings_icon | null
+  logo?: t_payment_pages_checkout_session_branding_settings_logo | null
+}
+
+export type t_payment_pages_checkout_session_branding_settings_icon = {
+  file?: string
+  type: "file" | "url" | UnknownEnumStringValue
+  url?: string
+}
+
+export type t_payment_pages_checkout_session_branding_settings_logo = {
+  file?: string
+  type: "file" | "url" | UnknownEnumStringValue
+  url?: string
+}
+
+export type t_payment_pages_checkout_session_business_name = {
+  enabled: boolean
+  optional: boolean
+}
+
 export type t_payment_pages_checkout_session_checkout_address_details = {
   address: t_address
   name: string
 }
 
 export type t_payment_pages_checkout_session_collected_information = {
+  business_name?: string | null
+  individual_name?: string | null
   shipping_details?: t_payment_pages_checkout_session_checkout_address_details | null
 }
 
@@ -10434,7 +12088,9 @@ export type t_payment_pages_checkout_session_custom_text_position = {
 
 export type t_payment_pages_checkout_session_customer_details = {
   address?: t_address | null
+  business_name?: string | null
   email?: string | null
+  individual_name?: string | null
   name?: string | null
   phone?: string | null
   tax_exempt?: "exempt" | "none" | "reverse" | UnknownEnumStringValue | null
@@ -10444,6 +12100,11 @@ export type t_payment_pages_checkout_session_customer_details = {
 export type t_payment_pages_checkout_session_discount = {
   coupon?: string | t_coupon | null
   promotion_code?: string | t_promotion_code | null
+}
+
+export type t_payment_pages_checkout_session_individual_name = {
+  enabled: boolean
+  optional: boolean
 }
 
 export type t_payment_pages_checkout_session_invoice_creation = {
@@ -10459,6 +12120,15 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   issuer?: t_connect_account_reference | null
   metadata?: Record<string, string> | null
   rendering_options?: t_invoice_setting_checkout_rendering_options | null
+}
+
+export type t_payment_pages_checkout_session_managed_payments = {
+  enabled: boolean
+}
+
+export type t_payment_pages_checkout_session_name_collection = {
+  business?: t_payment_pages_checkout_session_business_name
+  individual?: t_payment_pages_checkout_session_individual_name
 }
 
 export type t_payment_pages_checkout_session_optional_item = {
@@ -10802,8 +12472,10 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "et_tin"
     | "eu_oss_vat"
     | "eu_vat"
+    | "fo_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gi_tin"
     | "gn_nif"
     | "hk_br"
     | "hr_oib"
@@ -10812,6 +12484,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "il_vat"
     | "in_gst"
     | "is_vat"
+    | "it_cf"
     | "jp_cn"
     | "jp_rn"
     | "jp_trn"
@@ -10823,6 +12496,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "la_tin"
     | "li_uid"
     | "li_vat"
+    | "lk_vat"
     | "ma_vat"
     | "md_vat"
     | "me_pib"
@@ -10840,6 +12514,8 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "om_vat"
     | "pe_ruc"
     | "ph_tin"
+    | "pl_nip"
+    | "py_ruc"
     | "ro_tin"
     | "rs_pib"
     | "ru_inn"
@@ -10901,7 +12577,384 @@ export type t_payment_pages_private_card_payment_method_options_resource_restric
     )[]
   }
 
+export type t_payment_record = {
+  amount: t_payments_primitives_payment_records_resource_amount
+  amount_authorized: t_payments_primitives_payment_records_resource_amount
+  amount_canceled: t_payments_primitives_payment_records_resource_amount
+  amount_failed: t_payments_primitives_payment_records_resource_amount
+  amount_guaranteed: t_payments_primitives_payment_records_resource_amount
+  amount_refunded: t_payments_primitives_payment_records_resource_amount
+  amount_requested: t_payments_primitives_payment_records_resource_amount
+  application?: string | null
+  created: number
+  customer_details?: t_payments_primitives_payment_records_resource_customer_details | null
+  customer_presence?:
+    | "off_session"
+    | "on_session"
+    | UnknownEnumStringValue
+    | null
+  description?: string | null
+  id: string
+  latest_payment_attempt_record?: string | null
+  livemode: boolean
+  metadata: Record<string, string>
+  object: "payment_record"
+  payment_method_details?: t_payments_primitives_payment_records_resource_payment_method_details | null
+  processor_details: t_payments_primitives_payment_records_resource_processor_details
+  reported_by: "self" | "stripe" | UnknownEnumStringValue
+  shipping_details?: t_payments_primitives_payment_records_resource_shipping_details | null
+}
+
 export type t_payment_source = t_account | t_bank_account | t_card | t_source
+
+export type t_payments_primitives_payment_records_resource_address = {
+  city?: string | null
+  country?: string | null
+  line1?: string | null
+  line2?: string | null
+  postal_code?: string | null
+  state?: string | null
+}
+
+export type t_payments_primitives_payment_records_resource_amount = {
+  currency: string
+  value: number
+}
+
+export type t_payments_primitives_payment_records_resource_billing_details = {
+  address: t_payments_primitives_payment_records_resource_address
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+}
+
+export type t_payments_primitives_payment_records_resource_customer_details = {
+  customer?: string | null
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+}
+
+export type t_payments_primitives_payment_records_resource_payment_method_alma_details_resource_installments =
+  {
+    count: number
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_amazon_pay_details_resource_funding =
+  {
+    card?: t_payments_primitives_payment_records_resource_payment_method_amazon_pay_details_resource_funding_resource_funding_card
+    type?: "card" | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_amazon_pay_details_resource_funding_resource_funding_card =
+  {
+    brand?: string | null
+    country?: string | null
+    exp_month?: number | null
+    exp_year?: number | null
+    funding?: string | null
+    last4?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details =
+  {
+    authorization_code?: string | null
+    brand?:
+      | "amex"
+      | "cartes_bancaires"
+      | "diners"
+      | "discover"
+      | "eftpos_au"
+      | "interac"
+      | "jcb"
+      | "link"
+      | "mastercard"
+      | "unionpay"
+      | "unknown"
+      | "visa"
+      | UnknownEnumStringValue
+      | null
+    capture_before?: number
+    checks?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_checks | null
+    country?: string | null
+    description?: string | null
+    exp_month?: number | null
+    exp_year?: number | null
+    fingerprint?: string | null
+    funding?:
+      | "credit"
+      | "debit"
+      | "prepaid"
+      | "unknown"
+      | UnknownEnumStringValue
+      | null
+    iin?: string | null
+    installments?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installments | null
+    issuer?: string | null
+    last4?: string | null
+    network?:
+      | "amex"
+      | "cartes_bancaires"
+      | "diners"
+      | "discover"
+      | "eftpos_au"
+      | "interac"
+      | "jcb"
+      | "link"
+      | "mastercard"
+      | "unionpay"
+      | "unknown"
+      | "visa"
+      | UnknownEnumStringValue
+      | null
+    network_advice_code?: string | null
+    network_decline_code?: string | null
+    network_token?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_network_token | null
+    network_transaction_id?: string | null
+    stored_credential_usage?:
+      | "recurring"
+      | "unscheduled"
+      | UnknownEnumStringValue
+      | null
+    three_d_secure?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_three_d_secure | null
+    wallet?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_checks =
+  {
+    address_line1_check?:
+      | "fail"
+      | "pass"
+      | "unavailable"
+      | "unchecked"
+      | UnknownEnumStringValue
+      | null
+    address_postal_code_check?:
+      | "fail"
+      | "pass"
+      | "unavailable"
+      | "unchecked"
+      | UnknownEnumStringValue
+      | null
+    cvc_check?:
+      | "fail"
+      | "pass"
+      | "unavailable"
+      | "unchecked"
+      | UnknownEnumStringValue
+      | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installment_plan =
+  {
+    count?: number | null
+    interval?: "month" | null
+    type: "bonus" | "fixed_count" | "revolving" | UnknownEnumStringValue
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installments =
+  {
+    plan?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installment_plan | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_network_token =
+  {
+    used: boolean
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_three_d_secure =
+  {
+    authentication_flow?:
+      | "challenge"
+      | "frictionless"
+      | UnknownEnumStringValue
+      | null
+    cryptogram?: string | null
+    electronic_commerce_indicator?:
+      | "01"
+      | "02"
+      | "03"
+      | "04"
+      | "05"
+      | "06"
+      | "07"
+      | UnknownEnumStringValue
+      | null
+    exemption_indicator?: "low_risk" | "none" | UnknownEnumStringValue | null
+    exemption_indicator_applied?: boolean | null
+    result?:
+      | "attempt_acknowledged"
+      | "authenticated"
+      | "exempted"
+      | "failed"
+      | "not_supported"
+      | "processing_error"
+      | UnknownEnumStringValue
+      | null
+    result_reason?:
+      | "abandoned"
+      | "bypassed"
+      | "canceled"
+      | "card_not_enrolled"
+      | "network_not_supported"
+      | "protocol_error"
+      | "rejected"
+      | UnknownEnumStringValue
+      | null
+    version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet =
+  {
+    apple_pay?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet_resource_apple_pay
+    dynamic_last4?: string
+    google_pay?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet_resource_google_pay
+    type: string
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet_resource_apple_pay =
+  {
+    type: string
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet_resource_google_pay =
+  Record<string, unknown>
+
+export type t_payments_primitives_payment_records_resource_payment_method_custom_details =
+  {
+    display_name: string
+    type?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_details =
+  {
+    ach_credit_transfer?: t_payment_method_details_ach_credit_transfer
+    ach_debit?: t_payment_method_details_ach_debit
+    acss_debit?: t_payment_method_details_payment_record_acss_debit
+    affirm?: t_payment_method_details_payment_record_affirm
+    afterpay_clearpay?: t_payment_method_details_payment_record_afterpay_clearpay
+    alipay?: t_payment_flows_private_payment_methods_alipay_details
+    alma?: t_payment_method_details_payment_record_alma
+    amazon_pay?: t_payment_method_details_payment_record_amazon_pay
+    au_becs_debit?: t_payment_method_details_au_becs_debit
+    bacs_debit?: t_payment_method_details_bacs_debit
+    bancontact?: t_payment_method_details_payment_record_bancontact
+    billie?: t_payment_method_details_payment_record_billie
+    billing_details?: t_payments_primitives_payment_records_resource_billing_details | null
+    bizum?: t_payment_method_details_payment_record_bizum
+    blik?: t_payment_method_details_payment_record_blik
+    boleto?: t_payment_method_details_payment_record_boleto
+    card?: t_payments_primitives_payment_records_resource_payment_method_card_details
+    card_present?: t_payment_method_details_card_present
+    cashapp?: t_payment_method_details_payment_record_cashapp
+    crypto?: t_payment_method_details_crypto
+    custom?: t_payments_primitives_payment_records_resource_payment_method_custom_details
+    customer_balance?: t_payment_method_details_customer_balance
+    eps?: t_payment_method_details_payment_record_eps
+    fpx?: t_payment_method_details_fpx
+    giropay?: t_payment_method_details_payment_record_giropay
+    grabpay?: t_payment_method_details_grabpay
+    ideal?: t_payment_method_details_payment_record_ideal
+    interac_present?: t_payment_method_details_interac_present
+    kakao_pay?: t_payment_method_details_payment_record_kakao_pay
+    klarna?: t_payment_method_details_payment_record_klarna
+    konbini?: t_payment_method_details_payment_record_konbini
+    kr_card?: t_payment_method_details_kr_card
+    link?: t_payment_method_details_payment_record_link
+    mb_way?: t_payment_method_details_payment_record_mb_way
+    mobilepay?: t_payment_method_details_payment_record_mobilepay
+    multibanco?: t_payment_method_details_payment_record_multibanco
+    naver_pay?: t_payment_method_details_payment_record_naver_pay
+    nz_bank_account?: t_payment_method_details_nz_bank_account
+    oxxo?: t_payment_method_details_payment_record_oxxo
+    p24?: t_payment_method_details_payment_record_p24
+    pay_by_bank?: t_payment_method_details_payment_record_pay_by_bank
+    payco?: t_payment_method_details_payment_record_payco
+    payment_method?: string | null
+    paynow?: t_payment_method_details_payment_record_paynow
+    paypal?: t_payment_method_details_paypal
+    payto?: t_payment_method_details_payment_record_payto
+    pix?: t_payment_method_details_payment_record_pix
+    promptpay?: t_payment_method_details_payment_record_promptpay
+    revolut_pay?: t_payment_method_details_payment_record_revolut_pay
+    samsung_pay?: t_payment_method_details_payment_record_samsung_pay
+    satispay?: t_payment_method_details_payment_record_satispay
+    scalapay?: t_payment_method_details_payment_record_scalapay
+    sepa_debit?: t_payment_method_details_payment_record_sepa_debit
+    sofort?: t_payment_method_details_payment_record_sofort
+    stripe_account?: t_payment_method_details_stripe_account
+    sunbit?: t_payment_method_details_sunbit
+    swish?: t_payment_method_details_payment_record_swish
+    twint?: t_payment_method_details_payment_record_twint
+    type: string
+    upi?: t_payment_method_details_payment_record_upi
+    us_bank_account?: t_payment_method_details_payment_record_us_bank_account
+    wechat?: t_payment_method_details_wechat
+    wechat_pay?: t_payment_method_details_payment_record_wechat_pay
+    zip?: t_payment_method_details_payment_record_zip
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_klarna_details_resource_payer_details =
+  {
+    address?: t_payments_primitives_payment_records_resource_payment_method_klarna_details_resource_payer_details_resource_payer_details_address | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_klarna_details_resource_payer_details_resource_payer_details_address =
+  {
+    country?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_konbini_details_resource_store =
+  {
+    chain?:
+      | "familymart"
+      | "lawson"
+      | "ministop"
+      | "seicomart"
+      | UnknownEnumStringValue
+      | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_mobilepay_details_resource_card =
+  {
+    brand?: string | null
+    country?: string | null
+    exp_month?: number | null
+    exp_year?: number | null
+    last4?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_revolut_pay_details_resource_funding =
+  {
+    card?: t_payments_primitives_payment_records_resource_payment_method_revolut_pay_details_resource_funding_resource_funding_card
+    type?: "card" | null
+  }
+
+export type t_payments_primitives_payment_records_resource_payment_method_revolut_pay_details_resource_funding_resource_funding_card =
+  {
+    brand?: string | null
+    country?: string | null
+    exp_month?: number | null
+    exp_year?: number | null
+    funding?: string | null
+    last4?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_processor_details = {
+  custom?: t_payments_primitives_payment_records_resource_processor_details_resource_custom_details
+  type: "custom"
+}
+
+export type t_payments_primitives_payment_records_resource_processor_details_resource_custom_details =
+  {
+    payment_reference?: string | null
+  }
+
+export type t_payments_primitives_payment_records_resource_shipping_details = {
+  address: t_payments_primitives_payment_records_resource_address
+  name?: string | null
+  phone?: string | null
+}
 
 export type t_payout = {
   amount: number
@@ -10929,6 +12982,7 @@ export type t_payout = {
   method: string
   object: "payout"
   original_payout?: string | t_payout | null
+  payout_method?: string | null
   reconciliation_status:
     | "completed"
     | "in_progress"
@@ -11228,6 +13282,7 @@ export type t_portal_login_page = {
 
 export type t_portal_payment_method_update = {
   enabled: boolean
+  payment_method_configuration?: string | null
 }
 
 export type t_portal_resource_schedule_update_at_period_end = {
@@ -11268,6 +13323,7 @@ export type t_portal_subscription_cancellation_reason = {
 }
 
 export type t_portal_subscription_update = {
+  billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue | null
   default_allowed_updates: (
     | "price"
     | "promotion_code"
@@ -11282,6 +13338,7 @@ export type t_portal_subscription_update = {
     | "none"
     | UnknownEnumStringValue
   schedule_at_period_end: t_portal_resource_schedule_update_at_period_end
+  trial_update_behavior: "continue_trial" | "end_trial" | UnknownEnumStringValue
 }
 
 export type t_portal_subscription_update_product = {
@@ -11368,15 +13425,16 @@ export type t_product_marketing_feature = {
 export type t_promotion_code = {
   active: boolean
   code: string
-  coupon: t_coupon
   created: number
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   expires_at?: number | null
   id: string
   livemode: boolean
   max_redemptions?: number | null
   metadata?: Record<string, string> | null
   object: "promotion_code"
+  promotion: t_promotion_codes_resource_promotion
   restrictions: t_promotion_codes_resource_restrictions
   times_redeemed: number
 }
@@ -11385,11 +13443,21 @@ export type t_promotion_code_currency_option = {
   minimum_amount: number
 }
 
+export type t_promotion_codes_resource_promotion = {
+  coupon?: string | t_coupon | null
+  type: "coupon"
+}
+
 export type t_promotion_codes_resource_restrictions = {
   currency_options?: Record<string, t_promotion_code_currency_option>
   first_time_transaction: boolean
   minimum_amount?: number | null
   minimum_amount_currency?: string | null
+}
+
+export type t_proration_details = {
+  credited_items?: t_invoice_item_proration_credited_items | null
+  discount_amounts: t_discounts_resource_discount_amount[]
 }
 
 export type t_quote = {
@@ -11407,6 +13475,7 @@ export type t_quote = {
   created: number
   currency?: string | null
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   default_tax_rates?: (string | t_tax_rate)[]
   description?: string | null
   discounts: (string | t_discount)[]
@@ -11475,6 +13544,7 @@ export type t_quotes_resource_status_transitions = {
 }
 
 export type t_quotes_resource_subscription_data_billing_mode = {
+  flexible?: t_subscriptions_resource_billing_mode_flexible
   type: "classic" | "flexible" | UnknownEnumStringValue
 }
 
@@ -11527,16 +13597,33 @@ export type t_radar_early_fraud_warning = {
   payment_intent?: string | t_payment_intent
 }
 
+export type t_radar_payment_evaluation = {
+  client_device_metadata_details?: t_insights_resources_payment_evaluation_client_device_metadata
+  created_at: number
+  customer_details?: t_insights_resources_payment_evaluation_customer_details
+  events: t_insights_resources_payment_evaluation_event[]
+  id: string
+  livemode: boolean
+  metadata?: Record<string, string> | null
+  object: "radar.payment_evaluation"
+  outcome?: t_insights_resources_payment_evaluation_outcome | null
+  payment_details?: t_insights_resources_payment_evaluation_payment_details
+  recommended_action: "block" | "continue" | UnknownEnumStringValue
+  signals: t_insights_resources_payment_evaluation_signals
+}
+
 export type t_radar_value_list = {
   alias: string
   created: number
   created_by: string
   id: string
   item_type:
+    | "account"
     | "card_bin"
     | "card_fingerprint"
     | "case_sensitive_string"
     | "country"
+    | "crypto_fingerprint"
     | "customer_id"
     | "email"
     | "ip_address"
@@ -11643,6 +13730,7 @@ export type t_refund_destination_details = {
   br_bank_transfer?: t_refund_destination_details_br_bank_transfer
   card?: t_refund_destination_details_card
   cashapp?: t_destination_details_unimplemented
+  crypto?: t_refund_destination_details_crypto
   customer_cash_balance?: t_destination_details_unimplemented
   eps?: t_destination_details_unimplemented
   eu_bank_transfer?: t_refund_destination_details_eu_bank_transfer
@@ -11651,6 +13739,7 @@ export type t_refund_destination_details = {
   grabpay?: t_destination_details_unimplemented
   jp_bank_transfer?: t_refund_destination_details_jp_bank_transfer
   klarna?: t_destination_details_unimplemented
+  mb_way?: t_refund_destination_details_mb_way
   multibanco?: t_refund_destination_details_multibanco
   mx_bank_transfer?: t_refund_destination_details_mx_bank_transfer
   nz_bank_transfer?: t_destination_details_unimplemented
@@ -11659,9 +13748,11 @@ export type t_refund_destination_details = {
   paypal?: t_refund_destination_details_paypal
   pix?: t_destination_details_unimplemented
   revolut?: t_destination_details_unimplemented
+  scalapay?: t_destination_details_unimplemented
   sofort?: t_destination_details_unimplemented
   swish?: t_refund_destination_details_swish
   th_bank_transfer?: t_refund_destination_details_th_bank_transfer
+  twint?: t_destination_details_unimplemented
   type: string
   us_bank_transfer?: t_refund_destination_details_us_bank_transfer
   wechat_pay?: t_destination_details_unimplemented
@@ -11686,6 +13777,10 @@ export type t_refund_destination_details_card = {
   type: "pending" | "refund" | "reversal" | UnknownEnumStringValue
 }
 
+export type t_refund_destination_details_crypto = {
+  reference?: string | null
+}
+
 export type t_refund_destination_details_eu_bank_transfer = {
   reference?: string | null
   reference_status?: string | null
@@ -11697,6 +13792,11 @@ export type t_refund_destination_details_gb_bank_transfer = {
 }
 
 export type t_refund_destination_details_jp_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_mb_way = {
   reference?: string | null
   reference_status?: string | null
 }
@@ -11783,9 +13883,11 @@ export type t_review = {
   billing_zip?: string | null
   charge?: string | t_charge | null
   closed_reason?:
+    | "acknowledged"
     | "approved"
     | "canceled"
     | "disputed"
+    | "payment_never_settled"
     | "redacted"
     | "refunded"
     | "refunded_as_fraud"
@@ -11850,6 +13952,7 @@ export type t_setup_attempt = {
   attach_to_self?: boolean
   created: number
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   flow_directions?: ("inbound" | "outbound" | UnknownEnumStringValue)[] | null
   id: string
   livemode: boolean
@@ -11881,10 +13984,14 @@ export type t_setup_attempt_payment_method_details = {
   naver_pay?: t_setup_attempt_payment_method_details_naver_pay
   nz_bank_account?: t_setup_attempt_payment_method_details_nz_bank_account
   paypal?: t_setup_attempt_payment_method_details_paypal
+  payto?: t_setup_attempt_payment_method_details_payto
+  pix?: t_setup_attempt_payment_method_details_pix
   revolut_pay?: t_setup_attempt_payment_method_details_revolut_pay
   sepa_debit?: t_setup_attempt_payment_method_details_sepa_debit
   sofort?: t_setup_attempt_payment_method_details_sofort
+  twint?: t_setup_attempt_payment_method_details_twint
   type: string
+  upi?: t_setup_attempt_payment_method_details_upi
   us_bank_account?: t_setup_attempt_payment_method_details_us_bank_account
 }
 
@@ -11963,12 +14070,15 @@ export type t_setup_attempt_payment_method_details_cashapp = Record<
 export type t_setup_attempt_payment_method_details_ideal = {
   bank?:
     | "abn_amro"
+    | "adyen"
     | "asn_bank"
     | "bunq"
     | "buut"
+    | "finom"
     | "handelsbanken"
     | "ing"
     | "knab"
+    | "mollie"
     | "moneyou"
     | "n26"
     | "nn"
@@ -11983,14 +14093,17 @@ export type t_setup_attempt_payment_method_details_ideal = {
     | null
   bic?:
     | "ABNANL2A"
+    | "ADYBNL2A"
     | "ASNBNL21"
     | "BITSNL2A"
     | "BUNQNL2A"
     | "BUUTNL2A"
+    | "FNOMNL22"
     | "FVLBNL22"
     | "HANDNL2A"
     | "INGBNL2A"
     | "KNABNL2H"
+    | "MLLENL2A"
     | "MOYONL21"
     | "NNBANL2G"
     | "NTSBDEB1"
@@ -12042,6 +14155,13 @@ export type t_setup_attempt_payment_method_details_paypal = Record<
   unknown
 >
 
+export type t_setup_attempt_payment_method_details_payto = Record<
+  string,
+  unknown
+>
+
+export type t_setup_attempt_payment_method_details_pix = Record<string, unknown>
+
 export type t_setup_attempt_payment_method_details_revolut_pay = Record<
   string,
   unknown
@@ -12063,6 +14183,13 @@ export type t_setup_attempt_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
+export type t_setup_attempt_payment_method_details_twint = Record<
+  string,
+  unknown
+>
+
+export type t_setup_attempt_payment_method_details_upi = Record<string, unknown>
+
 export type t_setup_attempt_payment_method_details_us_bank_account = Record<
   string,
   unknown
@@ -12081,12 +14208,72 @@ export type t_setup_intent = {
   client_secret?: string | null
   created: number
   customer?: string | t_customer | t_deleted_customer | null
+  customer_account?: string | null
   description?: string | null
+  excluded_payment_method_types?:
+    | (
+        | "acss_debit"
+        | "affirm"
+        | "afterpay_clearpay"
+        | "alipay"
+        | "alma"
+        | "amazon_pay"
+        | "au_becs_debit"
+        | "bacs_debit"
+        | "bancontact"
+        | "billie"
+        | "bizum"
+        | "blik"
+        | "boleto"
+        | "card"
+        | "cashapp"
+        | "crypto"
+        | "customer_balance"
+        | "eps"
+        | "fpx"
+        | "giropay"
+        | "grabpay"
+        | "ideal"
+        | "kakao_pay"
+        | "klarna"
+        | "konbini"
+        | "kr_card"
+        | "mb_way"
+        | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
+        | "oxxo"
+        | "p24"
+        | "pay_by_bank"
+        | "payco"
+        | "paynow"
+        | "paypal"
+        | "payto"
+        | "pix"
+        | "promptpay"
+        | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
+        | "scalapay"
+        | "sepa_debit"
+        | "sofort"
+        | "sunbit"
+        | "swish"
+        | "twint"
+        | "upi"
+        | "us_bank_account"
+        | "wechat_pay"
+        | "zip"
+        | UnknownEnumStringValue
+      )[]
+    | null
   flow_directions?: ("inbound" | "outbound" | UnknownEnumStringValue)[] | null
   id: string
   last_setup_error?: t_api_errors | null
   latest_attempt?: string | t_setup_attempt | null
   livemode: boolean
+  managed_payments?: t_smor_resource_managed_payments | null
   mandate?: string | t_mandate | null
   metadata?: Record<string, string> | null
   next_action?: t_setup_intent_next_action | null
@@ -12109,11 +14296,22 @@ export type t_setup_intent = {
 }
 
 export type t_setup_intent_next_action = {
+  blik_authorize?: t_payment_intent_next_action_blik_authorize
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
+  pix_display_qr_code?: t_setup_intent_next_action_pix_display_qr_code
   redirect_to_url?: t_setup_intent_next_action_redirect_to_url
   type: string
+  upi_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_upi_handle_redirect_or_display_qr_code
   use_stripe_sdk?: Record<string, unknown>
   verify_with_microdeposits?: t_setup_intent_next_action_verify_with_microdeposits
+}
+
+export type t_setup_intent_next_action_pix_display_qr_code = {
+  data: string
+  expires_at: number
+  hosted_instructions_url: string
+  image_url_png: string
+  image_url_svg: string
 }
 
 export type t_setup_intent_next_action_redirect_to_url = {
@@ -12141,6 +14339,9 @@ export type t_setup_intent_payment_method_options = {
   bacs_debit?:
     | t_setup_intent_payment_method_options_bacs_debit
     | t_setup_intent_type_specific_payment_method_options_client
+  bizum?:
+    | t_setup_intent_payment_method_options_bizum
+    | t_setup_intent_type_specific_payment_method_options_client
   card?:
     | t_setup_intent_payment_method_options_card
     | t_setup_intent_type_specific_payment_method_options_client
@@ -12156,8 +14357,17 @@ export type t_setup_intent_payment_method_options = {
   paypal?:
     | t_setup_intent_payment_method_options_paypal
     | t_setup_intent_type_specific_payment_method_options_client
+  payto?:
+    | t_setup_intent_payment_method_options_payto
+    | t_setup_intent_type_specific_payment_method_options_client
+  pix?:
+    | t_setup_intent_payment_method_options_pix
+    | t_setup_intent_type_specific_payment_method_options_client
   sepa_debit?:
     | t_setup_intent_payment_method_options_sepa_debit
+    | t_setup_intent_type_specific_payment_method_options_client
+  upi?:
+    | t_setup_intent_payment_method_options_upi
     | t_setup_intent_type_specific_payment_method_options_client
   us_bank_account?:
     | t_setup_intent_payment_method_options_us_bank_account
@@ -12182,6 +14392,11 @@ export type t_setup_intent_payment_method_options_amazon_pay = Record<
 export type t_setup_intent_payment_method_options_bacs_debit = {
   mandate_options?: t_setup_intent_payment_method_options_mandate_options_bacs_debit
 }
+
+export type t_setup_intent_payment_method_options_bizum = Record<
+  string,
+  unknown
+>
 
 export type t_setup_intent_payment_method_options_card = {
   mandate_options?: t_setup_intent_payment_method_options_card_mandate_options | null
@@ -12257,6 +14472,39 @@ export type t_setup_intent_payment_method_options_mandate_options_bacs_debit = {
   reference_prefix?: string
 }
 
+export type t_setup_intent_payment_method_options_mandate_options_payto = {
+  amount?: number | null
+  amount_type?: "fixed" | "maximum" | UnknownEnumStringValue | null
+  end_date?: string | null
+  payment_schedule?:
+    | "adhoc"
+    | "annual"
+    | "daily"
+    | "fortnightly"
+    | "monthly"
+    | "quarterly"
+    | "semi_annual"
+    | "weekly"
+    | UnknownEnumStringValue
+    | null
+  payments_per_period?: number | null
+  purpose?:
+    | "dependant_support"
+    | "government"
+    | "loan"
+    | "mortgage"
+    | "other"
+    | "pension"
+    | "personal"
+    | "retail"
+    | "salary"
+    | "tax"
+    | "utility"
+    | UnknownEnumStringValue
+    | null
+  start_date?: string | null
+}
+
 export type t_setup_intent_payment_method_options_mandate_options_sepa_debit = {
   reference_prefix?: string
 }
@@ -12265,8 +14513,20 @@ export type t_setup_intent_payment_method_options_paypal = {
   billing_agreement_id?: string | null
 }
 
+export type t_setup_intent_payment_method_options_payto = {
+  mandate_options?: t_setup_intent_payment_method_options_mandate_options_payto
+}
+
+export type t_setup_intent_payment_method_options_pix = {
+  mandate_options?: t_payment_method_options_mandate_options_pix
+}
+
 export type t_setup_intent_payment_method_options_sepa_debit = {
   mandate_options?: t_setup_intent_payment_method_options_mandate_options_sepa_debit
+}
+
+export type t_setup_intent_payment_method_options_upi = {
+  mandate_options?: t_payment_method_options_mandate_options_upi
 }
 
 export type t_setup_intent_payment_method_options_us_bank_account = {
@@ -12280,6 +14540,7 @@ export type t_setup_intent_payment_method_options_us_bank_account = {
 }
 
 export type t_setup_intent_type_specific_payment_method_options_client = {
+  mandate_options?: t_setup_intent_payment_method_options_mandate_options_payto
   verification_method?:
     | "automatic"
     | "instant"
@@ -12357,6 +14618,10 @@ export type t_sigma_sigma_api_query = {
 
 export type t_sigma_scheduled_query_run_error = {
   message: string
+}
+
+export type t_smor_resource_managed_payments = {
+  enabled: boolean
 }
 
 export type t_source = {
@@ -12780,6 +15045,18 @@ export type t_source_type_wechat = {
   statement_descriptor?: string
 }
 
+export type t_stackable_discount_with_discount_settings = {
+  coupon?: string | t_coupon | null
+  discount?: string | t_discount | null
+  promotion_code?: string | t_promotion_code | null
+}
+
+export type t_stackable_discount_with_discount_settings_and_discount_end = {
+  coupon?: string | t_coupon | null
+  discount?: string | t_discount | null
+  promotion_code?: string | t_promotion_code | null
+}
+
 export type t_subscription = {
   application?: string | t_application | t_deleted_application | null
   application_fee_percent?: number | null
@@ -12787,6 +15064,7 @@ export type t_subscription = {
   billing_cycle_anchor: number
   billing_cycle_anchor_config?: t_subscriptions_resource_billing_cycle_anchor_config | null
   billing_mode: t_subscriptions_resource_billing_mode
+  billing_schedules: t_subscriptions_resource_billing_schedules[]
   billing_thresholds?: t_subscription_billing_thresholds | null
   cancel_at?: number | null
   cancel_at_period_end: boolean
@@ -12799,6 +15077,7 @@ export type t_subscription = {
   created: number
   currency: string
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   days_until_due?: number | null
   default_payment_method?: string | t_payment_method | null
   default_source?: string | t_bank_account | t_card | t_source | null
@@ -12816,6 +15095,7 @@ export type t_subscription = {
   }
   latest_invoice?: string | t_invoice | null
   livemode: boolean
+  managed_payments?: t_smor_resource_managed_payments | null
   metadata: Record<string, string>
   next_pending_invoice_item_invoice?: number | null
   object: "subscription"
@@ -12825,6 +15105,7 @@ export type t_subscription = {
   pending_invoice_item_interval?: t_subscription_pending_invoice_item_interval | null
   pending_setup_intent?: string | t_setup_intent | null
   pending_update?: t_subscriptions_resource_pending_update | null
+  presentment_details?: t_subscriptions_resource_subscription_presentment_details
   schedule?: string | t_subscription_schedule | null
   start_date: number
   status:
@@ -12840,7 +15121,7 @@ export type t_subscription = {
   test_clock?: string | t_test_helpers_test_clock | null
   transfer_data?: t_subscription_transfer_data | null
   trial_end?: number | null
-  trial_settings?: t_subscriptions_trials_resource_trial_settings | null
+  trial_settings?: t_subscriptions_resource_trial_settings_trial_settings | null
   trial_start?: number | null
 }
 
@@ -12856,6 +15137,7 @@ export type t_subscription_billing_thresholds = {
 }
 
 export type t_subscription_item = {
+  billed_until?: number
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   created: number
   current_period_end: number
@@ -12900,6 +15182,25 @@ export type t_subscription_payment_method_options_card = {
     | null
 }
 
+export type t_subscription_payment_method_options_mandate_options_pix = {
+  amount?: number | null
+  amount_includes_iof?: "always" | "never" | UnknownEnumStringValue | null
+  end_date?: string | null
+  payment_schedule?:
+    | "halfyearly"
+    | "monthly"
+    | "quarterly"
+    | "weekly"
+    | "yearly"
+    | UnknownEnumStringValue
+    | null
+}
+
+export type t_subscription_payment_method_options_pix = {
+  expires_after_seconds?: number
+  mandate_options?: t_subscription_payment_method_options_mandate_options_pix
+}
+
 export type t_subscription_pending_invoice_item_interval = {
   interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
@@ -12913,6 +15214,7 @@ export type t_subscription_schedule = {
   created: number
   current_phase?: t_subscription_schedule_current_phase | null
   customer: string | t_customer | t_deleted_customer
+  customer_account?: string | null
   default_settings: t_subscription_schedules_resource_default_settings
   end_behavior: "cancel" | "none" | "release" | "renew" | UnknownEnumStringValue
   id: string
@@ -12934,15 +15236,23 @@ export type t_subscription_schedule = {
 }
 
 export type t_subscription_schedule_add_invoice_item = {
-  discounts: t_discounts_resource_stackable_discount[]
+  discountable?: boolean | null
+  discounts: t_discounts_resource_stackable_discount_with_discount_end[]
+  metadata?: Record<string, string> | null
+  period: t_subscription_schedule_add_invoice_item_period
   price: string | t_price | t_deleted_price
   quantity?: number | null
   tax_rates?: t_tax_rate[] | null
 }
 
+export type t_subscription_schedule_add_invoice_item_period = {
+  end: t_subscription_schedules_resource_invoice_item_period_resource_period_end
+  start: t_subscription_schedules_resource_invoice_item_period_resource_period_start
+}
+
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
-  discounts: t_discounts_resource_stackable_discount[]
+  discounts: t_stackable_discount_with_discount_settings[]
   metadata?: Record<string, string> | null
   price: string | t_price | t_deleted_price
   quantity?: number
@@ -12973,7 +15283,7 @@ export type t_subscription_schedule_phase_configuration = {
   default_payment_method?: string | t_payment_method | null
   default_tax_rates?: t_tax_rate[] | null
   description?: string | null
-  discounts: t_discounts_resource_stackable_discount[]
+  discounts: t_stackable_discount_with_discount_settings_and_discount_end[]
   end_date: number
   invoice_settings?: t_invoice_setting_subscription_schedule_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
@@ -13012,6 +15322,26 @@ export type t_subscription_schedules_resource_default_settings_automatic_tax = {
   liability?: t_connect_account_reference | null
 }
 
+export type t_subscription_schedules_resource_invoice_item_period_resource_period_end =
+  {
+    timestamp?: number
+    type:
+      | "min_item_period_end"
+      | "phase_end"
+      | "timestamp"
+      | UnknownEnumStringValue
+  }
+
+export type t_subscription_schedules_resource_invoice_item_period_resource_period_start =
+  {
+    timestamp?: number
+    type:
+      | "max_item_period_start"
+      | "phase_start"
+      | "timestamp"
+      | UnknownEnumStringValue
+  }
+
 export type t_subscription_transfer_data = {
   amount_percent?: number | null
   destination: string | t_account
@@ -13026,8 +15356,36 @@ export type t_subscriptions_resource_billing_cycle_anchor_config = {
 }
 
 export type t_subscriptions_resource_billing_mode = {
+  flexible?: t_subscriptions_resource_billing_mode_flexible | null
   type: "classic" | "flexible" | UnknownEnumStringValue
   updated_at?: number
+}
+
+export type t_subscriptions_resource_billing_mode_flexible = {
+  proration_discounts?: "included" | "itemized" | UnknownEnumStringValue
+}
+
+export type t_subscriptions_resource_billing_schedules = {
+  applies_to?: t_subscriptions_resource_billing_schedules_applies_to[] | null
+  bill_until: t_subscriptions_resource_billing_schedules_bill_until
+  key: string
+}
+
+export type t_subscriptions_resource_billing_schedules_applies_to = {
+  price?: string | t_price | null
+  type: "price"
+}
+
+export type t_subscriptions_resource_billing_schedules_bill_until = {
+  computed_timestamp: number
+  duration?: t_subscriptions_resource_billing_schedules_bill_until_duration | null
+  timestamp?: number | null
+  type: "duration" | "timestamp" | UnknownEnumStringValue
+}
+
+export type t_subscriptions_resource_billing_schedules_bill_until_duration = {
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+  interval_count?: number | null
 }
 
 export type t_subscriptions_resource_pause_collection = {
@@ -13045,7 +15403,10 @@ export type t_subscriptions_resource_payment_method_options = {
   card?: t_subscription_payment_method_options_card | null
   customer_balance?: t_invoice_payment_method_options_customer_balance | null
   konbini?: t_invoice_payment_method_options_konbini | null
+  payto?: t_invoice_payment_method_options_payto | null
+  pix?: t_subscription_payment_method_options_pix | null
   sepa_debit?: t_invoice_payment_method_options_sepa_debit | null
+  upi?: t_invoice_payment_method_options_upi | null
   us_bank_account?: t_invoice_payment_method_options_us_bank_account | null
 }
 
@@ -13065,6 +15426,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "card"
         | "cashapp"
         | "crypto"
+        | "custom"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -13081,15 +15443,20 @@ export type t_subscriptions_resource_payment_settings = {
         | "naver_pay"
         | "nz_bank_account"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
+        | "payto"
+        | "pix"
         | "promptpay"
         | "revolut_pay"
         | "sepa_credit_transfer"
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | UnknownEnumStringValue
@@ -13104,7 +15471,10 @@ export type t_subscriptions_resource_payment_settings = {
 
 export type t_subscriptions_resource_pending_update = {
   billing_cycle_anchor?: number | null
+  discount?: t_discount | null
+  discounts?: (string | t_discount)[] | null
   expires_at: number
+  metadata?: Record<string, string> | null
   subscription_items?: t_subscription_item[] | null
   trial_end?: number | null
   trial_from_plan?: boolean | null
@@ -13113,6 +15483,22 @@ export type t_subscriptions_resource_pending_update = {
 export type t_subscriptions_resource_subscription_invoice_settings = {
   account_tax_ids?: (string | t_tax_id | t_deleted_tax_id)[] | null
   issuer: t_connect_account_reference
+}
+
+export type t_subscriptions_resource_subscription_presentment_details = {
+  presentment_currency: string
+}
+
+export type t_subscriptions_resource_trial_settings_end_behavior = {
+  missing_payment_method:
+    | "cancel"
+    | "create_invoice"
+    | "pause"
+    | UnknownEnumStringValue
+}
+
+export type t_subscriptions_resource_trial_settings_trial_settings = {
+  end_behavior: t_subscriptions_resource_trial_settings_end_behavior
 }
 
 export type t_subscriptions_trials_resource_end_behavior = {
@@ -13125,6 +15511,16 @@ export type t_subscriptions_trials_resource_end_behavior = {
 
 export type t_subscriptions_trials_resource_trial_settings = {
   end_behavior: t_subscriptions_trials_resource_end_behavior
+}
+
+export type t_tax_association = {
+  calculation: string
+  id: string
+  object: "tax.association"
+  payment_intent: string
+  tax_transaction_attempts?:
+    | t_tax_product_resource_tax_association_transaction_attempts[]
+    | null
 }
 
 export type t_tax_calculation = {
@@ -13245,6 +15641,7 @@ export type t_tax_i_ds_owner = {
   account?: string | t_account
   application?: string | t_application
   customer?: string | t_customer
+  customer_account?: string | null
   type: "account" | "application" | "customer" | "self" | UnknownEnumStringValue
 }
 
@@ -13252,6 +15649,7 @@ export type t_tax_id = {
   country?: string | null
   created: number
   customer?: string | t_customer | null
+  customer_account?: string | null
   id: string
   livemode: boolean
   object: "tax_id"
@@ -13302,8 +15700,10 @@ export type t_tax_id = {
     | "et_tin"
     | "eu_oss_vat"
     | "eu_vat"
+    | "fo_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gi_tin"
     | "gn_nif"
     | "hk_br"
     | "hr_oib"
@@ -13312,6 +15712,7 @@ export type t_tax_id = {
     | "il_vat"
     | "in_gst"
     | "is_vat"
+    | "it_cf"
     | "jp_cn"
     | "jp_rn"
     | "jp_trn"
@@ -13323,6 +15724,7 @@ export type t_tax_id = {
     | "la_tin"
     | "li_uid"
     | "li_vat"
+    | "lk_vat"
     | "ma_vat"
     | "md_vat"
     | "me_pib"
@@ -13340,6 +15742,8 @@ export type t_tax_id = {
     | "om_vat"
     | "pe_ruc"
     | "ph_tin"
+    | "pl_nip"
+    | "py_ruc"
     | "ro_tin"
     | "rs_pib"
     | "ru_inn"
@@ -13440,6 +15844,7 @@ export type t_tax_product_registrations_resource_country_options = {
   kr?: t_tax_product_registrations_resource_country_options_simplified
   kz?: t_tax_product_registrations_resource_country_options_simplified
   la?: t_tax_product_registrations_resource_country_options_simplified
+  lk?: t_tax_product_registrations_resource_country_options_simplified
   lt?: t_tax_product_registrations_resource_country_options_europe
   lu?: t_tax_product_registrations_resource_country_options_europe
   lv?: t_tax_product_registrations_resource_country_options_europe
@@ -13471,9 +15876,10 @@ export type t_tax_product_registrations_resource_country_options = {
   sk?: t_tax_product_registrations_resource_country_options_europe
   sn?: t_tax_product_registrations_resource_country_options_simplified
   sr?: t_tax_product_registrations_resource_country_options_default
-  th?: t_tax_product_registrations_resource_country_options_simplified
+  th?: t_tax_product_registrations_resource_country_options_thailand
   tj?: t_tax_product_registrations_resource_country_options_simplified
   tr?: t_tax_product_registrations_resource_country_options_simplified
+  tw?: t_tax_product_registrations_resource_country_options_simplified
   tz?: t_tax_product_registrations_resource_country_options_simplified
   ua?: t_tax_product_registrations_resource_country_options_simplified
   ug?: t_tax_product_registrations_resource_country_options_simplified
@@ -13533,6 +15939,10 @@ export type t_tax_product_registrations_resource_country_options_europe = {
 }
 
 export type t_tax_product_registrations_resource_country_options_simplified = {
+  type: "simplified"
+}
+
+export type t_tax_product_registrations_resource_country_options_thailand = {
   type: "simplified"
 }
 
@@ -13635,8 +16045,10 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "et_tin"
     | "eu_oss_vat"
     | "eu_vat"
+    | "fo_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gi_tin"
     | "gn_nif"
     | "hk_br"
     | "hr_oib"
@@ -13645,6 +16057,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "il_vat"
     | "in_gst"
     | "is_vat"
+    | "it_cf"
     | "jp_cn"
     | "jp_rn"
     | "jp_trn"
@@ -13656,6 +16069,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "la_tin"
     | "li_uid"
     | "li_vat"
+    | "lk_vat"
     | "ma_vat"
     | "md_vat"
     | "me_pib"
@@ -13673,6 +16087,8 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "om_vat"
     | "pe_ruc"
     | "ph_tin"
+    | "pl_nip"
+    | "py_ruc"
     | "ro_tin"
     | "rs_pib"
     | "ru_inn"
@@ -13777,6 +16193,29 @@ export type t_tax_product_resource_ship_from_details = {
   address: t_tax_product_resource_postal_address
 }
 
+export type t_tax_product_resource_tax_association_transaction_attempts = {
+  committed?: t_tax_product_resource_tax_association_transaction_attempts_resource_committed
+  errored?: t_tax_product_resource_tax_association_transaction_attempts_resource_errored
+  source: string
+  status: string
+}
+
+export type t_tax_product_resource_tax_association_transaction_attempts_resource_committed =
+  {
+    transaction: string
+  }
+
+export type t_tax_product_resource_tax_association_transaction_attempts_resource_errored =
+  {
+    reason:
+      | "another_payment_associated_with_calculation"
+      | "calculation_expired"
+      | "currency_mismatch"
+      | "original_transaction_voided"
+      | "unique_reference_violation"
+      | UnknownEnumStringValue
+  }
+
 export type t_tax_product_resource_tax_breakdown = {
   amount: number
   inclusive: boolean
@@ -13836,6 +16275,7 @@ export type t_tax_product_resource_tax_rate_details = {
 }
 
 export type t_tax_product_resource_tax_settings_defaults = {
+  provider: "anrok" | "avalara" | "sphere" | "stripe" | UnknownEnumStringValue
   tax_behavior?:
     | "exclusive"
     | "inclusive"
@@ -13930,7 +16370,9 @@ export type t_tax_rate_flat_amount = {
 }
 
 export type t_terminal_configuration = {
+  bbpos_wisepad3?: t_terminal_configuration_configuration_resource_device_type_specific_config
   bbpos_wisepos_e?: t_terminal_configuration_configuration_resource_device_type_specific_config
+  cellular?: t_terminal_configuration_configuration_resource_cellular_config
   id: string
   is_account_default?: boolean | null
   livemode: boolean
@@ -13939,8 +16381,13 @@ export type t_terminal_configuration = {
   offline?: t_terminal_configuration_configuration_resource_offline_config
   reboot_window?: t_terminal_configuration_configuration_resource_reboot_window
   stripe_s700?: t_terminal_configuration_configuration_resource_device_type_specific_config
+  stripe_s710?: t_terminal_configuration_configuration_resource_device_type_specific_config
   tipping?: t_terminal_configuration_configuration_resource_tipping
+  verifone_m425?: t_terminal_configuration_configuration_resource_device_type_specific_config
   verifone_p400?: t_terminal_configuration_configuration_resource_device_type_specific_config
+  verifone_p630?: t_terminal_configuration_configuration_resource_device_type_specific_config
+  verifone_ux700?: t_terminal_configuration_configuration_resource_device_type_specific_config
+  verifone_v660p?: t_terminal_configuration_configuration_resource_device_type_specific_config
   wifi?: t_terminal_configuration_configuration_resource_wifi_config
 }
 
@@ -13952,12 +16399,25 @@ export type t_terminal_connection_token = {
 
 export type t_terminal_location = {
   address: t_address
+  address_kana?: t_legal_entity_japan_address
+  address_kanji?: t_legal_entity_japan_address
   configuration_overrides?: string
   display_name: string
+  display_name_kana?: string
+  display_name_kanji?: string
   id: string
   livemode: boolean
   metadata: Record<string, string>
   object: "terminal.location"
+  phone?: string
+}
+
+export type t_terminal_onboarding_link = {
+  link_options: t_terminal_onboarding_link_link_options
+  link_type: "apple_terms_and_conditions"
+  object: "terminal.onboarding_link"
+  on_behalf_of?: string | null
+  redirect_url: string
 }
 
 export type t_terminal_reader = {
@@ -13969,20 +16429,37 @@ export type t_terminal_reader = {
     | "bbpos_wisepos_e"
     | "mobile_phone_reader"
     | "simulated_stripe_s700"
+    | "simulated_stripe_s710"
+    | "simulated_verifone_m425"
+    | "simulated_verifone_p630"
+    | "simulated_verifone_ux700"
+    | "simulated_verifone_v660p"
     | "simulated_wisepos_e"
     | "stripe_m2"
     | "stripe_s700"
+    | "stripe_s710"
     | "verifone_P400"
+    | "verifone_m425"
+    | "verifone_p630"
+    | "verifone_ux700"
+    | "verifone_v660p"
     | UnknownEnumStringValue
   id: string
   ip_address?: string | null
   label: string
+  last_seen_at?: number | null
   livemode: boolean
   location?: string | t_terminal_location | null
   metadata: Record<string, string>
   object: "terminal.reader"
   serial_number: string
   status?: "offline" | "online" | UnknownEnumStringValue | null
+}
+
+export type t_terminal_refund = Record<string, unknown>
+
+export type t_terminal_configuration_configuration_resource_cellular_config = {
+  enabled: boolean
 }
 
 export type t_terminal_configuration_configuration_resource_currency_specific_config =
@@ -14032,16 +16509,17 @@ export type t_terminal_configuration_configuration_resource_reboot_window = {
 export type t_terminal_configuration_configuration_resource_tipping = {
   aed?: t_terminal_configuration_configuration_resource_currency_specific_config
   aud?: t_terminal_configuration_configuration_resource_currency_specific_config
-  bgn?: t_terminal_configuration_configuration_resource_currency_specific_config
   cad?: t_terminal_configuration_configuration_resource_currency_specific_config
   chf?: t_terminal_configuration_configuration_resource_currency_specific_config
   czk?: t_terminal_configuration_configuration_resource_currency_specific_config
   dkk?: t_terminal_configuration_configuration_resource_currency_specific_config
   eur?: t_terminal_configuration_configuration_resource_currency_specific_config
   gbp?: t_terminal_configuration_configuration_resource_currency_specific_config
+  gip?: t_terminal_configuration_configuration_resource_currency_specific_config
   hkd?: t_terminal_configuration_configuration_resource_currency_specific_config
   huf?: t_terminal_configuration_configuration_resource_currency_specific_config
   jpy?: t_terminal_configuration_configuration_resource_currency_specific_config
+  mxn?: t_terminal_configuration_configuration_resource_currency_specific_config
   myr?: t_terminal_configuration_configuration_resource_currency_specific_config
   nok?: t_terminal_configuration_configuration_resource_currency_specific_config
   nzd?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -14061,6 +16539,15 @@ export type t_terminal_configuration_configuration_resource_wifi_config = {
     | "enterprise_eap_tls"
     | "personal_psk"
     | UnknownEnumStringValue
+}
+
+export type t_terminal_onboarding_link_apple_terms_and_conditions = {
+  allow_relinking?: boolean | null
+  merchant_display_name: string
+}
+
+export type t_terminal_onboarding_link_link_options = {
+  apple_terms_and_conditions?: t_terminal_onboarding_link_apple_terms_and_conditions | null
 }
 
 export type t_terminal_reader_reader_resource_cart = {
@@ -14113,6 +16600,13 @@ export type t_terminal_reader_reader_resource_email = {
   value?: string | null
 }
 
+export type t_terminal_reader_reader_resource_file_metadata = {
+  created_at: number
+  filename: string
+  size: number
+  type: string
+}
+
 export type t_terminal_reader_reader_resource_input = {
   custom_text?: t_terminal_reader_reader_resource_custom_text | null
   email?: t_terminal_reader_reader_resource_email
@@ -14148,6 +16642,11 @@ export type t_terminal_reader_reader_resource_phone = {
   value?: string | null
 }
 
+export type t_terminal_reader_reader_resource_print_content = {
+  image?: t_terminal_reader_reader_resource_file_metadata
+  type: "image"
+}
+
 export type t_terminal_reader_reader_resource_process_config = {
   enable_customer_cancellation?: boolean
   return_url?: string
@@ -14171,11 +16670,13 @@ export type t_terminal_reader_reader_resource_process_setup_intent_action = {
 }
 
 export type t_terminal_reader_reader_resource_reader_action = {
+  api_error?: t_api_errors | null
   collect_inputs?: t_terminal_reader_reader_resource_collect_inputs_action
   collect_payment_method?: t_terminal_reader_reader_resource_collect_payment_method_action
   confirm_payment_intent?: t_terminal_reader_reader_resource_confirm_payment_intent_action
   failure_code?: string | null
   failure_message?: string | null
+  print_content?: t_terminal_reader_reader_resource_print_content
   process_payment_intent?: t_terminal_reader_reader_resource_process_payment_intent_action
   process_setup_intent?: t_terminal_reader_reader_resource_process_setup_intent_action
   refund_payment?: t_terminal_reader_reader_resource_refund_payment_action
@@ -14185,6 +16686,7 @@ export type t_terminal_reader_reader_resource_reader_action = {
     | "collect_inputs"
     | "collect_payment_method"
     | "confirm_payment_intent"
+    | "print_content"
     | "process_payment_intent"
     | "process_setup_intent"
     | "refund_payment"
@@ -14288,7 +16790,14 @@ export type t_three_d_secure_details = {
     | UnknownEnumStringValue
     | null
   transaction_id?: string | null
-  version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue | null
+  version?:
+    | "1.0.2"
+    | "2.1.0"
+    | "2.2.0"
+    | "2.3.0"
+    | "2.3.1"
+    | UnknownEnumStringValue
+    | null
 }
 
 export type t_three_d_secure_details_charge = {
@@ -14327,7 +16836,14 @@ export type t_three_d_secure_details_charge = {
     | UnknownEnumStringValue
     | null
   transaction_id?: string | null
-  version?: "1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue | null
+  version?:
+    | "1.0.2"
+    | "2.1.0"
+    | "2.2.0"
+    | "2.3.0"
+    | "2.3.1"
+    | UnknownEnumStringValue
+    | null
 }
 
 export type t_three_d_secure_usage = {
@@ -14414,7 +16930,10 @@ export type t_transfer = {
 
 export type t_transfer_data = {
   amount?: number
+  description?: string
   destination: string | t_account
+  metadata?: Record<string, string>
+  payment_data?: t_payment_data
 }
 
 export type t_transfer_reversal = {
@@ -14439,8 +16958,6 @@ export type t_transfer_schedule = {
   weekly_payout_days?: (
     | "friday"
     | "monday"
-    | "saturday"
-    | "sunday"
     | "thursday"
     | "tuesday"
     | "wednesday"
@@ -15061,6 +17578,7 @@ export type t_treasury_received_debits_resource_linked_flows = {
   issuing_authorization?: string | null
   issuing_transaction?: string | null
   payout?: string | null
+  topup?: string | null
 }
 
 export type t_treasury_received_debits_resource_reversal_details = {

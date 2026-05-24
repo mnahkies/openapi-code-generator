@@ -16,6 +16,7 @@ import type {
   t_application_fee,
   t_apps_secret,
   t_balance,
+  t_balance_settings,
   t_balance_transaction,
   t_bank_account,
   t_billing_alert,
@@ -131,6 +132,7 @@ import type {
   t_PostApplicationFeesIdRefundsRequestBody,
   t_PostAppsSecretsDeleteRequestBody,
   t_PostAppsSecretsRequestBody,
+  t_PostBalanceSettingsRequestBody,
   t_PostBillingAlertsIdActivateRequestBody,
   t_PostBillingAlertsIdArchiveRequestBody,
   t_PostBillingAlertsIdDeactivateRequestBody,
@@ -257,6 +259,13 @@ import type {
   t_PostPaymentMethodsPaymentMethodDetachRequestBody,
   t_PostPaymentMethodsPaymentMethodRequestBody,
   t_PostPaymentMethodsRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptRequestBody,
+  t_PostPaymentRecordsIdReportRefundRequestBody,
+  t_PostPaymentRecordsReportPaymentRequestBody,
   t_PostPayoutsPayoutCancelRequestBody,
   t_PostPayoutsPayoutRequestBody,
   t_PostPayoutsPayoutReverseRequestBody,
@@ -275,6 +284,7 @@ import type {
   t_PostQuotesQuoteFinalizeRequestBody,
   t_PostQuotesQuoteRequestBody,
   t_PostQuotesRequestBody,
+  t_PostRadarPaymentEvaluationsRequestBody,
   t_PostRadarValueListItemsRequestBody,
   t_PostRadarValueListsRequestBody,
   t_PostRadarValueListsValueListRequestBody,
@@ -318,6 +328,7 @@ import type {
   t_PostTerminalConnectionTokensRequestBody,
   t_PostTerminalLocationsLocationRequestBody,
   t_PostTerminalLocationsRequestBody,
+  t_PostTerminalOnboardingLinksRequestBody,
   t_PostTerminalReadersReaderCancelActionRequestBody,
   t_PostTerminalReadersReaderCollectInputsRequestBody,
   t_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
@@ -328,6 +339,7 @@ import type {
   t_PostTerminalReadersReaderRequestBody,
   t_PostTerminalReadersReaderSetReaderDisplayRequestBody,
   t_PostTerminalReadersRequestBody,
+  t_PostTerminalRefundsRequestBody,
   t_PostTestHelpersConfirmationTokensRequestBody,
   t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody,
@@ -391,11 +403,14 @@ import type {
   t_PostTreasuryOutboundTransfersRequestBody,
   t_PostWebhookEndpointsRequestBody,
   t_PostWebhookEndpointsWebhookEndpointRequestBody,
+  t_payment_attempt_record,
   t_payment_intent,
+  t_payment_intent_amount_details_line_item,
   t_payment_link,
   t_payment_method,
   t_payment_method_configuration,
   t_payment_method_domain,
+  t_payment_record,
   t_payment_source,
   t_payout,
   t_person,
@@ -406,6 +421,7 @@ import type {
   t_promotion_code,
   t_quote,
   t_radar_early_fraud_warning,
+  t_radar_payment_evaluation,
   t_radar_value_list,
   t_radar_value_list_item,
   t_refund,
@@ -423,6 +439,7 @@ import type {
   t_subscription,
   t_subscription_item,
   t_subscription_schedule,
+  t_tax_association,
   t_tax_calculation,
   t_tax_calculation_line_item,
   t_tax_code,
@@ -435,7 +452,9 @@ import type {
   t_terminal_configuration,
   t_terminal_connection_token,
   t_terminal_location,
+  t_terminal_onboarding_link,
   t_terminal_reader,
+  t_terminal_refund,
   t_test_helpers_test_clock,
   t_token,
   t_topup,
@@ -2347,6 +2366,70 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async getBalanceSettings(
+    p: {
+      expand?: string[]
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_balance_settings>> {
+    const url = `/v1/balance_settings`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postBalanceSettings(
+    p: {
+      requestBody?: t_PostBalanceSettingsRequestBody
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_balance_settings>> {
+    const url = `/v1/balance_settings`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            payments: {explode: true, style: "deepObject"},
+          })
+        : null
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async getBalanceTransactions(
     p: {
       created?:
@@ -2656,7 +2739,8 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getBillingCreditBalanceSummary(
     p: {
-      customer: string
+      customer?: string
+      customerAccount?: string
       expand?: string[]
       filter: {
         applicability_scope?:
@@ -2679,7 +2763,12 @@ export class StripeApi extends AbstractAxiosClient {
     const url = `/v1/billing/credit_balance_summary`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {customer: p["customer"], expand: p["expand"], filter: p["filter"]},
+      {
+        customer: p["customer"],
+        customer_account: p["customerAccount"],
+        expand: p["expand"],
+        filter: p["filter"],
+      },
       {
         expand: {
           style: "deepObject",
@@ -2704,12 +2793,13 @@ export class StripeApi extends AbstractAxiosClient {
   async getBillingCreditBalanceTransactions(
     p: {
       creditGrant?: string
-      customer: string
+      customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
-    },
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
@@ -2726,6 +2816,7 @@ export class StripeApi extends AbstractAxiosClient {
       {
         credit_grant: p["creditGrant"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -2780,6 +2871,7 @@ export class StripeApi extends AbstractAxiosClient {
   async getBillingCreditGrants(
     p: {
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -2800,6 +2892,7 @@ export class StripeApi extends AbstractAxiosClient {
     const query = this._query(
       {
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -3388,6 +3481,7 @@ export class StripeApi extends AbstractAxiosClient {
       features: {explode: true, style: "deepObject"},
       login_page: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
+      name: {explode: true, style: "deepObject"},
     })
 
     return this._request({
@@ -3457,6 +3551,7 @@ export class StripeApi extends AbstractAxiosClient {
             features: {explode: true, style: "deepObject"},
             login_page: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            name: {explode: true, style: "deepObject"},
           })
         : null
 
@@ -3472,8 +3567,8 @@ export class StripeApi extends AbstractAxiosClient {
 
   async postBillingPortalSessions(
     p: {
-      requestBody: t_PostBillingPortalSessionsRequestBody
-    },
+      requestBody?: t_PostBillingPortalSessionsRequestBody
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_billing_portal_session>> {
@@ -3481,14 +3576,20 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
       },
       opts.headers,
     )
-    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
-      expand: {explode: true, style: "deepObject"},
-      flow_data: {explode: true, style: "deepObject"},
-    })
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            flow_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._request({
       url: url,
@@ -4053,6 +4154,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       customerDetails?: {
         email: string
       }
@@ -4081,6 +4183,7 @@ export class StripeApi extends AbstractAxiosClient {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         customer_details: p["customerDetails"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -4140,15 +4243,19 @@ export class StripeApi extends AbstractAxiosClient {
             adaptive_pricing: {explode: true, style: "deepObject"},
             after_expiration: {explode: true, style: "deepObject"},
             automatic_tax: {explode: true, style: "deepObject"},
+            branding_settings: {explode: true, style: "deepObject"},
             consent_collection: {explode: true, style: "deepObject"},
             custom_fields: {explode: true, style: "deepObject"},
             custom_text: {explode: true, style: "deepObject"},
             customer_update: {explode: true, style: "deepObject"},
             discounts: {explode: true, style: "deepObject"},
+            excluded_payment_method_types: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             invoice_creation: {explode: true, style: "deepObject"},
             line_items: {explode: true, style: "deepObject"},
+            managed_payments: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            name_collection: {explode: true, style: "deepObject"},
             optional_items: {explode: true, style: "deepObject"},
             payment_intent_data: {explode: true, style: "deepObject"},
             payment_method_data: {explode: true, style: "deepObject"},
@@ -4229,6 +4336,7 @@ export class StripeApi extends AbstractAxiosClient {
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
             collected_information: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            line_items: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
             shipping_options: {explode: true, style: "deepObject"},
           })
@@ -4937,6 +5045,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       invoice?: string
@@ -4959,6 +5068,7 @@ export class StripeApi extends AbstractAxiosClient {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -5031,6 +5141,7 @@ export class StripeApi extends AbstractAxiosClient {
         amount?: number | undefined
         description?: string | undefined
         invoice_line_item?: string | undefined
+        metadata?: Record<string, string> | undefined
         quantity?: number | undefined
         tax_amounts?:
           | (
@@ -5059,7 +5170,16 @@ export class StripeApi extends AbstractAxiosClient {
       refundAmount?: number
       refunds?: {
         amount_refunded?: number | undefined
+        payment_record_refund?:
+          | {
+              payment_record: string
+              refund_group: string
+            }
+          | undefined
         refund?: string | undefined
+        type?:
+          | ("payment_record_refund" | "refund" | UnknownEnumStringValue)
+          | undefined
       }[]
       shippingCost?: {
         shipping_rate?: string | undefined
@@ -5134,6 +5254,7 @@ export class StripeApi extends AbstractAxiosClient {
         amount?: number | undefined
         description?: string | undefined
         invoice_line_item?: string | undefined
+        metadata?: Record<string, string> | undefined
         quantity?: number | undefined
         tax_amounts?:
           | (
@@ -5162,7 +5283,16 @@ export class StripeApi extends AbstractAxiosClient {
       refundAmount?: number
       refunds?: {
         amount_refunded?: number | undefined
+        payment_record_refund?:
+          | {
+              payment_record: string
+              refund_group: string
+            }
+          | undefined
         refund?: string | undefined
+        type?:
+          | ("payment_record_refund" | "refund" | UnknownEnumStringValue)
+          | undefined
       }[]
       shippingCost?: {
         shipping_rate?: string | undefined
@@ -5492,8 +5622,10 @@ export class StripeApi extends AbstractAxiosClient {
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
             address: {explode: true, style: "deepObject"},
+            business_name: {explode: true, style: "deepObject"},
             cash_balance: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            individual_name: {explode: true, style: "deepObject"},
             invoice_settings: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
             preferred_locales: {explode: true, style: "deepObject"},
@@ -5630,9 +5762,11 @@ export class StripeApi extends AbstractAxiosClient {
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
             address: {explode: true, style: "deepObject"},
             bank_account: {explode: true, style: "deepObject"},
+            business_name: {explode: true, style: "deepObject"},
             card: {explode: true, style: "deepObject"},
             cash_balance: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            individual_name: {explode: true, style: "deepObject"},
             invoice_settings: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
             preferred_locales: {explode: true, style: "deepObject"},
@@ -5653,9 +5787,18 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getCustomersCustomerBalanceTransactions(
     p: {
+      created?:
+        | {
+            gt?: number | undefined
+            gte?: number | undefined
+            lt?: number | undefined
+            lte?: number | undefined
+          }
+        | number
       customer: string
       endingBefore?: string
       expand?: string[]
+      invoice?: string
       limit?: number
       startingAfter?: string
     },
@@ -5673,12 +5816,18 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        created: p["created"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
+        invoice: p["invoice"],
         limit: p["limit"],
         starting_after: p["startingAfter"],
       },
       {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,
@@ -6452,11 +6601,13 @@ export class StripeApi extends AbstractAxiosClient {
         | "bacs_debit"
         | "bancontact"
         | "billie"
+        | "bizum"
         | "blik"
         | "boleto"
         | "card"
         | "cashapp"
         | "crypto"
+        | "custom"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -6468,6 +6619,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "konbini"
         | "kr_card"
         | "link"
+        | "mb_way"
         | "mobilepay"
         | "multibanco"
         | "naver_pay"
@@ -6478,15 +6630,19 @@ export class StripeApi extends AbstractAxiosClient {
         | "payco"
         | "paynow"
         | "paypal"
+        | "payto"
         | "pix"
         | "promptpay"
         | "revolut_pay"
         | "samsung_pay"
         | "satispay"
+        | "scalapay"
         | "sepa_debit"
         | "sofort"
+        | "sunbit"
         | "swish"
         | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -8020,10 +8176,14 @@ export class StripeApi extends AbstractAxiosClient {
         | "identity_document_downloadable"
         | "issuing_regulatory_reporting"
         | "pci_document"
+        | "platform_terms_of_service"
         | "selfie"
         | "sigma_scheduled_query"
         | "tax_document_user_upload"
+        | "terminal_android_apk"
         | "terminal_reader_splashscreen"
+        | "terminal_wifi_certificate"
+        | "terminal_wifi_private_key"
         | UnknownEnumStringValue
       startingAfter?: string
     } = {},
@@ -8127,6 +8287,7 @@ export class StripeApi extends AbstractAxiosClient {
       accountHolder?: {
         account?: string | undefined
         customer?: string | undefined
+        customer_account?: string | undefined
       }
       endingBefore?: string
       expand?: string[]
@@ -8758,6 +8919,7 @@ export class StripeApi extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       relatedCustomer?: string
+      relatedCustomerAccount?: string
       startingAfter?: string
       status?:
         | "canceled"
@@ -8786,6 +8948,7 @@ export class StripeApi extends AbstractAxiosClient {
         expand: p["expand"],
         limit: p["limit"],
         related_customer: p["relatedCustomer"],
+        related_customer_account: p["relatedCustomerAccount"],
         starting_after: p["startingAfter"],
         status: p["status"],
       },
@@ -8991,13 +9154,22 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getInvoicePayments(
     p: {
+      created?:
+        | {
+            gt?: number | undefined
+            gte?: number | undefined
+            lt?: number | undefined
+            lte?: number | undefined
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       invoice?: string
       limit?: number
       payment?: {
         payment_intent?: string | undefined
-        type: "payment_intent"
+        payment_record?: string | undefined
+        type: "payment_intent" | "payment_record" | UnknownEnumStringValue
       }
       startingAfter?: string
       status?: "canceled" | "open" | "paid" | UnknownEnumStringValue
@@ -9016,6 +9188,7 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        created: p["created"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -9025,6 +9198,10 @@ export class StripeApi extends AbstractAxiosClient {
         status: p["status"],
       },
       {
+        created: {
+          style: "deepObject",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,
@@ -9232,6 +9409,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       invoice?: string
@@ -9255,6 +9433,7 @@ export class StripeApi extends AbstractAxiosClient {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         invoice: p["invoice"],
@@ -9285,8 +9464,8 @@ export class StripeApi extends AbstractAxiosClient {
 
   async postInvoiceitems(
     p: {
-      requestBody: t_PostInvoiceitemsRequestBody
-    },
+      requestBody?: t_PostInvoiceitemsRequestBody
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_invoiceitem>> {
@@ -9294,20 +9473,26 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
       },
       opts.headers,
     )
-    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
-      discounts: {explode: true, style: "deepObject"},
-      expand: {explode: true, style: "deepObject"},
-      metadata: {explode: true, style: "deepObject"},
-      period: {explode: true, style: "deepObject"},
-      price_data: {explode: true, style: "deepObject"},
-      pricing: {explode: true, style: "deepObject"},
-      tax_code: {explode: true, style: "deepObject"},
-      tax_rates: {explode: true, style: "deepObject"},
-    })
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            period: {explode: true, style: "deepObject"},
+            price_data: {explode: true, style: "deepObject"},
+            pricing: {explode: true, style: "deepObject"},
+            tax_code: {explode: true, style: "deepObject"},
+            tax_rates: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._request({
       url: url,
@@ -9425,6 +9610,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       dueDate?:
         | {
             gt?: number | undefined
@@ -9463,6 +9649,7 @@ export class StripeApi extends AbstractAxiosClient {
         collection_method: p["collectionMethod"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         due_date: p["dueDate"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -10597,6 +10784,7 @@ export class StripeApi extends AbstractAxiosClient {
     )
     const body = this._requestBodyToUrlSearchParams(p.requestBody, {
       expand: {explode: true, style: "deepObject"},
+      lifecycle_controls: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
       pin: {explode: true, style: "deepObject"},
       second_line: {explode: true, style: "deepObject"},
@@ -11520,6 +11708,7 @@ export class StripeApi extends AbstractAxiosClient {
       accountHolder?: {
         account?: string | undefined
         customer?: string | undefined
+        customer_account?: string | undefined
       }
       endingBefore?: string
       expand?: string[]
@@ -11740,6 +11929,78 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async getPaymentAttemptRecords(
+    p: {
+      expand?: string[]
+      limit?: number
+      paymentRecord: string
+      startingAfter?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      data: t_payment_attempt_record[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/payment_attempt_records`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        expand: p["expand"],
+        limit: p["limit"],
+        payment_record: p["paymentRecord"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getPaymentAttemptRecordsId(
+    p: {
+      expand?: string[]
+      id: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_attempt_record>> {
+    const url = `/v1/payment_attempt_records/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async getPaymentIntents(
     p: {
       created?:
@@ -11751,6 +12012,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -11772,6 +12034,7 @@ export class StripeApi extends AbstractAxiosClient {
       {
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -11814,11 +12077,15 @@ export class StripeApi extends AbstractAxiosClient {
       opts.headers,
     )
     const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      amount_details: {explode: true, style: "deepObject"},
       automatic_payment_methods: {explode: true, style: "deepObject"},
+      excluded_payment_method_types: {explode: true, style: "deepObject"},
       expand: {explode: true, style: "deepObject"},
+      hooks: {explode: true, style: "deepObject"},
       mandate_data: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
       off_session: {explode: true, style: "deepObject"},
+      payment_details: {explode: true, style: "deepObject"},
       payment_method_data: {explode: true, style: "deepObject"},
       payment_method_options: {explode: true, style: "deepObject"},
       payment_method_types: {explode: true, style: "deepObject"},
@@ -11934,9 +12201,13 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amount_details: {explode: true, style: "deepObject"},
             application_fee_amount: {explode: true, style: "deepObject"},
+            excluded_payment_method_types: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            hooks: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            payment_details: {explode: true, style: "deepObject"},
             payment_method_data: {explode: true, style: "deepObject"},
             payment_method_options: {explode: true, style: "deepObject"},
             payment_method_types: {explode: true, style: "deepObject"},
@@ -11950,6 +12221,50 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getPaymentIntentsIntentAmountDetailsLineItems(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      intent: string
+      limit?: number
+      startingAfter?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      data: t_payment_intent_amount_details_line_item[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/payment_intents/${p["intent"]}/amount_details_line_items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        ending_before: p["endingBefore"],
+        expand: p["expand"],
+        limit: p["limit"],
+        starting_after: p["startingAfter"],
+      },
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -12050,8 +12365,11 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amount_details: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            hooks: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            payment_details: {explode: true, style: "deepObject"},
             transfer_data: {explode: true, style: "deepObject"},
           })
         : null
@@ -12088,9 +12406,13 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amount_details: {explode: true, style: "deepObject"},
+            excluded_payment_method_types: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
+            hooks: {explode: true, style: "deepObject"},
             mandate_data: {explode: true, style: "deepObject"},
             off_session: {explode: true, style: "deepObject"},
+            payment_details: {explode: true, style: "deepObject"},
             payment_method_data: {explode: true, style: "deepObject"},
             payment_method_options: {explode: true, style: "deepObject"},
             payment_method_types: {explode: true, style: "deepObject"},
@@ -12127,8 +12449,11 @@ export class StripeApi extends AbstractAxiosClient {
       opts.headers,
     )
     const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      amount_details: {explode: true, style: "deepObject"},
       expand: {explode: true, style: "deepObject"},
+      hooks: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
+      payment_details: {explode: true, style: "deepObject"},
       transfer_data: {explode: true, style: "deepObject"},
     })
 
@@ -12248,9 +12573,12 @@ export class StripeApi extends AbstractAxiosClient {
       expand: {explode: true, style: "deepObject"},
       invoice_creation: {explode: true, style: "deepObject"},
       line_items: {explode: true, style: "deepObject"},
+      managed_payments: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
+      name_collection: {explode: true, style: "deepObject"},
       optional_items: {explode: true, style: "deepObject"},
       payment_intent_data: {explode: true, style: "deepObject"},
+      payment_method_options: {explode: true, style: "deepObject"},
       payment_method_types: {explode: true, style: "deepObject"},
       phone_number_collection: {explode: true, style: "deepObject"},
       restrictions: {explode: true, style: "deepObject"},
@@ -12331,7 +12659,10 @@ export class StripeApi extends AbstractAxiosClient {
             invoice_creation: {explode: true, style: "deepObject"},
             line_items: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            name_collection: {explode: true, style: "deepObject"},
+            optional_items: {explode: true, style: "deepObject"},
             payment_intent_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
             payment_method_types: {explode: true, style: "deepObject"},
             phone_number_collection: {explode: true, style: "deepObject"},
             restrictions: {explode: true, style: "deepObject"},
@@ -12397,6 +12728,7 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getPaymentMethodConfigurations(
     p: {
+      active?: boolean
       application?: string | ""
       endingBefore?: string
       expand?: string[]
@@ -12417,6 +12749,7 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        active: p["active"],
         application: p["application"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
@@ -12477,15 +12810,18 @@ export class StripeApi extends AbstractAxiosClient {
             bacs_debit: {explode: true, style: "deepObject"},
             bancontact: {explode: true, style: "deepObject"},
             billie: {explode: true, style: "deepObject"},
+            bizum: {explode: true, style: "deepObject"},
             blik: {explode: true, style: "deepObject"},
             boleto: {explode: true, style: "deepObject"},
             card: {explode: true, style: "deepObject"},
             cartes_bancaires: {explode: true, style: "deepObject"},
             cashapp: {explode: true, style: "deepObject"},
+            crypto: {explode: true, style: "deepObject"},
             customer_balance: {explode: true, style: "deepObject"},
             eps: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             fpx: {explode: true, style: "deepObject"},
+            fr_meal_voucher_conecs: {explode: true, style: "deepObject"},
             giropay: {explode: true, style: "deepObject"},
             google_pay: {explode: true, style: "deepObject"},
             grabpay: {explode: true, style: "deepObject"},
@@ -12496,6 +12832,7 @@ export class StripeApi extends AbstractAxiosClient {
             konbini: {explode: true, style: "deepObject"},
             kr_card: {explode: true, style: "deepObject"},
             link: {explode: true, style: "deepObject"},
+            mb_way: {explode: true, style: "deepObject"},
             mobilepay: {explode: true, style: "deepObject"},
             multibanco: {explode: true, style: "deepObject"},
             naver_pay: {explode: true, style: "deepObject"},
@@ -12506,15 +12843,19 @@ export class StripeApi extends AbstractAxiosClient {
             payco: {explode: true, style: "deepObject"},
             paynow: {explode: true, style: "deepObject"},
             paypal: {explode: true, style: "deepObject"},
+            payto: {explode: true, style: "deepObject"},
             pix: {explode: true, style: "deepObject"},
             promptpay: {explode: true, style: "deepObject"},
             revolut_pay: {explode: true, style: "deepObject"},
             samsung_pay: {explode: true, style: "deepObject"},
             satispay: {explode: true, style: "deepObject"},
+            scalapay: {explode: true, style: "deepObject"},
             sepa_debit: {explode: true, style: "deepObject"},
             sofort: {explode: true, style: "deepObject"},
+            sunbit: {explode: true, style: "deepObject"},
             swish: {explode: true, style: "deepObject"},
             twint: {explode: true, style: "deepObject"},
+            upi: {explode: true, style: "deepObject"},
             us_bank_account: {explode: true, style: "deepObject"},
             wechat_pay: {explode: true, style: "deepObject"},
             zip: {explode: true, style: "deepObject"},
@@ -12594,15 +12935,18 @@ export class StripeApi extends AbstractAxiosClient {
             bacs_debit: {explode: true, style: "deepObject"},
             bancontact: {explode: true, style: "deepObject"},
             billie: {explode: true, style: "deepObject"},
+            bizum: {explode: true, style: "deepObject"},
             blik: {explode: true, style: "deepObject"},
             boleto: {explode: true, style: "deepObject"},
             card: {explode: true, style: "deepObject"},
             cartes_bancaires: {explode: true, style: "deepObject"},
             cashapp: {explode: true, style: "deepObject"},
+            crypto: {explode: true, style: "deepObject"},
             customer_balance: {explode: true, style: "deepObject"},
             eps: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             fpx: {explode: true, style: "deepObject"},
+            fr_meal_voucher_conecs: {explode: true, style: "deepObject"},
             giropay: {explode: true, style: "deepObject"},
             google_pay: {explode: true, style: "deepObject"},
             grabpay: {explode: true, style: "deepObject"},
@@ -12613,6 +12957,7 @@ export class StripeApi extends AbstractAxiosClient {
             konbini: {explode: true, style: "deepObject"},
             kr_card: {explode: true, style: "deepObject"},
             link: {explode: true, style: "deepObject"},
+            mb_way: {explode: true, style: "deepObject"},
             mobilepay: {explode: true, style: "deepObject"},
             multibanco: {explode: true, style: "deepObject"},
             naver_pay: {explode: true, style: "deepObject"},
@@ -12623,15 +12968,19 @@ export class StripeApi extends AbstractAxiosClient {
             payco: {explode: true, style: "deepObject"},
             paynow: {explode: true, style: "deepObject"},
             paypal: {explode: true, style: "deepObject"},
+            payto: {explode: true, style: "deepObject"},
             pix: {explode: true, style: "deepObject"},
             promptpay: {explode: true, style: "deepObject"},
             revolut_pay: {explode: true, style: "deepObject"},
             samsung_pay: {explode: true, style: "deepObject"},
             satispay: {explode: true, style: "deepObject"},
+            scalapay: {explode: true, style: "deepObject"},
             sepa_debit: {explode: true, style: "deepObject"},
             sofort: {explode: true, style: "deepObject"},
+            sunbit: {explode: true, style: "deepObject"},
             swish: {explode: true, style: "deepObject"},
             twint: {explode: true, style: "deepObject"},
+            upi: {explode: true, style: "deepObject"},
             us_bank_account: {explode: true, style: "deepObject"},
             wechat_pay: {explode: true, style: "deepObject"},
             zip: {explode: true, style: "deepObject"},
@@ -12827,7 +13176,13 @@ export class StripeApi extends AbstractAxiosClient {
 
   async getPaymentMethods(
     p: {
+      allowRedisplay?:
+        | "always"
+        | "limited"
+        | "unspecified"
+        | UnknownEnumStringValue
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -12843,11 +13198,13 @@ export class StripeApi extends AbstractAxiosClient {
         | "bacs_debit"
         | "bancontact"
         | "billie"
+        | "bizum"
         | "blik"
         | "boleto"
         | "card"
         | "cashapp"
         | "crypto"
+        | "custom"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -12859,6 +13216,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "konbini"
         | "kr_card"
         | "link"
+        | "mb_way"
         | "mobilepay"
         | "multibanco"
         | "naver_pay"
@@ -12869,15 +13227,19 @@ export class StripeApi extends AbstractAxiosClient {
         | "payco"
         | "paynow"
         | "paypal"
+        | "payto"
         | "pix"
         | "promptpay"
         | "revolut_pay"
         | "samsung_pay"
         | "satispay"
+        | "scalapay"
         | "sepa_debit"
         | "sofort"
+        | "sunbit"
         | "swish"
         | "twint"
+        | "upi"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -12897,7 +13259,9 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        allow_redisplay: p["allowRedisplay"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -12953,11 +13317,13 @@ export class StripeApi extends AbstractAxiosClient {
             bancontact: {explode: true, style: "deepObject"},
             billie: {explode: true, style: "deepObject"},
             billing_details: {explode: true, style: "deepObject"},
+            bizum: {explode: true, style: "deepObject"},
             blik: {explode: true, style: "deepObject"},
             boleto: {explode: true, style: "deepObject"},
             card: {explode: true, style: "deepObject"},
             cashapp: {explode: true, style: "deepObject"},
             crypto: {explode: true, style: "deepObject"},
+            custom: {explode: true, style: "deepObject"},
             customer_balance: {explode: true, style: "deepObject"},
             eps: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
@@ -12971,6 +13337,7 @@ export class StripeApi extends AbstractAxiosClient {
             konbini: {explode: true, style: "deepObject"},
             kr_card: {explode: true, style: "deepObject"},
             link: {explode: true, style: "deepObject"},
+            mb_way: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
             mobilepay: {explode: true, style: "deepObject"},
             multibanco: {explode: true, style: "deepObject"},
@@ -12982,16 +13349,20 @@ export class StripeApi extends AbstractAxiosClient {
             payco: {explode: true, style: "deepObject"},
             paynow: {explode: true, style: "deepObject"},
             paypal: {explode: true, style: "deepObject"},
+            payto: {explode: true, style: "deepObject"},
             pix: {explode: true, style: "deepObject"},
             promptpay: {explode: true, style: "deepObject"},
             radar_options: {explode: true, style: "deepObject"},
             revolut_pay: {explode: true, style: "deepObject"},
             samsung_pay: {explode: true, style: "deepObject"},
             satispay: {explode: true, style: "deepObject"},
+            scalapay: {explode: true, style: "deepObject"},
             sepa_debit: {explode: true, style: "deepObject"},
             sofort: {explode: true, style: "deepObject"},
+            sunbit: {explode: true, style: "deepObject"},
             swish: {explode: true, style: "deepObject"},
             twint: {explode: true, style: "deepObject"},
+            upi: {explode: true, style: "deepObject"},
             us_bank_account: {explode: true, style: "deepObject"},
             wechat_pay: {explode: true, style: "deepObject"},
             zip: {explode: true, style: "deepObject"},
@@ -13062,9 +13433,8 @@ export class StripeApi extends AbstractAxiosClient {
             billing_details: {explode: true, style: "deepObject"},
             card: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
-            link: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
-            pay_by_bank: {explode: true, style: "deepObject"},
+            payto: {explode: true, style: "deepObject"},
             us_bank_account: {explode: true, style: "deepObject"},
           })
         : null
@@ -13082,7 +13452,7 @@ export class StripeApi extends AbstractAxiosClient {
   async postPaymentMethodsPaymentMethodAttach(
     p: {
       paymentMethod: string
-      requestBody: t_PostPaymentMethodsPaymentMethodAttachRequestBody
+      requestBody?: t_PostPaymentMethodsPaymentMethodAttachRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13091,13 +13461,19 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
       },
       opts.headers,
     )
-    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
-      expand: {explode: true, style: "deepObject"},
-    })
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._request({
       url: url,
@@ -13134,6 +13510,274 @@ export class StripeApi extends AbstractAxiosClient {
             expand: {explode: true, style: "deepObject"},
           })
         : null
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsReportPayment(
+    p: {
+      requestBody: t_PostPaymentRecordsReportPaymentRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/report_payment`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      amount_requested: {explode: true, style: "deepObject"},
+      customer_details: {explode: true, style: "deepObject"},
+      expand: {explode: true, style: "deepObject"},
+      failed: {explode: true, style: "deepObject"},
+      guaranteed: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+      payment_method_details: {explode: true, style: "deepObject"},
+      processor_details: {explode: true, style: "deepObject"},
+      shipping_details: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getPaymentRecordsId(
+    p: {
+      expand?: string[]
+      id: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {expand: p["expand"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportPaymentAttempt(
+    p: {
+      id: string
+      requestBody: t_PostPaymentRecordsIdReportPaymentAttemptRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_payment_attempt`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      expand: {explode: true, style: "deepObject"},
+      failed: {explode: true, style: "deepObject"},
+      guaranteed: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+      payment_method_details: {explode: true, style: "deepObject"},
+      shipping_details: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportPaymentAttemptCanceled(
+    p: {
+      id: string
+      requestBody: t_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_payment_attempt_canceled`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      expand: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportPaymentAttemptFailed(
+    p: {
+      id: string
+      requestBody: t_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_payment_attempt_failed`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      expand: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportPaymentAttemptGuaranteed(
+    p: {
+      id: string
+      requestBody: t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_payment_attempt_guaranteed`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      expand: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportPaymentAttemptInformational(
+    p: {
+      id: string
+      requestBody?: t_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_payment_attempt_informational`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            customer_details: {explode: true, style: "deepObject"},
+            description: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            shipping_details: {explode: true, style: "deepObject"},
+          })
+        : null
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postPaymentRecordsIdReportRefund(
+    p: {
+      id: string
+      requestBody: t_PostPaymentRecordsIdReportRefundRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_payment_record>> {
+    const url = `/v1/payment_records/${p["id"]}/report_refund`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      amount: {explode: true, style: "deepObject"},
+      expand: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+      processor_details: {explode: true, style: "deepObject"},
+      refunded: {explode: true, style: "deepObject"},
+    })
 
     return this._request({
       url: url,
@@ -14174,6 +14818,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -14198,6 +14843,7 @@ export class StripeApi extends AbstractAxiosClient {
         coupon: p["coupon"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -14242,6 +14888,7 @@ export class StripeApi extends AbstractAxiosClient {
     const body = this._requestBodyToUrlSearchParams(p.requestBody, {
       expand: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
+      promotion: {explode: true, style: "deepObject"},
       restrictions: {explode: true, style: "deepObject"},
     })
 
@@ -14325,6 +14972,7 @@ export class StripeApi extends AbstractAxiosClient {
   async getQuotes(
     p: {
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -14352,6 +15000,7 @@ export class StripeApi extends AbstractAxiosClient {
     const query = this._query(
       {
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -14817,6 +15466,39 @@ export class StripeApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postRadarPaymentEvaluations(
+    p: {
+      requestBody: t_PostRadarPaymentEvaluationsRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_radar_payment_evaluation>> {
+    const url = `/v1/radar/payment_evaluations`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      client_device_metadata_details: {explode: true, style: "deepObject"},
+      customer_details: {explode: true, style: "deepObject"},
+      expand: {explode: true, style: "deepObject"},
+      metadata: {explode: true, style: "deepObject"},
+      payment_details: {explode: true, style: "deepObject"},
+    })
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -15703,6 +16385,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -15726,6 +16409,7 @@ export class StripeApi extends AbstractAxiosClient {
         attach_to_self: p["attachToSelf"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -15775,6 +16459,7 @@ export class StripeApi extends AbstractAxiosClient {
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
             automatic_payment_methods: {explode: true, style: "deepObject"},
+            excluded_payment_method_types: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             flow_directions: {explode: true, style: "deepObject"},
             mandate_data: {explode: true, style: "deepObject"},
@@ -15848,6 +16533,7 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            excluded_payment_method_types: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             flow_directions: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
@@ -16702,6 +17388,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -16734,6 +17421,7 @@ export class StripeApi extends AbstractAxiosClient {
         completed_at: p["completedAt"],
         created: p["created"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -16988,6 +17676,7 @@ export class StripeApi extends AbstractAxiosClient {
           }
         | number
       customer?: string
+      customerAccount?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -17027,6 +17716,7 @@ export class StripeApi extends AbstractAxiosClient {
         current_period_end: p["currentPeriodEnd"],
         current_period_start: p["currentPeriodStart"],
         customer: p["customer"],
+        customer_account: p["customerAccount"],
         ending_before: p["endingBefore"],
         expand: p["expand"],
         limit: p["limit"],
@@ -17070,8 +17760,8 @@ export class StripeApi extends AbstractAxiosClient {
 
   async postSubscriptions(
     p: {
-      requestBody: t_PostSubscriptionsRequestBody
-    },
+      requestBody?: t_PostSubscriptionsRequestBody
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_subscription>> {
@@ -17079,31 +17769,38 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
       },
       opts.headers,
     )
-    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
-      add_invoice_items: {explode: true, style: "deepObject"},
-      application_fee_percent: {explode: true, style: "deepObject"},
-      automatic_tax: {explode: true, style: "deepObject"},
-      billing_cycle_anchor_config: {explode: true, style: "deepObject"},
-      billing_mode: {explode: true, style: "deepObject"},
-      billing_thresholds: {explode: true, style: "deepObject"},
-      cancel_at: {explode: true, style: "deepObject"},
-      default_tax_rates: {explode: true, style: "deepObject"},
-      discounts: {explode: true, style: "deepObject"},
-      expand: {explode: true, style: "deepObject"},
-      invoice_settings: {explode: true, style: "deepObject"},
-      items: {explode: true, style: "deepObject"},
-      metadata: {explode: true, style: "deepObject"},
-      on_behalf_of: {explode: true, style: "deepObject"},
-      payment_settings: {explode: true, style: "deepObject"},
-      pending_invoice_item_interval: {explode: true, style: "deepObject"},
-      transfer_data: {explode: true, style: "deepObject"},
-      trial_end: {explode: true, style: "deepObject"},
-      trial_settings: {explode: true, style: "deepObject"},
-    })
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            add_invoice_items: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            billing_cycle_anchor_config: {explode: true, style: "deepObject"},
+            billing_mode: {explode: true, style: "deepObject"},
+            billing_schedules: {explode: true, style: "deepObject"},
+            billing_thresholds: {explode: true, style: "deepObject"},
+            cancel_at: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            pending_invoice_item_interval: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+            trial_end: {explode: true, style: "deepObject"},
+            trial_settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._request({
       url: url,
@@ -17251,6 +17948,7 @@ export class StripeApi extends AbstractAxiosClient {
             add_invoice_items: {explode: true, style: "deepObject"},
             application_fee_percent: {explode: true, style: "deepObject"},
             automatic_tax: {explode: true, style: "deepObject"},
+            billing_schedules: {explode: true, style: "deepObject"},
             billing_thresholds: {explode: true, style: "deepObject"},
             cancel_at: {explode: true, style: "deepObject"},
             cancellation_details: {explode: true, style: "deepObject"},
@@ -17362,6 +18060,35 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getTaxAssociationsFind(
+    p: {
+      expand?: string[]
+      paymentIntent: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_tax_association>> {
+    const url = `/v1/tax/associations/find`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {expand: p["expand"], payment_intent: p["paymentIntent"]},
+      {
+        expand: {
+          style: "deepObject",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -17902,6 +18629,7 @@ export class StripeApi extends AbstractAxiosClient {
       owner?: {
         account?: string | undefined
         customer?: string | undefined
+        customer_account?: string | undefined
         type:
           | "account"
           | "application"
@@ -18252,13 +18980,20 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bbpos_wisepad3: {explode: true, style: "deepObject"},
             bbpos_wisepos_e: {explode: true, style: "deepObject"},
+            cellular: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             offline: {explode: true, style: "deepObject"},
             reboot_window: {explode: true, style: "deepObject"},
             stripe_s700: {explode: true, style: "deepObject"},
+            stripe_s710: {explode: true, style: "deepObject"},
             tipping: {explode: true, style: "deepObject"},
+            verifone_m425: {explode: true, style: "deepObject"},
             verifone_p400: {explode: true, style: "deepObject"},
+            verifone_p630: {explode: true, style: "deepObject"},
+            verifone_ux700: {explode: true, style: "deepObject"},
+            verifone_v660p: {explode: true, style: "deepObject"},
             wifi: {explode: true, style: "deepObject"},
           })
         : null
@@ -18347,13 +19082,20 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bbpos_wisepad3: {explode: true, style: "deepObject"},
             bbpos_wisepos_e: {explode: true, style: "deepObject"},
+            cellular: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             offline: {explode: true, style: "deepObject"},
             reboot_window: {explode: true, style: "deepObject"},
             stripe_s700: {explode: true, style: "deepObject"},
+            stripe_s710: {explode: true, style: "deepObject"},
             tipping: {explode: true, style: "deepObject"},
+            verifone_m425: {explode: true, style: "deepObject"},
             verifone_p400: {explode: true, style: "deepObject"},
+            verifone_p630: {explode: true, style: "deepObject"},
+            verifone_ux700: {explode: true, style: "deepObject"},
+            verifone_v660p: {explode: true, style: "deepObject"},
             wifi: {explode: true, style: "deepObject"},
           })
         : null
@@ -18448,8 +19190,8 @@ export class StripeApi extends AbstractAxiosClient {
 
   async postTerminalLocations(
     p: {
-      requestBody: t_PostTerminalLocationsRequestBody
-    },
+      requestBody?: t_PostTerminalLocationsRequestBody
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_terminal_location>> {
@@ -18457,15 +19199,23 @@ export class StripeApi extends AbstractAxiosClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
       },
       opts.headers,
     )
-    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
-      address: {explode: true, style: "deepObject"},
-      expand: {explode: true, style: "deepObject"},
-      metadata: {explode: true, style: "deepObject"},
-    })
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._request({
       url: url,
@@ -18548,12 +19298,47 @@ export class StripeApi extends AbstractAxiosClient {
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
             address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
             configuration_overrides: {explode: true, style: "deepObject"},
             display_name: {explode: true, style: "deepObject"},
+            display_name_kana: {explode: true, style: "deepObject"},
+            display_name_kanji: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             metadata: {explode: true, style: "deepObject"},
+            phone: {explode: true, style: "deepObject"},
           })
         : null
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTerminalOnboardingLinks(
+    p: {
+      requestBody: t_PostTerminalOnboardingLinksRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_onboarding_link>> {
+    const url = `/v1/terminal/onboarding_links`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      expand: {explode: true, style: "deepObject"},
+      link_options: {explode: true, style: "deepObject"},
+    })
 
     return this._request({
       url: url,
@@ -18573,10 +19358,20 @@ export class StripeApi extends AbstractAxiosClient {
         | "bbpos_wisepos_e"
         | "mobile_phone_reader"
         | "simulated_stripe_s700"
+        | "simulated_stripe_s710"
+        | "simulated_verifone_m425"
+        | "simulated_verifone_p630"
+        | "simulated_verifone_ux700"
+        | "simulated_verifone_v660p"
         | "simulated_wisepos_e"
         | "stripe_m2"
         | "stripe_s700"
+        | "stripe_s710"
         | "verifone_P400"
+        | "verifone_m425"
+        | "verifone_p630"
+        | "verifone_ux700"
+        | "verifone_v660p"
         | UnknownEnumStringValue
       endingBefore?: string
       expand?: string[]
@@ -19003,6 +19798,41 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async postTerminalRefunds(
+    p: {
+      requestBody?: t_PostTerminalRefundsRequestBody
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_refund>> {
+    const url = `/v1/terminal/refunds`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : false,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async postTestHelpersConfirmationTokens(
     p: {
       requestBody?: t_PostTestHelpersConfirmationTokensRequestBody
@@ -19093,6 +19923,7 @@ export class StripeApi extends AbstractAxiosClient {
       fuel: {explode: true, style: "deepObject"},
       merchant_data: {explode: true, style: "deepObject"},
       network_data: {explode: true, style: "deepObject"},
+      risk_assessment: {explode: true, style: "deepObject"},
       verification_data: {explode: true, style: "deepObject"},
     })
 
@@ -19811,6 +20642,7 @@ export class StripeApi extends AbstractAxiosClient {
     const body =
       p.requestBody !== undefined
         ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            card: {explode: true, style: "deepObject"},
             card_present: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
             interac_present: {explode: true, style: "deepObject"},

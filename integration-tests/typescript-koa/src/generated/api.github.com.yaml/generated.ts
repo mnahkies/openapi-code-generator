@@ -59,6 +59,8 @@ import type {
   t_ActionsDeleteActionsCacheByKeyParamSchema,
   t_ActionsDeleteActionsCacheByKeyQuerySchema,
   t_ActionsDeleteArtifactParamSchema,
+  t_ActionsDeleteCustomImageFromOrgParamSchema,
+  t_ActionsDeleteCustomImageVersionFromOrgParamSchema,
   t_ActionsDeleteEnvironmentSecretParamSchema,
   t_ActionsDeleteEnvironmentVariableParamSchema,
   t_ActionsDeleteHostedRunnerForOrgParamSchema,
@@ -72,12 +74,14 @@ import type {
   t_ActionsDeleteWorkflowRunLogsParamSchema,
   t_ActionsDeleteWorkflowRunParamSchema,
   t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
+  t_ActionsDisableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
   t_ActionsDisableWorkflowParamSchema,
   t_ActionsDownloadArtifactParamSchema,
   t_ActionsDownloadJobLogsForWorkflowRunParamSchema,
   t_ActionsDownloadWorkflowRunAttemptLogsParamSchema,
   t_ActionsDownloadWorkflowRunLogsParamSchema,
   t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
+  t_ActionsEnableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
   t_ActionsEnableWorkflowParamSchema,
   t_ActionsForceCancelWorkflowRunParamSchema,
   t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
@@ -86,17 +90,31 @@ import type {
   t_ActionsGenerateRunnerJitconfigForRepoRequestBody,
   t_ActionsGetActionsCacheListParamSchema,
   t_ActionsGetActionsCacheListQuerySchema,
+  t_ActionsGetActionsCacheRetentionLimitForEnterpriseParamSchema,
+  t_ActionsGetActionsCacheRetentionLimitForOrganizationParamSchema,
+  t_ActionsGetActionsCacheRetentionLimitForRepositoryParamSchema,
+  t_ActionsGetActionsCacheStorageLimitForEnterpriseParamSchema,
+  t_ActionsGetActionsCacheStorageLimitForOrganizationParamSchema,
+  t_ActionsGetActionsCacheStorageLimitForRepositoryParamSchema,
   t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
   t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema,
   t_ActionsGetActionsCacheUsageForOrgParamSchema,
   t_ActionsGetActionsCacheUsageParamSchema,
   t_ActionsGetAllowedActionsOrganizationParamSchema,
   t_ActionsGetAllowedActionsRepositoryParamSchema,
+  t_ActionsGetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+  t_ActionsGetArtifactAndLogRetentionSettingsRepositoryParamSchema,
   t_ActionsGetArtifactParamSchema,
+  t_ActionsGetConcurrencyGroupForRepositoryParamSchema,
+  t_ActionsGetConcurrencyGroupForRepositoryQuerySchema,
+  t_ActionsGetCustomImageForOrgParamSchema,
+  t_ActionsGetCustomImageVersionForOrgParamSchema,
   t_ActionsGetCustomOidcSubClaimForRepoParamSchema,
   t_ActionsGetEnvironmentPublicKeyParamSchema,
   t_ActionsGetEnvironmentSecretParamSchema,
   t_ActionsGetEnvironmentVariableParamSchema,
+  t_ActionsGetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+  t_ActionsGetForkPrContributorApprovalPermissionsRepositoryParamSchema,
   t_ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
   t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
   t_ActionsGetGithubActionsPermissionsOrganizationParamSchema,
@@ -112,6 +130,8 @@ import type {
   t_ActionsGetOrgSecretParamSchema,
   t_ActionsGetOrgVariableParamSchema,
   t_ActionsGetPendingDeploymentsForRunParamSchema,
+  t_ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+  t_ActionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
   t_ActionsGetRepoPublicKeyParamSchema,
   t_ActionsGetRepoSecretParamSchema,
   t_ActionsGetRepoVariableParamSchema,
@@ -119,6 +139,7 @@ import type {
   t_ActionsGetSelfHostedRunnerForOrgParamSchema,
   t_ActionsGetSelfHostedRunnerForRepoParamSchema,
   t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
+  t_ActionsGetSelfHostedRunnersPermissionsOrganizationParamSchema,
   t_ActionsGetWorkflowAccessToRepositoryParamSchema,
   t_ActionsGetWorkflowParamSchema,
   t_ActionsGetWorkflowRunAttemptParamSchema,
@@ -129,6 +150,12 @@ import type {
   t_ActionsGetWorkflowUsageParamSchema,
   t_ActionsListArtifactsForRepoParamSchema,
   t_ActionsListArtifactsForRepoQuerySchema,
+  t_ActionsListConcurrencyGroupsForRepositoryParamSchema,
+  t_ActionsListConcurrencyGroupsForRepositoryQuerySchema,
+  t_ActionsListConcurrencyGroupsForWorkflowRunParamSchema,
+  t_ActionsListConcurrencyGroupsForWorkflowRunQuerySchema,
+  t_ActionsListCustomImagesForOrgParamSchema,
+  t_ActionsListCustomImageVersionsForOrgParamSchema,
   t_ActionsListEnvironmentSecretsParamSchema,
   t_ActionsListEnvironmentSecretsQuerySchema,
   t_ActionsListEnvironmentVariablesParamSchema,
@@ -167,6 +194,8 @@ import type {
   t_ActionsListSelectedReposForOrgVariableQuerySchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
+  t_ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+  t_ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationQuerySchema,
   t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
   t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForOrgParamSchema,
@@ -198,20 +227,32 @@ import type {
   t_ActionsReviewCustomGatesForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunRequestBody,
+  t_ActionsSetActionsCacheRetentionLimitForEnterpriseParamSchema,
+  t_ActionsSetActionsCacheRetentionLimitForOrganizationParamSchema,
+  t_ActionsSetActionsCacheRetentionLimitForRepositoryParamSchema,
+  t_ActionsSetActionsCacheStorageLimitForEnterpriseParamSchema,
+  t_ActionsSetActionsCacheStorageLimitForOrganizationParamSchema,
+  t_ActionsSetActionsCacheStorageLimitForRepositoryParamSchema,
   t_ActionsSetAllowedActionsOrganizationParamSchema,
   t_ActionsSetAllowedActionsRepositoryParamSchema,
+  t_ActionsSetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+  t_ActionsSetArtifactAndLogRetentionSettingsRepositoryParamSchema,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgRequestBody,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
   t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody,
   t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
   t_ActionsSetCustomOidcSubClaimForRepoRequestBody,
+  t_ActionsSetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+  t_ActionsSetForkPrContributorApprovalPermissionsRepositoryParamSchema,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
   t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
   t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
   t_ActionsSetGithubActionsPermissionsOrganizationRequestBody,
   t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
   t_ActionsSetGithubActionsPermissionsRepositoryRequestBody,
+  t_ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+  t_ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
   t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody,
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
@@ -220,8 +261,12 @@ import type {
   t_ActionsSetSelectedReposForOrgVariableRequestBody,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+  t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
   t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
   t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsSetSelfHostedRunnersPermissionsOrganizationParamSchema,
+  t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
   t_ActionsUpdateEnvironmentVariableParamSchema,
   t_ActionsUpdateEnvironmentVariableRequestBody,
@@ -280,6 +325,59 @@ import type {
   t_ActivitySetThreadSubscriptionRequestBody,
   t_ActivityStarRepoForAuthenticatedUserParamSchema,
   t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
+  t_AgentsAddSelectedRepoToOrgSecretParamSchema,
+  t_AgentsAddSelectedRepoToOrgVariableParamSchema,
+  t_AgentsCreateOrgVariableParamSchema,
+  t_AgentsCreateOrgVariableRequestBody,
+  t_AgentsCreateOrUpdateOrgSecretParamSchema,
+  t_AgentsCreateOrUpdateOrgSecretRequestBody,
+  t_AgentsCreateOrUpdateRepoSecretParamSchema,
+  t_AgentsCreateOrUpdateRepoSecretRequestBody,
+  t_AgentsCreateRepoVariableParamSchema,
+  t_AgentsCreateRepoVariableRequestBody,
+  t_AgentsDeleteOrgSecretParamSchema,
+  t_AgentsDeleteOrgVariableParamSchema,
+  t_AgentsDeleteRepoSecretParamSchema,
+  t_AgentsDeleteRepoVariableParamSchema,
+  t_AgentsGetOrgPublicKeyParamSchema,
+  t_AgentsGetOrgSecretParamSchema,
+  t_AgentsGetOrgVariableParamSchema,
+  t_AgentsGetRepoPublicKeyParamSchema,
+  t_AgentsGetRepoSecretParamSchema,
+  t_AgentsGetRepoVariableParamSchema,
+  t_AgentsListOrgSecretsParamSchema,
+  t_AgentsListOrgSecretsQuerySchema,
+  t_AgentsListOrgVariablesParamSchema,
+  t_AgentsListOrgVariablesQuerySchema,
+  t_AgentsListRepoOrganizationSecretsParamSchema,
+  t_AgentsListRepoOrganizationSecretsQuerySchema,
+  t_AgentsListRepoOrganizationVariablesParamSchema,
+  t_AgentsListRepoOrganizationVariablesQuerySchema,
+  t_AgentsListRepoSecretsParamSchema,
+  t_AgentsListRepoSecretsQuerySchema,
+  t_AgentsListRepoVariablesParamSchema,
+  t_AgentsListRepoVariablesQuerySchema,
+  t_AgentsListSelectedReposForOrgSecretParamSchema,
+  t_AgentsListSelectedReposForOrgSecretQuerySchema,
+  t_AgentsListSelectedReposForOrgVariableParamSchema,
+  t_AgentsListSelectedReposForOrgVariableQuerySchema,
+  t_AgentsRemoveSelectedRepoFromOrgSecretParamSchema,
+  t_AgentsRemoveSelectedRepoFromOrgVariableParamSchema,
+  t_AgentsSetSelectedReposForOrgSecretParamSchema,
+  t_AgentsSetSelectedReposForOrgSecretRequestBody,
+  t_AgentsSetSelectedReposForOrgVariableParamSchema,
+  t_AgentsSetSelectedReposForOrgVariableRequestBody,
+  t_AgentsUpdateOrgVariableParamSchema,
+  t_AgentsUpdateOrgVariableRequestBody,
+  t_AgentsUpdateRepoVariableParamSchema,
+  t_AgentsUpdateRepoVariableRequestBody,
+  t_AgentTasksCreateTaskInRepoParamSchema,
+  t_AgentTasksCreateTaskInRepoRequestBody,
+  t_AgentTasksGetTaskByIdParamSchema,
+  t_AgentTasksGetTaskByRepoAndIdParamSchema,
+  t_AgentTasksListTasksForRepoParamSchema,
+  t_AgentTasksListTasksForRepoQuerySchema,
+  t_AgentTasksListTasksQuerySchema,
   t_ApiInsightsGetRouteStatsByActorParamSchema,
   t_ApiInsightsGetRouteStatsByActorQuerySchema,
   t_ApiInsightsGetSubjectStatsParamSchema,
@@ -341,13 +439,25 @@ import type {
   t_AppsSuspendInstallationParamSchema,
   t_AppsUnsuspendInstallationParamSchema,
   t_AppsUpdateWebhookConfigForAppRequestBody,
-  t_actions_billing_usage,
+  t_actions_artifact_and_log_retention,
+  t_actions_artifact_and_log_retention_response,
   t_actions_cache_list,
+  t_actions_cache_retention_limit_for_enterprise,
+  t_actions_cache_retention_limit_for_organization,
+  t_actions_cache_retention_limit_for_repository,
+  t_actions_cache_storage_limit_for_enterprise,
+  t_actions_cache_storage_limit_for_organization,
+  t_actions_cache_storage_limit_for_repository,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
+  t_actions_fork_pr_contributor_approval,
+  t_actions_fork_pr_workflows_private_repos,
+  t_actions_fork_pr_workflows_private_repos_request,
   t_actions_get_default_workflow_permissions,
   t_actions_hosted_runner,
-  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_curated_image,
+  t_actions_hosted_runner_custom_image,
+  t_actions_hosted_runner_custom_image_version,
   t_actions_hosted_runner_limits,
   t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
@@ -365,23 +475,36 @@ import type {
   t_api_insights_user_stats,
   t_api_overview,
   t_artifact,
+  t_artifact_deployment_record,
   t_authentication_token,
   t_authorization,
   t_autolink,
-  t_BillingGetGithubActionsBillingOrgParamSchema,
-  t_BillingGetGithubActionsBillingUserParamSchema,
+  t_BillingDeleteBudgetOrgParamSchema,
+  t_BillingGetAllBudgetsOrgParamSchema,
+  t_BillingGetAllBudgetsOrgQuerySchema,
+  t_BillingGetBudgetOrgParamSchema,
+  t_BillingGetGithubBillingPremiumRequestUsageReportOrgParamSchema,
+  t_BillingGetGithubBillingPremiumRequestUsageReportOrgQuerySchema,
+  t_BillingGetGithubBillingPremiumRequestUsageReportUserParamSchema,
+  t_BillingGetGithubBillingPremiumRequestUsageReportUserQuerySchema,
   t_BillingGetGithubBillingUsageReportOrgParamSchema,
   t_BillingGetGithubBillingUsageReportOrgQuerySchema,
   t_BillingGetGithubBillingUsageReportUserParamSchema,
   t_BillingGetGithubBillingUsageReportUserQuerySchema,
-  t_BillingGetGithubPackagesBillingOrgParamSchema,
-  t_BillingGetGithubPackagesBillingUserParamSchema,
-  t_BillingGetSharedStorageBillingOrgParamSchema,
-  t_BillingGetSharedStorageBillingUserParamSchema,
+  t_BillingGetGithubBillingUsageSummaryReportOrgParamSchema,
+  t_BillingGetGithubBillingUsageSummaryReportOrgQuerySchema,
+  t_BillingGetGithubBillingUsageSummaryReportUserParamSchema,
+  t_BillingGetGithubBillingUsageSummaryReportUserQuerySchema,
+  t_BillingUpdateBudgetOrgParamSchema,
+  t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
   t_basic_error,
+  t_billing_premium_request_usage_report_org,
+  t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
   t_billing_usage_report_user,
+  t_billing_usage_summary_report_org,
+  t_billing_usage_summary_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -423,6 +546,8 @@ import type {
   t_ClassroomListAssignmentsForAClassroomParamSchema,
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
+  t_CodeQualityGetSetupParamSchema,
+  t_CodeQualityUpdateSetupParamSchema,
   t_CodeScanningCommitAutofixParamSchema,
   t_CodeScanningCreateAutofixParamSchema,
   t_CodeScanningCreateVariantAnalysisParamSchema,
@@ -559,22 +684,100 @@ import type {
   t_CopilotAddCopilotSeatsForTeamsRequestBody,
   t_CopilotAddCopilotSeatsForUsersParamSchema,
   t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyParamSchema,
+  t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
   t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
   t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CopilotCopilotContentExclusionForOrganizationParamSchema,
+  t_CopilotCopilotEnterpriseOneDayUsageMetricsParamSchema,
+  t_CopilotCopilotEnterpriseOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotEnterpriseUsageMetricsParamSchema,
+  t_CopilotCopilotEnterpriseUserTeamsOneDayReportParamSchema,
+  t_CopilotCopilotEnterpriseUserTeamsOneDayReportQuerySchema,
   t_CopilotCopilotMetricsForOrganizationParamSchema,
   t_CopilotCopilotMetricsForOrganizationQuerySchema,
   t_CopilotCopilotMetricsForTeamParamSchema,
   t_CopilotCopilotMetricsForTeamQuerySchema,
+  t_CopilotCopilotOrganizationOneDayUsageMetricsParamSchema,
+  t_CopilotCopilotOrganizationOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotOrganizationUsageMetricsParamSchema,
+  t_CopilotCopilotOrganizationUsersOneDayUsageMetricsParamSchema,
+  t_CopilotCopilotOrganizationUsersOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotOrganizationUsersUsageMetricsParamSchema,
+  t_CopilotCopilotOrganizationUserTeamsOneDayReportParamSchema,
+  t_CopilotCopilotOrganizationUserTeamsOneDayReportQuerySchema,
+  t_CopilotCopilotUsersOneDayUsageMetricsParamSchema,
+  t_CopilotCopilotUsersOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotUsersUsageMetricsParamSchema,
+  t_CopilotDisableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+  t_CopilotEnableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+  t_CopilotGetCopilotCloudAgentConfigurationParamSchema,
+  t_CopilotGetCopilotCodingAgentPermissionsOrganizationParamSchema,
   t_CopilotGetCopilotOrganizationDetailsParamSchema,
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
+  t_CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+  t_CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationQuerySchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
+  t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyParamSchema,
+  t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSetCopilotCodingAgentPermissionsOrganizationParamSchema,
+  t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+  t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+  t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+  t_CopilotSetCopilotContentExclusionForOrganizationParamSchema,
+  t_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+  t_CopilotSetEnterpriseCodingAgentPolicyParamSchema,
+  t_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSpacesAddCollaboratorForOrgParamSchema,
+  t_CopilotSpacesAddCollaboratorForOrgRequestBody,
+  t_CopilotSpacesAddCollaboratorForUserParamSchema,
+  t_CopilotSpacesAddCollaboratorForUserRequestBody,
+  t_CopilotSpacesCreateForOrgParamSchema,
+  t_CopilotSpacesCreateForOrgRequestBody,
+  t_CopilotSpacesCreateForUserParamSchema,
+  t_CopilotSpacesCreateForUserRequestBody,
+  t_CopilotSpacesCreateResourceForOrgParamSchema,
+  t_CopilotSpacesCreateResourceForOrgRequestBody,
+  t_CopilotSpacesCreateResourceForUserParamSchema,
+  t_CopilotSpacesCreateResourceForUserRequestBody,
+  t_CopilotSpacesDeleteForOrgParamSchema,
+  t_CopilotSpacesDeleteForUserParamSchema,
+  t_CopilotSpacesDeleteResourceForOrgParamSchema,
+  t_CopilotSpacesDeleteResourceForUserParamSchema,
+  t_CopilotSpacesGetForOrgParamSchema,
+  t_CopilotSpacesGetForUserParamSchema,
+  t_CopilotSpacesGetResourceForOrgParamSchema,
+  t_CopilotSpacesGetResourceForUserParamSchema,
+  t_CopilotSpacesListCollaboratorsForOrgParamSchema,
+  t_CopilotSpacesListCollaboratorsForUserParamSchema,
+  t_CopilotSpacesListForOrgParamSchema,
+  t_CopilotSpacesListForOrgQuerySchema,
+  t_CopilotSpacesListForUserParamSchema,
+  t_CopilotSpacesListForUserQuerySchema,
+  t_CopilotSpacesListResourcesForOrgParamSchema,
+  t_CopilotSpacesListResourcesForUserParamSchema,
+  t_CopilotSpacesRemoveCollaboratorForOrgParamSchema,
+  t_CopilotSpacesRemoveCollaboratorForUserParamSchema,
+  t_CopilotSpacesUpdateCollaboratorForOrgParamSchema,
+  t_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+  t_CopilotSpacesUpdateCollaboratorForUserParamSchema,
+  t_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+  t_CopilotSpacesUpdateForOrgParamSchema,
+  t_CopilotSpacesUpdateForOrgRequestBody,
+  t_CopilotSpacesUpdateForUserParamSchema,
+  t_CopilotSpacesUpdateForUserRequestBody,
+  t_CopilotSpacesUpdateResourceForOrgParamSchema,
+  t_CopilotSpacesUpdateResourceForOrgRequestBody,
+  t_CopilotSpacesUpdateResourceForUserParamSchema,
+  t_CopilotSpacesUpdateResourceForUserRequestBody,
   t_CredentialsRevokeRequestBody,
   t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
+  t_check_immutable_releases,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
@@ -585,8 +788,11 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_setup,
+  t_code_quality_setup_update,
+  t_code_quality_setup_update_response,
   t_code_scanning_alert,
-  t_code_scanning_alert_instance,
+  t_code_scanning_alert_instance_list,
   t_code_scanning_alert_items,
   t_code_scanning_analysis,
   t_code_scanning_analysis_deletion,
@@ -618,14 +824,15 @@ import type {
   t_codespaces_secret,
   t_codespaces_user_public_key,
   t_collaborator,
-  t_combined_billing_usage,
   t_combined_commit_status,
   t_commit,
   t_commit_activity,
   t_commit_comment,
-  t_commit_comparison,
   t_commit_search_result_item,
   t_community_profile,
+  t_concurrency_group,
+  t_concurrency_group_list,
+  t_concurrency_group_run_list,
   t_content_directory,
   t_content_file,
   t_content_submodule,
@@ -633,8 +840,14 @@ import type {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_copilot_organization_content_exclusion_details,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_space,
+  t_copilot_space_collaborator,
+  t_copilot_space_resource,
+  t_copilot_usage_metrics_1_day_report,
+  t_copilot_usage_metrics_28_day_report,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -665,20 +878,29 @@ import type {
   t_DependabotListSelectedReposForOrgSecretParamSchema,
   t_DependabotListSelectedReposForOrgSecretQuerySchema,
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
+  t_DependabotRepositoryAccessForEnterpriseParamSchema,
+  t_DependabotRepositoryAccessForEnterpriseQuerySchema,
   t_DependabotRepositoryAccessForOrgParamSchema,
   t_DependabotRepositoryAccessForOrgQuerySchema,
+  t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseParamSchema,
+  t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
   t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
   t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
   t_DependabotSetSelectedReposForOrgSecretRequestBody,
   t_DependabotUpdateAlertParamSchema,
   t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForEnterpriseParamSchema,
+  t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
   t_DependabotUpdateRepositoryAccessForOrgParamSchema,
   t_DependabotUpdateRepositoryAccessForOrgRequestBody,
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
   t_DependencyGraphDiffRangeParamSchema,
   t_DependencyGraphDiffRangeQuerySchema,
   t_DependencyGraphExportSbomParamSchema,
+  t_DependencyGraphFetchSbomReportParamSchema,
+  t_DependencyGraphGenerateSbomReportParamSchema,
+  t_delete_budget,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -694,8 +916,35 @@ import type {
   t_deployment_protection_rule,
   t_deployment_status,
   t_diff_entry,
+  t_EnterpriseTeamMembershipsAddParamSchema,
+  t_EnterpriseTeamMembershipsBulkAddParamSchema,
+  t_EnterpriseTeamMembershipsBulkAddRequestBody,
+  t_EnterpriseTeamMembershipsBulkRemoveParamSchema,
+  t_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+  t_EnterpriseTeamMembershipsGetParamSchema,
+  t_EnterpriseTeamMembershipsListParamSchema,
+  t_EnterpriseTeamMembershipsListQuerySchema,
+  t_EnterpriseTeamMembershipsRemoveParamSchema,
+  t_EnterpriseTeamOrganizationsAddParamSchema,
+  t_EnterpriseTeamOrganizationsBulkAddParamSchema,
+  t_EnterpriseTeamOrganizationsBulkAddRequestBody,
+  t_EnterpriseTeamOrganizationsBulkRemoveParamSchema,
+  t_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+  t_EnterpriseTeamOrganizationsDeleteParamSchema,
+  t_EnterpriseTeamOrganizationsGetAssignmentParamSchema,
+  t_EnterpriseTeamOrganizationsGetAssignmentsParamSchema,
+  t_EnterpriseTeamOrganizationsGetAssignmentsQuerySchema,
+  t_EnterpriseTeamsCreateParamSchema,
+  t_EnterpriseTeamsCreateRequestBody,
+  t_EnterpriseTeamsDeleteParamSchema,
+  t_EnterpriseTeamsGetParamSchema,
+  t_EnterpriseTeamsListParamSchema,
+  t_EnterpriseTeamsListQuerySchema,
+  t_EnterpriseTeamsUpdateParamSchema,
+  t_EnterpriseTeamsUpdateRequestBody,
   t_email,
   t_empty_object,
+  t_enterprise_team,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -750,6 +999,8 @@ import type {
   t_GitListMatchingRefsParamSchema,
   t_GitUpdateRefParamSchema,
   t_GitUpdateRefRequestBody,
+  t_get_all_budgets,
+  t_get_budget,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
@@ -781,6 +1032,10 @@ import type {
   t_InteractionsSetRestrictionsForRepoParamSchema,
   t_IssuesAddAssigneesParamSchema,
   t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddBlockedByDependencyParamSchema,
+  t_IssuesAddBlockedByDependencyRequestBody,
+  t_IssuesAddIssueFieldValuesParamSchema,
+  t_IssuesAddIssueFieldValuesRequestBody,
   t_IssuesAddLabelsParamSchema,
   t_IssuesAddLabelsRequestBody,
   t_IssuesAddSubIssueParamSchema,
@@ -796,6 +1051,7 @@ import type {
   t_IssuesCreateParamSchema,
   t_IssuesCreateRequestBody,
   t_IssuesDeleteCommentParamSchema,
+  t_IssuesDeleteIssueFieldValueParamSchema,
   t_IssuesDeleteLabelParamSchema,
   t_IssuesDeleteMilestoneParamSchema,
   t_IssuesGetCommentParamSchema,
@@ -803,12 +1059,17 @@ import type {
   t_IssuesGetLabelParamSchema,
   t_IssuesGetMilestoneParamSchema,
   t_IssuesGetParamSchema,
+  t_IssuesGetParentParamSchema,
   t_IssuesListAssigneesParamSchema,
   t_IssuesListAssigneesQuerySchema,
   t_IssuesListCommentsForRepoParamSchema,
   t_IssuesListCommentsForRepoQuerySchema,
   t_IssuesListCommentsParamSchema,
   t_IssuesListCommentsQuerySchema,
+  t_IssuesListDependenciesBlockedByParamSchema,
+  t_IssuesListDependenciesBlockedByQuerySchema,
+  t_IssuesListDependenciesBlockingParamSchema,
+  t_IssuesListDependenciesBlockingQuerySchema,
   t_IssuesListEventsForRepoParamSchema,
   t_IssuesListEventsForRepoQuerySchema,
   t_IssuesListEventsForTimelineParamSchema,
@@ -820,6 +1081,8 @@ import type {
   t_IssuesListForOrgQuerySchema,
   t_IssuesListForRepoParamSchema,
   t_IssuesListForRepoQuerySchema,
+  t_IssuesListIssueFieldValuesForIssueParamSchema,
+  t_IssuesListIssueFieldValuesForIssueQuerySchema,
   t_IssuesListLabelsForMilestoneParamSchema,
   t_IssuesListLabelsForMilestoneQuerySchema,
   t_IssuesListLabelsForRepoParamSchema,
@@ -833,17 +1096,22 @@ import type {
   t_IssuesListSubIssuesQuerySchema,
   t_IssuesLockParamSchema,
   t_IssuesLockRequestBody,
+  t_IssuesPinCommentParamSchema,
   t_IssuesRemoveAllLabelsParamSchema,
   t_IssuesRemoveAssigneesParamSchema,
   t_IssuesRemoveAssigneesRequestBody,
+  t_IssuesRemoveDependencyBlockedByParamSchema,
   t_IssuesRemoveLabelParamSchema,
   t_IssuesRemoveSubIssueParamSchema,
   t_IssuesRemoveSubIssueRequestBody,
   t_IssuesReprioritizeSubIssueParamSchema,
   t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetIssueFieldValuesParamSchema,
+  t_IssuesSetIssueFieldValuesRequestBody,
   t_IssuesSetLabelsParamSchema,
   t_IssuesSetLabelsRequestBody,
   t_IssuesUnlockParamSchema,
+  t_IssuesUnpinCommentParamSchema,
   t_IssuesUpdateCommentParamSchema,
   t_IssuesUpdateCommentRequestBody,
   t_IssuesUpdateLabelParamSchema,
@@ -852,6 +1120,7 @@ import type {
   t_IssuesUpdateMilestoneRequestBody,
   t_IssuesUpdateParamSchema,
   t_IssuesUpdateRequestBody,
+  t_immutable_releases_organization_settings,
   t_import,
   t_installation,
   t_installation_token,
@@ -863,6 +1132,8 @@ import type {
   t_issue_comment,
   t_issue_event,
   t_issue_event_for_issue,
+  t_issue_field,
+  t_issue_field_value,
   t_issue_search_result_item,
   t_issue_type,
   t_job,
@@ -921,8 +1192,15 @@ import type {
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OidcCreateOidcCustomPropertyInclusionForEnterpriseParamSchema,
+  t_OidcCreateOidcCustomPropertyInclusionForOrgParamSchema,
+  t_OidcDeleteOidcCustomPropertyInclusionForEnterpriseParamSchema,
+  t_OidcDeleteOidcCustomPropertyInclusionForOrgParamSchema,
   t_OidcGetOidcCustomSubTemplateForOrgParamSchema,
+  t_OidcListOidcCustomPropertyInclusionsForEnterpriseParamSchema,
+  t_OidcListOidcCustomPropertyInclusionsForOrgParamSchema,
   t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
+  t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
   t_OrgsAddSecurityManagerTeamParamSchema,
   t_OrgsAssignTeamToOrgRoleParamSchema,
   t_OrgsAssignUserToOrgRoleParamSchema,
@@ -933,27 +1211,41 @@ import type {
   t_OrgsCheckPublicMembershipForUserParamSchema,
   t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
   t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateArtifactDeploymentRecordParamSchema,
+  t_OrgsCreateArtifactDeploymentRecordRequestBody,
+  t_OrgsCreateArtifactStorageRecordParamSchema,
+  t_OrgsCreateArtifactStorageRecordRequestBody,
   t_OrgsCreateInvitationParamSchema,
   t_OrgsCreateInvitationRequestBody,
+  t_OrgsCreateIssueFieldParamSchema,
   t_OrgsCreateIssueTypeParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertyParamSchema,
   t_OrgsCreateWebhookParamSchema,
   t_OrgsCreateWebhookRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionParamSchema,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsParamSchema,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesParamSchema,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
+  t_OrgsCustomPropertiesForReposDeleteOrganizationDefinitionParamSchema,
+  t_OrgsCustomPropertiesForReposGetOrganizationDefinitionParamSchema,
+  t_OrgsCustomPropertiesForReposGetOrganizationDefinitionsParamSchema,
+  t_OrgsCustomPropertiesForReposGetOrganizationValuesParamSchema,
+  t_OrgsCustomPropertiesForReposGetOrganizationValuesQuerySchema,
   t_OrgsDeleteAttestationsBulkParamSchema,
   t_OrgsDeleteAttestationsBulkRequestBody,
   t_OrgsDeleteAttestationsByIdParamSchema,
   t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
+  t_OrgsDeleteIssueFieldParamSchema,
   t_OrgsDeleteIssueTypeParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
+  t_OrgsDisableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
-  t_OrgsGetAllCustomPropertiesParamSchema,
-  t_OrgsGetCustomPropertyParamSchema,
+  t_OrgsEnableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
+  t_OrgsGetImmutableReleasesSettingsParamSchema,
+  t_OrgsGetImmutableReleasesSettingsRepositoriesParamSchema,
+  t_OrgsGetImmutableReleasesSettingsRepositoriesQuerySchema,
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
   t_OrgsGetMembershipForUserParamSchema,
   t_OrgsGetOrgRoleParamSchema,
@@ -966,6 +1258,10 @@ import type {
   t_OrgsGetWebhookParamSchema,
   t_OrgsListAppInstallationsParamSchema,
   t_OrgsListAppInstallationsQuerySchema,
+  t_OrgsListArtifactDeploymentRecordsParamSchema,
+  t_OrgsListArtifactStorageRecordsParamSchema,
+  t_OrgsListAttestationRepositoriesParamSchema,
+  t_OrgsListAttestationRepositoriesQuerySchema,
   t_OrgsListAttestationsBulkParamSchema,
   t_OrgsListAttestationsBulkQuerySchema,
   t_OrgsListAttestationsBulkRequestBody,
@@ -973,8 +1269,6 @@ import type {
   t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
   t_OrgsListBlockedUsersQuerySchema,
-  t_OrgsListCustomPropertiesValuesForReposParamSchema,
-  t_OrgsListCustomPropertiesValuesForReposQuerySchema,
   t_OrgsListFailedInvitationsParamSchema,
   t_OrgsListFailedInvitationsQuerySchema,
   t_OrgsListForAuthenticatedUserQuerySchema,
@@ -982,6 +1276,7 @@ import type {
   t_OrgsListForUserQuerySchema,
   t_OrgsListInvitationTeamsParamSchema,
   t_OrgsListInvitationTeamsQuerySchema,
+  t_OrgsListIssueFieldsParamSchema,
   t_OrgsListIssueTypesParamSchema,
   t_OrgsListMembershipsForAuthenticatedUserQuerySchema,
   t_OrgsListMembersParamSchema,
@@ -1013,7 +1308,6 @@ import type {
   t_OrgsListWebhooksQuerySchema,
   t_OrgsPingWebhookParamSchema,
   t_OrgsRedeliverWebhookDeliveryParamSchema,
-  t_OrgsRemoveCustomPropertyParamSchema,
   t_OrgsRemoveMemberParamSchema,
   t_OrgsRemoveMembershipForUserParamSchema,
   t_OrgsRemoveOutsideCollaboratorParamSchema,
@@ -1027,10 +1321,17 @@ import type {
   t_OrgsRevokeAllOrgRolesUserParamSchema,
   t_OrgsRevokeOrgRoleTeamParamSchema,
   t_OrgsRevokeOrgRoleUserParamSchema,
+  t_OrgsSetClusterDeploymentRecordsParamSchema,
+  t_OrgsSetClusterDeploymentRecordsRequestBody,
+  t_OrgsSetImmutableReleasesSettingsParamSchema,
+  t_OrgsSetImmutableReleasesSettingsRepositoriesParamSchema,
+  t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+  t_OrgsSetImmutableReleasesSettingsRequestBody,
   t_OrgsSetMembershipForUserParamSchema,
   t_OrgsSetMembershipForUserRequestBody,
   t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsUnblockUserParamSchema,
+  t_OrgsUpdateIssueFieldParamSchema,
   t_OrgsUpdateIssueTypeParamSchema,
   t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
   t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
@@ -1044,6 +1345,8 @@ import type {
   t_OrgsUpdateWebhookConfigForOrgRequestBody,
   t_OrgsUpdateWebhookParamSchema,
   t_OrgsUpdateWebhookRequestBody,
+  t_oidc_custom_property_inclusion,
+  t_oidc_custom_property_inclusion_input,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -1053,6 +1356,7 @@ import type {
   t_org_repo_custom_property_values,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_field,
   t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
@@ -1062,6 +1366,7 @@ import type {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_field,
   t_organization_update_issue_type,
   t_PackagesDeletePackageForAuthenticatedUserParamSchema,
   t_PackagesDeletePackageForOrgParamSchema,
@@ -1105,47 +1410,52 @@ import type {
   t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
-  t_ProjectsClassicAddCollaboratorParamSchema,
-  t_ProjectsClassicAddCollaboratorRequestBody,
-  t_ProjectsClassicCreateCardParamSchema,
-  t_ProjectsClassicCreateCardRequestBody,
-  t_ProjectsClassicCreateColumnParamSchema,
-  t_ProjectsClassicCreateColumnRequestBody,
-  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-  t_ProjectsClassicCreateForOrgParamSchema,
-  t_ProjectsClassicCreateForOrgRequestBody,
-  t_ProjectsClassicCreateForRepoParamSchema,
-  t_ProjectsClassicCreateForRepoRequestBody,
-  t_ProjectsClassicDeleteCardParamSchema,
-  t_ProjectsClassicDeleteColumnParamSchema,
-  t_ProjectsClassicDeleteParamSchema,
-  t_ProjectsClassicGetCardParamSchema,
-  t_ProjectsClassicGetColumnParamSchema,
-  t_ProjectsClassicGetParamSchema,
-  t_ProjectsClassicGetPermissionForUserParamSchema,
-  t_ProjectsClassicListCardsParamSchema,
-  t_ProjectsClassicListCardsQuerySchema,
-  t_ProjectsClassicListCollaboratorsParamSchema,
-  t_ProjectsClassicListCollaboratorsQuerySchema,
-  t_ProjectsClassicListColumnsParamSchema,
-  t_ProjectsClassicListColumnsQuerySchema,
-  t_ProjectsClassicListForOrgParamSchema,
-  t_ProjectsClassicListForOrgQuerySchema,
-  t_ProjectsClassicListForRepoParamSchema,
-  t_ProjectsClassicListForRepoQuerySchema,
-  t_ProjectsClassicListForUserParamSchema,
-  t_ProjectsClassicListForUserQuerySchema,
-  t_ProjectsClassicMoveCardParamSchema,
-  t_ProjectsClassicMoveCardRequestBody,
-  t_ProjectsClassicMoveColumnParamSchema,
-  t_ProjectsClassicMoveColumnRequestBody,
-  t_ProjectsClassicRemoveCollaboratorParamSchema,
-  t_ProjectsClassicUpdateCardParamSchema,
-  t_ProjectsClassicUpdateCardRequestBody,
-  t_ProjectsClassicUpdateColumnParamSchema,
-  t_ProjectsClassicUpdateColumnRequestBody,
-  t_ProjectsClassicUpdateParamSchema,
-  t_ProjectsClassicUpdateRequestBody,
+  t_ProjectsAddFieldForOrgParamSchema,
+  t_ProjectsAddFieldForOrgRequestBody,
+  t_ProjectsAddFieldForUserParamSchema,
+  t_ProjectsAddFieldForUserRequestBody,
+  t_ProjectsAddItemForOrgParamSchema,
+  t_ProjectsAddItemForOrgRequestBody,
+  t_ProjectsAddItemForUserParamSchema,
+  t_ProjectsAddItemForUserRequestBody,
+  t_ProjectsCreateDraftItemForAuthenticatedUserParamSchema,
+  t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+  t_ProjectsCreateDraftItemForOrgParamSchema,
+  t_ProjectsCreateDraftItemForOrgRequestBody,
+  t_ProjectsCreateViewForOrgParamSchema,
+  t_ProjectsCreateViewForOrgRequestBody,
+  t_ProjectsCreateViewForUserParamSchema,
+  t_ProjectsCreateViewForUserRequestBody,
+  t_ProjectsDeleteItemForOrgParamSchema,
+  t_ProjectsDeleteItemForUserParamSchema,
+  t_ProjectsGetFieldForOrgParamSchema,
+  t_ProjectsGetFieldForUserParamSchema,
+  t_ProjectsGetForOrgParamSchema,
+  t_ProjectsGetForUserParamSchema,
+  t_ProjectsGetOrgItemParamSchema,
+  t_ProjectsGetOrgItemQuerySchema,
+  t_ProjectsGetUserItemParamSchema,
+  t_ProjectsGetUserItemQuerySchema,
+  t_ProjectsListFieldsForOrgParamSchema,
+  t_ProjectsListFieldsForOrgQuerySchema,
+  t_ProjectsListFieldsForUserParamSchema,
+  t_ProjectsListFieldsForUserQuerySchema,
+  t_ProjectsListForOrgParamSchema,
+  t_ProjectsListForOrgQuerySchema,
+  t_ProjectsListForUserParamSchema,
+  t_ProjectsListForUserQuerySchema,
+  t_ProjectsListItemsForOrgParamSchema,
+  t_ProjectsListItemsForOrgQuerySchema,
+  t_ProjectsListItemsForUserParamSchema,
+  t_ProjectsListItemsForUserQuerySchema,
+  t_ProjectsListViewItemsForOrgParamSchema,
+  t_ProjectsListViewItemsForOrgQuerySchema,
+  t_ProjectsListViewItemsForUserParamSchema,
+  t_ProjectsListViewItemsForUserQuerySchema,
+  t_ProjectsUpdateItemForOrgParamSchema,
+  t_ProjectsUpdateItemForOrgRequestBody,
+  t_ProjectsUpdateItemForUserParamSchema,
+  t_ProjectsUpdateItemForUserRequestBody,
   t_PullsCheckIfMergedParamSchema,
   t_PullsCreateParamSchema,
   t_PullsCreateReplyForReviewCommentParamSchema,
@@ -1195,7 +1505,6 @@ import type {
   t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
-  t_packages_billing_usage,
   t_page,
   t_page_build,
   t_page_build_status,
@@ -1208,10 +1517,11 @@ import type {
   t_porter_large_file,
   t_private_user,
   t_private_vulnerability_report_create,
-  t_project,
-  t_project_card,
-  t_project_collaborator_permission,
-  t_project_column,
+  t_projects_v2,
+  t_projects_v2_field,
+  t_projects_v2_item_simple,
+  t_projects_v2_item_with_content,
+  t_projects_v2_view,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -1232,21 +1542,11 @@ import type {
   t_ReactionsCreateForPullRequestReviewCommentRequestBody,
   t_ReactionsCreateForReleaseParamSchema,
   t_ReactionsCreateForReleaseRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-  t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
-  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
-  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
   t_ReactionsDeleteForCommitCommentParamSchema,
   t_ReactionsDeleteForIssueCommentParamSchema,
   t_ReactionsDeleteForIssueParamSchema,
   t_ReactionsDeleteForPullRequestCommentParamSchema,
   t_ReactionsDeleteForReleaseParamSchema,
-  t_ReactionsDeleteForTeamDiscussionCommentParamSchema,
-  t_ReactionsDeleteForTeamDiscussionParamSchema,
   t_ReactionsListForCommitCommentParamSchema,
   t_ReactionsListForCommitCommentQuerySchema,
   t_ReactionsListForIssueCommentParamSchema,
@@ -1257,14 +1557,6 @@ import type {
   t_ReactionsListForPullRequestReviewCommentQuerySchema,
   t_ReactionsListForReleaseParamSchema,
   t_ReactionsListForReleaseQuerySchema,
-  t_ReactionsListForTeamDiscussionCommentInOrgParamSchema,
-  t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
-  t_ReactionsListForTeamDiscussionCommentLegacyParamSchema,
-  t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
-  t_ReactionsListForTeamDiscussionInOrgParamSchema,
-  t_ReactionsListForTeamDiscussionInOrgQuerySchema,
-  t_ReactionsListForTeamDiscussionLegacyParamSchema,
-  t_ReactionsListForTeamDiscussionLegacyQuerySchema,
   t_ReposAcceptInvitationForAuthenticatedUserParamSchema,
   t_ReposAddAppAccessRestrictionsParamSchema,
   t_ReposAddAppAccessRestrictionsRequestBody,
@@ -1279,6 +1571,7 @@ import type {
   t_ReposCancelPagesDeploymentParamSchema,
   t_ReposCheckAutomatedSecurityFixesParamSchema,
   t_ReposCheckCollaboratorParamSchema,
+  t_ReposCheckImmutableReleasesParamSchema,
   t_ReposCheckPrivateVulnerabilityReportingParamSchema,
   t_ReposCheckVulnerabilityAlertsParamSchema,
   t_ReposCodeownersErrorsParamSchema,
@@ -1312,8 +1605,6 @@ import type {
   t_ReposCreateInOrgRequestBody,
   t_ReposCreateOrgRulesetParamSchema,
   t_ReposCreateOrgRulesetRequestBody,
-  t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
-  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
   t_ReposCreateOrUpdateEnvironmentParamSchema,
   t_ReposCreateOrUpdateEnvironmentRequestBody,
   t_ReposCreateOrUpdateFileContentsParamSchema,
@@ -1326,12 +1617,13 @@ import type {
   t_ReposCreateReleaseRequestBody,
   t_ReposCreateRepoRulesetParamSchema,
   t_ReposCreateRepoRulesetRequestBody,
-  t_ReposCreateTagProtectionParamSchema,
-  t_ReposCreateTagProtectionRequestBody,
   t_ReposCreateUsingTemplateParamSchema,
   t_ReposCreateUsingTemplateRequestBody,
   t_ReposCreateWebhookParamSchema,
   t_ReposCreateWebhookRequestBody,
+  t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesParamSchema,
+  t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
+  t_ReposCustomPropertiesForReposGetRepositoryValuesParamSchema,
   t_ReposDeclineInvitationForAuthenticatedUserParamSchema,
   t_ReposDeleteAccessRestrictionsParamSchema,
   t_ReposDeleteAdminBranchProtectionParamSchema,
@@ -1353,15 +1645,16 @@ import type {
   t_ReposDeleteReleaseAssetParamSchema,
   t_ReposDeleteReleaseParamSchema,
   t_ReposDeleteRepoRulesetParamSchema,
-  t_ReposDeleteTagProtectionParamSchema,
   t_ReposDeleteWebhookParamSchema,
   t_ReposDisableAutomatedSecurityFixesParamSchema,
   t_ReposDisableDeploymentProtectionRuleParamSchema,
+  t_ReposDisableImmutableReleasesParamSchema,
   t_ReposDisablePrivateVulnerabilityReportingParamSchema,
   t_ReposDisableVulnerabilityAlertsParamSchema,
   t_ReposDownloadTarballArchiveParamSchema,
   t_ReposDownloadZipballArchiveParamSchema,
   t_ReposEnableAutomatedSecurityFixesParamSchema,
+  t_ReposEnableImmutableReleasesParamSchema,
   t_ReposEnablePrivateVulnerabilityReportingParamSchema,
   t_ReposEnableVulnerabilityAlertsParamSchema,
   t_ReposGenerateReleaseNotesParamSchema,
@@ -1396,7 +1689,6 @@ import type {
   t_ReposGetContentQuerySchema,
   t_ReposGetContributorsStatsParamSchema,
   t_ReposGetCustomDeploymentProtectionRuleParamSchema,
-  t_ReposGetCustomPropertiesValuesParamSchema,
   t_ReposGetDeployKeyParamSchema,
   t_ReposGetDeploymentBranchPolicyParamSchema,
   t_ReposGetDeploymentParamSchema,
@@ -1495,7 +1787,6 @@ import type {
   t_ReposListReleaseAssetsQuerySchema,
   t_ReposListReleasesParamSchema,
   t_ReposListReleasesQuerySchema,
-  t_ReposListTagProtectionParamSchema,
   t_ReposListTagsParamSchema,
   t_ReposListTagsQuerySchema,
   t_ReposListTeamsParamSchema,
@@ -1608,16 +1899,17 @@ import type {
   t_SecretScanningGetAlertParamSchema,
   t_SecretScanningGetAlertQuerySchema,
   t_SecretScanningGetScanHistoryParamSchema,
-  t_SecretScanningListAlertsForEnterpriseParamSchema,
-  t_SecretScanningListAlertsForEnterpriseQuerySchema,
   t_SecretScanningListAlertsForOrgParamSchema,
   t_SecretScanningListAlertsForOrgQuerySchema,
   t_SecretScanningListAlertsForRepoParamSchema,
   t_SecretScanningListAlertsForRepoQuerySchema,
   t_SecretScanningListLocationsForAlertParamSchema,
   t_SecretScanningListLocationsForAlertQuerySchema,
+  t_SecretScanningListOrgPatternConfigsParamSchema,
   t_SecretScanningUpdateAlertParamSchema,
   t_SecretScanningUpdateAlertRequestBody,
+  t_SecretScanningUpdateOrgPatternConfigsParamSchema,
+  t_SecretScanningUpdateOrgPatternConfigsRequestBody,
   t_SecurityAdvisoriesCreateForkParamSchema,
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
@@ -1633,9 +1925,11 @@ import type {
   t_scim_error,
   t_secret_scanning_alert,
   t_secret_scanning_location,
+  t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
   t_selected_actions,
+  t_self_hosted_runners_settings,
   t_short_blob,
   t_short_branch,
   t_simple_classroom,
@@ -1653,39 +1947,17 @@ import type {
   t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
   t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
   t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
   t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
   t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
-  t_TeamsCheckPermissionsForProjectInOrgParamSchema,
-  t_TeamsCheckPermissionsForProjectLegacyParamSchema,
   t_TeamsCheckPermissionsForRepoInOrgParamSchema,
   t_TeamsCheckPermissionsForRepoLegacyParamSchema,
-  t_TeamsCreateDiscussionCommentInOrgParamSchema,
-  t_TeamsCreateDiscussionCommentInOrgRequestBody,
-  t_TeamsCreateDiscussionCommentLegacyParamSchema,
-  t_TeamsCreateDiscussionCommentLegacyRequestBody,
-  t_TeamsCreateDiscussionInOrgParamSchema,
-  t_TeamsCreateDiscussionInOrgRequestBody,
-  t_TeamsCreateDiscussionLegacyParamSchema,
-  t_TeamsCreateDiscussionLegacyRequestBody,
   t_TeamsCreateParamSchema,
   t_TeamsCreateRequestBody,
-  t_TeamsDeleteDiscussionCommentInOrgParamSchema,
-  t_TeamsDeleteDiscussionCommentLegacyParamSchema,
-  t_TeamsDeleteDiscussionInOrgParamSchema,
-  t_TeamsDeleteDiscussionLegacyParamSchema,
   t_TeamsDeleteInOrgParamSchema,
   t_TeamsDeleteLegacyParamSchema,
   t_TeamsGetByNameParamSchema,
-  t_TeamsGetDiscussionCommentInOrgParamSchema,
-  t_TeamsGetDiscussionCommentLegacyParamSchema,
-  t_TeamsGetDiscussionInOrgParamSchema,
-  t_TeamsGetDiscussionLegacyParamSchema,
   t_TeamsGetLegacyParamSchema,
   t_TeamsGetMemberLegacyParamSchema,
   t_TeamsGetMembershipForUserInOrgParamSchema,
@@ -1694,14 +1966,6 @@ import type {
   t_TeamsListChildInOrgQuerySchema,
   t_TeamsListChildLegacyParamSchema,
   t_TeamsListChildLegacyQuerySchema,
-  t_TeamsListDiscussionCommentsInOrgParamSchema,
-  t_TeamsListDiscussionCommentsInOrgQuerySchema,
-  t_TeamsListDiscussionCommentsLegacyParamSchema,
-  t_TeamsListDiscussionCommentsLegacyQuerySchema,
-  t_TeamsListDiscussionsInOrgParamSchema,
-  t_TeamsListDiscussionsInOrgQuerySchema,
-  t_TeamsListDiscussionsLegacyParamSchema,
-  t_TeamsListDiscussionsLegacyQuerySchema,
   t_TeamsListForAuthenticatedUserQuerySchema,
   t_TeamsListMembersInOrgParamSchema,
   t_TeamsListMembersInOrgQuerySchema,
@@ -1712,10 +1976,6 @@ import type {
   t_TeamsListPendingInvitationsInOrgQuerySchema,
   t_TeamsListPendingInvitationsLegacyParamSchema,
   t_TeamsListPendingInvitationsLegacyQuerySchema,
-  t_TeamsListProjectsInOrgParamSchema,
-  t_TeamsListProjectsInOrgQuerySchema,
-  t_TeamsListProjectsLegacyParamSchema,
-  t_TeamsListProjectsLegacyQuerySchema,
   t_TeamsListQuerySchema,
   t_TeamsListReposInOrgParamSchema,
   t_TeamsListReposInOrgQuerySchema,
@@ -1724,30 +1984,16 @@ import type {
   t_TeamsRemoveMemberLegacyParamSchema,
   t_TeamsRemoveMembershipForUserInOrgParamSchema,
   t_TeamsRemoveMembershipForUserLegacyParamSchema,
-  t_TeamsRemoveProjectInOrgParamSchema,
-  t_TeamsRemoveProjectLegacyParamSchema,
   t_TeamsRemoveRepoInOrgParamSchema,
   t_TeamsRemoveRepoLegacyParamSchema,
-  t_TeamsUpdateDiscussionCommentInOrgParamSchema,
-  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
-  t_TeamsUpdateDiscussionCommentLegacyParamSchema,
-  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
-  t_TeamsUpdateDiscussionInOrgParamSchema,
-  t_TeamsUpdateDiscussionInOrgRequestBody,
-  t_TeamsUpdateDiscussionLegacyParamSchema,
-  t_TeamsUpdateDiscussionLegacyRequestBody,
   t_TeamsUpdateInOrgParamSchema,
   t_TeamsUpdateInOrgRequestBody,
   t_TeamsUpdateLegacyParamSchema,
   t_TeamsUpdateLegacyRequestBody,
   t_tag,
-  t_tag_protection,
   t_team,
-  t_team_discussion,
-  t_team_discussion_comment,
   t_team_full,
   t_team_membership,
-  t_team_project,
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
@@ -1821,6 +2067,7 @@ import type {
   t_view_traffic,
   t_webhook_config,
   t_workflow,
+  t_workflow_dispatch_response,
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
@@ -1853,7 +2100,9 @@ import {
   s_ActionsSetSelectedReposForOrgSecretRequestBody,
   s_ActionsSetSelectedReposForOrgVariableRequestBody,
   s_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  s_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
   s_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  s_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
   s_ActionsUpdateEnvironmentVariableRequestBody,
   s_ActionsUpdateHostedRunnerForOrgRequestBody,
   s_ActionsUpdateOrgVariableRequestBody,
@@ -1863,6 +2112,15 @@ import {
   s_ActivityMarkRepoNotificationsAsReadRequestBody,
   s_ActivitySetRepoSubscriptionRequestBody,
   s_ActivitySetThreadSubscriptionRequestBody,
+  s_AgentsCreateOrgVariableRequestBody,
+  s_AgentsCreateOrUpdateOrgSecretRequestBody,
+  s_AgentsCreateOrUpdateRepoSecretRequestBody,
+  s_AgentsCreateRepoVariableRequestBody,
+  s_AgentsSetSelectedReposForOrgSecretRequestBody,
+  s_AgentsSetSelectedReposForOrgVariableRequestBody,
+  s_AgentsUpdateOrgVariableRequestBody,
+  s_AgentsUpdateRepoVariableRequestBody,
+  s_AgentTasksCreateTaskInRepoRequestBody,
   s_AppsCheckTokenRequestBody,
   s_AppsCreateInstallationAccessTokenRequestBody,
   s_AppsDeleteAuthorizationRequestBody,
@@ -1870,13 +2128,25 @@ import {
   s_AppsResetTokenRequestBody,
   s_AppsScopeTokenRequestBody,
   s_AppsUpdateWebhookConfigForAppRequestBody,
-  s_actions_billing_usage,
+  s_actions_artifact_and_log_retention,
+  s_actions_artifact_and_log_retention_response,
   s_actions_cache_list,
+  s_actions_cache_retention_limit_for_enterprise,
+  s_actions_cache_retention_limit_for_organization,
+  s_actions_cache_retention_limit_for_repository,
+  s_actions_cache_storage_limit_for_enterprise,
+  s_actions_cache_storage_limit_for_organization,
+  s_actions_cache_storage_limit_for_repository,
   s_actions_cache_usage_by_repository,
   s_actions_cache_usage_org_enterprise,
+  s_actions_fork_pr_contributor_approval,
+  s_actions_fork_pr_workflows_private_repos,
+  s_actions_fork_pr_workflows_private_repos_request,
   s_actions_get_default_workflow_permissions,
   s_actions_hosted_runner,
-  s_actions_hosted_runner_image,
+  s_actions_hosted_runner_curated_image,
+  s_actions_hosted_runner_custom_image,
+  s_actions_hosted_runner_custom_image_version,
   s_actions_hosted_runner_limits,
   s_actions_hosted_runner_machine_spec,
   s_actions_organization_permissions,
@@ -1895,13 +2165,19 @@ import {
   s_api_insights_user_stats,
   s_api_overview,
   s_artifact,
+  s_artifact_deployment_record,
   s_authentication_token,
   s_authorization,
   s_autolink,
+  s_BillingUpdateBudgetOrgRequestBody,
   s_base_gist,
   s_basic_error,
+  s_billing_premium_request_usage_report_org,
+  s_billing_premium_request_usage_report_user,
   s_billing_usage_report,
   s_billing_usage_report_user,
+  s_billing_usage_summary_report_org,
+  s_billing_usage_summary_report_user,
   s_blob,
   s_branch_protection,
   s_branch_restriction_policy,
@@ -1940,13 +2216,32 @@ import {
   s_CodespacesUpdateForAuthenticatedUserRequestBody,
   s_CopilotAddCopilotSeatsForTeamsRequestBody,
   s_CopilotAddCopilotSeatsForUsersRequestBody,
+  s_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
   s_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
   s_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  s_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+  s_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+  s_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+  s_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+  s_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+  s_CopilotSpacesAddCollaboratorForOrgRequestBody,
+  s_CopilotSpacesAddCollaboratorForUserRequestBody,
+  s_CopilotSpacesCreateForOrgRequestBody,
+  s_CopilotSpacesCreateForUserRequestBody,
+  s_CopilotSpacesCreateResourceForOrgRequestBody,
+  s_CopilotSpacesCreateResourceForUserRequestBody,
+  s_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+  s_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+  s_CopilotSpacesUpdateForOrgRequestBody,
+  s_CopilotSpacesUpdateForUserRequestBody,
+  s_CopilotSpacesUpdateResourceForOrgRequestBody,
+  s_CopilotSpacesUpdateResourceForUserRequestBody,
   s_CredentialsRevokeRequestBody,
   s_campaign_state,
   s_campaign_summary,
   s_check_annotation,
   s_check_automated_security_fixes,
+  s_check_immutable_releases,
   s_check_run,
   s_check_suite,
   s_check_suite_preference,
@@ -1957,8 +2252,11 @@ import {
   s_clone_traffic,
   s_code_frequency_stat,
   s_code_of_conduct,
+  s_code_quality_setup,
+  s_code_quality_setup_update,
+  s_code_quality_setup_update_response,
   s_code_scanning_alert,
-  s_code_scanning_alert_instance,
+  s_code_scanning_alert_instance_list,
   s_code_scanning_alert_items,
   s_code_scanning_alert_severity,
   s_code_scanning_alert_state_query,
@@ -1996,14 +2294,15 @@ import {
   s_codespaces_secret,
   s_codespaces_user_public_key,
   s_collaborator,
-  s_combined_billing_usage,
   s_combined_commit_status,
   s_commit,
   s_commit_activity,
   s_commit_comment,
-  s_commit_comparison,
   s_commit_search_result_item,
   s_community_profile,
+  s_concurrency_group,
+  s_concurrency_group_list,
+  s_concurrency_group_run_list,
   s_content_directory,
   s_content_file,
   s_content_submodule,
@@ -2011,8 +2310,14 @@ import {
   s_content_traffic,
   s_contributor,
   s_contributor_activity,
+  s_copilot_organization_content_exclusion_details,
   s_copilot_organization_details,
   s_copilot_seat_details,
+  s_copilot_space,
+  s_copilot_space_collaborator,
+  s_copilot_space_resource,
+  s_copilot_usage_metrics_1_day_report,
+  s_copilot_usage_metrics_28_day_report,
   s_copilot_usage_metrics_day,
   s_custom_deployment_rule_app,
   s_custom_property,
@@ -2020,10 +2325,13 @@ import {
   s_custom_property_value,
   s_DependabotCreateOrUpdateOrgSecretRequestBody,
   s_DependabotCreateOrUpdateRepoSecretRequestBody,
+  s_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
   s_DependabotSetRepositoryAccessDefaultLevelRequestBody,
   s_DependabotSetSelectedReposForOrgSecretRequestBody,
   s_DependabotUpdateAlertRequestBody,
+  s_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
   s_DependabotUpdateRepositoryAccessForOrgRequestBody,
+  s_delete_budget,
   s_dependabot_alert,
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
@@ -2039,8 +2347,15 @@ import {
   s_deployment_protection_rule,
   s_deployment_status,
   s_diff_entry,
+  s_EnterpriseTeamMembershipsBulkAddRequestBody,
+  s_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+  s_EnterpriseTeamOrganizationsBulkAddRequestBody,
+  s_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+  s_EnterpriseTeamsCreateRequestBody,
+  s_EnterpriseTeamsUpdateRequestBody,
   s_email,
   s_empty_object,
+  s_enterprise_team,
   s_environment,
   s_environment_approvals,
   s_event,
@@ -2057,6 +2372,8 @@ import {
   s_GitCreateTagRequestBody,
   s_GitCreateTreeRequestBody,
   s_GitUpdateRefRequestBody,
+  s_get_all_budgets,
+  s_get_budget,
   s_gist_comment,
   s_gist_commit,
   s_gist_simple,
@@ -2074,6 +2391,8 @@ import {
   s_hook_delivery_item,
   s_hovercard,
   s_IssuesAddAssigneesRequestBody,
+  s_IssuesAddBlockedByDependencyRequestBody,
+  s_IssuesAddIssueFieldValuesRequestBody,
   s_IssuesAddLabelsRequestBody,
   s_IssuesAddSubIssueRequestBody,
   s_IssuesCreateCommentRequestBody,
@@ -2084,11 +2403,13 @@ import {
   s_IssuesRemoveAssigneesRequestBody,
   s_IssuesRemoveSubIssueRequestBody,
   s_IssuesReprioritizeSubIssueRequestBody,
+  s_IssuesSetIssueFieldValuesRequestBody,
   s_IssuesSetLabelsRequestBody,
   s_IssuesUpdateCommentRequestBody,
   s_IssuesUpdateLabelRequestBody,
   s_IssuesUpdateMilestoneRequestBody,
   s_IssuesUpdateRequestBody,
+  s_immutable_releases_organization_settings,
   s_import,
   s_installation,
   s_installation_token,
@@ -2100,6 +2421,8 @@ import {
   s_issue_comment,
   s_issue_event,
   s_issue_event_for_issue,
+  s_issue_field,
+  s_issue_field_value,
   s_issue_search_result_item,
   s_issue_type,
   s_job,
@@ -2126,16 +2449,22 @@ import {
   s_minimal_repository,
   s_network_configuration,
   s_network_settings,
+  s_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
   s_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  s_OrgsCreateArtifactDeploymentRecordRequestBody,
+  s_OrgsCreateArtifactStorageRecordRequestBody,
   s_OrgsCreateInvitationRequestBody,
-  s_OrgsCreateOrUpdateCustomPropertiesRequestBody,
-  s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
   s_OrgsCreateWebhookRequestBody,
+  s_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
+  s_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
   s_OrgsDeleteAttestationsBulkRequestBody,
   s_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
   s_OrgsListAttestationsBulkRequestBody,
   s_OrgsReviewPatGrantRequestRequestBody,
   s_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  s_OrgsSetClusterDeploymentRecordsRequestBody,
+  s_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+  s_OrgsSetImmutableReleasesSettingsRequestBody,
   s_OrgsSetMembershipForUserRequestBody,
   s_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
   s_OrgsUpdatePatAccessesRequestBody,
@@ -2143,6 +2472,8 @@ import {
   s_OrgsUpdateRequestBody,
   s_OrgsUpdateWebhookConfigForOrgRequestBody,
   s_OrgsUpdateWebhookRequestBody,
+  s_oidc_custom_property_inclusion,
+  s_oidc_custom_property_inclusion_input,
   s_oidc_custom_sub,
   s_oidc_custom_sub_repo,
   s_org_hook,
@@ -2152,6 +2483,7 @@ import {
   s_org_repo_custom_property_values,
   s_organization_actions_secret,
   s_organization_actions_variable,
+  s_organization_create_issue_field,
   s_organization_create_issue_type,
   s_organization_dependabot_secret,
   s_organization_full,
@@ -2161,20 +2493,20 @@ import {
   s_organization_role,
   s_organization_secret_scanning_alert,
   s_organization_simple,
+  s_organization_update_issue_field,
   s_organization_update_issue_type,
   s_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
   s_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
-  s_ProjectsClassicAddCollaboratorRequestBody,
-  s_ProjectsClassicCreateCardRequestBody,
-  s_ProjectsClassicCreateColumnRequestBody,
-  s_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-  s_ProjectsClassicCreateForOrgRequestBody,
-  s_ProjectsClassicCreateForRepoRequestBody,
-  s_ProjectsClassicMoveCardRequestBody,
-  s_ProjectsClassicMoveColumnRequestBody,
-  s_ProjectsClassicUpdateCardRequestBody,
-  s_ProjectsClassicUpdateColumnRequestBody,
-  s_ProjectsClassicUpdateRequestBody,
+  s_ProjectsAddFieldForOrgRequestBody,
+  s_ProjectsAddFieldForUserRequestBody,
+  s_ProjectsAddItemForOrgRequestBody,
+  s_ProjectsAddItemForUserRequestBody,
+  s_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+  s_ProjectsCreateDraftItemForOrgRequestBody,
+  s_ProjectsCreateViewForOrgRequestBody,
+  s_ProjectsCreateViewForUserRequestBody,
+  s_ProjectsUpdateItemForOrgRequestBody,
+  s_ProjectsUpdateItemForUserRequestBody,
   s_PullsCreateReplyForReviewCommentRequestBody,
   s_PullsCreateRequestBody,
   s_PullsCreateReviewCommentRequestBody,
@@ -2190,7 +2522,6 @@ import {
   s_PullsUpdateReviewRequestBody,
   s_package,
   s_package_version,
-  s_packages_billing_usage,
   s_page,
   s_page_build,
   s_page_build_status,
@@ -2203,10 +2534,11 @@ import {
   s_porter_large_file,
   s_private_user,
   s_private_vulnerability_report_create,
-  s_project,
-  s_project_card,
-  s_project_collaborator_permission,
-  s_project_column,
+  s_projects_v2,
+  s_projects_v2_field,
+  s_projects_v2_item_simple,
+  s_projects_v2_item_with_content,
+  s_projects_v2_view,
   s_protected_branch,
   s_protected_branch_admin_enforced,
   s_protected_branch_pull_request_review,
@@ -2222,10 +2554,6 @@ import {
   s_ReactionsCreateForIssueRequestBody,
   s_ReactionsCreateForPullRequestReviewCommentRequestBody,
   s_ReactionsCreateForReleaseRequestBody,
-  s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-  s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-  s_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-  s_ReactionsCreateForTeamDiscussionLegacyRequestBody,
   s_ReposAddAppAccessRestrictionsRequestBody,
   s_ReposAddCollaboratorRequestBody,
   s_ReposAddStatusCheckContextsRequestBody,
@@ -2244,16 +2572,15 @@ import {
   s_ReposCreateForkRequestBody,
   s_ReposCreateInOrgRequestBody,
   s_ReposCreateOrgRulesetRequestBody,
-  s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
   s_ReposCreateOrUpdateEnvironmentRequestBody,
   s_ReposCreateOrUpdateFileContentsRequestBody,
   s_ReposCreatePagesDeploymentRequestBody,
   s_ReposCreatePagesSiteRequestBody,
   s_ReposCreateReleaseRequestBody,
   s_ReposCreateRepoRulesetRequestBody,
-  s_ReposCreateTagProtectionRequestBody,
   s_ReposCreateUsingTemplateRequestBody,
   s_ReposCreateWebhookRequestBody,
+  s_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
   s_ReposDeleteFileRequestBody,
   s_ReposGenerateReleaseNotesRequestBody,
   s_ReposMergeRequestBody,
@@ -2314,13 +2641,16 @@ import {
   s_runner_label,
   s_SecretScanningCreatePushProtectionBypassRequestBody,
   s_SecretScanningUpdateAlertRequestBody,
+  s_SecretScanningUpdateOrgPatternConfigsRequestBody,
   s_scim_error,
   s_secret_scanning_alert,
   s_secret_scanning_location,
+  s_secret_scanning_pattern_configuration,
   s_secret_scanning_push_protection_bypass,
   s_secret_scanning_scan_history,
   s_security_advisory_ecosystems,
   s_selected_actions,
+  s_self_hosted_runners_settings,
   s_short_blob,
   s_short_branch,
   s_simple_classroom,
@@ -2335,29 +2665,15 @@ import {
   s_status_check_policy,
   s_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
   s_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
-  s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
-  s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
   s_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
   s_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
-  s_TeamsCreateDiscussionCommentInOrgRequestBody,
-  s_TeamsCreateDiscussionCommentLegacyRequestBody,
-  s_TeamsCreateDiscussionInOrgRequestBody,
-  s_TeamsCreateDiscussionLegacyRequestBody,
   s_TeamsCreateRequestBody,
-  s_TeamsUpdateDiscussionCommentInOrgRequestBody,
-  s_TeamsUpdateDiscussionCommentLegacyRequestBody,
-  s_TeamsUpdateDiscussionInOrgRequestBody,
-  s_TeamsUpdateDiscussionLegacyRequestBody,
   s_TeamsUpdateInOrgRequestBody,
   s_TeamsUpdateLegacyRequestBody,
   s_tag,
-  s_tag_protection,
   s_team,
-  s_team_discussion,
-  s_team_discussion_comment,
   s_team_full,
   s_team_membership,
-  s_team_project,
   s_team_repository,
   s_team_role_assignment,
   s_team_simple,
@@ -2385,6 +2701,7 @@ import {
   s_view_traffic,
   s_webhook_config,
   s_workflow,
+  s_workflow_dispatch_response,
   s_workflow_run,
   s_workflow_run_usage,
   s_workflow_usage,
@@ -2443,6 +2760,1410 @@ export type SecurityAdvisoriesGetGlobalAdvisory = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_global_advisory>
   | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type AgentTasksListTasksForRepoResponder = {
+  with200(): KoaRuntimeResponse<{
+    tasks: {
+      archived_at?: string | null
+      artifacts?: {
+        data:
+          | {
+              global_id?: string
+              id: number
+            }
+          | {
+              base_ref: string
+              head_ref: string
+            }
+        provider: "github"
+        type: "pull" | "branch"
+      }[]
+      created_at: string
+      creator?: {
+        id?: number
+      }
+      creator_type?: "user" | "organization"
+      html_url?: string
+      id: string
+      name?: string
+      owner?: {
+        id?: number
+      }
+      repository?: {
+        id?: number
+      }
+      session_count?: number
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+      updated_at?: string
+      url?: string
+      user_collaborators?: {
+        id?: number
+      }[]
+    }[]
+    total_active_count?: number
+    total_archived_count?: number
+  }>
+  with400(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with401(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with403(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with404(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with422(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type AgentTasksListTasksForRepo = (
+  params: Params<
+    t_AgentTasksListTasksForRepoParamSchema,
+    t_AgentTasksListTasksForRepoQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentTasksListTasksForRepoResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        tasks: {
+          archived_at?: string | null
+          artifacts?: {
+            data:
+              | {
+                  global_id?: string
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch"
+          }[]
+          created_at: string
+          creator?: {
+            id?: number
+          }
+          creator_type?: "user" | "organization"
+          html_url?: string
+          id: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          repository?: {
+            id?: number
+          }
+          session_count?: number
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
+          }[]
+        }[]
+        total_active_count?: number
+        total_archived_count?: number
+      }
+    >
+  | Res<
+      400,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      401,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      403,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      404,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      422,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentTasksCreateTaskInRepoResponder = {
+  with201(): KoaRuntimeResponse<{
+    archived_at?: string | null
+    artifacts?: {
+      data:
+        | {
+            global_id?: string
+            id: number
+          }
+        | {
+            base_ref: string
+            head_ref: string
+          }
+      provider: "github"
+      type: "pull" | "branch"
+    }[]
+    created_at: string
+    creator?: {
+      id?: number
+    }
+    creator_type?: "user" | "organization"
+    html_url?: string
+    id: string
+    name?: string
+    owner?: {
+      id?: number
+    }
+    repository?: {
+      id?: number
+    }
+    session_count?: number
+    state:
+      | "queued"
+      | "in_progress"
+      | "completed"
+      | "failed"
+      | "idle"
+      | "waiting_for_user"
+      | "timed_out"
+      | "cancelled"
+    updated_at?: string
+    url?: string
+    user_collaborators?: {
+      id?: number
+    }[]
+  }>
+  with400(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with401(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with403(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with422(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type AgentTasksCreateTaskInRepo = (
+  params: Params<
+    t_AgentTasksCreateTaskInRepoParamSchema,
+    void,
+    t_AgentTasksCreateTaskInRepoRequestBody,
+    void
+  >,
+  respond: AgentTasksCreateTaskInRepoResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      201,
+      {
+        archived_at?: string | null
+        artifacts?: {
+          data:
+            | {
+                global_id?: string
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch"
+        }[]
+        created_at: string
+        creator?: {
+          id?: number
+        }
+        creator_type?: "user" | "organization"
+        html_url?: string
+        id: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        repository?: {
+          id?: number
+        }
+        session_count?: number
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+        updated_at?: string
+        url?: string
+        user_collaborators?: {
+          id?: number
+        }[]
+      }
+    >
+  | Res<
+      400,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      401,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      403,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      422,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentTasksGetTaskByRepoAndIdResponder = {
+  with200(): KoaRuntimeResponse<
+    {
+      archived_at?: string | null
+      artifacts?: {
+        data:
+          | {
+              global_id?: string
+              id: number
+            }
+          | {
+              base_ref: string
+              head_ref: string
+            }
+        provider: "github"
+        type: "pull" | "branch"
+      }[]
+      created_at: string
+      creator?: {
+        id?: number
+      }
+      creator_type?: "user" | "organization"
+      html_url?: string
+      id: string
+      name?: string
+      owner?: {
+        id?: number
+      }
+      repository?: {
+        id?: number
+      }
+      session_count?: number
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+      updated_at?: string
+      url?: string
+      user_collaborators?: {
+        id?: number
+      }[]
+    } & {
+      sessions?: {
+        base_ref?: string
+        completed_at?: string
+        created_at: string
+        error?: {
+          message?: string
+        }
+        head_ref?: string
+        id: string
+        model?: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        prompt?: string
+        repository?: {
+          id?: number
+        }
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+        task_id?: string
+        updated_at?: string
+        user?: {
+          id?: number
+        }
+      }[]
+    }
+  >
+  with400(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with401(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with403(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with404(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with422(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type AgentTasksGetTaskByRepoAndId = (
+  params: Params<t_AgentTasksGetTaskByRepoAndIdParamSchema, void, void, void>,
+  respond: AgentTasksGetTaskByRepoAndIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        archived_at?: string | null
+        artifacts?: {
+          data:
+            | {
+                global_id?: string
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch"
+        }[]
+        created_at: string
+        creator?: {
+          id?: number
+        }
+        creator_type?: "user" | "organization"
+        html_url?: string
+        id: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        repository?: {
+          id?: number
+        }
+        session_count?: number
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+        updated_at?: string
+        url?: string
+        user_collaborators?: {
+          id?: number
+        }[]
+      } & {
+        sessions?: {
+          base_ref?: string
+          completed_at?: string
+          created_at: string
+          error?: {
+            message?: string
+          }
+          head_ref?: string
+          id: string
+          model?: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          prompt?: string
+          repository?: {
+            id?: number
+          }
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          task_id?: string
+          updated_at?: string
+          user?: {
+            id?: number
+          }
+        }[]
+      }
+    >
+  | Res<
+      400,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      401,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      403,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      404,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      422,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentTasksListTasksResponder = {
+  with200(): KoaRuntimeResponse<{
+    tasks: {
+      archived_at?: string | null
+      artifacts?: {
+        data:
+          | {
+              global_id?: string
+              id: number
+            }
+          | {
+              base_ref: string
+              head_ref: string
+            }
+        provider: "github"
+        type: "pull" | "branch"
+      }[]
+      created_at: string
+      creator?: {
+        id?: number
+      }
+      creator_type?: "user" | "organization"
+      html_url?: string
+      id: string
+      name?: string
+      owner?: {
+        id?: number
+      }
+      repository?: {
+        id?: number
+      }
+      session_count?: number
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+      updated_at?: string
+      url?: string
+      user_collaborators?: {
+        id?: number
+      }[]
+    }[]
+    total_active_count?: number
+    total_archived_count?: number
+  }>
+  with400(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with401(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with403(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with422(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type AgentTasksListTasks = (
+  params: Params<void, t_AgentTasksListTasksQuerySchema, void, void>,
+  respond: AgentTasksListTasksResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        tasks: {
+          archived_at?: string | null
+          artifacts?: {
+            data:
+              | {
+                  global_id?: string
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch"
+          }[]
+          created_at: string
+          creator?: {
+            id?: number
+          }
+          creator_type?: "user" | "organization"
+          html_url?: string
+          id: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          repository?: {
+            id?: number
+          }
+          session_count?: number
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
+          }[]
+        }[]
+        total_active_count?: number
+        total_archived_count?: number
+      }
+    >
+  | Res<
+      400,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      401,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      403,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      422,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentTasksGetTaskByIdResponder = {
+  with200(): KoaRuntimeResponse<
+    {
+      archived_at?: string | null
+      artifacts?: {
+        data:
+          | {
+              global_id?: string
+              id: number
+            }
+          | {
+              base_ref: string
+              head_ref: string
+            }
+        provider: "github"
+        type: "pull" | "branch"
+      }[]
+      created_at: string
+      creator?: {
+        id?: number
+      }
+      creator_type?: "user" | "organization"
+      html_url?: string
+      id: string
+      name?: string
+      owner?: {
+        id?: number
+      }
+      repository?: {
+        id?: number
+      }
+      session_count?: number
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+      updated_at?: string
+      url?: string
+      user_collaborators?: {
+        id?: number
+      }[]
+    } & {
+      sessions?: {
+        base_ref?: string
+        completed_at?: string
+        created_at: string
+        error?: {
+          message?: string
+        }
+        head_ref?: string
+        id: string
+        model?: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        prompt?: string
+        repository?: {
+          id?: number
+        }
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+        task_id?: string
+        updated_at?: string
+        user?: {
+          id?: number
+        }
+      }[]
+    }
+  >
+  with400(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with401(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with403(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with404(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+  with422(): KoaRuntimeResponse<{
+    documentation_url: string
+    errors?: {
+      code:
+        | "missing"
+        | "missing_field"
+        | "invalid"
+        | "already_exists"
+        | "unprocessable"
+        | "custom"
+      message?: string
+    }[]
+    message: string
+  }>
+} & KoaRuntimeResponder
+
+export type AgentTasksGetTaskById = (
+  params: Params<t_AgentTasksGetTaskByIdParamSchema, void, void, void>,
+  respond: AgentTasksGetTaskByIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        archived_at?: string | null
+        artifacts?: {
+          data:
+            | {
+                global_id?: string
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch"
+        }[]
+        created_at: string
+        creator?: {
+          id?: number
+        }
+        creator_type?: "user" | "organization"
+        html_url?: string
+        id: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        repository?: {
+          id?: number
+        }
+        session_count?: number
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+        updated_at?: string
+        url?: string
+        user_collaborators?: {
+          id?: number
+        }[]
+      } & {
+        sessions?: {
+          base_ref?: string
+          completed_at?: string
+          created_at: string
+          error?: {
+            message?: string
+          }
+          head_ref?: string
+          id: string
+          model?: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          prompt?: string
+          repository?: {
+            id?: number
+          }
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          task_id?: string
+          updated_at?: string
+          user?: {
+            id?: number
+          }
+        }[]
+      }
+    >
+  | Res<
+      400,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      401,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      403,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      404,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
+  | Res<
+      422,
+      {
+        documentation_url: string
+        errors?: {
+          code:
+            | "missing"
+            | "missing_field"
+            | "invalid"
+            | "already_exists"
+            | "unprocessable"
+            | "custom"
+          message?: string
+        }[]
+        message: string
+      }
+    >
   | typeof SkipResponse
 >
 
@@ -2996,6 +4717,175 @@ export type EmojisGet = (
   | typeof SkipResponse
 >
 
+export type ActionsGetActionsCacheRetentionLimitForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_retention_limit_for_enterprise>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetActionsCacheRetentionLimitForEnterprise = (
+  params: Params<
+    t_ActionsGetActionsCacheRetentionLimitForEnterpriseParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetActionsCacheRetentionLimitForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_cache_retention_limit_for_enterprise>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetActionsCacheRetentionLimitForEnterpriseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetActionsCacheRetentionLimitForEnterprise = (
+  params: Params<
+    t_ActionsSetActionsCacheRetentionLimitForEnterpriseParamSchema,
+    void,
+    t_actions_cache_retention_limit_for_enterprise,
+    void
+  >,
+  respond: ActionsSetActionsCacheRetentionLimitForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetActionsCacheStorageLimitForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_storage_limit_for_enterprise>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetActionsCacheStorageLimitForEnterprise = (
+  params: Params<
+    t_ActionsGetActionsCacheStorageLimitForEnterpriseParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetActionsCacheStorageLimitForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_cache_storage_limit_for_enterprise>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetActionsCacheStorageLimitForEnterpriseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetActionsCacheStorageLimitForEnterprise = (
+  params: Params<
+    t_ActionsSetActionsCacheStorageLimitForEnterpriseParamSchema,
+    void,
+    t_actions_cache_storage_limit_for_enterprise,
+    void
+  >,
+  respond: ActionsSetActionsCacheStorageLimitForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OidcListOidcCustomPropertyInclusionsForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_oidc_custom_property_inclusion[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OidcListOidcCustomPropertyInclusionsForEnterprise = (
+  params: Params<
+    t_OidcListOidcCustomPropertyInclusionsForEnterpriseParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OidcListOidcCustomPropertyInclusionsForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_oidc_custom_property_inclusion[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OidcCreateOidcCustomPropertyInclusionForEnterpriseResponder = {
+  with201(): KoaRuntimeResponse<t_oidc_custom_property_inclusion>
+  with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type OidcCreateOidcCustomPropertyInclusionForEnterprise = (
+  params: Params<
+    t_OidcCreateOidcCustomPropertyInclusionForEnterpriseParamSchema,
+    void,
+    t_oidc_custom_property_inclusion_input,
+    void
+  >,
+  respond: OidcCreateOidcCustomPropertyInclusionForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_oidc_custom_property_inclusion>
+  | Res<400, void>
+  | Res<403, t_basic_error>
+  | Res<422, void>
+  | typeof SkipResponse
+>
+
+export type OidcDeleteOidcCustomPropertyInclusionForEnterpriseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type OidcDeleteOidcCustomPropertyInclusionForEnterprise = (
+  params: Params<
+    t_OidcDeleteOidcCustomPropertyInclusionForEnterpriseParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OidcDeleteOidcCustomPropertyInclusionForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, void>
+  | Res<403, t_basic_error>
+  | Res<404, void>
+  | typeof SkipResponse
+>
+
 export type CodeSecurityGetConfigurationsForEnterpriseResponder = {
   with200(): KoaRuntimeResponse<t_code_security_configuration[]>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -3226,6 +5116,195 @@ export type CodeSecurityGetRepositoriesForEnterpriseConfiguration = (
   | typeof SkipResponse
 >
 
+export type CopilotCopilotEnterpriseOneDayUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotEnterpriseOneDayUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotEnterpriseOneDayUsageMetricsParamSchema,
+    t_CopilotCopilotEnterpriseOneDayUsageMetricsQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotEnterpriseOneDayUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotEnterpriseUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotEnterpriseUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotEnterpriseUsageMetricsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotCopilotEnterpriseUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_28_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotEnterpriseUserTeamsOneDayReportResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotEnterpriseUserTeamsOneDayReport = (
+  params: Params<
+    t_CopilotCopilotEnterpriseUserTeamsOneDayReportParamSchema,
+    t_CopilotCopilotEnterpriseUserTeamsOneDayReportQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotEnterpriseUserTeamsOneDayReportResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotUsersOneDayUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotUsersOneDayUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotUsersOneDayUsageMetricsParamSchema,
+    t_CopilotCopilotUsersOneDayUsageMetricsQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotUsersOneDayUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotUsersUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotUsersUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotUsersUsageMetricsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotCopilotUsersUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_28_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSetEnterpriseCodingAgentPolicyResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+} & KoaRuntimeResponder
+
+export type CopilotSetEnterpriseCodingAgentPolicy = (
+  params: Params<
+    t_CopilotSetEnterpriseCodingAgentPolicyParamSchema,
+    void,
+    t_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+    void
+  >,
+  respond: CopilotSetEnterpriseCodingAgentPolicyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | typeof SkipResponse
+>
+
+export type CopilotAddOrganizationsToEnterpriseCodingAgentPolicyResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+} & KoaRuntimeResponder
+
+export type CopilotAddOrganizationsToEnterpriseCodingAgentPolicy = (
+  params: Params<
+    t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyParamSchema,
+    void,
+    t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
+    void
+  >,
+  respond: CopilotAddOrganizationsToEnterpriseCodingAgentPolicyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | typeof SkipResponse
+>
+
+export type CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with400(): KoaRuntimeResponse<t_scim_error>
+  } & KoaRuntimeResponder
+
+export type CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy = (
+  params: Params<
+    t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyParamSchema,
+    void,
+    t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+    void
+  >,
+  respond: CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | typeof SkipResponse
+>
+
 export type DependabotListAlertsForEnterpriseResponder = {
   with200(): KoaRuntimeResponse<t_dependabot_alert_with_repository[]>
   with304(): KoaRuntimeResponse<void>
@@ -3253,37 +5332,364 @@ export type DependabotListAlertsForEnterprise = (
   | typeof SkipResponse
 >
 
-export type SecretScanningListAlertsForEnterpriseResponder = {
-  with200(): KoaRuntimeResponse<t_organization_secret_scanning_alert[]>
+export type DependabotRepositoryAccessForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_dependabot_repository_access_details>
+  with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
-  with503(): KoaRuntimeResponse<{
-    code?: string
-    documentation_url?: string
-    message?: string
-  }>
 } & KoaRuntimeResponder
 
-export type SecretScanningListAlertsForEnterprise = (
+export type DependabotRepositoryAccessForEnterprise = (
   params: Params<
-    t_SecretScanningListAlertsForEnterpriseParamSchema,
-    t_SecretScanningListAlertsForEnterpriseQuerySchema,
+    t_DependabotRepositoryAccessForEnterpriseParamSchema,
+    t_DependabotRepositoryAccessForEnterpriseQuerySchema,
     void,
     void
   >,
-  respond: SecretScanningListAlertsForEnterpriseResponder,
+  respond: DependabotRepositoryAccessForEnterpriseResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_organization_secret_scanning_alert[]>
+  | Res<200, t_dependabot_repository_access_details>
+  | Res<403, t_basic_error>
   | Res<404, t_basic_error>
-  | Res<
-      503,
-      {
-        code?: string
-        documentation_url?: string
-        message?: string
-      }
-    >
+  | typeof SkipResponse
+>
+
+export type DependabotUpdateRepositoryAccessForEnterpriseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotUpdateRepositoryAccessForEnterprise = (
+  params: Params<
+    t_DependabotUpdateRepositoryAccessForEnterpriseParamSchema,
+    void,
+    t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
+    void
+  >,
+  respond: DependabotUpdateRepositoryAccessForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependabotSetRepositoryAccessDefaultLevelForEnterpriseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotSetRepositoryAccessDefaultLevelForEnterprise = (
+  params: Params<
+    t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseParamSchema,
+    void,
+    t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
+    void
+  >,
+  respond: DependabotSetRepositoryAccessDefaultLevelForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamsListResponder = {
+  with200(): KoaRuntimeResponse<t_enterprise_team[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamsList = (
+  params: Params<
+    t_EnterpriseTeamsListParamSchema,
+    t_EnterpriseTeamsListQuerySchema,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamsListResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_enterprise_team[]>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamsCreateResponder = {
+  with201(): KoaRuntimeResponse<t_enterprise_team>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamsCreate = (
+  params: Params<
+    t_EnterpriseTeamsCreateParamSchema,
+    void,
+    t_EnterpriseTeamsCreateRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamsCreateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_enterprise_team>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsListResponder = {
+  with200(): KoaRuntimeResponse<t_simple_user[]>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsList = (
+  params: Params<
+    t_EnterpriseTeamMembershipsListParamSchema,
+    t_EnterpriseTeamMembershipsListQuerySchema,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamMembershipsListResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsBulkAddResponder = {
+  with200(): KoaRuntimeResponse<t_simple_user[]>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsBulkAdd = (
+  params: Params<
+    t_EnterpriseTeamMembershipsBulkAddParamSchema,
+    void,
+    t_EnterpriseTeamMembershipsBulkAddRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamMembershipsBulkAddResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsBulkRemoveResponder = {
+  with200(): KoaRuntimeResponse<t_simple_user[]>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsBulkRemove = (
+  params: Params<
+    t_EnterpriseTeamMembershipsBulkRemoveParamSchema,
+    void,
+    t_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamMembershipsBulkRemoveResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user[]> | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsGetResponder = {
+  with200(): KoaRuntimeResponse<t_simple_user>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsGet = (
+  params: Params<t_EnterpriseTeamMembershipsGetParamSchema, void, void, void>,
+  respond: EnterpriseTeamMembershipsGetResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_simple_user> | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsAddResponder = {
+  with201(): KoaRuntimeResponse<t_simple_user>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsAdd = (
+  params: Params<t_EnterpriseTeamMembershipsAddParamSchema, void, void, void>,
+  respond: EnterpriseTeamMembershipsAddResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<201, t_simple_user> | typeof SkipResponse
+>
+
+export type EnterpriseTeamMembershipsRemoveResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamMembershipsRemove = (
+  params: Params<
+    t_EnterpriseTeamMembershipsRemoveParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamMembershipsRemoveResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamOrganizationsGetAssignmentsResponder = {
+  with200(): KoaRuntimeResponse<t_organization_simple[]>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsGetAssignments = (
+  params: Params<
+    t_EnterpriseTeamOrganizationsGetAssignmentsParamSchema,
+    t_EnterpriseTeamOrganizationsGetAssignmentsQuerySchema,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamOrganizationsGetAssignmentsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_organization_simple[]>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamOrganizationsBulkAddResponder = {
+  with200(): KoaRuntimeResponse<t_organization_simple[]>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsBulkAdd = (
+  params: Params<
+    t_EnterpriseTeamOrganizationsBulkAddParamSchema,
+    void,
+    t_EnterpriseTeamOrganizationsBulkAddRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamOrganizationsBulkAddResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_organization_simple[]>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamOrganizationsBulkRemoveResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsBulkRemove = (
+  params: Params<
+    t_EnterpriseTeamOrganizationsBulkRemoveParamSchema,
+    void,
+    t_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamOrganizationsBulkRemoveResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type EnterpriseTeamOrganizationsGetAssignmentResponder = {
+  with200(): KoaRuntimeResponse<t_organization_simple>
+  with404(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsGetAssignment = (
+  params: Params<
+    t_EnterpriseTeamOrganizationsGetAssignmentParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamOrganizationsGetAssignmentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_organization_simple>
+  | Res<404, void>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamOrganizationsAddResponder = {
+  with201(): KoaRuntimeResponse<t_organization_simple>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsAdd = (
+  params: Params<t_EnterpriseTeamOrganizationsAddParamSchema, void, void, void>,
+  respond: EnterpriseTeamOrganizationsAddResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_organization_simple>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamOrganizationsDeleteResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamOrganizationsDelete = (
+  params: Params<
+    t_EnterpriseTeamOrganizationsDeleteParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: EnterpriseTeamOrganizationsDeleteResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type EnterpriseTeamsGetResponder = {
+  with200(): KoaRuntimeResponse<t_enterprise_team>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamsGet = (
+  params: Params<t_EnterpriseTeamsGetParamSchema, void, void, void>,
+  respond: EnterpriseTeamsGetResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_enterprise_team>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamsUpdateResponder = {
+  with200(): KoaRuntimeResponse<t_enterprise_team>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamsUpdate = (
+  params: Params<
+    t_EnterpriseTeamsUpdateParamSchema,
+    void,
+    t_EnterpriseTeamsUpdateRequestBody,
+    void
+  >,
+  respond: EnterpriseTeamsUpdateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_enterprise_team>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type EnterpriseTeamsDeleteResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type EnterpriseTeamsDelete = (
+  params: Params<t_EnterpriseTeamsDeleteParamSchema, void, void, void>,
+  respond: EnterpriseTeamsDeleteResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -3808,7 +6214,9 @@ export type GitignoreGetTemplate = (
 
 export type AppsListReposAccessibleToInstallationResponder = {
   with200(): KoaRuntimeResponse<{
-    repositories: t_repository[]
+    repositories: (t_repository & {
+      custom_properties?: Record<string, unknown>
+    })[]
     repository_selection?: string
     total_count: number
   }>
@@ -3831,7 +6239,9 @@ export type AppsListReposAccessibleToInstallation = (
   | Res<
       200,
       {
-        repositories: t_repository[]
+        repositories: (t_repository & {
+          custom_properties?: Record<string, unknown>
+        })[]
         repository_selection?: string
         total_count: number
       }
@@ -4321,72 +6731,306 @@ export type OrgsList = (
   | typeof SkipResponse
 >
 
-export type DependabotRepositoryAccessForOrgResponder = {
-  with200(): KoaRuntimeResponse<t_dependabot_repository_access_details>
+export type ActionsGetActionsCacheRetentionLimitForOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_retention_limit_for_organization>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type DependabotRepositoryAccessForOrg = (
+export type ActionsGetActionsCacheRetentionLimitForOrganization = (
   params: Params<
-    t_DependabotRepositoryAccessForOrgParamSchema,
-    t_DependabotRepositoryAccessForOrgQuerySchema,
+    t_ActionsGetActionsCacheRetentionLimitForOrganizationParamSchema,
+    void,
     void,
     void
   >,
-  respond: DependabotRepositoryAccessForOrgResponder,
+  respond: ActionsGetActionsCacheRetentionLimitForOrganizationResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_dependabot_repository_access_details>
+  | Res<200, t_actions_cache_retention_limit_for_organization>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
-export type DependabotUpdateRepositoryAccessForOrgResponder = {
+export type ActionsSetActionsCacheRetentionLimitForOrganizationResponder = {
   with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type DependabotUpdateRepositoryAccessForOrg = (
+export type ActionsSetActionsCacheRetentionLimitForOrganization = (
   params: Params<
-    t_DependabotUpdateRepositoryAccessForOrgParamSchema,
+    t_ActionsSetActionsCacheRetentionLimitForOrganizationParamSchema,
     void,
-    t_DependabotUpdateRepositoryAccessForOrgRequestBody,
+    t_actions_cache_retention_limit_for_organization,
     void
   >,
-  respond: DependabotUpdateRepositoryAccessForOrgResponder,
+  respond: ActionsSetActionsCacheRetentionLimitForOrganizationResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
+  | Res<400, t_scim_error>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
-export type DependabotSetRepositoryAccessDefaultLevelResponder = {
-  with204(): KoaRuntimeResponse<void>
+export type ActionsGetActionsCacheStorageLimitForOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_storage_limit_for_organization>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type DependabotSetRepositoryAccessDefaultLevel = (
+export type ActionsGetActionsCacheStorageLimitForOrganization = (
   params: Params<
-    t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
+    t_ActionsGetActionsCacheStorageLimitForOrganizationParamSchema,
     void,
-    t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+    void,
     void
   >,
-  respond: DependabotSetRepositoryAccessDefaultLevelResponder,
+  respond: ActionsGetActionsCacheStorageLimitForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_cache_storage_limit_for_organization>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetActionsCacheStorageLimitForOrganizationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetActionsCacheStorageLimitForOrganization = (
+  params: Params<
+    t_ActionsSetActionsCacheStorageLimitForOrganizationParamSchema,
+    void,
+    t_actions_cache_storage_limit_for_organization,
+    void
+  >,
+  respond: ActionsSetActionsCacheStorageLimitForOrganizationResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
+  | Res<400, t_scim_error>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type BillingGetAllBudgetsOrgResponder = {
+  with200(): KoaRuntimeResponse<t_get_all_budgets>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type BillingGetAllBudgetsOrg = (
+  params: Params<
+    t_BillingGetAllBudgetsOrgParamSchema,
+    t_BillingGetAllBudgetsOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetAllBudgetsOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_get_all_budgets>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type BillingGetBudgetOrgResponder = {
+  with200(): KoaRuntimeResponse<t_get_budget>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetBudgetOrg = (
+  params: Params<t_BillingGetBudgetOrgParamSchema, void, void, void>,
+  respond: BillingGetBudgetOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_get_budget>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type BillingUpdateBudgetOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    budget?: {
+      budget_alerting?: {
+        alert_recipients: string[]
+        will_alert: boolean
+      }
+      budget_amount?: number
+      budget_entity_name?: string
+      budget_product_sku?: string
+      budget_scope?:
+        | "enterprise"
+        | "organization"
+        | "repository"
+        | "cost_center"
+      budget_type?: "ProductPricing" | "SkuPricing"
+      id?: string
+      prevent_further_usage?: boolean
+    }
+    message?: string
+  }>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type BillingUpdateBudgetOrg = (
+  params: Params<
+    t_BillingUpdateBudgetOrgParamSchema,
+    void,
+    t_BillingUpdateBudgetOrgRequestBody,
+    void
+  >,
+  respond: BillingUpdateBudgetOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        budget?: {
+          budget_alerting?: {
+            alert_recipients: string[]
+            will_alert: boolean
+          }
+          budget_amount?: number
+          budget_entity_name?: string
+          budget_product_sku?: string
+          budget_scope?:
+            | "enterprise"
+            | "organization"
+            | "repository"
+            | "cost_center"
+          budget_type?: "ProductPricing" | "SkuPricing"
+          id?: string
+          prevent_further_usage?: boolean
+        }
+        message?: string
+      }
+    >
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type BillingDeleteBudgetOrgResponder = {
+  with200(): KoaRuntimeResponse<t_delete_budget>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingDeleteBudgetOrg = (
+  params: Params<t_BillingDeleteBudgetOrgParamSchema, void, void, void>,
+  respond: BillingDeleteBudgetOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_delete_budget>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type BillingGetGithubBillingPremiumRequestUsageReportOrgResponder = {
+  with200(): KoaRuntimeResponse<t_billing_premium_request_usage_report_org>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetGithubBillingPremiumRequestUsageReportOrg = (
+  params: Params<
+    t_BillingGetGithubBillingPremiumRequestUsageReportOrgParamSchema,
+    t_BillingGetGithubBillingPremiumRequestUsageReportOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingPremiumRequestUsageReportOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_billing_premium_request_usage_report_org>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
   | typeof SkipResponse
 >
 
@@ -4414,6 +7058,44 @@ export type BillingGetGithubBillingUsageReportOrg = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_billing_usage_report>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type BillingGetGithubBillingUsageSummaryReportOrgResponder = {
+  with200(): KoaRuntimeResponse<t_billing_usage_summary_report_org>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetGithubBillingUsageSummaryReportOrg = (
+  params: Params<
+    t_BillingGetGithubBillingUsageSummaryReportOrgParamSchema,
+    t_BillingGetGithubBillingUsageSummaryReportOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingUsageSummaryReportOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_billing_usage_summary_report_org>
   | Res<400, t_scim_error>
   | Res<403, t_basic_error>
   | Res<500, t_basic_error>
@@ -4579,9 +7261,123 @@ export type ActionsCreateHostedRunnerForOrg = (
   | typeof SkipResponse
 >
 
+export type ActionsListCustomImagesForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    images: t_actions_hosted_runner_custom_image[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListCustomImagesForOrg = (
+  params: Params<t_ActionsListCustomImagesForOrgParamSchema, void, void, void>,
+  respond: ActionsListCustomImagesForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        images: t_actions_hosted_runner_custom_image[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type ActionsGetCustomImageForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_actions_hosted_runner_custom_image>
+} & KoaRuntimeResponder
+
+export type ActionsGetCustomImageForOrg = (
+  params: Params<t_ActionsGetCustomImageForOrgParamSchema, void, void, void>,
+  respond: ActionsGetCustomImageForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_hosted_runner_custom_image>
+  | typeof SkipResponse
+>
+
+export type ActionsDeleteCustomImageFromOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsDeleteCustomImageFromOrg = (
+  params: Params<
+    t_ActionsDeleteCustomImageFromOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsDeleteCustomImageFromOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type ActionsListCustomImageVersionsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    image_versions: t_actions_hosted_runner_custom_image_version[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListCustomImageVersionsForOrg = (
+  params: Params<
+    t_ActionsListCustomImageVersionsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsListCustomImageVersionsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        image_versions: t_actions_hosted_runner_custom_image_version[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type ActionsGetCustomImageVersionForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_actions_hosted_runner_custom_image_version>
+} & KoaRuntimeResponder
+
+export type ActionsGetCustomImageVersionForOrg = (
+  params: Params<
+    t_ActionsGetCustomImageVersionForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetCustomImageVersionForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_hosted_runner_custom_image_version>
+  | typeof SkipResponse
+>
+
+export type ActionsDeleteCustomImageVersionFromOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsDeleteCustomImageVersionFromOrg = (
+  params: Params<
+    t_ActionsDeleteCustomImageVersionFromOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsDeleteCustomImageVersionFromOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
 export type ActionsGetHostedRunnersGithubOwnedImagesForOrgResponder = {
   with200(): KoaRuntimeResponse<{
-    images: t_actions_hosted_runner_image[]
+    images: t_actions_hosted_runner_curated_image[]
     total_count: number
   }>
 } & KoaRuntimeResponder
@@ -4600,7 +7396,7 @@ export type ActionsGetHostedRunnersGithubOwnedImagesForOrg = (
   | Res<
       200,
       {
-        images: t_actions_hosted_runner_image[]
+        images: t_actions_hosted_runner_curated_image[]
         total_count: number
       }
     >
@@ -4609,7 +7405,7 @@ export type ActionsGetHostedRunnersGithubOwnedImagesForOrg = (
 
 export type ActionsGetHostedRunnersPartnerImagesForOrgResponder = {
   with200(): KoaRuntimeResponse<{
-    images: t_actions_hosted_runner_image[]
+    images: t_actions_hosted_runner_curated_image[]
     total_count: number
   }>
 } & KoaRuntimeResponder
@@ -4628,7 +7424,7 @@ export type ActionsGetHostedRunnersPartnerImagesForOrg = (
   | Res<
       200,
       {
-        images: t_actions_hosted_runner_image[]
+        images: t_actions_hosted_runner_curated_image[]
         total_count: number
       }
     >
@@ -4762,6 +7558,79 @@ export type ActionsDeleteHostedRunnerForOrg = (
   | typeof SkipResponse
 >
 
+export type OidcListOidcCustomPropertyInclusionsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_oidc_custom_property_inclusion[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OidcListOidcCustomPropertyInclusionsForOrg = (
+  params: Params<
+    t_OidcListOidcCustomPropertyInclusionsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OidcListOidcCustomPropertyInclusionsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_oidc_custom_property_inclusion[]>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OidcCreateOidcCustomPropertyInclusionForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_oidc_custom_property_inclusion>
+  with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type OidcCreateOidcCustomPropertyInclusionForOrg = (
+  params: Params<
+    t_OidcCreateOidcCustomPropertyInclusionForOrgParamSchema,
+    void,
+    t_oidc_custom_property_inclusion_input,
+    void
+  >,
+  respond: OidcCreateOidcCustomPropertyInclusionForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_oidc_custom_property_inclusion>
+  | Res<400, void>
+  | Res<403, t_basic_error>
+  | Res<422, void>
+  | typeof SkipResponse
+>
+
+export type OidcDeleteOidcCustomPropertyInclusionForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type OidcDeleteOidcCustomPropertyInclusionForOrg = (
+  params: Params<
+    t_OidcDeleteOidcCustomPropertyInclusionForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OidcDeleteOidcCustomPropertyInclusionForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, void>
+  | Res<403, t_basic_error>
+  | Res<404, void>
+  | typeof SkipResponse
+>
+
 export type OidcGetOidcCustomSubTemplateForOrgResponder = {
   with200(): KoaRuntimeResponse<t_oidc_custom_sub>
 } & KoaRuntimeResponder
@@ -4791,7 +7660,7 @@ export type OidcUpdateOidcCustomSubTemplateForOrg = (
   params: Params<
     t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
     void,
-    t_oidc_custom_sub,
+    t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
     void
   >,
   respond: OidcUpdateOidcCustomSubTemplateForOrgResponder,
@@ -4837,6 +7706,152 @@ export type ActionsSetGithubActionsPermissionsOrganization = (
   respond: ActionsSetGithubActionsPermissionsOrganizationResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type ActionsGetArtifactAndLogRetentionSettingsOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_actions_artifact_and_log_retention_response>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetArtifactAndLogRetentionSettingsOrganization = (
+  params: Params<
+    t_ActionsGetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetArtifactAndLogRetentionSettingsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_artifact_and_log_retention_response>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetArtifactAndLogRetentionSettingsOrganizationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetArtifactAndLogRetentionSettingsOrganization = (
+  params: Params<
+    t_ActionsSetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+    void,
+    t_actions_artifact_and_log_retention,
+    void
+  >,
+  respond: ActionsSetArtifactAndLogRetentionSettingsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetForkPrContributorApprovalPermissionsOrganizationResponder =
+  {
+    with200(): KoaRuntimeResponse<t_actions_fork_pr_contributor_approval>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type ActionsGetForkPrContributorApprovalPermissionsOrganization = (
+  params: Params<
+    t_ActionsGetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetForkPrContributorApprovalPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_fork_pr_contributor_approval>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetForkPrContributorApprovalPermissionsOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsSetForkPrContributorApprovalPermissionsOrganization = (
+  params: Params<
+    t_ActionsSetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+    void,
+    t_actions_fork_pr_contributor_approval,
+    void
+  >,
+  respond: ActionsSetForkPrContributorApprovalPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationResponder =
+  {
+    with200(): KoaRuntimeResponse<t_actions_fork_pr_workflows_private_repos>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganization = (
+  params: Params<
+    t_ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_fork_pr_workflows_private_repos>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganization = (
+  params: Params<
+    t_ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+    void,
+    t_actions_fork_pr_workflows_private_repos_request,
+    void
+  >,
+  respond: ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
 
 export type ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponder =
   {
@@ -4948,6 +7963,171 @@ export type ActionsSetAllowedActionsOrganization = (
   respond: ActionsSetAllowedActionsOrganizationResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type ActionsGetSelfHostedRunnersPermissionsOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_self_hosted_runners_settings>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetSelfHostedRunnersPermissionsOrganization = (
+  params: Params<
+    t_ActionsGetSelfHostedRunnersPermissionsOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetSelfHostedRunnersPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_self_hosted_runners_settings>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetSelfHostedRunnersPermissionsOrganizationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetSelfHostedRunnersPermissionsOrganization = (
+  params: Params<
+    t_ActionsSetSelfHostedRunnersPermissionsOrganizationParamSchema,
+    void,
+    t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
+    void
+  >,
+  respond: ActionsSetSelfHostedRunnersPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponder =
+  {
+    with200(): KoaRuntimeResponse<{
+      repositories?: t_repository[]
+      total_count?: number
+    }>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type ActionsListSelectedRepositoriesSelfHostedRunnersOrganization = (
+  params: Params<
+    t_ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+    t_ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        repositories?: t_repository[]
+        total_count?: number
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsSetSelectedRepositoriesSelfHostedRunnersOrganization = (
+  params: Params<
+    t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+    void,
+    t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
+    void
+  >,
+  respond: ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsEnableSelectedRepositorySelfHostedRunnersOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsEnableSelectedRepositorySelfHostedRunnersOrganization = (
+  params: Params<
+    t_ActionsEnableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsEnableSelectedRepositorySelfHostedRunnersOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsDisableSelectedRepositorySelfHostedRunnersOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsDisableSelectedRepositorySelfHostedRunnersOrganization = (
+  params: Params<
+    t_ActionsDisableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsDisableSelectedRepositorySelfHostedRunnersOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
 
 export type ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationResponder =
   {
@@ -5916,6 +9096,542 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
   | typeof SkipResponse
 >
 
+export type AgentsListOrgSecretsResponder = {
+  with200(): KoaRuntimeResponse<{
+    secrets: t_organization_actions_secret[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListOrgSecrets = (
+  params: Params<
+    t_AgentsListOrgSecretsParamSchema,
+    t_AgentsListOrgSecretsQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListOrgSecretsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        secrets: t_organization_actions_secret[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsGetOrgPublicKeyResponder = {
+  with200(): KoaRuntimeResponse<t_actions_public_key>
+} & KoaRuntimeResponder
+
+export type AgentsGetOrgPublicKey = (
+  params: Params<t_AgentsGetOrgPublicKeyParamSchema, void, void, void>,
+  respond: AgentsGetOrgPublicKeyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_public_key>
+  | typeof SkipResponse
+>
+
+export type AgentsGetOrgSecretResponder = {
+  with200(): KoaRuntimeResponse<t_organization_actions_secret>
+} & KoaRuntimeResponder
+
+export type AgentsGetOrgSecret = (
+  params: Params<t_AgentsGetOrgSecretParamSchema, void, void, void>,
+  respond: AgentsGetOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_organization_actions_secret>
+  | typeof SkipResponse
+>
+
+export type AgentsCreateOrUpdateOrgSecretResponder = {
+  with201(): KoaRuntimeResponse<t_empty_object>
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsCreateOrUpdateOrgSecret = (
+  params: Params<
+    t_AgentsCreateOrUpdateOrgSecretParamSchema,
+    void,
+    t_AgentsCreateOrUpdateOrgSecretRequestBody,
+    void
+  >,
+  respond: AgentsCreateOrUpdateOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_empty_object>
+  | Res<204, void>
+  | typeof SkipResponse
+>
+
+export type AgentsDeleteOrgSecretResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsDeleteOrgSecret = (
+  params: Params<t_AgentsDeleteOrgSecretParamSchema, void, void, void>,
+  respond: AgentsDeleteOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsListSelectedReposForOrgSecretResponder = {
+  with200(): KoaRuntimeResponse<{
+    repositories: t_minimal_repository[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListSelectedReposForOrgSecret = (
+  params: Params<
+    t_AgentsListSelectedReposForOrgSecretParamSchema,
+    t_AgentsListSelectedReposForOrgSecretQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListSelectedReposForOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsSetSelectedReposForOrgSecretResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsSetSelectedReposForOrgSecret = (
+  params: Params<
+    t_AgentsSetSelectedReposForOrgSecretParamSchema,
+    void,
+    t_AgentsSetSelectedReposForOrgSecretRequestBody,
+    void
+  >,
+  respond: AgentsSetSelectedReposForOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsAddSelectedRepoToOrgSecretResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsAddSelectedRepoToOrgSecret = (
+  params: Params<
+    t_AgentsAddSelectedRepoToOrgSecretParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: AgentsAddSelectedRepoToOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type AgentsRemoveSelectedRepoFromOrgSecretResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsRemoveSelectedRepoFromOrgSecret = (
+  params: Params<
+    t_AgentsRemoveSelectedRepoFromOrgSecretParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: AgentsRemoveSelectedRepoFromOrgSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type AgentsListOrgVariablesResponder = {
+  with200(): KoaRuntimeResponse<{
+    total_count: number
+    variables: t_organization_actions_variable[]
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListOrgVariables = (
+  params: Params<
+    t_AgentsListOrgVariablesParamSchema,
+    t_AgentsListOrgVariablesQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListOrgVariablesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        total_count: number
+        variables: t_organization_actions_variable[]
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsCreateOrgVariableResponder = {
+  with201(): KoaRuntimeResponse<t_empty_object>
+} & KoaRuntimeResponder
+
+export type AgentsCreateOrgVariable = (
+  params: Params<
+    t_AgentsCreateOrgVariableParamSchema,
+    void,
+    t_AgentsCreateOrgVariableRequestBody,
+    void
+  >,
+  respond: AgentsCreateOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
+>
+
+export type AgentsGetOrgVariableResponder = {
+  with200(): KoaRuntimeResponse<t_organization_actions_variable>
+} & KoaRuntimeResponder
+
+export type AgentsGetOrgVariable = (
+  params: Params<t_AgentsGetOrgVariableParamSchema, void, void, void>,
+  respond: AgentsGetOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_organization_actions_variable>
+  | typeof SkipResponse
+>
+
+export type AgentsUpdateOrgVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsUpdateOrgVariable = (
+  params: Params<
+    t_AgentsUpdateOrgVariableParamSchema,
+    void,
+    t_AgentsUpdateOrgVariableRequestBody,
+    void
+  >,
+  respond: AgentsUpdateOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsDeleteOrgVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsDeleteOrgVariable = (
+  params: Params<t_AgentsDeleteOrgVariableParamSchema, void, void, void>,
+  respond: AgentsDeleteOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsListSelectedReposForOrgVariableResponder = {
+  with200(): KoaRuntimeResponse<{
+    repositories: t_minimal_repository[]
+    total_count: number
+  }>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsListSelectedReposForOrgVariable = (
+  params: Params<
+    t_AgentsListSelectedReposForOrgVariableParamSchema,
+    t_AgentsListSelectedReposForOrgVariableQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListSelectedReposForOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type AgentsSetSelectedReposForOrgVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsSetSelectedReposForOrgVariable = (
+  params: Params<
+    t_AgentsSetSelectedReposForOrgVariableParamSchema,
+    void,
+    t_AgentsSetSelectedReposForOrgVariableRequestBody,
+    void
+  >,
+  respond: AgentsSetSelectedReposForOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type AgentsAddSelectedRepoToOrgVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsAddSelectedRepoToOrgVariable = (
+  params: Params<
+    t_AgentsAddSelectedRepoToOrgVariableParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: AgentsAddSelectedRepoToOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type AgentsRemoveSelectedRepoFromOrgVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsRemoveSelectedRepoFromOrgVariable = (
+  params: Params<
+    t_AgentsRemoveSelectedRepoFromOrgVariableParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: AgentsRemoveSelectedRepoFromOrgVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, void>
+  | typeof SkipResponse
+>
+
+export type OrgsCreateArtifactDeploymentRecordResponder = {
+  with200(): KoaRuntimeResponse<{
+    deployment_records?: t_artifact_deployment_record[]
+    total_count: number
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsCreateArtifactDeploymentRecord = (
+  params: Params<
+    t_OrgsCreateArtifactDeploymentRecordParamSchema,
+    void,
+    t_OrgsCreateArtifactDeploymentRecordRequestBody,
+    void
+  >,
+  respond: OrgsCreateArtifactDeploymentRecordResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        deployment_records?: t_artifact_deployment_record[]
+        total_count: number
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsSetClusterDeploymentRecordsResponder = {
+  with200(): KoaRuntimeResponse<{
+    deployment_records?: t_artifact_deployment_record[]
+    total_count: number
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsSetClusterDeploymentRecords = (
+  params: Params<
+    t_OrgsSetClusterDeploymentRecordsParamSchema,
+    void,
+    t_OrgsSetClusterDeploymentRecordsRequestBody,
+    void
+  >,
+  respond: OrgsSetClusterDeploymentRecordsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        deployment_records?: t_artifact_deployment_record[]
+        total_count: number
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsCreateArtifactStorageRecordResponder = {
+  with200(): KoaRuntimeResponse<{
+    storage_records?: {
+      artifact_url?: string | null
+      created_at?: string
+      digest?: string
+      id?: number
+      name?: string
+      registry_url?: string
+      repository?: string | null
+      status?: string
+      updated_at?: string
+    }[]
+    total_count: number
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsCreateArtifactStorageRecord = (
+  params: Params<
+    t_OrgsCreateArtifactStorageRecordParamSchema,
+    void,
+    t_OrgsCreateArtifactStorageRecordRequestBody,
+    void
+  >,
+  respond: OrgsCreateArtifactStorageRecordResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        storage_records?: {
+          artifact_url?: string | null
+          created_at?: string
+          digest?: string
+          id?: number
+          name?: string
+          registry_url?: string
+          repository?: string | null
+          status?: string
+          updated_at?: string
+        }[]
+        total_count: number
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsListArtifactDeploymentRecordsResponder = {
+  with200(): KoaRuntimeResponse<{
+    deployment_records?: t_artifact_deployment_record[]
+    total_count?: number
+  }>
+} & KoaRuntimeResponder
+
+export type OrgsListArtifactDeploymentRecords = (
+  params: Params<
+    t_OrgsListArtifactDeploymentRecordsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsListArtifactDeploymentRecordsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        deployment_records?: t_artifact_deployment_record[]
+        total_count?: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type OrgsListArtifactStorageRecordsResponder = {
+  with200(): KoaRuntimeResponse<{
+    storage_records?: {
+      artifact_url?: string
+      created_at?: string
+      digest?: string
+      id?: number
+      name?: string
+      registry_url?: string
+      repository?: string
+      status?: string
+      updated_at?: string
+    }[]
+    total_count?: number
+  }>
+} & KoaRuntimeResponder
+
+export type OrgsListArtifactStorageRecords = (
+  params: Params<t_OrgsListArtifactStorageRecordsParamSchema, void, void, void>,
+  respond: OrgsListArtifactStorageRecordsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        storage_records?: {
+          artifact_url?: string
+          created_at?: string
+          digest?: string
+          id?: number
+          name?: string
+          registry_url?: string
+          repository?: string
+          status?: string
+          updated_at?: string
+        }[]
+        total_count?: number
+      }
+    >
+  | typeof SkipResponse
+>
+
 export type OrgsListAttestationsBulkResponder = {
   with200(): KoaRuntimeResponse<{
     attestations_subject_digests?: Record<
@@ -6022,6 +9738,36 @@ export type OrgsDeleteAttestationsBySubjectDigest = (
   | typeof SkipResponse
 >
 
+export type OrgsListAttestationRepositoriesResponder = {
+  with200(): KoaRuntimeResponse<
+    {
+      id?: number
+      name?: string
+    }[]
+  >
+} & KoaRuntimeResponder
+
+export type OrgsListAttestationRepositories = (
+  params: Params<
+    t_OrgsListAttestationRepositoriesParamSchema,
+    t_OrgsListAttestationRepositoriesQuerySchema,
+    void,
+    void
+  >,
+  respond: OrgsListAttestationRepositoriesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        id?: number
+        name?: string
+      }[]
+    >
+  | typeof SkipResponse
+>
+
 export type OrgsDeleteAttestationsByIdResponder = {
   with200(): KoaRuntimeResponse<void>
   with204(): KoaRuntimeResponse<void>
@@ -6049,8 +9795,9 @@ export type OrgsListAttestationsResponder = {
         dsseEnvelope?: Record<string, unknown>
         mediaType?: string
         verificationMaterial?: Record<string, unknown>
-      }
+      } | null
       bundle_url?: string
+      initiator?: string
       repository_id?: number
     }[]
   }>
@@ -6075,8 +9822,9 @@ export type OrgsListAttestations = (
             dsseEnvelope?: Record<string, unknown>
             mediaType?: string
             verificationMaterial?: Record<string, unknown>
-          }
+          } | null
           bundle_url?: string
+          initiator?: string
           repository_id?: number
         }[]
       }
@@ -6914,6 +10662,350 @@ export type CodespacesRemoveSelectedRepoFromOrgSecret = (
   | typeof SkipResponse
 >
 
+export type CopilotSpacesListForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    spaces: t_copilot_space[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListForOrg = (
+  params: Params<
+    t_CopilotSpacesListForOrgParamSchema,
+    t_CopilotSpacesListForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        spaces: t_copilot_space[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesCreateForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesCreateForOrg = (
+  params: Params<
+    t_CopilotSpacesCreateForOrgParamSchema,
+    void,
+    t_CopilotSpacesCreateForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesCreateForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesGetForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesGetForOrg = (
+  params: Params<t_CopilotSpacesGetForOrgParamSchema, void, void, void>,
+  respond: CopilotSpacesGetForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateForOrg = (
+  params: Params<
+    t_CopilotSpacesUpdateForOrgParamSchema,
+    void,
+    t_CopilotSpacesUpdateForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesDeleteForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesDeleteForOrg = (
+  params: Params<t_CopilotSpacesDeleteForOrgParamSchema, void, void, void>,
+  respond: CopilotSpacesDeleteForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesListCollaboratorsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    collaborators: t_copilot_space_collaborator[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListCollaboratorsForOrg = (
+  params: Params<
+    t_CopilotSpacesListCollaboratorsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListCollaboratorsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        collaborators: t_copilot_space_collaborator[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesAddCollaboratorForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_copilot_space_collaborator>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesAddCollaboratorForOrg = (
+  params: Params<
+    t_CopilotSpacesAddCollaboratorForOrgParamSchema,
+    void,
+    t_CopilotSpacesAddCollaboratorForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesAddCollaboratorForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_copilot_space_collaborator>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateCollaboratorForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_collaborator>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateCollaboratorForOrg = (
+  params: Params<
+    t_CopilotSpacesUpdateCollaboratorForOrgParamSchema,
+    void,
+    t_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateCollaboratorForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_collaborator>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesRemoveCollaboratorForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesRemoveCollaboratorForOrg = (
+  params: Params<
+    t_CopilotSpacesRemoveCollaboratorForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesRemoveCollaboratorForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesListResourcesForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    resources: t_copilot_space_resource[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListResourcesForOrg = (
+  params: Params<
+    t_CopilotSpacesListResourcesForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListResourcesForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        resources: t_copilot_space_resource[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesCreateResourceForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with201(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesCreateResourceForOrg = (
+  params: Params<
+    t_CopilotSpacesCreateResourceForOrgParamSchema,
+    void,
+    t_CopilotSpacesCreateResourceForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesCreateResourceForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<201, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesGetResourceForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesGetResourceForOrg = (
+  params: Params<t_CopilotSpacesGetResourceForOrgParamSchema, void, void, void>,
+  respond: CopilotSpacesGetResourceForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateResourceForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateResourceForOrg = (
+  params: Params<
+    t_CopilotSpacesUpdateResourceForOrgParamSchema,
+    void,
+    t_CopilotSpacesUpdateResourceForOrgRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateResourceForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesDeleteResourceForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesDeleteResourceForOrg = (
+  params: Params<
+    t_CopilotSpacesDeleteResourceForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesDeleteResourceForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type CopilotGetCopilotOrganizationDetailsResponder = {
   with200(): KoaRuntimeResponse<t_copilot_organization_details>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -7123,6 +11215,269 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   | typeof SkipResponse
 >
 
+export type CopilotGetCopilotCodingAgentPermissionsOrganizationResponder = {
+  with200(): KoaRuntimeResponse<{
+    enabled_repositories: "all" | "selected" | "none"
+    selected_repositories_url?: string
+  }>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotGetCopilotCodingAgentPermissionsOrganization = (
+  params: Params<
+    t_CopilotGetCopilotCodingAgentPermissionsOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotGetCopilotCodingAgentPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        enabled_repositories: "all" | "selected" | "none"
+        selected_repositories_url?: string
+      }
+    >
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSetCopilotCodingAgentPermissionsOrganizationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSetCopilotCodingAgentPermissionsOrganization = (
+  params: Params<
+    t_CopilotSetCopilotCodingAgentPermissionsOrganizationParamSchema,
+    void,
+    t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+    void
+  >,
+  respond: CopilotSetCopilotCodingAgentPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponder =
+  {
+    with200(): KoaRuntimeResponse<{
+      repositories: t_minimal_repository[]
+      total_count: number
+    }>
+    with401(): KoaRuntimeResponse<t_basic_error>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with500(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type CopilotListCopilotCodingAgentSelectedRepositoriesForOrganization = (
+  params: Params<
+    t_CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+    t_CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with401(): KoaRuntimeResponse<t_basic_error>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+    with500(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganization = (
+  params: Params<
+    t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+    void,
+    t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+    void
+  >,
+  respond: CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotEnableCopilotCodingAgentForRepositoryInOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with401(): KoaRuntimeResponse<t_basic_error>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+    with500(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type CopilotEnableCopilotCodingAgentForRepositoryInOrganization = (
+  params: Params<
+    t_CopilotEnableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotEnableCopilotCodingAgentForRepositoryInOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotDisableCopilotCodingAgentForRepositoryInOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with401(): KoaRuntimeResponse<t_basic_error>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with409(): KoaRuntimeResponse<t_basic_error>
+    with500(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type CopilotDisableCopilotCodingAgentForRepositoryInOrganization = (
+  params: Params<
+    t_CopilotDisableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotDisableCopilotCodingAgentForRepositoryInOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotContentExclusionForOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_organization_content_exclusion_details>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotContentExclusionForOrganization = (
+  params: Params<
+    t_CopilotCopilotContentExclusionForOrganizationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotCopilotContentExclusionForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_organization_content_exclusion_details>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSetCopilotContentExclusionForOrganizationResponder = {
+  with200(): KoaRuntimeResponse<{
+    message?: string
+  }>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with413(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSetCopilotContentExclusionForOrganization = (
+  params: Params<
+    t_CopilotSetCopilotContentExclusionForOrganizationParamSchema,
+    void,
+    t_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+    void
+  >,
+  respond: CopilotSetCopilotContentExclusionForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        message?: string
+      }
+    >
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<413, t_basic_error>
+  | Res<422, t_validation_error_simple>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type CopilotCopilotMetricsForOrganizationResponder = {
   with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -7146,6 +11501,137 @@ export type CopilotCopilotMetricsForOrganization = (
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<422, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotOrganizationOneDayUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotOrganizationOneDayUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotOrganizationOneDayUsageMetricsParamSchema,
+    t_CopilotCopilotOrganizationOneDayUsageMetricsQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationOneDayUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotOrganizationUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotOrganizationUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotOrganizationUsageMetricsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_28_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotOrganizationUserTeamsOneDayReportResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotOrganizationUserTeamsOneDayReport = (
+  params: Params<
+    t_CopilotCopilotOrganizationUserTeamsOneDayReportParamSchema,
+    t_CopilotCopilotOrganizationUserTeamsOneDayReportQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationUserTeamsOneDayReportResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotOrganizationUsersOneDayUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotOrganizationUsersOneDayUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotOrganizationUsersOneDayUsageMetricsParamSchema,
+    t_CopilotCopilotOrganizationUsersOneDayUsageMetricsQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationUsersOneDayUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_1_day_report>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotCopilotOrganizationUsersUsageMetricsResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotOrganizationUsersUsageMetrics = (
+  params: Params<
+    t_CopilotCopilotOrganizationUsersUsageMetricsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationUsersUsageMetricsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_usage_metrics_28_day_report>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
@@ -7176,6 +11662,75 @@ export type DependabotListAlertsForOrg = (
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<422, t_validation_error_simple>
+  | typeof SkipResponse
+>
+
+export type DependabotRepositoryAccessForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_dependabot_repository_access_details>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotRepositoryAccessForOrgParamSchema,
+    t_DependabotRepositoryAccessForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: DependabotRepositoryAccessForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_dependabot_repository_access_details>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependabotUpdateRepositoryAccessForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotUpdateRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotUpdateRepositoryAccessForOrgParamSchema,
+    void,
+    t_DependabotUpdateRepositoryAccessForOrgRequestBody,
+    void
+  >,
+  respond: DependabotUpdateRepositoryAccessForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependabotSetRepositoryAccessDefaultLevelResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotSetRepositoryAccessDefaultLevel = (
+  params: Params<
+    t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
+    void,
+    t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+    void
+  >,
+  respond: DependabotSetRepositoryAccessDefaultLevelResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -7964,6 +12519,86 @@ export type OrgsListInvitationTeams = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_team[]>
   | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsListIssueFieldsResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field[]>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsListIssueFields = (
+  params: Params<t_OrgsListIssueFieldsParamSchema, void, void, void>,
+  respond: OrgsListIssueFieldsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field[]>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsCreateIssueFieldResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+} & KoaRuntimeResponder
+
+export type OrgsCreateIssueField = (
+  params: Params<
+    t_OrgsCreateIssueFieldParamSchema,
+    void,
+    t_organization_create_issue_field,
+    void
+  >,
+  respond: OrgsCreateIssueFieldResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
+  | typeof SkipResponse
+>
+
+export type OrgsUpdateIssueFieldResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+} & KoaRuntimeResponder
+
+export type OrgsUpdateIssueField = (
+  params: Params<
+    t_OrgsUpdateIssueFieldParamSchema,
+    void,
+    t_organization_update_issue_field,
+    void
+  >,
+  respond: OrgsUpdateIssueFieldResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
+  | typeof SkipResponse
+>
+
+export type OrgsDeleteIssueFieldResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+} & KoaRuntimeResponder
+
+export type OrgsDeleteIssueField = (
+  params: Params<t_OrgsDeleteIssueFieldParamSchema, void, void, void>,
+  respond: OrgsDeleteIssueFieldResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -9218,88 +13853,340 @@ export type PrivateRegistriesDeleteOrgPrivateRegistry = (
   | typeof SkipResponse
 >
 
-export type ProjectsClassicListForOrgResponder = {
-  with200(): KoaRuntimeResponse<t_project[]>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
+export type ProjectsListForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsClassicListForOrg = (
+export type ProjectsListForOrg = (
   params: Params<
-    t_ProjectsClassicListForOrgParamSchema,
-    t_ProjectsClassicListForOrgQuerySchema,
+    t_ProjectsListForOrgParamSchema,
+    t_ProjectsListForOrgQuerySchema,
     void,
     void
   >,
-  respond: ProjectsClassicListForOrgResponder,
+  respond: ProjectsListForOrgResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_project[]>
-  | Res<422, t_validation_error_simple>
+  | Res<200, t_projects_v2[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | typeof SkipResponse
 >
 
-export type ProjectsClassicCreateForOrgResponder = {
-  with201(): KoaRuntimeResponse<t_project>
+export type ProjectsGetForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetForOrg = (
+  params: Params<t_ProjectsGetForOrgParamSchema, void, void, void>,
+  respond: ProjectsGetForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsCreateDraftItemForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_item_simple>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsCreateDraftItemForOrg = (
+  params: Params<
+    t_ProjectsCreateDraftItemForOrgParamSchema,
+    void,
+    t_ProjectsCreateDraftItemForOrgRequestBody,
+    void
+  >,
+  respond: ProjectsCreateDraftItemForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_item_simple>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListFieldsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_field[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListFieldsForOrg = (
+  params: Params<
+    t_ProjectsListFieldsForOrgParamSchema,
+    t_ProjectsListFieldsForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListFieldsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_field[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsAddFieldForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_field>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ProjectsAddFieldForOrg = (
+  params: Params<
+    t_ProjectsAddFieldForOrgParamSchema,
+    void,
+    t_ProjectsAddFieldForOrgRequestBody,
+    void
+  >,
+  respond: ProjectsAddFieldForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_field>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsGetFieldForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_field>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetFieldForOrg = (
+  params: Params<t_ProjectsGetFieldForOrgParamSchema, void, void, void>,
+  respond: ProjectsGetFieldForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_field>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListItemsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListItemsForOrg = (
+  params: Params<
+    t_ProjectsListItemsForOrgParamSchema,
+    t_ProjectsListItemsForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListItemsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsAddItemForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_item_simple>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsAddItemForOrg = (
+  params: Params<
+    t_ProjectsAddItemForOrgParamSchema,
+    void,
+    t_ProjectsAddItemForOrgRequestBody,
+    void
+  >,
+  respond: ProjectsAddItemForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_item_simple>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsGetOrgItemResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetOrgItem = (
+  params: Params<
+    t_ProjectsGetOrgItemParamSchema,
+    t_ProjectsGetOrgItemQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsGetOrgItemResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsUpdateItemForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
-  with410(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
+  with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsClassicCreateForOrg = (
+export type ProjectsUpdateItemForOrg = (
   params: Params<
-    t_ProjectsClassicCreateForOrgParamSchema,
+    t_ProjectsUpdateItemForOrgParamSchema,
     void,
-    t_ProjectsClassicCreateForOrgRequestBody,
+    t_ProjectsUpdateItemForOrgRequestBody,
     void
   >,
-  respond: ProjectsClassicCreateForOrgResponder,
+  respond: ProjectsUpdateItemForOrgResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<201, t_project>
+  | Res<200, t_projects_v2_item_with_content>
   | Res<401, t_basic_error>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
-  | Res<410, t_basic_error>
-  | Res<422, t_validation_error_simple>
+  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
-export type OrgsGetAllCustomPropertiesResponder = {
-  with200(): KoaRuntimeResponse<t_custom_property[]>
+export type ProjectsDeleteItemForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type OrgsGetAllCustomProperties = (
-  params: Params<t_OrgsGetAllCustomPropertiesParamSchema, void, void, void>,
-  respond: OrgsGetAllCustomPropertiesResponder,
+export type ProjectsDeleteItemForOrg = (
+  params: Params<t_ProjectsDeleteItemForOrgParamSchema, void, void, void>,
+  respond: ProjectsDeleteItemForOrgResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_custom_property[]>
+  | Res<204, void>
+  | Res<401, t_basic_error>
   | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
-export type OrgsCreateOrUpdateCustomPropertiesResponder = {
-  with200(): KoaRuntimeResponse<t_custom_property[]>
+export type ProjectsCreateViewForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_view>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with503(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type OrgsCreateOrUpdateCustomProperties = (
+export type ProjectsCreateViewForOrg = (
   params: Params<
-    t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
+    t_ProjectsCreateViewForOrgParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
+    t_ProjectsCreateViewForOrgRequestBody,
     void
   >,
-  respond: OrgsCreateOrUpdateCustomPropertiesResponder,
+  respond: ProjectsCreateViewForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_view>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<503, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListViewItemsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListViewItemsForOrg = (
+  params: Params<
+    t_ProjectsListViewItemsForOrgParamSchema,
+    t_ProjectsListViewItemsForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListViewItemsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsCustomPropertiesForReposGetOrganizationDefinitionsResponder = {
+  with200(): KoaRuntimeResponse<t_custom_property[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsCustomPropertiesForReposGetOrganizationDefinitions = (
+  params: Params<
+    t_OrgsCustomPropertiesForReposGetOrganizationDefinitionsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsCustomPropertiesForReposGetOrganizationDefinitionsResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9309,15 +14196,45 @@ export type OrgsCreateOrUpdateCustomProperties = (
   | typeof SkipResponse
 >
 
-export type OrgsGetCustomPropertyResponder = {
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsResponder =
+  {
+    with200(): KoaRuntimeResponse<t_custom_property[]>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions =
+  (
+    params: Params<
+      t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsParamSchema,
+      void,
+      t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
+      void
+    >,
+    respond: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsResponder,
+    ctx: RouterContext,
+  ) => Promise<
+    | KoaRuntimeResponse<unknown>
+    | Res<200, t_custom_property[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | typeof SkipResponse
+  >
+
+export type OrgsCustomPropertiesForReposGetOrganizationDefinitionResponder = {
   with200(): KoaRuntimeResponse<t_custom_property>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type OrgsGetCustomProperty = (
-  params: Params<t_OrgsGetCustomPropertyParamSchema, void, void, void>,
-  respond: OrgsGetCustomPropertyResponder,
+export type OrgsCustomPropertiesForReposGetOrganizationDefinition = (
+  params: Params<
+    t_OrgsCustomPropertiesForReposGetOrganizationDefinitionParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsCustomPropertiesForReposGetOrganizationDefinitionResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9327,20 +14244,21 @@ export type OrgsGetCustomProperty = (
   | typeof SkipResponse
 >
 
-export type OrgsCreateOrUpdateCustomPropertyResponder = {
-  with200(): KoaRuntimeResponse<t_custom_property>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionResponder =
+  {
+    with200(): KoaRuntimeResponse<t_custom_property>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
 
-export type OrgsCreateOrUpdateCustomProperty = (
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition = (
   params: Params<
-    t_OrgsCreateOrUpdateCustomPropertyParamSchema,
+    t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionParamSchema,
     void,
     t_custom_property_set_payload,
     void
   >,
-  respond: OrgsCreateOrUpdateCustomPropertyResponder,
+  respond: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9350,15 +14268,21 @@ export type OrgsCreateOrUpdateCustomProperty = (
   | typeof SkipResponse
 >
 
-export type OrgsRemoveCustomPropertyResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
+export type OrgsCustomPropertiesForReposDeleteOrganizationDefinitionResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
 
-export type OrgsRemoveCustomProperty = (
-  params: Params<t_OrgsRemoveCustomPropertyParamSchema, void, void, void>,
-  respond: OrgsRemoveCustomPropertyResponder,
+export type OrgsCustomPropertiesForReposDeleteOrganizationDefinition = (
+  params: Params<
+    t_OrgsCustomPropertiesForReposDeleteOrganizationDefinitionParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsCustomPropertiesForReposDeleteOrganizationDefinitionResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9368,20 +14292,20 @@ export type OrgsRemoveCustomProperty = (
   | typeof SkipResponse
 >
 
-export type OrgsListCustomPropertiesValuesForReposResponder = {
+export type OrgsCustomPropertiesForReposGetOrganizationValuesResponder = {
   with200(): KoaRuntimeResponse<t_org_repo_custom_property_values[]>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type OrgsListCustomPropertiesValuesForRepos = (
+export type OrgsCustomPropertiesForReposGetOrganizationValues = (
   params: Params<
-    t_OrgsListCustomPropertiesValuesForReposParamSchema,
-    t_OrgsListCustomPropertiesValuesForReposQuerySchema,
+    t_OrgsCustomPropertiesForReposGetOrganizationValuesParamSchema,
+    t_OrgsCustomPropertiesForReposGetOrganizationValuesQuerySchema,
     void,
     void
   >,
-  respond: OrgsListCustomPropertiesValuesForReposResponder,
+  respond: OrgsCustomPropertiesForReposGetOrganizationValuesResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9391,21 +14315,22 @@ export type OrgsListCustomPropertiesValuesForRepos = (
   | typeof SkipResponse
 >
 
-export type OrgsCreateOrUpdateCustomPropertiesValuesForReposResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
 
-export type OrgsCreateOrUpdateCustomPropertiesValuesForRepos = (
+export type OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValues = (
   params: Params<
-    t_OrgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
+    t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesParamSchema,
     void,
-    t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
+    t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
     void
   >,
-  respond: OrgsCreateOrUpdateCustomPropertiesValuesForReposResponder,
+  respond: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9558,6 +14483,7 @@ export type ReposGetOrgRulesets = (
 export type ReposCreateOrgRulesetResponder = {
   with201(): KoaRuntimeResponse<t_repository_ruleset>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
   with500(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
@@ -9574,6 +14500,7 @@ export type ReposCreateOrgRuleset = (
   | KoaRuntimeResponse<unknown>
   | Res<201, t_repository_ruleset>
   | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
@@ -9640,6 +14567,7 @@ export type ReposGetOrgRuleset = (
 export type ReposUpdateOrgRulesetResponder = {
   with200(): KoaRuntimeResponse<t_repository_ruleset>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
   with500(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
@@ -9656,6 +14584,7 @@ export type ReposUpdateOrgRuleset = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_repository_ruleset>
   | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
@@ -9753,6 +14682,65 @@ export type SecretScanningListAlertsForOrg = (
   | typeof SkipResponse
 >
 
+export type SecretScanningListOrgPatternConfigsResponder = {
+  with200(): KoaRuntimeResponse<t_secret_scanning_pattern_configuration>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type SecretScanningListOrgPatternConfigs = (
+  params: Params<
+    t_SecretScanningListOrgPatternConfigsParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: SecretScanningListOrgPatternConfigsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_secret_scanning_pattern_configuration>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type SecretScanningUpdateOrgPatternConfigsResponder = {
+  with200(): KoaRuntimeResponse<{
+    pattern_config_version?: string
+  }>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type SecretScanningUpdateOrgPatternConfigs = (
+  params: Params<
+    t_SecretScanningUpdateOrgPatternConfigsParamSchema,
+    void,
+    t_SecretScanningUpdateOrgPatternConfigsRequestBody,
+    void
+  >,
+  respond: SecretScanningUpdateOrgPatternConfigsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        pattern_config_version?: string
+      }
+    >
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
 export type SecurityAdvisoriesListOrgRepositoryAdvisoriesResponder = {
   with200(): KoaRuntimeResponse<t_repository_advisory[]>
   with400(): KoaRuntimeResponse<t_scim_error>
@@ -9808,62 +14796,114 @@ export type OrgsRemoveSecurityManagerTeam = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
-export type BillingGetGithubActionsBillingOrgResponder = {
-  with200(): KoaRuntimeResponse<t_actions_billing_usage>
+export type OrgsGetImmutableReleasesSettingsResponder = {
+  with200(): KoaRuntimeResponse<t_immutable_releases_organization_settings>
 } & KoaRuntimeResponder
 
-export type BillingGetGithubActionsBillingOrg = (
+export type OrgsGetImmutableReleasesSettings = (
   params: Params<
-    t_BillingGetGithubActionsBillingOrgParamSchema,
+    t_OrgsGetImmutableReleasesSettingsParamSchema,
     void,
     void,
     void
   >,
-  respond: BillingGetGithubActionsBillingOrgResponder,
+  respond: OrgsGetImmutableReleasesSettingsResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_actions_billing_usage>
+  | Res<200, t_immutable_releases_organization_settings>
   | typeof SkipResponse
 >
 
-export type BillingGetGithubPackagesBillingOrgResponder = {
-  with200(): KoaRuntimeResponse<t_packages_billing_usage>
+export type OrgsSetImmutableReleasesSettingsResponder = {
+  with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
-export type BillingGetGithubPackagesBillingOrg = (
+export type OrgsSetImmutableReleasesSettings = (
   params: Params<
-    t_BillingGetGithubPackagesBillingOrgParamSchema,
+    t_OrgsSetImmutableReleasesSettingsParamSchema,
+    void,
+    t_OrgsSetImmutableReleasesSettingsRequestBody,
+    void
+  >,
+  respond: OrgsSetImmutableReleasesSettingsResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type OrgsGetImmutableReleasesSettingsRepositoriesResponder = {
+  with200(): KoaRuntimeResponse<{
+    repositories: t_minimal_repository[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type OrgsGetImmutableReleasesSettingsRepositories = (
+  params: Params<
+    t_OrgsGetImmutableReleasesSettingsRepositoriesParamSchema,
+    t_OrgsGetImmutableReleasesSettingsRepositoriesQuerySchema,
+    void,
+    void
+  >,
+  respond: OrgsGetImmutableReleasesSettingsRepositoriesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type OrgsSetImmutableReleasesSettingsRepositoriesResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type OrgsSetImmutableReleasesSettingsRepositories = (
+  params: Params<
+    t_OrgsSetImmutableReleasesSettingsRepositoriesParamSchema,
+    void,
+    t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+    void
+  >,
+  respond: OrgsSetImmutableReleasesSettingsRepositoriesResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type OrgsEnableSelectedRepositoryImmutableReleasesOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+  } & KoaRuntimeResponder
+
+export type OrgsEnableSelectedRepositoryImmutableReleasesOrganization = (
+  params: Params<
+    t_OrgsEnableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
     void,
     void,
     void
   >,
-  respond: BillingGetGithubPackagesBillingOrgResponder,
+  respond: OrgsEnableSelectedRepositoryImmutableReleasesOrganizationResponder,
   ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_packages_billing_usage>
-  | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
-export type BillingGetSharedStorageBillingOrgResponder = {
-  with200(): KoaRuntimeResponse<t_combined_billing_usage>
-} & KoaRuntimeResponder
+export type OrgsDisableSelectedRepositoryImmutableReleasesOrganizationResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+  } & KoaRuntimeResponder
 
-export type BillingGetSharedStorageBillingOrg = (
+export type OrgsDisableSelectedRepositoryImmutableReleasesOrganization = (
   params: Params<
-    t_BillingGetSharedStorageBillingOrgParamSchema,
+    t_OrgsDisableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
     void,
     void,
     void
   >,
-  respond: BillingGetSharedStorageBillingOrgResponder,
+  respond: OrgsDisableSelectedRepositoryImmutableReleasesOrganizationResponder,
   ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_combined_billing_usage>
-  | typeof SkipResponse
->
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type HostedComputeListNetworkConfigurationsForOrgResponder = {
   with200(): KoaRuntimeResponse<{
@@ -10095,289 +15135,23 @@ export type TeamsUpdateInOrg = (
 
 export type TeamsDeleteInOrgResponder = {
   with204(): KoaRuntimeResponse<void>
+  with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
 export type TeamsDeleteInOrg = (
   params: Params<t_TeamsDeleteInOrgParamSchema, void, void, void>,
   respond: TeamsDeleteInOrgResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type TeamsListDiscussionsInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion[]>
-} & KoaRuntimeResponder
-
-export type TeamsListDiscussionsInOrg = (
-  params: Params<
-    t_TeamsListDiscussionsInOrgParamSchema,
-    t_TeamsListDiscussionsInOrgQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListDiscussionsInOrgResponder,
-  ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion[]>
+  | Res<204, void>
+  | Res<422, void>
   | typeof SkipResponse
 >
-
-export type TeamsCreateDiscussionInOrgResponder = {
-  with201(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsCreateDiscussionInOrg = (
-  params: Params<
-    t_TeamsCreateDiscussionInOrgParamSchema,
-    void,
-    t_TeamsCreateDiscussionInOrgRequestBody,
-    void
-  >,
-  respond: TeamsCreateDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsGetDiscussionInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsGetDiscussionInOrg = (
-  params: Params<t_TeamsGetDiscussionInOrgParamSchema, void, void, void>,
-  respond: TeamsGetDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsUpdateDiscussionInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsUpdateDiscussionInOrg = (
-  params: Params<
-    t_TeamsUpdateDiscussionInOrgParamSchema,
-    void,
-    t_TeamsUpdateDiscussionInOrgRequestBody | undefined,
-    void
-  >,
-  respond: TeamsUpdateDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsDeleteDiscussionInOrgResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsDeleteDiscussionInOrg = (
-  params: Params<t_TeamsDeleteDiscussionInOrgParamSchema, void, void, void>,
-  respond: TeamsDeleteDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type TeamsListDiscussionCommentsInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment[]>
-} & KoaRuntimeResponder
-
-export type TeamsListDiscussionCommentsInOrg = (
-  params: Params<
-    t_TeamsListDiscussionCommentsInOrgParamSchema,
-    t_TeamsListDiscussionCommentsInOrgQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListDiscussionCommentsInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment[]>
-  | typeof SkipResponse
->
-
-export type TeamsCreateDiscussionCommentInOrgResponder = {
-  with201(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsCreateDiscussionCommentInOrg = (
-  params: Params<
-    t_TeamsCreateDiscussionCommentInOrgParamSchema,
-    void,
-    t_TeamsCreateDiscussionCommentInOrgRequestBody,
-    void
-  >,
-  respond: TeamsCreateDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsGetDiscussionCommentInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsGetDiscussionCommentInOrg = (
-  params: Params<t_TeamsGetDiscussionCommentInOrgParamSchema, void, void, void>,
-  respond: TeamsGetDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsUpdateDiscussionCommentInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsUpdateDiscussionCommentInOrg = (
-  params: Params<
-    t_TeamsUpdateDiscussionCommentInOrgParamSchema,
-    void,
-    t_TeamsUpdateDiscussionCommentInOrgRequestBody,
-    void
-  >,
-  respond: TeamsUpdateDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsDeleteDiscussionCommentInOrgResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsDeleteDiscussionCommentInOrg = (
-  params: Params<
-    t_TeamsDeleteDiscussionCommentInOrgParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: TeamsDeleteDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type ReactionsListForTeamDiscussionCommentInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_reaction[]>
-} & KoaRuntimeResponder
-
-export type ReactionsListForTeamDiscussionCommentInOrg = (
-  params: Params<
-    t_ReactionsListForTeamDiscussionCommentInOrgParamSchema,
-    t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
-    void,
-    void
-  >,
-  respond: ReactionsListForTeamDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
->
-
-export type ReactionsCreateForTeamDiscussionCommentInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_reaction>
-  with201(): KoaRuntimeResponse<t_reaction>
-} & KoaRuntimeResponder
-
-export type ReactionsCreateForTeamDiscussionCommentInOrg = (
-  params: Params<
-    t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-    void,
-    t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-    void
-  >,
-  respond: ReactionsCreateForTeamDiscussionCommentInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_reaction>
-  | Res<201, t_reaction>
-  | typeof SkipResponse
->
-
-export type ReactionsDeleteForTeamDiscussionCommentResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type ReactionsDeleteForTeamDiscussionComment = (
-  params: Params<
-    t_ReactionsDeleteForTeamDiscussionCommentParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: ReactionsDeleteForTeamDiscussionCommentResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type ReactionsListForTeamDiscussionInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_reaction[]>
-} & KoaRuntimeResponder
-
-export type ReactionsListForTeamDiscussionInOrg = (
-  params: Params<
-    t_ReactionsListForTeamDiscussionInOrgParamSchema,
-    t_ReactionsListForTeamDiscussionInOrgQuerySchema,
-    void,
-    void
-  >,
-  respond: ReactionsListForTeamDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
->
-
-export type ReactionsCreateForTeamDiscussionInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_reaction>
-  with201(): KoaRuntimeResponse<t_reaction>
-} & KoaRuntimeResponder
-
-export type ReactionsCreateForTeamDiscussionInOrg = (
-  params: Params<
-    t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
-    void,
-    t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-    void
-  >,
-  respond: ReactionsCreateForTeamDiscussionInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_reaction>
-  | Res<201, t_reaction>
-  | typeof SkipResponse
->
-
-export type ReactionsDeleteForTeamDiscussionResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type ReactionsDeleteForTeamDiscussion = (
-  params: Params<
-    t_ReactionsDeleteForTeamDiscussionParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: ReactionsDeleteForTeamDiscussionResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListPendingInvitationsInOrgResponder = {
   with200(): KoaRuntimeResponse<t_organization_invitation[]>
+  with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
 export type TeamsListPendingInvitationsInOrg = (
@@ -10392,6 +15166,7 @@ export type TeamsListPendingInvitationsInOrg = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_organization_invitation[]>
+  | Res<422, void>
   | typeof SkipResponse
 >
 
@@ -10471,84 +15246,6 @@ export type TeamsRemoveMembershipForUserInOrg = (
   | Res<403, void>
   | typeof SkipResponse
 >
-
-export type TeamsListProjectsInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_project[]>
-} & KoaRuntimeResponder
-
-export type TeamsListProjectsInOrg = (
-  params: Params<
-    t_TeamsListProjectsInOrgParamSchema,
-    t_TeamsListProjectsInOrgQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListProjectsInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_team_project[]> | typeof SkipResponse
->
-
-export type TeamsCheckPermissionsForProjectInOrgResponder = {
-  with200(): KoaRuntimeResponse<t_team_project>
-  with404(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsCheckPermissionsForProjectInOrg = (
-  params: Params<
-    t_TeamsCheckPermissionsForProjectInOrgParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: TeamsCheckPermissionsForProjectInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_project>
-  | Res<404, void>
-  | typeof SkipResponse
->
-
-export type TeamsAddOrUpdateProjectPermissionsInOrgResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    message?: string
-  }>
-} & KoaRuntimeResponder
-
-export type TeamsAddOrUpdateProjectPermissionsInOrg = (
-  params: Params<
-    t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-    void,
-    t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody | undefined,
-    void
-  >,
-  respond: TeamsAddOrUpdateProjectPermissionsInOrgResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        message?: string
-      }
-    >
-  | typeof SkipResponse
->
-
-export type TeamsRemoveProjectInOrgResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsRemoveProjectInOrg = (
-  params: Params<t_TeamsRemoveProjectInOrgParamSchema, void, void, void>,
-  respond: TeamsRemoveProjectInOrgResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type TeamsListReposInOrgResponder = {
   with200(): KoaRuntimeResponse<t_minimal_repository[]>
@@ -10652,591 +15349,6 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
   | Res<422, void>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicGetCardResponder = {
-  with200(): KoaRuntimeResponse<t_project_card>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicGetCard = (
-  params: Params<t_ProjectsClassicGetCardParamSchema, void, void, void>,
-  respond: ProjectsClassicGetCardResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_card>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicUpdateCardResponder = {
-  with200(): KoaRuntimeResponse<t_project_card>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicUpdateCard = (
-  params: Params<
-    t_ProjectsClassicUpdateCardParamSchema,
-    void,
-    t_ProjectsClassicUpdateCardRequestBody | undefined,
-    void
-  >,
-  respond: ProjectsClassicUpdateCardResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_card>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicDeleteCardResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    errors?: string[]
-    message?: string
-  }>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicDeleteCard = (
-  params: Params<t_ProjectsClassicDeleteCardParamSchema, void, void, void>,
-  respond: ProjectsClassicDeleteCardResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        errors?: string[]
-        message?: string
-      }
-    >
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicMoveCardResponder = {
-  with201(): KoaRuntimeResponse<Record<string, never>>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    errors?: {
-      code?: string
-      field?: string
-      message?: string
-      resource?: string
-    }[]
-    message?: string
-  }>
-  with422(): KoaRuntimeResponse<t_validation_error>
-  with503(): KoaRuntimeResponse<{
-    code?: string
-    documentation_url?: string
-    errors?: {
-      code?: string
-      message?: string
-    }[]
-    message?: string
-  }>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicMoveCard = (
-  params: Params<
-    t_ProjectsClassicMoveCardParamSchema,
-    void,
-    t_ProjectsClassicMoveCardRequestBody,
-    void
-  >,
-  respond: ProjectsClassicMoveCardResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, Record<string, never>>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        errors?: {
-          code?: string
-          field?: string
-          message?: string
-          resource?: string
-        }[]
-        message?: string
-      }
-    >
-  | Res<422, t_validation_error>
-  | Res<
-      503,
-      {
-        code?: string
-        documentation_url?: string
-        errors?: {
-          code?: string
-          message?: string
-        }[]
-        message?: string
-      }
-    >
-  | typeof SkipResponse
->
-
-export type ProjectsClassicGetColumnResponder = {
-  with200(): KoaRuntimeResponse<t_project_column>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicGetColumn = (
-  params: Params<t_ProjectsClassicGetColumnParamSchema, void, void, void>,
-  respond: ProjectsClassicGetColumnResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_column>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicUpdateColumnResponder = {
-  with200(): KoaRuntimeResponse<t_project_column>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicUpdateColumn = (
-  params: Params<
-    t_ProjectsClassicUpdateColumnParamSchema,
-    void,
-    t_ProjectsClassicUpdateColumnRequestBody,
-    void
-  >,
-  respond: ProjectsClassicUpdateColumnResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_column>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicDeleteColumnResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicDeleteColumn = (
-  params: Params<t_ProjectsClassicDeleteColumnParamSchema, void, void, void>,
-  respond: ProjectsClassicDeleteColumnResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicListCardsResponder = {
-  with200(): KoaRuntimeResponse<t_project_card[]>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicListCards = (
-  params: Params<
-    t_ProjectsClassicListCardsParamSchema,
-    t_ProjectsClassicListCardsQuerySchema,
-    void,
-    void
-  >,
-  respond: ProjectsClassicListCardsResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_card[]>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicCreateCardResponder = {
-  with201(): KoaRuntimeResponse<t_project_card>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error | t_validation_error_simple>
-  with503(): KoaRuntimeResponse<{
-    code?: string
-    documentation_url?: string
-    errors?: {
-      code?: string
-      message?: string
-    }[]
-    message?: string
-  }>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicCreateCard = (
-  params: Params<
-    t_ProjectsClassicCreateCardParamSchema,
-    void,
-    t_ProjectsClassicCreateCardRequestBody,
-    void
-  >,
-  respond: ProjectsClassicCreateCardResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_project_card>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<422, t_validation_error | t_validation_error_simple>
-  | Res<
-      503,
-      {
-        code?: string
-        documentation_url?: string
-        errors?: {
-          code?: string
-          message?: string
-        }[]
-        message?: string
-      }
-    >
-  | typeof SkipResponse
->
-
-export type ProjectsClassicMoveColumnResponder = {
-  with201(): KoaRuntimeResponse<Record<string, never>>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicMoveColumn = (
-  params: Params<
-    t_ProjectsClassicMoveColumnParamSchema,
-    void,
-    t_ProjectsClassicMoveColumnRequestBody,
-    void
-  >,
-  respond: ProjectsClassicMoveColumnResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, Record<string, never>>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicGetResponder = {
-  with200(): KoaRuntimeResponse<t_project>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicGet = (
-  params: Params<t_ProjectsClassicGetParamSchema, void, void, void>,
-  respond: ProjectsClassicGetResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicUpdateResponder = {
-  with200(): KoaRuntimeResponse<t_project>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    errors?: string[]
-    message?: string
-  }>
-  with404(): KoaRuntimeResponse<void>
-  with410(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicUpdate = (
-  params: Params<
-    t_ProjectsClassicUpdateParamSchema,
-    void,
-    t_ProjectsClassicUpdateRequestBody | undefined,
-    void
-  >,
-  respond: ProjectsClassicUpdateResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        errors?: string[]
-        message?: string
-      }
-    >
-  | Res<404, void>
-  | Res<410, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicDeleteResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    errors?: string[]
-    message?: string
-  }>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with410(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicDelete = (
-  params: Params<t_ProjectsClassicDeleteParamSchema, void, void, void>,
-  respond: ProjectsClassicDeleteResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        errors?: string[]
-        message?: string
-      }
-    >
-  | Res<404, t_basic_error>
-  | Res<410, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicListCollaboratorsResponder = {
-  with200(): KoaRuntimeResponse<t_simple_user[]>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicListCollaborators = (
-  params: Params<
-    t_ProjectsClassicListCollaboratorsParamSchema,
-    t_ProjectsClassicListCollaboratorsQuerySchema,
-    void,
-    void
-  >,
-  respond: ProjectsClassicListCollaboratorsResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_simple_user[]>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicAddCollaboratorResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicAddCollaborator = (
-  params: Params<
-    t_ProjectsClassicAddCollaboratorParamSchema,
-    void,
-    t_ProjectsClassicAddCollaboratorRequestBody | undefined,
-    void
-  >,
-  respond: ProjectsClassicAddCollaboratorResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicRemoveCollaboratorResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicRemoveCollaborator = (
-  params: Params<
-    t_ProjectsClassicRemoveCollaboratorParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: ProjectsClassicRemoveCollaboratorResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicGetPermissionForUserResponder = {
-  with200(): KoaRuntimeResponse<t_project_collaborator_permission>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicGetPermissionForUser = (
-  params: Params<
-    t_ProjectsClassicGetPermissionForUserParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: ProjectsClassicGetPermissionForUserResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_collaborator_permission>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicListColumnsResponder = {
-  with200(): KoaRuntimeResponse<t_project_column[]>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicListColumns = (
-  params: Params<
-    t_ProjectsClassicListColumnsParamSchema,
-    t_ProjectsClassicListColumnsQuerySchema,
-    void,
-    void
-  >,
-  respond: ProjectsClassicListColumnsResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project_column[]>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicCreateColumnResponder = {
-  with201(): KoaRuntimeResponse<t_project_column>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicCreateColumn = (
-  params: Params<
-    t_ProjectsClassicCreateColumnParamSchema,
-    void,
-    t_ProjectsClassicCreateColumnRequestBody,
-    void
-  >,
-  respond: ProjectsClassicCreateColumnResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_project_column>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
 
@@ -11402,6 +15514,102 @@ export type ActionsDownloadArtifact = (
   | typeof SkipResponse
 >
 
+export type ActionsGetActionsCacheRetentionLimitForRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_retention_limit_for_repository>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetActionsCacheRetentionLimitForRepository = (
+  params: Params<
+    t_ActionsGetActionsCacheRetentionLimitForRepositoryParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetActionsCacheRetentionLimitForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_cache_retention_limit_for_repository>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetActionsCacheRetentionLimitForRepositoryResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetActionsCacheRetentionLimitForRepository = (
+  params: Params<
+    t_ActionsSetActionsCacheRetentionLimitForRepositoryParamSchema,
+    void,
+    t_actions_cache_retention_limit_for_repository,
+    void
+  >,
+  respond: ActionsSetActionsCacheRetentionLimitForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetActionsCacheStorageLimitForRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_actions_cache_storage_limit_for_repository>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetActionsCacheStorageLimitForRepository = (
+  params: Params<
+    t_ActionsGetActionsCacheStorageLimitForRepositoryParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetActionsCacheStorageLimitForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_cache_storage_limit_for_repository>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetActionsCacheStorageLimitForRepositoryResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetActionsCacheStorageLimitForRepository = (
+  params: Params<
+    t_ActionsSetActionsCacheStorageLimitForRepositoryParamSchema,
+    void,
+    t_actions_cache_storage_limit_for_repository,
+    void
+  >,
+  respond: ActionsSetActionsCacheStorageLimitForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type ActionsGetActionsCacheUsageResponder = {
   with200(): KoaRuntimeResponse<t_actions_cache_usage_by_repository>
 } & KoaRuntimeResponder
@@ -11463,6 +15671,50 @@ export type ActionsDeleteActionsCacheById = (
   respond: ActionsDeleteActionsCacheByIdResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type ActionsListConcurrencyGroupsForRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_concurrency_group_list>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsListConcurrencyGroupsForRepository = (
+  params: Params<
+    t_ActionsListConcurrencyGroupsForRepositoryParamSchema,
+    t_ActionsListConcurrencyGroupsForRepositoryQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListConcurrencyGroupsForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_concurrency_group_list>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetConcurrencyGroupForRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_concurrency_group>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetConcurrencyGroupForRepository = (
+  params: Params<
+    t_ActionsGetConcurrencyGroupForRepositoryParamSchema,
+    t_ActionsGetConcurrencyGroupForRepositoryQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsGetConcurrencyGroupForRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_concurrency_group>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
 
 export type ActionsGetJobForWorkflowRunResponder = {
   with200(): KoaRuntimeResponse<t_job>
@@ -11683,6 +15935,142 @@ export type ActionsSetWorkflowAccessToRepository = (
   respond: ActionsSetWorkflowAccessToRepositoryResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type ActionsGetArtifactAndLogRetentionSettingsRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_actions_artifact_and_log_retention_response>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetArtifactAndLogRetentionSettingsRepository = (
+  params: Params<
+    t_ActionsGetArtifactAndLogRetentionSettingsRepositoryParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetArtifactAndLogRetentionSettingsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_artifact_and_log_retention_response>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetArtifactAndLogRetentionSettingsRepositoryResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetArtifactAndLogRetentionSettingsRepository = (
+  params: Params<
+    t_ActionsSetArtifactAndLogRetentionSettingsRepositoryParamSchema,
+    void,
+    t_actions_artifact_and_log_retention,
+    void
+  >,
+  respond: ActionsSetArtifactAndLogRetentionSettingsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetForkPrContributorApprovalPermissionsRepositoryResponder =
+  {
+    with200(): KoaRuntimeResponse<t_actions_fork_pr_contributor_approval>
+    with404(): KoaRuntimeResponse<t_basic_error>
+  } & KoaRuntimeResponder
+
+export type ActionsGetForkPrContributorApprovalPermissionsRepository = (
+  params: Params<
+    t_ActionsGetForkPrContributorApprovalPermissionsRepositoryParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetForkPrContributorApprovalPermissionsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_fork_pr_contributor_approval>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetForkPrContributorApprovalPermissionsRepositoryResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
+
+export type ActionsSetForkPrContributorApprovalPermissionsRepository = (
+  params: Params<
+    t_ActionsSetForkPrContributorApprovalPermissionsRepositoryParamSchema,
+    void,
+    t_actions_fork_pr_contributor_approval,
+    void
+  >,
+  respond: ActionsSetForkPrContributorApprovalPermissionsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ActionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryResponder = {
+  with200(): KoaRuntimeResponse<t_actions_fork_pr_workflows_private_repos>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ActionsGetPrivateRepoForkPrWorkflowsSettingsRepository = (
+  params: Params<
+    t_ActionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_fork_pr_workflows_private_repos>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsSetPrivateRepoForkPrWorkflowsSettingsRepository = (
+  params: Params<
+    t_ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
+    void,
+    t_actions_fork_pr_workflows_private_repos_request,
+    void
+  >,
+  respond: ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
 
 export type ActionsGetAllowedActionsRepositoryResponder = {
   with200(): KoaRuntimeResponse<t_selected_actions>
@@ -12266,6 +16654,29 @@ export type ActionsCancelWorkflowRun = (
   | typeof SkipResponse
 >
 
+export type ActionsListConcurrencyGroupsForWorkflowRunResponder = {
+  with200(): KoaRuntimeResponse<t_concurrency_group_run_list>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ActionsListConcurrencyGroupsForWorkflowRun = (
+  params: Params<
+    t_ActionsListConcurrencyGroupsForWorkflowRunParamSchema,
+    t_ActionsListConcurrencyGroupsForWorkflowRunQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListConcurrencyGroupsForWorkflowRunResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_concurrency_group_run_list>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
 export type ActionsReviewCustomGatesForRunResponder = {
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -12658,6 +17069,7 @@ export type ActionsDisableWorkflow = (
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type ActionsCreateWorkflowDispatchResponder = {
+  with200(): KoaRuntimeResponse<t_workflow_dispatch_response>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -12670,7 +17082,12 @@ export type ActionsCreateWorkflowDispatch = (
   >,
   respond: ActionsCreateWorkflowDispatchResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_workflow_dispatch_response>
+  | Res<204, void>
+  | typeof SkipResponse
+>
 
 export type ActionsEnableWorkflowResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -12742,6 +17159,231 @@ export type ReposListActivities = (
   | Res<422, t_validation_error_simple>
   | typeof SkipResponse
 >
+
+export type AgentsListRepoOrganizationSecretsResponder = {
+  with200(): KoaRuntimeResponse<{
+    secrets: t_actions_secret[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListRepoOrganizationSecrets = (
+  params: Params<
+    t_AgentsListRepoOrganizationSecretsParamSchema,
+    t_AgentsListRepoOrganizationSecretsQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListRepoOrganizationSecretsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        secrets: t_actions_secret[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsListRepoOrganizationVariablesResponder = {
+  with200(): KoaRuntimeResponse<{
+    total_count: number
+    variables: t_actions_variable[]
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListRepoOrganizationVariables = (
+  params: Params<
+    t_AgentsListRepoOrganizationVariablesParamSchema,
+    t_AgentsListRepoOrganizationVariablesQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListRepoOrganizationVariablesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        total_count: number
+        variables: t_actions_variable[]
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsListRepoSecretsResponder = {
+  with200(): KoaRuntimeResponse<{
+    secrets: t_actions_secret[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListRepoSecrets = (
+  params: Params<
+    t_AgentsListRepoSecretsParamSchema,
+    t_AgentsListRepoSecretsQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListRepoSecretsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        secrets: t_actions_secret[]
+        total_count: number
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsGetRepoPublicKeyResponder = {
+  with200(): KoaRuntimeResponse<t_actions_public_key>
+} & KoaRuntimeResponder
+
+export type AgentsGetRepoPublicKey = (
+  params: Params<t_AgentsGetRepoPublicKeyParamSchema, void, void, void>,
+  respond: AgentsGetRepoPublicKeyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_public_key>
+  | typeof SkipResponse
+>
+
+export type AgentsGetRepoSecretResponder = {
+  with200(): KoaRuntimeResponse<t_actions_secret>
+} & KoaRuntimeResponder
+
+export type AgentsGetRepoSecret = (
+  params: Params<t_AgentsGetRepoSecretParamSchema, void, void, void>,
+  respond: AgentsGetRepoSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_actions_secret> | typeof SkipResponse
+>
+
+export type AgentsCreateOrUpdateRepoSecretResponder = {
+  with201(): KoaRuntimeResponse<t_empty_object>
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsCreateOrUpdateRepoSecret = (
+  params: Params<
+    t_AgentsCreateOrUpdateRepoSecretParamSchema,
+    void,
+    t_AgentsCreateOrUpdateRepoSecretRequestBody,
+    void
+  >,
+  respond: AgentsCreateOrUpdateRepoSecretResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_empty_object>
+  | Res<204, void>
+  | typeof SkipResponse
+>
+
+export type AgentsDeleteRepoSecretResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsDeleteRepoSecret = (
+  params: Params<t_AgentsDeleteRepoSecretParamSchema, void, void, void>,
+  respond: AgentsDeleteRepoSecretResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsListRepoVariablesResponder = {
+  with200(): KoaRuntimeResponse<{
+    total_count: number
+    variables: t_actions_variable[]
+  }>
+} & KoaRuntimeResponder
+
+export type AgentsListRepoVariables = (
+  params: Params<
+    t_AgentsListRepoVariablesParamSchema,
+    t_AgentsListRepoVariablesQuerySchema,
+    void,
+    void
+  >,
+  respond: AgentsListRepoVariablesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        total_count: number
+        variables: t_actions_variable[]
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type AgentsCreateRepoVariableResponder = {
+  with201(): KoaRuntimeResponse<t_empty_object>
+} & KoaRuntimeResponder
+
+export type AgentsCreateRepoVariable = (
+  params: Params<
+    t_AgentsCreateRepoVariableParamSchema,
+    void,
+    t_AgentsCreateRepoVariableRequestBody,
+    void
+  >,
+  respond: AgentsCreateRepoVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
+>
+
+export type AgentsGetRepoVariableResponder = {
+  with200(): KoaRuntimeResponse<t_actions_variable>
+} & KoaRuntimeResponder
+
+export type AgentsGetRepoVariable = (
+  params: Params<t_AgentsGetRepoVariableParamSchema, void, void, void>,
+  respond: AgentsGetRepoVariableResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_actions_variable>
+  | typeof SkipResponse
+>
+
+export type AgentsUpdateRepoVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsUpdateRepoVariable = (
+  params: Params<
+    t_AgentsUpdateRepoVariableParamSchema,
+    void,
+    t_AgentsUpdateRepoVariableRequestBody,
+    void
+  >,
+  respond: AgentsUpdateRepoVariableResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+
+export type AgentsDeleteRepoVariableResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type AgentsDeleteRepoVariable = (
+  params: Params<t_AgentsDeleteRepoVariableParamSchema, void, void, void>,
+  respond: AgentsDeleteRepoVariableResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
 export type IssuesListAssigneesResponder = {
   with200(): KoaRuntimeResponse<t_simple_user[]>
@@ -12819,6 +17461,7 @@ export type ReposListAttestationsResponder = {
         verificationMaterial?: Record<string, unknown>
       }
       bundle_url?: string
+      initiator?: string
       repository_id?: number
     }[]
   }>
@@ -12845,6 +17488,7 @@ export type ReposListAttestations = (
             verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
+          initiator?: string
           repository_id?: number
         }[]
       }
@@ -13858,6 +18502,79 @@ export type ChecksRerequestSuite = (
   KoaRuntimeResponse<unknown> | Res<201, t_empty_object> | typeof SkipResponse
 >
 
+export type CodeQualityGetSetupResponder = {
+  with200(): KoaRuntimeResponse<t_code_quality_setup>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeQualityGetSetup = (
+  params: Params<t_CodeQualityGetSetupParamSchema, void, void, void>,
+  respond: CodeQualityGetSetupResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_code_quality_setup>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type CodeQualityUpdateSetupResponder = {
+  with200(): KoaRuntimeResponse<t_empty_object>
+  with202(): KoaRuntimeResponse<t_code_quality_setup_update_response>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeQualityUpdateSetup = (
+  params: Params<
+    t_CodeQualityUpdateSetupParamSchema,
+    void,
+    t_code_quality_setup_update,
+    void
+  >,
+  respond: CodeQualityUpdateSetupResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_empty_object>
+  | Res<202, t_code_quality_setup_update_response>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<409, t_basic_error>
+  | Res<422, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
 export type CodeScanningListAlertsForRepoResponder = {
   with200(): KoaRuntimeResponse<t_code_scanning_alert_items[]>
   with304(): KoaRuntimeResponse<void>
@@ -14078,7 +18795,7 @@ export type CodeScanningCommitAutofix = (
 >
 
 export type CodeScanningListAlertInstancesResponder = {
-  with200(): KoaRuntimeResponse<t_code_scanning_alert_instance[]>
+  with200(): KoaRuntimeResponse<t_code_scanning_alert_instance_list[]>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
@@ -14099,7 +18816,7 @@ export type CodeScanningListAlertInstances = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_code_scanning_alert_instance[]>
+  | Res<200, t_code_scanning_alert_instance_list[]>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | Res<
@@ -15287,7 +20004,7 @@ export type ReposListPullRequestsAssociatedWithCommit = (
 >
 
 export type ReposGetCommitResponder = {
-  with200(): KoaRuntimeResponse<t_commit>
+  with200(): KoaRuntimeResponse<string>
   with404(): KoaRuntimeResponse<t_basic_error>
   with409(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
@@ -15310,7 +20027,7 @@ export type ReposGetCommit = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_commit>
+  | Res<200, string>
   | Res<404, t_basic_error>
   | Res<409, t_basic_error>
   | Res<422, t_validation_error>
@@ -15444,7 +20161,7 @@ export type ReposGetCommunityProfileMetrics = (
 >
 
 export type ReposCompareCommitsResponder = {
-  with200(): KoaRuntimeResponse<t_commit_comparison>
+  with200(): KoaRuntimeResponse<string>
   with404(): KoaRuntimeResponse<t_basic_error>
   with500(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
@@ -15465,7 +20182,7 @@ export type ReposCompareCommits = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_commit_comparison>
+  | Res<200, string>
   | Res<404, t_basic_error>
   | Res<500, t_basic_error>
   | Res<
@@ -15606,6 +20323,60 @@ export type ReposListContributors = (
   | Res<204, void>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotGetCopilotCloudAgentConfigurationResponder = {
+  with200(): KoaRuntimeResponse<{
+    custom_allowlist: string[]
+    enabled_tools: {
+      codeql: boolean
+      copilot_code_review: boolean
+      dependency_vulnerability_checks: boolean
+      secret_scanning: boolean
+    }
+    is_firewall_enabled: boolean
+    is_firewall_recommended_allowlist_enabled: boolean
+    mcp_configuration: Record<string, unknown> | null
+    require_actions_workflow_approval: boolean
+  }>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotGetCopilotCloudAgentConfiguration = (
+  params: Params<
+    t_CopilotGetCopilotCloudAgentConfigurationParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotGetCopilotCloudAgentConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        custom_allowlist: string[]
+        enabled_tools: {
+          codeql: boolean
+          copilot_code_review: boolean
+          dependency_vulnerability_checks: boolean
+          secret_scanning: boolean
+        }
+        is_firewall_enabled: boolean
+        is_firewall_recommended_allowlist_enabled: boolean
+        mcp_configuration: Record<string, unknown> | null
+        require_actions_workflow_approval: boolean
+      }
+    >
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -15776,8 +20547,15 @@ export type DependabotDeleteRepoSecret = (
 
 export type DependencyGraphDiffRangeResponder = {
   with200(): KoaRuntimeResponse<t_dependency_graph_diff>
+  with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
 } & KoaRuntimeResponder
 
 export type DependencyGraphDiffRange = (
@@ -15792,8 +20570,18 @@ export type DependencyGraphDiffRange = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dependency_graph_diff>
+  | Res<400, t_scim_error>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
   | typeof SkipResponse
 >
 
@@ -15810,6 +20598,56 @@ export type DependencyGraphExportSbom = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Res<200, t_dependency_graph_spdx_sbom>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependencyGraphFetchSbomReportResponder = {
+  with202(): KoaRuntimeResponse<void>
+  with302(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependencyGraphFetchSbomReport = (
+  params: Params<t_DependencyGraphFetchSbomReportParamSchema, void, void, void>,
+  respond: DependencyGraphFetchSbomReportResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<202, void>
+  | Res<302, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependencyGraphGenerateSbomReportResponder = {
+  with201(): KoaRuntimeResponse<{
+    sbom_url?: string
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependencyGraphGenerateSbomReport = (
+  params: Params<
+    t_DependencyGraphGenerateSbomReportParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: DependencyGraphGenerateSbomReportResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      201,
+      {
+        sbom_url?: string
+      }
+    >
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | typeof SkipResponse
@@ -17030,6 +21868,54 @@ export type ReposTestPushWebhook = (
   | typeof SkipResponse
 >
 
+export type ReposCheckImmutableReleasesResponder = {
+  with200(): KoaRuntimeResponse<t_check_immutable_releases>
+  with404(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ReposCheckImmutableReleases = (
+  params: Params<t_ReposCheckImmutableReleasesParamSchema, void, void, void>,
+  respond: ReposCheckImmutableReleasesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_check_immutable_releases>
+  | Res<404, void>
+  | typeof SkipResponse
+>
+
+export type ReposEnableImmutableReleasesResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ReposEnableImmutableReleases = (
+  params: Params<t_ReposEnableImmutableReleasesParamSchema, void, void, void>,
+  respond: ReposEnableImmutableReleasesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ReposDisableImmutableReleasesResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with409(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ReposDisableImmutableReleases = (
+  params: Params<t_ReposDisableImmutableReleasesParamSchema, void, void, void>,
+  respond: ReposDisableImmutableReleasesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<409, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type MigrationsGetImportStatusResponder = {
   with200(): KoaRuntimeResponse<t_import>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -17463,6 +22349,65 @@ export type IssuesDeleteComment = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
+export type IssuesPinCommentResponder = {
+  with200(): KoaRuntimeResponse<t_issue_comment>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type IssuesPinComment = (
+  params: Params<t_IssuesPinCommentParamSchema, void, void, void>,
+  respond: IssuesPinCommentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_comment>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type IssuesUnpinCommentResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type IssuesUnpinComment = (
+  params: Params<t_IssuesUnpinCommentParamSchema, void, void, void>,
+  respond: IssuesUnpinCommentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
 export type ReactionsListForIssueCommentResponder = {
   with200(): KoaRuntimeResponse<t_reaction[]>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -17727,6 +22672,116 @@ export type IssuesCreateComment = (
   | typeof SkipResponse
 >
 
+export type IssuesListDependenciesBlockedByResponder = {
+  with200(): KoaRuntimeResponse<t_issue[]>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesListDependenciesBlockedBy = (
+  params: Params<
+    t_IssuesListDependenciesBlockedByParamSchema,
+    t_IssuesListDependenciesBlockedByQuerySchema,
+    void,
+    void
+  >,
+  respond: IssuesListDependenciesBlockedByResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type IssuesAddBlockedByDependencyResponder = {
+  with201(): KoaRuntimeResponse<t_issue>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type IssuesAddBlockedByDependency = (
+  params: Params<
+    t_IssuesAddBlockedByDependencyParamSchema,
+    void,
+    t_IssuesAddBlockedByDependencyRequestBody,
+    void
+  >,
+  respond: IssuesAddBlockedByDependencyResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_issue>
+  | Res<301, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type IssuesRemoveDependencyBlockedByResponder = {
+  with200(): KoaRuntimeResponse<t_issue>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesRemoveDependencyBlockedBy = (
+  params: Params<
+    t_IssuesRemoveDependencyBlockedByParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: IssuesRemoveDependencyBlockedByResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue>
+  | Res<301, t_basic_error>
+  | Res<400, t_scim_error>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type IssuesListDependenciesBlockingResponder = {
+  with200(): KoaRuntimeResponse<t_issue[]>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesListDependenciesBlocking = (
+  params: Params<
+    t_IssuesListDependenciesBlockingParamSchema,
+    t_IssuesListDependenciesBlockingQuerySchema,
+    void,
+    void
+  >,
+  respond: IssuesListDependenciesBlockingResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type IssuesListEventsResponder = {
   with200(): KoaRuntimeResponse<t_issue_event_for_issue[]>
   with410(): KoaRuntimeResponse<t_basic_error>
@@ -17745,6 +22800,144 @@ export type IssuesListEvents = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_issue_event_for_issue[]>
   | Res<410, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type IssuesListIssueFieldValuesForIssueResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field_value[]>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesListIssueFieldValuesForIssue = (
+  params: Params<
+    t_IssuesListIssueFieldValuesForIssueParamSchema,
+    t_IssuesListIssueFieldValuesForIssueQuerySchema,
+    void,
+    void
+  >,
+  respond: IssuesListIssueFieldValuesForIssueResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field_value[]>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type IssuesAddIssueFieldValuesResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field_value[]>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type IssuesAddIssueFieldValues = (
+  params: Params<
+    t_IssuesAddIssueFieldValuesParamSchema,
+    void,
+    t_IssuesAddIssueFieldValuesRequestBody,
+    void
+  >,
+  respond: IssuesAddIssueFieldValuesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field_value[]>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type IssuesSetIssueFieldValuesResponder = {
+  with200(): KoaRuntimeResponse<t_issue_field_value[]>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type IssuesSetIssueFieldValues = (
+  params: Params<
+    t_IssuesSetIssueFieldValuesParamSchema,
+    void,
+    t_IssuesSetIssueFieldValuesRequestBody,
+    void
+  >,
+  respond: IssuesSetIssueFieldValuesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue_field_value[]>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type IssuesDeleteIssueFieldValueResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type IssuesDeleteIssueFieldValue = (
+  params: Params<t_IssuesDeleteIssueFieldValueParamSchema, void, void, void>,
+  respond: IssuesDeleteIssueFieldValueResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
   | typeof SkipResponse
 >
 
@@ -17909,6 +23102,26 @@ export type IssuesUnlock = (
   | Res<204, void>
   | Res<403, t_basic_error>
   | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type IssuesGetParentResponder = {
+  with200(): KoaRuntimeResponse<t_issue>
+  with301(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesGetParent = (
+  params: Params<t_IssuesGetParentParamSchema, void, void, void>,
+  respond: IssuesGetParentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_issue>
+  | Res<301, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<410, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -18778,73 +23991,20 @@ export type ReposDisablePrivateVulnerabilityReporting = (
   | typeof SkipResponse
 >
 
-export type ProjectsClassicListForRepoResponder = {
-  with200(): KoaRuntimeResponse<t_project[]>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with410(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicListForRepo = (
-  params: Params<
-    t_ProjectsClassicListForRepoParamSchema,
-    t_ProjectsClassicListForRepoQuerySchema,
-    void,
-    void
-  >,
-  respond: ProjectsClassicListForRepoResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_project[]>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<410, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
-export type ProjectsClassicCreateForRepoResponder = {
-  with201(): KoaRuntimeResponse<t_project>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with410(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicCreateForRepo = (
-  params: Params<
-    t_ProjectsClassicCreateForRepoParamSchema,
-    void,
-    t_ProjectsClassicCreateForRepoRequestBody,
-    void
-  >,
-  respond: ProjectsClassicCreateForRepoResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_project>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | Res<410, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
-export type ReposGetCustomPropertiesValuesResponder = {
+export type ReposCustomPropertiesForReposGetRepositoryValuesResponder = {
   with200(): KoaRuntimeResponse<t_custom_property_value[]>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ReposGetCustomPropertiesValues = (
-  params: Params<t_ReposGetCustomPropertiesValuesParamSchema, void, void, void>,
-  respond: ReposGetCustomPropertiesValuesResponder,
+export type ReposCustomPropertiesForReposGetRepositoryValues = (
+  params: Params<
+    t_ReposCustomPropertiesForReposGetRepositoryValuesParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ReposCustomPropertiesForReposGetRepositoryValuesResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -18854,21 +24014,22 @@ export type ReposGetCustomPropertiesValues = (
   | typeof SkipResponse
 >
 
-export type ReposCreateOrUpdateCustomPropertiesValuesResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
+export type ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesResponder =
+  {
+    with204(): KoaRuntimeResponse<void>
+    with403(): KoaRuntimeResponse<t_basic_error>
+    with404(): KoaRuntimeResponse<t_basic_error>
+    with422(): KoaRuntimeResponse<t_validation_error>
+  } & KoaRuntimeResponder
 
-export type ReposCreateOrUpdateCustomPropertiesValues = (
+export type ReposCustomPropertiesForReposCreateOrUpdateRepositoryValues = (
   params: Params<
-    t_ReposCreateOrUpdateCustomPropertiesValuesParamSchema,
+    t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesParamSchema,
     void,
-    t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
+    t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
     void
   >,
-  respond: ReposCreateOrUpdateCustomPropertiesValuesResponder,
+  respond: ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -19711,13 +24872,19 @@ export type ReposUpdateReleaseAsset = (
 
 export type ReposDeleteReleaseAssetResponder = {
   with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
 export type ReposDeleteReleaseAsset = (
   params: Params<t_ReposDeleteReleaseAssetParamSchema, void, void, void>,
   respond: ReposDeleteReleaseAssetResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
 
 export type ReposGenerateReleaseNotesResponder = {
   with200(): KoaRuntimeResponse<t_release_notes_content>
@@ -19742,6 +24909,7 @@ export type ReposGenerateReleaseNotes = (
 
 export type ReposGetLatestReleaseResponder = {
   with200(): KoaRuntimeResponse<t_release>
+  with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
 export type ReposGetLatestRelease = (
@@ -19749,7 +24917,10 @@ export type ReposGetLatestRelease = (
   respond: ReposGetLatestReleaseResponder,
   ctx: RouterContext,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_release> | typeof SkipResponse
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_release>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
 >
 
 export type ReposGetReleaseByTagResponder = {
@@ -19807,13 +24978,19 @@ export type ReposUpdateRelease = (
 
 export type ReposDeleteReleaseResponder = {
   with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
 export type ReposDeleteRelease = (
   params: Params<t_ReposDeleteReleaseParamSchema, void, void, void>,
   respond: ReposDeleteReleaseResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
 
 export type ReposListReleaseAssetsResponder = {
   with200(): KoaRuntimeResponse<t_release_asset[]>
@@ -19954,6 +25131,7 @@ export type ReposGetRepoRulesets = (
 export type ReposCreateRepoRulesetResponder = {
   with201(): KoaRuntimeResponse<t_repository_ruleset>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
   with500(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
@@ -19970,6 +25148,7 @@ export type ReposCreateRepoRuleset = (
   | KoaRuntimeResponse<unknown>
   | Res<201, t_repository_ruleset>
   | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
@@ -20041,6 +25220,7 @@ export type ReposGetRepoRuleset = (
 export type ReposUpdateRepoRulesetResponder = {
   with200(): KoaRuntimeResponse<t_repository_ruleset>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
   with500(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
@@ -20057,6 +25237,7 @@ export type ReposUpdateRepoRuleset = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_repository_ruleset>
   | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
   | Res<500, t_basic_error>
   | typeof SkipResponse
 >
@@ -20193,6 +25374,7 @@ export type SecretScanningGetAlert = (
 export type SecretScanningUpdateAlertResponder = {
   with200(): KoaRuntimeResponse<t_secret_scanning_alert>
   with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<void>
   with404(): KoaRuntimeResponse<void>
   with422(): KoaRuntimeResponse<void>
   with503(): KoaRuntimeResponse<{
@@ -20215,6 +25397,7 @@ export type SecretScanningUpdateAlert = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_secret_scanning_alert>
   | Res<400, void>
+  | Res<403, void>
   | Res<404, void>
   | Res<422, void>
   | Res<
@@ -20706,65 +25889,6 @@ export type ReposListTags = (
   KoaRuntimeResponse<unknown> | Res<200, t_tag[]> | typeof SkipResponse
 >
 
-export type ReposListTagProtectionResponder = {
-  with200(): KoaRuntimeResponse<t_tag_protection[]>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ReposListTagProtection = (
-  params: Params<t_ReposListTagProtectionParamSchema, void, void, void>,
-  respond: ReposListTagProtectionResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_tag_protection[]>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ReposCreateTagProtectionResponder = {
-  with201(): KoaRuntimeResponse<t_tag_protection>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ReposCreateTagProtection = (
-  params: Params<
-    t_ReposCreateTagProtectionParamSchema,
-    void,
-    t_ReposCreateTagProtectionRequestBody,
-    void
-  >,
-  respond: ReposCreateTagProtectionResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_tag_protection>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type ReposDeleteTagProtectionResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type ReposDeleteTagProtection = (
-  params: Params<t_ReposDeleteTagProtectionParamSchema, void, void, void>,
-  respond: ReposDeleteTagProtectionResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<403, t_basic_error>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
 export type ReposDownloadTarballArchiveResponder = {
   with302(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -21096,9 +26220,21 @@ export type SearchIssuesAndPullRequestsResponder = {
   with200(): KoaRuntimeResponse<{
     incomplete_results: boolean
     items: t_issue_search_result_item[]
+    lexical_fallback_reason?: (
+      | "no_text_terms"
+      | "quoted_text"
+      | "non_issue_target"
+      | "or_boolean_not_supported"
+      | "no_accessible_repos"
+      | "server_error"
+      | "only_non_semantic_fields_requested"
+      | "service_unavailable"
+    )[]
+    search_type: "lexical" | "semantic" | "hybrid"
     total_count: number
   }>
   with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
   with503(): KoaRuntimeResponse<{
@@ -21119,10 +26255,22 @@ export type SearchIssuesAndPullRequests = (
       {
         incomplete_results: boolean
         items: t_issue_search_result_item[]
+        lexical_fallback_reason?: (
+          | "no_text_terms"
+          | "quoted_text"
+          | "non_issue_target"
+          | "or_boolean_not_supported"
+          | "no_accessible_repos"
+          | "server_error"
+          | "only_non_semantic_fields_requested"
+          | "service_unavailable"
+        )[]
+        search_type: "lexical" | "semantic" | "hybrid"
         total_count: number
       }
     >
   | Res<304, void>
+  | Res<401, t_basic_error>
   | Res<403, t_basic_error>
   | Res<422, t_validation_error>
   | Res<
@@ -21341,246 +26489,6 @@ export type TeamsDeleteLegacy = (
   | typeof SkipResponse
 >
 
-export type TeamsListDiscussionsLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion[]>
-} & KoaRuntimeResponder
-
-export type TeamsListDiscussionsLegacy = (
-  params: Params<
-    t_TeamsListDiscussionsLegacyParamSchema,
-    t_TeamsListDiscussionsLegacyQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListDiscussionsLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion[]>
-  | typeof SkipResponse
->
-
-export type TeamsCreateDiscussionLegacyResponder = {
-  with201(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsCreateDiscussionLegacy = (
-  params: Params<
-    t_TeamsCreateDiscussionLegacyParamSchema,
-    void,
-    t_TeamsCreateDiscussionLegacyRequestBody,
-    void
-  >,
-  respond: TeamsCreateDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsGetDiscussionLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsGetDiscussionLegacy = (
-  params: Params<t_TeamsGetDiscussionLegacyParamSchema, void, void, void>,
-  respond: TeamsGetDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsUpdateDiscussionLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion>
-} & KoaRuntimeResponder
-
-export type TeamsUpdateDiscussionLegacy = (
-  params: Params<
-    t_TeamsUpdateDiscussionLegacyParamSchema,
-    void,
-    t_TeamsUpdateDiscussionLegacyRequestBody | undefined,
-    void
-  >,
-  respond: TeamsUpdateDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion>
-  | typeof SkipResponse
->
-
-export type TeamsDeleteDiscussionLegacyResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsDeleteDiscussionLegacy = (
-  params: Params<t_TeamsDeleteDiscussionLegacyParamSchema, void, void, void>,
-  respond: TeamsDeleteDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type TeamsListDiscussionCommentsLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment[]>
-} & KoaRuntimeResponder
-
-export type TeamsListDiscussionCommentsLegacy = (
-  params: Params<
-    t_TeamsListDiscussionCommentsLegacyParamSchema,
-    t_TeamsListDiscussionCommentsLegacyQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListDiscussionCommentsLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment[]>
-  | typeof SkipResponse
->
-
-export type TeamsCreateDiscussionCommentLegacyResponder = {
-  with201(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsCreateDiscussionCommentLegacy = (
-  params: Params<
-    t_TeamsCreateDiscussionCommentLegacyParamSchema,
-    void,
-    t_TeamsCreateDiscussionCommentLegacyRequestBody,
-    void
-  >,
-  respond: TeamsCreateDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsGetDiscussionCommentLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsGetDiscussionCommentLegacy = (
-  params: Params<
-    t_TeamsGetDiscussionCommentLegacyParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: TeamsGetDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsUpdateDiscussionCommentLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_discussion_comment>
-} & KoaRuntimeResponder
-
-export type TeamsUpdateDiscussionCommentLegacy = (
-  params: Params<
-    t_TeamsUpdateDiscussionCommentLegacyParamSchema,
-    void,
-    t_TeamsUpdateDiscussionCommentLegacyRequestBody,
-    void
-  >,
-  respond: TeamsUpdateDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_discussion_comment>
-  | typeof SkipResponse
->
-
-export type TeamsDeleteDiscussionCommentLegacyResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsDeleteDiscussionCommentLegacy = (
-  params: Params<
-    t_TeamsDeleteDiscussionCommentLegacyParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: TeamsDeleteDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
-
-export type ReactionsListForTeamDiscussionCommentLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_reaction[]>
-} & KoaRuntimeResponder
-
-export type ReactionsListForTeamDiscussionCommentLegacy = (
-  params: Params<
-    t_ReactionsListForTeamDiscussionCommentLegacyParamSchema,
-    t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
-    void,
-    void
-  >,
-  respond: ReactionsListForTeamDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
->
-
-export type ReactionsCreateForTeamDiscussionCommentLegacyResponder = {
-  with201(): KoaRuntimeResponse<t_reaction>
-} & KoaRuntimeResponder
-
-export type ReactionsCreateForTeamDiscussionCommentLegacy = (
-  params: Params<
-    t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-    void,
-    t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-    void
-  >,
-  respond: ReactionsCreateForTeamDiscussionCommentLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<201, t_reaction> | typeof SkipResponse
->
-
-export type ReactionsListForTeamDiscussionLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_reaction[]>
-} & KoaRuntimeResponder
-
-export type ReactionsListForTeamDiscussionLegacy = (
-  params: Params<
-    t_ReactionsListForTeamDiscussionLegacyParamSchema,
-    t_ReactionsListForTeamDiscussionLegacyQuerySchema,
-    void,
-    void
-  >,
-  respond: ReactionsListForTeamDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<200, t_reaction[]> | typeof SkipResponse
->
-
-export type ReactionsCreateForTeamDiscussionLegacyResponder = {
-  with201(): KoaRuntimeResponse<t_reaction>
-} & KoaRuntimeResponder
-
-export type ReactionsCreateForTeamDiscussionLegacy = (
-  params: Params<
-    t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
-    void,
-    t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
-    void
-  >,
-  respond: ReactionsCreateForTeamDiscussionLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  KoaRuntimeResponse<unknown> | Res<201, t_reaction> | typeof SkipResponse
->
-
 export type TeamsListPendingInvitationsLegacyResponder = {
   with200(): KoaRuntimeResponse<t_organization_invitation[]>
 } & KoaRuntimeResponder
@@ -21737,100 +26645,6 @@ export type TeamsRemoveMembershipForUserLegacy = (
   | KoaRuntimeResponse<unknown>
   | Res<204, void>
   | Res<403, void>
-  | typeof SkipResponse
->
-
-export type TeamsListProjectsLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_project[]>
-  with404(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type TeamsListProjectsLegacy = (
-  params: Params<
-    t_TeamsListProjectsLegacyParamSchema,
-    t_TeamsListProjectsLegacyQuerySchema,
-    void,
-    void
-  >,
-  respond: TeamsListProjectsLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_project[]>
-  | Res<404, t_basic_error>
-  | typeof SkipResponse
->
-
-export type TeamsCheckPermissionsForProjectLegacyResponder = {
-  with200(): KoaRuntimeResponse<t_team_project>
-  with404(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type TeamsCheckPermissionsForProjectLegacy = (
-  params: Params<
-    t_TeamsCheckPermissionsForProjectLegacyParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: TeamsCheckPermissionsForProjectLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_team_project>
-  | Res<404, void>
-  | typeof SkipResponse
->
-
-export type TeamsAddOrUpdateProjectPermissionsLegacyResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with403(): KoaRuntimeResponse<{
-    documentation_url?: string
-    message?: string
-  }>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type TeamsAddOrUpdateProjectPermissionsLegacy = (
-  params: Params<
-    t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-    void,
-    t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody | undefined,
-    void
-  >,
-  respond: TeamsAddOrUpdateProjectPermissionsLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<
-      403,
-      {
-        documentation_url?: string
-        message?: string
-      }
-    >
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
-  | typeof SkipResponse
->
-
-export type TeamsRemoveProjectLegacyResponder = {
-  with204(): KoaRuntimeResponse<void>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type TeamsRemoveProjectLegacy = (
-  params: Params<t_TeamsRemoveProjectLegacyParamSchema, void, void, void>,
-  respond: TeamsRemoveProjectLegacyResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<204, void>
-  | Res<404, t_basic_error>
-  | Res<422, t_validation_error>
   | typeof SkipResponse
 >
 
@@ -23035,7 +27849,9 @@ export type AppsListInstallationsForAuthenticatedUser = (
 
 export type AppsListInstallationReposForAuthenticatedUserResponder = {
   with200(): KoaRuntimeResponse<{
-    repositories: t_repository[]
+    repositories: (t_repository & {
+      custom_properties?: Record<string, unknown>
+    })[]
     repository_selection?: string
     total_count: number
   }>
@@ -23058,7 +27874,9 @@ export type AppsListInstallationReposForAuthenticatedUser = (
   | Res<
       200,
       {
-        repositories: t_repository[]
+        repositories: (t_repository & {
+          custom_properties?: Record<string, unknown>
+        })[]
         repository_selection?: string
         total_count: number
       }
@@ -23798,33 +28616,6 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
   | typeof SkipResponse
 >
 
-export type ProjectsClassicCreateForAuthenticatedUserResponder = {
-  with201(): KoaRuntimeResponse<t_project>
-  with304(): KoaRuntimeResponse<void>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error_simple>
-} & KoaRuntimeResponder
-
-export type ProjectsClassicCreateForAuthenticatedUser = (
-  params: Params<
-    void,
-    void,
-    t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-    void
-  >,
-  respond: ProjectsClassicCreateForAuthenticatedUserResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<201, t_project>
-  | Res<304, void>
-  | Res<401, t_basic_error>
-  | Res<403, t_basic_error>
-  | Res<422, t_validation_error_simple>
-  | typeof SkipResponse
->
-
 export type UsersListPublicEmailsForAuthenticatedUserResponder = {
   with200(): KoaRuntimeResponse<t_email[]>
   with304(): KoaRuntimeResponse<void>
@@ -24348,6 +29139,31 @@ export type UsersGetById = (
   | typeof SkipResponse
 >
 
+export type ProjectsCreateDraftItemForAuthenticatedUserResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_item_simple>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsCreateDraftItemForAuthenticatedUser = (
+  params: Params<
+    t_ProjectsCreateDraftItemForAuthenticatedUserParamSchema,
+    void,
+    t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+    void
+  >,
+  respond: ProjectsCreateDraftItemForAuthenticatedUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_item_simple>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type UsersListResponder = {
   with200(): KoaRuntimeResponse<t_simple_user[]>
   with304(): KoaRuntimeResponse<void>
@@ -24361,6 +29177,37 @@ export type UsersList = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_simple_user[]>
   | Res<304, void>
+  | typeof SkipResponse
+>
+
+export type ProjectsCreateViewForUserResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_view>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+  with503(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsCreateViewForUser = (
+  params: Params<
+    t_ProjectsCreateViewForUserParamSchema,
+    void,
+    t_ProjectsCreateViewForUserRequestBody,
+    void
+  >,
+  respond: ProjectsCreateViewForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_view>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | Res<503, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -24515,6 +29362,7 @@ export type UsersListAttestationsResponder = {
         verificationMaterial?: Record<string, unknown>
       }
       bundle_url?: string
+      initiator?: string
       repository_id?: number
     }[]
   }>
@@ -24544,12 +29392,362 @@ export type UsersListAttestations = (
             verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
+          initiator?: string
           repository_id?: number
         }[]
       }
     >
   | Res<201, t_empty_object>
   | Res<204, void>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesListForUserResponder = {
+  with200(): KoaRuntimeResponse<{
+    spaces: t_copilot_space[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListForUser = (
+  params: Params<
+    t_CopilotSpacesListForUserParamSchema,
+    t_CopilotSpacesListForUserQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        spaces: t_copilot_space[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesCreateForUserResponder = {
+  with201(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesCreateForUser = (
+  params: Params<
+    t_CopilotSpacesCreateForUserParamSchema,
+    void,
+    t_CopilotSpacesCreateForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesCreateForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesGetForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesGetForUser = (
+  params: Params<t_CopilotSpacesGetForUserParamSchema, void, void, void>,
+  respond: CopilotSpacesGetForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateForUser = (
+  params: Params<
+    t_CopilotSpacesUpdateForUserParamSchema,
+    void,
+    t_CopilotSpacesUpdateForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesDeleteForUserResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesDeleteForUser = (
+  params: Params<t_CopilotSpacesDeleteForUserParamSchema, void, void, void>,
+  respond: CopilotSpacesDeleteForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesListCollaboratorsForUserResponder = {
+  with200(): KoaRuntimeResponse<{
+    collaborators: t_copilot_space_collaborator[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListCollaboratorsForUser = (
+  params: Params<
+    t_CopilotSpacesListCollaboratorsForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListCollaboratorsForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        collaborators: t_copilot_space_collaborator[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesAddCollaboratorForUserResponder = {
+  with201(): KoaRuntimeResponse<t_copilot_space_collaborator>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesAddCollaboratorForUser = (
+  params: Params<
+    t_CopilotSpacesAddCollaboratorForUserParamSchema,
+    void,
+    t_CopilotSpacesAddCollaboratorForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesAddCollaboratorForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_copilot_space_collaborator>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateCollaboratorForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_collaborator>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateCollaboratorForUser = (
+  params: Params<
+    t_CopilotSpacesUpdateCollaboratorForUserParamSchema,
+    void,
+    t_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateCollaboratorForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_collaborator>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesRemoveCollaboratorForUserResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesRemoveCollaboratorForUser = (
+  params: Params<
+    t_CopilotSpacesRemoveCollaboratorForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesRemoveCollaboratorForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesListResourcesForUserResponder = {
+  with200(): KoaRuntimeResponse<{
+    resources: t_copilot_space_resource[]
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesListResourcesForUser = (
+  params: Params<
+    t_CopilotSpacesListResourcesForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesListResourcesForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<
+      200,
+      {
+        resources: t_copilot_space_resource[]
+      }
+    >
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesCreateResourceForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with201(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesCreateResourceForUser = (
+  params: Params<
+    t_CopilotSpacesCreateResourceForUserParamSchema,
+    void,
+    t_CopilotSpacesCreateResourceForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesCreateResourceForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<201, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesGetResourceForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesGetResourceForUser = (
+  params: Params<
+    t_CopilotSpacesGetResourceForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesGetResourceForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesUpdateResourceForUserResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_space_resource>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesUpdateResourceForUser = (
+  params: Params<
+    t_CopilotSpacesUpdateResourceForUserParamSchema,
+    void,
+    t_CopilotSpacesUpdateResourceForUserRequestBody,
+    void
+  >,
+  respond: CopilotSpacesUpdateResourceForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_copilot_space_resource>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type CopilotSpacesDeleteResourceForUserResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotSpacesDeleteResourceForUser = (
+  params: Params<
+    t_CopilotSpacesDeleteResourceForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CopilotSpacesDeleteResourceForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<403, t_basic_error>
   | Res<404, t_basic_error>
   | typeof SkipResponse
 >
@@ -24963,24 +30161,267 @@ export type PackagesRestorePackageVersionForUser = (
   | typeof SkipResponse
 >
 
-export type ProjectsClassicListForUserResponder = {
-  with200(): KoaRuntimeResponse<t_project[]>
-  with422(): KoaRuntimeResponse<t_validation_error>
+export type ProjectsListForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsClassicListForUser = (
+export type ProjectsListForUser = (
   params: Params<
-    t_ProjectsClassicListForUserParamSchema,
-    t_ProjectsClassicListForUserQuerySchema,
+    t_ProjectsListForUserParamSchema,
+    t_ProjectsListForUserQuerySchema,
     void,
     void
   >,
-  respond: ProjectsClassicListForUserResponder,
+  respond: ProjectsListForUserResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_project[]>
+  | Res<200, t_projects_v2[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsGetForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetForUser = (
+  params: Params<t_ProjectsGetForUserParamSchema, void, void, void>,
+  respond: ProjectsGetForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListFieldsForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_field[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListFieldsForUser = (
+  params: Params<
+    t_ProjectsListFieldsForUserParamSchema,
+    t_ProjectsListFieldsForUserQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListFieldsForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_field[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsAddFieldForUserResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_field>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ProjectsAddFieldForUser = (
+  params: Params<
+    t_ProjectsAddFieldForUserParamSchema,
+    void,
+    t_ProjectsAddFieldForUserRequestBody,
+    void
+  >,
+  respond: ProjectsAddFieldForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_field>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
   | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsGetFieldForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_field>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetFieldForUser = (
+  params: Params<t_ProjectsGetFieldForUserParamSchema, void, void, void>,
+  respond: ProjectsGetFieldForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_field>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListItemsForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListItemsForUser = (
+  params: Params<
+    t_ProjectsListItemsForUserParamSchema,
+    t_ProjectsListItemsForUserQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListItemsForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsAddItemForUserResponder = {
+  with201(): KoaRuntimeResponse<t_projects_v2_item_simple>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsAddItemForUser = (
+  params: Params<
+    t_ProjectsAddItemForUserParamSchema,
+    void,
+    t_ProjectsAddItemForUserRequestBody,
+    void
+  >,
+  respond: ProjectsAddItemForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<201, t_projects_v2_item_simple>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsGetUserItemResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsGetUserItem = (
+  params: Params<
+    t_ProjectsGetUserItemParamSchema,
+    t_ProjectsGetUserItemQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsGetUserItemResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsUpdateItemForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ProjectsUpdateItemForUser = (
+  params: Params<
+    t_ProjectsUpdateItemForUserParamSchema,
+    void,
+    t_ProjectsUpdateItemForUserRequestBody,
+    void
+  >,
+  respond: ProjectsUpdateItemForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<422, t_validation_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsDeleteItemForUserResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsDeleteItemForUser = (
+  params: Params<t_ProjectsDeleteItemForUserParamSchema, void, void, void>,
+  respond: ProjectsDeleteItemForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type ProjectsListViewItemsForUserResponder = {
+  with200(): KoaRuntimeResponse<t_projects_v2_item_with_content[]>
+  with304(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ProjectsListViewItemsForUser = (
+  params: Params<
+    t_ProjectsListViewItemsForUserParamSchema,
+    t_ProjectsListViewItemsForUserQuerySchema,
+    void,
+    void
+  >,
+  respond: ProjectsListViewItemsForUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_projects_v2_item_with_content[]>
+  | Res<304, void>
+  | Res<401, t_basic_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -25037,60 +30478,43 @@ export type ReposListForUser = (
   | typeof SkipResponse
 >
 
-export type BillingGetGithubActionsBillingUserResponder = {
-  with200(): KoaRuntimeResponse<t_actions_billing_usage>
+export type BillingGetGithubBillingPremiumRequestUsageReportUserResponder = {
+  with200(): KoaRuntimeResponse<t_billing_premium_request_usage_report_user>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
 } & KoaRuntimeResponder
 
-export type BillingGetGithubActionsBillingUser = (
+export type BillingGetGithubBillingPremiumRequestUsageReportUser = (
   params: Params<
-    t_BillingGetGithubActionsBillingUserParamSchema,
-    void,
+    t_BillingGetGithubBillingPremiumRequestUsageReportUserParamSchema,
+    t_BillingGetGithubBillingPremiumRequestUsageReportUserQuerySchema,
     void,
     void
   >,
-  respond: BillingGetGithubActionsBillingUserResponder,
+  respond: BillingGetGithubBillingPremiumRequestUsageReportUserResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Res<200, t_actions_billing_usage>
-  | typeof SkipResponse
->
-
-export type BillingGetGithubPackagesBillingUserResponder = {
-  with200(): KoaRuntimeResponse<t_packages_billing_usage>
-} & KoaRuntimeResponder
-
-export type BillingGetGithubPackagesBillingUser = (
-  params: Params<
-    t_BillingGetGithubPackagesBillingUserParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: BillingGetGithubPackagesBillingUserResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_packages_billing_usage>
-  | typeof SkipResponse
->
-
-export type BillingGetSharedStorageBillingUserResponder = {
-  with200(): KoaRuntimeResponse<t_combined_billing_usage>
-} & KoaRuntimeResponder
-
-export type BillingGetSharedStorageBillingUser = (
-  params: Params<
-    t_BillingGetSharedStorageBillingUserParamSchema,
-    void,
-    void,
-    void
-  >,
-  respond: BillingGetSharedStorageBillingUserResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Res<200, t_combined_billing_usage>
+  | Res<200, t_billing_premium_request_usage_report_user>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
   | typeof SkipResponse
 >
 
@@ -25120,6 +30544,46 @@ export type BillingGetGithubBillingUsageReportUser = (
   | Res<200, t_billing_usage_report_user>
   | Res<400, t_scim_error>
   | Res<403, t_basic_error>
+  | Res<500, t_basic_error>
+  | Res<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type BillingGetGithubBillingUsageSummaryReportUserResponder = {
+  with200(): KoaRuntimeResponse<t_billing_usage_summary_report_user>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetGithubBillingUsageSummaryReportUser = (
+  params: Params<
+    t_BillingGetGithubBillingUsageSummaryReportUserParamSchema,
+    t_BillingGetGithubBillingUsageSummaryReportUserQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingUsageSummaryReportUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_billing_usage_summary_report_user>
+  | Res<400, t_scim_error>
+  | Res<403, t_basic_error>
+  | Res<404, t_basic_error>
   | Res<500, t_basic_error>
   | Res<
       503,
@@ -25240,6 +30704,11 @@ export type Implementation = {
   metaRoot: MetaRoot
   securityAdvisoriesListGlobalAdvisories: SecurityAdvisoriesListGlobalAdvisories
   securityAdvisoriesGetGlobalAdvisory: SecurityAdvisoriesGetGlobalAdvisory
+  agentTasksListTasksForRepo: AgentTasksListTasksForRepo
+  agentTasksCreateTaskInRepo: AgentTasksCreateTaskInRepo
+  agentTasksGetTaskByRepoAndId: AgentTasksGetTaskByRepoAndId
+  agentTasksListTasks: AgentTasksListTasks
+  agentTasksGetTaskById: AgentTasksGetTaskById
   appsGetAuthenticated: AppsGetAuthenticated
   appsCreateFromManifest: AppsCreateFromManifest
   appsGetWebhookConfigForApp: AppsGetWebhookConfigForApp
@@ -25270,6 +30739,13 @@ export type Implementation = {
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   credentialsRevoke: CredentialsRevoke
   emojisGet: EmojisGet
+  actionsGetActionsCacheRetentionLimitForEnterprise: ActionsGetActionsCacheRetentionLimitForEnterprise
+  actionsSetActionsCacheRetentionLimitForEnterprise: ActionsSetActionsCacheRetentionLimitForEnterprise
+  actionsGetActionsCacheStorageLimitForEnterprise: ActionsGetActionsCacheStorageLimitForEnterprise
+  actionsSetActionsCacheStorageLimitForEnterprise: ActionsSetActionsCacheStorageLimitForEnterprise
+  oidcListOidcCustomPropertyInclusionsForEnterprise: OidcListOidcCustomPropertyInclusionsForEnterprise
+  oidcCreateOidcCustomPropertyInclusionForEnterprise: OidcCreateOidcCustomPropertyInclusionForEnterprise
+  oidcDeleteOidcCustomPropertyInclusionForEnterprise: OidcDeleteOidcCustomPropertyInclusionForEnterprise
   codeSecurityGetConfigurationsForEnterprise: CodeSecurityGetConfigurationsForEnterprise
   codeSecurityCreateConfigurationForEnterprise: CodeSecurityCreateConfigurationForEnterprise
   codeSecurityGetDefaultConfigurationsForEnterprise: CodeSecurityGetDefaultConfigurationsForEnterprise
@@ -25279,8 +30755,35 @@ export type Implementation = {
   codeSecurityAttachEnterpriseConfiguration: CodeSecurityAttachEnterpriseConfiguration
   codeSecuritySetConfigurationAsDefaultForEnterprise: CodeSecuritySetConfigurationAsDefaultForEnterprise
   codeSecurityGetRepositoriesForEnterpriseConfiguration: CodeSecurityGetRepositoriesForEnterpriseConfiguration
+  copilotCopilotEnterpriseOneDayUsageMetrics: CopilotCopilotEnterpriseOneDayUsageMetrics
+  copilotCopilotEnterpriseUsageMetrics: CopilotCopilotEnterpriseUsageMetrics
+  copilotCopilotEnterpriseUserTeamsOneDayReport: CopilotCopilotEnterpriseUserTeamsOneDayReport
+  copilotCopilotUsersOneDayUsageMetrics: CopilotCopilotUsersOneDayUsageMetrics
+  copilotCopilotUsersUsageMetrics: CopilotCopilotUsersUsageMetrics
+  copilotSetEnterpriseCodingAgentPolicy: CopilotSetEnterpriseCodingAgentPolicy
+  copilotAddOrganizationsToEnterpriseCodingAgentPolicy: CopilotAddOrganizationsToEnterpriseCodingAgentPolicy
+  copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy: CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy
   dependabotListAlertsForEnterprise: DependabotListAlertsForEnterprise
-  secretScanningListAlertsForEnterprise: SecretScanningListAlertsForEnterprise
+  dependabotRepositoryAccessForEnterprise: DependabotRepositoryAccessForEnterprise
+  dependabotUpdateRepositoryAccessForEnterprise: DependabotUpdateRepositoryAccessForEnterprise
+  dependabotSetRepositoryAccessDefaultLevelForEnterprise: DependabotSetRepositoryAccessDefaultLevelForEnterprise
+  enterpriseTeamsList: EnterpriseTeamsList
+  enterpriseTeamsCreate: EnterpriseTeamsCreate
+  enterpriseTeamMembershipsList: EnterpriseTeamMembershipsList
+  enterpriseTeamMembershipsBulkAdd: EnterpriseTeamMembershipsBulkAdd
+  enterpriseTeamMembershipsBulkRemove: EnterpriseTeamMembershipsBulkRemove
+  enterpriseTeamMembershipsGet: EnterpriseTeamMembershipsGet
+  enterpriseTeamMembershipsAdd: EnterpriseTeamMembershipsAdd
+  enterpriseTeamMembershipsRemove: EnterpriseTeamMembershipsRemove
+  enterpriseTeamOrganizationsGetAssignments: EnterpriseTeamOrganizationsGetAssignments
+  enterpriseTeamOrganizationsBulkAdd: EnterpriseTeamOrganizationsBulkAdd
+  enterpriseTeamOrganizationsBulkRemove: EnterpriseTeamOrganizationsBulkRemove
+  enterpriseTeamOrganizationsGetAssignment: EnterpriseTeamOrganizationsGetAssignment
+  enterpriseTeamOrganizationsAdd: EnterpriseTeamOrganizationsAdd
+  enterpriseTeamOrganizationsDelete: EnterpriseTeamOrganizationsDelete
+  enterpriseTeamsGet: EnterpriseTeamsGet
+  enterpriseTeamsUpdate: EnterpriseTeamsUpdate
+  enterpriseTeamsDelete: EnterpriseTeamsDelete
   activityListPublicEvents: ActivityListPublicEvents
   activityGetFeeds: ActivityGetFeeds
   gistsList: GistsList
@@ -25329,10 +30832,17 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
-  dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
-  dependabotUpdateRepositoryAccessForOrg: DependabotUpdateRepositoryAccessForOrg
-  dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
+  actionsGetActionsCacheRetentionLimitForOrganization: ActionsGetActionsCacheRetentionLimitForOrganization
+  actionsSetActionsCacheRetentionLimitForOrganization: ActionsSetActionsCacheRetentionLimitForOrganization
+  actionsGetActionsCacheStorageLimitForOrganization: ActionsGetActionsCacheStorageLimitForOrganization
+  actionsSetActionsCacheStorageLimitForOrganization: ActionsSetActionsCacheStorageLimitForOrganization
+  billingGetAllBudgetsOrg: BillingGetAllBudgetsOrg
+  billingGetBudgetOrg: BillingGetBudgetOrg
+  billingUpdateBudgetOrg: BillingUpdateBudgetOrg
+  billingDeleteBudgetOrg: BillingDeleteBudgetOrg
+  billingGetGithubBillingPremiumRequestUsageReportOrg: BillingGetGithubBillingPremiumRequestUsageReportOrg
   billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
+  billingGetGithubBillingUsageSummaryReportOrg: BillingGetGithubBillingUsageSummaryReportOrg
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
   orgsDelete: OrgsDelete
@@ -25340,6 +30850,12 @@ export type Implementation = {
   actionsGetActionsCacheUsageByRepoForOrg: ActionsGetActionsCacheUsageByRepoForOrg
   actionsListHostedRunnersForOrg: ActionsListHostedRunnersForOrg
   actionsCreateHostedRunnerForOrg: ActionsCreateHostedRunnerForOrg
+  actionsListCustomImagesForOrg: ActionsListCustomImagesForOrg
+  actionsGetCustomImageForOrg: ActionsGetCustomImageForOrg
+  actionsDeleteCustomImageFromOrg: ActionsDeleteCustomImageFromOrg
+  actionsListCustomImageVersionsForOrg: ActionsListCustomImageVersionsForOrg
+  actionsGetCustomImageVersionForOrg: ActionsGetCustomImageVersionForOrg
+  actionsDeleteCustomImageVersionFromOrg: ActionsDeleteCustomImageVersionFromOrg
   actionsGetHostedRunnersGithubOwnedImagesForOrg: ActionsGetHostedRunnersGithubOwnedImagesForOrg
   actionsGetHostedRunnersPartnerImagesForOrg: ActionsGetHostedRunnersPartnerImagesForOrg
   actionsGetHostedRunnersLimitsForOrg: ActionsGetHostedRunnersLimitsForOrg
@@ -25348,16 +30864,31 @@ export type Implementation = {
   actionsGetHostedRunnerForOrg: ActionsGetHostedRunnerForOrg
   actionsUpdateHostedRunnerForOrg: ActionsUpdateHostedRunnerForOrg
   actionsDeleteHostedRunnerForOrg: ActionsDeleteHostedRunnerForOrg
+  oidcListOidcCustomPropertyInclusionsForOrg: OidcListOidcCustomPropertyInclusionsForOrg
+  oidcCreateOidcCustomPropertyInclusionForOrg: OidcCreateOidcCustomPropertyInclusionForOrg
+  oidcDeleteOidcCustomPropertyInclusionForOrg: OidcDeleteOidcCustomPropertyInclusionForOrg
   oidcGetOidcCustomSubTemplateForOrg: OidcGetOidcCustomSubTemplateForOrg
   oidcUpdateOidcCustomSubTemplateForOrg: OidcUpdateOidcCustomSubTemplateForOrg
   actionsGetGithubActionsPermissionsOrganization: ActionsGetGithubActionsPermissionsOrganization
   actionsSetGithubActionsPermissionsOrganization: ActionsSetGithubActionsPermissionsOrganization
+  actionsGetArtifactAndLogRetentionSettingsOrganization: ActionsGetArtifactAndLogRetentionSettingsOrganization
+  actionsSetArtifactAndLogRetentionSettingsOrganization: ActionsSetArtifactAndLogRetentionSettingsOrganization
+  actionsGetForkPrContributorApprovalPermissionsOrganization: ActionsGetForkPrContributorApprovalPermissionsOrganization
+  actionsSetForkPrContributorApprovalPermissionsOrganization: ActionsSetForkPrContributorApprovalPermissionsOrganization
+  actionsGetPrivateRepoForkPrWorkflowsSettingsOrganization: ActionsGetPrivateRepoForkPrWorkflowsSettingsOrganization
+  actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization: ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganization
   actionsListSelectedRepositoriesEnabledGithubActionsOrganization: ActionsListSelectedRepositoriesEnabledGithubActionsOrganization
   actionsSetSelectedRepositoriesEnabledGithubActionsOrganization: ActionsSetSelectedRepositoriesEnabledGithubActionsOrganization
   actionsEnableSelectedRepositoryGithubActionsOrganization: ActionsEnableSelectedRepositoryGithubActionsOrganization
   actionsDisableSelectedRepositoryGithubActionsOrganization: ActionsDisableSelectedRepositoryGithubActionsOrganization
   actionsGetAllowedActionsOrganization: ActionsGetAllowedActionsOrganization
   actionsSetAllowedActionsOrganization: ActionsSetAllowedActionsOrganization
+  actionsGetSelfHostedRunnersPermissionsOrganization: ActionsGetSelfHostedRunnersPermissionsOrganization
+  actionsSetSelfHostedRunnersPermissionsOrganization: ActionsSetSelfHostedRunnersPermissionsOrganization
+  actionsListSelectedRepositoriesSelfHostedRunnersOrganization: ActionsListSelectedRepositoriesSelfHostedRunnersOrganization
+  actionsSetSelectedRepositoriesSelfHostedRunnersOrganization: ActionsSetSelectedRepositoriesSelfHostedRunnersOrganization
+  actionsEnableSelectedRepositorySelfHostedRunnersOrganization: ActionsEnableSelectedRepositorySelfHostedRunnersOrganization
+  actionsDisableSelectedRepositorySelfHostedRunnersOrganization: ActionsDisableSelectedRepositorySelfHostedRunnersOrganization
   actionsGetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization
   actionsSetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization
   actionsListSelfHostedRunnerGroupsForOrg: ActionsListSelfHostedRunnerGroupsForOrg
@@ -25404,9 +30935,33 @@ export type Implementation = {
   actionsSetSelectedReposForOrgVariable: ActionsSetSelectedReposForOrgVariable
   actionsAddSelectedRepoToOrgVariable: ActionsAddSelectedRepoToOrgVariable
   actionsRemoveSelectedRepoFromOrgVariable: ActionsRemoveSelectedRepoFromOrgVariable
+  agentsListOrgSecrets: AgentsListOrgSecrets
+  agentsGetOrgPublicKey: AgentsGetOrgPublicKey
+  agentsGetOrgSecret: AgentsGetOrgSecret
+  agentsCreateOrUpdateOrgSecret: AgentsCreateOrUpdateOrgSecret
+  agentsDeleteOrgSecret: AgentsDeleteOrgSecret
+  agentsListSelectedReposForOrgSecret: AgentsListSelectedReposForOrgSecret
+  agentsSetSelectedReposForOrgSecret: AgentsSetSelectedReposForOrgSecret
+  agentsAddSelectedRepoToOrgSecret: AgentsAddSelectedRepoToOrgSecret
+  agentsRemoveSelectedRepoFromOrgSecret: AgentsRemoveSelectedRepoFromOrgSecret
+  agentsListOrgVariables: AgentsListOrgVariables
+  agentsCreateOrgVariable: AgentsCreateOrgVariable
+  agentsGetOrgVariable: AgentsGetOrgVariable
+  agentsUpdateOrgVariable: AgentsUpdateOrgVariable
+  agentsDeleteOrgVariable: AgentsDeleteOrgVariable
+  agentsListSelectedReposForOrgVariable: AgentsListSelectedReposForOrgVariable
+  agentsSetSelectedReposForOrgVariable: AgentsSetSelectedReposForOrgVariable
+  agentsAddSelectedRepoToOrgVariable: AgentsAddSelectedRepoToOrgVariable
+  agentsRemoveSelectedRepoFromOrgVariable: AgentsRemoveSelectedRepoFromOrgVariable
+  orgsCreateArtifactDeploymentRecord: OrgsCreateArtifactDeploymentRecord
+  orgsSetClusterDeploymentRecords: OrgsSetClusterDeploymentRecords
+  orgsCreateArtifactStorageRecord: OrgsCreateArtifactStorageRecord
+  orgsListArtifactDeploymentRecords: OrgsListArtifactDeploymentRecords
+  orgsListArtifactStorageRecords: OrgsListArtifactStorageRecords
   orgsListAttestationsBulk: OrgsListAttestationsBulk
   orgsDeleteAttestationsBulk: OrgsDeleteAttestationsBulk
   orgsDeleteAttestationsBySubjectDigest: OrgsDeleteAttestationsBySubjectDigest
+  orgsListAttestationRepositories: OrgsListAttestationRepositories
   orgsDeleteAttestationsById: OrgsDeleteAttestationsById
   orgsListAttestations: OrgsListAttestations
   orgsListBlockedUsers: OrgsListBlockedUsers
@@ -25442,14 +30997,44 @@ export type Implementation = {
   codespacesSetSelectedReposForOrgSecret: CodespacesSetSelectedReposForOrgSecret
   codespacesAddSelectedRepoToOrgSecret: CodespacesAddSelectedRepoToOrgSecret
   codespacesRemoveSelectedRepoFromOrgSecret: CodespacesRemoveSelectedRepoFromOrgSecret
+  copilotSpacesListForOrg: CopilotSpacesListForOrg
+  copilotSpacesCreateForOrg: CopilotSpacesCreateForOrg
+  copilotSpacesGetForOrg: CopilotSpacesGetForOrg
+  copilotSpacesUpdateForOrg: CopilotSpacesUpdateForOrg
+  copilotSpacesDeleteForOrg: CopilotSpacesDeleteForOrg
+  copilotSpacesListCollaboratorsForOrg: CopilotSpacesListCollaboratorsForOrg
+  copilotSpacesAddCollaboratorForOrg: CopilotSpacesAddCollaboratorForOrg
+  copilotSpacesUpdateCollaboratorForOrg: CopilotSpacesUpdateCollaboratorForOrg
+  copilotSpacesRemoveCollaboratorForOrg: CopilotSpacesRemoveCollaboratorForOrg
+  copilotSpacesListResourcesForOrg: CopilotSpacesListResourcesForOrg
+  copilotSpacesCreateResourceForOrg: CopilotSpacesCreateResourceForOrg
+  copilotSpacesGetResourceForOrg: CopilotSpacesGetResourceForOrg
+  copilotSpacesUpdateResourceForOrg: CopilotSpacesUpdateResourceForOrg
+  copilotSpacesDeleteResourceForOrg: CopilotSpacesDeleteResourceForOrg
   copilotGetCopilotOrganizationDetails: CopilotGetCopilotOrganizationDetails
   copilotListCopilotSeats: CopilotListCopilotSeats
   copilotAddCopilotSeatsForTeams: CopilotAddCopilotSeatsForTeams
   copilotCancelCopilotSeatAssignmentForTeams: CopilotCancelCopilotSeatAssignmentForTeams
   copilotAddCopilotSeatsForUsers: CopilotAddCopilotSeatsForUsers
   copilotCancelCopilotSeatAssignmentForUsers: CopilotCancelCopilotSeatAssignmentForUsers
+  copilotGetCopilotCodingAgentPermissionsOrganization: CopilotGetCopilotCodingAgentPermissionsOrganization
+  copilotSetCopilotCodingAgentPermissionsOrganization: CopilotSetCopilotCodingAgentPermissionsOrganization
+  copilotListCopilotCodingAgentSelectedRepositoriesForOrganization: CopilotListCopilotCodingAgentSelectedRepositoriesForOrganization
+  copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization: CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganization
+  copilotEnableCopilotCodingAgentForRepositoryInOrganization: CopilotEnableCopilotCodingAgentForRepositoryInOrganization
+  copilotDisableCopilotCodingAgentForRepositoryInOrganization: CopilotDisableCopilotCodingAgentForRepositoryInOrganization
+  copilotCopilotContentExclusionForOrganization: CopilotCopilotContentExclusionForOrganization
+  copilotSetCopilotContentExclusionForOrganization: CopilotSetCopilotContentExclusionForOrganization
   copilotCopilotMetricsForOrganization: CopilotCopilotMetricsForOrganization
+  copilotCopilotOrganizationOneDayUsageMetrics: CopilotCopilotOrganizationOneDayUsageMetrics
+  copilotCopilotOrganizationUsageMetrics: CopilotCopilotOrganizationUsageMetrics
+  copilotCopilotOrganizationUserTeamsOneDayReport: CopilotCopilotOrganizationUserTeamsOneDayReport
+  copilotCopilotOrganizationUsersOneDayUsageMetrics: CopilotCopilotOrganizationUsersOneDayUsageMetrics
+  copilotCopilotOrganizationUsersUsageMetrics: CopilotCopilotOrganizationUsersUsageMetrics
   dependabotListAlertsForOrg: DependabotListAlertsForOrg
+  dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
+  dependabotUpdateRepositoryAccessForOrg: DependabotUpdateRepositoryAccessForOrg
+  dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
   dependabotListOrgSecrets: DependabotListOrgSecrets
   dependabotGetOrgPublicKey: DependabotGetOrgPublicKey
   dependabotGetOrgSecret: DependabotGetOrgSecret
@@ -25491,6 +31076,10 @@ export type Implementation = {
   orgsCreateInvitation: OrgsCreateInvitation
   orgsCancelInvitation: OrgsCancelInvitation
   orgsListInvitationTeams: OrgsListInvitationTeams
+  orgsListIssueFields: OrgsListIssueFields
+  orgsCreateIssueField: OrgsCreateIssueField
+  orgsUpdateIssueField: OrgsUpdateIssueField
+  orgsDeleteIssueField: OrgsDeleteIssueField
   orgsListIssueTypes: OrgsListIssueTypes
   orgsCreateIssueType: OrgsCreateIssueType
   orgsUpdateIssueType: OrgsUpdateIssueType
@@ -25548,15 +31137,26 @@ export type Implementation = {
   privateRegistriesGetOrgPrivateRegistry: PrivateRegistriesGetOrgPrivateRegistry
   privateRegistriesUpdateOrgPrivateRegistry: PrivateRegistriesUpdateOrgPrivateRegistry
   privateRegistriesDeleteOrgPrivateRegistry: PrivateRegistriesDeleteOrgPrivateRegistry
-  projectsClassicListForOrg: ProjectsClassicListForOrg
-  projectsClassicCreateForOrg: ProjectsClassicCreateForOrg
-  orgsGetAllCustomProperties: OrgsGetAllCustomProperties
-  orgsCreateOrUpdateCustomProperties: OrgsCreateOrUpdateCustomProperties
-  orgsGetCustomProperty: OrgsGetCustomProperty
-  orgsCreateOrUpdateCustomProperty: OrgsCreateOrUpdateCustomProperty
-  orgsRemoveCustomProperty: OrgsRemoveCustomProperty
-  orgsListCustomPropertiesValuesForRepos: OrgsListCustomPropertiesValuesForRepos
-  orgsCreateOrUpdateCustomPropertiesValuesForRepos: OrgsCreateOrUpdateCustomPropertiesValuesForRepos
+  projectsListForOrg: ProjectsListForOrg
+  projectsGetForOrg: ProjectsGetForOrg
+  projectsCreateDraftItemForOrg: ProjectsCreateDraftItemForOrg
+  projectsListFieldsForOrg: ProjectsListFieldsForOrg
+  projectsAddFieldForOrg: ProjectsAddFieldForOrg
+  projectsGetFieldForOrg: ProjectsGetFieldForOrg
+  projectsListItemsForOrg: ProjectsListItemsForOrg
+  projectsAddItemForOrg: ProjectsAddItemForOrg
+  projectsGetOrgItem: ProjectsGetOrgItem
+  projectsUpdateItemForOrg: ProjectsUpdateItemForOrg
+  projectsDeleteItemForOrg: ProjectsDeleteItemForOrg
+  projectsCreateViewForOrg: ProjectsCreateViewForOrg
+  projectsListViewItemsForOrg: ProjectsListViewItemsForOrg
+  orgsCustomPropertiesForReposGetOrganizationDefinitions: OrgsCustomPropertiesForReposGetOrganizationDefinitions
+  orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions
+  orgsCustomPropertiesForReposGetOrganizationDefinition: OrgsCustomPropertiesForReposGetOrganizationDefinition
+  orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition
+  orgsCustomPropertiesForReposDeleteOrganizationDefinition: OrgsCustomPropertiesForReposDeleteOrganizationDefinition
+  orgsCustomPropertiesForReposGetOrganizationValues: OrgsCustomPropertiesForReposGetOrganizationValues
+  orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValues
   orgsListPublicMembers: OrgsListPublicMembers
   orgsCheckPublicMembershipForUser: OrgsCheckPublicMembershipForUser
   orgsSetPublicMembershipForAuthenticatedUser: OrgsSetPublicMembershipForAuthenticatedUser
@@ -25573,13 +31173,18 @@ export type Implementation = {
   orgsGetOrgRulesetHistory: OrgsGetOrgRulesetHistory
   orgsGetOrgRulesetVersion: OrgsGetOrgRulesetVersion
   secretScanningListAlertsForOrg: SecretScanningListAlertsForOrg
+  secretScanningListOrgPatternConfigs: SecretScanningListOrgPatternConfigs
+  secretScanningUpdateOrgPatternConfigs: SecretScanningUpdateOrgPatternConfigs
   securityAdvisoriesListOrgRepositoryAdvisories: SecurityAdvisoriesListOrgRepositoryAdvisories
   orgsListSecurityManagerTeams: OrgsListSecurityManagerTeams
   orgsAddSecurityManagerTeam: OrgsAddSecurityManagerTeam
   orgsRemoveSecurityManagerTeam: OrgsRemoveSecurityManagerTeam
-  billingGetGithubActionsBillingOrg: BillingGetGithubActionsBillingOrg
-  billingGetGithubPackagesBillingOrg: BillingGetGithubPackagesBillingOrg
-  billingGetSharedStorageBillingOrg: BillingGetSharedStorageBillingOrg
+  orgsGetImmutableReleasesSettings: OrgsGetImmutableReleasesSettings
+  orgsSetImmutableReleasesSettings: OrgsSetImmutableReleasesSettings
+  orgsGetImmutableReleasesSettingsRepositories: OrgsGetImmutableReleasesSettingsRepositories
+  orgsSetImmutableReleasesSettingsRepositories: OrgsSetImmutableReleasesSettingsRepositories
+  orgsEnableSelectedRepositoryImmutableReleasesOrganization: OrgsEnableSelectedRepositoryImmutableReleasesOrganization
+  orgsDisableSelectedRepositoryImmutableReleasesOrganization: OrgsDisableSelectedRepositoryImmutableReleasesOrganization
   hostedComputeListNetworkConfigurationsForOrg: HostedComputeListNetworkConfigurationsForOrg
   hostedComputeCreateNetworkConfigurationForOrg: HostedComputeCreateNetworkConfigurationForOrg
   hostedComputeGetNetworkConfigurationForOrg: HostedComputeGetNetworkConfigurationForOrg
@@ -25592,56 +31197,17 @@ export type Implementation = {
   teamsGetByName: TeamsGetByName
   teamsUpdateInOrg: TeamsUpdateInOrg
   teamsDeleteInOrg: TeamsDeleteInOrg
-  teamsListDiscussionsInOrg: TeamsListDiscussionsInOrg
-  teamsCreateDiscussionInOrg: TeamsCreateDiscussionInOrg
-  teamsGetDiscussionInOrg: TeamsGetDiscussionInOrg
-  teamsUpdateDiscussionInOrg: TeamsUpdateDiscussionInOrg
-  teamsDeleteDiscussionInOrg: TeamsDeleteDiscussionInOrg
-  teamsListDiscussionCommentsInOrg: TeamsListDiscussionCommentsInOrg
-  teamsCreateDiscussionCommentInOrg: TeamsCreateDiscussionCommentInOrg
-  teamsGetDiscussionCommentInOrg: TeamsGetDiscussionCommentInOrg
-  teamsUpdateDiscussionCommentInOrg: TeamsUpdateDiscussionCommentInOrg
-  teamsDeleteDiscussionCommentInOrg: TeamsDeleteDiscussionCommentInOrg
-  reactionsListForTeamDiscussionCommentInOrg: ReactionsListForTeamDiscussionCommentInOrg
-  reactionsCreateForTeamDiscussionCommentInOrg: ReactionsCreateForTeamDiscussionCommentInOrg
-  reactionsDeleteForTeamDiscussionComment: ReactionsDeleteForTeamDiscussionComment
-  reactionsListForTeamDiscussionInOrg: ReactionsListForTeamDiscussionInOrg
-  reactionsCreateForTeamDiscussionInOrg: ReactionsCreateForTeamDiscussionInOrg
-  reactionsDeleteForTeamDiscussion: ReactionsDeleteForTeamDiscussion
   teamsListPendingInvitationsInOrg: TeamsListPendingInvitationsInOrg
   teamsListMembersInOrg: TeamsListMembersInOrg
   teamsGetMembershipForUserInOrg: TeamsGetMembershipForUserInOrg
   teamsAddOrUpdateMembershipForUserInOrg: TeamsAddOrUpdateMembershipForUserInOrg
   teamsRemoveMembershipForUserInOrg: TeamsRemoveMembershipForUserInOrg
-  teamsListProjectsInOrg: TeamsListProjectsInOrg
-  teamsCheckPermissionsForProjectInOrg: TeamsCheckPermissionsForProjectInOrg
-  teamsAddOrUpdateProjectPermissionsInOrg: TeamsAddOrUpdateProjectPermissionsInOrg
-  teamsRemoveProjectInOrg: TeamsRemoveProjectInOrg
   teamsListReposInOrg: TeamsListReposInOrg
   teamsCheckPermissionsForRepoInOrg: TeamsCheckPermissionsForRepoInOrg
   teamsAddOrUpdateRepoPermissionsInOrg: TeamsAddOrUpdateRepoPermissionsInOrg
   teamsRemoveRepoInOrg: TeamsRemoveRepoInOrg
   teamsListChildInOrg: TeamsListChildInOrg
   orgsEnableOrDisableSecurityProductOnAllOrgRepos: OrgsEnableOrDisableSecurityProductOnAllOrgRepos
-  projectsClassicGetCard: ProjectsClassicGetCard
-  projectsClassicUpdateCard: ProjectsClassicUpdateCard
-  projectsClassicDeleteCard: ProjectsClassicDeleteCard
-  projectsClassicMoveCard: ProjectsClassicMoveCard
-  projectsClassicGetColumn: ProjectsClassicGetColumn
-  projectsClassicUpdateColumn: ProjectsClassicUpdateColumn
-  projectsClassicDeleteColumn: ProjectsClassicDeleteColumn
-  projectsClassicListCards: ProjectsClassicListCards
-  projectsClassicCreateCard: ProjectsClassicCreateCard
-  projectsClassicMoveColumn: ProjectsClassicMoveColumn
-  projectsClassicGet: ProjectsClassicGet
-  projectsClassicUpdate: ProjectsClassicUpdate
-  projectsClassicDelete: ProjectsClassicDelete
-  projectsClassicListCollaborators: ProjectsClassicListCollaborators
-  projectsClassicAddCollaborator: ProjectsClassicAddCollaborator
-  projectsClassicRemoveCollaborator: ProjectsClassicRemoveCollaborator
-  projectsClassicGetPermissionForUser: ProjectsClassicGetPermissionForUser
-  projectsClassicListColumns: ProjectsClassicListColumns
-  projectsClassicCreateColumn: ProjectsClassicCreateColumn
   rateLimitGet: RateLimitGet
   reposGet: ReposGet
   reposUpdate: ReposUpdate
@@ -25650,10 +31216,16 @@ export type Implementation = {
   actionsGetArtifact: ActionsGetArtifact
   actionsDeleteArtifact: ActionsDeleteArtifact
   actionsDownloadArtifact: ActionsDownloadArtifact
+  actionsGetActionsCacheRetentionLimitForRepository: ActionsGetActionsCacheRetentionLimitForRepository
+  actionsSetActionsCacheRetentionLimitForRepository: ActionsSetActionsCacheRetentionLimitForRepository
+  actionsGetActionsCacheStorageLimitForRepository: ActionsGetActionsCacheStorageLimitForRepository
+  actionsSetActionsCacheStorageLimitForRepository: ActionsSetActionsCacheStorageLimitForRepository
   actionsGetActionsCacheUsage: ActionsGetActionsCacheUsage
   actionsGetActionsCacheList: ActionsGetActionsCacheList
   actionsDeleteActionsCacheByKey: ActionsDeleteActionsCacheByKey
   actionsDeleteActionsCacheById: ActionsDeleteActionsCacheById
+  actionsListConcurrencyGroupsForRepository: ActionsListConcurrencyGroupsForRepository
+  actionsGetConcurrencyGroupForRepository: ActionsGetConcurrencyGroupForRepository
   actionsGetJobForWorkflowRun: ActionsGetJobForWorkflowRun
   actionsDownloadJobLogsForWorkflowRun: ActionsDownloadJobLogsForWorkflowRun
   actionsReRunJobForWorkflowRun: ActionsReRunJobForWorkflowRun
@@ -25665,6 +31237,12 @@ export type Implementation = {
   actionsSetGithubActionsPermissionsRepository: ActionsSetGithubActionsPermissionsRepository
   actionsGetWorkflowAccessToRepository: ActionsGetWorkflowAccessToRepository
   actionsSetWorkflowAccessToRepository: ActionsSetWorkflowAccessToRepository
+  actionsGetArtifactAndLogRetentionSettingsRepository: ActionsGetArtifactAndLogRetentionSettingsRepository
+  actionsSetArtifactAndLogRetentionSettingsRepository: ActionsSetArtifactAndLogRetentionSettingsRepository
+  actionsGetForkPrContributorApprovalPermissionsRepository: ActionsGetForkPrContributorApprovalPermissionsRepository
+  actionsSetForkPrContributorApprovalPermissionsRepository: ActionsSetForkPrContributorApprovalPermissionsRepository
+  actionsGetPrivateRepoForkPrWorkflowsSettingsRepository: ActionsGetPrivateRepoForkPrWorkflowsSettingsRepository
+  actionsSetPrivateRepoForkPrWorkflowsSettingsRepository: ActionsSetPrivateRepoForkPrWorkflowsSettingsRepository
   actionsGetAllowedActionsRepository: ActionsGetAllowedActionsRepository
   actionsSetAllowedActionsRepository: ActionsSetAllowedActionsRepository
   actionsGetGithubActionsDefaultWorkflowPermissionsRepository: ActionsGetGithubActionsDefaultWorkflowPermissionsRepository
@@ -25691,6 +31269,7 @@ export type Implementation = {
   actionsListJobsForWorkflowRunAttempt: ActionsListJobsForWorkflowRunAttempt
   actionsDownloadWorkflowRunAttemptLogs: ActionsDownloadWorkflowRunAttemptLogs
   actionsCancelWorkflowRun: ActionsCancelWorkflowRun
+  actionsListConcurrencyGroupsForWorkflowRun: ActionsListConcurrencyGroupsForWorkflowRun
   actionsReviewCustomGatesForRun: ActionsReviewCustomGatesForRun
   actionsForceCancelWorkflowRun: ActionsForceCancelWorkflowRun
   actionsListJobsForWorkflowRun: ActionsListJobsForWorkflowRun
@@ -25719,6 +31298,18 @@ export type Implementation = {
   actionsListWorkflowRuns: ActionsListWorkflowRuns
   actionsGetWorkflowUsage: ActionsGetWorkflowUsage
   reposListActivities: ReposListActivities
+  agentsListRepoOrganizationSecrets: AgentsListRepoOrganizationSecrets
+  agentsListRepoOrganizationVariables: AgentsListRepoOrganizationVariables
+  agentsListRepoSecrets: AgentsListRepoSecrets
+  agentsGetRepoPublicKey: AgentsGetRepoPublicKey
+  agentsGetRepoSecret: AgentsGetRepoSecret
+  agentsCreateOrUpdateRepoSecret: AgentsCreateOrUpdateRepoSecret
+  agentsDeleteRepoSecret: AgentsDeleteRepoSecret
+  agentsListRepoVariables: AgentsListRepoVariables
+  agentsCreateRepoVariable: AgentsCreateRepoVariable
+  agentsGetRepoVariable: AgentsGetRepoVariable
+  agentsUpdateRepoVariable: AgentsUpdateRepoVariable
+  agentsDeleteRepoVariable: AgentsDeleteRepoVariable
   issuesListAssignees: IssuesListAssignees
   issuesCheckUserCanBeAssigned: IssuesCheckUserCanBeAssigned
   reposCreateAttestation: ReposCreateAttestation
@@ -25776,6 +31367,8 @@ export type Implementation = {
   checksGetSuite: ChecksGetSuite
   checksListForSuite: ChecksListForSuite
   checksRerequestSuite: ChecksRerequestSuite
+  codeQualityGetSetup: CodeQualityGetSetup
+  codeQualityUpdateSetup: CodeQualityUpdateSetup
   codeScanningListAlertsForRepo: CodeScanningListAlertsForRepo
   codeScanningGetAlert: CodeScanningGetAlert
   codeScanningUpdateAlert: CodeScanningUpdateAlert
@@ -25837,6 +31430,7 @@ export type Implementation = {
   reposCreateOrUpdateFileContents: ReposCreateOrUpdateFileContents
   reposDeleteFile: ReposDeleteFile
   reposListContributors: ReposListContributors
+  copilotGetCopilotCloudAgentConfiguration: CopilotGetCopilotCloudAgentConfiguration
   dependabotListAlertsForRepo: DependabotListAlertsForRepo
   dependabotGetAlert: DependabotGetAlert
   dependabotUpdateAlert: DependabotUpdateAlert
@@ -25847,6 +31441,8 @@ export type Implementation = {
   dependabotDeleteRepoSecret: DependabotDeleteRepoSecret
   dependencyGraphDiffRange: DependencyGraphDiffRange
   dependencyGraphExportSbom: DependencyGraphExportSbom
+  dependencyGraphFetchSbomReport: DependencyGraphFetchSbomReport
+  dependencyGraphGenerateSbomReport: DependencyGraphGenerateSbomReport
   dependencyGraphCreateRepositorySnapshot: DependencyGraphCreateRepositorySnapshot
   reposListDeployments: ReposListDeployments
   reposCreateDeployment: ReposCreateDeployment
@@ -25908,6 +31504,9 @@ export type Implementation = {
   reposRedeliverWebhookDelivery: ReposRedeliverWebhookDelivery
   reposPingWebhook: ReposPingWebhook
   reposTestPushWebhook: ReposTestPushWebhook
+  reposCheckImmutableReleases: ReposCheckImmutableReleases
+  reposEnableImmutableReleases: ReposEnableImmutableReleases
+  reposDisableImmutableReleases: ReposDisableImmutableReleases
   migrationsGetImportStatus: MigrationsGetImportStatus
   migrationsStartImport: MigrationsStartImport
   migrationsUpdateImport: MigrationsUpdateImport
@@ -25929,6 +31528,8 @@ export type Implementation = {
   issuesGetComment: IssuesGetComment
   issuesUpdateComment: IssuesUpdateComment
   issuesDeleteComment: IssuesDeleteComment
+  issuesPinComment: IssuesPinComment
+  issuesUnpinComment: IssuesUnpinComment
   reactionsListForIssueComment: ReactionsListForIssueComment
   reactionsCreateForIssueComment: ReactionsCreateForIssueComment
   reactionsDeleteForIssueComment: ReactionsDeleteForIssueComment
@@ -25941,7 +31542,15 @@ export type Implementation = {
   issuesCheckUserCanBeAssignedToIssue: IssuesCheckUserCanBeAssignedToIssue
   issuesListComments: IssuesListComments
   issuesCreateComment: IssuesCreateComment
+  issuesListDependenciesBlockedBy: IssuesListDependenciesBlockedBy
+  issuesAddBlockedByDependency: IssuesAddBlockedByDependency
+  issuesRemoveDependencyBlockedBy: IssuesRemoveDependencyBlockedBy
+  issuesListDependenciesBlocking: IssuesListDependenciesBlocking
   issuesListEvents: IssuesListEvents
+  issuesListIssueFieldValuesForIssue: IssuesListIssueFieldValuesForIssue
+  issuesAddIssueFieldValues: IssuesAddIssueFieldValues
+  issuesSetIssueFieldValues: IssuesSetIssueFieldValues
+  issuesDeleteIssueFieldValue: IssuesDeleteIssueFieldValue
   issuesListLabelsOnIssue: IssuesListLabelsOnIssue
   issuesAddLabels: IssuesAddLabels
   issuesSetLabels: IssuesSetLabels
@@ -25949,6 +31558,7 @@ export type Implementation = {
   issuesRemoveLabel: IssuesRemoveLabel
   issuesLock: IssuesLock
   issuesUnlock: IssuesUnlock
+  issuesGetParent: IssuesGetParent
   reactionsListForIssue: ReactionsListForIssue
   reactionsCreateForIssue: ReactionsCreateForIssue
   reactionsDeleteForIssue: ReactionsDeleteForIssue
@@ -25993,10 +31603,8 @@ export type Implementation = {
   reposCheckPrivateVulnerabilityReporting: ReposCheckPrivateVulnerabilityReporting
   reposEnablePrivateVulnerabilityReporting: ReposEnablePrivateVulnerabilityReporting
   reposDisablePrivateVulnerabilityReporting: ReposDisablePrivateVulnerabilityReporting
-  projectsClassicListForRepo: ProjectsClassicListForRepo
-  projectsClassicCreateForRepo: ProjectsClassicCreateForRepo
-  reposGetCustomPropertiesValues: ReposGetCustomPropertiesValues
-  reposCreateOrUpdateCustomPropertiesValues: ReposCreateOrUpdateCustomPropertiesValues
+  reposCustomPropertiesForReposGetRepositoryValues: ReposCustomPropertiesForReposGetRepositoryValues
+  reposCustomPropertiesForReposCreateOrUpdateRepositoryValues: ReposCustomPropertiesForReposCreateOrUpdateRepositoryValues
   pullsList: PullsList
   pullsCreate: PullsCreate
   pullsListReviewCommentsForRepo: PullsListReviewCommentsForRepo
@@ -26081,9 +31689,6 @@ export type Implementation = {
   activitySetRepoSubscription: ActivitySetRepoSubscription
   activityDeleteRepoSubscription: ActivityDeleteRepoSubscription
   reposListTags: ReposListTags
-  reposListTagProtection: ReposListTagProtection
-  reposCreateTagProtection: ReposCreateTagProtection
-  reposDeleteTagProtection: ReposDeleteTagProtection
   reposDownloadTarballArchive: ReposDownloadTarballArchive
   reposListTeams: ReposListTeams
   reposGetAllTopics: ReposGetAllTopics
@@ -26109,20 +31714,6 @@ export type Implementation = {
   teamsGetLegacy: TeamsGetLegacy
   teamsUpdateLegacy: TeamsUpdateLegacy
   teamsDeleteLegacy: TeamsDeleteLegacy
-  teamsListDiscussionsLegacy: TeamsListDiscussionsLegacy
-  teamsCreateDiscussionLegacy: TeamsCreateDiscussionLegacy
-  teamsGetDiscussionLegacy: TeamsGetDiscussionLegacy
-  teamsUpdateDiscussionLegacy: TeamsUpdateDiscussionLegacy
-  teamsDeleteDiscussionLegacy: TeamsDeleteDiscussionLegacy
-  teamsListDiscussionCommentsLegacy: TeamsListDiscussionCommentsLegacy
-  teamsCreateDiscussionCommentLegacy: TeamsCreateDiscussionCommentLegacy
-  teamsGetDiscussionCommentLegacy: TeamsGetDiscussionCommentLegacy
-  teamsUpdateDiscussionCommentLegacy: TeamsUpdateDiscussionCommentLegacy
-  teamsDeleteDiscussionCommentLegacy: TeamsDeleteDiscussionCommentLegacy
-  reactionsListForTeamDiscussionCommentLegacy: ReactionsListForTeamDiscussionCommentLegacy
-  reactionsCreateForTeamDiscussionCommentLegacy: ReactionsCreateForTeamDiscussionCommentLegacy
-  reactionsListForTeamDiscussionLegacy: ReactionsListForTeamDiscussionLegacy
-  reactionsCreateForTeamDiscussionLegacy: ReactionsCreateForTeamDiscussionLegacy
   teamsListPendingInvitationsLegacy: TeamsListPendingInvitationsLegacy
   teamsListMembersLegacy: TeamsListMembersLegacy
   teamsGetMemberLegacy: TeamsGetMemberLegacy
@@ -26131,10 +31722,6 @@ export type Implementation = {
   teamsGetMembershipForUserLegacy: TeamsGetMembershipForUserLegacy
   teamsAddOrUpdateMembershipForUserLegacy: TeamsAddOrUpdateMembershipForUserLegacy
   teamsRemoveMembershipForUserLegacy: TeamsRemoveMembershipForUserLegacy
-  teamsListProjectsLegacy: TeamsListProjectsLegacy
-  teamsCheckPermissionsForProjectLegacy: TeamsCheckPermissionsForProjectLegacy
-  teamsAddOrUpdateProjectPermissionsLegacy: TeamsAddOrUpdateProjectPermissionsLegacy
-  teamsRemoveProjectLegacy: TeamsRemoveProjectLegacy
   teamsListReposLegacy: TeamsListReposLegacy
   teamsCheckPermissionsForRepoLegacy: TeamsCheckPermissionsForRepoLegacy
   teamsAddOrUpdateRepoPermissionsLegacy: TeamsAddOrUpdateRepoPermissionsLegacy
@@ -26213,7 +31800,6 @@ export type Implementation = {
   packagesGetPackageVersionForAuthenticatedUser: PackagesGetPackageVersionForAuthenticatedUser
   packagesDeletePackageVersionForAuthenticatedUser: PackagesDeletePackageVersionForAuthenticatedUser
   packagesRestorePackageVersionForAuthenticatedUser: PackagesRestorePackageVersionForAuthenticatedUser
-  projectsClassicCreateForAuthenticatedUser: ProjectsClassicCreateForAuthenticatedUser
   usersListPublicEmailsForAuthenticatedUser: UsersListPublicEmailsForAuthenticatedUser
   reposListForAuthenticatedUser: ReposListForAuthenticatedUser
   reposCreateForAuthenticatedUser: ReposCreateForAuthenticatedUser
@@ -26234,13 +31820,29 @@ export type Implementation = {
   activityListWatchedReposForAuthenticatedUser: ActivityListWatchedReposForAuthenticatedUser
   teamsListForAuthenticatedUser: TeamsListForAuthenticatedUser
   usersGetById: UsersGetById
+  projectsCreateDraftItemForAuthenticatedUser: ProjectsCreateDraftItemForAuthenticatedUser
   usersList: UsersList
+  projectsCreateViewForUser: ProjectsCreateViewForUser
   usersGetByUsername: UsersGetByUsername
   usersListAttestationsBulk: UsersListAttestationsBulk
   usersDeleteAttestationsBulk: UsersDeleteAttestationsBulk
   usersDeleteAttestationsBySubjectDigest: UsersDeleteAttestationsBySubjectDigest
   usersDeleteAttestationsById: UsersDeleteAttestationsById
   usersListAttestations: UsersListAttestations
+  copilotSpacesListForUser: CopilotSpacesListForUser
+  copilotSpacesCreateForUser: CopilotSpacesCreateForUser
+  copilotSpacesGetForUser: CopilotSpacesGetForUser
+  copilotSpacesUpdateForUser: CopilotSpacesUpdateForUser
+  copilotSpacesDeleteForUser: CopilotSpacesDeleteForUser
+  copilotSpacesListCollaboratorsForUser: CopilotSpacesListCollaboratorsForUser
+  copilotSpacesAddCollaboratorForUser: CopilotSpacesAddCollaboratorForUser
+  copilotSpacesUpdateCollaboratorForUser: CopilotSpacesUpdateCollaboratorForUser
+  copilotSpacesRemoveCollaboratorForUser: CopilotSpacesRemoveCollaboratorForUser
+  copilotSpacesListResourcesForUser: CopilotSpacesListResourcesForUser
+  copilotSpacesCreateResourceForUser: CopilotSpacesCreateResourceForUser
+  copilotSpacesGetResourceForUser: CopilotSpacesGetResourceForUser
+  copilotSpacesUpdateResourceForUser: CopilotSpacesUpdateResourceForUser
+  copilotSpacesDeleteResourceForUser: CopilotSpacesDeleteResourceForUser
   packagesListDockerMigrationConflictingPackagesForUser: PackagesListDockerMigrationConflictingPackagesForUser
   activityListEventsForAuthenticatedUser: ActivityListEventsForAuthenticatedUser
   activityListOrgEventsForAuthenticatedUser: ActivityListOrgEventsForAuthenticatedUser
@@ -26262,14 +31864,23 @@ export type Implementation = {
   packagesGetPackageVersionForUser: PackagesGetPackageVersionForUser
   packagesDeletePackageVersionForUser: PackagesDeletePackageVersionForUser
   packagesRestorePackageVersionForUser: PackagesRestorePackageVersionForUser
-  projectsClassicListForUser: ProjectsClassicListForUser
+  projectsListForUser: ProjectsListForUser
+  projectsGetForUser: ProjectsGetForUser
+  projectsListFieldsForUser: ProjectsListFieldsForUser
+  projectsAddFieldForUser: ProjectsAddFieldForUser
+  projectsGetFieldForUser: ProjectsGetFieldForUser
+  projectsListItemsForUser: ProjectsListItemsForUser
+  projectsAddItemForUser: ProjectsAddItemForUser
+  projectsGetUserItem: ProjectsGetUserItem
+  projectsUpdateItemForUser: ProjectsUpdateItemForUser
+  projectsDeleteItemForUser: ProjectsDeleteItemForUser
+  projectsListViewItemsForUser: ProjectsListViewItemsForUser
   activityListReceivedEventsForUser: ActivityListReceivedEventsForUser
   activityListReceivedPublicEventsForUser: ActivityListReceivedPublicEventsForUser
   reposListForUser: ReposListForUser
-  billingGetGithubActionsBillingUser: BillingGetGithubActionsBillingUser
-  billingGetGithubPackagesBillingUser: BillingGetGithubPackagesBillingUser
-  billingGetSharedStorageBillingUser: BillingGetSharedStorageBillingUser
+  billingGetGithubBillingPremiumRequestUsageReportUser: BillingGetGithubBillingPremiumRequestUsageReportUser
   billingGetGithubBillingUsageReportUser: BillingGetGithubBillingUsageReportUser
+  billingGetGithubBillingUsageSummaryReportUser: BillingGetGithubBillingUsageSummaryReportUser
   usersListSocialAccountsForUser: UsersListSocialAccountsForUser
   usersListSshSigningKeysForUser: UsersListSshSigningKeysForUser
   activityListReposStarredByUser: ActivityListReposStarredByUser
@@ -26449,6 +32060,1741 @@ export function createRouter(
     },
   )
 
+  const agentTasksListTasksForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentTasksListTasksForRepoQuerySchema = z.object({
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+    page: z.coerce.number().min(1).optional().default(1),
+    sort: z.enum(["updated_at", "created_at"]).optional().default("updated_at"),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    state: z.string().optional(),
+    is_archived: PermissiveBoolean.optional().default(false),
+    since: z.iso.datetime({offset: true}).optional(),
+    creator_id: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.coerce.number()),
+      )
+      .optional(),
+  })
+
+  const agentTasksListTasksForRepoResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          tasks: z.array(
+            z.object({
+              id: z.string(),
+              url: z.string().optional(),
+              html_url: z.string().optional(),
+              name: z.string().optional(),
+              creator: z.object({id: z.coerce.number().optional()}).optional(),
+              creator_type: z.enum(["user", "organization"]).optional(),
+              user_collaborators: z
+                .array(z.object({id: z.coerce.number().optional()}))
+                .optional(),
+              owner: z.object({id: z.coerce.number().optional()}).optional(),
+              repository: z
+                .object({id: z.coerce.number().optional()})
+                .optional(),
+              state: z.enum([
+                "queued",
+                "in_progress",
+                "completed",
+                "failed",
+                "idle",
+                "waiting_for_user",
+                "timed_out",
+                "cancelled",
+              ]),
+              session_count: z.coerce.number().optional(),
+              artifacts: z
+                .array(
+                  z.object({
+                    provider: z.literal("github"),
+                    type: z.enum(["pull", "branch"]),
+                    data: z.union([
+                      z.object({
+                        id: z.coerce.number(),
+                        global_id: z.string().optional(),
+                      }),
+                      z.object({head_ref: z.string(), base_ref: z.string()}),
+                    ]),
+                  }),
+                )
+                .optional(),
+              archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+              updated_at: z.iso.datetime({offset: true}).optional(),
+              created_at: z.iso.datetime({offset: true}),
+            }),
+          ),
+          total_active_count: z.coerce.number().optional(),
+          total_archived_count: z.coerce.number().optional(),
+        }),
+      ],
+      [
+        "400",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "401",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "403",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "404",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "422",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "agentTasksListTasksForRepo",
+    "/agents/repos/:owner/:repo/tasks",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentTasksListTasksForRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentTasksListTasksForRepoQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            tasks: {
+              archived_at?: string | null
+              artifacts?: {
+                data:
+                  | {
+                      global_id?: string
+                      id: number
+                    }
+                  | {
+                      base_ref: string
+                      head_ref: string
+                    }
+                provider: "github"
+                type: "pull" | "branch"
+              }[]
+              created_at: string
+              creator?: {
+                id?: number
+              }
+              creator_type?: "user" | "organization"
+              html_url?: string
+              id: string
+              name?: string
+              owner?: {
+                id?: number
+              }
+              repository?: {
+                id?: number
+              }
+              session_count?: number
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+              updated_at?: string
+              url?: string
+              user_collaborators?: {
+                id?: number
+              }[]
+            }[]
+            total_active_count?: number
+            total_archived_count?: number
+          }>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentTasksListTasksForRepo(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentTasksListTasksForRepoResponseValidator))
+    },
+  )
+
+  const agentTasksCreateTaskInRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentTasksCreateTaskInRepoResponseValidator = responseValidationFactory(
+    [
+      [
+        "201",
+        z.object({
+          id: z.string(),
+          url: z.string().optional(),
+          html_url: z.string().optional(),
+          name: z.string().optional(),
+          creator: z.object({id: z.coerce.number().optional()}).optional(),
+          creator_type: z.enum(["user", "organization"]).optional(),
+          user_collaborators: z
+            .array(z.object({id: z.coerce.number().optional()}))
+            .optional(),
+          owner: z.object({id: z.coerce.number().optional()}).optional(),
+          repository: z.object({id: z.coerce.number().optional()}).optional(),
+          state: z.enum([
+            "queued",
+            "in_progress",
+            "completed",
+            "failed",
+            "idle",
+            "waiting_for_user",
+            "timed_out",
+            "cancelled",
+          ]),
+          session_count: z.coerce.number().optional(),
+          artifacts: z
+            .array(
+              z.object({
+                provider: z.literal("github"),
+                type: z.enum(["pull", "branch"]),
+                data: z.union([
+                  z.object({
+                    id: z.coerce.number(),
+                    global_id: z.string().optional(),
+                  }),
+                  z.object({head_ref: z.string(), base_ref: z.string()}),
+                ]),
+              }),
+            )
+            .optional(),
+          archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+          updated_at: z.iso.datetime({offset: true}).optional(),
+          created_at: z.iso.datetime({offset: true}),
+        }),
+      ],
+      [
+        "400",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "401",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "403",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "422",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "agentTasksCreateTaskInRepo",
+    "/agents/repos/:owner/:repo/tasks",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentTasksCreateTaskInRepoParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentTasksCreateTaskInRepoRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<{
+            archived_at?: string | null
+            artifacts?: {
+              data:
+                | {
+                    global_id?: string
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch"
+            }[]
+            created_at: string
+            creator?: {
+              id?: number
+            }
+            creator_type?: "user" | "organization"
+            html_url?: string
+            id: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            repository?: {
+              id?: number
+            }
+            session_count?: number
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+            updated_at?: string
+            url?: string
+            user_collaborators?: {
+              id?: number
+            }[]
+          }>(201)
+        },
+        with400() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(403)
+        },
+        with422() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentTasksCreateTaskInRepo(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentTasksCreateTaskInRepoResponseValidator))
+    },
+  )
+
+  const agentTasksGetTaskByRepoAndIdParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    task_id: z.string(),
+  })
+
+  const agentTasksGetTaskByRepoAndIdResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z
+            .object({
+              id: z.string(),
+              url: z.string().optional(),
+              html_url: z.string().optional(),
+              name: z.string().optional(),
+              creator: z.object({id: z.coerce.number().optional()}).optional(),
+              creator_type: z.enum(["user", "organization"]).optional(),
+              user_collaborators: z
+                .array(z.object({id: z.coerce.number().optional()}))
+                .optional(),
+              owner: z.object({id: z.coerce.number().optional()}).optional(),
+              repository: z
+                .object({id: z.coerce.number().optional()})
+                .optional(),
+              state: z.enum([
+                "queued",
+                "in_progress",
+                "completed",
+                "failed",
+                "idle",
+                "waiting_for_user",
+                "timed_out",
+                "cancelled",
+              ]),
+              session_count: z.coerce.number().optional(),
+              artifacts: z
+                .array(
+                  z.object({
+                    provider: z.literal("github"),
+                    type: z.enum(["pull", "branch"]),
+                    data: z.union([
+                      z.object({
+                        id: z.coerce.number(),
+                        global_id: z.string().optional(),
+                      }),
+                      z.object({head_ref: z.string(), base_ref: z.string()}),
+                    ]),
+                  }),
+                )
+                .optional(),
+              archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+              updated_at: z.iso.datetime({offset: true}).optional(),
+              created_at: z.iso.datetime({offset: true}),
+            })
+            .merge(
+              z.object({
+                sessions: z
+                  .array(
+                    z.object({
+                      id: z.string(),
+                      name: z.string().optional(),
+                      user: z
+                        .object({id: z.coerce.number().optional()})
+                        .optional(),
+                      owner: z
+                        .object({id: z.coerce.number().optional()})
+                        .optional(),
+                      repository: z
+                        .object({id: z.coerce.number().optional()})
+                        .optional(),
+                      task_id: z.string().optional(),
+                      state: z.enum([
+                        "queued",
+                        "in_progress",
+                        "completed",
+                        "failed",
+                        "idle",
+                        "waiting_for_user",
+                        "timed_out",
+                        "cancelled",
+                      ]),
+                      created_at: z.iso.datetime({offset: true}),
+                      updated_at: z.iso.datetime({offset: true}).optional(),
+                      completed_at: z.iso.datetime({offset: true}).optional(),
+                      prompt: z.string().optional(),
+                      head_ref: z.string().optional(),
+                      base_ref: z.string().optional(),
+                      model: z.string().optional(),
+                      error: z
+                        .object({message: z.string().optional()})
+                        .optional(),
+                    }),
+                  )
+                  .optional(),
+              }),
+            ),
+        ],
+        [
+          "400",
+          z.object({
+            message: z.string(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.enum([
+                    "missing",
+                    "missing_field",
+                    "invalid",
+                    "already_exists",
+                    "unprocessable",
+                    "custom",
+                  ]),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+            documentation_url: z.string(),
+          }),
+        ],
+        [
+          "401",
+          z.object({
+            message: z.string(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.enum([
+                    "missing",
+                    "missing_field",
+                    "invalid",
+                    "already_exists",
+                    "unprocessable",
+                    "custom",
+                  ]),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+            documentation_url: z.string(),
+          }),
+        ],
+        [
+          "403",
+          z.object({
+            message: z.string(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.enum([
+                    "missing",
+                    "missing_field",
+                    "invalid",
+                    "already_exists",
+                    "unprocessable",
+                    "custom",
+                  ]),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+            documentation_url: z.string(),
+          }),
+        ],
+        [
+          "404",
+          z.object({
+            message: z.string(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.enum([
+                    "missing",
+                    "missing_field",
+                    "invalid",
+                    "already_exists",
+                    "unprocessable",
+                    "custom",
+                  ]),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+            documentation_url: z.string(),
+          }),
+        ],
+        [
+          "422",
+          z.object({
+            message: z.string(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.enum([
+                    "missing",
+                    "missing_field",
+                    "invalid",
+                    "already_exists",
+                    "unprocessable",
+                    "custom",
+                  ]),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+            documentation_url: z.string(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "agentTasksGetTaskByRepoAndId",
+    "/agents/repos/:owner/:repo/tasks/:task_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentTasksGetTaskByRepoAndIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<
+            {
+              archived_at?: string | null
+              artifacts?: {
+                data:
+                  | {
+                      global_id?: string
+                      id: number
+                    }
+                  | {
+                      base_ref: string
+                      head_ref: string
+                    }
+                provider: "github"
+                type: "pull" | "branch"
+              }[]
+              created_at: string
+              creator?: {
+                id?: number
+              }
+              creator_type?: "user" | "organization"
+              html_url?: string
+              id: string
+              name?: string
+              owner?: {
+                id?: number
+              }
+              repository?: {
+                id?: number
+              }
+              session_count?: number
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+              updated_at?: string
+              url?: string
+              user_collaborators?: {
+                id?: number
+              }[]
+            } & {
+              sessions?: {
+                base_ref?: string
+                completed_at?: string
+                created_at: string
+                error?: {
+                  message?: string
+                }
+                head_ref?: string
+                id: string
+                model?: string
+                name?: string
+                owner?: {
+                  id?: number
+                }
+                prompt?: string
+                repository?: {
+                  id?: number
+                }
+                state:
+                  | "queued"
+                  | "in_progress"
+                  | "completed"
+                  | "failed"
+                  | "idle"
+                  | "waiting_for_user"
+                  | "timed_out"
+                  | "cancelled"
+                task_id?: string
+                updated_at?: string
+                user?: {
+                  id?: number
+                }
+              }[]
+            }
+          >(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<{
+            documentation_url: string
+            errors?: {
+              code:
+                | "missing"
+                | "missing_field"
+                | "invalid"
+                | "already_exists"
+                | "unprocessable"
+                | "custom"
+              message?: string
+            }[]
+            message: string
+          }>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentTasksGetTaskByRepoAndId(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, agentTasksGetTaskByRepoAndIdResponseValidator),
+        )
+    },
+  )
+
+  const agentTasksListTasksQuerySchema = z.object({
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+    page: z.coerce.number().min(1).optional().default(1),
+    sort: z.enum(["updated_at", "created_at"]).optional().default("updated_at"),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    state: z.string().optional(),
+    is_archived: PermissiveBoolean.optional().default(false),
+    since: z.iso.datetime({offset: true}).optional(),
+  })
+
+  const agentTasksListTasksResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          tasks: z.array(
+            z.object({
+              id: z.string(),
+              url: z.string().optional(),
+              html_url: z.string().optional(),
+              name: z.string().optional(),
+              creator: z.object({id: z.coerce.number().optional()}).optional(),
+              creator_type: z.enum(["user", "organization"]).optional(),
+              user_collaborators: z
+                .array(z.object({id: z.coerce.number().optional()}))
+                .optional(),
+              owner: z.object({id: z.coerce.number().optional()}).optional(),
+              repository: z
+                .object({id: z.coerce.number().optional()})
+                .optional(),
+              state: z.enum([
+                "queued",
+                "in_progress",
+                "completed",
+                "failed",
+                "idle",
+                "waiting_for_user",
+                "timed_out",
+                "cancelled",
+              ]),
+              session_count: z.coerce.number().optional(),
+              artifacts: z
+                .array(
+                  z.object({
+                    provider: z.literal("github"),
+                    type: z.enum(["pull", "branch"]),
+                    data: z.union([
+                      z.object({
+                        id: z.coerce.number(),
+                        global_id: z.string().optional(),
+                      }),
+                      z.object({head_ref: z.string(), base_ref: z.string()}),
+                    ]),
+                  }),
+                )
+                .optional(),
+              archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+              updated_at: z.iso.datetime({offset: true}).optional(),
+              created_at: z.iso.datetime({offset: true}),
+            }),
+          ),
+          total_active_count: z.coerce.number().optional(),
+          total_archived_count: z.coerce.number().optional(),
+        }),
+      ],
+      [
+        "400",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "401",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "403",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "422",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get("agentTasksListTasks", "/agents/tasks", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        agentTasksListTasksQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          tasks: {
+            archived_at?: string | null
+            artifacts?: {
+              data:
+                | {
+                    global_id?: string
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch"
+            }[]
+            created_at: string
+            creator?: {
+              id?: number
+            }
+            creator_type?: "user" | "organization"
+            html_url?: string
+            id: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            repository?: {
+              id?: number
+            }
+            session_count?: number
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+            updated_at?: string
+            url?: string
+            user_collaborators?: {
+              id?: number
+            }[]
+          }[]
+          total_active_count?: number
+          total_archived_count?: number
+        }>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(403)
+      },
+      with422() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(422)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .agentTasksListTasks(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, agentTasksListTasksResponseValidator))
+  })
+
+  const agentTasksGetTaskByIdParamSchema = z.object({task_id: z.string()})
+
+  const agentTasksGetTaskByIdResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z
+          .object({
+            id: z.string(),
+            url: z.string().optional(),
+            html_url: z.string().optional(),
+            name: z.string().optional(),
+            creator: z.object({id: z.coerce.number().optional()}).optional(),
+            creator_type: z.enum(["user", "organization"]).optional(),
+            user_collaborators: z
+              .array(z.object({id: z.coerce.number().optional()}))
+              .optional(),
+            owner: z.object({id: z.coerce.number().optional()}).optional(),
+            repository: z.object({id: z.coerce.number().optional()}).optional(),
+            state: z.enum([
+              "queued",
+              "in_progress",
+              "completed",
+              "failed",
+              "idle",
+              "waiting_for_user",
+              "timed_out",
+              "cancelled",
+            ]),
+            session_count: z.coerce.number().optional(),
+            artifacts: z
+              .array(
+                z.object({
+                  provider: z.literal("github"),
+                  type: z.enum(["pull", "branch"]),
+                  data: z.union([
+                    z.object({
+                      id: z.coerce.number(),
+                      global_id: z.string().optional(),
+                    }),
+                    z.object({head_ref: z.string(), base_ref: z.string()}),
+                  ]),
+                }),
+              )
+              .optional(),
+            archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+            updated_at: z.iso.datetime({offset: true}).optional(),
+            created_at: z.iso.datetime({offset: true}),
+          })
+          .merge(
+            z.object({
+              sessions: z
+                .array(
+                  z.object({
+                    id: z.string(),
+                    name: z.string().optional(),
+                    user: z
+                      .object({id: z.coerce.number().optional()})
+                      .optional(),
+                    owner: z
+                      .object({id: z.coerce.number().optional()})
+                      .optional(),
+                    repository: z
+                      .object({id: z.coerce.number().optional()})
+                      .optional(),
+                    task_id: z.string().optional(),
+                    state: z.enum([
+                      "queued",
+                      "in_progress",
+                      "completed",
+                      "failed",
+                      "idle",
+                      "waiting_for_user",
+                      "timed_out",
+                      "cancelled",
+                    ]),
+                    created_at: z.iso.datetime({offset: true}),
+                    updated_at: z.iso.datetime({offset: true}).optional(),
+                    completed_at: z.iso.datetime({offset: true}).optional(),
+                    prompt: z.string().optional(),
+                    head_ref: z.string().optional(),
+                    base_ref: z.string().optional(),
+                    model: z.string().optional(),
+                    error: z
+                      .object({message: z.string().optional()})
+                      .optional(),
+                  }),
+                )
+                .optional(),
+            }),
+          ),
+      ],
+      [
+        "400",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "401",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "403",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "404",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+      [
+        "422",
+        z.object({
+          message: z.string(),
+          errors: z
+            .array(
+              z.object({
+                code: z.enum([
+                  "missing",
+                  "missing_field",
+                  "invalid",
+                  "already_exists",
+                  "unprocessable",
+                  "custom",
+                ]),
+                message: z.string().optional(),
+              }),
+            )
+            .optional(),
+          documentation_url: z.string(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get("agentTasksGetTaskById", "/agents/tasks/:task_id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        agentTasksGetTaskByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<
+          {
+            archived_at?: string | null
+            artifacts?: {
+              data:
+                | {
+                    global_id?: string
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch"
+            }[]
+            created_at: string
+            creator?: {
+              id?: number
+            }
+            creator_type?: "user" | "organization"
+            html_url?: string
+            id: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            repository?: {
+              id?: number
+            }
+            session_count?: number
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+            updated_at?: string
+            url?: string
+            user_collaborators?: {
+              id?: number
+            }[]
+          } & {
+            sessions?: {
+              base_ref?: string
+              completed_at?: string
+              created_at: string
+              error?: {
+                message?: string
+              }
+              head_ref?: string
+              id: string
+              model?: string
+              name?: string
+              owner?: {
+                id?: number
+              }
+              prompt?: string
+              repository?: {
+                id?: number
+              }
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+              task_id?: string
+              updated_at?: string
+              user?: {
+                id?: number
+              }
+            }[]
+          }
+        >(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(404)
+      },
+      with422() {
+        return new KoaRuntimeResponse<{
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+            message?: string
+          }[]
+          message: string
+        }>(422)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .agentTasksGetTaskById(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, agentTasksGetTaskByIdResponseValidator))
+  })
+
   const appsGetAuthenticatedResponseValidator = responseValidationFactory(
     [["200", s_integration]],
     undefined,
@@ -26614,6 +33960,7 @@ export function createRouter(
   const appsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
+    status: z.enum(["success", "failure"]).optional(),
   })
 
   const appsListWebhookDeliveriesResponseValidator = responseValidationFactory(
@@ -27874,6 +35221,448 @@ export function createRouter(
       .then(handleResponse(ctx, emojisGetResponseValidator))
   })
 
+  const actionsGetActionsCacheRetentionLimitForEnterpriseParamSchema = z.object(
+    {enterprise: z.string()},
+  )
+
+  const actionsGetActionsCacheRetentionLimitForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_cache_retention_limit_for_enterprise],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetActionsCacheRetentionLimitForEnterprise",
+    "/enterprises/:enterprise/actions/cache/retention-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheRetentionLimitForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_cache_retention_limit_for_enterprise>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetActionsCacheRetentionLimitForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetActionsCacheRetentionLimitForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetActionsCacheRetentionLimitForEnterpriseParamSchema = z.object(
+    {enterprise: z.string()},
+  )
+
+  const actionsSetActionsCacheRetentionLimitForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetActionsCacheRetentionLimitForEnterprise",
+    "/enterprises/:enterprise/actions/cache/retention-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetActionsCacheRetentionLimitForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_cache_retention_limit_for_enterprise,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetActionsCacheRetentionLimitForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetActionsCacheRetentionLimitForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetActionsCacheStorageLimitForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const actionsGetActionsCacheStorageLimitForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_cache_storage_limit_for_enterprise],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetActionsCacheStorageLimitForEnterprise",
+    "/enterprises/:enterprise/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheStorageLimitForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_cache_storage_limit_for_enterprise>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetActionsCacheStorageLimitForEnterprise(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetActionsCacheStorageLimitForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetActionsCacheStorageLimitForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const actionsSetActionsCacheStorageLimitForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetActionsCacheStorageLimitForEnterprise",
+    "/enterprises/:enterprise/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetActionsCacheStorageLimitForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_cache_storage_limit_for_enterprise,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetActionsCacheStorageLimitForEnterprise(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetActionsCacheStorageLimitForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const oidcListOidcCustomPropertyInclusionsForEnterpriseParamSchema = z.object(
+    {enterprise: z.string()},
+  )
+
+  const oidcListOidcCustomPropertyInclusionsForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_oidc_custom_property_inclusion)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "oidcListOidcCustomPropertyInclusionsForEnterprise",
+    "/enterprises/:enterprise/actions/oidc/customization/properties/repo",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcListOidcCustomPropertyInclusionsForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_oidc_custom_property_inclusion[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcListOidcCustomPropertyInclusionsForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcListOidcCustomPropertyInclusionsForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const oidcCreateOidcCustomPropertyInclusionForEnterpriseParamSchema =
+    z.object({enterprise: z.string()})
+
+  const oidcCreateOidcCustomPropertyInclusionForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_oidc_custom_property_inclusion],
+        ["400", z.undefined()],
+        ["403", s_basic_error],
+        ["422", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "oidcCreateOidcCustomPropertyInclusionForEnterprise",
+    "/enterprises/:enterprise/actions/oidc/customization/properties/repo",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcCreateOidcCustomPropertyInclusionForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_oidc_custom_property_inclusion_input,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_oidc_custom_property_inclusion>(201)
+        },
+        with400() {
+          return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with422() {
+          return new KoaRuntimeResponse<void>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcCreateOidcCustomPropertyInclusionForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcCreateOidcCustomPropertyInclusionForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const oidcDeleteOidcCustomPropertyInclusionForEnterpriseParamSchema =
+    z.object({enterprise: z.string(), custom_property_name: z.string()})
+
+  const oidcDeleteOidcCustomPropertyInclusionForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", z.undefined()],
+        ["403", s_basic_error],
+        ["404", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "oidcDeleteOidcCustomPropertyInclusionForEnterprise",
+    "/enterprises/:enterprise/actions/oidc/customization/properties/repo/:custom_property_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcDeleteOidcCustomPropertyInclusionForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcDeleteOidcCustomPropertyInclusionForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcDeleteOidcCustomPropertyInclusionForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
   const codeSecurityGetConfigurationsForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
   })
@@ -28467,17 +36256,524 @@ export function createRouter(
     },
   )
 
+  const copilotCopilotEnterpriseOneDayUsageMetricsParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotEnterpriseOneDayUsageMetricsQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotEnterpriseOneDayUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotEnterpriseOneDayUsageMetrics",
+    "/enterprises/:enterprise/copilot/metrics/reports/enterprise-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotEnterpriseOneDayUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotEnterpriseOneDayUsageMetricsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotEnterpriseOneDayUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotEnterpriseOneDayUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotEnterpriseUsageMetricsParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotEnterpriseUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_28_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotEnterpriseUsageMetrics",
+    "/enterprises/:enterprise/copilot/metrics/reports/enterprise-28-day/latest",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotEnterpriseUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotEnterpriseUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotEnterpriseUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotEnterpriseUserTeamsOneDayReportParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotEnterpriseUserTeamsOneDayReportQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotEnterpriseUserTeamsOneDayReportResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotEnterpriseUserTeamsOneDayReport",
+    "/enterprises/:enterprise/copilot/metrics/reports/user-teams-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotEnterpriseUserTeamsOneDayReportParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotEnterpriseUserTeamsOneDayReportQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotEnterpriseUserTeamsOneDayReport(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotEnterpriseUserTeamsOneDayReportResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotUsersOneDayUsageMetricsParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotUsersOneDayUsageMetricsQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotUsersOneDayUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotUsersOneDayUsageMetrics",
+    "/enterprises/:enterprise/copilot/metrics/reports/users-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotUsersOneDayUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotUsersOneDayUsageMetricsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotUsersOneDayUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotUsersOneDayUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotUsersUsageMetricsParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotUsersUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_28_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotUsersUsageMetrics",
+    "/enterprises/:enterprise/copilot/metrics/reports/users-28-day/latest",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotUsersUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotUsersUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, copilotCopilotUsersUsageMetricsResponseValidator),
+        )
+    },
+  )
+
+  const copilotSetEnterpriseCodingAgentPolicyParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotSetEnterpriseCodingAgentPolicyResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSetEnterpriseCodingAgentPolicy",
+    "/enterprises/:enterprise/copilot/policies/coding_agent",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSetEnterpriseCodingAgentPolicyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSetEnterpriseCodingAgentPolicy(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSetEnterpriseCodingAgentPolicyResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotAddOrganizationsToEnterpriseCodingAgentPolicyParamSchema =
+    z.object({enterprise: z.string()})
+
+  const copilotAddOrganizationsToEnterpriseCodingAgentPolicyResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotAddOrganizationsToEnterpriseCodingAgentPolicy",
+    "/enterprises/:enterprise/copilot/policies/coding_agent/organizations",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotAddOrganizationsToEnterpriseCodingAgentPolicyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotAddOrganizationsToEnterpriseCodingAgentPolicy(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotAddOrganizationsToEnterpriseCodingAgentPolicyResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyParamSchema =
+    z.object({enterprise: z.string()})
+
+  const copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy",
+    "/enterprises/:enterprise/copilot/policies/coding_agent/organizations",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyResponseValidator,
+          ),
+        )
+    },
+  )
+
   const dependabotListAlertsForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
   })
 
   const dependabotListAlertsForEnterpriseQuerySchema = z.object({
+    classification: z.string().optional(),
     state: z.string().optional(),
     severity: z.string().optional(),
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
     has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
+    assignee: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -28486,8 +36782,6 @@ export function createRouter(
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().min(1).max(100).optional().default(30),
-    last: z.coerce.number().min(1).max(100).optional(),
     per_page: z.coerce.number().optional().default(30),
   })
 
@@ -28557,54 +36851,37 @@ export function createRouter(
     },
   )
 
-  const secretScanningListAlertsForEnterpriseParamSchema = z.object({
+  const dependabotRepositoryAccessForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
   })
 
-  const secretScanningListAlertsForEnterpriseQuerySchema = z.object({
-    state: z.enum(["open", "resolved"]).optional(),
-    secret_type: z.string().optional(),
-    resolution: z.string().optional(),
-    sort: z.enum(["created", "updated"]).optional().default("created"),
-    direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    per_page: z.coerce.number().optional().default(30),
-    before: z.string().optional(),
-    after: z.string().optional(),
-    validity: z.string().optional(),
-    is_publicly_leaked: PermissiveBoolean.optional().default(false),
-    is_multi_repo: PermissiveBoolean.optional().default(false),
-    hide_secret: PermissiveBoolean.optional().default(false),
+  const dependabotRepositoryAccessForEnterpriseQuerySchema = z.object({
+    page: z.coerce.number().min(1).optional().default(1),
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
   })
 
-  const secretScanningListAlertsForEnterpriseResponseValidator =
+  const dependabotRepositoryAccessForEnterpriseResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(s_organization_secret_scanning_alert)],
+        ["200", s_dependabot_repository_access_details],
+        ["403", s_basic_error],
         ["404", s_basic_error],
-        [
-          "503",
-          z.object({
-            code: z.string().optional(),
-            message: z.string().optional(),
-            documentation_url: z.string().optional(),
-          }),
-        ],
       ],
       undefined,
     )
 
   router.get(
-    "secretScanningListAlertsForEnterprise",
-    "/enterprises/:enterprise/secret-scanning/alerts",
+    "dependabotRepositoryAccessForEnterprise",
+    "/enterprises/:enterprise/dependabot/repository-access",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          secretScanningListAlertsForEnterpriseParamSchema,
+          dependabotRepositoryAccessForEnterpriseParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          secretScanningListAlertsForEnterpriseQuerySchema,
+          dependabotRepositoryAccessForEnterpriseQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -28614,19 +36891,15 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_organization_secret_scanning_alert[]>(
+          return new KoaRuntimeResponse<t_dependabot_repository_access_details>(
             200,
           )
         },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with503() {
-          return new KoaRuntimeResponse<{
-            code?: string
-            documentation_url?: string
-            message?: string
-          }>(503)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -28634,19 +36907,959 @@ export function createRouter(
       }
 
       await implementation
-        .secretScanningListAlertsForEnterprise(input, responder, ctx)
+        .dependabotRepositoryAccessForEnterprise(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            secretScanningListAlertsForEnterpriseResponseValidator,
+            dependabotRepositoryAccessForEnterpriseResponseValidator,
           ),
         )
     },
   )
 
-  const activityListPublicEventsQuerySchema = z.object({
+  const dependabotUpdateRepositoryAccessForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const dependabotUpdateRepositoryAccessForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.patch(
+    "dependabotUpdateRepositoryAccessForEnterprise",
+    "/enterprises/:enterprise/dependabot/repository-access",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotUpdateRepositoryAccessForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependabotUpdateRepositoryAccessForEnterprise(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependabotUpdateRepositoryAccessForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const dependabotSetRepositoryAccessDefaultLevelForEnterpriseParamSchema =
+    z.object({enterprise: z.string()})
+
+  const dependabotSetRepositoryAccessDefaultLevelForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "dependabotSetRepositoryAccessDefaultLevelForEnterprise",
+    "/enterprises/:enterprise/dependabot/repository-access/default-level",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotSetRepositoryAccessDefaultLevelForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependabotSetRepositoryAccessDefaultLevelForEnterprise(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependabotSetRepositoryAccessDefaultLevelForEnterpriseResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamsListParamSchema = z.object({enterprise: z.string()})
+
+  const enterpriseTeamsListQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const enterpriseTeamsListResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_enterprise_team)],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "enterpriseTeamsList",
+    "/enterprises/:enterprise/teams",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamsListParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          enterpriseTeamsListQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_enterprise_team[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamsList(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, enterpriseTeamsListResponseValidator))
+    },
+  )
+
+  const enterpriseTeamsCreateParamSchema = z.object({enterprise: z.string()})
+
+  const enterpriseTeamsCreateResponseValidator = responseValidationFactory(
+    [["201", s_enterprise_team]],
+    undefined,
+  )
+
+  router.post(
+    "enterpriseTeamsCreate",
+    "/enterprises/:enterprise/teams",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamsCreateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamsCreateRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_enterprise_team>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamsCreate(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, enterpriseTeamsCreateResponseValidator))
+    },
+  )
+
+  const enterpriseTeamMembershipsListParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamMembershipsListQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const enterpriseTeamMembershipsListResponseValidator =
+    responseValidationFactory([["200", z.array(s_simple_user)]], undefined)
+
+  router.get(
+    "enterpriseTeamMembershipsList",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsListParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          enterpriseTeamMembershipsListQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_simple_user[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsList(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, enterpriseTeamMembershipsListResponseValidator),
+        )
+    },
+  )
+
+  const enterpriseTeamMembershipsBulkAddParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamMembershipsBulkAddResponseValidator =
+    responseValidationFactory([["200", z.array(s_simple_user)]], undefined)
+
+  router.post(
+    "enterpriseTeamMembershipsBulkAdd",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships/add",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsBulkAddParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamMembershipsBulkAddRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_simple_user[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsBulkAdd(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamMembershipsBulkAddResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamMembershipsBulkRemoveParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamMembershipsBulkRemoveResponseValidator =
+    responseValidationFactory([["200", z.array(s_simple_user)]], undefined)
+
+  router.post(
+    "enterpriseTeamMembershipsBulkRemove",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships/remove",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsBulkRemoveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_simple_user[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsBulkRemove(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamMembershipsBulkRemoveResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamMembershipsGetParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    username: z.string(),
+  })
+
+  const enterpriseTeamMembershipsGetResponseValidator =
+    responseValidationFactory([["200", s_simple_user]], undefined)
+
+  router.get(
+    "enterpriseTeamMembershipsGet",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships/:username",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_simple_user>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsGet(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, enterpriseTeamMembershipsGetResponseValidator),
+        )
+    },
+  )
+
+  const enterpriseTeamMembershipsAddParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    username: z.string(),
+  })
+
+  const enterpriseTeamMembershipsAddResponseValidator =
+    responseValidationFactory([["201", s_simple_user]], undefined)
+
+  router.put(
+    "enterpriseTeamMembershipsAdd",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships/:username",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsAddParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_simple_user>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsAdd(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, enterpriseTeamMembershipsAddResponseValidator),
+        )
+    },
+  )
+
+  const enterpriseTeamMembershipsRemoveParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    username: z.string(),
+  })
+
+  const enterpriseTeamMembershipsRemoveResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "enterpriseTeamMembershipsRemove",
+    "/enterprises/:enterprise/teams/:enterprise-team/memberships/:username",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamMembershipsRemoveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamMembershipsRemove(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, enterpriseTeamMembershipsRemoveResponseValidator),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsGetAssignmentsParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamOrganizationsGetAssignmentsQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const enterpriseTeamOrganizationsGetAssignmentsResponseValidator =
+    responseValidationFactory(
+      [["200", z.array(s_organization_simple)]],
+      undefined,
+    )
+
+  router.get(
+    "enterpriseTeamOrganizationsGetAssignments",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsGetAssignmentsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          enterpriseTeamOrganizationsGetAssignmentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_organization_simple[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsGetAssignments(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamOrganizationsGetAssignmentsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsBulkAddParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamOrganizationsBulkAddResponseValidator =
+    responseValidationFactory(
+      [["200", z.array(s_organization_simple)]],
+      undefined,
+    )
+
+  router.post(
+    "enterpriseTeamOrganizationsBulkAdd",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations/add",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsBulkAddParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamOrganizationsBulkAddRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_organization_simple[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsBulkAdd(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamOrganizationsBulkAddResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsBulkRemoveParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+  })
+
+  const enterpriseTeamOrganizationsBulkRemoveResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.post(
+    "enterpriseTeamOrganizationsBulkRemove",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations/remove",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsBulkRemoveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsBulkRemove(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamOrganizationsBulkRemoveResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsGetAssignmentParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    org: z.string(),
+  })
+
+  const enterpriseTeamOrganizationsGetAssignmentResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_organization_simple],
+        ["404", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "enterpriseTeamOrganizationsGetAssignment",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations/:org",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsGetAssignmentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_organization_simple>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsGetAssignment(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamOrganizationsGetAssignmentResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsAddParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    org: z.string(),
+  })
+
+  const enterpriseTeamOrganizationsAddResponseValidator =
+    responseValidationFactory([["201", s_organization_simple]], undefined)
+
+  router.put(
+    "enterpriseTeamOrganizationsAdd",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations/:org",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsAddParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_organization_simple>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsAdd(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, enterpriseTeamOrganizationsAddResponseValidator),
+        )
+    },
+  )
+
+  const enterpriseTeamOrganizationsDeleteParamSchema = z.object({
+    enterprise: z.string(),
+    "enterprise-team": z.string(),
+    org: z.string(),
+  })
+
+  const enterpriseTeamOrganizationsDeleteResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "enterpriseTeamOrganizationsDelete",
+    "/enterprises/:enterprise/teams/:enterprise-team/organizations/:org",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamOrganizationsDeleteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamOrganizationsDelete(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            enterpriseTeamOrganizationsDeleteResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const enterpriseTeamsGetParamSchema = z.object({
+    enterprise: z.string(),
+    team_slug: z.string(),
+  })
+
+  const enterpriseTeamsGetResponseValidator = responseValidationFactory(
+    [
+      ["200", s_enterprise_team],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "enterpriseTeamsGet",
+    "/enterprises/:enterprise/teams/:team_slug",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamsGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_enterprise_team>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamsGet(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, enterpriseTeamsGetResponseValidator))
+    },
+  )
+
+  const enterpriseTeamsUpdateParamSchema = z.object({
+    enterprise: z.string(),
+    team_slug: z.string(),
+  })
+
+  const enterpriseTeamsUpdateResponseValidator = responseValidationFactory(
+    [
+      ["200", s_enterprise_team],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "enterpriseTeamsUpdate",
+    "/enterprises/:enterprise/teams/:team_slug",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamsUpdateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_EnterpriseTeamsUpdateRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_enterprise_team>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamsUpdate(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, enterpriseTeamsUpdateResponseValidator))
+    },
+  )
+
+  const enterpriseTeamsDeleteParamSchema = z.object({
+    enterprise: z.string(),
+    team_slug: z.string(),
+  })
+
+  const enterpriseTeamsDeleteResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "enterpriseTeamsDelete",
+    "/enterprises/:enterprise/teams/:team_slug",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseTeamsDeleteParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .enterpriseTeamsDelete(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, enterpriseTeamsDeleteResponseValidator))
+    },
+  )
+
+  const activityListPublicEventsQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(15),
     page: z.coerce.number().optional().default(1),
   })
 
@@ -29848,7 +39061,15 @@ export function createRouter(
           "200",
           z.object({
             total_count: z.coerce.number(),
-            repositories: z.array(s_repository),
+            repositories: z.array(
+              s_repository.merge(
+                z.object({
+                  custom_properties: z
+                    .record(z.string(), z.unknown())
+                    .optional(),
+                }),
+              ),
+            ),
             repository_selection: z.string().optional(),
           }),
         ],
@@ -29877,7 +39098,9 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            repositories: t_repository[]
+            repositories: (t_repository & {
+              custom_properties?: Record<string, unknown>
+            })[]
             repository_selection?: string
             total_count: number
           }>(200)
@@ -31149,19 +40372,13 @@ export function createRouter(
       .then(handleResponse(ctx, orgsListResponseValidator))
   })
 
-  const dependabotRepositoryAccessForOrgParamSchema = z.object({
-    org: z.string(),
-  })
+  const actionsGetActionsCacheRetentionLimitForOrganizationParamSchema =
+    z.object({org: z.string()})
 
-  const dependabotRepositoryAccessForOrgQuerySchema = z.object({
-    page: z.coerce.number().min(1).optional().default(1),
-    per_page: z.coerce.number().min(1).max(100).optional().default(30),
-  })
-
-  const dependabotRepositoryAccessForOrgResponseValidator =
+  const actionsGetActionsCacheRetentionLimitForOrganizationResponseValidator =
     responseValidationFactory(
       [
-        ["200", s_dependabot_repository_access_details],
+        ["200", s_actions_cache_retention_limit_for_organization],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -31169,27 +40386,23 @@ export function createRouter(
     )
 
   router.get(
-    "dependabotRepositoryAccessForOrg",
-    "/organizations/:org/dependabot/repository-access",
+    "actionsGetActionsCacheRetentionLimitForOrganization",
+    "/organizations/:org/actions/cache/retention-limit",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          dependabotRepositoryAccessForOrgParamSchema,
+          actionsGetActionsCacheRetentionLimitForOrganizationParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
-        query: parseRequestInput(
-          dependabotRepositoryAccessForOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
+        query: undefined,
         body: undefined,
         headers: undefined,
       }
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_dependabot_repository_access_details>(
+          return new KoaRuntimeResponse<t_actions_cache_retention_limit_for_organization>(
             200,
           )
         },
@@ -31205,85 +40418,29 @@ export function createRouter(
       }
 
       await implementation
-        .dependabotRepositoryAccessForOrg(input, responder, ctx)
+        .actionsGetActionsCacheRetentionLimitForOrganization(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            dependabotRepositoryAccessForOrgResponseValidator,
+            actionsGetActionsCacheRetentionLimitForOrganizationResponseValidator,
           ),
         )
     },
   )
 
-  const dependabotUpdateRepositoryAccessForOrgParamSchema = z.object({
-    org: z.string(),
-  })
+  const actionsSetActionsCacheRetentionLimitForOrganizationParamSchema =
+    z.object({org: z.string()})
 
-  const dependabotUpdateRepositoryAccessForOrgResponseValidator =
+  const actionsSetActionsCacheRetentionLimitForOrganizationResponseValidator =
     responseValidationFactory(
       [
         ["204", z.undefined()],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.patch(
-    "dependabotUpdateRepositoryAccessForOrg",
-    "/organizations/:org/dependabot/repository-access",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          dependabotUpdateRepositoryAccessForOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_DependabotUpdateRepositoryAccessForOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .dependabotUpdateRepositoryAccessForOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            dependabotUpdateRepositoryAccessForOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const dependabotSetRepositoryAccessDefaultLevelParamSchema = z.object({
-    org: z.string(),
-  })
-
-  const dependabotSetRepositoryAccessDefaultLevelResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
+        ["400", s_scim_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -31291,18 +40448,18 @@ export function createRouter(
     )
 
   router.put(
-    "dependabotSetRepositoryAccessDefaultLevel",
-    "/organizations/:org/dependabot/repository-access/default-level",
+    "actionsSetActionsCacheRetentionLimitForOrganization",
+    "/organizations/:org/actions/cache/retention-limit",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          dependabotSetRepositoryAccessDefaultLevelParamSchema,
+          actionsSetActionsCacheRetentionLimitForOrganizationParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          s_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+          s_actions_cache_retention_limit_for_organization,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -31312,6 +40469,9 @@ export function createRouter(
       const responder = {
         with204() {
           return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -31325,12 +40485,577 @@ export function createRouter(
       }
 
       await implementation
-        .dependabotSetRepositoryAccessDefaultLevel(input, responder, ctx)
+        .actionsSetActionsCacheRetentionLimitForOrganization(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            dependabotSetRepositoryAccessDefaultLevelResponseValidator,
+            actionsSetActionsCacheRetentionLimitForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetActionsCacheStorageLimitForOrganizationParamSchema = z.object(
+    {org: z.string()},
+  )
+
+  const actionsGetActionsCacheStorageLimitForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_cache_storage_limit_for_organization],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetActionsCacheStorageLimitForOrganization",
+    "/organizations/:org/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheStorageLimitForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_cache_storage_limit_for_organization>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetActionsCacheStorageLimitForOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetActionsCacheStorageLimitForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetActionsCacheStorageLimitForOrganizationParamSchema = z.object(
+    {org: z.string()},
+  )
+
+  const actionsSetActionsCacheStorageLimitForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetActionsCacheStorageLimitForOrganization",
+    "/organizations/:org/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetActionsCacheStorageLimitForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_cache_storage_limit_for_organization,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetActionsCacheStorageLimitForOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetActionsCacheStorageLimitForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const billingGetAllBudgetsOrgParamSchema = z.object({org: z.string()})
+
+  const billingGetAllBudgetsOrgQuerySchema = z.object({
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(10),
+    scope: z
+      .enum(["enterprise", "organization", "repository", "cost_center"])
+      .optional(),
+  })
+
+  const billingGetAllBudgetsOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_get_all_budgets],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "billingGetAllBudgetsOrg",
+    "/organizations/:org/settings/billing/budgets",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetAllBudgetsOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetAllBudgetsOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_get_all_budgets>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingGetAllBudgetsOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, billingGetAllBudgetsOrgResponseValidator))
+    },
+  )
+
+  const billingGetBudgetOrgParamSchema = z.object({
+    org: z.string(),
+    budget_id: z.string(),
+  })
+
+  const billingGetBudgetOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_get_budget],
+      ["400", s_scim_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "billingGetBudgetOrg",
+    "/organizations/:org/settings/billing/budgets/:budget_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetBudgetOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_get_budget>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingGetBudgetOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, billingGetBudgetOrgResponseValidator))
+    },
+  )
+
+  const billingUpdateBudgetOrgParamSchema = z.object({
+    org: z.string(),
+    budget_id: z.string(),
+  })
+
+  const billingUpdateBudgetOrgResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          message: z.string().optional(),
+          budget: z
+            .object({
+              id: z.string().optional(),
+              budget_amount: z.coerce.number().optional(),
+              prevent_further_usage: PermissiveBoolean.optional(),
+              budget_alerting: z
+                .object({
+                  will_alert: PermissiveBoolean,
+                  alert_recipients: z.array(z.string()),
+                })
+                .optional(),
+              budget_scope: z
+                .enum([
+                  "enterprise",
+                  "organization",
+                  "repository",
+                  "cost_center",
+                ])
+                .optional(),
+              budget_entity_name: z.string().optional().default(""),
+              budget_type: z
+                .union([z.literal("ProductPricing"), z.literal("SkuPricing")])
+                .optional(),
+              budget_product_sku: z.string().optional(),
+            })
+            .optional(),
+        }),
+      ],
+      ["400", s_scim_error],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "billingUpdateBudgetOrg",
+    "/organizations/:org/settings/billing/budgets/:budget_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingUpdateBudgetOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_BillingUpdateBudgetOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            budget?: {
+              budget_alerting?: {
+                alert_recipients: string[]
+                will_alert: boolean
+              }
+              budget_amount?: number
+              budget_entity_name?: string
+              budget_product_sku?: string
+              budget_scope?:
+                | "enterprise"
+                | "organization"
+                | "repository"
+                | "cost_center"
+              budget_type?: "ProductPricing" | "SkuPricing"
+              id?: string
+              prevent_further_usage?: boolean
+            }
+            message?: string
+          }>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingUpdateBudgetOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, billingUpdateBudgetOrgResponseValidator))
+    },
+  )
+
+  const billingDeleteBudgetOrgParamSchema = z.object({
+    org: z.string(),
+    budget_id: z.string(),
+  })
+
+  const billingDeleteBudgetOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_delete_budget],
+      ["400", s_scim_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "billingDeleteBudgetOrg",
+    "/organizations/:org/settings/billing/budgets/:budget_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingDeleteBudgetOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_delete_budget>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingDeleteBudgetOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, billingDeleteBudgetOrgResponseValidator))
+    },
+  )
+
+  const billingGetGithubBillingPremiumRequestUsageReportOrgParamSchema =
+    z.object({org: z.string()})
+
+  const billingGetGithubBillingPremiumRequestUsageReportOrgQuerySchema =
+    z.object({
+      year: z.coerce.number().optional(),
+      month: z.coerce.number().optional(),
+      day: z.coerce.number().optional(),
+      user: z.string().optional(),
+      model: z.string().optional(),
+      product: z.string().optional(),
+    })
+
+  const billingGetGithubBillingPremiumRequestUsageReportOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_premium_request_usage_report_org],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "billingGetGithubBillingPremiumRequestUsageReportOrg",
+    "/organizations/:org/settings/billing/premium_request/usage",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubBillingPremiumRequestUsageReportOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetGithubBillingPremiumRequestUsageReportOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_premium_request_usage_report_org>(
+            200,
+          )
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingGetGithubBillingPremiumRequestUsageReportOrg(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            billingGetGithubBillingPremiumRequestUsageReportOrgResponseValidator,
           ),
         )
     },
@@ -31344,7 +41069,6 @@ export function createRouter(
     year: z.coerce.number().optional(),
     month: z.coerce.number().optional(),
     day: z.coerce.number().optional(),
-    hour: z.coerce.number().optional(),
   })
 
   const billingGetGithubBillingUsageReportOrgResponseValidator =
@@ -31417,6 +41141,94 @@ export function createRouter(
           handleResponse(
             ctx,
             billingGetGithubBillingUsageReportOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const billingGetGithubBillingUsageSummaryReportOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const billingGetGithubBillingUsageSummaryReportOrgQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    repository: z.string().optional(),
+    product: z.string().optional(),
+    sku: z.string().optional(),
+  })
+
+  const billingGetGithubBillingUsageSummaryReportOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_usage_summary_report_org],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "billingGetGithubBillingUsageSummaryReportOrg",
+    "/organizations/:org/settings/billing/usage/summary",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubBillingUsageSummaryReportOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetGithubBillingUsageSummaryReportOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_usage_summary_report_org>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingGetGithubBillingUsageSummaryReportOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            billingGetGithubBillingUsageSummaryReportOrgResponseValidator,
           ),
         )
     },
@@ -31775,6 +41587,298 @@ export function createRouter(
     },
   )
 
+  const actionsListCustomImagesForOrgParamSchema = z.object({org: z.string()})
+
+  const actionsListCustomImagesForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            images: z.array(s_actions_hosted_runner_custom_image),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListCustomImagesForOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListCustomImagesForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            images: t_actions_hosted_runner_custom_image[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsListCustomImagesForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, actionsListCustomImagesForOrgResponseValidator),
+        )
+    },
+  )
+
+  const actionsGetCustomImageForOrgParamSchema = z.object({
+    org: z.string(),
+    image_definition_id: z.coerce.number(),
+  })
+
+  const actionsGetCustomImageForOrgResponseValidator =
+    responseValidationFactory(
+      [["200", s_actions_hosted_runner_custom_image]],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetCustomImageForOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom/:image_definition_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetCustomImageForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner_custom_image>(
+            200,
+          )
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetCustomImageForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, actionsGetCustomImageForOrgResponseValidator))
+    },
+  )
+
+  const actionsDeleteCustomImageFromOrgParamSchema = z.object({
+    org: z.string(),
+    image_definition_id: z.coerce.number(),
+  })
+
+  const actionsDeleteCustomImageFromOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "actionsDeleteCustomImageFromOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom/:image_definition_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteCustomImageFromOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsDeleteCustomImageFromOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, actionsDeleteCustomImageFromOrgResponseValidator),
+        )
+    },
+  )
+
+  const actionsListCustomImageVersionsForOrgParamSchema = z.object({
+    image_definition_id: z.coerce.number(),
+    org: z.string(),
+  })
+
+  const actionsListCustomImageVersionsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            image_versions: z.array(
+              s_actions_hosted_runner_custom_image_version,
+            ),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListCustomImageVersionsForOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom/:image_definition_id/versions",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListCustomImageVersionsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            image_versions: t_actions_hosted_runner_custom_image_version[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsListCustomImageVersionsForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsListCustomImageVersionsForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetCustomImageVersionForOrgParamSchema = z.object({
+    org: z.string(),
+    image_definition_id: z.coerce.number(),
+    version: z.string().regex(new RegExp("^\\d+\\.\\d+\\.\\d+$")),
+  })
+
+  const actionsGetCustomImageVersionForOrgResponseValidator =
+    responseValidationFactory(
+      [["200", s_actions_hosted_runner_custom_image_version]],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetCustomImageVersionForOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom/:image_definition_id/versions/:version",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetCustomImageVersionForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner_custom_image_version>(
+            200,
+          )
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetCustomImageVersionForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetCustomImageVersionForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsDeleteCustomImageVersionFromOrgParamSchema = z.object({
+    org: z.string(),
+    image_definition_id: z.coerce.number(),
+    version: z.string().regex(new RegExp("^\\d+\\.\\d+\\.\\d+$")),
+  })
+
+  const actionsDeleteCustomImageVersionFromOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "actionsDeleteCustomImageVersionFromOrg",
+    "/orgs/:org/actions/hosted-runners/images/custom/:image_definition_id/versions/:version",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteCustomImageVersionFromOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsDeleteCustomImageVersionFromOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsDeleteCustomImageVersionFromOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
   const actionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -31786,7 +41890,7 @@ export function createRouter(
           "200",
           z.object({
             total_count: z.coerce.number(),
-            images: z.array(s_actions_hosted_runner_image),
+            images: z.array(s_actions_hosted_runner_curated_image),
           }),
         ],
       ],
@@ -31811,7 +41915,7 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            images: t_actions_hosted_runner_image[]
+            images: t_actions_hosted_runner_curated_image[]
             total_count: number
           }>(200)
         },
@@ -31843,7 +41947,7 @@ export function createRouter(
           "200",
           z.object({
             total_count: z.coerce.number(),
-            images: z.array(s_actions_hosted_runner_image),
+            images: z.array(s_actions_hosted_runner_curated_image),
           }),
         ],
       ],
@@ -31868,7 +41972,7 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            images: t_actions_hosted_runner_image[]
+            images: t_actions_hosted_runner_curated_image[]
             total_count: number
           }>(200)
         },
@@ -32176,6 +42280,187 @@ export function createRouter(
     },
   )
 
+  const oidcListOidcCustomPropertyInclusionsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const oidcListOidcCustomPropertyInclusionsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_oidc_custom_property_inclusion)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "oidcListOidcCustomPropertyInclusionsForOrg",
+    "/orgs/:org/actions/oidc/customization/properties/repo",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcListOidcCustomPropertyInclusionsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_oidc_custom_property_inclusion[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcListOidcCustomPropertyInclusionsForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcListOidcCustomPropertyInclusionsForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const oidcCreateOidcCustomPropertyInclusionForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const oidcCreateOidcCustomPropertyInclusionForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_oidc_custom_property_inclusion],
+        ["400", z.undefined()],
+        ["403", s_basic_error],
+        ["422", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "oidcCreateOidcCustomPropertyInclusionForOrg",
+    "/orgs/:org/actions/oidc/customization/properties/repo",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcCreateOidcCustomPropertyInclusionForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_oidc_custom_property_inclusion_input,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_oidc_custom_property_inclusion>(201)
+        },
+        with400() {
+          return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with422() {
+          return new KoaRuntimeResponse<void>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcCreateOidcCustomPropertyInclusionForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcCreateOidcCustomPropertyInclusionForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const oidcDeleteOidcCustomPropertyInclusionForOrgParamSchema = z.object({
+    org: z.string(),
+    custom_property_name: z.string(),
+  })
+
+  const oidcDeleteOidcCustomPropertyInclusionForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", z.undefined()],
+        ["403", s_basic_error],
+        ["404", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "oidcDeleteOidcCustomPropertyInclusionForOrg",
+    "/orgs/:org/actions/oidc/customization/properties/repo/:custom_property_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          oidcDeleteOidcCustomPropertyInclusionForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .oidcDeleteOidcCustomPropertyInclusionForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            oidcDeleteOidcCustomPropertyInclusionForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
   const oidcGetOidcCustomSubTemplateForOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -32245,7 +42530,7 @@ export function createRouter(
         ),
         query: undefined,
         body: parseRequestInput(
-          s_oidc_custom_sub,
+          s_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -32367,6 +42652,386 @@ export function createRouter(
           handleResponse(
             ctx,
             actionsSetGithubActionsPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetArtifactAndLogRetentionSettingsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsGetArtifactAndLogRetentionSettingsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_artifact_and_log_retention_response],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetArtifactAndLogRetentionSettingsOrganization",
+    "/orgs/:org/actions/permissions/artifact-and-log-retention",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_artifact_and_log_retention_response>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetArtifactAndLogRetentionSettingsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetArtifactAndLogRetentionSettingsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetArtifactAndLogRetentionSettingsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsSetArtifactAndLogRetentionSettingsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetArtifactAndLogRetentionSettingsOrganization",
+    "/orgs/:org/actions/permissions/artifact-and-log-retention",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetArtifactAndLogRetentionSettingsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_artifact_and_log_retention,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetArtifactAndLogRetentionSettingsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetArtifactAndLogRetentionSettingsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetForkPrContributorApprovalPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsGetForkPrContributorApprovalPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_fork_pr_contributor_approval],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetForkPrContributorApprovalPermissionsOrganization",
+    "/orgs/:org/actions/permissions/fork-pr-contributor-approval",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_fork_pr_contributor_approval>(
+            200,
+          )
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetForkPrContributorApprovalPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetForkPrContributorApprovalPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetForkPrContributorApprovalPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsSetForkPrContributorApprovalPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetForkPrContributorApprovalPermissionsOrganization",
+    "/orgs/:org/actions/permissions/fork-pr-contributor-approval",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetForkPrContributorApprovalPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_fork_pr_contributor_approval,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetForkPrContributorApprovalPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetForkPrContributorApprovalPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_fork_pr_workflows_private_repos],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetPrivateRepoForkPrWorkflowsSettingsOrganization",
+    "/orgs/:org/actions/permissions/fork-pr-workflows-private-repos",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_fork_pr_workflows_private_repos>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetPrivateRepoForkPrWorkflowsSettingsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetPrivateRepoForkPrWorkflowsSettingsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization",
+    "/orgs/:org/actions/permissions/fork-pr-workflows-private-repos",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_fork_pr_workflows_private_repos_request,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationResponseValidator,
           ),
         )
     },
@@ -32669,6 +43334,415 @@ export function createRouter(
           handleResponse(
             ctx,
             actionsSetAllowedActionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetSelfHostedRunnersPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsGetSelfHostedRunnersPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_self_hosted_runners_settings],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetSelfHostedRunnersPermissionsOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetSelfHostedRunnersPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_self_hosted_runners_settings>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetSelfHostedRunnersPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetSelfHostedRunnersPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetSelfHostedRunnersPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsSetSelfHostedRunnersPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetSelfHostedRunnersPermissionsOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelfHostedRunnersPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetSelfHostedRunnersPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetSelfHostedRunnersPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsListSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsListSelectedRepositoriesSelfHostedRunnersOrganizationQuerySchema =
+    z.object({
+      per_page: z.coerce.number().optional().default(30),
+      page: z.coerce.number().optional().default(1),
+    })
+
+  const actionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number().optional(),
+            repositories: z.array(s_repository).optional(),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListSelectedRepositoriesSelfHostedRunnersOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListSelectedRepositoriesSelfHostedRunnersOrganizationQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories?: t_repository[]
+            total_count?: number
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsListSelectedRepositoriesSelfHostedRunnersOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const actionsSetSelectedRepositoriesSelfHostedRunnersOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetSelectedRepositoriesSelfHostedRunnersOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelectedRepositoriesSelfHostedRunnersOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetSelectedRepositoriesSelfHostedRunnersOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetSelectedRepositoriesSelfHostedRunnersOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsEnableSelectedRepositorySelfHostedRunnersOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const actionsEnableSelectedRepositorySelfHostedRunnersOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsEnableSelectedRepositorySelfHostedRunnersOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsEnableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsEnableSelectedRepositorySelfHostedRunnersOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsEnableSelectedRepositorySelfHostedRunnersOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsDisableSelectedRepositorySelfHostedRunnersOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const actionsDisableSelectedRepositorySelfHostedRunnersOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "actionsDisableSelectedRepositorySelfHostedRunnersOrganization",
+    "/orgs/:org/actions/permissions/self-hosted-runners/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDisableSelectedRepositorySelfHostedRunnersOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsDisableSelectedRepositorySelfHostedRunnersOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsDisableSelectedRepositorySelfHostedRunnersOrganizationResponseValidator,
           ),
         )
     },
@@ -35122,6 +46196,1299 @@ export function createRouter(
     },
   )
 
+  const agentsListOrgSecretsParamSchema = z.object({org: z.string()})
+
+  const agentsListOrgSecretsQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListOrgSecretsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_organization_actions_secret),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "agentsListOrgSecrets",
+    "/orgs/:org/agents/secrets",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListOrgSecretsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListOrgSecretsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            secrets: t_organization_actions_secret[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListOrgSecrets(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsListOrgSecretsResponseValidator))
+    },
+  )
+
+  const agentsGetOrgPublicKeyParamSchema = z.object({org: z.string()})
+
+  const agentsGetOrgPublicKeyResponseValidator = responseValidationFactory(
+    [["200", s_actions_public_key]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetOrgPublicKey",
+    "/orgs/:org/agents/secrets/public-key",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetOrgPublicKeyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_public_key>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetOrgPublicKey(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetOrgPublicKeyResponseValidator))
+    },
+  )
+
+  const agentsGetOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsGetOrgSecretResponseValidator = responseValidationFactory(
+    [["200", s_organization_actions_secret]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_organization_actions_secret>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetOrgSecretResponseValidator))
+    },
+  )
+
+  const agentsCreateOrUpdateOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsCreateOrUpdateOrgSecretResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_empty_object],
+        ["204", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "agentsCreateOrUpdateOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsCreateOrUpdateOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsCreateOrUpdateOrgSecretRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_empty_object>(201)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsCreateOrUpdateOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, agentsCreateOrUpdateOrgSecretResponseValidator),
+        )
+    },
+  )
+
+  const agentsDeleteOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsDeleteOrgSecretResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.delete(
+    "agentsDeleteOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsDeleteOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsDeleteOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsDeleteOrgSecretResponseValidator))
+    },
+  )
+
+  const agentsListSelectedReposForOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsListSelectedReposForOrgSecretQuerySchema = z.object({
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const agentsListSelectedReposForOrgSecretResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            repositories: z.array(s_minimal_repository),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "agentsListSelectedReposForOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListSelectedReposForOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListSelectedReposForOrgSecretQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories: t_minimal_repository[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListSelectedReposForOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsListSelectedReposForOrgSecretResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsSetSelectedReposForOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsSetSelectedReposForOrgSecretResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "agentsSetSelectedReposForOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsSetSelectedReposForOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsSetSelectedReposForOrgSecretRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsSetSelectedReposForOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsSetSelectedReposForOrgSecretResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsAddSelectedRepoToOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+    repository_id: z.coerce.number(),
+  })
+
+  const agentsAddSelectedRepoToOrgSecretResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "agentsAddSelectedRepoToOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsAddSelectedRepoToOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsAddSelectedRepoToOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsAddSelectedRepoToOrgSecretResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
+    org: z.string(),
+    secret_name: z.string(),
+    repository_id: z.coerce.number(),
+  })
+
+  const agentsRemoveSelectedRepoFromOrgSecretResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "agentsRemoveSelectedRepoFromOrgSecret",
+    "/orgs/:org/agents/secrets/:secret_name/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsRemoveSelectedRepoFromOrgSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsRemoveSelectedRepoFromOrgSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsRemoveSelectedRepoFromOrgSecretResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsListOrgVariablesParamSchema = z.object({org: z.string()})
+
+  const agentsListOrgVariablesQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(10),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListOrgVariablesResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_organization_actions_variable),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "agentsListOrgVariables",
+    "/orgs/:org/agents/variables",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListOrgVariablesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListOrgVariablesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            total_count: number
+            variables: t_organization_actions_variable[]
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListOrgVariables(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsListOrgVariablesResponseValidator))
+    },
+  )
+
+  const agentsCreateOrgVariableParamSchema = z.object({org: z.string()})
+
+  const agentsCreateOrgVariableResponseValidator = responseValidationFactory(
+    [["201", s_empty_object]],
+    undefined,
+  )
+
+  router.post(
+    "agentsCreateOrgVariable",
+    "/orgs/:org/agents/variables",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsCreateOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsCreateOrgVariableRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_empty_object>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsCreateOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsCreateOrgVariableResponseValidator))
+    },
+  )
+
+  const agentsGetOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+  })
+
+  const agentsGetOrgVariableResponseValidator = responseValidationFactory(
+    [["200", s_organization_actions_variable]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetOrgVariable",
+    "/orgs/:org/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_organization_actions_variable>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetOrgVariableResponseValidator))
+    },
+  )
+
+  const agentsUpdateOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+  })
+
+  const agentsUpdateOrgVariableResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.patch(
+    "agentsUpdateOrgVariable",
+    "/orgs/:org/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsUpdateOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsUpdateOrgVariableRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsUpdateOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsUpdateOrgVariableResponseValidator))
+    },
+  )
+
+  const agentsDeleteOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+  })
+
+  const agentsDeleteOrgVariableResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.delete(
+    "agentsDeleteOrgVariable",
+    "/orgs/:org/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsDeleteOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsDeleteOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsDeleteOrgVariableResponseValidator))
+    },
+  )
+
+  const agentsListSelectedReposForOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+  })
+
+  const agentsListSelectedReposForOrgVariableQuerySchema = z.object({
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const agentsListSelectedReposForOrgVariableResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            repositories: z.array(s_minimal_repository),
+          }),
+        ],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "agentsListSelectedReposForOrgVariable",
+    "/orgs/:org/agents/variables/:name/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListSelectedReposForOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListSelectedReposForOrgVariableQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories: t_minimal_repository[]
+            total_count: number
+          }>(200)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListSelectedReposForOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsListSelectedReposForOrgVariableResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsSetSelectedReposForOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+  })
+
+  const agentsSetSelectedReposForOrgVariableResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "agentsSetSelectedReposForOrgVariable",
+    "/orgs/:org/agents/variables/:name/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsSetSelectedReposForOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsSetSelectedReposForOrgVariableRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsSetSelectedReposForOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsSetSelectedReposForOrgVariableResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsAddSelectedRepoToOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+    repository_id: z.coerce.number(),
+  })
+
+  const agentsAddSelectedRepoToOrgVariableResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "agentsAddSelectedRepoToOrgVariable",
+    "/orgs/:org/agents/variables/:name/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsAddSelectedRepoToOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsAddSelectedRepoToOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsAddSelectedRepoToOrgVariableResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsRemoveSelectedRepoFromOrgVariableParamSchema = z.object({
+    org: z.string(),
+    name: z.string(),
+    repository_id: z.coerce.number(),
+  })
+
+  const agentsRemoveSelectedRepoFromOrgVariableResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "agentsRemoveSelectedRepoFromOrgVariable",
+    "/orgs/:org/agents/variables/:name/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsRemoveSelectedRepoFromOrgVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<void>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsRemoveSelectedRepoFromOrgVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsRemoveSelectedRepoFromOrgVariableResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsCreateArtifactDeploymentRecordParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const orgsCreateArtifactDeploymentRecordResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            deployment_records: z
+              .array(s_artifact_deployment_record)
+              .optional(),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "orgsCreateArtifactDeploymentRecord",
+    "/orgs/:org/artifacts/metadata/deployment-record",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsCreateArtifactDeploymentRecordParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_OrgsCreateArtifactDeploymentRecordRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            deployment_records?: t_artifact_deployment_record[]
+            total_count: number
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsCreateArtifactDeploymentRecord(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            orgsCreateArtifactDeploymentRecordResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsSetClusterDeploymentRecordsParamSchema = z.object({
+    org: z.string(),
+    cluster: z.string().min(1).max(128).regex(new RegExp("^[a-zA-Z0-9._-]+$")),
+  })
+
+  const orgsSetClusterDeploymentRecordsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            deployment_records: z
+              .array(s_artifact_deployment_record)
+              .optional(),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "orgsSetClusterDeploymentRecords",
+    "/orgs/:org/artifacts/metadata/deployment-record/cluster/:cluster",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsSetClusterDeploymentRecordsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_OrgsSetClusterDeploymentRecordsRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            deployment_records?: t_artifact_deployment_record[]
+            total_count: number
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsSetClusterDeploymentRecords(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, orgsSetClusterDeploymentRecordsResponseValidator),
+        )
+    },
+  )
+
+  const orgsCreateArtifactStorageRecordParamSchema = z.object({org: z.string()})
+
+  const orgsCreateArtifactStorageRecordResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            storage_records: z
+              .array(
+                z.object({
+                  id: z.coerce.number().optional(),
+                  name: z.string().optional(),
+                  digest: z.string().optional(),
+                  artifact_url: z.string().nullable().optional(),
+                  registry_url: z.string().optional(),
+                  repository: z.string().nullable().optional(),
+                  status: z.string().optional(),
+                  created_at: z.string().optional(),
+                  updated_at: z.string().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "orgsCreateArtifactStorageRecord",
+    "/orgs/:org/artifacts/metadata/storage-record",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsCreateArtifactStorageRecordParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_OrgsCreateArtifactStorageRecordRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            storage_records?: {
+              artifact_url?: string | null
+              created_at?: string
+              digest?: string
+              id?: number
+              name?: string
+              registry_url?: string
+              repository?: string | null
+              status?: string
+              updated_at?: string
+            }[]
+            total_count: number
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsCreateArtifactStorageRecord(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, orgsCreateArtifactStorageRecordResponseValidator),
+        )
+    },
+  )
+
+  const orgsListArtifactDeploymentRecordsParamSchema = z.object({
+    org: z.string(),
+    subject_digest: z
+      .string()
+      .min(71)
+      .max(71)
+      .regex(new RegExp("^sha256:[a-f0-9]{64}$")),
+  })
+
+  const orgsListArtifactDeploymentRecordsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number().optional(),
+            deployment_records: z
+              .array(s_artifact_deployment_record)
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsListArtifactDeploymentRecords",
+    "/orgs/:org/artifacts/:subject_digest/metadata/deployment-records",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListArtifactDeploymentRecordsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            deployment_records?: t_artifact_deployment_record[]
+            total_count?: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsListArtifactDeploymentRecords(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            orgsListArtifactDeploymentRecordsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsListArtifactStorageRecordsParamSchema = z.object({
+    org: z.string(),
+    subject_digest: z
+      .string()
+      .min(71)
+      .max(71)
+      .regex(new RegExp("^sha256:[a-f0-9]{64}$")),
+  })
+
+  const orgsListArtifactStorageRecordsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number().optional(),
+            storage_records: z
+              .array(
+                z.object({
+                  id: z.coerce.number().optional(),
+                  name: z.string().optional(),
+                  digest: z.string().optional(),
+                  artifact_url: z.string().optional(),
+                  registry_url: z.string().optional(),
+                  repository: z.string().optional(),
+                  status: z.string().optional(),
+                  created_at: z.string().optional(),
+                  updated_at: z.string().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsListArtifactStorageRecords",
+    "/orgs/:org/artifacts/:subject_digest/metadata/storage-records",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListArtifactStorageRecordsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            storage_records?: {
+              artifact_url?: string
+              created_at?: string
+              digest?: string
+              id?: number
+              name?: string
+              registry_url?: string
+              repository?: string
+              status?: string
+              updated_at?: string
+            }[]
+            total_count?: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsListArtifactStorageRecords(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, orgsListArtifactStorageRecordsResponseValidator),
+        )
+    },
+  )
+
   const orgsListAttestationsBulkParamSchema = z.object({org: z.string()})
 
   const orgsListAttestationsBulkQuerySchema = z.object({
@@ -35337,6 +47704,73 @@ export function createRouter(
     },
   )
 
+  const orgsListAttestationRepositoriesParamSchema = z.object({org: z.string()})
+
+  const orgsListAttestationRepositoriesQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    predicate_type: z.string().optional(),
+  })
+
+  const orgsListAttestationRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.array(
+            z.object({
+              id: z.coerce.number().optional(),
+              name: z.string().optional(),
+            }),
+          ),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsListAttestationRepositories",
+    "/orgs/:org/attestations/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListAttestationRepositoriesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsListAttestationRepositoriesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<
+            {
+              id?: number
+              name?: string
+            }[]
+          >(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsListAttestationRepositories(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, orgsListAttestationRepositoriesResponseValidator),
+        )
+    },
+  )
+
   const orgsDeleteAttestationsByIdParamSchema = z.object({
     org: z.string(),
     attestation_id: z.coerce.number(),
@@ -35420,9 +47854,11 @@ export function createRouter(
                       .optional(),
                     dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
                   })
+                  .nullable()
                   .optional(),
                 repository_id: z.coerce.number().optional(),
                 bundle_url: z.string().optional(),
+                initiator: z.string().optional(),
               }),
             )
             .optional(),
@@ -35459,8 +47895,9 @@ export function createRouter(
                 dsseEnvelope?: Record<string, unknown>
                 mediaType?: string
                 verificationMaterial?: Record<string, unknown>
-              }
+              } | null
               bundle_url?: string
+              initiator?: string
               repository_id?: number
             }[]
           }>(200)
@@ -36016,6 +48453,7 @@ export function createRouter(
     state: s_code_scanning_alert_state_query.optional(),
     sort: z.enum(["created", "updated"]).optional().default("created"),
     severity: s_code_scanning_alert_severity.optional(),
+    assignees: z.string().optional(),
   })
 
   const codeScanningListAlertsForOrgResponseValidator =
@@ -37486,6 +49924,847 @@ export function createRouter(
     },
   )
 
+  const copilotSpacesListForOrgParamSchema = z.object({org: z.string()})
+
+  const copilotSpacesListForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const copilotSpacesListForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", z.object({spaces: z.array(s_copilot_space)})],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotSpacesListForOrg",
+    "/orgs/:org/copilot-spaces",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotSpacesListForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            spaces: t_copilot_space[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesListForOrgResponseValidator))
+    },
+  )
+
+  const copilotSpacesCreateForOrgParamSchema = z.object({org: z.string()})
+
+  const copilotSpacesCreateForOrgResponseValidator = responseValidationFactory(
+    [
+      ["201", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "copilotSpacesCreateForOrg",
+    "/orgs/:org/copilot-spaces",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesCreateForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesCreateForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesCreateForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesCreateForOrgResponseValidator))
+    },
+  )
+
+  const copilotSpacesGetForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesGetForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotSpacesGetForOrg",
+    "/orgs/:org/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesGetForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesGetForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesGetForOrgResponseValidator))
+    },
+  )
+
+  const copilotSpacesUpdateForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesUpdateForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.put(
+    "copilotSpacesUpdateForOrg",
+    "/orgs/:org/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesUpdateForOrgResponseValidator))
+    },
+  )
+
+  const copilotSpacesDeleteForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesDeleteForOrgResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "copilotSpacesDeleteForOrg",
+    "/orgs/:org/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesDeleteForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesDeleteForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesDeleteForOrgResponseValidator))
+    },
+  )
+
+  const copilotSpacesListCollaboratorsForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesListCollaboratorsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({collaborators: z.array(s_copilot_space_collaborator)}),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesListCollaboratorsForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/collaborators",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListCollaboratorsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            collaborators: t_copilot_space_collaborator[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListCollaboratorsForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesListCollaboratorsForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesAddCollaboratorForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesAddCollaboratorForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_copilot_space_collaborator],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotSpacesAddCollaboratorForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/collaborators",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesAddCollaboratorForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesAddCollaboratorForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space_collaborator>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesAddCollaboratorForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesAddCollaboratorForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesUpdateCollaboratorForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+    actor_type: z.enum(["User", "Team"]),
+    actor_identifier: z.string(),
+  })
+
+  const copilotSpacesUpdateCollaboratorForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_collaborator],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSpacesUpdateCollaboratorForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/collaborators/:actor_type/:actor_identifier",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateCollaboratorForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_collaborator>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateCollaboratorForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesUpdateCollaboratorForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesRemoveCollaboratorForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+    actor_type: z.enum(["User", "Team"]),
+    actor_identifier: z.string(),
+  })
+
+  const copilotSpacesRemoveCollaboratorForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotSpacesRemoveCollaboratorForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/collaborators/:actor_type/:actor_identifier",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesRemoveCollaboratorForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesRemoveCollaboratorForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesRemoveCollaboratorForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesListResourcesForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesListResourcesForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({resources: z.array(s_copilot_space_resource)})],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesListResourcesForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/resources",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListResourcesForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            resources: t_copilot_space_resource[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListResourcesForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesListResourcesForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesCreateResourceForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesCreateResourceForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["201", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotSpacesCreateResourceForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/resources",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesCreateResourceForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesCreateResourceForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesCreateResourceForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesCreateResourceForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesGetResourceForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesGetResourceForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesGetResourceForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesGetResourceForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesGetResourceForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, copilotSpacesGetResourceForOrgResponseValidator),
+        )
+    },
+  )
+
+  const copilotSpacesUpdateResourceForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesUpdateResourceForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSpacesUpdateResourceForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateResourceForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateResourceForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateResourceForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesUpdateResourceForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesDeleteResourceForOrgParamSchema = z.object({
+    org: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesDeleteResourceForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotSpacesDeleteResourceForOrg",
+    "/orgs/:org/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesDeleteResourceForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesDeleteResourceForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesDeleteResourceForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
   const copilotGetCopilotOrganizationDetailsParamSchema = z.object({
     org: z.string(),
   })
@@ -37914,6 +51193,616 @@ export function createRouter(
     },
   )
 
+  const copilotGetCopilotCodingAgentPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const copilotGetCopilotCodingAgentPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            enabled_repositories: z.enum(["all", "selected", "none"]),
+            selected_repositories_url: z.string().optional(),
+          }),
+        ],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotGetCopilotCodingAgentPermissionsOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotGetCopilotCodingAgentPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            enabled_repositories: "all" | "selected" | "none"
+            selected_repositories_url?: string
+          }>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotGetCopilotCodingAgentPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotGetCopilotCodingAgentPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSetCopilotCodingAgentPermissionsOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const copilotSetCopilotCodingAgentPermissionsOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSetCopilotCodingAgentPermissionsOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSetCopilotCodingAgentPermissionsOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSetCopilotCodingAgentPermissionsOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSetCopilotCodingAgentPermissionsOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationQuerySchema =
+    z.object({
+      per_page: z.coerce.number().optional().default(30),
+      page: z.coerce.number().optional().default(1),
+    })
+
+  const copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            repositories: z.array(s_minimal_repository),
+          }),
+        ],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotListCopilotCodingAgentSelectedRepositoriesForOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories: t_minimal_repository[]
+            total_count: number
+          }>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotListCopilotCodingAgentSelectedRepositoriesForOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema =
+    z.object({org: z.string()})
+
+  const copilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotEnableCopilotCodingAgentForRepositoryInOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const copilotEnableCopilotCodingAgentForRepositoryInOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotEnableCopilotCodingAgentForRepositoryInOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotEnableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotEnableCopilotCodingAgentForRepositoryInOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotEnableCopilotCodingAgentForRepositoryInOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotDisableCopilotCodingAgentForRepositoryInOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const copilotDisableCopilotCodingAgentForRepositoryInOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotDisableCopilotCodingAgentForRepositoryInOrganization",
+    "/orgs/:org/copilot/coding-agent/permissions/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotDisableCopilotCodingAgentForRepositoryInOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotDisableCopilotCodingAgentForRepositoryInOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotDisableCopilotCodingAgentForRepositoryInOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotContentExclusionForOrganizationParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotContentExclusionForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_organization_content_exclusion_details],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotContentExclusionForOrganization",
+    "/orgs/:org/copilot/content_exclusion",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotContentExclusionForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_organization_content_exclusion_details>(
+            200,
+          )
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotContentExclusionForOrganization(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotContentExclusionForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSetCopilotContentExclusionForOrganizationParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotSetCopilotContentExclusionForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({message: z.string().optional()})],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["413", s_basic_error],
+        ["422", s_validation_error_simple],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSetCopilotContentExclusionForOrganization",
+    "/orgs/:org/copilot/content_exclusion",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSetCopilotContentExclusionForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            message?: string
+          }>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with413() {
+          return new KoaRuntimeResponse<t_basic_error>(413)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSetCopilotContentExclusionForOrganization(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSetCopilotContentExclusionForOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
   const copilotCopilotMetricsForOrganizationParamSchema = z.object({
     org: z.string(),
   })
@@ -37922,7 +51811,7 @@ export function createRouter(
     since: z.string().optional(),
     until: z.string().optional(),
     page: z.coerce.number().optional().default(1),
-    per_page: z.coerce.number().optional().default(28),
+    per_page: z.coerce.number().optional().default(100),
   })
 
   const copilotCopilotMetricsForOrganizationResponseValidator =
@@ -37989,15 +51878,372 @@ export function createRouter(
     },
   )
 
+  const copilotCopilotOrganizationOneDayUsageMetricsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotOrganizationOneDayUsageMetricsQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotOrganizationOneDayUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotOrganizationOneDayUsageMetrics",
+    "/orgs/:org/copilot/metrics/reports/organization-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotOrganizationOneDayUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotOrganizationOneDayUsageMetricsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotOrganizationOneDayUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotOrganizationOneDayUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotOrganizationUsageMetricsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotOrganizationUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_28_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotOrganizationUsageMetrics",
+    "/orgs/:org/copilot/metrics/reports/organization-28-day/latest",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotOrganizationUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotOrganizationUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotOrganizationUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotOrganizationUserTeamsOneDayReportParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotOrganizationUserTeamsOneDayReportQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotOrganizationUserTeamsOneDayReportResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotOrganizationUserTeamsOneDayReport",
+    "/orgs/:org/copilot/metrics/reports/user-teams-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotOrganizationUserTeamsOneDayReportParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotOrganizationUserTeamsOneDayReportQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotOrganizationUserTeamsOneDayReport(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotOrganizationUserTeamsOneDayReportResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotOrganizationUsersOneDayUsageMetricsParamSchema = z.object(
+    {org: z.string()},
+  )
+
+  const copilotCopilotOrganizationUsersOneDayUsageMetricsQuerySchema = z.object(
+    {day: z.iso.date()},
+  )
+
+  const copilotCopilotOrganizationUsersOneDayUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotOrganizationUsersOneDayUsageMetrics",
+    "/orgs/:org/copilot/metrics/reports/users-1-day",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotOrganizationUsersOneDayUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotOrganizationUsersOneDayUsageMetricsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+            200,
+          )
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotOrganizationUsersOneDayUsageMetrics(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotOrganizationUsersOneDayUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotCopilotOrganizationUsersUsageMetricsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotOrganizationUsersUsageMetricsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_28_day_report],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotOrganizationUsersUsageMetrics",
+    "/orgs/:org/copilot/metrics/reports/users-28-day/latest",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotOrganizationUsersUsageMetricsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_28_day_report>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotCopilotOrganizationUsersUsageMetrics(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotCopilotOrganizationUsersUsageMetricsResponseValidator,
+          ),
+        )
+    },
+  )
+
   const dependabotListAlertsForOrgParamSchema = z.object({org: z.string()})
 
   const dependabotListAlertsForOrgQuerySchema = z.object({
+    classification: z.string().optional(),
     state: z.string().optional(),
     severity: z.string().optional(),
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
-    has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
+    artifact_registry_url: z.string().optional(),
+    artifact_registry: z.string().optional(),
+    has: z
+      .union([z.string(), z.array(z.enum(["patch", "deployment"]))])
+      .optional(),
+    assignee: z.string().optional(),
+    runtime_risk: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -38006,8 +52252,6 @@ export function createRouter(
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().min(1).max(100).optional().default(30),
-    last: z.coerce.number().min(1).max(100).optional(),
     per_page: z.coerce.number().optional().default(30),
   })
 
@@ -38072,6 +52316,193 @@ export function createRouter(
         .dependabotListAlertsForOrg(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, dependabotListAlertsForOrgResponseValidator))
+    },
+  )
+
+  const dependabotRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotRepositoryAccessForOrgQuerySchema = z.object({
+    page: z.coerce.number().min(1).optional().default(1),
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+  })
+
+  const dependabotRepositoryAccessForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_dependabot_repository_access_details],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "dependabotRepositoryAccessForOrg",
+    "/orgs/:org/dependabot/repository-access",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotRepositoryAccessForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          dependabotRepositoryAccessForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_dependabot_repository_access_details>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependabotRepositoryAccessForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependabotRepositoryAccessForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const dependabotUpdateRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotUpdateRepositoryAccessForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.patch(
+    "dependabotUpdateRepositoryAccessForOrg",
+    "/orgs/:org/dependabot/repository-access",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotUpdateRepositoryAccessForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_DependabotUpdateRepositoryAccessForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependabotUpdateRepositoryAccessForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependabotUpdateRepositoryAccessForOrgResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const dependabotSetRepositoryAccessDefaultLevelParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotSetRepositoryAccessDefaultLevelResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "dependabotSetRepositoryAccessDefaultLevel",
+    "/orgs/:org/dependabot/repository-access/default-level",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotSetRepositoryAccessDefaultLevelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_DependabotSetRepositoryAccessDefaultLevelRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependabotSetRepositoryAccessDefaultLevel(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependabotSetRepositoryAccessDefaultLevelResponseValidator,
+          ),
+        )
     },
   )
 
@@ -39026,6 +53457,7 @@ export function createRouter(
   const orgsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
+    status: z.enum(["success", "failure"]).optional(),
   })
 
   const orgsListWebhookDeliveriesResponseValidator = responseValidationFactory(
@@ -40232,6 +54664,204 @@ export function createRouter(
         .orgsListInvitationTeams(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, orgsListInvitationTeamsResponseValidator))
+    },
+  )
+
+  const orgsListIssueFieldsParamSchema = z.object({org: z.string()})
+
+  const orgsListIssueFieldsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue_field)],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get("orgsListIssueFields", "/orgs/:org/issue-fields", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        orgsListIssueFieldsParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_issue_field[]>(200)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .orgsListIssueFields(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, orgsListIssueFieldsResponseValidator))
+  })
+
+  const orgsCreateIssueFieldParamSchema = z.object({org: z.string()})
+
+  const orgsCreateIssueFieldResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue_field],
+      ["404", s_basic_error],
+      ["422", s_validation_error_simple],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsCreateIssueField",
+    "/orgs/:org/issue-fields",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsCreateIssueFieldParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_organization_create_issue_field,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_field>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsCreateIssueField(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, orgsCreateIssueFieldResponseValidator))
+    },
+  )
+
+  const orgsUpdateIssueFieldParamSchema = z.object({
+    org: z.string(),
+    issue_field_id: z.coerce.number(),
+  })
+
+  const orgsUpdateIssueFieldResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue_field],
+      ["404", s_basic_error],
+      ["422", s_validation_error_simple],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "orgsUpdateIssueField",
+    "/orgs/:org/issue-fields/:issue_field_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsUpdateIssueFieldParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_organization_update_issue_field,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_field>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsUpdateIssueField(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, orgsUpdateIssueFieldResponseValidator))
+    },
+  )
+
+  const orgsDeleteIssueFieldParamSchema = z.object({
+    org: z.string(),
+    issue_field_id: z.coerce.number(),
+  })
+
+  const orgsDeleteIssueFieldResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+      ["422", s_validation_error_simple],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "orgsDeleteIssueField",
+    "/orgs/:org/issue-fields/:issue_field_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsDeleteIssueFieldParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsDeleteIssueField(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, orgsDeleteIssueFieldResponseValidator))
     },
   )
 
@@ -43604,34 +58234,215 @@ export function createRouter(
     },
   )
 
-  const projectsClassicListForOrgParamSchema = z.object({org: z.string()})
+  const projectsListForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsClassicListForOrgQuerySchema = z.object({
-    state: z.enum(["open", "closed", "all"]).optional().default("open"),
+  const projectsListForOrgQuerySchema = z.object({
+    q: z.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
   })
 
-  const projectsClassicListForOrgResponseValidator = responseValidationFactory(
+  const projectsListForOrgResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(s_project)],
-      ["422", s_validation_error_simple],
+      ["200", z.array(s_projects_v2)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get("projectsListForOrg", "/orgs/:org/projectsV2", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        projectsListForOrgParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: parseRequestInput(
+        projectsListForOrgQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_projects_v2[]>(200)
+      },
+      with304() {
+        return new KoaRuntimeResponse<void>(304)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_basic_error>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_basic_error>(403)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .projectsListForOrg(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, projectsListForOrgResponseValidator))
+  })
+
+  const projectsGetForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+  })
+
+  const projectsGetForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
     ],
     undefined,
   )
 
   router.get(
-    "projectsClassicListForOrg",
-    "/orgs/:org/projects",
+    "projectsGetForOrg",
+    "/orgs/:org/projectsV2/:project_number",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          projectsClassicListForOrgParamSchema,
+          projectsGetForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetForOrgResponseValidator))
+    },
+  )
+
+  const projectsCreateDraftItemForOrgParamSchema = z.object({
+    org: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsCreateDraftItemForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_projects_v2_item_simple],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "projectsCreateDraftItemForOrg",
+    "/orgs/:org/projectsV2/:project_number/drafts",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsCreateDraftItemForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsCreateDraftItemForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_item_simple>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsCreateDraftItemForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, projectsCreateDraftItemForOrgResponseValidator),
+        )
+    },
+  )
+
+  const projectsListFieldsForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+  })
+
+  const projectsListFieldsForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const projectsListFieldsForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_projects_v2_field)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsListFieldsForOrg",
+    "/orgs/:org/projectsV2/:project_number/fields",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListFieldsForOrgParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsClassicListForOrgQuerySchema,
+          projectsListFieldsForOrgQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -43641,10 +58452,16 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_project[]>(200)
+          return new KoaRuntimeResponse<t_projects_v2_field[]>(200)
         },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -43652,40 +58469,41 @@ export function createRouter(
       }
 
       await implementation
-        .projectsClassicListForOrg(input, responder, ctx)
+        .projectsListFieldsForOrg(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicListForOrgResponseValidator))
+        .then(handleResponse(ctx, projectsListFieldsForOrgResponseValidator))
     },
   )
 
-  const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
+  const projectsAddFieldForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+  })
 
-  const projectsClassicCreateForOrgResponseValidator =
-    responseValidationFactory(
-      [
-        ["201", s_project],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["410", s_basic_error],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
+  const projectsAddFieldForOrgResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_field],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
 
   router.post(
-    "projectsClassicCreateForOrg",
-    "/orgs/:org/projects",
+    "projectsAddFieldForOrg",
+    "/orgs/:org/projectsV2/:project_number/fields",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          projectsClassicCreateForOrgParamSchema,
+          projectsAddFieldForOrgParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          s_ProjectsClassicCreateForOrgRequestBody,
+          s_ProjectsAddFieldForOrgRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43694,7 +58512,317 @@ export function createRouter(
 
       const responder = {
         with201() {
-          return new KoaRuntimeResponse<t_project>(201)
+          return new KoaRuntimeResponse<t_projects_v2_field>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsAddFieldForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsAddFieldForOrgResponseValidator))
+    },
+  )
+
+  const projectsGetFieldForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    field_id: z.coerce.number(),
+    org: z.string(),
+  })
+
+  const projectsGetFieldForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_field],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsGetFieldForOrg",
+    "/orgs/:org/projectsV2/:project_number/fields/:field_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetFieldForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_field>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetFieldForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetFieldForOrgResponseValidator))
+    },
+  )
+
+  const projectsListItemsForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+  })
+
+  const projectsListItemsForOrgQuerySchema = z.object({
+    q: z.string().optional(),
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const projectsListItemsForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_projects_v2_item_with_content)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsListItemsForOrg",
+    "/orgs/:org/projectsV2/:project_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListItemsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListItemsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListItemsForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsListItemsForOrgResponseValidator))
+    },
+  )
+
+  const projectsAddItemForOrgParamSchema = z.object({
+    org: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsAddItemForOrgResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_item_simple],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "projectsAddItemForOrg",
+    "/orgs/:org/projectsV2/:project_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsAddItemForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsAddItemForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_item_simple>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsAddItemForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsAddItemForOrgResponseValidator))
+    },
+  )
+
+  const projectsGetOrgItemParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+    item_id: z.coerce.number(),
+  })
+
+  const projectsGetOrgItemQuerySchema = z.object({
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+  })
+
+  const projectsGetOrgItemResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_item_with_content],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsGetOrgItem",
+    "/orgs/:org/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetOrgItemParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsGetOrgItemQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetOrgItem(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetOrgItemResponseValidator))
+    },
+  )
+
+  const projectsUpdateItemForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+    item_id: z.coerce.number(),
+  })
+
+  const projectsUpdateItemForOrgResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_item_with_content],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "projectsUpdateItemForOrg",
+    "/orgs/:org/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsUpdateItemForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsUpdateItemForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content>(200)
         },
         with401() {
           return new KoaRuntimeResponse<t_basic_error>(401)
@@ -43705,11 +58833,8 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
         },
-        with410() {
-          return new KoaRuntimeResponse<t_basic_error>(410)
-        },
         with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+          return new KoaRuntimeResponse<t_validation_error>(422)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -43717,30 +58842,227 @@ export function createRouter(
       }
 
       await implementation
-        .projectsClassicCreateForOrg(input, responder, ctx)
+        .projectsUpdateItemForOrg(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicCreateForOrgResponseValidator))
+        .then(handleResponse(ctx, projectsUpdateItemForOrgResponseValidator))
     },
   )
 
-  const orgsGetAllCustomPropertiesParamSchema = z.object({org: z.string()})
+  const projectsDeleteItemForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+    item_id: z.coerce.number(),
+  })
 
-  const orgsGetAllCustomPropertiesResponseValidator = responseValidationFactory(
+  const projectsDeleteItemForOrgResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(s_custom_property)],
+      ["204", z.undefined()],
+      ["401", s_basic_error],
       ["403", s_basic_error],
-      ["404", s_basic_error],
     ],
     undefined,
   )
 
+  router.delete(
+    "projectsDeleteItemForOrg",
+    "/orgs/:org/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsDeleteItemForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsDeleteItemForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsDeleteItemForOrgResponseValidator))
+    },
+  )
+
+  const projectsCreateViewForOrgParamSchema = z.object({
+    org: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsCreateViewForOrgResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_view],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["503", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "projectsCreateViewForOrg",
+    "/orgs/:org/projectsV2/:project_number/views",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsCreateViewForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsCreateViewForOrgRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_view>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<t_basic_error>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsCreateViewForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsCreateViewForOrgResponseValidator))
+    },
+  )
+
+  const projectsListViewItemsForOrgParamSchema = z.object({
+    project_number: z.coerce.number(),
+    org: z.string(),
+    view_number: z.coerce.number(),
+  })
+
+  const projectsListViewItemsForOrgQuerySchema = z.object({
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const projectsListViewItemsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_projects_v2_item_with_content)],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
   router.get(
-    "orgsGetAllCustomProperties",
+    "projectsListViewItemsForOrg",
+    "/orgs/:org/projectsV2/:project_number/views/:view_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListViewItemsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListViewItemsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListViewItemsForOrg(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsListViewItemsForOrgResponseValidator))
+    },
+  )
+
+  const orgsCustomPropertiesForReposGetOrganizationDefinitionsParamSchema =
+    z.object({org: z.string()})
+
+  const orgsCustomPropertiesForReposGetOrganizationDefinitionsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_custom_property)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsCustomPropertiesForReposGetOrganizationDefinitions",
     "/orgs/:org/properties/schema",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsGetAllCustomPropertiesParamSchema,
+          orgsCustomPropertiesForReposGetOrganizationDefinitionsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -43765,17 +59087,25 @@ export function createRouter(
       }
 
       await implementation
-        .orgsGetAllCustomProperties(input, responder, ctx)
+        .orgsCustomPropertiesForReposGetOrganizationDefinitions(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, orgsGetAllCustomPropertiesResponseValidator))
+        .then(
+          handleResponse(
+            ctx,
+            orgsCustomPropertiesForReposGetOrganizationDefinitionsResponseValidator,
+          ),
+        )
     },
   )
 
-  const orgsCreateOrUpdateCustomPropertiesParamSchema = z.object({
-    org: z.string(),
-  })
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsParamSchema =
+    z.object({org: z.string()})
 
-  const orgsCreateOrUpdateCustomPropertiesResponseValidator =
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsResponseValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_custom_property)],
@@ -43786,18 +59116,18 @@ export function createRouter(
     )
 
   router.patch(
-    "orgsCreateOrUpdateCustomProperties",
+    "orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions",
     "/orgs/:org/properties/schema",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesParamSchema,
+          orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          s_OrgsCreateOrUpdateCustomPropertiesRequestBody,
+          s_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -43820,38 +59150,41 @@ export function createRouter(
       }
 
       await implementation
-        .orgsCreateOrUpdateCustomProperties(input, responder, ctx)
+        .orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            orgsCreateOrUpdateCustomPropertiesResponseValidator,
+            orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsResponseValidator,
           ),
         )
     },
   )
 
-  const orgsGetCustomPropertyParamSchema = z.object({
-    org: z.string(),
-    custom_property_name: z.string(),
-  })
+  const orgsCustomPropertiesForReposGetOrganizationDefinitionParamSchema =
+    z.object({org: z.string(), custom_property_name: z.string()})
 
-  const orgsGetCustomPropertyResponseValidator = responseValidationFactory(
-    [
-      ["200", s_custom_property],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
+  const orgsCustomPropertiesForReposGetOrganizationDefinitionResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_custom_property],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
 
   router.get(
-    "orgsGetCustomProperty",
+    "orgsCustomPropertiesForReposGetOrganizationDefinition",
     "/orgs/:org/properties/schema/:custom_property_name",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsGetCustomPropertyParamSchema,
+          orgsCustomPropertiesForReposGetOrganizationDefinitionParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -43876,18 +59209,25 @@ export function createRouter(
       }
 
       await implementation
-        .orgsGetCustomProperty(input, responder, ctx)
+        .orgsCustomPropertiesForReposGetOrganizationDefinition(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, orgsGetCustomPropertyResponseValidator))
+        .then(
+          handleResponse(
+            ctx,
+            orgsCustomPropertiesForReposGetOrganizationDefinitionResponseValidator,
+          ),
+        )
     },
   )
 
-  const orgsCreateOrUpdateCustomPropertyParamSchema = z.object({
-    org: z.string(),
-    custom_property_name: z.string(),
-  })
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionParamSchema =
+    z.object({org: z.string(), custom_property_name: z.string()})
 
-  const orgsCreateOrUpdateCustomPropertyResponseValidator =
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionResponseValidator =
     responseValidationFactory(
       [
         ["200", s_custom_property],
@@ -43898,12 +59238,12 @@ export function createRouter(
     )
 
   router.put(
-    "orgsCreateOrUpdateCustomProperty",
+    "orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition",
     "/orgs/:org/properties/schema/:custom_property_name",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertyParamSchema,
+          orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -43932,38 +59272,41 @@ export function createRouter(
       }
 
       await implementation
-        .orgsCreateOrUpdateCustomProperty(input, responder, ctx)
+        .orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            orgsCreateOrUpdateCustomPropertyResponseValidator,
+            orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionResponseValidator,
           ),
         )
     },
   )
 
-  const orgsRemoveCustomPropertyParamSchema = z.object({
-    org: z.string(),
-    custom_property_name: z.string(),
-  })
+  const orgsCustomPropertiesForReposDeleteOrganizationDefinitionParamSchema =
+    z.object({org: z.string(), custom_property_name: z.string()})
 
-  const orgsRemoveCustomPropertyResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
+  const orgsCustomPropertiesForReposDeleteOrganizationDefinitionResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
 
   router.delete(
-    "orgsRemoveCustomProperty",
+    "orgsCustomPropertiesForReposDeleteOrganizationDefinition",
     "/orgs/:org/properties/schema/:custom_property_name",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsRemoveCustomPropertyParamSchema,
+          orgsCustomPropertiesForReposDeleteOrganizationDefinitionParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -43988,23 +59331,34 @@ export function createRouter(
       }
 
       await implementation
-        .orgsRemoveCustomProperty(input, responder, ctx)
+        .orgsCustomPropertiesForReposDeleteOrganizationDefinition(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, orgsRemoveCustomPropertyResponseValidator))
+        .then(
+          handleResponse(
+            ctx,
+            orgsCustomPropertiesForReposDeleteOrganizationDefinitionResponseValidator,
+          ),
+        )
     },
   )
 
-  const orgsListCustomPropertiesValuesForReposParamSchema = z.object({
-    org: z.string(),
-  })
+  const orgsCustomPropertiesForReposGetOrganizationValuesParamSchema = z.object(
+    {org: z.string()},
+  )
 
-  const orgsListCustomPropertiesValuesForReposQuerySchema = z.object({
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-    repository_query: z.string().optional(),
-  })
+  const orgsCustomPropertiesForReposGetOrganizationValuesQuerySchema = z.object(
+    {
+      per_page: z.coerce.number().optional().default(30),
+      page: z.coerce.number().optional().default(1),
+      repository_query: z.string().optional(),
+    },
+  )
 
-  const orgsListCustomPropertiesValuesForReposResponseValidator =
+  const orgsCustomPropertiesForReposGetOrganizationValuesResponseValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_org_repo_custom_property_values)],
@@ -44015,17 +59369,17 @@ export function createRouter(
     )
 
   router.get(
-    "orgsListCustomPropertiesValuesForRepos",
+    "orgsCustomPropertiesForReposGetOrganizationValues",
     "/orgs/:org/properties/values",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsListCustomPropertiesValuesForReposParamSchema,
+          orgsCustomPropertiesForReposGetOrganizationValuesParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          orgsListCustomPropertiesValuesForReposQuerySchema,
+          orgsCustomPropertiesForReposGetOrganizationValuesQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -44051,22 +59405,25 @@ export function createRouter(
       }
 
       await implementation
-        .orgsListCustomPropertiesValuesForRepos(input, responder, ctx)
+        .orgsCustomPropertiesForReposGetOrganizationValues(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            orgsListCustomPropertiesValuesForReposResponseValidator,
+            orgsCustomPropertiesForReposGetOrganizationValuesResponseValidator,
           ),
         )
     },
   )
 
-  const orgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema = z.object({
-    org: z.string(),
-  })
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesParamSchema =
+    z.object({org: z.string()})
 
-  const orgsCreateOrUpdateCustomPropertiesValuesForReposResponseValidator =
+  const orgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesResponseValidator =
     responseValidationFactory(
       [
         ["204", z.undefined()],
@@ -44078,18 +59435,18 @@ export function createRouter(
     )
 
   router.patch(
-    "orgsCreateOrUpdateCustomPropertiesValuesForRepos",
+    "orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues",
     "/orgs/:org/properties/values",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          orgsCreateOrUpdateCustomPropertiesValuesForReposParamSchema,
+          orgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          s_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
+          s_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -44115,12 +59472,16 @@ export function createRouter(
       }
 
       await implementation
-        .orgsCreateOrUpdateCustomPropertiesValuesForRepos(input, responder, ctx)
+        .orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            orgsCreateOrUpdateCustomPropertiesValuesForReposResponseValidator,
+            orgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesResponseValidator,
           ),
         )
     },
@@ -44483,6 +59844,7 @@ export function createRouter(
     [
       ["201", s_repository_ruleset],
       ["404", s_basic_error],
+      ["422", s_validation_error],
       ["500", s_basic_error],
     ],
     undefined,
@@ -44510,6 +59872,9 @@ export function createRouter(
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with422() {
+        return new KoaRuntimeResponse<t_validation_error>(422)
       },
       with500() {
         return new KoaRuntimeResponse<t_basic_error>(500)
@@ -44704,6 +60069,7 @@ export function createRouter(
     [
       ["200", s_repository_ruleset],
       ["404", s_basic_error],
+      ["422", s_validation_error],
       ["500", s_basic_error],
     ],
     undefined,
@@ -44734,6 +60100,9 @@ export function createRouter(
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
         },
         with500() {
           return new KoaRuntimeResponse<t_basic_error>(500)
@@ -44918,7 +60287,11 @@ export function createRouter(
   const secretScanningListAlertsForOrgQuerySchema = z.object({
     state: z.enum(["open", "resolved"]).optional(),
     secret_type: z.string().optional(),
+    exclude_secret_types: z.string().optional(),
+    exclude_providers: z.string().optional(),
+    providers: z.string().optional(),
     resolution: z.string().optional(),
+    assignee: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional().default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     page: z.coerce.number().optional().default(1),
@@ -44929,6 +60302,7 @@ export function createRouter(
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
     hide_secret: PermissiveBoolean.optional().default(false),
+    is_bypassed: PermissiveBoolean.optional(),
   })
 
   const secretScanningListAlertsForOrgResponseValidator =
@@ -44993,6 +60367,138 @@ export function createRouter(
         .catch(handleImplementationError)
         .then(
           handleResponse(ctx, secretScanningListAlertsForOrgResponseValidator),
+        )
+    },
+  )
+
+  const secretScanningListOrgPatternConfigsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const secretScanningListOrgPatternConfigsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_secret_scanning_pattern_configuration],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "secretScanningListOrgPatternConfigs",
+    "/orgs/:org/secret-scanning/pattern-configurations",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningListOrgPatternConfigsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_secret_scanning_pattern_configuration>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .secretScanningListOrgPatternConfigs(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            secretScanningListOrgPatternConfigsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const secretScanningUpdateOrgPatternConfigsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const secretScanningUpdateOrgPatternConfigsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({pattern_config_version: z.string().optional()})],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.patch(
+    "secretScanningUpdateOrgPatternConfigs",
+    "/orgs/:org/secret-scanning/pattern-configurations",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningUpdateOrgPatternConfigsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_SecretScanningUpdateOrgPatternConfigsRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            pattern_config_version?: string
+          }>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .secretScanningUpdateOrgPatternConfigs(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            secretScanningUpdateOrgPatternConfigsResponseValidator,
+          ),
         )
     },
   )
@@ -45189,20 +60695,23 @@ export function createRouter(
     },
   )
 
-  const billingGetGithubActionsBillingOrgParamSchema = z.object({
+  const orgsGetImmutableReleasesSettingsParamSchema = z.object({
     org: z.string(),
   })
 
-  const billingGetGithubActionsBillingOrgResponseValidator =
-    responseValidationFactory([["200", s_actions_billing_usage]], undefined)
+  const orgsGetImmutableReleasesSettingsResponseValidator =
+    responseValidationFactory(
+      [["200", s_immutable_releases_organization_settings]],
+      undefined,
+    )
 
   router.get(
-    "billingGetGithubActionsBillingOrg",
-    "/orgs/:org/settings/billing/actions",
+    "orgsGetImmutableReleasesSettings",
+    "/orgs/:org/settings/immutable-releases",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          billingGetGithubActionsBillingOrgParamSchema,
+          orgsGetImmutableReleasesSettingsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -45213,7 +60722,9 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_actions_billing_usage>(200)
+          return new KoaRuntimeResponse<t_immutable_releases_organization_settings>(
+            200,
+          )
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -45221,42 +60732,46 @@ export function createRouter(
       }
 
       await implementation
-        .billingGetGithubActionsBillingOrg(input, responder, ctx)
+        .orgsGetImmutableReleasesSettings(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            billingGetGithubActionsBillingOrgResponseValidator,
+            orgsGetImmutableReleasesSettingsResponseValidator,
           ),
         )
     },
   )
 
-  const billingGetGithubPackagesBillingOrgParamSchema = z.object({
+  const orgsSetImmutableReleasesSettingsParamSchema = z.object({
     org: z.string(),
   })
 
-  const billingGetGithubPackagesBillingOrgResponseValidator =
-    responseValidationFactory([["200", s_packages_billing_usage]], undefined)
+  const orgsSetImmutableReleasesSettingsResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
 
-  router.get(
-    "billingGetGithubPackagesBillingOrg",
-    "/orgs/:org/settings/billing/packages",
+  router.put(
+    "orgsSetImmutableReleasesSettings",
+    "/orgs/:org/settings/immutable-releases",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          billingGetGithubPackagesBillingOrgParamSchema,
+          orgsSetImmutableReleasesSettingsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
-        body: undefined,
+        body: parseRequestInput(
+          s_OrgsSetImmutableReleasesSettingsRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
         headers: undefined,
       }
 
       const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_packages_billing_usage>(200)
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -45264,31 +60779,143 @@ export function createRouter(
       }
 
       await implementation
-        .billingGetGithubPackagesBillingOrg(input, responder, ctx)
+        .orgsSetImmutableReleasesSettings(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            billingGetGithubPackagesBillingOrgResponseValidator,
+            orgsSetImmutableReleasesSettingsResponseValidator,
           ),
         )
     },
   )
 
-  const billingGetSharedStorageBillingOrgParamSchema = z.object({
+  const orgsGetImmutableReleasesSettingsRepositoriesParamSchema = z.object({
     org: z.string(),
   })
 
-  const billingGetSharedStorageBillingOrgResponseValidator =
-    responseValidationFactory([["200", s_combined_billing_usage]], undefined)
+  const orgsGetImmutableReleasesSettingsRepositoriesQuerySchema = z.object({
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const orgsGetImmutableReleasesSettingsRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            repositories: z.array(s_minimal_repository),
+          }),
+        ],
+      ],
+      undefined,
+    )
 
   router.get(
-    "billingGetSharedStorageBillingOrg",
-    "/orgs/:org/settings/billing/shared-storage",
+    "orgsGetImmutableReleasesSettingsRepositories",
+    "/orgs/:org/settings/immutable-releases/repositories",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          billingGetSharedStorageBillingOrgParamSchema,
+          orgsGetImmutableReleasesSettingsRepositoriesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsGetImmutableReleasesSettingsRepositoriesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories: t_minimal_repository[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsGetImmutableReleasesSettingsRepositories(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            orgsGetImmutableReleasesSettingsRepositoriesResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsSetImmutableReleasesSettingsRepositoriesParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const orgsSetImmutableReleasesSettingsRepositoriesResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "orgsSetImmutableReleasesSettingsRepositories",
+    "/orgs/:org/settings/immutable-releases/repositories",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsSetImmutableReleasesSettingsRepositoriesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsSetImmutableReleasesSettingsRepositories(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            orgsSetImmutableReleasesSettingsRepositoriesResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsEnableSelectedRepositoryImmutableReleasesOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const orgsEnableSelectedRepositoryImmutableReleasesOrganizationResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "orgsEnableSelectedRepositoryImmutableReleasesOrganization",
+    "/orgs/:org/settings/immutable-releases/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsEnableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -45298,8 +60925,8 @@ export function createRouter(
       }
 
       const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_combined_billing_usage>(200)
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -45307,12 +60934,62 @@ export function createRouter(
       }
 
       await implementation
-        .billingGetSharedStorageBillingOrg(input, responder, ctx)
+        .orgsEnableSelectedRepositoryImmutableReleasesOrganization(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            billingGetSharedStorageBillingOrgResponseValidator,
+            orgsEnableSelectedRepositoryImmutableReleasesOrganizationResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const orgsDisableSelectedRepositoryImmutableReleasesOrganizationParamSchema =
+    z.object({org: z.string(), repository_id: z.coerce.number()})
+
+  const orgsDisableSelectedRepositoryImmutableReleasesOrganizationResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "orgsDisableSelectedRepositoryImmutableReleasesOrganization",
+    "/orgs/:org/settings/immutable-releases/repositories/:repository_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          orgsDisableSelectedRepositoryImmutableReleasesOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .orgsDisableSelectedRepositoryImmutableReleasesOrganization(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            orgsDisableSelectedRepositoryImmutableReleasesOrganizationResponseValidator,
           ),
         )
     },
@@ -45620,7 +61297,7 @@ export function createRouter(
     since: z.string().optional(),
     until: z.string().optional(),
     page: z.coerce.number().optional().default(1),
-    per_page: z.coerce.number().optional().default(28),
+    per_page: z.coerce.number().optional().default(100),
   })
 
   const copilotCopilotMetricsForTeamResponseValidator =
@@ -45689,6 +61366,10 @@ export function createRouter(
   const teamsListQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
+    team_type: z
+      .enum(["all", "enterprise", "organization"])
+      .optional()
+      .default("all"),
   })
 
   const teamsListResponseValidator = responseValidationFactory(
@@ -45893,7 +61574,10 @@ export function createRouter(
   })
 
   const teamsDeleteInOrgResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
+    [
+      ["204", z.undefined()],
+      ["422", z.undefined()],
+    ],
     undefined,
   )
 
@@ -45916,6 +61600,9 @@ export function createRouter(
         with204() {
           return new KoaRuntimeResponse<void>(204)
         },
+        with422() {
+          return new KoaRuntimeResponse<void>(422)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -45925,822 +61612,6 @@ export function createRouter(
         .teamsDeleteInOrg(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, teamsDeleteInOrgResponseValidator))
-    },
-  )
-
-  const teamsListDiscussionsInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-  })
-
-  const teamsListDiscussionsInOrgQuerySchema = z.object({
-    direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-    pinned: z.string().optional(),
-  })
-
-  const teamsListDiscussionsInOrgResponseValidator = responseValidationFactory(
-    [["200", z.array(s_team_discussion)]],
-    undefined,
-  )
-
-  router.get(
-    "teamsListDiscussionsInOrg",
-    "/orgs/:org/teams/:team_slug/discussions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListDiscussionsInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListDiscussionsInOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListDiscussionsInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsListDiscussionsInOrgResponseValidator))
-    },
-  )
-
-  const teamsCreateDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-  })
-
-  const teamsCreateDiscussionInOrgResponseValidator = responseValidationFactory(
-    [["201", s_team_discussion]],
-    undefined,
-  )
-
-  router.post(
-    "teamsCreateDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCreateDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsCreateDiscussionInOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_team_discussion>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCreateDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsCreateDiscussionInOrgResponseValidator))
-    },
-  )
-
-  const teamsGetDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsGetDiscussionInOrgResponseValidator = responseValidationFactory(
-    [["200", s_team_discussion]],
-    undefined,
-  )
-
-  router.get(
-    "teamsGetDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsGetDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsGetDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsGetDiscussionInOrgResponseValidator))
-    },
-  )
-
-  const teamsUpdateDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsUpdateDiscussionInOrgResponseValidator = responseValidationFactory(
-    [["200", s_team_discussion]],
-    undefined,
-  )
-
-  router.patch(
-    "teamsUpdateDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsUpdateDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsUpdateDiscussionInOrgRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsUpdateDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsUpdateDiscussionInOrgResponseValidator))
-    },
-  )
-
-  const teamsDeleteDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsDeleteDiscussionInOrgResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
-    undefined,
-  )
-
-  router.delete(
-    "teamsDeleteDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsDeleteDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsDeleteDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsDeleteDiscussionInOrgResponseValidator))
-    },
-  )
-
-  const teamsListDiscussionCommentsInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsListDiscussionCommentsInOrgQuerySchema = z.object({
-    direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const teamsListDiscussionCommentsInOrgResponseValidator =
-    responseValidationFactory(
-      [["200", z.array(s_team_discussion_comment)]],
-      undefined,
-    )
-
-  router.get(
-    "teamsListDiscussionCommentsInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListDiscussionCommentsInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListDiscussionCommentsInOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListDiscussionCommentsInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsListDiscussionCommentsInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsCreateDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsCreateDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["201", s_team_discussion_comment]], undefined)
-
-  router.post(
-    "teamsCreateDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCreateDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsCreateDiscussionCommentInOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCreateDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsCreateDiscussionCommentInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsGetDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsGetDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["200", s_team_discussion_comment]], undefined)
-
-  router.get(
-    "teamsGetDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsGetDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsGetDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, teamsGetDiscussionCommentInOrgResponseValidator),
-        )
-    },
-  )
-
-  const teamsUpdateDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsUpdateDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["200", s_team_discussion_comment]], undefined)
-
-  router.patch(
-    "teamsUpdateDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsUpdateDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsUpdateDiscussionCommentInOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsUpdateDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsUpdateDiscussionCommentInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsDeleteDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsDeleteDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
-
-  router.delete(
-    "teamsDeleteDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsDeleteDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsDeleteDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsDeleteDiscussionCommentInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsListForTeamDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const reactionsListForTeamDiscussionCommentInOrgQuerySchema = z.object({
-    content: z
-      .enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ])
-      .optional(),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const reactionsListForTeamDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory([["200", z.array(s_reaction)]], undefined)
-
-  router.get(
-    "reactionsListForTeamDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsListForTeamDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          reactionsListForTeamDiscussionCommentInOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsListForTeamDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsListForTeamDiscussionCommentInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const reactionsCreateForTeamDiscussionCommentInOrgResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_reaction],
-        ["201", s_reaction],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "reactionsCreateForTeamDiscussionCommentInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction>(200)
-        },
-        with201() {
-          return new KoaRuntimeResponse<t_reaction>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsCreateForTeamDiscussionCommentInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsCreateForTeamDiscussionCommentInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsDeleteForTeamDiscussionCommentParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-    reaction_id: z.coerce.number(),
-  })
-
-  const reactionsDeleteForTeamDiscussionCommentResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
-
-  router.delete(
-    "reactionsDeleteForTeamDiscussionComment",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions/:reaction_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsDeleteForTeamDiscussionCommentParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsDeleteForTeamDiscussionComment(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsDeleteForTeamDiscussionCommentResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsListForTeamDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const reactionsListForTeamDiscussionInOrgQuerySchema = z.object({
-    content: z
-      .enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ])
-      .optional(),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const reactionsListForTeamDiscussionInOrgResponseValidator =
-    responseValidationFactory([["200", z.array(s_reaction)]], undefined)
-
-  router.get(
-    "reactionsListForTeamDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsListForTeamDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          reactionsListForTeamDiscussionInOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsListForTeamDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsListForTeamDiscussionInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsCreateForTeamDiscussionInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const reactionsCreateForTeamDiscussionInOrgResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_reaction],
-        ["201", s_reaction],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "reactionsCreateForTeamDiscussionInOrg",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsCreateForTeamDiscussionInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction>(200)
-        },
-        with201() {
-          return new KoaRuntimeResponse<t_reaction>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsCreateForTeamDiscussionInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsCreateForTeamDiscussionInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsDeleteForTeamDiscussionParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    discussion_number: z.coerce.number(),
-    reaction_id: z.coerce.number(),
-  })
-
-  const reactionsDeleteForTeamDiscussionResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
-
-  router.delete(
-    "reactionsDeleteForTeamDiscussion",
-    "/orgs/:org/teams/:team_slug/discussions/:discussion_number/reactions/:reaction_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsDeleteForTeamDiscussionParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsDeleteForTeamDiscussion(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsDeleteForTeamDiscussionResponseValidator,
-          ),
-        )
     },
   )
 
@@ -46756,7 +61627,10 @@ export function createRouter(
 
   const teamsListPendingInvitationsInOrgResponseValidator =
     responseValidationFactory(
-      [["200", z.array(s_organization_invitation)]],
+      [
+        ["200", z.array(s_organization_invitation)],
+        ["422", z.undefined()],
+      ],
       undefined,
     )
 
@@ -46782,6 +61656,9 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<t_organization_invitation[]>(200)
+        },
+        with422() {
+          return new KoaRuntimeResponse<void>(422)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -47015,219 +61892,6 @@ export function createRouter(
             teamsRemoveMembershipForUserInOrgResponseValidator,
           ),
         )
-    },
-  )
-
-  const teamsListProjectsInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-  })
-
-  const teamsListProjectsInOrgQuerySchema = z.object({
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const teamsListProjectsInOrgResponseValidator = responseValidationFactory(
-    [["200", z.array(s_team_project)]],
-    undefined,
-  )
-
-  router.get(
-    "teamsListProjectsInOrg",
-    "/orgs/:org/teams/:team_slug/projects",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListProjectsInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListProjectsInOrgQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_project[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListProjectsInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsListProjectsInOrgResponseValidator))
-    },
-  )
-
-  const teamsCheckPermissionsForProjectInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsCheckPermissionsForProjectInOrgResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_team_project],
-        ["404", z.undefined()],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "teamsCheckPermissionsForProjectInOrg",
-    "/orgs/:org/teams/:team_slug/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCheckPermissionsForProjectInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_project>(200)
-        },
-        with404() {
-          return new KoaRuntimeResponse<void>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCheckPermissionsForProjectInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsCheckPermissionsForProjectInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsAddOrUpdateProjectPermissionsInOrgResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
-        [
-          "403",
-          z.object({
-            message: z.string().optional(),
-            documentation_url: z.string().optional(),
-          }),
-        ],
-      ],
-      undefined,
-    )
-
-  router.put(
-    "teamsAddOrUpdateProjectPermissionsInOrg",
-    "/orgs/:org/teams/:team_slug/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            message?: string
-          }>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsAddOrUpdateProjectPermissionsInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsAddOrUpdateProjectPermissionsInOrgResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsRemoveProjectInOrgParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsRemoveProjectInOrgResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
-    undefined,
-  )
-
-  router.delete(
-    "teamsRemoveProjectInOrg",
-    "/orgs/:org/teams/:team_slug/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsRemoveProjectInOrgParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsRemoveProjectInOrg(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsRemoveProjectInOrgResponseValidator))
     },
   )
 
@@ -47546,1321 +62210,6 @@ export function createRouter(
             orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator,
           ),
         )
-    },
-  )
-
-  const projectsClassicGetCardParamSchema = z.object({
-    card_id: z.coerce.number(),
-  })
-
-  const projectsClassicGetCardResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project_card],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "projectsClassicGetCard",
-    "/projects/columns/cards/:card_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicGetCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_card>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicGetCard(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicGetCardResponseValidator))
-    },
-  )
-
-  const projectsClassicUpdateCardParamSchema = z.object({
-    card_id: z.coerce.number(),
-  })
-
-  const projectsClassicUpdateCardResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project_card],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
-
-  router.patch(
-    "projectsClassicUpdateCard",
-    "/projects/columns/cards/:card_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicUpdateCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicUpdateCardRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_card>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicUpdateCard(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicUpdateCardResponseValidator))
-    },
-  )
-
-  const projectsClassicDeleteCardParamSchema = z.object({
-    card_id: z.coerce.number(),
-  })
-
-  const projectsClassicDeleteCardResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z.array(z.string()).optional(),
-        }),
-      ],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.delete(
-    "projectsClassicDeleteCard",
-    "/projects/columns/cards/:card_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicDeleteCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            errors?: string[]
-            message?: string
-          }>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicDeleteCard(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicDeleteCardResponseValidator))
-    },
-  )
-
-  const projectsClassicMoveCardParamSchema = z.object({
-    card_id: z.coerce.number(),
-  })
-
-  const projectsClassicMoveCardResponseValidator = responseValidationFactory(
-    [
-      ["201", z.object({})],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-                resource: z.string().optional(),
-                field: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
-      ],
-      ["422", s_validation_error],
-      [
-        "503",
-        z.object({
-          code: z.string().optional(),
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
-      ],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "projectsClassicMoveCard",
-    "/projects/columns/cards/:card_id/moves",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicMoveCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicMoveCardRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<Record<string, never>>(201)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            errors?: {
-              code?: string
-              field?: string
-              message?: string
-              resource?: string
-            }[]
-            message?: string
-          }>(403)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        with503() {
-          return new KoaRuntimeResponse<{
-            code?: string
-            documentation_url?: string
-            errors?: {
-              code?: string
-              message?: string
-            }[]
-            message?: string
-          }>(503)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicMoveCard(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicMoveCardResponseValidator))
-    },
-  )
-
-  const projectsClassicGetColumnParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicGetColumnResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "projectsClassicGetColumn",
-    "/projects/columns/:column_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicGetColumnParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_column>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicGetColumn(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicGetColumnResponseValidator))
-    },
-  )
-
-  const projectsClassicUpdateColumnParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicUpdateColumnResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_project_column],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.patch(
-    "projectsClassicUpdateColumn",
-    "/projects/columns/:column_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicUpdateColumnParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicUpdateColumnRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_column>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicUpdateColumn(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicUpdateColumnResponseValidator))
-    },
-  )
-
-  const projectsClassicDeleteColumnParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicDeleteColumnResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.delete(
-    "projectsClassicDeleteColumn",
-    "/projects/columns/:column_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicDeleteColumnParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicDeleteColumn(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicDeleteColumnResponseValidator))
-    },
-  )
-
-  const projectsClassicListCardsParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicListCardsQuerySchema = z.object({
-    archived_state: z
-      .enum(["all", "archived", "not_archived"])
-      .optional()
-      .default("not_archived"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const projectsClassicListCardsResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project_card)],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "projectsClassicListCards",
-    "/projects/columns/:column_id/cards",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicListCardsParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          projectsClassicListCardsQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_card[]>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicListCards(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicListCardsResponseValidator))
-    },
-  )
-
-  const projectsClassicCreateCardParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicCreateCardResponseValidator = responseValidationFactory(
-    [
-      ["201", s_project_card],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", z.union([s_validation_error, s_validation_error_simple])],
-      [
-        "503",
-        z.object({
-          code: z.string().optional(),
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
-      ],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "projectsClassicCreateCard",
-    "/projects/columns/:column_id/cards",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicCreateCardParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicCreateCardRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_project_card>(201)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with422() {
-          return new KoaRuntimeResponse<
-            t_validation_error | t_validation_error_simple
-          >(422)
-        },
-        with503() {
-          return new KoaRuntimeResponse<{
-            code?: string
-            documentation_url?: string
-            errors?: {
-              code?: string
-              message?: string
-            }[]
-            message?: string
-          }>(503)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicCreateCard(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicCreateCardResponseValidator))
-    },
-  )
-
-  const projectsClassicMoveColumnParamSchema = z.object({
-    column_id: z.coerce.number(),
-  })
-
-  const projectsClassicMoveColumnResponseValidator = responseValidationFactory(
-    [
-      ["201", z.object({})],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "projectsClassicMoveColumn",
-    "/projects/columns/:column_id/moves",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicMoveColumnParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicMoveColumnRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<Record<string, never>>(201)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicMoveColumn(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicMoveColumnResponseValidator))
-    },
-  )
-
-  const projectsClassicGetParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicGetResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get("projectsClassicGet", "/projects/:project_id", async (ctx) => {
-    const input = {
-      params: parseRequestInput(
-        projectsClassicGetParamSchema,
-        ctx.params,
-        RequestInputType.RouteParam,
-      ),
-      query: undefined,
-      body: undefined,
-      headers: undefined,
-    }
-
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_project>(200)
-      },
-      with304() {
-        return new KoaRuntimeResponse<void>(304)
-      },
-      with401() {
-        return new KoaRuntimeResponse<t_basic_error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<t_basic_error>(403)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
-    await implementation
-      .projectsClassicGet(input, responder, ctx)
-      .catch(handleImplementationError)
-      .then(handleResponse(ctx, projectsClassicGetResponseValidator))
-  })
-
-  const projectsClassicUpdateParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicUpdateResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z.array(z.string()).optional(),
-        }),
-      ],
-      ["404", z.undefined()],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
-
-  router.patch(
-    "projectsClassicUpdate",
-    "/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicUpdateParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicUpdateRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            errors?: string[]
-            message?: string
-          }>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<void>(404)
-        },
-        with410() {
-          return new KoaRuntimeResponse<t_basic_error>(410)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicUpdate(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicUpdateResponseValidator))
-    },
-  )
-
-  const projectsClassicDeleteParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicDeleteResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z.array(z.string()).optional(),
-        }),
-      ],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.delete(
-    "projectsClassicDelete",
-    "/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicDeleteParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            errors?: string[]
-            message?: string
-          }>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with410() {
-          return new KoaRuntimeResponse<t_basic_error>(410)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicDelete(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicDeleteResponseValidator))
-    },
-  )
-
-  const projectsClassicListCollaboratorsParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicListCollaboratorsQuerySchema = z.object({
-    affiliation: z.enum(["outside", "direct", "all"]).optional().default("all"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const projectsClassicListCollaboratorsResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", z.array(s_simple_user)],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "projectsClassicListCollaborators",
-    "/projects/:project_id/collaborators",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicListCollaboratorsParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          projectsClassicListCollaboratorsQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_simple_user[]>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicListCollaborators(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            projectsClassicListCollaboratorsResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const projectsClassicAddCollaboratorParamSchema = z.object({
-    project_id: z.coerce.number(),
-    username: z.string(),
-  })
-
-  const projectsClassicAddCollaboratorResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-      ],
-      undefined,
-    )
-
-  router.put(
-    "projectsClassicAddCollaborator",
-    "/projects/:project_id/collaborators/:username",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicAddCollaboratorParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicAddCollaboratorRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicAddCollaborator(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, projectsClassicAddCollaboratorResponseValidator),
-        )
-    },
-  )
-
-  const projectsClassicRemoveCollaboratorParamSchema = z.object({
-    project_id: z.coerce.number(),
-    username: z.string(),
-  })
-
-  const projectsClassicRemoveCollaboratorResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-      ],
-      undefined,
-    )
-
-  router.delete(
-    "projectsClassicRemoveCollaborator",
-    "/projects/:project_id/collaborators/:username",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicRemoveCollaboratorParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicRemoveCollaborator(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            projectsClassicRemoveCollaboratorResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const projectsClassicGetPermissionForUserParamSchema = z.object({
-    project_id: z.coerce.number(),
-    username: z.string(),
-  })
-
-  const projectsClassicGetPermissionForUserResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_project_collaborator_permission],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "projectsClassicGetPermissionForUser",
-    "/projects/:project_id/collaborators/:username/permission",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicGetPermissionForUserParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_collaborator_permission>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicGetPermissionForUser(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            projectsClassicGetPermissionForUserResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const projectsClassicListColumnsParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicListColumnsQuerySchema = z.object({
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const projectsClassicListColumnsResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project_column)],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "projectsClassicListColumns",
-    "/projects/:project_id/columns",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicListColumnsParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          projectsClassicListColumnsQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project_column[]>(200)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicListColumns(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicListColumnsResponseValidator))
-    },
-  )
-
-  const projectsClassicCreateColumnParamSchema = z.object({
-    project_id: z.coerce.number(),
-  })
-
-  const projectsClassicCreateColumnResponseValidator =
-    responseValidationFactory(
-      [
-        ["201", s_project_column],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "projectsClassicCreateColumn",
-    "/projects/:project_id/columns",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicCreateColumnParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicCreateColumnRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_project_column>(201)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicCreateColumn(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicCreateColumnResponseValidator))
     },
   )
 
@@ -49263,6 +62612,260 @@ export function createRouter(
     },
   )
 
+  const actionsGetActionsCacheRetentionLimitForRepositoryParamSchema = z.object(
+    {owner: z.string(), repo: z.string()},
+  )
+
+  const actionsGetActionsCacheRetentionLimitForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_cache_retention_limit_for_repository],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetActionsCacheRetentionLimitForRepository",
+    "/repos/:owner/:repo/actions/cache/retention-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheRetentionLimitForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_cache_retention_limit_for_repository>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetActionsCacheRetentionLimitForRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetActionsCacheRetentionLimitForRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetActionsCacheRetentionLimitForRepositoryParamSchema = z.object(
+    {owner: z.string(), repo: z.string()},
+  )
+
+  const actionsSetActionsCacheRetentionLimitForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetActionsCacheRetentionLimitForRepository",
+    "/repos/:owner/:repo/actions/cache/retention-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetActionsCacheRetentionLimitForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_cache_retention_limit_for_repository,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetActionsCacheRetentionLimitForRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetActionsCacheRetentionLimitForRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetActionsCacheStorageLimitForRepositoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const actionsGetActionsCacheStorageLimitForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_cache_storage_limit_for_repository],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetActionsCacheStorageLimitForRepository",
+    "/repos/:owner/:repo/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheStorageLimitForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_cache_storage_limit_for_repository>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetActionsCacheStorageLimitForRepository(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetActionsCacheStorageLimitForRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetActionsCacheStorageLimitForRepositoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const actionsSetActionsCacheStorageLimitForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetActionsCacheStorageLimitForRepository",
+    "/repos/:owner/:repo/actions/cache/storage-limit",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetActionsCacheStorageLimitForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_cache_storage_limit_for_repository,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetActionsCacheStorageLimitForRepository(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetActionsCacheStorageLimitForRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
   const actionsGetActionsCacheUsageParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -49452,6 +63055,135 @@ export function createRouter(
         .catch(handleImplementationError)
         .then(
           handleResponse(ctx, actionsDeleteActionsCacheByIdResponseValidator),
+        )
+    },
+  )
+
+  const actionsListConcurrencyGroupsForRepositoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const actionsListConcurrencyGroupsForRepositoryQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    after: z.string().optional(),
+  })
+
+  const actionsListConcurrencyGroupsForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_concurrency_group_list],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListConcurrencyGroupsForRepository",
+    "/repos/:owner/:repo/actions/concurrency_groups",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListConcurrencyGroupsForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListConcurrencyGroupsForRepositoryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_concurrency_group_list>(200)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsListConcurrencyGroupsForRepository(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsListConcurrencyGroupsForRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetConcurrencyGroupForRepositoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    concurrency_group_name: z.string(),
+  })
+
+  const actionsGetConcurrencyGroupForRepositoryQuerySchema = z.object({
+    ahead_of_run: z.coerce.number().min(1).optional(),
+    ahead_of_job: z.coerce.number().min(1).optional(),
+  })
+
+  const actionsGetConcurrencyGroupForRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_concurrency_group],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetConcurrencyGroupForRepository",
+    "/repos/:owner/:repo/actions/concurrency_groups/:concurrency_group_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetConcurrencyGroupForRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsGetConcurrencyGroupForRepositoryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_concurrency_group>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetConcurrencyGroupForRepository(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetConcurrencyGroupForRepositoryResponseValidator,
+          ),
         )
     },
   )
@@ -50039,6 +63771,370 @@ export function createRouter(
           handleResponse(
             ctx,
             actionsSetWorkflowAccessToRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetArtifactAndLogRetentionSettingsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsGetArtifactAndLogRetentionSettingsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_artifact_and_log_retention_response],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetArtifactAndLogRetentionSettingsRepository",
+    "/repos/:owner/:repo/actions/permissions/artifact-and-log-retention",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetArtifactAndLogRetentionSettingsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_artifact_and_log_retention_response>(
+            200,
+          )
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetArtifactAndLogRetentionSettingsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetArtifactAndLogRetentionSettingsRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetArtifactAndLogRetentionSettingsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsSetArtifactAndLogRetentionSettingsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetArtifactAndLogRetentionSettingsRepository",
+    "/repos/:owner/:repo/actions/permissions/artifact-and-log-retention",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetArtifactAndLogRetentionSettingsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_artifact_and_log_retention,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetArtifactAndLogRetentionSettingsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetArtifactAndLogRetentionSettingsRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetForkPrContributorApprovalPermissionsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsGetForkPrContributorApprovalPermissionsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_fork_pr_contributor_approval],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetForkPrContributorApprovalPermissionsRepository",
+    "/repos/:owner/:repo/actions/permissions/fork-pr-contributor-approval",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetForkPrContributorApprovalPermissionsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_fork_pr_contributor_approval>(
+            200,
+          )
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetForkPrContributorApprovalPermissionsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetForkPrContributorApprovalPermissionsRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetForkPrContributorApprovalPermissionsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsSetForkPrContributorApprovalPermissionsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetForkPrContributorApprovalPermissionsRepository",
+    "/repos/:owner/:repo/actions/permissions/fork-pr-contributor-approval",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetForkPrContributorApprovalPermissionsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_fork_pr_contributor_approval,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetForkPrContributorApprovalPermissionsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetForkPrContributorApprovalPermissionsRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_actions_fork_pr_workflows_private_repos],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetPrivateRepoForkPrWorkflowsSettingsRepository",
+    "/repos/:owner/:repo/actions/permissions/fork-pr-workflows-private-repos",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_fork_pr_workflows_private_repos>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsGetPrivateRepoForkPrWorkflowsSettingsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsGetPrivateRepoForkPrWorkflowsSettingsRepositoryResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const actionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
+
+  const actionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "actionsSetPrivateRepoForkPrWorkflowsSettingsRepository",
+    "/repos/:owner/:repo/actions/permissions/fork-pr-workflows-private-repos",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_actions_fork_pr_workflows_private_repos_request,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsSetPrivateRepoForkPrWorkflowsSettingsRepository(
+          input,
+          responder,
+          ctx,
+        )
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryResponseValidator,
           ),
         )
     },
@@ -51244,6 +65340,7 @@ export function createRouter(
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
     name: z.string().optional(),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
   })
 
   const actionsListWorkflowRunArtifactsResponseValidator =
@@ -51512,6 +65609,74 @@ export function createRouter(
         .actionsCancelWorkflowRun(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, actionsCancelWorkflowRunResponseValidator))
+    },
+  )
+
+  const actionsListConcurrencyGroupsForWorkflowRunParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    run_id: z.coerce.number(),
+  })
+
+  const actionsListConcurrencyGroupsForWorkflowRunQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const actionsListConcurrencyGroupsForWorkflowRunResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_concurrency_group_run_list],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListConcurrencyGroupsForWorkflowRun",
+    "/repos/:owner/:repo/actions/runs/:run_id/concurrency_groups",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListConcurrencyGroupsForWorkflowRunParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListConcurrencyGroupsForWorkflowRunQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_concurrency_group_run_list>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .actionsListConcurrencyGroupsForWorkflowRun(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            actionsListConcurrencyGroupsForWorkflowRunResponseValidator,
+          ),
+        )
     },
   )
 
@@ -52635,7 +66800,13 @@ export function createRouter(
   })
 
   const actionsCreateWorkflowDispatchResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
+    responseValidationFactory(
+      [
+        ["200", s_workflow_dispatch_response],
+        ["204", z.undefined()],
+      ],
+      undefined,
+    )
 
   router.post(
     "actionsCreateWorkflowDispatch",
@@ -52657,6 +66828,9 @@ export function createRouter(
       }
 
       const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_workflow_dispatch_response>(200)
+        },
         with204() {
           return new KoaRuntimeResponse<void>(204)
         },
@@ -52916,6 +67090,617 @@ export function createRouter(
     },
   )
 
+  const agentsListRepoOrganizationSecretsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsListRepoOrganizationSecretsQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListRepoOrganizationSecretsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            secrets: z.array(s_actions_secret),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "agentsListRepoOrganizationSecrets",
+    "/repos/:owner/:repo/agents/organization-secrets",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListRepoOrganizationSecretsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListRepoOrganizationSecretsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            secrets: t_actions_secret[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListRepoOrganizationSecrets(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsListRepoOrganizationSecretsResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsListRepoOrganizationVariablesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsListRepoOrganizationVariablesQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(10),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListRepoOrganizationVariablesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            variables: z.array(s_actions_variable),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "agentsListRepoOrganizationVariables",
+    "/repos/:owner/:repo/agents/organization-variables",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListRepoOrganizationVariablesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListRepoOrganizationVariablesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            total_count: number
+            variables: t_actions_variable[]
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListRepoOrganizationVariables(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            agentsListRepoOrganizationVariablesResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const agentsListRepoSecretsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsListRepoSecretsQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListRepoSecretsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          total_count: z.coerce.number(),
+          secrets: z.array(s_actions_secret),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "agentsListRepoSecrets",
+    "/repos/:owner/:repo/agents/secrets",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListRepoSecretsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListRepoSecretsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            secrets: t_actions_secret[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListRepoSecrets(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsListRepoSecretsResponseValidator))
+    },
+  )
+
+  const agentsGetRepoPublicKeyParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsGetRepoPublicKeyResponseValidator = responseValidationFactory(
+    [["200", s_actions_public_key]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetRepoPublicKey",
+    "/repos/:owner/:repo/agents/secrets/public-key",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetRepoPublicKeyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_public_key>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetRepoPublicKey(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetRepoPublicKeyResponseValidator))
+    },
+  )
+
+  const agentsGetRepoSecretParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsGetRepoSecretResponseValidator = responseValidationFactory(
+    [["200", s_actions_secret]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetRepoSecret",
+    "/repos/:owner/:repo/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetRepoSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_secret>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetRepoSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetRepoSecretResponseValidator))
+    },
+  )
+
+  const agentsCreateOrUpdateRepoSecretParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsCreateOrUpdateRepoSecretResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_empty_object],
+        ["204", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "agentsCreateOrUpdateRepoSecret",
+    "/repos/:owner/:repo/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsCreateOrUpdateRepoSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsCreateOrUpdateRepoSecretRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_empty_object>(201)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsCreateOrUpdateRepoSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, agentsCreateOrUpdateRepoSecretResponseValidator),
+        )
+    },
+  )
+
+  const agentsDeleteRepoSecretParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    secret_name: z.string(),
+  })
+
+  const agentsDeleteRepoSecretResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.delete(
+    "agentsDeleteRepoSecret",
+    "/repos/:owner/:repo/agents/secrets/:secret_name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsDeleteRepoSecretParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsDeleteRepoSecret(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsDeleteRepoSecretResponseValidator))
+    },
+  )
+
+  const agentsListRepoVariablesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsListRepoVariablesQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(10),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const agentsListRepoVariablesResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          total_count: z.coerce.number(),
+          variables: z.array(s_actions_variable),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "agentsListRepoVariables",
+    "/repos/:owner/:repo/agents/variables",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsListRepoVariablesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          agentsListRepoVariablesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            total_count: number
+            variables: t_actions_variable[]
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsListRepoVariables(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsListRepoVariablesResponseValidator))
+    },
+  )
+
+  const agentsCreateRepoVariableParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const agentsCreateRepoVariableResponseValidator = responseValidationFactory(
+    [["201", s_empty_object]],
+    undefined,
+  )
+
+  router.post(
+    "agentsCreateRepoVariable",
+    "/repos/:owner/:repo/agents/variables",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsCreateRepoVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsCreateRepoVariableRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_empty_object>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsCreateRepoVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsCreateRepoVariableResponseValidator))
+    },
+  )
+
+  const agentsGetRepoVariableParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
+  })
+
+  const agentsGetRepoVariableResponseValidator = responseValidationFactory(
+    [["200", s_actions_variable]],
+    undefined,
+  )
+
+  router.get(
+    "agentsGetRepoVariable",
+    "/repos/:owner/:repo/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsGetRepoVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_variable>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsGetRepoVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsGetRepoVariableResponseValidator))
+    },
+  )
+
+  const agentsUpdateRepoVariableParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
+  })
+
+  const agentsUpdateRepoVariableResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.patch(
+    "agentsUpdateRepoVariable",
+    "/repos/:owner/:repo/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsUpdateRepoVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_AgentsUpdateRepoVariableRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsUpdateRepoVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsUpdateRepoVariableResponseValidator))
+    },
+  )
+
+  const agentsDeleteRepoVariableParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    name: z.string(),
+  })
+
+  const agentsDeleteRepoVariableResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.delete(
+    "agentsDeleteRepoVariable",
+    "/repos/:owner/:repo/agents/variables/:name",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          agentsDeleteRepoVariableParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .agentsDeleteRepoVariable(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, agentsDeleteRepoVariableResponseValidator))
+    },
+  )
+
   const issuesListAssigneesParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -53112,6 +67897,7 @@ export function createRouter(
                   .optional(),
                 repository_id: z.coerce.number().optional(),
                 bundle_url: z.string().optional(),
+                initiator: z.string().optional(),
               }),
             )
             .optional(),
@@ -53150,6 +67936,7 @@ export function createRouter(
                 verificationMaterial?: Record<string, unknown>
               }
               bundle_url?: string
+              initiator?: string
               repository_id?: number
             }[]
           }>(200)
@@ -55915,6 +70702,156 @@ export function createRouter(
     },
   )
 
+  const codeQualityGetSetupParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const codeQualityGetSetupResponseValidator = responseValidationFactory(
+    [
+      ["200", s_code_quality_setup],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "codeQualityGetSetup",
+    "/repos/:owner/:repo/code-quality/setup",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          codeQualityGetSetupParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_quality_setup>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .codeQualityGetSetup(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, codeQualityGetSetupResponseValidator))
+    },
+  )
+
+  const codeQualityUpdateSetupParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const codeQualityUpdateSetupResponseValidator = responseValidationFactory(
+    [
+      ["200", s_empty_object],
+      ["202", s_code_quality_setup_update_response],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["409", s_basic_error],
+      ["422", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "codeQualityUpdateSetup",
+    "/repos/:owner/:repo/code-quality/setup",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          codeQualityUpdateSetupParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_code_quality_setup_update,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_empty_object>(200)
+        },
+        with202() {
+          return new KoaRuntimeResponse<t_code_quality_setup_update_response>(
+            202,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .codeQualityUpdateSetup(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, codeQualityUpdateSetupResponseValidator))
+    },
+  )
+
   const codeScanningListAlertsForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -55933,6 +70870,7 @@ export function createRouter(
     sort: z.enum(["created", "updated"]).optional().default("created"),
     state: s_code_scanning_alert_state_query.optional(),
     severity: s_code_scanning_alert_severity.optional(),
+    assignees: z.string().optional(),
   })
 
   const codeScanningListAlertsForRepoResponseValidator =
@@ -56400,7 +71338,7 @@ export function createRouter(
   const codeScanningListAlertInstancesResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.array(s_code_scanning_alert_instance)],
+        ["200", z.array(s_code_scanning_alert_instance_list)],
         ["403", s_basic_error],
         ["404", s_basic_error],
         [
@@ -56436,7 +71374,9 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_code_scanning_alert_instance[]>(200)
+          return new KoaRuntimeResponse<t_code_scanning_alert_instance_list[]>(
+            200,
+          )
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -59289,7 +74229,7 @@ export function createRouter(
 
   const reposGetCommitResponseValidator = responseValidationFactory(
     [
-      ["200", s_commit],
+      ["200", z.string()],
       ["404", s_basic_error],
       ["409", s_basic_error],
       ["422", s_validation_error],
@@ -59327,7 +74267,7 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_commit>(200)
+          return new KoaRuntimeResponse<string>(200)
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
@@ -59664,7 +74604,7 @@ export function createRouter(
 
   const reposCompareCommitsResponseValidator = responseValidationFactory(
     [
-      ["200", s_commit_comparison],
+      ["200", z.string()],
       ["404", s_basic_error],
       ["500", s_basic_error],
       [
@@ -59700,7 +74640,7 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_commit_comparison>(200)
+          return new KoaRuntimeResponse<string>(200)
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
@@ -60015,12 +74955,105 @@ export function createRouter(
     },
   )
 
+  const copilotGetCopilotCloudAgentConfigurationParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const copilotGetCopilotCloudAgentConfigurationResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            mcp_configuration: z.record(z.string(), z.unknown()).nullable(),
+            enabled_tools: z.object({
+              codeql: PermissiveBoolean,
+              copilot_code_review: PermissiveBoolean,
+              secret_scanning: PermissiveBoolean,
+              dependency_vulnerability_checks: PermissiveBoolean,
+            }),
+            require_actions_workflow_approval: PermissiveBoolean,
+            is_firewall_enabled: PermissiveBoolean,
+            is_firewall_recommended_allowlist_enabled: PermissiveBoolean,
+            custom_allowlist: z.array(z.string()),
+          }),
+        ],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotGetCopilotCloudAgentConfiguration",
+    "/repos/:owner/:repo/copilot/cloud-agent/configuration",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotGetCopilotCloudAgentConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            custom_allowlist: string[]
+            enabled_tools: {
+              codeql: boolean
+              copilot_code_review: boolean
+              dependency_vulnerability_checks: boolean
+              secret_scanning: boolean
+            }
+            is_firewall_enabled: boolean
+            is_firewall_recommended_allowlist_enabled: boolean
+            mcp_configuration: Record<string, unknown> | null
+            require_actions_workflow_approval: boolean
+          }>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotGetCopilotCloudAgentConfiguration(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotGetCopilotCloudAgentConfigurationResponseValidator,
+          ),
+        )
+    },
+  )
+
   const dependabotListAlertsForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
   const dependabotListAlertsForRepoQuerySchema = z.object({
+    classification: z.string().optional(),
     state: z.string().optional(),
     severity: z.string().optional(),
     ecosystem: z.string().optional(),
@@ -60028,18 +75061,16 @@ export function createRouter(
     manifest: z.string().optional(),
     epss_percentage: z.string().optional(),
     has: z.union([z.string(), z.array(z.literal("patch"))]).optional(),
+    assignee: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
       .optional()
       .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    page: z.coerce.number().optional().default(1),
-    per_page: z.coerce.number().optional().default(30),
     before: z.string().optional(),
     after: z.string().optional(),
-    first: z.coerce.number().min(1).max(100).optional().default(30),
-    last: z.coerce.number().min(1).max(100).optional(),
+    per_page: z.coerce.number().optional().default(30),
   })
 
   const dependabotListAlertsForRepoResponseValidator =
@@ -60486,8 +75517,18 @@ export function createRouter(
   const dependencyGraphDiffRangeResponseValidator = responseValidationFactory(
     [
       ["200", s_dependency_graph_diff],
+      ["400", s_scim_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
+      ["500", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
     ],
     undefined,
   )
@@ -60515,11 +75556,24 @@ export function createRouter(
         with200() {
           return new KoaRuntimeResponse<t_dependency_graph_diff>(200)
         },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -60581,6 +75635,124 @@ export function createRouter(
         .dependencyGraphExportSbom(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, dependencyGraphExportSbomResponseValidator))
+    },
+  )
+
+  const dependencyGraphFetchSbomReportParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    sbom_uuid: z.string(),
+  })
+
+  const dependencyGraphFetchSbomReportResponseValidator =
+    responseValidationFactory(
+      [
+        ["202", z.undefined()],
+        ["302", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "dependencyGraphFetchSbomReport",
+    "/repos/:owner/:repo/dependency-graph/sbom/fetch-report/:sbom_uuid",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependencyGraphFetchSbomReportParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with202() {
+          return new KoaRuntimeResponse<void>(202)
+        },
+        with302() {
+          return new KoaRuntimeResponse<void>(302)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependencyGraphFetchSbomReport(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, dependencyGraphFetchSbomReportResponseValidator),
+        )
+    },
+  )
+
+  const dependencyGraphGenerateSbomReportParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const dependencyGraphGenerateSbomReportResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", z.object({sbom_url: z.string().optional()})],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "dependencyGraphGenerateSbomReport",
+    "/repos/:owner/:repo/dependency-graph/sbom/generate-report",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          dependencyGraphGenerateSbomReportParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<{
+            sbom_url?: string
+          }>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .dependencyGraphGenerateSbomReport(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            dependencyGraphGenerateSbomReportResponseValidator,
+          ),
+        )
     },
   )
 
@@ -63566,6 +78738,7 @@ export function createRouter(
   const reposListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
+    status: z.enum(["success", "failure"]).optional(),
   })
 
   const reposListWebhookDeliveriesResponseValidator = responseValidationFactory(
@@ -63820,6 +78993,154 @@ export function createRouter(
         .reposTestPushWebhook(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, reposTestPushWebhookResponseValidator))
+    },
+  )
+
+  const reposCheckImmutableReleasesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposCheckImmutableReleasesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_check_immutable_releases],
+        ["404", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "reposCheckImmutableReleases",
+    "/repos/:owner/:repo/immutable-releases",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          reposCheckImmutableReleasesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_check_immutable_releases>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .reposCheckImmutableReleases(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, reposCheckImmutableReleasesResponseValidator))
+    },
+  )
+
+  const reposEnableImmutableReleasesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposEnableImmutableReleasesResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "reposEnableImmutableReleases",
+    "/repos/:owner/:repo/immutable-releases",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          reposEnableImmutableReleasesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .reposEnableImmutableReleases(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, reposEnableImmutableReleasesResponseValidator),
+        )
+    },
+  )
+
+  const reposDisableImmutableReleasesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposDisableImmutableReleasesResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["409", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "reposDisableImmutableReleases",
+    "/repos/:owner/:repo/immutable-releases",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisableImmutableReleasesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .reposDisableImmutableReleases(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, reposDisableImmutableReleasesResponseValidator),
+        )
     },
   )
 
@@ -64612,6 +79933,7 @@ export function createRouter(
     type: z.string().optional(),
     creator: z.string().optional(),
     mentioned: z.string().optional(),
+    issue_field_values: z.string().optional(),
     labels: z.string().optional(),
     sort: z
       .enum(["created", "updated", "comments"])
@@ -64953,6 +80275,145 @@ export function createRouter(
         .issuesDeleteComment(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, issuesDeleteCommentResponseValidator))
+    },
+  )
+
+  const issuesPinCommentParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    comment_id: z.coerce.number(),
+  })
+
+  const issuesPinCommentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue_comment],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["410", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.put(
+    "issuesPinComment",
+    "/repos/:owner/:repo/issues/comments/:comment_id/pin",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesPinCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_comment>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesPinComment(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesPinCommentResponseValidator))
+    },
+  )
+
+  const issuesUnpinCommentParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    comment_id: z.coerce.number(),
+  })
+
+  const issuesUnpinCommentResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["410", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "issuesUnpinComment",
+    "/repos/:owner/:repo/issues/comments/:comment_id/pin",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesUnpinCommentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesUnpinComment(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesUnpinCommentResponseValidator))
     },
   )
 
@@ -65658,6 +81119,285 @@ export function createRouter(
     },
   )
 
+  const issuesListDependenciesBlockedByParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesListDependenciesBlockedByQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const issuesListDependenciesBlockedByResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_issue)],
+        ["301", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "issuesListDependenciesBlockedBy",
+    "/repos/:owner/:repo/issues/:issue_number/dependencies/blocked_by",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListDependenciesBlockedByParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListDependenciesBlockedByQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue[]>(200)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesListDependenciesBlockedBy(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, issuesListDependenciesBlockedByResponseValidator),
+        )
+    },
+  )
+
+  const issuesAddBlockedByDependencyParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesAddBlockedByDependencyResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_issue],
+        ["301", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "issuesAddBlockedByDependency",
+    "/repos/:owner/:repo/issues/:issue_number/dependencies/blocked_by",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesAddBlockedByDependencyParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_IssuesAddBlockedByDependencyRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_issue>(201)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesAddBlockedByDependency(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, issuesAddBlockedByDependencyResponseValidator),
+        )
+    },
+  )
+
+  const issuesRemoveDependencyBlockedByParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+    issue_id: z.coerce.number(),
+  })
+
+  const issuesRemoveDependencyBlockedByResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_issue],
+        ["301", s_basic_error],
+        ["400", s_scim_error],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "issuesRemoveDependencyBlockedBy",
+    "/repos/:owner/:repo/issues/:issue_number/dependencies/blocked_by/:issue_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesRemoveDependencyBlockedByParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue>(200)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesRemoveDependencyBlockedBy(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, issuesRemoveDependencyBlockedByResponseValidator),
+        )
+    },
+  )
+
+  const issuesListDependenciesBlockingParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesListDependenciesBlockingQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const issuesListDependenciesBlockingResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_issue)],
+        ["301", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "issuesListDependenciesBlocking",
+    "/repos/:owner/:repo/issues/:issue_number/dependencies/blocking",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListDependenciesBlockingParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListDependenciesBlockingQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue[]>(200)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesListDependenciesBlocking(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, issuesListDependenciesBlockingResponseValidator),
+        )
+    },
+  )
+
   const issuesListEventsParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -65712,6 +81452,308 @@ export function createRouter(
         .issuesListEvents(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, issuesListEventsResponseValidator))
+    },
+  )
+
+  const issuesListIssueFieldValuesForIssueParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesListIssueFieldValuesForIssueQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const issuesListIssueFieldValuesForIssueResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_issue_field_value)],
+        ["301", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "issuesListIssueFieldValuesForIssue",
+    "/repos/:owner/:repo/issues/:issue_number/issue-field-values",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListIssueFieldValuesForIssueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListIssueFieldValuesForIssueQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_field_value[]>(200)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesListIssueFieldValuesForIssue(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            issuesListIssueFieldValuesForIssueResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const issuesAddIssueFieldValuesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesAddIssueFieldValuesResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue_field_value)],
+      ["400", s_scim_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "issuesAddIssueFieldValues",
+    "/repos/:owner/:repo/issues/:issue_number/issue-field-values",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesAddIssueFieldValuesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_IssuesAddIssueFieldValuesRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_field_value[]>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesAddIssueFieldValues(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesAddIssueFieldValuesResponseValidator))
+    },
+  )
+
+  const issuesSetIssueFieldValuesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesSetIssueFieldValuesResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue_field_value)],
+      ["400", s_scim_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.put(
+    "issuesSetIssueFieldValues",
+    "/repos/:owner/:repo/issues/:issue_number/issue-field-values",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesSetIssueFieldValuesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_IssuesSetIssueFieldValuesRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue_field_value[]>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesSetIssueFieldValues(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesSetIssueFieldValuesResponseValidator))
+    },
+  )
+
+  const issuesDeleteIssueFieldValueParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+    issue_field_id: z.coerce.number(),
+  })
+
+  const issuesDeleteIssueFieldValueResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "issuesDeleteIssueFieldValue",
+    "/repos/:owner/:repo/issues/:issue_number/issue-field-values/:issue_field_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesDeleteIssueFieldValueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesDeleteIssueFieldValue(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesDeleteIssueFieldValueResponseValidator))
     },
   )
 
@@ -66134,6 +82176,62 @@ export function createRouter(
         .issuesUnlock(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, issuesUnlockResponseValidator))
+    },
+  )
+
+  const issuesGetParentParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesGetParentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue],
+      ["301", s_basic_error],
+      ["404", s_basic_error],
+      ["410", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "issuesGetParent",
+    "/repos/:owner/:repo/issues/:issue_number/parent",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          issuesGetParentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue>(200)
+        },
+        with301() {
+          return new KoaRuntimeResponse<t_basic_error>(301)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .issuesGetParent(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, issuesGetParentResponseValidator))
     },
   )
 
@@ -68474,155 +84572,12 @@ export function createRouter(
     },
   )
 
-  const projectsClassicListForRepoParamSchema = z.object({
+  const reposCustomPropertiesForReposGetRepositoryValuesParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
-  const projectsClassicListForRepoQuerySchema = z.object({
-    state: z.enum(["open", "closed", "all"]).optional().default("open"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const projectsClassicListForRepoResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project)],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "projectsClassicListForRepo",
-    "/repos/:owner/:repo/projects",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicListForRepoParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          projectsClassicListForRepoQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_project[]>(200)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with410() {
-          return new KoaRuntimeResponse<t_basic_error>(410)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicListForRepo(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicListForRepoResponseValidator))
-    },
-  )
-
-  const projectsClassicCreateForRepoParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-  })
-
-  const projectsClassicCreateForRepoResponseValidator =
-    responseValidationFactory(
-      [
-        ["201", s_project],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["410", s_basic_error],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "projectsClassicCreateForRepo",
-    "/repos/:owner/:repo/projects",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          projectsClassicCreateForRepoParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicCreateForRepoRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_project>(201)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with410() {
-          return new KoaRuntimeResponse<t_basic_error>(410)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicCreateForRepo(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, projectsClassicCreateForRepoResponseValidator),
-        )
-    },
-  )
-
-  const reposGetCustomPropertiesValuesParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-  })
-
-  const reposGetCustomPropertiesValuesResponseValidator =
+  const reposCustomPropertiesForReposGetRepositoryValuesResponseValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_custom_property_value)],
@@ -68633,12 +84588,12 @@ export function createRouter(
     )
 
   router.get(
-    "reposGetCustomPropertiesValues",
+    "reposCustomPropertiesForReposGetRepositoryValues",
     "/repos/:owner/:repo/properties/values",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          reposGetCustomPropertiesValuesParamSchema,
+          reposCustomPropertiesForReposGetRepositoryValuesParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -68663,20 +84618,21 @@ export function createRouter(
       }
 
       await implementation
-        .reposGetCustomPropertiesValues(input, responder, ctx)
+        .reposCustomPropertiesForReposGetRepositoryValues(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
-          handleResponse(ctx, reposGetCustomPropertiesValuesResponseValidator),
+          handleResponse(
+            ctx,
+            reposCustomPropertiesForReposGetRepositoryValuesResponseValidator,
+          ),
         )
     },
   )
 
-  const reposCreateOrUpdateCustomPropertiesValuesParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-  })
+  const reposCustomPropertiesForReposCreateOrUpdateRepositoryValuesParamSchema =
+    z.object({owner: z.string(), repo: z.string()})
 
-  const reposCreateOrUpdateCustomPropertiesValuesResponseValidator =
+  const reposCustomPropertiesForReposCreateOrUpdateRepositoryValuesResponseValidator =
     responseValidationFactory(
       [
         ["204", z.undefined()],
@@ -68688,18 +84644,18 @@ export function createRouter(
     )
 
   router.patch(
-    "reposCreateOrUpdateCustomPropertiesValues",
+    "reposCustomPropertiesForReposCreateOrUpdateRepositoryValues",
     "/repos/:owner/:repo/properties/values",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          reposCreateOrUpdateCustomPropertiesValuesParamSchema,
+          reposCustomPropertiesForReposCreateOrUpdateRepositoryValuesParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          s_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
+          s_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -68725,12 +84681,16 @@ export function createRouter(
       }
 
       await implementation
-        .reposCreateOrUpdateCustomPropertiesValues(input, responder, ctx)
+        .reposCustomPropertiesForReposCreateOrUpdateRepositoryValues(
+          input,
+          responder,
+          ctx,
+        )
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            reposCreateOrUpdateCustomPropertiesValuesResponseValidator,
+            reposCustomPropertiesForReposCreateOrUpdateRepositoryValuesResponseValidator,
           ),
         )
     },
@@ -70859,7 +86819,10 @@ export function createRouter(
   })
 
   const reposDeleteReleaseAssetResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
+    [
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+    ],
     undefined,
   )
 
@@ -70881,6 +86844,9 @@ export function createRouter(
       const responder = {
         with204() {
           return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -70951,7 +86917,10 @@ export function createRouter(
   })
 
   const reposGetLatestReleaseResponseValidator = responseValidationFactory(
-    [["200", s_release]],
+    [
+      ["200", s_release],
+      ["404", s_basic_error],
+    ],
     undefined,
   )
 
@@ -70973,6 +86942,9 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<t_release>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -71141,7 +87113,10 @@ export function createRouter(
   })
 
   const reposDeleteReleaseResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
+    [
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+    ],
     undefined,
   )
 
@@ -71163,6 +87138,9 @@ export function createRouter(
       const responder = {
         with204() {
           return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -71569,6 +87547,7 @@ export function createRouter(
     [
       ["201", s_repository_ruleset],
       ["404", s_basic_error],
+      ["422", s_validation_error],
       ["500", s_basic_error],
     ],
     undefined,
@@ -71599,6 +87578,9 @@ export function createRouter(
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
         },
         with500() {
           return new KoaRuntimeResponse<t_basic_error>(500)
@@ -71807,6 +87789,7 @@ export function createRouter(
     [
       ["200", s_repository_ruleset],
       ["404", s_basic_error],
+      ["422", s_validation_error],
       ["500", s_basic_error],
     ],
     undefined,
@@ -71837,6 +87820,9 @@ export function createRouter(
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
         },
         with500() {
           return new KoaRuntimeResponse<t_basic_error>(500)
@@ -72027,7 +88013,11 @@ export function createRouter(
   const secretScanningListAlertsForRepoQuerySchema = z.object({
     state: z.enum(["open", "resolved"]).optional(),
     secret_type: z.string().optional(),
+    exclude_secret_types: z.string().optional(),
+    exclude_providers: z.string().optional(),
+    providers: z.string().optional(),
     resolution: z.string().optional(),
+    assignee: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional().default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     page: z.coerce.number().optional().default(1),
@@ -72038,6 +88028,7 @@ export function createRouter(
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
     hide_secret: PermissiveBoolean.optional().default(false),
+    is_bypassed: PermissiveBoolean.optional(),
   })
 
   const secretScanningListAlertsForRepoResponseValidator =
@@ -72189,6 +88180,7 @@ export function createRouter(
     [
       ["200", s_secret_scanning_alert],
       ["400", z.undefined()],
+      ["403", z.undefined()],
       ["404", z.undefined()],
       ["422", z.undefined()],
       [
@@ -72228,6 +88220,9 @@ export function createRouter(
         },
         with400() {
           return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<void>(403)
         },
         with404() {
           return new KoaRuntimeResponse<void>(404)
@@ -73525,164 +89520,6 @@ export function createRouter(
       .then(handleResponse(ctx, reposListTagsResponseValidator))
   })
 
-  const reposListTagProtectionParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-  })
-
-  const reposListTagProtectionResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_tag_protection)],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "reposListTagProtection",
-    "/repos/:owner/:repo/tags/protection",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reposListTagProtectionParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_tag_protection[]>(200)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reposListTagProtection(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, reposListTagProtectionResponseValidator))
-    },
-  )
-
-  const reposCreateTagProtectionParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-  })
-
-  const reposCreateTagProtectionResponseValidator = responseValidationFactory(
-    [
-      ["201", s_tag_protection],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "reposCreateTagProtection",
-    "/repos/:owner/:repo/tags/protection",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reposCreateTagProtectionParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ReposCreateTagProtectionRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_tag_protection>(201)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reposCreateTagProtection(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, reposCreateTagProtectionResponseValidator))
-    },
-  )
-
-  const reposDeleteTagProtectionParamSchema = z.object({
-    owner: z.string(),
-    repo: z.string(),
-    tag_protection_id: z.coerce.number(),
-  })
-
-  const reposDeleteTagProtectionResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.delete(
-    "reposDeleteTagProtection",
-    "/repos/:owner/:repo/tags/protection/:tag_protection_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reposDeleteTagProtectionParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reposDeleteTagProtection(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, reposDeleteTagProtectionResponseValidator))
-    },
-  )
-
   const reposDownloadTarballArchiveParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -74548,6 +90385,7 @@ export function createRouter(
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
     advanced_search: z.string().optional(),
+    search_type: z.enum(["semantic", "hybrid"]).optional(),
   })
 
   const searchIssuesAndPullRequestsResponseValidator =
@@ -74559,9 +90397,25 @@ export function createRouter(
             total_count: z.coerce.number(),
             incomplete_results: PermissiveBoolean,
             items: z.array(s_issue_search_result_item),
+            search_type: z.enum(["lexical", "semantic", "hybrid"]),
+            lexical_fallback_reason: z
+              .array(
+                z.enum([
+                  "no_text_terms",
+                  "quoted_text",
+                  "non_issue_target",
+                  "or_boolean_not_supported",
+                  "no_accessible_repos",
+                  "server_error",
+                  "only_non_semantic_fields_requested",
+                  "service_unavailable",
+                ]),
+              )
+              .optional(),
           }),
         ],
         ["304", z.undefined()],
+        ["401", s_basic_error],
         ["403", s_basic_error],
         ["422", s_validation_error],
         [
@@ -74593,11 +90447,25 @@ export function createRouter(
         return new KoaRuntimeResponse<{
           incomplete_results: boolean
           items: t_issue_search_result_item[]
+          lexical_fallback_reason?: (
+            | "no_text_terms"
+            | "quoted_text"
+            | "non_issue_target"
+            | "or_boolean_not_supported"
+            | "no_accessible_repos"
+            | "server_error"
+            | "only_non_semantic_fields_requested"
+            | "service_unavailable"
+          )[]
+          search_type: "lexical" | "semantic" | "hybrid"
           total_count: number
         }>(200)
       },
       with304() {
         return new KoaRuntimeResponse<void>(304)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_basic_error>(401)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -75042,690 +90910,6 @@ export function createRouter(
       .then(handleResponse(ctx, teamsDeleteLegacyResponseValidator))
   })
 
-  const teamsListDiscussionsLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-  })
-
-  const teamsListDiscussionsLegacyQuerySchema = z.object({
-    direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const teamsListDiscussionsLegacyResponseValidator = responseValidationFactory(
-    [["200", z.array(s_team_discussion)]],
-    undefined,
-  )
-
-  router.get(
-    "teamsListDiscussionsLegacy",
-    "/teams/:team_id/discussions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListDiscussionsLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListDiscussionsLegacyQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListDiscussionsLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsListDiscussionsLegacyResponseValidator))
-    },
-  )
-
-  const teamsCreateDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-  })
-
-  const teamsCreateDiscussionLegacyResponseValidator =
-    responseValidationFactory([["201", s_team_discussion]], undefined)
-
-  router.post(
-    "teamsCreateDiscussionLegacy",
-    "/teams/:team_id/discussions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCreateDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsCreateDiscussionLegacyRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_team_discussion>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCreateDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsCreateDiscussionLegacyResponseValidator))
-    },
-  )
-
-  const teamsGetDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsGetDiscussionLegacyResponseValidator = responseValidationFactory(
-    [["200", s_team_discussion]],
-    undefined,
-  )
-
-  router.get(
-    "teamsGetDiscussionLegacy",
-    "/teams/:team_id/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsGetDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsGetDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsGetDiscussionLegacyResponseValidator))
-    },
-  )
-
-  const teamsUpdateDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsUpdateDiscussionLegacyResponseValidator =
-    responseValidationFactory([["200", s_team_discussion]], undefined)
-
-  router.patch(
-    "teamsUpdateDiscussionLegacy",
-    "/teams/:team_id/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsUpdateDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsUpdateDiscussionLegacyRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsUpdateDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsUpdateDiscussionLegacyResponseValidator))
-    },
-  )
-
-  const teamsDeleteDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsDeleteDiscussionLegacyResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
-
-  router.delete(
-    "teamsDeleteDiscussionLegacy",
-    "/teams/:team_id/discussions/:discussion_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsDeleteDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsDeleteDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsDeleteDiscussionLegacyResponseValidator))
-    },
-  )
-
-  const teamsListDiscussionCommentsLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsListDiscussionCommentsLegacyQuerySchema = z.object({
-    direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const teamsListDiscussionCommentsLegacyResponseValidator =
-    responseValidationFactory(
-      [["200", z.array(s_team_discussion_comment)]],
-      undefined,
-    )
-
-  router.get(
-    "teamsListDiscussionCommentsLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListDiscussionCommentsLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListDiscussionCommentsLegacyQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListDiscussionCommentsLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsListDiscussionCommentsLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsCreateDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const teamsCreateDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["201", s_team_discussion_comment]], undefined)
-
-  router.post(
-    "teamsCreateDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCreateDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsCreateDiscussionCommentLegacyRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCreateDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsCreateDiscussionCommentLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsGetDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsGetDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["200", s_team_discussion_comment]], undefined)
-
-  router.get(
-    "teamsGetDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsGetDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsGetDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(ctx, teamsGetDiscussionCommentLegacyResponseValidator),
-        )
-    },
-  )
-
-  const teamsUpdateDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsUpdateDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["200", s_team_discussion_comment]], undefined)
-
-  router.patch(
-    "teamsUpdateDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsUpdateDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsUpdateDiscussionCommentLegacyRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_discussion_comment>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsUpdateDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsUpdateDiscussionCommentLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsDeleteDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const teamsDeleteDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
-
-  router.delete(
-    "teamsDeleteDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsDeleteDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsDeleteDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsDeleteDiscussionCommentLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsListForTeamDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const reactionsListForTeamDiscussionCommentLegacyQuerySchema = z.object({
-    content: z
-      .enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ])
-      .optional(),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const reactionsListForTeamDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["200", z.array(s_reaction)]], undefined)
-
-  router.get(
-    "reactionsListForTeamDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsListForTeamDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          reactionsListForTeamDiscussionCommentLegacyQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsListForTeamDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsListForTeamDiscussionCommentLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-    comment_number: z.coerce.number(),
-  })
-
-  const reactionsCreateForTeamDiscussionCommentLegacyResponseValidator =
-    responseValidationFactory([["201", s_reaction]], undefined)
-
-  router.post(
-    "reactionsCreateForTeamDiscussionCommentLegacy",
-    "/teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_reaction>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsCreateForTeamDiscussionCommentLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsCreateForTeamDiscussionCommentLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsListForTeamDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const reactionsListForTeamDiscussionLegacyQuerySchema = z.object({
-    content: z
-      .enum([
-        "+1",
-        "-1",
-        "laugh",
-        "confused",
-        "heart",
-        "hooray",
-        "rocket",
-        "eyes",
-      ])
-      .optional(),
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const reactionsListForTeamDiscussionLegacyResponseValidator =
-    responseValidationFactory([["200", z.array(s_reaction)]], undefined)
-
-  router.get(
-    "reactionsListForTeamDiscussionLegacy",
-    "/teams/:team_id/discussions/:discussion_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsListForTeamDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          reactionsListForTeamDiscussionLegacyQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_reaction[]>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsListForTeamDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsListForTeamDiscussionLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const reactionsCreateForTeamDiscussionLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    discussion_number: z.coerce.number(),
-  })
-
-  const reactionsCreateForTeamDiscussionLegacyResponseValidator =
-    responseValidationFactory([["201", s_reaction]], undefined)
-
-  router.post(
-    "reactionsCreateForTeamDiscussionLegacy",
-    "/teams/:team_id/discussions/:discussion_number/reactions",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          reactionsCreateForTeamDiscussionLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_ReactionsCreateForTeamDiscussionLegacyRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_reaction>(201)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .reactionsCreateForTeamDiscussionLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            reactionsCreateForTeamDiscussionLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
   const teamsListPendingInvitationsLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
   })
@@ -76151,239 +91335,6 @@ export function createRouter(
             teamsRemoveMembershipForUserLegacyResponseValidator,
           ),
         )
-    },
-  )
-
-  const teamsListProjectsLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-  })
-
-  const teamsListProjectsLegacyQuerySchema = z.object({
-    per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
-  })
-
-  const teamsListProjectsLegacyResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_team_project)],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "teamsListProjectsLegacy",
-    "/teams/:team_id/projects",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsListProjectsLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          teamsListProjectsLegacyQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_project[]>(200)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsListProjectsLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsListProjectsLegacyResponseValidator))
-    },
-  )
-
-  const teamsCheckPermissionsForProjectLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsCheckPermissionsForProjectLegacyResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_team_project],
-        ["404", z.undefined()],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "teamsCheckPermissionsForProjectLegacy",
-    "/teams/:team_id/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsCheckPermissionsForProjectLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_team_project>(200)
-        },
-        with404() {
-          return new KoaRuntimeResponse<void>(404)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsCheckPermissionsForProjectLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsCheckPermissionsForProjectLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsAddOrUpdateProjectPermissionsLegacyResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.undefined()],
-        [
-          "403",
-          z.object({
-            message: z.string().optional(),
-            documentation_url: z.string().optional(),
-          }),
-        ],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-      ],
-      undefined,
-    )
-
-  router.put(
-    "teamsAddOrUpdateProjectPermissionsLegacy",
-    "/teams/:team_id/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          s_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody.optional(),
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with403() {
-          return new KoaRuntimeResponse<{
-            documentation_url?: string
-            message?: string
-          }>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsAddOrUpdateProjectPermissionsLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            teamsAddOrUpdateProjectPermissionsLegacyResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const teamsRemoveProjectLegacyParamSchema = z.object({
-    team_id: z.coerce.number(),
-    project_id: z.coerce.number(),
-  })
-
-  const teamsRemoveProjectLegacyResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-    ],
-    undefined,
-  )
-
-  router.delete(
-    "teamsRemoveProjectLegacy",
-    "/teams/:team_id/projects/:project_id",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          teamsRemoveProjectLegacyParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with204() {
-          return new KoaRuntimeResponse<void>(204)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .teamsRemoveProjectLegacy(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(handleResponse(ctx, teamsRemoveProjectLegacyResponseValidator))
     },
   )
 
@@ -79212,7 +94163,15 @@ export function createRouter(
           z.object({
             total_count: z.coerce.number(),
             repository_selection: z.string().optional(),
-            repositories: z.array(s_repository),
+            repositories: z.array(
+              s_repository.merge(
+                z.object({
+                  custom_properties: z
+                    .record(z.string(), z.unknown())
+                    .optional(),
+                }),
+              ),
+            ),
           }),
         ],
         ["304", z.undefined()],
@@ -79244,7 +94203,9 @@ export function createRouter(
       const responder = {
         with200() {
           return new KoaRuntimeResponse<{
-            repositories: t_repository[]
+            repositories: (t_repository & {
+              custom_properties?: Record<string, unknown>
+            })[]
             repository_selection?: string
             total_count: number
           }>(200)
@@ -81199,66 +96160,6 @@ export function createRouter(
     },
   )
 
-  const projectsClassicCreateForAuthenticatedUserResponseValidator =
-    responseValidationFactory(
-      [
-        ["201", s_project],
-        ["304", z.undefined()],
-        ["401", s_basic_error],
-        ["403", s_basic_error],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "projectsClassicCreateForAuthenticatedUser",
-    "/user/projects",
-    async (ctx) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(
-          s_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with201() {
-          return new KoaRuntimeResponse<t_project>(201)
-        },
-        with304() {
-          return new KoaRuntimeResponse<void>(304)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with422() {
-          return new KoaRuntimeResponse<t_validation_error_simple>(422)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .projectsClassicCreateForAuthenticatedUser(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            projectsClassicCreateForAuthenticatedUserResponseValidator,
-          ),
-        )
-    },
-  )
-
   const usersListPublicEmailsForAuthenticatedUserQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
@@ -82511,6 +97412,71 @@ export function createRouter(
       .then(handleResponse(ctx, usersGetByIdResponseValidator))
   })
 
+  const projectsCreateDraftItemForAuthenticatedUserParamSchema = z.object({
+    user_id: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsCreateDraftItemForAuthenticatedUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_projects_v2_item_simple],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "projectsCreateDraftItemForAuthenticatedUser",
+    "/user/:user_id/projectsV2/:project_number/drafts",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsCreateDraftItemForAuthenticatedUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_item_simple>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsCreateDraftItemForAuthenticatedUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            projectsCreateDraftItemForAuthenticatedUserResponseValidator,
+          ),
+        )
+    },
+  )
+
   const usersListQuerySchema = z.object({
     since: z.coerce.number().optional(),
     per_page: z.coerce.number().optional().default(30),
@@ -82553,6 +97519,77 @@ export function createRouter(
       .catch(handleImplementationError)
       .then(handleResponse(ctx, usersListResponseValidator))
   })
+
+  const projectsCreateViewForUserParamSchema = z.object({
+    user_id: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsCreateViewForUserResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_view],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["503", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "projectsCreateViewForUser",
+    "/users/:user_id/projectsV2/:project_number/views",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsCreateViewForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsCreateViewForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_view>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<t_basic_error>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsCreateViewForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsCreateViewForUserResponseValidator))
+    },
+  )
 
   const usersGetByUsernameParamSchema = z.object({username: z.string()})
 
@@ -82899,6 +97936,7 @@ export function createRouter(
                   .optional(),
                 repository_id: z.coerce.number().optional(),
                 bundle_url: z.string().optional(),
+                initiator: z.string().optional(),
               }),
             )
             .optional(),
@@ -82940,6 +97978,7 @@ export function createRouter(
                 verificationMaterial?: Record<string, unknown>
               }
               bundle_url?: string
+              initiator?: string
               repository_id?: number
             }[]
           }>(200)
@@ -82962,6 +98001,847 @@ export function createRouter(
         .usersListAttestations(input, responder, ctx)
         .catch(handleImplementationError)
         .then(handleResponse(ctx, usersListAttestationsResponseValidator))
+    },
+  )
+
+  const copilotSpacesListForUserParamSchema = z.object({username: z.string()})
+
+  const copilotSpacesListForUserQuerySchema = z.object({
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const copilotSpacesListForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", z.object({spaces: z.array(s_copilot_space)})],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotSpacesListForUser",
+    "/users/:username/copilot-spaces",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotSpacesListForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            spaces: t_copilot_space[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesListForUserResponseValidator))
+    },
+  )
+
+  const copilotSpacesCreateForUserParamSchema = z.object({username: z.string()})
+
+  const copilotSpacesCreateForUserResponseValidator = responseValidationFactory(
+    [
+      ["201", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "copilotSpacesCreateForUser",
+    "/users/:username/copilot-spaces",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesCreateForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesCreateForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesCreateForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesCreateForUserResponseValidator))
+    },
+  )
+
+  const copilotSpacesGetForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesGetForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotSpacesGetForUser",
+    "/users/:username/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesGetForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesGetForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesGetForUserResponseValidator))
+    },
+  )
+
+  const copilotSpacesUpdateForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesUpdateForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", s_copilot_space],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.put(
+    "copilotSpacesUpdateForUser",
+    "/users/:username/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesUpdateForUserResponseValidator))
+    },
+  )
+
+  const copilotSpacesDeleteForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesDeleteForUserResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "copilotSpacesDeleteForUser",
+    "/users/:username/copilot-spaces/:space_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesDeleteForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesDeleteForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, copilotSpacesDeleteForUserResponseValidator))
+    },
+  )
+
+  const copilotSpacesListCollaboratorsForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesListCollaboratorsForUserResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({collaborators: z.array(s_copilot_space_collaborator)}),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesListCollaboratorsForUser",
+    "/users/:username/copilot-spaces/:space_number/collaborators",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListCollaboratorsForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            collaborators: t_copilot_space_collaborator[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListCollaboratorsForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesListCollaboratorsForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesAddCollaboratorForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesAddCollaboratorForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_copilot_space_collaborator],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotSpacesAddCollaboratorForUser",
+    "/users/:username/copilot-spaces/:space_number/collaborators",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesAddCollaboratorForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesAddCollaboratorForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space_collaborator>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesAddCollaboratorForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesAddCollaboratorForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesUpdateCollaboratorForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+    actor_type: z.enum(["User", "Team"]),
+    actor_identifier: z.string(),
+  })
+
+  const copilotSpacesUpdateCollaboratorForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_collaborator],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSpacesUpdateCollaboratorForUser",
+    "/users/:username/copilot-spaces/:space_number/collaborators/:actor_type/:actor_identifier",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateCollaboratorForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_collaborator>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateCollaboratorForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesUpdateCollaboratorForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesRemoveCollaboratorForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+    actor_type: z.enum(["User", "Team"]),
+    actor_identifier: z.string(),
+  })
+
+  const copilotSpacesRemoveCollaboratorForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotSpacesRemoveCollaboratorForUser",
+    "/users/:username/copilot-spaces/:space_number/collaborators/:actor_type/:actor_identifier",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesRemoveCollaboratorForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesRemoveCollaboratorForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesRemoveCollaboratorForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesListResourcesForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesListResourcesForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({resources: z.array(s_copilot_space_resource)})],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesListResourcesForUser",
+    "/users/:username/copilot-spaces/:space_number/resources",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesListResourcesForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            resources: t_copilot_space_resource[]
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesListResourcesForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesListResourcesForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesCreateResourceForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+  })
+
+  const copilotSpacesCreateResourceForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["201", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotSpacesCreateResourceForUser",
+    "/users/:username/copilot-spaces/:space_number/resources",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesCreateResourceForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesCreateResourceForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with201() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesCreateResourceForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesCreateResourceForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesGetResourceForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesGetResourceForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotSpacesGetResourceForUser",
+    "/users/:username/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesGetResourceForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesGetResourceForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, copilotSpacesGetResourceForUserResponseValidator),
+        )
+    },
+  )
+
+  const copilotSpacesUpdateResourceForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesUpdateResourceForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_space_resource],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "copilotSpacesUpdateResourceForUser",
+    "/users/:username/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesUpdateResourceForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_CopilotSpacesUpdateResourceForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_space_resource>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesUpdateResourceForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesUpdateResourceForUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const copilotSpacesDeleteResourceForUserParamSchema = z.object({
+    username: z.string(),
+    space_number: z.coerce.number(),
+    space_resource_id: z.coerce.number(),
+  })
+
+  const copilotSpacesDeleteResourceForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotSpacesDeleteResourceForUser",
+    "/users/:username/copilot-spaces/:space_number/resources/:space_resource_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          copilotSpacesDeleteResourceForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .copilotSpacesDeleteResourceForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            copilotSpacesDeleteResourceForUserResponseValidator,
+          ),
+        )
     },
   )
 
@@ -84132,34 +100012,37 @@ export function createRouter(
     },
   )
 
-  const projectsClassicListForUserParamSchema = z.object({username: z.string()})
+  const projectsListForUserParamSchema = z.object({username: z.string()})
 
-  const projectsClassicListForUserQuerySchema = z.object({
-    state: z.enum(["open", "closed", "all"]).optional().default("open"),
+  const projectsListForUserQuerySchema = z.object({
+    q: z.string().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
     per_page: z.coerce.number().optional().default(30),
-    page: z.coerce.number().optional().default(1),
   })
 
-  const projectsClassicListForUserResponseValidator = responseValidationFactory(
+  const projectsListForUserResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(s_project)],
-      ["422", s_validation_error],
+      ["200", z.array(s_projects_v2)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
     ],
     undefined,
   )
 
   router.get(
-    "projectsClassicListForUser",
-    "/users/:username/projects",
+    "projectsListForUser",
+    "/users/:username/projectsV2",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          projectsClassicListForUserParamSchema,
+          projectsListForUserParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsClassicListForUserQuerySchema,
+          projectsListForUserQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -84169,7 +100052,196 @@ export function createRouter(
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_project[]>(200)
+          return new KoaRuntimeResponse<t_projects_v2[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsListForUserResponseValidator))
+    },
+  )
+
+  const projectsGetForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+  })
+
+  const projectsGetForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsGetForUser",
+    "/users/:username/projectsV2/:project_number",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetForUserResponseValidator))
+    },
+  )
+
+  const projectsListFieldsForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+  })
+
+  const projectsListFieldsForUserQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const projectsListFieldsForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_projects_v2_field)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsListFieldsForUser",
+    "/users/:username/projectsV2/:project_number/fields",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListFieldsForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListFieldsForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_field[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListFieldsForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsListFieldsForUserResponseValidator))
+    },
+  )
+
+  const projectsAddFieldForUserParamSchema = z.object({
+    username: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsAddFieldForUserResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_field],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "projectsAddFieldForUser",
+    "/users/:username/projectsV2/:project_number/fields",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsAddFieldForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsAddFieldForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_field>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
         },
         with422() {
           return new KoaRuntimeResponse<t_validation_error>(422)
@@ -84180,9 +100252,445 @@ export function createRouter(
       }
 
       await implementation
-        .projectsClassicListForUser(input, responder, ctx)
+        .projectsAddFieldForUser(input, responder, ctx)
         .catch(handleImplementationError)
-        .then(handleResponse(ctx, projectsClassicListForUserResponseValidator))
+        .then(handleResponse(ctx, projectsAddFieldForUserResponseValidator))
+    },
+  )
+
+  const projectsGetFieldForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    field_id: z.coerce.number(),
+    username: z.string(),
+  })
+
+  const projectsGetFieldForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_field],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsGetFieldForUser",
+    "/users/:username/projectsV2/:project_number/fields/:field_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetFieldForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_field>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetFieldForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetFieldForUserResponseValidator))
+    },
+  )
+
+  const projectsListItemsForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+  })
+
+  const projectsListItemsForUserQuerySchema = z.object({
+    before: z.string().optional(),
+    after: z.string().optional(),
+    per_page: z.coerce.number().optional().default(30),
+    q: z.string().optional(),
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+  })
+
+  const projectsListItemsForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_projects_v2_item_with_content)],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsListItemsForUser",
+    "/users/:username/projectsV2/:project_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListItemsForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListItemsForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListItemsForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsListItemsForUserResponseValidator))
+    },
+  )
+
+  const projectsAddItemForUserParamSchema = z.object({
+    username: z.string(),
+    project_number: z.coerce.number(),
+  })
+
+  const projectsAddItemForUserResponseValidator = responseValidationFactory(
+    [
+      ["201", s_projects_v2_item_simple],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "projectsAddItemForUser",
+    "/users/:username/projectsV2/:project_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsAddItemForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsAddItemForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_projects_v2_item_simple>(201)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsAddItemForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsAddItemForUserResponseValidator))
+    },
+  )
+
+  const projectsGetUserItemParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+    item_id: z.coerce.number(),
+  })
+
+  const projectsGetUserItemQuerySchema = z.object({
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+  })
+
+  const projectsGetUserItemResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_item_with_content],
+      ["304", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "projectsGetUserItem",
+    "/users/:username/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetUserItemParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsGetUserItemQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsGetUserItem(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsGetUserItemResponseValidator))
+    },
+  )
+
+  const projectsUpdateItemForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+    item_id: z.coerce.number(),
+  })
+
+  const projectsUpdateItemForUserResponseValidator = responseValidationFactory(
+    [
+      ["200", s_projects_v2_item_with_content],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "projectsUpdateItemForUser",
+    "/users/:username/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsUpdateItemForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          s_ProjectsUpdateItemForUserRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsUpdateItemForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsUpdateItemForUserResponseValidator))
+    },
+  )
+
+  const projectsDeleteItemForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+    item_id: z.coerce.number(),
+  })
+
+  const projectsDeleteItemForUserResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "projectsDeleteItemForUser",
+    "/users/:username/projectsV2/:project_number/items/:item_id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsDeleteItemForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsDeleteItemForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, projectsDeleteItemForUserResponseValidator))
+    },
+  )
+
+  const projectsListViewItemsForUserParamSchema = z.object({
+    project_number: z.coerce.number(),
+    username: z.string(),
+    view_number: z.coerce.number(),
+  })
+
+  const projectsListViewItemsForUserQuerySchema = z.object({
+    fields: z.union([z.string(), z.array(z.string()).max(50)]).optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const projectsListViewItemsForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_projects_v2_item_with_content)],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "projectsListViewItemsForUser",
+    "/users/:username/projectsV2/:project_number/views/:view_number/items",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListViewItemsForUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsListViewItemsForUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_projects_v2_item_with_content[]>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .projectsListViewItemsForUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(ctx, projectsListViewItemsForUserResponseValidator),
+        )
     },
   )
 
@@ -84339,31 +100847,81 @@ export function createRouter(
       .then(handleResponse(ctx, reposListForUserResponseValidator))
   })
 
-  const billingGetGithubActionsBillingUserParamSchema = z.object({
-    username: z.string(),
-  })
+  const billingGetGithubBillingPremiumRequestUsageReportUserParamSchema =
+    z.object({username: z.string()})
 
-  const billingGetGithubActionsBillingUserResponseValidator =
-    responseValidationFactory([["200", s_actions_billing_usage]], undefined)
+  const billingGetGithubBillingPremiumRequestUsageReportUserQuerySchema =
+    z.object({
+      year: z.coerce.number().optional(),
+      month: z.coerce.number().optional(),
+      day: z.coerce.number().optional(),
+      model: z.string().optional(),
+      product: z.string().optional(),
+    })
+
+  const billingGetGithubBillingPremiumRequestUsageReportUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_premium_request_usage_report_user],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
 
   router.get(
-    "billingGetGithubActionsBillingUser",
-    "/users/:username/settings/billing/actions",
+    "billingGetGithubBillingPremiumRequestUsageReportUser",
+    "/users/:username/settings/billing/premium_request/usage",
     async (ctx) => {
       const input = {
         params: parseRequestInput(
-          billingGetGithubActionsBillingUserParamSchema,
+          billingGetGithubBillingPremiumRequestUsageReportUserParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
-        query: undefined,
+        query: parseRequestInput(
+          billingGetGithubBillingPremiumRequestUsageReportUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
         headers: undefined,
       }
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_actions_billing_usage>(200)
+          return new KoaRuntimeResponse<t_billing_premium_request_usage_report_user>(
+            200,
+          )
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -84371,98 +100929,16 @@ export function createRouter(
       }
 
       await implementation
-        .billingGetGithubActionsBillingUser(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            billingGetGithubActionsBillingUserResponseValidator,
-          ),
+        .billingGetGithubBillingPremiumRequestUsageReportUser(
+          input,
+          responder,
+          ctx,
         )
-    },
-  )
-
-  const billingGetGithubPackagesBillingUserParamSchema = z.object({
-    username: z.string(),
-  })
-
-  const billingGetGithubPackagesBillingUserResponseValidator =
-    responseValidationFactory([["200", s_packages_billing_usage]], undefined)
-
-  router.get(
-    "billingGetGithubPackagesBillingUser",
-    "/users/:username/settings/billing/packages",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          billingGetGithubPackagesBillingUserParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_packages_billing_usage>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .billingGetGithubPackagesBillingUser(input, responder, ctx)
         .catch(handleImplementationError)
         .then(
           handleResponse(
             ctx,
-            billingGetGithubPackagesBillingUserResponseValidator,
-          ),
-        )
-    },
-  )
-
-  const billingGetSharedStorageBillingUserParamSchema = z.object({
-    username: z.string(),
-  })
-
-  const billingGetSharedStorageBillingUserResponseValidator =
-    responseValidationFactory([["200", s_combined_billing_usage]], undefined)
-
-  router.get(
-    "billingGetSharedStorageBillingUser",
-    "/users/:username/settings/billing/shared-storage",
-    async (ctx) => {
-      const input = {
-        params: parseRequestInput(
-          billingGetSharedStorageBillingUserParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_combined_billing_usage>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      await implementation
-        .billingGetSharedStorageBillingUser(input, responder, ctx)
-        .catch(handleImplementationError)
-        .then(
-          handleResponse(
-            ctx,
-            billingGetSharedStorageBillingUserResponseValidator,
+            billingGetGithubBillingPremiumRequestUsageReportUserResponseValidator,
           ),
         )
     },
@@ -84476,7 +100952,6 @@ export function createRouter(
     year: z.coerce.number().optional(),
     month: z.coerce.number().optional(),
     day: z.coerce.number().optional(),
-    hour: z.coerce.number().optional(),
   })
 
   const billingGetGithubBillingUsageReportUserResponseValidator =
@@ -84549,6 +101024,100 @@ export function createRouter(
           handleResponse(
             ctx,
             billingGetGithubBillingUsageReportUserResponseValidator,
+          ),
+        )
+    },
+  )
+
+  const billingGetGithubBillingUsageSummaryReportUserParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const billingGetGithubBillingUsageSummaryReportUserQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    repository: z.string().optional(),
+    product: z.string().optional(),
+    sku: z.string().optional(),
+  })
+
+  const billingGetGithubBillingUsageSummaryReportUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_usage_summary_report_user],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "billingGetGithubBillingUsageSummaryReportUser",
+    "/users/:username/settings/billing/usage/summary",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubBillingUsageSummaryReportUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetGithubBillingUsageSummaryReportUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_usage_summary_report_user>(
+            200,
+          )
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .billingGetGithubBillingUsageSummaryReportUser(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(
+          handleResponse(
+            ctx,
+            billingGetGithubBillingUsageSummaryReportUserResponseValidator,
           ),
         )
     },
