@@ -173,7 +173,13 @@ export abstract class AbstractSchemaBuilder<
     // the schema library.
     if (isAnonymous && this.imports) {
       this.importHelpers(this.imports)
-      this.imports.from(this.filename).add("joiIntersect")
+
+      // todo: hack, why does the abstract schema builder know about the joiIntersect helper
+      if (this.parent) {
+        this.imports.from(this.filename).add("joiIntersect")
+        // @ts-expect-error force generation of the helper.
+        this.parent.includeIntersectHelper = true
+      }
     }
 
     let result: string

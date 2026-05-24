@@ -346,6 +346,91 @@ describe("core/input - SchemaNormalizer", () => {
       )
     })
 
+    it("squashes anonymous allOf entries", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        allOf: [
+          {type: "object", properties: {foo: {type: "string"}}},
+          {type: "object", properties: {bar: {type: "string"}}},
+          {
+            type: "object",
+            properties: {baz: {type: "string"}},
+            required: ["foo"],
+          },
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.object({
+          properties: {
+            foo: ir.string(),
+            bar: ir.string(),
+            baz: ir.string(),
+          },
+          // todo: gets skipped because not declared - we're filtering it too early.
+          // required: ["foo"],
+        }),
+      )
+    })
+
+    it("squashes anonymous allOf entries when a named entry is present", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        allOf: [
+          {$ref: "#/components/schemas/Thing"},
+          {type: "object", properties: {bar: {type: "string"}}},
+          {type: "object", properties: {baz: {type: "string"}}},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.intersection({
+          schemas: [
+            {$ref: "#/components/schemas/Thing"},
+            ir.object({
+              properties: {
+                bar: ir.string(),
+                baz: ir.string(),
+              },
+            }),
+          ],
+        }),
+      )
+    })
+
+    it("doesn't squash anonymous allOf entries when it could change the result", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        allOf: [
+          {type: "object", properties: {foo: {type: "string"}}},
+          {type: "object", properties: {bar: {type: "string"}}},
+          {$ref: "#/components/schemas/Thing"},
+          {type: "object", properties: {foobar: {type: "string"}}},
+          {type: "object", properties: {baz: {type: "string"}}},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.intersection({
+          schemas: [
+            ir.object({
+              properties: {
+                foo: ir.string(),
+                bar: ir.string(),
+              },
+            }),
+            {$ref: "#/components/schemas/Thing"},
+            ir.object({
+              properties: {
+                foobar: ir.string(),
+                baz: ir.string(),
+              },
+            }),
+          ],
+        }),
+      )
+    })
+
     it("normalizes oneOf entries and infers nullable when a null branch is present", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
@@ -382,7 +467,7 @@ describe("core/input - SchemaNormalizer", () => {
       )
     })
 
-    it("lifts the raw schema properties into an allOf", () => {
+    it("squashes an object with allOf", () => {
       const actual = schemaNormalizer.normalize({
         type: "object",
         properties: {
@@ -399,13 +484,24 @@ describe("core/input - SchemaNormalizer", () => {
       })
 
       expect(actual).toStrictEqual(
-        ir.intersection({
-          schemas: [
-            ir.object({properties: {id: ir.string()}}),
-            ir.object({properties: {name: ir.string()}}),
-          ],
-        }),
+        ir.object({properties: {id: ir.string(), name: ir.string()}}),
       )
+    })
+
+    it("handles property overwriting", () => {
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        allOf: [
+          {type: "object", properties: {a: {type: "string"}}},
+          {type: "object", properties: {a: {type: "number"}}},
+        ],
+      })
+
+      expect(actual).toMatchObject({
+        properties: {
+          a: ir.number(),
+        },
+      })
     })
 
     it("lifts the raw schema properties into an allOf when combined with oneOf", () => {
@@ -431,12 +527,7 @@ describe("core/input - SchemaNormalizer", () => {
       expect(actual).toStrictEqual(
         ir.intersection({
           schemas: [
-            ir.intersection({
-              schemas: [
-                ir.object({properties: {id: ir.string()}}),
-                ir.object({properties: {name: ir.string()}}),
-              ],
-            }),
+            ir.object({properties: {id: ir.string(), name: ir.string()}}),
             ir.union({
               schemas: [
                 ir.object({

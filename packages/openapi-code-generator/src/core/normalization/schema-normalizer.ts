@@ -499,17 +499,49 @@ export class SchemaNormalizer {
     schemas: [] | MaybeIRModel[] | [MaybeIRModel, ...MaybeIRModel[]],
   ): undefined | MaybeIRModel | IRModelIntersection {
     if (isNonEmptyArray(schemas)) {
-      if (schemas.length === 1) {
-        if (base.nullable) {
-          return {...base, type: "intersection", schemas}
+      const merged: MaybeIRModel[] = []
+
+      let previous = schemas[0]
+
+      for (const current of schemas.slice(1)) {
+        if (!isRef(previous) && !isRef(current)) {
+          if (previous.type === "object" && current.type === "object") {
+            previous = {
+              ...previous,
+              ...current,
+              required: [
+                ...new Set([
+                  ...(previous.required ?? []),
+                  ...(current.required ?? []),
+                ]),
+              ],
+              properties: {...previous.properties, ...current.properties},
+              additionalProperties:
+                current.additionalProperties ?? previous.additionalProperties,
+            }
+            continue
+          }
         }
-        return schemas[0]
+
+        merged.push(previous)
+        previous = current
       }
 
-      return {
-        ...base,
-        type: "intersection",
-        schemas,
+      merged.push(previous)
+
+      if (isNonEmptyArray(merged)) {
+        if (merged.length === 1) {
+          if (base.nullable) {
+            return {...base, type: "intersection", schemas: merged}
+          }
+          return merged[0]
+        }
+
+        return {
+          ...base,
+          type: "intersection",
+          schemas: merged,
+        }
       }
     }
 
