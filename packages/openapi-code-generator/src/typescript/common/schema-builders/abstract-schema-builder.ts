@@ -249,6 +249,24 @@ export abstract class AbstractSchemaBuilder<
       }
 
       case "object": {
+        if (
+          Object.keys(model.properties).length &&
+          model.additionalProperties
+        ) {
+          return this.fromModel(
+            {
+              isIRModel: true,
+              nullable: model.nullable,
+              type: "intersection",
+              schemas: [
+                {...model, nullable: false, additionalProperties: undefined},
+                {...model.additionalProperties, nullable: false},
+              ],
+            },
+            true,
+          )
+        }
+
         const properties =
           Object.keys(model.properties).length &&
           this.object(
@@ -266,10 +284,11 @@ export abstract class AbstractSchemaBuilder<
         const additionalProperties =
           model.additionalProperties &&
           this.fromModel(model.additionalProperties, true)
-
-        if (properties && additionalProperties) {
-          result = this.intersect([properties, additionalProperties])
-        } else if (properties) {
+        //
+        // if (properties && additionalProperties) {
+        //   result = this.intersect([properties, additionalProperties])
+        // } else
+        if (properties) {
           result = properties
         } else if (additionalProperties) {
           result = additionalProperties
@@ -335,20 +354,6 @@ export abstract class AbstractSchemaBuilder<
   protected abstract lazy(schema: string): string
 
   protected abstract intersection(model: IRModelIntersection): string
-
-  /**
-   * Equivalent to `type z = x & y` but only works on non-record object schemas
-   * @param schemas
-   * @protected
-   */
-  protected abstract merge(schemas: string[]): string
-
-  /**
-   * Equivalent to `type z = x & y`, works on any schemas
-   * @param schemas
-   * @protected
-   */
-  protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
 

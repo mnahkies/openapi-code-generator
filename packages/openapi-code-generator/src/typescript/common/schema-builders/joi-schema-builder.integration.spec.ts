@@ -450,7 +450,8 @@ describe.each(
             joi
               .object()
               .keys({ id: joi.string(), name: joi.string() })
-              .options({ stripUnknown: true }),
+              .options({ stripUnknown: true })
+              .required(),
             joi.object().pattern(joi.any(), joi.any()).required(),
           )
             .required()

@@ -867,7 +867,8 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
           joi
             .object()
             .keys({ well_defined: joi.number().required() })
-            .options({ stripUnknown: true }),
+            .options({ stripUnknown: true })
+            .required(),
           joi.object().pattern(joi.any(), joi.number().required()).required(),
         ).required()"
       `)

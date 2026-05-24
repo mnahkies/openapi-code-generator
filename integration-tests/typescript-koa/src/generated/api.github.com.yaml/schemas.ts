@@ -1350,7 +1350,7 @@ export const s_copilot_dotcom_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1378,7 +1378,7 @@ export const s_copilot_dotcom_pull_requests = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1408,7 +1408,7 @@ export const s_copilot_ide_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1465,7 +1465,7 @@ export const s_copilot_ide_code_completions = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
