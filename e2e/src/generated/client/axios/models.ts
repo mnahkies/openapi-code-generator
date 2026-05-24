@@ -55,6 +55,7 @@ export type t_GetParamsDefaultObjectQuery200Response = {
 }
 
 export type t_GetParamsMixedQuery200Response = {
+  authorIds?: number[] | undefined
   limit?: number | undefined
   statuses?: string[] | undefined
 }

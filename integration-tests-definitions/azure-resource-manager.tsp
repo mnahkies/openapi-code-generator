@@ -19,8 +19,8 @@ namespace Microsoft.ContosoProviderHub;
 /** Contoso API versions */
 enum Versions {
   /** 2021-10-01-preview version */
-  @useDependency(Azure.ResourceManager.Versions.v1_0_Preview_1)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  @previewVersion
   `2021-10-01-preview`,
 }
 
@@ -73,6 +73,28 @@ union ProvisioningState {
   Deleting: "Deleting",
 }
 
+/** Employee update request body */
+model EmployeeUpdate {
+  /** Resource tags. */
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  /** The resource-specific properties for this resource. */
+  properties?: EmployeeUpdateProperties;
+}
+
+/** Employee update properties */
+model EmployeeUpdateProperties {
+  /** Age of employee */
+  age?: int32;
+
+  /** City of employee */
+  city?: string;
+
+  /** Profile of employee */
+  @encode("base64url")
+  profile?: bytes;
+}
+
 /** Employee move request */
 model MoveRequest {
   /** The moving from location */
@@ -94,10 +116,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Employees {
   get is ArmResourceRead<Employee>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Employee>;
-  update is ArmCustomPatchSync<
-    Employee,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<Employee, EmployeeProperties>
-  >;
+  update is ArmCustomPatchSync<Employee, EmployeeUpdate>;
   delete is ArmResourceDeleteWithoutOkAsync<Employee>;
   listByResourceGroup is ArmResourceListByParent<Employee>;
   listBySubscription is ArmListBySubscription<Employee>;

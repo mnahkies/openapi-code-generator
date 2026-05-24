@@ -286,6 +286,10 @@ export function createQueryParametersRouter(
 
   const getParamsMixedQueryQuerySchema = z.object({
     limit: z.coerce.number(),
+    authorIds: z.preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.coerce.number()),
+    ),
     statuses: z.preprocess(
       (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
       z.array(z.enum(["open", "closed"])),

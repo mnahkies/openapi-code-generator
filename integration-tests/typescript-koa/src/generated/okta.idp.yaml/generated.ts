@@ -29,16 +29,20 @@ import type {
   t_CreateEmailRequestBody,
   t_CreatePasswordRequestBody,
   t_CreatePhoneRequestBody,
+  t_CreateWebAuthnRequest,
   t_DeleteAppAuthenticatorEnrollmentParamSchema,
   t_DeleteEmailParamSchema,
   t_DeletePhoneParamSchema,
+  t_DeleteWebAuthnParamSchema,
   t_Email,
   t_Error,
+  t_Error406,
   t_GetAuthenticatorParamSchema,
   t_GetAuthenticatorQuerySchema,
   t_GetEmailParamSchema,
   t_GetEnrollmentParamSchema,
   t_GetPhoneParamSchema,
+  t_GetWebAuthnParamSchema,
   t_ListAppAuthenticatorPendingPushNotificationChallengesParamSchema,
   t_ListAuthenticatorsQuerySchema,
   t_ListEnrollmentsParamSchema,
@@ -61,11 +65,14 @@ import type {
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
   t_UpdateEnrollmentParamSchema,
+  t_UpdatePasswordRequestBody,
   t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema,
   t_VerifyEmailOtpParamSchema,
   t_VerifyEmailOtpRequestBody,
   t_VerifyPhoneChallengeParamSchema,
   t_VerifyPhoneChallengeRequestBody,
+  t_WebAuthn,
+  t_WebAuthnRegistrationOptions,
 } from "./models"
 import {
   s_AppAuthenticatorEnrollment,
@@ -75,8 +82,10 @@ import {
   s_CreateEmailRequestBody,
   s_CreatePasswordRequestBody,
   s_CreatePhoneRequestBody,
+  s_CreateWebAuthnRequest,
   s_Email,
   s_Error,
+  s_Error406,
   s_OktaApplication,
   s_Organization,
   s_PasswordResponse,
@@ -91,8 +100,11 @@ import {
   s_SendPhoneChallengeRequestBody,
   s_UpdateAppAuthenticatorEnrollmentRequest,
   s_UpdateAuthenticatorEnrollmentRequest,
+  s_UpdatePasswordRequestBody,
   s_VerifyEmailOtpRequestBody,
   s_VerifyPhoneChallengeRequestBody,
+  s_WebAuthn,
+  s_WebAuthnRegistrationOptions,
 } from "./schemas"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
@@ -101,6 +113,7 @@ export type CreateAppAuthenticatorEnrollmentResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type CreateAppAuthenticatorEnrollment = (
@@ -114,6 +127,7 @@ export type CreateAppAuthenticatorEnrollment = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -121,6 +135,7 @@ export type VerifyAppAuthenticatorPushNotificationChallengeResponder = {
   with200(): KoaRuntimeResponse<void>
   with204(): KoaRuntimeResponse<void>
   with400(): KoaRuntimeResponse<void>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type VerifyAppAuthenticatorPushNotificationChallenge = (
@@ -137,6 +152,7 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
   | Res<200, void>
   | Res<204, void>
   | Res<400, void>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -145,6 +161,7 @@ export type UpdateAppAuthenticatorEnrollmentResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type UpdateAppAuthenticatorEnrollment = (
@@ -162,6 +179,7 @@ export type UpdateAppAuthenticatorEnrollment = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -170,6 +188,7 @@ export type DeleteAppAuthenticatorEnrollmentResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type DeleteAppAuthenticatorEnrollment = (
@@ -187,12 +206,14 @@ export type DeleteAppAuthenticatorEnrollment = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type ListAppAuthenticatorPendingPushNotificationChallengesResponder = {
   with200(): KoaRuntimeResponse<t_PushNotificationChallenge[]>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ListAppAuthenticatorPendingPushNotificationChallenges = (
@@ -208,12 +229,14 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PushNotificationChallenge[]>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type ListAuthenticatorsResponder = {
   with200(): KoaRuntimeResponse<t_Authenticator[]>
   with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -225,6 +248,7 @@ export type ListAuthenticators = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Authenticator[]>
   | Res<403, t_Error>
+  | Res<406, t_Error406>
   | Res<429, t_Error>
   | typeof SkipResponse
 >
@@ -233,6 +257,7 @@ export type GetAuthenticatorResponder = {
   with200(): KoaRuntimeResponse<t_Authenticator>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -250,6 +275,7 @@ export type GetAuthenticator = (
   | Res<200, t_Authenticator>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | Res<429, t_Error>
   | typeof SkipResponse
 >
@@ -258,6 +284,7 @@ export type ListEnrollmentsResponder = {
   with200(): KoaRuntimeResponse<t_AuthenticatorEnrollment[]>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -270,6 +297,7 @@ export type ListEnrollments = (
   | Res<200, t_AuthenticatorEnrollment[]>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | Res<429, t_Error>
   | typeof SkipResponse
 >
@@ -278,6 +306,7 @@ export type GetEnrollmentResponder = {
   with200(): KoaRuntimeResponse<t_AuthenticatorEnrollment>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -290,6 +319,7 @@ export type GetEnrollment = (
   | Res<200, t_AuthenticatorEnrollment>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | Res<429, t_Error>
   | typeof SkipResponse
 >
@@ -299,6 +329,7 @@ export type UpdateEnrollmentResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
 export type UpdateEnrollment = (
@@ -316,12 +347,14 @@ export type UpdateEnrollment = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error>
   | typeof SkipResponse
 >
 
 export type ListEmailsResponder = {
   with200(): KoaRuntimeResponse<t_Email[]>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ListEmails = (
@@ -332,6 +365,7 @@ export type ListEmails = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Email[]>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -340,6 +374,7 @@ export type CreateEmailResponder = {
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with409(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -353,6 +388,7 @@ export type CreateEmail = (
   | Res<400, t_Error>
   | Res<401, t_Error>
   | Res<403, t_Error>
+  | Res<406, t_Error406>
   | Res<409, t_Error>
   | typeof SkipResponse
 >
@@ -360,6 +396,7 @@ export type CreateEmail = (
 export type GetEmailResponder = {
   with200(): KoaRuntimeResponse<t_Email>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetEmail = (
@@ -370,6 +407,7 @@ export type GetEmail = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Email>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -378,6 +416,7 @@ export type DeleteEmailResponder = {
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type DeleteEmail = (
@@ -390,6 +429,7 @@ export type DeleteEmail = (
   | Res<400, t_Error>
   | Res<401, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -419,6 +459,7 @@ export type SendEmailChallengeResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type SendEmailChallenge = (
@@ -460,6 +501,7 @@ export type SendEmailChallenge = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -488,6 +530,7 @@ export type PollChallengeForEmailMagicLinkResponder = {
   }>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type PollChallengeForEmailMagicLink = (
@@ -523,6 +566,7 @@ export type PollChallengeForEmailMagicLink = (
     >
   | Res<401, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -531,6 +575,7 @@ export type VerifyEmailOtpResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type VerifyEmailOtp = (
@@ -548,12 +593,14 @@ export type VerifyEmailOtp = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type ListOktaApplicationsResponder = {
   with200(): KoaRuntimeResponse<t_OktaApplication[]>
   with400(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ListOktaApplications = (
@@ -564,12 +611,14 @@ export type ListOktaApplications = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_OktaApplication[]>
   | Res<400, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type GetOrganizationResponder = {
   with200(): KoaRuntimeResponse<t_Organization>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetOrganization = (
@@ -580,12 +629,14 @@ export type GetOrganization = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Organization>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type GetPasswordResponder = {
   with200(): KoaRuntimeResponse<t_PasswordResponse>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetPassword = (
@@ -596,6 +647,7 @@ export type GetPassword = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_PasswordResponse>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -604,6 +656,7 @@ export type CreatePasswordResponder = {
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type CreatePassword = (
@@ -616,6 +669,7 @@ export type CreatePassword = (
   | Res<400, t_Error>
   | Res<401, t_Error>
   | Res<403, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -624,6 +678,7 @@ export type ReplacePasswordResponder = {
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ReplacePassword = (
@@ -636,6 +691,7 @@ export type ReplacePassword = (
   | Res<400, t_Error>
   | Res<401, t_Error>
   | Res<403, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -643,6 +699,7 @@ export type DeletePasswordResponder = {
   with204(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type DeletePassword = (
@@ -654,12 +711,50 @@ export type DeletePassword = (
   | Res<204, void>
   | Res<401, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
+  | typeof SkipResponse
+>
+
+export type UpdatePasswordResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_Error>
+  with401(): KoaRuntimeResponse<t_Error>
+  with403(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type UpdatePassword = (
+  params: Params<void, void, t_UpdatePasswordRequestBody, void>,
+  respond: UpdatePasswordResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | typeof SkipResponse
+>
+
+export type GetPasswordRequirementsResponder = {
+  with200(): KoaRuntimeResponse<t_PasswordResponse>
+  with401(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type GetPasswordRequirements = (
+  params: Params<void, void, void, void>,
+  respond: GetPasswordRequirementsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_PasswordResponse>
+  | Res<401, t_Error>
   | typeof SkipResponse
 >
 
 export type ListPhonesResponder = {
   with200(): KoaRuntimeResponse<t_Phone[]>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ListPhones = (
@@ -670,6 +765,7 @@ export type ListPhones = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Phone[]>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -678,6 +774,7 @@ export type CreatePhoneResponder = {
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with409(): KoaRuntimeResponse<t_Error>
   with500(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
@@ -692,6 +789,7 @@ export type CreatePhone = (
   | Res<400, t_Error>
   | Res<401, t_Error>
   | Res<403, t_Error>
+  | Res<406, t_Error406>
   | Res<409, t_Error>
   | Res<500, t_Error>
   | typeof SkipResponse
@@ -701,6 +799,7 @@ export type GetPhoneResponder = {
   with200(): KoaRuntimeResponse<t_Phone>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetPhone = (
@@ -712,6 +811,7 @@ export type GetPhone = (
   | Res<200, t_Phone>
   | Res<401, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -720,6 +820,7 @@ export type DeletePhoneResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type DeletePhone = (
@@ -732,6 +833,7 @@ export type DeletePhone = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -750,6 +852,7 @@ export type SendPhoneChallengeResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with500(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -781,6 +884,7 @@ export type SendPhoneChallenge = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | Res<500, t_Error>
   | typeof SkipResponse
 >
@@ -791,6 +895,7 @@ export type VerifyPhoneChallengeResponder = {
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
   with409(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -810,6 +915,7 @@ export type VerifyPhoneChallenge = (
   | Res<401, t_Error>
   | Res<403, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error406>
   | Res<409, t_Error>
   | typeof SkipResponse
 >
@@ -817,6 +923,7 @@ export type VerifyPhoneChallenge = (
 export type GetProfileResponder = {
   with200(): KoaRuntimeResponse<t_Profile>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetProfile = (
@@ -827,6 +934,7 @@ export type GetProfile = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Profile>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -834,6 +942,7 @@ export type ReplaceProfileResponder = {
   with200(): KoaRuntimeResponse<t_Profile>
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type ReplaceProfile = (
@@ -845,12 +954,14 @@ export type ReplaceProfile = (
   | Res<200, t_Profile>
   | Res<400, t_Error>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
 export type GetProfileSchemaResponder = {
   with200(): KoaRuntimeResponse<t_Schema>
   with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
 } & KoaRuntimeResponder
 
 export type GetProfileSchema = (
@@ -861,6 +972,7 @@ export type GetProfileSchema = (
   | KoaRuntimeResponse<unknown>
   | Res<200, t_Schema>
   | Res<401, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -868,6 +980,7 @@ export type DeleteSessionsResponder = {
   with204(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
 export type DeleteSessions = (
@@ -879,6 +992,109 @@ export type DeleteSessions = (
   | Res<204, void>
   | Res<401, t_Error>
   | Res<404, t_Error>
+  | Res<406, t_Error>
+  | typeof SkipResponse
+>
+
+export type ListWebAuthnResponder = {
+  with200(): KoaRuntimeResponse<t_WebAuthn>
+  with401(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
+} & KoaRuntimeResponder
+
+export type ListWebAuthn = (
+  params: Params<void, void, void, void>,
+  respond: ListWebAuthnResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_WebAuthn>
+  | Res<401, t_Error>
+  | Res<406, t_Error406>
+  | typeof SkipResponse
+>
+
+export type CreateWebAuthnEnrollmentResponder = {
+  with200(): KoaRuntimeResponse<t_WebAuthn>
+  with400(): KoaRuntimeResponse<t_Error>
+  with401(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
+} & KoaRuntimeResponder
+
+export type CreateWebAuthnEnrollment = (
+  params: Params<void, void, t_CreateWebAuthnRequest, void>,
+  respond: CreateWebAuthnEnrollmentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_WebAuthn>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
+  | Res<406, t_Error406>
+  | typeof SkipResponse
+>
+
+export type StartWebAuthnEnrollmentResponder = {
+  with200(): KoaRuntimeResponse<t_WebAuthnRegistrationOptions>
+  with400(): KoaRuntimeResponse<t_Error>
+  with401(): KoaRuntimeResponse<t_Error>
+  with403(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
+} & KoaRuntimeResponder
+
+export type StartWebAuthnEnrollment = (
+  params: Params<void, void, void, void>,
+  respond: StartWebAuthnEnrollmentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_WebAuthnRegistrationOptions>
+  | Res<400, t_Error>
+  | Res<401, t_Error>
+  | Res<403, t_Error>
+  | Res<406, t_Error406>
+  | typeof SkipResponse
+>
+
+export type GetWebAuthnResponder = {
+  with200(): KoaRuntimeResponse<t_WebAuthn>
+  with401(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
+} & KoaRuntimeResponder
+
+export type GetWebAuthn = (
+  params: Params<t_GetWebAuthnParamSchema, void, void, void>,
+  respond: GetWebAuthnResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<200, t_WebAuthn>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
+  | Res<406, t_Error406>
+  | typeof SkipResponse
+>
+
+export type DeleteWebAuthnResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with401(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+  with406(): KoaRuntimeResponse<t_Error406>
+} & KoaRuntimeResponder
+
+export type DeleteWebAuthn = (
+  params: Params<t_DeleteWebAuthnParamSchema, void, void, void>,
+  respond: DeleteWebAuthnResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Res<204, void>
+  | Res<401, t_Error>
+  | Res<404, t_Error>
+  | Res<406, t_Error406>
   | typeof SkipResponse
 >
 
@@ -906,6 +1122,8 @@ export type Implementation = {
   createPassword: CreatePassword
   replacePassword: ReplacePassword
   deletePassword: DeletePassword
+  updatePassword: UpdatePassword
+  getPasswordRequirements: GetPasswordRequirements
   listPhones: ListPhones
   createPhone: CreatePhone
   getPhone: GetPhone
@@ -916,6 +1134,11 @@ export type Implementation = {
   replaceProfile: ReplaceProfile
   getProfileSchema: GetProfileSchema
   deleteSessions: DeleteSessions
+  listWebAuthn: ListWebAuthn
+  createWebAuthnEnrollment: CreateWebAuthnEnrollment
+  startWebAuthnEnrollment: StartWebAuthnEnrollment
+  getWebAuthn: GetWebAuthn
+  deleteWebAuthn: DeleteWebAuthn
 }
 
 export function createRouter(
@@ -936,6 +1159,7 @@ export function createRouter(
         ["401", s_Error],
         ["403", s_Error],
         ["404", s_Error],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -971,6 +1195,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -998,6 +1225,7 @@ export function createRouter(
         ["200", z.undefined()],
         ["204", z.undefined()],
         ["400", z.undefined()],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -1031,6 +1259,9 @@ export function createRouter(
         with400() {
           return new KoaRuntimeResponse<void>(400)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1059,6 +1290,7 @@ export function createRouter(
         ["401", s_Error],
         ["403", s_Error],
         ["404", s_Error],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -1095,6 +1327,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1123,6 +1358,7 @@ export function createRouter(
         ["401", s_Error],
         ["403", s_Error],
         ["404", s_Error],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -1155,6 +1391,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1180,6 +1419,7 @@ export function createRouter(
       [
         ["200", z.array(s_PushNotificationChallenge)],
         ["401", s_Error],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -1206,6 +1446,9 @@ export function createRouter(
         with401() {
           return new KoaRuntimeResponse<t_Error>(401)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1228,13 +1471,14 @@ export function createRouter(
   )
 
   const listAuthenticatorsQuerySchema = z.object({
-    expand: z.string().optional(),
+    expand: z.enum(["enrollments", "requirements"]).optional(),
   })
 
   const listAuthenticatorsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_Authenticator)],
       ["403", s_Error],
+      ["406", s_Error406],
       ["429", s_Error],
     ],
     undefined,
@@ -1262,6 +1506,9 @@ export function createRouter(
         with403() {
           return new KoaRuntimeResponse<t_Error>(403)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },
@@ -1279,13 +1526,16 @@ export function createRouter(
 
   const getAuthenticatorParamSchema = z.object({authenticatorId: z.string()})
 
-  const getAuthenticatorQuerySchema = z.object({expand: z.string().optional()})
+  const getAuthenticatorQuerySchema = z.object({
+    expand: z.enum(["enrollments", "requirements"]).optional(),
+  })
 
   const getAuthenticatorResponseValidator = responseValidationFactory(
     [
       ["200", s_Authenticator],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
       ["429", s_Error],
     ],
     undefined,
@@ -1320,6 +1570,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },
@@ -1342,6 +1595,7 @@ export function createRouter(
       ["200", z.array(s_AuthenticatorEnrollment)],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
       ["429", s_Error],
     ],
     undefined,
@@ -1372,6 +1626,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },
@@ -1397,6 +1654,7 @@ export function createRouter(
       ["200", s_AuthenticatorEnrollment],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
       ["429", s_Error],
     ],
     undefined,
@@ -1427,6 +1685,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },
@@ -1453,6 +1714,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error],
     ],
     undefined,
   )
@@ -1489,6 +1751,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1505,6 +1770,7 @@ export function createRouter(
     [
       ["200", z.array(s_Email)],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1524,6 +1790,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -1541,6 +1810,7 @@ export function createRouter(
       ["400", s_Error],
       ["401", s_Error],
       ["403", s_Error],
+      ["406", s_Error406],
       ["409", s_Error],
     ],
     undefined,
@@ -1571,6 +1841,9 @@ export function createRouter(
       with403() {
         return new KoaRuntimeResponse<t_Error>(403)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       with409() {
         return new KoaRuntimeResponse<t_Error>(409)
       },
@@ -1591,6 +1864,7 @@ export function createRouter(
     [
       ["200", s_Email],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1614,6 +1888,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -1633,6 +1910,7 @@ export function createRouter(
       ["400", s_Error],
       ["401", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1661,6 +1939,9 @@ export function createRouter(
       },
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
@@ -1699,6 +1980,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1756,6 +2038,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1801,6 +2086,7 @@ export function createRouter(
         ],
         ["401", s_Error],
         ["404", s_Error],
+        ["406", s_Error406],
       ],
       undefined,
     )
@@ -1851,6 +2137,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1876,6 +2165,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1912,6 +2202,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1928,6 +2221,7 @@ export function createRouter(
     [
       ["200", z.array(s_OktaApplication)],
       ["400", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1950,6 +2244,9 @@ export function createRouter(
         with400() {
           return new KoaRuntimeResponse<t_Error>(400)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -1966,6 +2263,7 @@ export function createRouter(
     [
       ["200", s_Organization],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -1985,6 +2283,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2000,6 +2301,7 @@ export function createRouter(
     [
       ["200", s_PasswordResponse],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2019,6 +2321,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2036,6 +2341,7 @@ export function createRouter(
       ["400", s_Error],
       ["401", s_Error],
       ["403", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2065,6 +2371,9 @@ export function createRouter(
       with403() {
         return new KoaRuntimeResponse<t_Error>(403)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2082,6 +2391,7 @@ export function createRouter(
       ["400", s_Error],
       ["401", s_Error],
       ["403", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2111,6 +2421,9 @@ export function createRouter(
       with403() {
         return new KoaRuntimeResponse<t_Error>(403)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2127,6 +2440,7 @@ export function createRouter(
       ["204", z.undefined()],
       ["401", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2149,6 +2463,9 @@ export function createRouter(
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2160,10 +2477,99 @@ export function createRouter(
       .then(handleResponse(ctx, deletePasswordResponseValidator))
   })
 
+  const updatePasswordResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["400", s_Error],
+      ["401", s_Error],
+      ["403", s_Error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "updatePassword",
+    "/idp/myaccount/password/change-password",
+    async (ctx) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          s_UpdatePasswordRequestBody,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .updatePassword(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, updatePasswordResponseValidator))
+    },
+  )
+
+  const getPasswordRequirementsResponseValidator = responseValidationFactory(
+    [
+      ["200", s_PasswordResponse],
+      ["401", s_Error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "getPasswordRequirements",
+    "/idp/myaccount/password/complexity-requirements",
+    async (ctx) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_PasswordResponse>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .getPasswordRequirements(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, getPasswordRequirementsResponseValidator))
+    },
+  )
+
   const listPhonesResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_Phone)],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2183,6 +2589,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2200,6 +2609,7 @@ export function createRouter(
       ["400", s_Error],
       ["401", s_Error],
       ["403", s_Error],
+      ["406", s_Error406],
       ["409", s_Error],
       ["500", s_Error],
     ],
@@ -2231,6 +2641,9 @@ export function createRouter(
       with403() {
         return new KoaRuntimeResponse<t_Error>(403)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       with409() {
         return new KoaRuntimeResponse<t_Error>(409)
       },
@@ -2255,6 +2668,7 @@ export function createRouter(
       ["200", s_Phone],
       ["401", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2281,6 +2695,9 @@ export function createRouter(
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2300,6 +2717,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2328,6 +2746,9 @@ export function createRouter(
       },
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
@@ -2363,6 +2784,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
       ["500", s_Error],
     ],
     undefined,
@@ -2412,6 +2834,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with500() {
           return new KoaRuntimeResponse<t_Error>(500)
         },
@@ -2436,6 +2861,7 @@ export function createRouter(
       ["401", s_Error],
       ["403", s_Error],
       ["404", s_Error],
+      ["406", s_Error406],
       ["409", s_Error],
     ],
     undefined,
@@ -2476,6 +2902,9 @@ export function createRouter(
         with404() {
           return new KoaRuntimeResponse<t_Error>(404)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         with409() {
           return new KoaRuntimeResponse<t_Error>(409)
         },
@@ -2495,6 +2924,7 @@ export function createRouter(
     [
       ["200", s_Profile],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2514,6 +2944,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2530,6 +2963,7 @@ export function createRouter(
       ["200", s_Profile],
       ["400", s_Error],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2556,6 +2990,9 @@ export function createRouter(
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2571,6 +3008,7 @@ export function createRouter(
     [
       ["200", s_Schema],
       ["401", s_Error],
+      ["406", s_Error406],
     ],
     undefined,
   )
@@ -2593,6 +3031,9 @@ export function createRouter(
         with401() {
           return new KoaRuntimeResponse<t_Error>(401)
         },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
         },
@@ -2610,6 +3051,7 @@ export function createRouter(
       ["204", z.undefined()],
       ["401", s_Error],
       ["404", s_Error],
+      ["406", s_Error],
     ],
     undefined,
   )
@@ -2632,6 +3074,9 @@ export function createRouter(
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)
       },
+      with406() {
+        return new KoaRuntimeResponse<t_Error>(406)
+      },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
       },
@@ -2642,6 +3087,248 @@ export function createRouter(
       .catch(handleImplementationError)
       .then(handleResponse(ctx, deleteSessionsResponseValidator))
   })
+
+  const listWebAuthnResponseValidator = responseValidationFactory(
+    [
+      ["200", s_WebAuthn],
+      ["401", s_Error],
+      ["406", s_Error406],
+    ],
+    undefined,
+  )
+
+  router.get("listWebAuthn", "/idp/myaccount/webauthn", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_WebAuthn>(200)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .listWebAuthn(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, listWebAuthnResponseValidator))
+  })
+
+  const createWebAuthnEnrollmentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_WebAuthn],
+      ["400", s_Error],
+      ["401", s_Error],
+      ["404", s_Error],
+      ["406", s_Error406],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "createWebAuthnEnrollment",
+    "/idp/myaccount/webauthn",
+    async (ctx) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          s_CreateWebAuthnRequest,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_WebAuthn>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .createWebAuthnEnrollment(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, createWebAuthnEnrollmentResponseValidator))
+    },
+  )
+
+  const startWebAuthnEnrollmentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_WebAuthnRegistrationOptions],
+      ["400", s_Error],
+      ["401", s_Error],
+      ["403", s_Error],
+      ["406", s_Error406],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "startWebAuthnEnrollment",
+    "/idp/myaccount/webauthn/registration",
+    async (ctx) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_WebAuthnRegistrationOptions>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_Error>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .startWebAuthnEnrollment(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, startWebAuthnEnrollmentResponseValidator))
+    },
+  )
+
+  const getWebAuthnParamSchema = z.object({id: z.string()})
+
+  const getWebAuthnResponseValidator = responseValidationFactory(
+    [
+      ["200", s_WebAuthn],
+      ["401", s_Error],
+      ["404", s_Error],
+      ["406", s_Error406],
+    ],
+    undefined,
+  )
+
+  router.get("getWebAuthn", "/idp/myaccount/webauthn/:id", async (ctx) => {
+    const input = {
+      params: parseRequestInput(
+        getWebAuthnParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_WebAuthn>(200)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_Error>(404)
+      },
+      with406() {
+        return new KoaRuntimeResponse<t_Error406>(406)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .getWebAuthn(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, getWebAuthnResponseValidator))
+  })
+
+  const deleteWebAuthnParamSchema = z.object({id: z.string()})
+
+  const deleteWebAuthnResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["401", s_Error],
+      ["404", s_Error],
+      ["406", s_Error406],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "deleteWebAuthn",
+    "/idp/myaccount/webauthn/:id",
+    async (ctx) => {
+      const input = {
+        params: parseRequestInput(
+          deleteWebAuthnParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        with406() {
+          return new KoaRuntimeResponse<t_Error406>(406)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      await implementation
+        .deleteWebAuthn(input, responder, ctx)
+        .catch(handleImplementationError)
+        .then(handleResponse(ctx, deleteWebAuthnResponseValidator))
+    },
+  )
 
   return router
 }

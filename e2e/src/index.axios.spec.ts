@@ -509,12 +509,14 @@ describe.each(
       const {status, data} = await client.getParamsMixedQuery({
         limit: 10,
         statuses: ["open", "closed"],
+        authorIds: [1, 2, 3],
       })
 
       expect(status).toBe(200)
       expect(data).toEqual({
         limit: 10,
         statuses: ["open", "closed"],
+        authorIds: [1, 2, 3],
       })
     })
   })

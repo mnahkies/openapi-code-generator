@@ -35,7 +35,9 @@ import type {
   t_ActionsSetSelectedReposForOrgSecretRequestBody,
   t_ActionsSetSelectedReposForOrgVariableRequestBody,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
   t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
   t_ActionsUpdateEnvironmentVariableRequestBody,
   t_ActionsUpdateHostedRunnerForOrgRequestBody,
   t_ActionsUpdateOrgVariableRequestBody,
@@ -45,6 +47,15 @@ import type {
   t_ActivityMarkRepoNotificationsAsReadRequestBody,
   t_ActivitySetRepoSubscriptionRequestBody,
   t_ActivitySetThreadSubscriptionRequestBody,
+  t_AgentsCreateOrgVariableRequestBody,
+  t_AgentsCreateOrUpdateOrgSecretRequestBody,
+  t_AgentsCreateOrUpdateRepoSecretRequestBody,
+  t_AgentsCreateRepoVariableRequestBody,
+  t_AgentsSetSelectedReposForOrgSecretRequestBody,
+  t_AgentsSetSelectedReposForOrgVariableRequestBody,
+  t_AgentsUpdateOrgVariableRequestBody,
+  t_AgentsUpdateRepoVariableRequestBody,
+  t_AgentTasksCreateTaskInRepoRequestBody,
   t_AppsCheckTokenRequestBody,
   t_AppsCreateInstallationAccessTokenRequestBody,
   t_AppsDeleteAuthorizationRequestBody,
@@ -52,13 +63,25 @@ import type {
   t_AppsResetTokenRequestBody,
   t_AppsScopeTokenRequestBody,
   t_AppsUpdateWebhookConfigForAppRequestBody,
-  t_actions_billing_usage,
+  t_actions_artifact_and_log_retention,
+  t_actions_artifact_and_log_retention_response,
   t_actions_cache_list,
+  t_actions_cache_retention_limit_for_enterprise,
+  t_actions_cache_retention_limit_for_organization,
+  t_actions_cache_retention_limit_for_repository,
+  t_actions_cache_storage_limit_for_enterprise,
+  t_actions_cache_storage_limit_for_organization,
+  t_actions_cache_storage_limit_for_repository,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
+  t_actions_fork_pr_contributor_approval,
+  t_actions_fork_pr_workflows_private_repos,
+  t_actions_fork_pr_workflows_private_repos_request,
   t_actions_get_default_workflow_permissions,
   t_actions_hosted_runner,
-  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_curated_image,
+  t_actions_hosted_runner_custom_image,
+  t_actions_hosted_runner_custom_image_version,
   t_actions_hosted_runner_limits,
   t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
@@ -77,12 +100,18 @@ import type {
   t_api_insights_user_stats,
   t_api_overview,
   t_artifact,
+  t_artifact_deployment_record,
   t_authentication_token,
   t_authorization,
   t_autolink,
+  t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
+  t_billing_premium_request_usage_report_org,
+  t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
   t_billing_usage_report_user,
+  t_billing_usage_summary_report_org,
+  t_billing_usage_summary_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -121,13 +150,32 @@ import type {
   t_CodespacesUpdateForAuthenticatedUserRequestBody,
   t_CopilotAddCopilotSeatsForTeamsRequestBody,
   t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+  t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+  t_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+  t_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSpacesAddCollaboratorForOrgRequestBody,
+  t_CopilotSpacesAddCollaboratorForUserRequestBody,
+  t_CopilotSpacesCreateForOrgRequestBody,
+  t_CopilotSpacesCreateForUserRequestBody,
+  t_CopilotSpacesCreateResourceForOrgRequestBody,
+  t_CopilotSpacesCreateResourceForUserRequestBody,
+  t_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+  t_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+  t_CopilotSpacesUpdateForOrgRequestBody,
+  t_CopilotSpacesUpdateForUserRequestBody,
+  t_CopilotSpacesUpdateResourceForOrgRequestBody,
+  t_CopilotSpacesUpdateResourceForUserRequestBody,
   t_CredentialsRevokeRequestBody,
   t_campaign_state,
   t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
+  t_check_immutable_releases,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
@@ -138,8 +186,11 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_setup,
+  t_code_quality_setup_update,
+  t_code_quality_setup_update_response,
   t_code_scanning_alert,
-  t_code_scanning_alert_instance,
+  t_code_scanning_alert_instance_list,
   t_code_scanning_alert_items,
   t_code_scanning_alert_severity,
   t_code_scanning_alert_state_query,
@@ -177,14 +228,15 @@ import type {
   t_codespaces_secret,
   t_codespaces_user_public_key,
   t_collaborator,
-  t_combined_billing_usage,
   t_combined_commit_status,
   t_commit,
   t_commit_activity,
   t_commit_comment,
-  t_commit_comparison,
   t_commit_search_result_item,
   t_community_profile,
+  t_concurrency_group,
+  t_concurrency_group_list,
+  t_concurrency_group_run_list,
   t_content_directory,
   t_content_file,
   t_content_submodule,
@@ -192,8 +244,14 @@ import type {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_copilot_organization_content_exclusion_details,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_space,
+  t_copilot_space_collaborator,
+  t_copilot_space_resource,
+  t_copilot_usage_metrics_1_day_report,
+  t_copilot_usage_metrics_28_day_report,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -201,10 +259,13 @@ import type {
   t_custom_property_value,
   t_DependabotCreateOrUpdateOrgSecretRequestBody,
   t_DependabotCreateOrUpdateRepoSecretRequestBody,
+  t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
   t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
   t_DependabotSetSelectedReposForOrgSecretRequestBody,
   t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
   t_DependabotUpdateRepositoryAccessForOrgRequestBody,
+  t_delete_budget,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -220,8 +281,15 @@ import type {
   t_deployment_protection_rule,
   t_deployment_status,
   t_diff_entry,
+  t_EnterpriseTeamMembershipsBulkAddRequestBody,
+  t_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+  t_EnterpriseTeamOrganizationsBulkAddRequestBody,
+  t_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+  t_EnterpriseTeamsCreateRequestBody,
+  t_EnterpriseTeamsUpdateRequestBody,
   t_email,
   t_empty_object,
+  t_enterprise_team,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -238,6 +306,8 @@ import type {
   t_GitCreateTagRequestBody,
   t_GitCreateTreeRequestBody,
   t_GitUpdateRefRequestBody,
+  t_get_all_budgets,
+  t_get_budget,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
@@ -255,6 +325,8 @@ import type {
   t_hook_delivery_item,
   t_hovercard,
   t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddBlockedByDependencyRequestBody,
+  t_IssuesAddIssueFieldValuesRequestBody,
   t_IssuesAddLabelsRequestBody,
   t_IssuesAddSubIssueRequestBody,
   t_IssuesCreateCommentRequestBody,
@@ -265,11 +337,13 @@ import type {
   t_IssuesRemoveAssigneesRequestBody,
   t_IssuesRemoveSubIssueRequestBody,
   t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetIssueFieldValuesRequestBody,
   t_IssuesSetLabelsRequestBody,
   t_IssuesUpdateCommentRequestBody,
   t_IssuesUpdateLabelRequestBody,
   t_IssuesUpdateMilestoneRequestBody,
   t_IssuesUpdateRequestBody,
+  t_immutable_releases_organization_settings,
   t_import,
   t_installation,
   t_installation_token,
@@ -281,6 +355,8 @@ import type {
   t_issue_comment,
   t_issue_event,
   t_issue_event_for_issue,
+  t_issue_field,
+  t_issue_field_value,
   t_issue_search_result_item,
   t_issue_type,
   t_job,
@@ -307,16 +383,22 @@ import type {
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
   t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateArtifactDeploymentRecordRequestBody,
+  t_OrgsCreateArtifactStorageRecordRequestBody,
   t_OrgsCreateInvitationRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
   t_OrgsCreateWebhookRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
   t_OrgsDeleteAttestationsBulkRequestBody,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
   t_OrgsListAttestationsBulkRequestBody,
   t_OrgsReviewPatGrantRequestRequestBody,
   t_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  t_OrgsSetClusterDeploymentRecordsRequestBody,
+  t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+  t_OrgsSetImmutableReleasesSettingsRequestBody,
   t_OrgsSetMembershipForUserRequestBody,
   t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
   t_OrgsUpdatePatAccessesRequestBody,
@@ -324,6 +406,8 @@ import type {
   t_OrgsUpdateRequestBody,
   t_OrgsUpdateWebhookConfigForOrgRequestBody,
   t_OrgsUpdateWebhookRequestBody,
+  t_oidc_custom_property_inclusion,
+  t_oidc_custom_property_inclusion_input,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -333,6 +417,7 @@ import type {
   t_org_repo_custom_property_values,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_field,
   t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
@@ -342,20 +427,20 @@ import type {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_field,
   t_organization_update_issue_type,
   t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
   t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
-  t_ProjectsClassicAddCollaboratorRequestBody,
-  t_ProjectsClassicCreateCardRequestBody,
-  t_ProjectsClassicCreateColumnRequestBody,
-  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-  t_ProjectsClassicCreateForOrgRequestBody,
-  t_ProjectsClassicCreateForRepoRequestBody,
-  t_ProjectsClassicMoveCardRequestBody,
-  t_ProjectsClassicMoveColumnRequestBody,
-  t_ProjectsClassicUpdateCardRequestBody,
-  t_ProjectsClassicUpdateColumnRequestBody,
-  t_ProjectsClassicUpdateRequestBody,
+  t_ProjectsAddFieldForOrgRequestBody,
+  t_ProjectsAddFieldForUserRequestBody,
+  t_ProjectsAddItemForOrgRequestBody,
+  t_ProjectsAddItemForUserRequestBody,
+  t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+  t_ProjectsCreateDraftItemForOrgRequestBody,
+  t_ProjectsCreateViewForOrgRequestBody,
+  t_ProjectsCreateViewForUserRequestBody,
+  t_ProjectsUpdateItemForOrgRequestBody,
+  t_ProjectsUpdateItemForUserRequestBody,
   t_PullsCreateReplyForReviewCommentRequestBody,
   t_PullsCreateRequestBody,
   t_PullsCreateReviewCommentRequestBody,
@@ -371,7 +456,6 @@ import type {
   t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
-  t_packages_billing_usage,
   t_page,
   t_page_build,
   t_page_build_status,
@@ -384,10 +468,11 @@ import type {
   t_porter_large_file,
   t_private_user,
   t_private_vulnerability_report_create,
-  t_project,
-  t_project_card,
-  t_project_collaborator_permission,
-  t_project_column,
+  t_projects_v2,
+  t_projects_v2_field,
+  t_projects_v2_item_simple,
+  t_projects_v2_item_with_content,
+  t_projects_v2_view,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -403,10 +488,6 @@ import type {
   t_ReactionsCreateForIssueRequestBody,
   t_ReactionsCreateForPullRequestReviewCommentRequestBody,
   t_ReactionsCreateForReleaseRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
   t_ReposAddAppAccessRestrictionsRequestBody,
   t_ReposAddCollaboratorRequestBody,
   t_ReposAddStatusCheckContextsRequestBody,
@@ -425,16 +506,15 @@ import type {
   t_ReposCreateForkRequestBody,
   t_ReposCreateInOrgRequestBody,
   t_ReposCreateOrgRulesetRequestBody,
-  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
   t_ReposCreateOrUpdateEnvironmentRequestBody,
   t_ReposCreateOrUpdateFileContentsRequestBody,
   t_ReposCreatePagesDeploymentRequestBody,
   t_ReposCreatePagesSiteRequestBody,
   t_ReposCreateReleaseRequestBody,
   t_ReposCreateRepoRulesetRequestBody,
-  t_ReposCreateTagProtectionRequestBody,
   t_ReposCreateUsingTemplateRequestBody,
   t_ReposCreateWebhookRequestBody,
+  t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
   t_ReposDeleteFileRequestBody,
   t_ReposGenerateReleaseNotesRequestBody,
   t_ReposMergeRequestBody,
@@ -494,12 +574,15 @@ import type {
   t_runner_label,
   t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningUpdateAlertRequestBody,
+  t_SecretScanningUpdateOrgPatternConfigsRequestBody,
   t_secret_scanning_alert,
   t_secret_scanning_location,
+  t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
+  t_self_hosted_runners_settings,
   t_short_blob,
   t_short_branch,
   t_simple_classroom,
@@ -514,29 +597,15 @@ import type {
   t_status_check_policy,
   t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
   t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
-  t_TeamsCreateDiscussionCommentInOrgRequestBody,
-  t_TeamsCreateDiscussionCommentLegacyRequestBody,
-  t_TeamsCreateDiscussionInOrgRequestBody,
-  t_TeamsCreateDiscussionLegacyRequestBody,
   t_TeamsCreateRequestBody,
-  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
-  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
-  t_TeamsUpdateDiscussionInOrgRequestBody,
-  t_TeamsUpdateDiscussionLegacyRequestBody,
   t_TeamsUpdateInOrgRequestBody,
   t_TeamsUpdateLegacyRequestBody,
   t_tag,
-  t_tag_protection,
   t_team,
-  t_team_discussion,
-  t_team_discussion_comment,
   t_team_full,
   t_team_membership,
-  t_team_project,
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
@@ -562,6 +631,7 @@ import type {
   t_view_traffic,
   t_webhook_config,
   t_workflow,
+  t_workflow_dispatch_response,
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
@@ -733,6 +803,549 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async agentTasksListTasksForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      sort?: "updated_at" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: string
+      isArchived?: boolean
+      since?: string
+      creatorId?: number[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      tasks: {
+        archived_at?: (string | null) | undefined
+        artifacts?:
+          | {
+              data:
+                | {
+                    global_id?: string | undefined
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+          | undefined
+        created_at: string
+        creator?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        creator_type?:
+          | ("user" | "organization" | UnknownEnumStringValue)
+          | undefined
+        html_url?: string | undefined
+        id: string
+        name?: string | undefined
+        owner?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        repository?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        session_count?: number | undefined
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string | undefined
+        url?: string | undefined
+        user_collaborators?:
+          | {
+              id?: number | undefined
+            }[]
+          | undefined
+      }[]
+      total_active_count?: number | undefined
+      total_archived_count?: number | undefined
+    }>
+  > {
+    const url = `/agents/repos/${p["owner"]}/${p["repo"]}/tasks`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        state: p["state"],
+        is_archived: p["isArchived"],
+        since: p["since"],
+        creator_id: p["creatorId"],
+      },
+      {
+        creator_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentTasksCreateTaskInRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_AgentTasksCreateTaskInRepoRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      archived_at?: (string | null) | undefined
+      artifacts?:
+        | {
+            data:
+              | {
+                  global_id?: string | undefined
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+        | undefined
+      created_at: string
+      creator?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      creator_type?:
+        | ("user" | "organization" | UnknownEnumStringValue)
+        | undefined
+      html_url?: string | undefined
+      id: string
+      name?: string | undefined
+      owner?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      repository?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      session_count?: number | undefined
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+        | UnknownEnumStringValue
+      updated_at?: string | undefined
+      url?: string | undefined
+      user_collaborators?:
+        | {
+            id?: number | undefined
+          }[]
+        | undefined
+    }>
+  > {
+    const url = `/agents/repos/${p["owner"]}/${p["repo"]}/tasks`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentTasksGetTaskByRepoAndId(
+    p: {
+      owner: string
+      repo: string
+      taskId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<
+      {
+        archived_at?: (string | null) | undefined
+        artifacts?:
+          | {
+              data:
+                | {
+                    global_id?: string | undefined
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+          | undefined
+        created_at: string
+        creator?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        creator_type?:
+          | ("user" | "organization" | UnknownEnumStringValue)
+          | undefined
+        html_url?: string | undefined
+        id: string
+        name?: string | undefined
+        owner?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        repository?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        session_count?: number | undefined
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string | undefined
+        url?: string | undefined
+        user_collaborators?:
+          | {
+              id?: number | undefined
+            }[]
+          | undefined
+      } & {
+        sessions?:
+          | {
+              base_ref?: string | undefined
+              completed_at?: string | undefined
+              created_at: string
+              error?:
+                | {
+                    message?: string | undefined
+                  }
+                | undefined
+              head_ref?: string | undefined
+              id: string
+              model?: string | undefined
+              name?: string | undefined
+              owner?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              prompt?: string | undefined
+              repository?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+                | UnknownEnumStringValue
+              task_id?: string | undefined
+              updated_at?: string | undefined
+              user?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+            }[]
+          | undefined
+      }
+    >
+  > {
+    const url = `/agents/repos/${p["owner"]}/${p["repo"]}/tasks/${p["taskId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentTasksListTasks(
+    p: {
+      perPage?: number
+      page?: number
+      sort?: "updated_at" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: string
+      isArchived?: boolean
+      since?: string
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      tasks: {
+        archived_at?: (string | null) | undefined
+        artifacts?:
+          | {
+              data:
+                | {
+                    global_id?: string | undefined
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+          | undefined
+        created_at: string
+        creator?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        creator_type?:
+          | ("user" | "organization" | UnknownEnumStringValue)
+          | undefined
+        html_url?: string | undefined
+        id: string
+        name?: string | undefined
+        owner?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        repository?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        session_count?: number | undefined
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string | undefined
+        url?: string | undefined
+        user_collaborators?:
+          | {
+              id?: number | undefined
+            }[]
+          | undefined
+      }[]
+      total_active_count?: number | undefined
+      total_archived_count?: number | undefined
+    }>
+  > {
+    const url = `/agents/tasks`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      state: p["state"],
+      is_archived: p["isArchived"],
+      since: p["since"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentTasksGetTaskById(
+    p: {
+      taskId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<
+      {
+        archived_at?: (string | null) | undefined
+        artifacts?:
+          | {
+              data:
+                | {
+                    global_id?: string | undefined
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+          | undefined
+        created_at: string
+        creator?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        creator_type?:
+          | ("user" | "organization" | UnknownEnumStringValue)
+          | undefined
+        html_url?: string | undefined
+        id: string
+        name?: string | undefined
+        owner?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        repository?:
+          | {
+              id?: number | undefined
+            }
+          | undefined
+        session_count?: number | undefined
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string | undefined
+        url?: string | undefined
+        user_collaborators?:
+          | {
+              id?: number | undefined
+            }[]
+          | undefined
+      } & {
+        sessions?:
+          | {
+              base_ref?: string | undefined
+              completed_at?: string | undefined
+              created_at: string
+              error?:
+                | {
+                    message?: string | undefined
+                  }
+                | undefined
+              head_ref?: string | undefined
+              id: string
+              model?: string | undefined
+              name?: string | undefined
+              owner?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              prompt?: string | undefined
+              repository?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+                | UnknownEnumStringValue
+              task_id?: string | undefined
+              updated_at?: string | undefined
+              user?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+            }[]
+          | undefined
+      }
+    >
+  > {
+    const url = `/agents/tasks/${p["taskId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async appsGetAuthenticated(
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -822,13 +1435,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/app/hook/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._request({
       url: url + query,
@@ -1373,6 +1991,158 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async actionsGetActionsCacheRetentionLimitForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_cache_retention_limit_for_enterprise>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/cache/retention-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetActionsCacheRetentionLimitForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_actions_cache_retention_limit_for_enterprise
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/cache/retention-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetActionsCacheStorageLimitForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_cache_storage_limit_for_enterprise>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetActionsCacheStorageLimitForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_actions_cache_storage_limit_for_enterprise
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async oidcListOidcCustomPropertyInclusionsForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_oidc_custom_property_inclusion[]>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async oidcCreateOidcCustomPropertyInclusionForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_oidc_custom_property_inclusion_input
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_oidc_custom_property_inclusion>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async oidcDeleteOidcCustomPropertyInclusionForEnterprise(
+    p: {
+      enterprise: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo/${p["customPropertyName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async codeSecurityGetConfigurationsForEnterprise(
     p: {
       enterprise: string
@@ -1605,22 +2375,198 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotCopilotEnterpriseOneDayUsageMetrics(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_1_day_report>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics/reports/enterprise-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotEnterpriseUsageMetrics(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_28_day_report>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics/reports/enterprise-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotEnterpriseUserTeamsOneDayReport(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_1_day_report>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics/reports/user-teams-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotUsersOneDayUsageMetrics(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_1_day_report>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics/reports/users-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotUsersUsageMetrics(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_28_day_report>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics/reports/users-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSetEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotSetEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotAddOrganizationsToEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent/organizations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent/organizations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async dependabotListAlertsForEnterprise(
     p: {
       enterprise: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
       package?: string
       epssPercentage?: string
       has?: string | "patch"[]
+      assignee?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      first?: number
-      last?: number
       perPage?: number
     },
     timeout?: number,
@@ -1630,19 +2576,19 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
         package: p["package"],
         epss_percentage: p["epssPercentage"],
         has: p["has"],
+        assignee: p["assignee"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
         per_page: p["perPage"],
       },
       {
@@ -1662,45 +2608,461 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async secretScanningListAlertsForEnterprise(
+  async dependabotRepositoryAccessForEnterprise(
     p: {
       enterprise: string
-      state?: "open" | "resolved" | UnknownEnumStringValue
-      secretType?: string
-      resolution?: string
-      sort?: "created" | "updated" | UnknownEnumStringValue
-      direction?: "asc" | "desc" | UnknownEnumStringValue
+      page?: number
       perPage?: number
-      before?: string
-      after?: string
-      validity?: string
-      isPubliclyLeaked?: boolean
-      isMultiRepo?: boolean
-      hideSecret?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_organization_secret_scanning_alert[]>> {
-    const url = `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
+  ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
+    const url = `/enterprises/${p["enterprise"]}/dependabot/repository-access`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      secret_type: p["secretType"],
-      resolution: p["resolution"],
-      sort: p["sort"],
-      direction: p["direction"],
-      per_page: p["perPage"],
-      before: p["before"],
-      after: p["after"],
-      validity: p["validity"],
-      is_publicly_leaked: p["isPubliclyLeaked"],
-      is_multi_repo: p["isMultiRepo"],
-      hide_secret: p["hideSecret"],
-    })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotUpdateRepositoryAccessForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/dependabot/repository-access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevelForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamsList(
+    p: {
+      enterprise: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_enterprise_team[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamsCreate(
+    p: {
+      enterprise: string
+      requestBody: t_EnterpriseTeamsCreateRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_enterprise_team>> {
+    const url = `/enterprises/${p["enterprise"]}/teams`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsList(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_simple_user[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsBulkAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamMembershipsBulkAddRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_simple_user[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/add`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsBulkRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamMembershipsBulkRemoveRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_simple_user[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/remove`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsGet(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_simple_user>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_simple_user>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamMembershipsRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsGetAssignments(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_simple[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsBulkAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamOrganizationsBulkAddRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_simple[]>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/add`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsBulkRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamOrganizationsBulkRemoveRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/remove`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsGetAssignment(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_simple>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_simple>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamOrganizationsDelete(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamsGet(
+    p: {
+      enterprise: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_enterprise_team>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamsUpdate(
+    p: {
+      enterprise: string
+      teamSlug: string
+      requestBody: t_EnterpriseTeamsUpdateRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_enterprise_team>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async enterpriseTeamsDelete(
+    p: {
+      enterprise: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -2206,7 +3568,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      repositories: t_repository[]
+      repositories: (t_repository & {
+        custom_properties?: Record<string, unknown> | undefined
+      })[]
       repository_selection?: string | undefined
       total_count: number
     }>
@@ -2796,21 +4160,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async dependabotRepositoryAccessForOrg(
+  async actionsGetActionsCacheRetentionLimitForOrganization(
     p: {
       org: string
-      page?: number
-      perPage?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
-    const url = `/organizations/${p["org"]}/dependabot/repository-access`
+  ): Promise<AxiosResponse<t_actions_cache_retention_limit_for_organization>> {
+    const url = `/organizations/${p["org"]}/actions/cache/retention-limit`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
-      url: url + query,
+      url: url,
       method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
@@ -2818,40 +4179,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async dependabotUpdateRepositoryAccessForOrg(
+  async actionsSetActionsCacheRetentionLimitForOrganization(
     p: {
       org: string
-      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
+      requestBody: t_actions_cache_retention_limit_for_organization
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
-    const url = `/organizations/${p["org"]}/dependabot/repository-access`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async dependabotSetRepositoryAccessDefaultLevel(
-    p: {
-      org: string
-      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/organizations/${p["org"]}/dependabot/repository-access/default-level`
+    const url = `/organizations/${p["org"]}/actions/cache/retention-limit`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -2868,13 +4204,216 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async actionsGetActionsCacheStorageLimitForOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_cache_storage_limit_for_organization>> {
+    const url = `/organizations/${p["org"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetActionsCacheStorageLimitForOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_cache_storage_limit_for_organization
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/organizations/${p["org"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetAllBudgetsOrg(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+      scope?:
+        | "enterprise"
+        | "organization"
+        | "repository"
+        | "cost_center"
+        | UnknownEnumStringValue
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_get_all_budgets>> {
+    const url = `/organizations/${p["org"]}/settings/billing/budgets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+      scope: p["scope"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_get_budget>> {
+    const url = `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingUpdateBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+      requestBody: t_BillingUpdateBudgetOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      budget?:
+        | {
+            budget_alerting?:
+              | {
+                  alert_recipients: string[]
+                  will_alert: boolean
+                }
+              | undefined
+            budget_amount?: number | undefined
+            budget_entity_name?: string | undefined
+            budget_product_sku?: string | undefined
+            budget_scope?:
+              | (
+                  | "enterprise"
+                  | "organization"
+                  | "repository"
+                  | "cost_center"
+                  | UnknownEnumStringValue
+                )
+              | undefined
+            budget_type?: ("ProductPricing" | "SkuPricing") | undefined
+            id?: string | undefined
+            prevent_further_usage?: boolean | undefined
+          }
+        | undefined
+      message?: string | undefined
+    }>
+  > {
+    const url = `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingDeleteBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_delete_budget>> {
+    const url = `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetGithubBillingPremiumRequestUsageReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      user?: string
+      model?: string
+      product?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_premium_request_usage_report_org>> {
+    const url = `/organizations/${p["org"]}/settings/billing/premium_request/usage`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      user: p["user"],
+      model: p["model"],
+      product: p["product"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async billingGetGithubBillingUsageReportOrg(
     p: {
       org: string
       year?: number
       month?: number
       day?: number
-      hour?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -2885,7 +4424,39 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       year: p["year"],
       month: p["month"],
       day: p["day"],
-      hour: p["hour"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetGithubBillingUsageSummaryReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      repository?: string
+      product?: string
+      sku?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_usage_summary_report_org>> {
+    const url = `/organizations/${p["org"]}/settings/billing/usage/summary`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      repository: p["repository"],
+      product: p["product"],
+      sku: p["sku"],
     })
 
     return this._request({
@@ -3063,6 +4634,137 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async actionsListCustomImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      images: t_actions_hosted_runner_custom_image[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetCustomImageForOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner_custom_image>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsDeleteCustomImageFromOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsListCustomImageVersionsForOrg(
+    p: {
+      imageDefinitionId: number
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      image_versions: t_actions_hosted_runner_custom_image_version[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetCustomImageVersionForOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+      version: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner_custom_image_version>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions/${p["version"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsDeleteCustomImageVersionFromOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+      version: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions/${p["version"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async actionsGetHostedRunnersGithubOwnedImagesForOrg(
     p: {
       org: string
@@ -3071,7 +4773,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      images: t_actions_hosted_runner_image[]
+      images: t_actions_hosted_runner_curated_image[]
       total_count: number
     }>
   > {
@@ -3095,7 +4797,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      images: t_actions_hosted_runner_image[]
+      images: t_actions_hosted_runner_curated_image[]
       total_count: number
     }>
   > {
@@ -3244,6 +4946,70 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async oidcListOidcCustomPropertyInclusionsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_oidc_custom_property_inclusion[]>> {
+    const url = `/orgs/${p["org"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async oidcCreateOidcCustomPropertyInclusionForOrg(
+    p: {
+      org: string
+      requestBody: t_oidc_custom_property_inclusion_input
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_oidc_custom_property_inclusion>> {
+    const url = `/orgs/${p["org"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async oidcDeleteOidcCustomPropertyInclusionForOrg(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/oidc/customization/properties/repo/${p["customPropertyName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async oidcGetOidcCustomSubTemplateForOrg(
     p: {
       org: string
@@ -3266,7 +5032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async oidcUpdateOidcCustomSubTemplateForOrg(
     p: {
       org: string
-      requestBody: t_oidc_custom_sub
+      requestBody: t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -3316,6 +5082,138 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetArtifactAndLogRetentionSettingsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_artifact_and_log_retention_response>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetArtifactAndLogRetentionSettingsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_artifact_and_log_retention
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetForkPrContributorApprovalPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_fork_pr_contributor_approval>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetForkPrContributorApprovalPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_fork_pr_contributor_approval
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetPrivateRepoForkPrWorkflowsSettingsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_fork_pr_workflows_private_repos>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/fork-pr-workflows-private-repos`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_fork_pr_workflows_private_repos_request
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/fork-pr-workflows-private-repos`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -3467,6 +5365,142 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetSelfHostedRunnersPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_self_hosted_runners_settings>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetSelfHostedRunnersPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsListSelectedRepositoriesSelfHostedRunnersOrganization(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      repositories?: t_repository[] | undefined
+      total_count?: number | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetSelectedRepositoriesSelfHostedRunnersOrganization(
+    p: {
+      org: string
+      requestBody: t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsEnableSelectedRepositorySelfHostedRunnersOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsDisableSelectedRepositorySelfHostedRunnersOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -4584,6 +6618,593 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async agentsListOrgSecrets(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      secrets: t_organization_actions_secret[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/agents/secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_public_key>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/public-key`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_actions_secret>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsCreateOrUpdateOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: t_AgentsCreateOrUpdateOrgSecretRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsDeleteOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      repositories: t_minimal_repository[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsSetSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: t_AgentsSetSelectedReposForOrgSecretRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsAddSelectedRepoToOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsRemoveSelectedRepoFromOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListOrgVariables(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      total_count: number
+      variables: t_organization_actions_variable[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/agents/variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsCreateOrgVariable(
+    p: {
+      org: string
+      requestBody: t_AgentsCreateOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_empty_object>> {
+    const url = `/orgs/${p["org"]}/agents/variables`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_organization_actions_variable>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsUpdateOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: t_AgentsUpdateOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsDeleteOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      repositories: t_minimal_repository[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsSetSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: t_AgentsSetSelectedReposForOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsAddSelectedRepoToOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsRemoveSelectedRepoFromOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsCreateArtifactDeploymentRecord(
+    p: {
+      org: string
+      requestBody: t_OrgsCreateArtifactDeploymentRecordRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      deployment_records?: t_artifact_deployment_record[] | undefined
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/artifacts/metadata/deployment-record`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsSetClusterDeploymentRecords(
+    p: {
+      org: string
+      cluster: string
+      requestBody: t_OrgsSetClusterDeploymentRecordsRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      deployment_records?: t_artifact_deployment_record[] | undefined
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/artifacts/metadata/deployment-record/cluster/${p["cluster"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsCreateArtifactStorageRecord(
+    p: {
+      org: string
+      requestBody: t_OrgsCreateArtifactStorageRecordRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      storage_records?:
+        | {
+            artifact_url?: (string | null) | undefined
+            created_at?: string | undefined
+            digest?: string | undefined
+            id?: number | undefined
+            name?: string | undefined
+            registry_url?: string | undefined
+            repository?: (string | null) | undefined
+            status?: string | undefined
+            updated_at?: string | undefined
+          }[]
+        | undefined
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/artifacts/metadata/storage-record`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsListArtifactDeploymentRecords(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      deployment_records?: t_artifact_deployment_record[] | undefined
+      total_count?: number | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/artifacts/${p["subjectDigest"]}/metadata/deployment-records`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsListArtifactStorageRecords(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      storage_records?:
+        | {
+            artifact_url?: string | undefined
+            created_at?: string | undefined
+            digest?: string | undefined
+            id?: number | undefined
+            name?: string | undefined
+            registry_url?: string | undefined
+            repository?: string | undefined
+            status?: string | undefined
+            updated_at?: string | undefined
+          }[]
+        | undefined
+      total_count?: number | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/artifacts/${p["subjectDigest"]}/metadata/storage-records`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async orgsListAttestationsBulk(
     p: {
       perPage?: number
@@ -4690,6 +7311,42 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async orgsListAttestationRepositories(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      predicateType?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<
+      {
+        id?: number | undefined
+        name?: string | undefined
+      }[]
+    >
+  > {
+    const url = `/orgs/${p["org"]}/attestations/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      predicate_type: p["predicateType"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async orgsDeleteAttestationsById(
     p: {
       org: string
@@ -4726,13 +7383,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       attestations?:
         | {
             bundle?:
-              | {
+              | ({
                   dsseEnvelope?: Record<string, unknown> | undefined
                   mediaType?: string | undefined
                   verificationMaterial?: Record<string, unknown> | undefined
-                }
+                } | null)
               | undefined
             bundle_url?: string | undefined
+            initiator?: string | undefined
             repository_id?: number | undefined
           }[]
         | undefined
@@ -4978,6 +7636,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       state?: t_code_scanning_alert_state_query
       sort?: "created" | "updated" | UnknownEnumStringValue
       severity?: t_code_scanning_alert_severity
+      assignees?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4995,6 +7654,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       state: p["state"],
       sort: p["sort"],
       severity: p["severity"],
+      assignees: p["assignees"],
     })
 
     return this._request({
@@ -5577,6 +8237,349 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotSpacesListForOrg(
+    p: {
+      org: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      spaces: t_copilot_space[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot-spaces`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesCreateForOrg(
+    p: {
+      org: string
+      requestBody: t_CopilotSpacesCreateForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesGetForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesUpdateForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesDeleteForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesListCollaboratorsForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      collaborators: t_copilot_space_collaborator[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesAddCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesAddCollaboratorForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_collaborator>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+      requestBody: t_CopilotSpacesUpdateCollaboratorForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_copilot_space_collaborator> | AxiosResponse<void>
+  > {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesRemoveCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesListResourcesForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      resources: t_copilot_space_resource[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesCreateResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesCreateResourceForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesGetResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+      requestBody: t_CopilotSpacesUpdateResourceForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesDeleteResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async copilotGetCopilotOrganizationDetails(
     p: {
       org: string
@@ -5739,6 +8742,195 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotGetCopilotCodingAgentPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      enabled_repositories: "all" | "selected" | "none" | UnknownEnumStringValue
+      selected_repositories_url?: string | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSetCopilotCodingAgentPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotListCopilotCodingAgentSelectedRepositoriesForOrganization(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      repositories: t_minimal_repository[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotEnableCopilotCodingAgentForRepositoryInOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotDisableCopilotCodingAgentForRepositoryInOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotContentExclusionForOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_organization_content_exclusion_details>> {
+    const url = `/orgs/${p["org"]}/copilot/content_exclusion`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSetCopilotContentExclusionForOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotContentExclusionForOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      message?: string | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/content_exclusion`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async copilotCopilotMetricsForOrganization(
     p: {
       org: string
@@ -5768,22 +8960,132 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotCopilotOrganizationOneDayUsageMetrics(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_copilot_usage_metrics_1_day_report> | AxiosResponse<void>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/metrics/reports/organization-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotOrganizationUsageMetrics(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_28_day_report>> {
+    const url = `/orgs/${p["org"]}/copilot/metrics/reports/organization-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotOrganizationUserTeamsOneDayReport(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_copilot_usage_metrics_1_day_report> | AxiosResponse<void>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/metrics/reports/user-teams-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotOrganizationUsersOneDayUsageMetrics(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_copilot_usage_metrics_1_day_report> | AxiosResponse<void>
+  > {
+    const url = `/orgs/${p["org"]}/copilot/metrics/reports/users-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotOrganizationUsersUsageMetrics(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_28_day_report>> {
+    const url = `/orgs/${p["org"]}/copilot/metrics/reports/users-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async dependabotListAlertsForOrg(
     p: {
       org: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      has?: string | "patch"[]
+      artifactRegistryUrl?: string
+      artifactRegistry?: string
+      has?: string | ("patch" | "deployment" | UnknownEnumStringValue)[]
+      assignee?: string
+      runtimeRisk?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      first?: number
-      last?: number
       perPage?: number
     },
     timeout?: number,
@@ -5793,19 +9095,22 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
         package: p["package"],
         epss_percentage: p["epssPercentage"],
+        artifact_registry_url: p["artifactRegistryUrl"],
+        artifact_registry: p["artifactRegistry"],
         has: p["has"],
+        assignee: p["assignee"],
+        runtime_risk: p["runtimeRisk"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
         per_page: p["perPage"],
       },
       {
@@ -5819,6 +9124,78 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotRepositoryAccessForOrg(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
+    const url = `/orgs/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotUpdateRepositoryAccessForOrg(
+    p: {
+      org: string
+      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevel(
+    p: {
+      org: string
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -6271,13 +9648,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       hookId: number
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._request({
       url: url + query,
@@ -6897,6 +10279,96 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsListIssueFields(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field[]>> {
+    const url = `/orgs/${p["org"]}/issue-fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsCreateIssueField(
+    p: {
+      org: string
+      requestBody: t_organization_create_issue_field
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field>> {
+    const url = `/orgs/${p["org"]}/issue-fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsUpdateIssueField(
+    p: {
+      org: string
+      issueFieldId: number
+      requestBody: t_organization_update_issue_field
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field>> {
+    const url = `/orgs/${p["org"]}/issue-fields/${p["issueFieldId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDeleteIssueField(
+    p: {
+      org: string
+      issueFieldId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/issue-fields/${p["issueFieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -8376,22 +11848,24 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsClassicListForOrg(
+  async projectsListForOrg(
     p: {
       org: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      q?: string
+      before?: string
+      after?: string
       perPage?: number
-      page?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project[]>> {
-    const url = `/orgs/${p["org"]}/projects`
+  ): Promise<AxiosResponse<t_projects_v2[]>> {
+    const url = `/orgs/${p["org"]}/projectsV2`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
-      state: p["state"],
+      q: p["q"],
+      before: p["before"],
+      after: p["after"],
       per_page: p["perPage"],
-      page: p["page"],
     })
 
     return this._request({
@@ -8403,15 +11877,36 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsClassicCreateForOrg(
+  async projectsGetForOrg(
     p: {
+      projectNumber: number
       org: string
-      requestBody: t_ProjectsClassicCreateForOrgRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project>> {
-    const url = `/orgs/${p["org"]}/projects`
+  ): Promise<AxiosResponse<t_projects_v2>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsCreateDraftItemForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateDraftItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_simple>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/drafts`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -8428,7 +11923,292 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsGetAllCustomProperties(
+  async projectsListFieldsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field[]>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsAddFieldForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      requestBody: t_ProjectsAddFieldForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsGetFieldForOrg(
+    p: {
+      projectNumber: number
+      fieldId: number
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields/${p["fieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsListItemsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      q?: string
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content[]>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        q: p["q"],
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsAddItemForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsAddItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_simple>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsGetOrgItem(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {fields: p["fields"]},
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsUpdateItemForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+      requestBody: t_ProjectsUpdateItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsDeleteItemForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsCreateViewForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateViewForOrgRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_view>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/views`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsListViewItemsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      viewNumber: number
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content[]>> {
+    const url = `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/views/${p["viewNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsCustomPropertiesForReposGetOrganizationDefinitions(
     p: {
       org: string
     },
@@ -8447,10 +12227,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsCreateOrUpdateCustomProperties(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions(
     p: {
       org: string
-      requestBody: t_OrgsCreateOrUpdateCustomPropertiesRequestBody
+      requestBody: t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8472,7 +12252,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsGetCustomProperty(
+  async orgsCustomPropertiesForReposGetOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -8492,7 +12272,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsCreateOrUpdateCustomProperty(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -8518,7 +12298,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsRemoveCustomProperty(
+  async orgsCustomPropertiesForReposDeleteOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -8538,7 +12318,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsListCustomPropertiesValuesForRepos(
+  async orgsCustomPropertiesForReposGetOrganizationValues(
     p: {
       org: string
       perPage?: number
@@ -8565,10 +12345,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(
     p: {
       org: string
-      requestBody: t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
+      requestBody: t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8972,7 +12752,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
+      excludeSecretTypes?: string
+      excludeProviders?: string
+      providers?: string
       resolution?: string
+      assignee?: string
       sort?: "created" | "updated" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
@@ -8983,6 +12767,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
       hideSecret?: boolean
+      isBypassed?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8992,7 +12777,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
+      exclude_secret_types: p["excludeSecretTypes"],
+      exclude_providers: p["excludeProviders"],
+      providers: p["providers"],
       resolution: p["resolution"],
+      assignee: p["assignee"],
       sort: p["sort"],
       direction: p["direction"],
       page: p["page"],
@@ -9003,11 +12792,60 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
+      is_bypassed: p["isBypassed"],
     })
 
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async secretScanningListOrgPatternConfigs(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_secret_scanning_pattern_configuration>> {
+    const url = `/orgs/${p["org"]}/secret-scanning/pattern-configurations`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async secretScanningUpdateOrgPatternConfigs(
+    p: {
+      org: string
+      requestBody: t_SecretScanningUpdateOrgPatternConfigsRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      pattern_config_version?: string | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/secret-scanning/pattern-configurations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -9111,14 +12949,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async billingGetGithubActionsBillingOrg(
+  async orgsGetImmutableReleasesSettings(
     p: {
       org: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_actions_billing_usage>> {
-    const url = `/orgs/${p["org"]}/settings/billing/actions`
+  ): Promise<AxiosResponse<t_immutable_releases_organization_settings>> {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -9130,18 +12968,51 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async billingGetGithubPackagesBillingOrg(
+  async orgsSetImmutableReleasesSettings(
     p: {
       org: string
+      requestBody: t_OrgsSetImmutableReleasesSettingsRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_packages_billing_usage>> {
-    const url = `/orgs/${p["org"]}/settings/billing/packages`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsGetImmutableReleasesSettingsRepositories(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      repositories: t_minimal_repository[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
@@ -9149,19 +13020,65 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async billingGetSharedStorageBillingOrg(
+  async orgsSetImmutableReleasesSettingsRepositories(
     p: {
       org: string
+      requestBody: t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_combined_billing_usage>> {
-    const url = `/orgs/${p["org"]}/settings/billing/shared-storage`
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsEnableSelectedRepositoryImmutableReleasesOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases/repositories/${p["repositoryId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
-      method: "GET",
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDisableSelectedRepositoryImmutableReleasesOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/settings/immutable-releases/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -9341,13 +13258,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
+      teamType?: "all" | "enterprise" | "organization" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      team_type: p["teamType"],
+    })
 
     return this._request({
       url: url + query,
@@ -9443,441 +13365,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsListDiscussionsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-      pinned?: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion[]>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-      pinned: p["pinned"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCreateDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      requestBody: t_TeamsCreateDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsGetDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsUpdateDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody?: t_TeamsUpdateDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsDeleteDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsListDiscussionCommentsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment[]>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCreateDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody: t_TeamsCreateDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsGetDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsUpdateDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_TeamsUpdateDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsDeleteDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsListForTeamDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction[]>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsCreateForTeamDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsDeleteForTeamDiscussionComment(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      reactionId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsListForTeamDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction[]>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsCreateForTeamDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsDeleteForTeamDiscussion(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      reactionId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -10003,103 +13490,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsListProjectsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_project[]>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCheckPermissionsForProjectInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_project>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsAddOrUpdateProjectPermissionsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-      requestBody?: t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PUT",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsRemoveProjectInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -10263,456 +13653,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     )
     const body =
       p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicGetCard(
-    p: {
-      cardId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_card>> {
-    const url = `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicUpdateCard(
-    p: {
-      cardId: number
-      requestBody?: t_ProjectsClassicUpdateCardRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_card>> {
-    const url = `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicDeleteCard(
-    p: {
-      cardId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicMoveCard(
-    p: {
-      cardId: number
-      requestBody: t_ProjectsClassicMoveCardRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<Record<string, never>>> {
-    const url = `/projects/columns/cards/${p["cardId"]}/moves`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicGetColumn(
-    p: {
-      columnId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_column>> {
-    const url = `/projects/columns/${p["columnId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicUpdateColumn(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicUpdateColumnRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_column>> {
-    const url = `/projects/columns/${p["columnId"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicDeleteColumn(
-    p: {
-      columnId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/projects/columns/${p["columnId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicListCards(
-    p: {
-      columnId: number
-      archivedState?:
-        | "all"
-        | "archived"
-        | "not_archived"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_card[]>> {
-    const url = `/projects/columns/${p["columnId"]}/cards`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      archived_state: p["archivedState"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicCreateCard(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicCreateCardRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_card>> {
-    const url = `/projects/columns/${p["columnId"]}/cards`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicMoveColumn(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicMoveColumnRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<Record<string, never>>> {
-    const url = `/projects/columns/${p["columnId"]}/moves`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicGet(
-    p: {
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project>> {
-    const url = `/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicUpdate(
-    p: {
-      projectId: number
-      requestBody?: t_ProjectsClassicUpdateRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project>> {
-    const url = `/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicDelete(
-    p: {
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicListCollaborators(
-    p: {
-      projectId: number
-      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_simple_user[]>> {
-    const url = `/projects/${p["projectId"]}/collaborators`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      affiliation: p["affiliation"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicAddCollaborator(
-    p: {
-      projectId: number
-      username: string
-      requestBody?: t_ProjectsClassicAddCollaboratorRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PUT",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicRemoveCollaborator(
-    p: {
-      projectId: number
-      username: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicGetPermissionForUser(
-    p: {
-      projectId: number
-      username: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_collaborator_permission>> {
-    const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicListColumns(
-    p: {
-      projectId: number
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_column[]>> {
-    const url = `/projects/${p["projectId"]}/columns`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicCreateColumn(
-    p: {
-      projectId: number
-      requestBody: t_ProjectsClassicCreateColumnRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project_column>> {
-    const url = `/projects/${p["projectId"]}/columns`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
@@ -10908,6 +13848,98 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async actionsGetActionsCacheRetentionLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_cache_retention_limit_for_repository>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/retention-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetActionsCacheRetentionLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_cache_retention_limit_for_repository
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/retention-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetActionsCacheStorageLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_cache_storage_limit_for_repository>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetActionsCacheStorageLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_cache_storage_limit_for_repository
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async actionsGetActionsCacheUsage(
     p: {
       owner: string
@@ -11004,6 +14036,56 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsListConcurrencyGroupsForRepository(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_concurrency_group_list>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/concurrency_groups`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], after: p["after"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetConcurrencyGroupForRepository(
+    p: {
+      owner: string
+      repo: string
+      concurrencyGroupName: string
+      aheadOfRun?: number
+      aheadOfJob?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_concurrency_group>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/concurrency_groups/${p["concurrencyGroupName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      ahead_of_run: p["aheadOfRun"],
+      ahead_of_job: p["aheadOfJob"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -11262,6 +14344,144 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetArtifactAndLogRetentionSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_artifact_and_log_retention_response>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetArtifactAndLogRetentionSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_artifact_and_log_retention
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetForkPrContributorApprovalPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_fork_pr_contributor_approval>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetForkPrContributorApprovalPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_fork_pr_contributor_approval
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetPrivateRepoForkPrWorkflowsSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_fork_pr_workflows_private_repos>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-workflows-private-repos`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsSetPrivateRepoForkPrWorkflowsSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_fork_pr_workflows_private_repos_request
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-workflows-private-repos`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -11840,6 +15060,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       perPage?: number
       page?: number
       name?: string
+      direction?: "asc" | "desc" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11855,6 +15076,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
+      direction: p["direction"],
     })
 
     return this._request({
@@ -11957,6 +15179,35 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsListConcurrencyGroupsForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_concurrency_group_run_list>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/concurrency_groups`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -12541,7 +15792,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
+  ): Promise<
+    AxiosResponse<t_workflow_dispatch_response> | AxiosResponse<void>
+  > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
@@ -12715,6 +15968,302 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async agentsListRepoOrganizationSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      secrets: t_actions_secret[]
+      total_count: number
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/organization-secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListRepoOrganizationVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      total_count: number
+      variables: t_actions_variable[]
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/organization-variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListRepoSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      secrets: t_actions_secret[]
+      total_count: number
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetRepoPublicKey(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_public_key>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/public-key`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_secret>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsCreateOrUpdateRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+      requestBody: t_AgentsCreateOrUpdateRepoSecretRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsDeleteRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsListRepoVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      total_count: number
+      variables: t_actions_variable[]
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsCreateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_AgentsCreateRepoVariableRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_empty_object>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/variables`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsGetRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_variable>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsUpdateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      requestBody: t_AgentsUpdateRepoVariableRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async agentsDeleteRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async issuesListAssignees(
     p: {
       owner: string
@@ -12813,6 +16362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                 }
               | undefined
             bundle_url?: string | undefined
+            initiator?: string | undefined
             repository_id?: number | undefined
           }[]
         | undefined
@@ -14124,6 +17674,55 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async codeQualityGetSetup(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_quality_setup>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-quality/setup`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeQualityUpdateSetup(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_code_quality_setup_update
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    | AxiosResponse<t_empty_object>
+    | AxiosResponse<t_code_quality_setup_update_response>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-quality/setup`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async codeScanningListAlertsForRepo(
     p: {
       owner: string
@@ -14140,6 +17739,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       sort?: "created" | "updated" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
       severity?: t_code_scanning_alert_severity
+      assignees?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14159,6 +17759,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       sort: p["sort"],
       state: p["state"],
       severity: p["severity"],
+      assignees: p["assignees"],
     })
 
     return this._request({
@@ -14304,7 +17905,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_code_scanning_alert_instance[]>> {
+  ): Promise<AxiosResponse<t_code_scanning_alert_instance_list[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
@@ -15429,7 +19030,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_commit>> {
+  ): Promise<AxiosResponse<string>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({page: p["page"], per_page: p["perPage"]})
@@ -15597,7 +19198,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_commit_comparison>> {
+  ): Promise<AxiosResponse<string>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({page: p["page"], per_page: p["perPage"]})
@@ -15723,10 +19324,45 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotGetCopilotCloudAgentConfiguration(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      custom_allowlist: string[]
+      enabled_tools: {
+        codeql: boolean
+        copilot_code_review: boolean
+        dependency_vulnerability_checks: boolean
+        secret_scanning: boolean
+      }
+      is_firewall_enabled: boolean
+      is_firewall_recommended_allowlist_enabled: boolean
+      mcp_configuration: Record<string, unknown> | null
+      require_actions_workflow_approval: boolean
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/copilot/cloud-agent/configuration`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async dependabotListAlertsForRepo(
     p: {
       owner: string
       repo: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
@@ -15734,15 +19370,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       manifest?: string
       epssPercentage?: string
       has?: string | "patch"[]
+      assignee?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
-      page?: number
-      perPage?: number
       before?: string
       after?: string
-      first?: number
-      last?: number
+      perPage?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -15751,6 +19385,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
@@ -15758,15 +19393,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         manifest: p["manifest"],
         epss_percentage: p["epssPercentage"],
         has: p["has"],
+        assignee: p["assignee"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
-        page: p["page"],
-        per_page: p["perPage"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
+        per_page: p["perPage"],
       },
       {
         has: {
@@ -15982,6 +19615,51 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_dependency_graph_spdx_sbom>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependencyGraphFetchSbomReport(
+    p: {
+      owner: string
+      repo: string
+      sbomUuid: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom/fetch-report/${p["sbomUuid"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependencyGraphGenerateSbomReport(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      sbom_url?: string | undefined
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom/generate-report`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -17418,13 +21096,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       hookId: number
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._request({
       url: url + query,
@@ -17515,6 +21198,66 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async reposCheckImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_check_immutable_releases>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async reposEnableImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async reposDisableImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -17892,6 +21635,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       type?: string
       creator?: string
       mentioned?: string
+      issueFieldValues?: string
       labels?: string
       sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -17911,6 +21655,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       type: p["type"],
       creator: p["creator"],
       mentioned: p["mentioned"],
+      issue_field_values: p["issueFieldValues"],
       labels: p["labels"],
       sort: p["sort"],
       direction: p["direction"],
@@ -18044,6 +21789,48 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesPinComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_comment>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/pin`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesUnpinComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/pin`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -18376,6 +22163,103 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async issuesListDependenciesBlockedBy(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesAddBlockedByDependency(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesAddBlockedByDependencyRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesRemoveDependencyBlockedBy(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      issueId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by/${p["issueId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesListDependenciesBlocking(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocking`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async issuesListEvents(
     p: {
       owner: string
@@ -18394,6 +22278,106 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesListIssueFieldValuesForIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field_value[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesAddIssueFieldValues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesAddIssueFieldValuesRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field_value[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesSetIssueFieldValues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesSetIssueFieldValuesRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_field_value[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesDeleteIssueFieldValue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      issueFieldId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values/${p["issueFieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -18578,6 +22562,27 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesGetParent(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/parent`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -19665,61 +23670,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsClassicListForRepo(
-    p: {
-      owner: string
-      repo: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project[]>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async projectsClassicCreateForRepo(
-    p: {
-      owner: string
-      repo: string
-      requestBody: t_ProjectsClassicCreateForRepoRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/projects`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reposGetCustomPropertiesValues(
+  async reposCustomPropertiesForReposGetRepositoryValues(
     p: {
       owner: string
       repo: string
@@ -19739,11 +23690,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async reposCreateOrUpdateCustomPropertiesValues(
+  async reposCustomPropertiesForReposCreateOrUpdateRepositoryValues(
     p: {
       owner: string
       repo: string
-      requestBody: t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
+      requestBody: t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21341,7 +25292,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
+      excludeSecretTypes?: string
+      excludeProviders?: string
+      providers?: string
       resolution?: string
+      assignee?: string
       sort?: "created" | "updated" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
@@ -21352,6 +25307,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
       hideSecret?: boolean
+      isBypassed?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -21361,7 +25317,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
+      exclude_secret_types: p["excludeSecretTypes"],
+      exclude_providers: p["excludeProviders"],
+      providers: p["providers"],
       resolution: p["resolution"],
+      assignee: p["assignee"],
       sort: p["sort"],
       direction: p["direction"],
       page: p["page"],
@@ -21372,6 +25332,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
+      is_bypassed: p["isBypassed"],
     })
 
     return this._request({
@@ -21963,73 +25924,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async reposListTagProtection(
-    p: {
-      owner: string
-      repo: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_tag_protection[]>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reposCreateTagProtection(
-    p: {
-      owner: string
-      repo: string
-      requestBody: t_ReposCreateTagProtectionRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_tag_protection>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reposDeleteTagProtection(
-    p: {
-      owner: string
-      repo: string
-      tagProtectionId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
   async reposDownloadTarballArchive(
     p: {
       owner: string
@@ -22452,6 +26346,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       perPage?: number
       page?: number
       advancedSearch?: string
+      searchType?: "semantic" | "hybrid" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22459,6 +26354,20 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     AxiosResponse<{
       incomplete_results: boolean
       items: t_issue_search_result_item[]
+      lexical_fallback_reason?:
+        | (
+            | "no_text_terms"
+            | "quoted_text"
+            | "non_issue_target"
+            | "or_boolean_not_supported"
+            | "no_accessible_repos"
+            | "server_error"
+            | "only_non_semantic_fields_requested"
+            | "service_unavailable"
+            | UnknownEnumStringValue
+          )[]
+        | undefined
+      search_type: "lexical" | "semantic" | "hybrid" | UnknownEnumStringValue
       total_count: number
     }>
   > {
@@ -22471,6 +26380,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       page: p["page"],
       advanced_search: p["advancedSearch"],
+      search_type: p["searchType"],
     })
 
     return this._request({
@@ -22692,380 +26602,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async teamsListDiscussionsLegacy(
-    p: {
-      teamId: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion[]>> {
-    const url = `/teams/${p["teamId"]}/discussions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCreateDiscussionLegacy(
-    p: {
-      teamId: number
-      requestBody: t_TeamsCreateDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/teams/${p["teamId"]}/discussions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsGetDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsUpdateDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody?: t_TeamsUpdateDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsDeleteDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsListDiscussionCommentsLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment[]>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCreateDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody: t_TeamsCreateDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsGetDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsUpdateDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_TeamsUpdateDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_discussion_comment>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsDeleteDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsListForTeamDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction[]>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsCreateForTeamDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsListForTeamDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction[]>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async reactionsCreateForTeamDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_reaction>> {
-    const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
   async teamsListPendingInvitationsLegacy(
     p: {
       teamId: number
@@ -23235,99 +26771,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsListProjectsLegacy(
-    p: {
-      teamId: number
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_project[]>> {
-    const url = `/teams/${p["teamId"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsCheckPermissionsForProjectLegacy(
-    p: {
-      teamId: number
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_team_project>> {
-    const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsAddOrUpdateProjectPermissionsLegacy(
-    p: {
-      teamId: number
-      projectId: number
-      requestBody?: t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : false,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._request({
-      url: url,
-      method: "PUT",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async teamsRemoveProjectLegacy(
-    p: {
-      teamId: number
-      projectId: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
@@ -24355,7 +27798,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      repositories: t_repository[]
+      repositories: (t_repository & {
+        custom_properties?: Record<string, unknown> | undefined
+      })[]
       repository_selection?: string | undefined
       total_count: number
     }>
@@ -25122,30 +28567,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsClassicCreateForAuthenticatedUser(
-    p: {
-      requestBody: t_ProjectsClassicCreateForAuthenticatedUserRequestBody
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project>> {
-    const url = `/user/projects`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
   async usersListPublicEmailsForAuthenticatedUser(
     p: {
       perPage?: number
@@ -25600,6 +29021,32 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async projectsCreateDraftItemForAuthenticatedUser(
+    p: {
+      userId: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_simple>> {
+    const url = `/user/${p["userId"]}/projectsV2/${p["projectNumber"]}/drafts`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async usersList(
     p: {
       since?: number
@@ -25615,6 +29062,32 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsCreateViewForUser(
+    p: {
+      userId: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateViewForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_view>> {
+    const url = `/users/${p["userId"]}/projectsV2/${p["projectNumber"]}/views`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -25789,6 +29262,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                   }
                 | undefined
               bundle_url?: string | undefined
+              initiator?: string | undefined
               repository_id?: number | undefined
             }[]
           | undefined
@@ -25808,6 +29282,349 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesListForUser(
+    p: {
+      username: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      spaces: t_copilot_space[]
+    }>
+  > {
+    const url = `/users/${p["username"]}/copilot-spaces`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesCreateForUser(
+    p: {
+      username: string
+      requestBody: t_CopilotSpacesCreateForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/users/${p["username"]}/copilot-spaces`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesGetForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesUpdateForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesDeleteForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesListCollaboratorsForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      collaborators: t_copilot_space_collaborator[]
+    }>
+  > {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesAddCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesAddCollaboratorForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_collaborator>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+      requestBody: t_CopilotSpacesUpdateCollaboratorForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_copilot_space_collaborator> | AxiosResponse<void>
+  > {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesRemoveCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesListResourcesForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      resources: t_copilot_space_resource[]
+    }>
+  > {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesCreateResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesCreateResourceForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesGetResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesUpdateResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+      requestBody: t_CopilotSpacesUpdateResourceForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_space_resource>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotSpacesDeleteResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
@@ -26343,23 +30160,304 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsClassicListForUser(
+  async projectsListForUser(
     p: {
       username: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      q?: string
+      before?: string
+      after?: string
       perPage?: number
-      page?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_project[]>> {
-    const url = `/users/${p["username"]}/projects`
+  ): Promise<AxiosResponse<t_projects_v2[]>> {
+    const url = `/users/${p["username"]}/projectsV2`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
-      state: p["state"],
+      q: p["q"],
+      before: p["before"],
+      after: p["after"],
       per_page: p["perPage"],
-      page: p["page"],
     })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsGetForUser(
+    p: {
+      projectNumber: number
+      username: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsListFieldsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field[]>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsAddFieldForUser(
+    p: {
+      username: string
+      projectNumber: number
+      requestBody: t_ProjectsAddFieldForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsGetFieldForUser(
+    p: {
+      projectNumber: number
+      fieldId: number
+      username: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_field>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields/${p["fieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsListItemsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      before?: string
+      after?: string
+      perPage?: number
+      q?: string
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content[]>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+        q: p["q"],
+        fields: p["fields"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsAddItemForUser(
+    p: {
+      username: string
+      projectNumber: number
+      requestBody: t_ProjectsAddItemForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_simple>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsGetUserItem(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {fields: p["fields"]},
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsUpdateItemForUser(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+      requestBody: t_ProjectsUpdateItemForUserRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsDeleteItemForUser(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async projectsListViewItemsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      viewNumber: number
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_projects_v2_item_with_content[]>> {
+    const url = `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/views/${p["viewNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -26450,56 +30548,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async billingGetGithubActionsBillingUser(
+  async billingGetGithubBillingPremiumRequestUsageReportUser(
     p: {
       username: string
+      year?: number
+      month?: number
+      day?: number
+      model?: string
+      product?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_actions_billing_usage>> {
-    const url = `/users/${p["username"]}/settings/billing/actions`
+  ): Promise<AxiosResponse<t_billing_premium_request_usage_report_user>> {
+    const url = `/users/${p["username"]}/settings/billing/premium_request/usage`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      model: p["model"],
+      product: p["product"],
     })
-  }
-
-  async billingGetGithubPackagesBillingUser(
-    p: {
-      username: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_packages_billing_usage>> {
-    const url = `/users/${p["username"]}/settings/billing/packages`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async billingGetSharedStorageBillingUser(
-    p: {
-      username: string
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_combined_billing_usage>> {
-    const url = `/users/${p["username"]}/settings/billing/shared-storage`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._request({
-      url: url,
+      url: url + query,
       method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
@@ -26513,7 +30585,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       year?: number
       month?: number
       day?: number
-      hour?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -26524,7 +30595,39 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       year: p["year"],
       month: p["month"],
       day: p["day"],
-      hour: p["hour"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetGithubBillingUsageSummaryReportUser(
+    p: {
+      username: string
+      year?: number
+      month?: number
+      day?: number
+      repository?: string
+      product?: string
+      sku?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_usage_summary_report_user>> {
+    const url = `/users/${p["username"]}/settings/billing/usage/summary`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      repository: p["repository"],
+      product: p["product"],
+      sku: p["sku"],
     })
 
     return this._request({

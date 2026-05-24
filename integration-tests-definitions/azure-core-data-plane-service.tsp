@@ -10,13 +10,15 @@ using Azure.Core;
 using Azure.Core.Traits;
 
 @useAuth(
-  ApiKeyAuth<ApiKeyLocation.header, "api-key"> | OAuth2Auth<[
-    {
-      type: OAuth2FlowType.implicit,
-      authorizationUrl: "https://login.contoso.com/common/oauth2/v2.0/authorize",
-      scopes: ["https://widget.contoso.com/.default"],
-    }
-  ]>
+
+    | ApiKeyAuth<ApiKeyLocation.header, "api-key">
+    | OAuth2Auth<[
+        {
+          type: OAuth2FlowType.implicit,
+          authorizationUrl: "https://login.contoso.com/common/oauth2/v2.0/authorize",
+          scopes: ["https://widget.contoso.com/.default"],
+        }
+      ]>
 )
 @service(#{ title: "Contoso Widget Manager" })
 @server(
@@ -27,7 +29,7 @@ using Azure.Core.Traits;
 Supported Widget Services endpoints (protocol and hostname, for example:
 https://westus.api.widget.contoso.com).
  */
-    endpoint: string,
+    endpoint: url,
   }
 )
 @versioned(Contoso.WidgetManager.Versions)
@@ -36,7 +38,6 @@ namespace Contoso.WidgetManager;
 /** The Contoso Widget Manager service version. */
 enum Versions {
   /** Version 2022-08-31 */
-  @useDependency(Azure.Core.Versions.v1_0_Preview_2)
   `2022-08-30`,
 }
 
@@ -199,6 +200,7 @@ interface Widgets {
 
   // Widget Operations
   /** Creates or updates a Widget asynchronously */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy"
   @pollingOperation(Widgets.getWidgetOperationStatus)
   createOrUpdateWidget is Operations.LongRunningResourceCreateOrUpdate<Widget>;
 
@@ -220,6 +222,7 @@ interface Widgets {
   getAnalytics is Operations.ResourceRead<WidgetAnalytics>;
 
   /** Creates or updates a WidgetAnalytics */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy"
   updateAnalytics is Operations.ResourceCreateOrUpdate<WidgetAnalytics>;
 
   // Widget Repair Operations

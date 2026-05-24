@@ -6,27 +6,13 @@ export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
 
-export type t_actions_billing_usage = {
-  included_minutes: number
-  minutes_used_breakdown: {
-    MACOS?: number | undefined
-    UBUNTU?: number | undefined
-    WINDOWS?: number | undefined
-    macos_12_core?: number | undefined
-    total?: number | undefined
-    ubuntu_16_core?: number | undefined
-    ubuntu_32_core?: number | undefined
-    ubuntu_4_core?: number | undefined
-    ubuntu_64_core?: number | undefined
-    ubuntu_8_core?: number | undefined
-    windows_16_core?: number | undefined
-    windows_32_core?: number | undefined
-    windows_4_core?: number | undefined
-    windows_64_core?: number | undefined
-    windows_8_core?: number | undefined
-  }
-  total_minutes_used: number
-  total_paid_minutes_used: number
+export type t_actions_artifact_and_log_retention = {
+  days: number
+}
+
+export type t_actions_artifact_and_log_retention_response = {
+  days: number
+  maximum_allowed_days: number
 }
 
 export type t_actions_cache_list = {
@@ -40,6 +26,30 @@ export type t_actions_cache_list = {
     version?: string | undefined
   }[]
   total_count: number
+}
+
+export type t_actions_cache_retention_limit_for_enterprise = {
+  max_cache_retention_days?: number | undefined
+}
+
+export type t_actions_cache_retention_limit_for_organization = {
+  max_cache_retention_days?: number | undefined
+}
+
+export type t_actions_cache_retention_limit_for_repository = {
+  max_cache_retention_days?: number | undefined
+}
+
+export type t_actions_cache_storage_limit_for_enterprise = {
+  max_cache_size_gb?: number | undefined
+}
+
+export type t_actions_cache_storage_limit_for_organization = {
+  max_cache_size_gb?: number | undefined
+}
+
+export type t_actions_cache_storage_limit_for_repository = {
+  max_cache_size_gb?: number | undefined
 }
 
 export type t_actions_cache_usage_by_repository = {
@@ -62,6 +72,28 @@ export type t_actions_default_workflow_permissions =
 
 export type t_actions_enabled = boolean
 
+export type t_actions_fork_pr_contributor_approval = {
+  approval_policy:
+    | "first_time_contributors_new_to_github"
+    | "first_time_contributors"
+    | "all_external_contributors"
+    | UnknownEnumStringValue
+}
+
+export type t_actions_fork_pr_workflows_private_repos = {
+  require_approval_for_fork_pr_workflows: boolean
+  run_workflows_from_fork_pull_requests: boolean
+  send_secrets_and_variables: boolean
+  send_write_tokens_to_workflows: boolean
+}
+
+export type t_actions_fork_pr_workflows_private_repos_request = {
+  require_approval_for_fork_pr_workflows?: boolean | undefined
+  run_workflows_from_fork_pull_requests: boolean
+  send_secrets_and_variables?: boolean | undefined
+  send_write_tokens_to_workflows?: boolean | undefined
+}
+
 export type t_actions_get_default_workflow_permissions = {
   can_approve_pull_request_reviews: t_actions_can_approve_pull_request_reviews
   default_workflow_permissions: t_actions_default_workflow_permissions
@@ -70,6 +102,7 @@ export type t_actions_get_default_workflow_permissions = {
 export type t_actions_hosted_runner = {
   id: number
   image_details: t_nullable_actions_hosted_runner_pool_image
+  image_gen?: boolean | undefined
   last_active_on?: (string | null) | undefined
   machine_size_details: t_actions_hosted_runner_machine_spec
   maximum_runners?: number | undefined
@@ -87,12 +120,31 @@ export type t_actions_hosted_runner = {
     | UnknownEnumStringValue
 }
 
-export type t_actions_hosted_runner_image = {
+export type t_actions_hosted_runner_curated_image = {
   display_name: string
   id: string
   platform: string
   size_gb: number
   source: "github" | "partner" | "custom" | UnknownEnumStringValue
+}
+
+export type t_actions_hosted_runner_custom_image = {
+  id: number
+  latest_version: string
+  name: string
+  platform: string
+  source: string
+  state: string
+  total_versions_size: number
+  versions_count: number
+}
+
+export type t_actions_hosted_runner_custom_image_version = {
+  created_on: string
+  size_gb: number
+  state: string
+  state_details: string
+  version: string
 }
 
 export type t_actions_hosted_runner_limits = {
@@ -114,6 +166,7 @@ export type t_actions_organization_permissions = {
   enabled_repositories: t_enabled_repositories
   selected_actions_url?: t_selected_actions_url | undefined
   selected_repositories_url?: string | undefined
+  sha_pinning_required?: t_sha_pinning_required | undefined
 }
 
 export type t_actions_public_key = {
@@ -129,6 +182,7 @@ export type t_actions_repository_permissions = {
   allowed_actions?: t_allowed_actions | undefined
   enabled: t_actions_enabled
   selected_actions_url?: t_selected_actions_url | undefined
+  sha_pinning_required?: t_sha_pinning_required | undefined
 }
 
 export type t_actions_secret = {
@@ -322,12 +376,22 @@ export type t_api_overview = {
 export type t_app_permissions = {
   actions?: ("read" | "write" | UnknownEnumStringValue) | undefined
   administration?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  artifact_metadata?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  attestations?: ("read" | "write" | UnknownEnumStringValue) | undefined
   checks?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  code_quality?: ("read" | "write" | UnknownEnumStringValue) | undefined
   codespaces?: ("read" | "write" | UnknownEnumStringValue) | undefined
   contents?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  custom_properties_for_organizations?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
   dependabot_secrets?: ("read" | "write" | UnknownEnumStringValue) | undefined
   deployments?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  discussions?: ("read" | "write" | UnknownEnumStringValue) | undefined
   email_addresses?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  enterprise_custom_properties_for_organizations?:
+    | ("read" | "write" | "admin" | UnknownEnumStringValue)
+    | undefined
   environments?: ("read" | "write" | UnknownEnumStringValue) | undefined
   followers?: ("read" | "write" | UnknownEnumStringValue) | undefined
   git_ssh_keys?: ("read" | "write" | UnknownEnumStringValue) | undefined
@@ -335,6 +399,7 @@ export type t_app_permissions = {
   interaction_limits?: ("read" | "write" | UnknownEnumStringValue) | undefined
   issues?: ("read" | "write" | UnknownEnumStringValue) | undefined
   members?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  merge_queues?: ("read" | "write" | UnknownEnumStringValue) | undefined
   metadata?: ("read" | "write" | UnknownEnumStringValue) | undefined
   organization_administration?:
     | ("read" | "write" | UnknownEnumStringValue)
@@ -342,7 +407,12 @@ export type t_app_permissions = {
   organization_announcement_banners?:
     | ("read" | "write" | UnknownEnumStringValue)
     | undefined
-  organization_copilot_seat_management?: "write" | undefined
+  organization_copilot_agent_settings?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_copilot_seat_management?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
   organization_custom_org_roles?:
     | ("read" | "write" | UnknownEnumStringValue)
     | undefined
@@ -393,7 +463,6 @@ export type t_app_permissions = {
   single_file?: ("read" | "write" | UnknownEnumStringValue) | undefined
   starring?: ("read" | "write" | UnknownEnumStringValue) | undefined
   statuses?: ("read" | "write" | UnknownEnumStringValue) | undefined
-  team_discussions?: ("read" | "write" | UnknownEnumStringValue) | undefined
   vulnerability_alerts?: ("read" | "write" | UnknownEnumStringValue) | undefined
   workflows?: "write" | undefined
 }
@@ -419,6 +488,28 @@ export type t_artifact = {
         repository_id?: number | undefined
       } | null)
     | undefined
+}
+
+export type t_artifact_deployment_record = {
+  attestation_id?: (number | null) | undefined
+  cluster?: string | undefined
+  created_at?: string | undefined
+  deployment_name?: string | undefined
+  digest?: string | undefined
+  id?: number | undefined
+  logical_environment?: string | undefined
+  physical_environment?: string | undefined
+  runtime_risks?:
+    | (
+        | "critical-resource"
+        | "internet-exposed"
+        | "lateral-movement"
+        | "sensitive-data"
+        | UnknownEnumStringValue
+      )[]
+    | undefined
+  tags?: Record<string, string> | undefined
+  updated_at?: string | undefined
 }
 
 export type t_assigned_issue_event = {
@@ -490,6 +581,7 @@ export type t_autolink = {
   id: number
   is_alphanumeric: boolean
   key_prefix: string
+  updated_at?: (string | null) | undefined
   url_template: string
 }
 
@@ -534,6 +626,55 @@ export type t_basic_error = {
   url?: string | undefined
 }
 
+export type t_billing_premium_request_usage_report_org = {
+  model?: string | undefined
+  organization: string
+  product?: string | undefined
+  timePeriod: {
+    day?: number | undefined
+    month?: number | undefined
+    year: number
+  }
+  usageItems: {
+    discountAmount: number
+    discountQuantity: number
+    grossAmount: number
+    grossQuantity: number
+    model: string
+    netAmount: number
+    netQuantity: number
+    pricePerUnit: number
+    product: string
+    sku: string
+    unitType: string
+  }[]
+  user?: string | undefined
+}
+
+export type t_billing_premium_request_usage_report_user = {
+  model?: string | undefined
+  product?: string | undefined
+  timePeriod: {
+    day?: number | undefined
+    month?: number | undefined
+    year: number
+  }
+  usageItems: {
+    discountAmount: number
+    discountQuantity: number
+    grossAmount: number
+    grossQuantity: number
+    model: string
+    netAmount: number
+    netQuantity: number
+    pricePerUnit: number
+    product: string
+    sku: string
+    unitType: string
+  }[]
+  user: string
+}
+
 export type t_billing_usage_report = {
   usageItems?:
     | {
@@ -567,6 +708,54 @@ export type t_billing_usage_report_user = {
         unitType: string
       }[]
     | undefined
+}
+
+export type t_billing_usage_summary_report_org = {
+  organization: string
+  product?: string | undefined
+  repository?: string | undefined
+  sku?: string | undefined
+  timePeriod: {
+    day?: number | undefined
+    month?: number | undefined
+    year: number
+  }
+  usageItems: {
+    discountAmount: number
+    discountQuantity: number
+    grossAmount: number
+    grossQuantity: number
+    netAmount: number
+    netQuantity: number
+    pricePerUnit: number
+    product: string
+    sku: string
+    unitType: string
+  }[]
+}
+
+export type t_billing_usage_summary_report_user = {
+  product?: string | undefined
+  repository?: string | undefined
+  sku?: string | undefined
+  timePeriod: {
+    day?: number | undefined
+    month?: number | undefined
+    year: number
+  }
+  usageItems: {
+    discountAmount: number
+    discountQuantity: number
+    grossAmount: number
+    grossQuantity: number
+    netAmount: number
+    netQuantity: number
+    pricePerUnit: number
+    product: string
+    sku: string
+    unitType: string
+  }[]
+  user: string
 }
 
 export type t_blob = {
@@ -684,21 +873,7 @@ export type t_branch_restriction_policy = {
     updated_at?: string | undefined
   }[]
   apps_url: string
-  teams: {
-    description?: (string | null) | undefined
-    html_url?: string | undefined
-    id?: number | undefined
-    members_url?: string | undefined
-    name?: string | undefined
-    node_id?: string | undefined
-    notification_setting?: string | undefined
-    parent?: (string | null) | undefined
-    permission?: string | undefined
-    privacy?: string | undefined
-    repositories_url?: string | undefined
-    slug?: string | undefined
-    url?: string | undefined
-  }[]
+  teams: t_team[]
   teams_url: string
   url: string
   users: {
@@ -748,6 +923,20 @@ export type t_branch_with_protection = {
   required_approving_review_count?: number | undefined
 }
 
+export type t_budget = {
+  budget_alerting: {
+    alert_recipients: string[]
+    will_alert: boolean
+  }
+  budget_amount: number
+  budget_entity_name?: string | undefined
+  budget_product_sku: string
+  budget_scope: string
+  budget_type: "SkuPricing" | "ProductPricing"
+  id: string
+  prevent_further_usage: boolean
+}
+
 export type t_campaign_state = "open" | "closed" | UnknownEnumStringValue
 
 export type t_campaign_summary = {
@@ -788,6 +977,11 @@ export type t_check_annotation = {
 export type t_check_automated_security_fixes = {
   enabled: boolean
   paused: boolean
+}
+
+export type t_check_immutable_releases = {
+  enabled: boolean
+  enforced_by_owner: boolean
 }
 
 export type t_check_run = {
@@ -965,7 +1159,73 @@ export type t_code_of_conduct_simple = {
   url: string
 }
 
+export type t_code_quality_setup = {
+  languages?:
+    | (
+        | "csharp"
+        | "go"
+        | "java-kotlin"
+        | "javascript-typescript"
+        | "python"
+        | "ruby"
+        | "rust"
+        | UnknownEnumStringValue
+      )[]
+    | undefined
+  runner_label?: (string | null) | undefined
+  runner_type?:
+    | ("standard" | "labeled" | UnknownEnumStringValue | null)
+    | undefined
+  schedule?: ("weekly" | null) | undefined
+  state?: ("configured" | "not-configured" | UnknownEnumStringValue) | undefined
+  updated_at?: (string | null) | undefined
+}
+
+export type t_code_quality_setup_update = {
+  languages?:
+    | (
+        | "csharp"
+        | "go"
+        | "java-kotlin"
+        | "javascript-typescript"
+        | "python"
+        | "ruby"
+        | UnknownEnumStringValue
+      )[]
+    | undefined
+  runner_label?: (string | null) | undefined
+  runner_type?: ("standard" | "labeled" | UnknownEnumStringValue) | undefined
+  state?: ("configured" | "not-configured" | UnknownEnumStringValue) | undefined
+} & (
+  | {
+      state: "configured" | "not-configured" | UnknownEnumStringValue
+    }
+  | {
+      runner_type: "standard" | "labeled" | UnknownEnumStringValue
+    }
+  | {
+      runner_label: string | null
+    }
+  | {
+      languages: (
+        | "csharp"
+        | "go"
+        | "java-kotlin"
+        | "javascript-typescript"
+        | "python"
+        | "ruby"
+        | UnknownEnumStringValue
+      )[]
+    }
+)
+
+export type t_code_quality_setup_update_response = {
+  run_id?: number | undefined
+  run_url?: string | undefined
+}
+
 export type t_code_scanning_alert = {
+  assignees?: t_simple_user[] | undefined
   created_at: t_alert_created_at
   dismissal_approved_by?: t_nullable_simple_user | undefined
   dismissed_at: t_alert_dismissed_at
@@ -983,6 +1243,8 @@ export type t_code_scanning_alert = {
   updated_at?: t_alert_updated_at | undefined
   url: t_alert_url
 }
+
+export type t_code_scanning_alert_assignees = string[]
 
 export type t_code_scanning_alert_classification =
   | "source"
@@ -1015,6 +1277,7 @@ export type t_code_scanning_alert_instance = {
   location?: t_code_scanning_alert_location | undefined
   message?:
     | {
+        markdown?: string | undefined
         text?: string | undefined
       }
     | undefined
@@ -1022,7 +1285,31 @@ export type t_code_scanning_alert_instance = {
   state?: t_code_scanning_alert_state | undefined
 }
 
+export type t_code_scanning_alert_instance_list = {
+  analysis_key?: t_code_scanning_analysis_analysis_key | undefined
+  category?: t_code_scanning_analysis_category | undefined
+  classifications?: t_code_scanning_alert_classification[] | undefined
+  commit_sha?: string | undefined
+  environment?: t_code_scanning_alert_environment | undefined
+  html_url?: string | undefined
+  location?: t_code_scanning_alert_location | undefined
+  message?:
+    | {
+        text?: string | undefined
+      }
+    | undefined
+  ref?: t_code_scanning_ref | undefined
+  state?: t_code_scanning_alert_instance_state | undefined
+}
+
+export type t_code_scanning_alert_instance_state =
+  | "open"
+  | "fixed"
+  | UnknownEnumStringValue
+  | null
+
 export type t_code_scanning_alert_items = {
+  assignees?: t_simple_user[] | undefined
   created_at: t_alert_created_at
   dismissal_approved_by?: t_nullable_simple_user | undefined
   dismissed_at: t_alert_dismissed_at
@@ -1272,6 +1559,7 @@ export type t_code_scanning_options = {
 } | null
 
 export type t_code_scanning_organization_alert_items = {
+  assignees?: t_simple_user[] | undefined
   created_at: t_alert_created_at
   dismissal_approved_by?: t_nullable_simple_user | undefined
   dismissed_at: t_alert_dismissed_at
@@ -1355,6 +1643,7 @@ export type t_code_scanning_variant_analysis = {
 }
 
 export type t_code_scanning_variant_analysis_language =
+  | "actions"
   | "cpp"
   | "csharp"
   | "go"
@@ -1449,6 +1738,9 @@ export type t_code_security_configuration = {
   dependabot_alerts?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  dependabot_delegated_alert_dismissal?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue | null)
+    | undefined
   dependabot_security_updates?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
@@ -1484,11 +1776,16 @@ export type t_code_security_configuration = {
     | {
         reviewers?:
           | {
+              mode?: ("ALWAYS" | "EXEMPT" | UnknownEnumStringValue) | undefined
               reviewer_id: number
               reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
+              security_configuration_id?: number | undefined
             }[]
           | undefined
       }
+    | undefined
+  secret_scanning_extended_metadata?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_generic_secrets?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -1790,12 +2087,6 @@ export type t_collaborator = {
   user_view_type?: string | undefined
 }
 
-export type t_combined_billing_usage = {
-  days_left_in_billing_cycle: number
-  estimated_paid_storage_for_month: number
-  estimated_storage_for_month: number
-}
-
 export type t_combined_commit_status = {
   commit_url: string
   repository: t_minimal_repository
@@ -1864,20 +2155,23 @@ export type t_commit_comment = {
   user: t_nullable_simple_user
 }
 
-export type t_commit_comparison = {
-  ahead_by: number
-  base_commit: t_commit
-  behind_by: number
-  commits: t_commit[]
-  diff_url: string
-  files?: t_diff_entry[] | undefined
-  html_url: string
-  merge_base_commit: t_commit
-  patch_url: string
-  permalink_url: string
-  status: "diverged" | "ahead" | "behind" | "identical" | UnknownEnumStringValue
-  total_commits: number
-  url: string
+export type t_commit_comment_event = {
+  action: string
+  comment: {
+    body?: string | undefined
+    commit_id?: string | undefined
+    created_at?: string | undefined
+    html_url?: string | undefined
+    id?: number | undefined
+    line?: (number | null) | undefined
+    node_id?: string | undefined
+    path?: (string | null) | undefined
+    position?: (number | null) | undefined
+    reactions?: t_reaction_rollup | undefined
+    updated_at?: string | undefined
+    url?: string | undefined
+    user?: t_nullable_simple_user | undefined
+  }
 }
 
 export type t_commit_search_result_item = {
@@ -1929,6 +2223,53 @@ export type t_community_profile = {
   }
   health_percentage: number
   updated_at: string | null
+}
+
+export type t_concurrency_group = {
+  group_members: {
+    job_html_url?: (string | null) | undefined
+    job_id?: number | undefined
+    job_name?: string | undefined
+    job_url?: (string | null) | undefined
+    run_html_url: string | null
+    run_id: number
+    run_name: string
+    run_url: string | null
+    status: "in_progress" | "pending" | UnknownEnumStringValue
+  }[]
+  group_name: string
+  group_url: string
+  total_count: number
+}
+
+export type t_concurrency_group_list = {
+  concurrency_groups: {
+    group_name: string
+    group_url: string
+    last_acquired_at: string | null
+  }[]
+  total_count: number
+}
+
+export type t_concurrency_group_run_list = {
+  concurrency_groups: {
+    group_members: {
+      job_html_url?: (string | null) | undefined
+      job_id?: (number | null) | undefined
+      job_name?: (string | null) | undefined
+      job_url?: (string | null) | undefined
+      position: number
+      position_url: string
+      run_html_url: string | null
+      run_id: number
+      run_name: string
+      run_url: string | null
+      status: "in_progress" | "pending" | UnknownEnumStringValue
+    }[]
+    group_name: string
+    group_url: string
+  }[]
+  total_count: number
 }
 
 export type t_content_directory = {
@@ -2163,6 +2504,11 @@ export type t_copilot_ide_code_completions = {
   [key: string]: unknown | undefined
 } | null
 
+export type t_copilot_organization_content_exclusion_details = Record<
+  string,
+  string[]
+>
+
 export type t_copilot_organization_details = {
   cli?:
     | ("enabled" | "disabled" | "unconfigured" | UnknownEnumStringValue)
@@ -2204,12 +2550,119 @@ export type t_copilot_seat_details = {
   created_at: string
   last_activity_at?: (string | null) | undefined
   last_activity_editor?: (string | null) | undefined
+  last_authenticated_at?: (string | null) | undefined
   organization?: t_nullable_organization_simple | undefined
   pending_cancellation_date?: (string | null) | undefined
   plan_type?:
     | ("business" | "enterprise" | "unknown" | UnknownEnumStringValue)
     | undefined
   updated_at?: string | undefined
+}
+
+export type t_copilot_space = {
+  api_url: string
+  base_role:
+    | "reader"
+    | "writer"
+    | "admin"
+    | "no_access"
+    | UnknownEnumStringValue
+  created_at: string
+  creator: t_simple_user
+  description?: (string | null) | undefined
+  general_instructions?: (string | null) | undefined
+  html_url: string
+  id: number
+  name: string
+  number: number
+  owner: t_simple_user | t_organization_simple
+  resources_attributes?:
+    | {
+        copilot_chat_attachment_id?: (number | null) | undefined
+        created_at?: string | undefined
+        id?: number | undefined
+        metadata?:
+          | {
+              copilot_chat_attachment_id?: number | undefined
+              file_path?: string | undefined
+              height?: number | undefined
+              media_type?: string | undefined
+              name?: string | undefined
+              number?: number | undefined
+              repository_id?: number | undefined
+              text?: string | undefined
+              url?: string | undefined
+              width?: number | undefined
+            }
+          | undefined
+        resource_type?:
+          | (
+              | "repository"
+              | "github_file"
+              | "free_text"
+              | "github_issue"
+              | "github_pull_request"
+              | "media_content"
+              | "uploaded_text_file"
+              | UnknownEnumStringValue
+            )
+          | undefined
+        updated_at?: string | undefined
+      }[]
+    | undefined
+  updated_at: string
+}
+
+export type t_copilot_space_collaborator =
+  | (t_simple_user & {
+      actor_type: "User"
+      role: "reader" | "writer" | "admin" | UnknownEnumStringValue
+    })
+  | {
+      actor_type: "Team"
+      description?: (string | null) | undefined
+      html_url?: string | undefined
+      id: number
+      members_url?: string | undefined
+      name: string
+      node_id: string
+      notification_setting?: string | undefined
+      organization_id?: number | undefined
+      parent?: unknown | undefined
+      privacy?: string | undefined
+      repositories_url?: string | undefined
+      role: "reader" | "writer" | "admin" | UnknownEnumStringValue
+      slug: string
+      type: "Team"
+      url?: string | undefined
+    }
+
+export type t_copilot_space_resource = {
+  copilot_chat_attachment_id?: (number | null) | undefined
+  created_at: string
+  id: number
+  metadata: Record<string, unknown>
+  resource_type:
+    | "repository"
+    | "github_file"
+    | "free_text"
+    | "github_issue"
+    | "github_pull_request"
+    | "media_content"
+    | "uploaded_text_file"
+    | UnknownEnumStringValue
+  updated_at: string
+}
+
+export type t_copilot_usage_metrics_1_day_report = {
+  download_links: string[]
+  report_day: string
+}
+
+export type t_copilot_usage_metrics_28_day_report = {
+  download_links: string[]
+  report_end_day: string
+  report_start_day: string
 }
 
 export type t_copilot_usage_metrics_day = {
@@ -2221,6 +2674,15 @@ export type t_copilot_usage_metrics_day = {
   total_active_users?: number | undefined
   total_engaged_users?: number | undefined
   [key: string]: unknown | undefined
+}
+
+export type t_create_event = {
+  description?: (string | null) | undefined
+  full_ref: string
+  master_branch: string
+  pusher_type: string
+  ref: string
+  ref_type: string
 }
 
 export type t_custom_deployment_rule_app = {
@@ -2235,6 +2697,7 @@ export type t_custom_property = {
   default_value?: (string | string[] | null) | undefined
   description?: (string | null) | undefined
   property_name: string
+  require_explicit_values?: boolean | undefined
   required?: boolean | undefined
   source_type?:
     | ("organization" | "enterprise" | UnknownEnumStringValue)
@@ -2245,6 +2708,7 @@ export type t_custom_property = {
     | "single_select"
     | "multi_select"
     | "true_false"
+    | "url"
     | UnknownEnumStringValue
   values_editable_by?:
     | ("org_actors" | "org_and_repo_actors" | UnknownEnumStringValue | null)
@@ -2255,12 +2719,14 @@ export type t_custom_property_set_payload = {
   allowed_values?: (string[] | null) | undefined
   default_value?: (string | string[] | null) | undefined
   description?: (string | null) | undefined
+  require_explicit_values?: boolean | undefined
   required?: boolean | undefined
   value_type:
     | "string"
     | "single_select"
     | "multi_select"
     | "true_false"
+    | "url"
     | UnknownEnumStringValue
   values_editable_by?:
     | ("org_actors" | "org_and_repo_actors" | UnknownEnumStringValue | null)
@@ -2287,6 +2753,18 @@ export type t_cvss_severities = {
     | undefined
 } | null
 
+export type t_delete_budget = {
+  id: string
+  message: string
+}
+
+export type t_delete_event = {
+  full_ref: string
+  pusher_type: string
+  ref: string
+  ref_type: string
+}
+
 export type t_demilestoned_issue_event = {
   actor: t_simple_user
   commit_id: string | null
@@ -2303,18 +2781,27 @@ export type t_demilestoned_issue_event = {
 }
 
 export type t_dependabot_alert = {
+  assignees?: t_simple_user[] | undefined
   auto_dismissed_at?: t_alert_auto_dismissed_at | undefined
   created_at: t_alert_created_at
   dependency: {
     manifest_path?: string | undefined
     package?: t_dependabot_alert_package | undefined
     relationship?:
-      | ("unknown" | "direct" | "transitive" | UnknownEnumStringValue | null)
+      | (
+          | "unknown"
+          | "direct"
+          | "transitive"
+          | "inconclusive"
+          | UnknownEnumStringValue
+          | null
+        )
       | undefined
     scope?:
       | ("development" | "runtime" | UnknownEnumStringValue | null)
       | undefined
   }
+  dismissal_request?: t_dependabot_alert_dismissal_request_simple | undefined
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment: string | null
@@ -2341,12 +2828,34 @@ export type t_dependabot_alert = {
   url: t_alert_url
 }
 
+export type t_dependabot_alert_dismissal_request_simple = {
+  created_at?: string | undefined
+  id?: number | undefined
+  requester?:
+    | {
+        id?: number | undefined
+        login?: string | undefined
+      }
+    | undefined
+  status?:
+    | (
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "cancelled"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  url?: string | undefined
+} | null
+
 export type t_dependabot_alert_package = {
   ecosystem: string
   name: string
 }
 
 export type t_dependabot_alert_security_advisory = {
+  classification?: ("general" | "malware" | UnknownEnumStringValue) | undefined
   cve_id: string | null
   cvss: {
     score: number
@@ -2385,18 +2894,27 @@ export type t_dependabot_alert_security_vulnerability = {
 }
 
 export type t_dependabot_alert_with_repository = {
+  assignees?: t_simple_user[] | undefined
   auto_dismissed_at?: t_alert_auto_dismissed_at | undefined
   created_at: t_alert_created_at
   dependency: {
     manifest_path?: string | undefined
     package?: t_dependabot_alert_package | undefined
     relationship?:
-      | ("unknown" | "direct" | "transitive" | UnknownEnumStringValue | null)
+      | (
+          | "unknown"
+          | "direct"
+          | "transitive"
+          | "inconclusive"
+          | UnknownEnumStringValue
+          | null
+        )
       | undefined
     scope?:
       | ("development" | "runtime" | UnknownEnumStringValue | null)
       | undefined
   }
+  dismissal_request?: t_dependabot_alert_dismissal_request_simple | undefined
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment: string | null
@@ -2628,7 +3146,7 @@ export type t_diff_entry = {
   patch?: string | undefined
   previous_filename?: string | undefined
   raw_url: string
-  sha: string
+  sha: string | null
   status:
     | "added"
     | "removed"
@@ -2638,6 +3156,135 @@ export type t_diff_entry = {
     | "changed"
     | "unchanged"
     | UnknownEnumStringValue
+}
+
+export type t_discussion = {
+  active_lock_reason: string | null
+  answer_chosen_at: string | null
+  answer_chosen_by: {
+    avatar_url?: string | undefined
+    deleted?: boolean | undefined
+    email?: (string | null) | undefined
+    events_url?: string | undefined
+    followers_url?: string | undefined
+    following_url?: string | undefined
+    gists_url?: string | undefined
+    gravatar_id?: string | undefined
+    html_url?: string | undefined
+    id: number
+    login: string
+    name?: string | undefined
+    node_id?: string | undefined
+    organizations_url?: string | undefined
+    received_events_url?: string | undefined
+    repos_url?: string | undefined
+    site_admin?: boolean | undefined
+    starred_url?: string | undefined
+    subscriptions_url?: string | undefined
+    type?:
+      | ("Bot" | "User" | "Organization" | UnknownEnumStringValue)
+      | undefined
+    url?: string | undefined
+    user_view_type?: string | undefined
+  } | null
+  answer_html_url: string | null
+  author_association?:
+    | (
+        | "COLLABORATOR"
+        | "CONTRIBUTOR"
+        | "FIRST_TIMER"
+        | "FIRST_TIME_CONTRIBUTOR"
+        | "MANNEQUIN"
+        | "MEMBER"
+        | "NONE"
+        | "OWNER"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  body: string
+  category: {
+    created_at: string
+    description: string
+    emoji: string
+    id: number
+    is_answerable: boolean
+    name: string
+    node_id?: string | undefined
+    repository_id: number
+    slug: string
+    updated_at: string
+  }
+  comments: number
+  created_at: string
+  html_url: string
+  id: number
+  labels?: t_label[] | undefined
+  locked: boolean
+  node_id: string
+  number: number
+  reactions?:
+    | {
+        "+1": number
+        "-1": number
+        confused: number
+        eyes: number
+        heart: number
+        hooray: number
+        laugh: number
+        rocket: number
+        total_count: number
+        url: string
+      }
+    | undefined
+  repository_url: string
+  state:
+    | "open"
+    | "closed"
+    | "locked"
+    | "converting"
+    | "transferring"
+    | UnknownEnumStringValue
+  state_reason:
+    | "resolved"
+    | "outdated"
+    | "duplicate"
+    | "reopened"
+    | UnknownEnumStringValue
+    | null
+  timeline_url?: string | undefined
+  title: string
+  updated_at: string
+  user: {
+    avatar_url?: string | undefined
+    deleted?: boolean | undefined
+    email?: (string | null) | undefined
+    events_url?: string | undefined
+    followers_url?: string | undefined
+    following_url?: string | undefined
+    gists_url?: string | undefined
+    gravatar_id?: string | undefined
+    html_url?: string | undefined
+    id: number
+    login: string
+    name?: string | undefined
+    node_id?: string | undefined
+    organizations_url?: string | undefined
+    received_events_url?: string | undefined
+    repos_url?: string | undefined
+    site_admin?: boolean | undefined
+    starred_url?: string | undefined
+    subscriptions_url?: string | undefined
+    type?:
+      | ("Bot" | "User" | "Organization" | UnknownEnumStringValue)
+      | undefined
+    url?: string | undefined
+    user_view_type?: string | undefined
+  } | null
+}
+
+export type t_discussion_event = {
+  action: string
+  discussion: t_discussion
 }
 
 export type t_email = {
@@ -2671,12 +3318,19 @@ export type t_enterprise = {
 export type t_enterprise_team = {
   created_at: string
   description?: string | undefined
-  group_id?: (string | null) | undefined
+  group_id: string | null
   group_name?: (string | null) | undefined
   html_url: string
   id: number
   members_url: string
   name: string
+  notification_setting?:
+    | (
+        | "notifications_enabled"
+        | "notifications_disabled"
+        | UnknownEnumStringValue
+      )
+    | undefined
   organization_selection_type?: string | undefined
   slug: string
   sync_to_organizations?: string | undefined
@@ -2742,21 +3396,23 @@ export type t_event = {
   created_at: string | null
   id: string
   org?: t_actor | undefined
-  payload: {
-    action?: string | undefined
-    comment?: t_issue_comment | undefined
-    issue?: t_issue | undefined
-    pages?:
-      | {
-          action?: string | undefined
-          html_url?: string | undefined
-          page_name?: string | undefined
-          sha?: string | undefined
-          summary?: (string | null) | undefined
-          title?: string | undefined
-        }[]
-      | undefined
-  }
+  payload:
+    | t_create_event
+    | t_delete_event
+    | t_discussion_event
+    | t_issues_event
+    | t_issue_comment_event
+    | t_fork_event
+    | t_gollum_event
+    | t_member_event
+    | t_public_event
+    | t_push_event
+    | t_pull_request_event
+    | t_pull_request_review_comment_event
+    | t_pull_request_review_event
+    | t_commit_comment_event
+    | t_release_event
+    | t_watch_event
   public: boolean
   repo: {
     id: number
@@ -2855,6 +3511,96 @@ export type t_file_commit = {
   } | null
 }
 
+export type t_fork_event = {
+  action: string
+  forkee: {
+    allow_forking?: boolean | undefined
+    archive_url?: string | undefined
+    archived?: boolean | undefined
+    assignees_url?: string | undefined
+    blobs_url?: string | undefined
+    branches_url?: string | undefined
+    clone_url?: string | undefined
+    collaborators_url?: string | undefined
+    comments_url?: string | undefined
+    commits_url?: string | undefined
+    compare_url?: string | undefined
+    contents_url?: string | undefined
+    contributors_url?: string | undefined
+    created_at?: (string | null) | undefined
+    default_branch?: string | undefined
+    deployments_url?: string | undefined
+    description?: (string | null) | undefined
+    disabled?: boolean | undefined
+    downloads_url?: string | undefined
+    events_url?: string | undefined
+    fork?: boolean | undefined
+    forks?: number | undefined
+    forks_count?: number | undefined
+    forks_url?: string | undefined
+    full_name?: string | undefined
+    git_commits_url?: string | undefined
+    git_refs_url?: string | undefined
+    git_tags_url?: string | undefined
+    git_url?: string | undefined
+    has_discussions?: boolean | undefined
+    has_downloads?: boolean | undefined
+    has_issues?: boolean | undefined
+    has_pages?: boolean | undefined
+    has_projects?: boolean | undefined
+    has_pull_requests?: boolean | undefined
+    has_wiki?: boolean | undefined
+    homepage?: (string | null) | undefined
+    hooks_url?: string | undefined
+    html_url?: string | undefined
+    id?: number | undefined
+    is_template?: boolean | undefined
+    issue_comment_url?: string | undefined
+    issue_events_url?: string | undefined
+    issues_url?: string | undefined
+    keys_url?: string | undefined
+    labels_url?: string | undefined
+    language?: (string | null) | undefined
+    languages_url?: string | undefined
+    license?: t_nullable_license_simple | undefined
+    merges_url?: string | undefined
+    milestones_url?: string | undefined
+    mirror_url?: (string | null) | undefined
+    name?: string | undefined
+    node_id?: string | undefined
+    notifications_url?: string | undefined
+    open_issues?: number | undefined
+    open_issues_count?: number | undefined
+    owner?: t_simple_user | undefined
+    private?: boolean | undefined
+    public?: boolean | undefined
+    pull_request_creation_policy?:
+      | ("all" | "collaborators_only" | UnknownEnumStringValue)
+      | undefined
+    pulls_url?: string | undefined
+    pushed_at?: (string | null) | undefined
+    releases_url?: string | undefined
+    size?: number | undefined
+    ssh_url?: string | undefined
+    stargazers_count?: number | undefined
+    stargazers_url?: string | undefined
+    statuses_url?: string | undefined
+    subscribers_url?: string | undefined
+    subscription_url?: string | undefined
+    svn_url?: string | undefined
+    tags_url?: string | undefined
+    teams_url?: string | undefined
+    topics?: string[] | undefined
+    trees_url?: string | undefined
+    updated_at?: (string | null) | undefined
+    url?: string | undefined
+    visibility?: string | undefined
+    watchers?: number | undefined
+    watchers_count?: number | undefined
+    web_commit_signoff_required?: boolean | undefined
+  }
+}
+
 export type t_full_repository = {
   allow_auto_merge?: boolean | undefined
   allow_forking?: boolean | undefined
@@ -2899,6 +3645,7 @@ export type t_full_repository = {
   has_issues: boolean
   has_pages: boolean
   has_projects: boolean
+  has_pull_requests?: boolean | undefined
   has_wiki: boolean
   homepage: string | null
   hooks_url: string
@@ -2942,6 +3689,9 @@ export type t_full_repository = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at: string
   releases_url: string
@@ -2975,6 +3725,31 @@ export type t_full_repository = {
   watchers: number
   watchers_count: number
   web_commit_signoff_required?: boolean | undefined
+}
+
+export type t_get_budget = {
+  budget_alerting: {
+    alert_recipients?: string[] | undefined
+    will_alert?: boolean | undefined
+  }
+  budget_amount: number
+  budget_entity_name: string
+  budget_product_sku: string
+  budget_scope:
+    | "enterprise"
+    | "organization"
+    | "repository"
+    | "cost_center"
+    | UnknownEnumStringValue
+  budget_type: "ProductPricing" | "SkuPricing"
+  id: string
+  prevent_further_usage: boolean
+}
+
+export type t_get_all_budgets = {
+  budgets: t_budget[]
+  has_next_page?: boolean | undefined
+  total_count?: number | undefined
 }
 
 export type t_gist_comment = {
@@ -3230,6 +4005,17 @@ export type t_global_advisory = {
   withdrawn_at: string | null
 }
 
+export type t_gollum_event = {
+  pages: {
+    action?: string | undefined
+    html_url?: string | undefined
+    page_name?: (string | null) | undefined
+    sha?: string | undefined
+    summary?: (string | null) | undefined
+    title?: (string | null) | undefined
+  }[]
+}
+
 export type t_gpg_key = {
   can_certify: boolean
   can_encrypt_comms: boolean
@@ -3337,6 +4123,11 @@ export type t_hovercard = {
     message: string
     octicon: string
   }[]
+}
+
+export type t_immutable_releases_organization_settings = {
+  enforced_repositories: "all" | "none" | "selected" | UnknownEnumStringValue
+  selected_repositories_url?: string | undefined
 }
 
 export type t_import = {
@@ -3485,8 +4276,8 @@ export type t_interaction_limit_response = {
 export type t_issue = {
   active_lock_reason?: (string | null) | undefined
   assignee: t_nullable_simple_user
-  assignees?: (t_simple_user[] | null) | undefined
-  author_association: t_author_association
+  assignees?: t_simple_user[] | undefined
+  author_association?: t_author_association | undefined
   body?: (string | null) | undefined
   body_html?: string | undefined
   body_text?: string | undefined
@@ -3499,6 +4290,8 @@ export type t_issue = {
   events_url: string
   html_url: string
   id: number
+  issue_dependencies_summary?: t_issue_dependencies_summary | undefined
+  issue_field_values?: t_issue_field_value[] | undefined
   labels: (
     | string
     | {
@@ -3516,7 +4309,9 @@ export type t_issue = {
   milestone: t_nullable_milestone
   node_id: string
   number: number
+  parent_issue_url?: (string | null) | undefined
   performed_via_github_app?: t_nullable_integration | undefined
+  pinned_comment?: t_nullable_issue_comment | undefined
   pull_request?:
     | {
         diff_url: string | null
@@ -3550,7 +4345,7 @@ export type t_issue = {
 }
 
 export type t_issue_comment = {
-  author_association: t_author_association
+  author_association?: t_author_association | undefined
   body?: string | undefined
   body_html?: string | undefined
   body_text?: string | undefined
@@ -3560,10 +4355,24 @@ export type t_issue_comment = {
   issue_url: string
   node_id: string
   performed_via_github_app?: t_nullable_integration | undefined
+  pin?: t_nullable_pinned_issue_comment | undefined
   reactions?: t_reaction_rollup | undefined
   updated_at: string
   url: string
   user: t_nullable_simple_user
+}
+
+export type t_issue_comment_event = {
+  action: string
+  comment: t_issue_comment
+  issue: t_issue
+}
+
+export type t_issue_dependencies_summary = {
+  blocked_by: number
+  blocking: number
+  total_blocked_by: number
+  total_blocking: number
 }
 
 export type t_issue_event = {
@@ -3638,6 +4447,70 @@ export type t_issue_event_rename = {
   to: string
 }
 
+export type t_issue_field = {
+  created_at?: string | undefined
+  data_type:
+    | "text"
+    | "date"
+    | "single_select"
+    | "number"
+    | UnknownEnumStringValue
+  description?: (string | null) | undefined
+  id: number
+  name: string
+  node_id: string
+  options?:
+    | (
+        | {
+            color?:
+              | (
+                  | "gray"
+                  | "blue"
+                  | "green"
+                  | "yellow"
+                  | "orange"
+                  | "red"
+                  | "pink"
+                  | "purple"
+                  | UnknownEnumStringValue
+                  | null
+                )
+              | undefined
+            created_at?: string | undefined
+            description?: (string | null) | undefined
+            id: number
+            name: string
+            priority?: (number | null) | undefined
+            updated_at?: string | undefined
+          }[]
+        | null
+      )
+    | undefined
+  updated_at?: string | undefined
+  visibility?:
+    | ("organization_members_only" | "all" | UnknownEnumStringValue)
+    | undefined
+} | null
+
+export type t_issue_field_value = {
+  data_type:
+    | "text"
+    | "single_select"
+    | "number"
+    | "date"
+    | UnknownEnumStringValue
+  issue_field_id: number
+  node_id: string
+  single_select_option?:
+    | ({
+        color: string
+        id: number
+        name: string
+      } | null)
+    | undefined
+  value: string | number | null
+}
+
 export type t_issue_search_result_item = {
   active_lock_reason?: (string | null) | undefined
   assignee: t_nullable_simple_user
@@ -3654,6 +4527,8 @@ export type t_issue_search_result_item = {
   events_url: string
   html_url: string
   id: number
+  issue_dependencies_summary?: t_issue_dependencies_summary | undefined
+  issue_field_values?: t_issue_field_value[] | undefined
   labels: {
     color?: string | undefined
     default?: boolean | undefined
@@ -3669,6 +4544,7 @@ export type t_issue_search_result_item = {
   node_id: string
   number: number
   performed_via_github_app?: t_nullable_integration | undefined
+  pinned_comment?: t_nullable_issue_comment | undefined
   pull_request?:
     | {
         diff_url: string | null
@@ -3717,6 +4593,15 @@ export type t_issue_type = {
   node_id: string
   updated_at?: string | undefined
 } | null
+
+export type t_issues_event = {
+  action: string
+  assignee?: t_simple_user | undefined
+  assignees?: t_simple_user[] | undefined
+  issue: t_issue
+  label?: t_label | undefined
+  labels?: t_label[] | undefined
+}
 
 export type t_job = {
   check_run_url: string
@@ -3826,6 +4711,8 @@ export type t_labeled_issue_event = {
 }
 
 export type t_language = Record<string, number>
+
+export type t_ldap_dn = string
 
 export type t_license = {
   body: string
@@ -3959,6 +4846,11 @@ export type t_marketplace_purchase = {
   url: string
 }
 
+export type t_member_event = {
+  action: string
+  member: t_simple_user
+}
+
 export type t_merged_upstream = {
   base_branch?: string | undefined
   merge_type?:
@@ -4062,6 +4954,7 @@ export type t_minimal_repository = {
   has_issues?: boolean | undefined
   has_pages?: boolean | undefined
   has_projects?: boolean | undefined
+  has_pull_requests?: boolean | undefined
   has_wiki?: boolean | undefined
   homepage?: (string | null) | undefined
   hooks_url: string
@@ -4081,7 +4974,7 @@ export type t_minimal_repository = {
         name?: string | undefined
         node_id?: string | undefined
         spdx_id?: string | undefined
-        url?: string | undefined
+        url?: (string | null) | undefined
       } | null)
     | undefined
   merges_url: string
@@ -4104,6 +4997,9 @@ export type t_minimal_repository = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at?: (string | null) | undefined
   releases_url: string
@@ -4158,6 +5054,8 @@ export type t_network_configuration = {
     | ("none" | "actions" | "codespaces" | UnknownEnumStringValue)
     | undefined
   created_on: string | null
+  failover_network_enabled?: boolean | undefined
+  failover_network_settings_ids?: string[] | undefined
   id: string
   name: string
   network_settings_ids?: string[] | undefined
@@ -4176,6 +5074,7 @@ export type t_nullable_actions_hosted_runner_pool_image = {
   id: string
   size_gb: number
   source: "github" | "partner" | "custom" | UnknownEnumStringValue
+  version?: string | undefined
 } | null
 
 export type t_nullable_alert_updated_at = string | null
@@ -4274,8 +5173,8 @@ export type t_nullable_integration = {
 export type t_nullable_issue = {
   active_lock_reason?: (string | null) | undefined
   assignee: t_nullable_simple_user
-  assignees?: (t_simple_user[] | null) | undefined
-  author_association: t_author_association
+  assignees?: t_simple_user[] | undefined
+  author_association?: t_author_association | undefined
   body?: (string | null) | undefined
   body_html?: string | undefined
   body_text?: string | undefined
@@ -4288,6 +5187,8 @@ export type t_nullable_issue = {
   events_url: string
   html_url: string
   id: number
+  issue_dependencies_summary?: t_issue_dependencies_summary | undefined
+  issue_field_values?: t_issue_field_value[] | undefined
   labels: (
     | string
     | {
@@ -4305,7 +5206,9 @@ export type t_nullable_issue = {
   milestone: t_nullable_milestone
   node_id: string
   number: number
+  parent_issue_url?: (string | null) | undefined
   performed_via_github_app?: t_nullable_integration | undefined
+  pinned_comment?: t_nullable_issue_comment | undefined
   pull_request?:
     | {
         diff_url: string | null
@@ -4333,6 +5236,24 @@ export type t_nullable_issue = {
   timeline_url?: string | undefined
   title: string
   type?: t_issue_type | undefined
+  updated_at: string
+  url: string
+  user: t_nullable_simple_user
+} | null
+
+export type t_nullable_issue_comment = {
+  author_association?: t_author_association | undefined
+  body?: string | undefined
+  body_html?: string | undefined
+  body_text?: string | undefined
+  created_at: string
+  html_url: string
+  id: number
+  issue_url: string
+  node_id: string
+  performed_via_github_app?: t_nullable_integration | undefined
+  pin?: t_nullable_pinned_issue_comment | undefined
+  reactions?: t_reaction_rollup | undefined
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -4404,6 +5325,7 @@ export type t_nullable_minimal_repository = {
   has_issues?: boolean | undefined
   has_pages?: boolean | undefined
   has_projects?: boolean | undefined
+  has_pull_requests?: boolean | undefined
   has_wiki?: boolean | undefined
   homepage?: (string | null) | undefined
   hooks_url: string
@@ -4423,7 +5345,7 @@ export type t_nullable_minimal_repository = {
         name?: string | undefined
         node_id?: string | undefined
         spdx_id?: string | undefined
-        url?: string | undefined
+        url?: (string | null) | undefined
       } | null)
     | undefined
   merges_url: string
@@ -4446,6 +5368,9 @@ export type t_nullable_minimal_repository = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at?: (string | null) | undefined
   releases_url: string
@@ -4486,6 +5411,34 @@ export type t_nullable_organization_simple = {
   public_members_url: string
   repos_url: string
   url: string
+} | null
+
+export type t_nullable_pinned_issue_comment = {
+  pinned_at: string
+  pinned_by: t_nullable_simple_user
+} | null
+
+export type t_nullable_projects_v2_status_update = {
+  body?: (string | null) | undefined
+  created_at: string
+  creator?: t_simple_user | undefined
+  id: number
+  node_id: string
+  project_node_id?: string | undefined
+  start_date?: string | undefined
+  status?:
+    | (
+        | "INACTIVE"
+        | "ON_TRACK"
+        | "AT_RISK"
+        | "OFF_TRACK"
+        | "COMPLETE"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
+  target_date?: string | undefined
+  updated_at: string
 } | null
 
 export type t_nullable_repository = {
@@ -4536,6 +5489,7 @@ export type t_nullable_repository = {
   has_issues: boolean
   has_pages: boolean
   has_projects: boolean
+  has_pull_requests?: boolean | undefined
   has_wiki: boolean
   homepage: string | null
   hooks_url: string
@@ -4576,6 +5530,9 @@ export type t_nullable_repository = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at: string | null
   releases_url: string
@@ -4725,6 +5682,7 @@ export type t_nullable_simple_user = {
 
 export type t_nullable_team_simple = {
   description: string | null
+  enterprise_id?: number | undefined
   html_url: string
   id: number
   ldap_dn?: string | undefined
@@ -4732,20 +5690,34 @@ export type t_nullable_team_simple = {
   name: string
   node_id: string
   notification_setting?: string | undefined
+  organization_id?: number | undefined
   permission: string
   privacy?: string | undefined
   repositories_url: string
   slug: string
+  type: "enterprise" | "organization" | UnknownEnumStringValue
   url: string
 } | null
 
+export type t_oidc_custom_property_inclusion = {
+  custom_property_name: string
+  inclusion_source: "organization" | "enterprise" | UnknownEnumStringValue
+}
+
+export type t_oidc_custom_property_inclusion_input = {
+  custom_property_name: string
+}
+
 export type t_oidc_custom_sub = {
   include_claim_keys: string[]
+  use_immutable_subject?: boolean | undefined
 }
 
 export type t_oidc_custom_sub_repo = {
   include_claim_keys?: string[] | undefined
+  sub_claim_prefix?: string | undefined
   use_default: boolean
+  use_immutable_subject?: boolean | undefined
 }
 
 export type t_org_hook = {
@@ -4784,8 +5756,30 @@ export type t_org_membership = {
 }
 
 export type t_org_private_registry_configuration = {
+  account_id?: string | undefined
+  api_host?: string | undefined
+  audience?: string | undefined
+  auth_type?:
+    | (
+        | "token"
+        | "username_password"
+        | "oidc_azure"
+        | "oidc_aws"
+        | "oidc_jfrog"
+        | "oidc_cloudsmith"
+        | "oidc_gcp"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  aws_region?: string | undefined
+  client_id?: string | undefined
   created_at: string
+  domain?: string | undefined
+  domain_owner?: string | undefined
+  identity_mapping_name?: string | undefined
+  jfrog_oidc_provider_name?: string | undefined
   name: string
+  namespace?: string | undefined
   registry_type:
     | "maven_repository"
     | "nuget_feed"
@@ -4803,14 +5797,43 @@ export type t_org_private_registry_configuration = {
     | "python_index"
     | "terraform_registry"
     | UnknownEnumStringValue
+  replaces_base?: boolean | undefined
+  role_name?: string | undefined
+  service_account?: string | undefined
+  service_slug?: string | undefined
+  tenant_id?: string | undefined
   updated_at: string
+  url?: string | undefined
   username?: (string | null) | undefined
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+  workload_identity_provider?: string | undefined
 }
 
 export type t_org_private_registry_configuration_with_selected_repositories = {
+  account_id?: string | undefined
+  api_host?: string | undefined
+  audience?: string | undefined
+  auth_type?:
+    | (
+        | "token"
+        | "username_password"
+        | "oidc_azure"
+        | "oidc_aws"
+        | "oidc_jfrog"
+        | "oidc_cloudsmith"
+        | "oidc_gcp"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  aws_region?: string | undefined
+  client_id?: string | undefined
   created_at: string
+  domain?: string | undefined
+  domain_owner?: string | undefined
+  identity_mapping_name?: string | undefined
+  jfrog_oidc_provider_name?: string | undefined
   name: string
+  namespace?: string | undefined
   registry_type:
     | "maven_repository"
     | "nuget_feed"
@@ -4828,10 +5851,17 @@ export type t_org_private_registry_configuration_with_selected_repositories = {
     | "python_index"
     | "terraform_registry"
     | UnknownEnumStringValue
+  replaces_base?: boolean | undefined
+  role_name?: string | undefined
   selected_repository_ids?: number[] | undefined
+  service_account?: string | undefined
+  service_slug?: string | undefined
+  tenant_id?: string | undefined
   updated_at: string
+  url?: string | undefined
   username?: string | undefined
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+  workload_identity_provider?: string | undefined
 }
 
 export type t_org_repo_custom_property_values = {
@@ -4862,6 +5892,7 @@ export type t_org_rules =
   | t_repository_rule_max_file_size
   | t_repository_rule_workflows
   | t_repository_rule_code_scanning
+  | t_repository_rule_copilot_code_review
 
 export type t_org_ruleset_conditions =
   | (t_repository_ruleset_conditions &
@@ -4886,6 +5917,40 @@ export type t_organization_actions_variable = {
   updated_at: string
   value: string
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_organization_create_issue_field = {
+  data_type:
+    | "text"
+    | "date"
+    | "single_select"
+    | "number"
+    | UnknownEnumStringValue
+  description?: (string | null) | undefined
+  name: string
+  options?:
+    | (
+        | {
+            color:
+              | "gray"
+              | "blue"
+              | "green"
+              | "yellow"
+              | "orange"
+              | "red"
+              | "pink"
+              | "purple"
+              | UnknownEnumStringValue
+            description?: (string | null) | undefined
+            name: string
+            priority: number
+          }[]
+        | null
+      )
+    | undefined
+  visibility?:
+    | ("organization_members_only" | "all" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_organization_create_issue_type = {
@@ -5079,6 +6144,10 @@ export type t_organization_role = {
 }
 
 export type t_organization_secret_scanning_alert = {
+  assigned_to?: t_nullable_simple_user | undefined
+  closure_request_comment?: (string | null) | undefined
+  closure_request_reviewer?: t_nullable_simple_user | undefined
+  closure_request_reviewer_comment?: (string | null) | undefined
   created_at?: t_alert_created_at | undefined
   first_location_detected?:
     | t_nullable_secret_scanning_first_detected_location
@@ -5089,6 +6158,8 @@ export type t_organization_secret_scanning_alert = {
   locations_url?: string | undefined
   multi_repo?: (boolean | null) | undefined
   number?: t_alert_number | undefined
+  provider?: (string | null) | undefined
+  provider_slug?: (string | null) | undefined
   publicly_leaked?: (boolean | null) | undefined
   push_protection_bypass_request_comment?: (string | null) | undefined
   push_protection_bypass_request_html_url?: (string | null) | undefined
@@ -5126,6 +6197,32 @@ export type t_organization_simple = {
   public_members_url: string
   repos_url: string
   url: string
+}
+
+export type t_organization_update_issue_field = {
+  description?: (string | null) | undefined
+  name?: string | undefined
+  options?:
+    | {
+        color:
+          | "gray"
+          | "blue"
+          | "green"
+          | "yellow"
+          | "orange"
+          | "red"
+          | "pink"
+          | "purple"
+          | UnknownEnumStringValue
+        description?: (string | null) | undefined
+        id?: number | undefined
+        name: string
+        priority: number
+      }[]
+    | undefined
+  visibility?:
+    | ("organization_members_only" | "all" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_organization_update_issue_type = {
@@ -5202,12 +6299,6 @@ export type t_package_version = {
   package_html_url: string
   updated_at: string
   url: string
-}
-
-export type t_packages_billing_usage = {
-  included_gigabytes_bandwidth: number
-  total_gigabytes_bandwidth_used: number
-  total_paid_gigabytes_bandwidth_used: number
 }
 
 export type t_page = {
@@ -5484,56 +6575,176 @@ export type t_private_vulnerability_report_create = {
     | undefined
 }
 
-export type t_project = {
-  body: string | null
-  columns_url: string
+export type t_projects_v2 = {
+  closed_at: string | null
   created_at: string
-  creator: t_nullable_simple_user
-  html_url: string
+  creator: t_simple_user
+  deleted_at: string | null
+  deleted_by: t_nullable_simple_user
+  description: string | null
   id: number
-  name: string
+  is_template?: boolean | undefined
+  latest_status_update?: t_nullable_projects_v2_status_update | undefined
   node_id: string
   number: number
-  organization_permission?:
-    | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
-    | undefined
-  owner_url: string
-  private?: boolean | undefined
-  state: string
+  owner: t_simple_user
+  public: boolean
+  short_description: string | null
+  state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
+  title: string
   updated_at: string
-  url: string
 }
 
-export type t_project_card = {
-  archived?: boolean | undefined
-  column_name?: string | undefined
-  column_url: string
-  content_url?: string | undefined
+export type t_projects_v2_draft_issue = {
+  body?: (string | null) | undefined
   created_at: string
-  creator: t_nullable_simple_user
   id: number
   node_id: string
-  note: string | null
-  project_id?: string | undefined
-  project_url: string
+  title: string
   updated_at: string
-  url: string
-}
-
-export type t_project_collaborator_permission = {
-  permission: string
   user: t_nullable_simple_user
 }
 
-export type t_project_column = {
-  cards_url: string
+export type t_projects_v2_field = {
+  configuration?:
+    | {
+        duration?: number | undefined
+        iterations?: t_projects_v2_iteration_settings[] | undefined
+        start_day?: number | undefined
+      }
+    | undefined
   created_at: string
+  data_type:
+    | "assignees"
+    | "linked_pull_requests"
+    | "reviewers"
+    | "labels"
+    | "milestone"
+    | "repository"
+    | "title"
+    | "text"
+    | "single_select"
+    | "number"
+    | "date"
+    | "iteration"
+    | "issue_type"
+    | "parent_issue"
+    | "sub_issues_progress"
+    | UnknownEnumStringValue
   id: number
+  issue_field_id?: number | undefined
   name: string
-  node_id: string
+  node_id?: string | undefined
+  options?: t_projects_v2_single_select_options[] | undefined
   project_url: string
   updated_at: string
-  url: string
+}
+
+export type t_projects_v2_field_iteration_configuration = {
+  duration?: number | undefined
+  iterations?:
+    | {
+        duration?: number | undefined
+        start_date?: string | undefined
+        title?: string | undefined
+      }[]
+    | undefined
+  start_date?: string | undefined
+}
+
+export type t_projects_v2_field_single_select_option = {
+  color?:
+    | (
+        | "BLUE"
+        | "GRAY"
+        | "GREEN"
+        | "ORANGE"
+        | "PINK"
+        | "PURPLE"
+        | "RED"
+        | "YELLOW"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  description?: string | undefined
+  name?: string | undefined
+}
+
+export type t_projects_v2_item_content_type =
+  | "Issue"
+  | "PullRequest"
+  | "DraftIssue"
+  | UnknownEnumStringValue
+
+export type t_projects_v2_item_simple = {
+  archived_at: string | null
+  content?:
+    | (t_issue | t_pull_request_simple | t_projects_v2_draft_issue)
+    | undefined
+  content_type: t_projects_v2_item_content_type
+  created_at: string
+  creator?: t_simple_user | undefined
+  id: number
+  item_url?: string | undefined
+  node_id?: string | undefined
+  project_url?: string | undefined
+  updated_at: string
+}
+
+export type t_projects_v2_item_with_content = {
+  archived_at: string | null
+  content?: (Record<string, unknown> | null) | undefined
+  content_type: t_projects_v2_item_content_type
+  created_at: string
+  creator?: t_simple_user | undefined
+  fields?: Record<string, unknown>[] | undefined
+  id: number
+  item_url?: (string | null) | undefined
+  node_id?: string | undefined
+  project_url?: string | undefined
+  updated_at: string
+}
+
+export type t_projects_v2_iteration_settings = {
+  completed: boolean
+  duration: number
+  id: string
+  start_date: string
+  title: {
+    html: string
+    raw: string
+  }
+}
+
+export type t_projects_v2_single_select_options = {
+  color: string
+  description: {
+    html: string
+    raw: string
+  }
+  id: string
+  name: {
+    html: string
+    raw: string
+  }
+}
+
+export type t_projects_v2_view = {
+  created_at: string
+  creator: t_simple_user
+  filter?: (string | null) | undefined
+  group_by: number[]
+  html_url: string
+  id: number
+  layout: "table" | "board" | "roadmap" | UnknownEnumStringValue
+  name: string
+  node_id: string
+  number: number
+  project_url: string
+  sort_by: (number | string)[][]
+  updated_at: string
+  vertical_group_by: number[]
+  visible_fields: number[]
 }
 
 export type t_protected_branch = {
@@ -5657,6 +6868,8 @@ export type t_protected_branch_required_status_check = {
   url?: string | undefined
 }
 
+export type t_public_event = Record<string, unknown>
+
 export type t_public_ip = {
   enabled?: boolean | undefined
   length?: number | undefined
@@ -5727,7 +6940,7 @@ export type t_pull_request = {
   active_lock_reason?: (string | null) | undefined
   additions: number
   assignee: t_nullable_simple_user
-  assignees?: (t_simple_user[] | null) | undefined
+  assignees?: t_simple_user[] | undefined
   author_association: t_author_association
   auto_merge: t_auto_merge
   base: {
@@ -5780,8 +6993,8 @@ export type t_pull_request = {
   number: number
   patch_url: string
   rebaseable?: (boolean | null) | undefined
-  requested_reviewers?: (t_simple_user[] | null) | undefined
-  requested_teams?: (t_team_simple[] | null) | undefined
+  requested_reviewers?: t_simple_user[] | undefined
+  requested_teams?: t_team_simple[] | undefined
   review_comment_url: string
   review_comments: number
   review_comments_url: string
@@ -5791,6 +7004,16 @@ export type t_pull_request = {
   updated_at: string
   url: string
   user: t_simple_user
+}
+
+export type t_pull_request_event = {
+  action: string
+  assignee?: t_simple_user | undefined
+  assignees?: t_simple_user[] | undefined
+  label?: t_label | undefined
+  labels?: t_label[] | undefined
+  number: number
+  pull_request: t_pull_request_minimal
 }
 
 export type t_pull_request_merge_result = {
@@ -5885,7 +7108,107 @@ export type t_pull_request_review_comment = {
   subject_type?: ("line" | "file" | UnknownEnumStringValue) | undefined
   updated_at: string
   url: string
-  user: t_simple_user
+  user: t_nullable_simple_user
+}
+
+export type t_pull_request_review_comment_event = {
+  action: string
+  comment: {
+    _links: {
+      html: {
+        href: string
+      }
+      pull_request: {
+        href: string
+      }
+      self: {
+        href: string
+      }
+    }
+    body: string
+    commit_id: string
+    created_at: string
+    diff_hunk: string
+    html_url: string
+    id: number
+    in_reply_to_id?: number | undefined
+    node_id: string
+    original_commit_id: string
+    original_position: number
+    path: string
+    position: number | null
+    pull_request_review_id: number | null
+    pull_request_url: string
+    reactions: {
+      "+1"?: number | undefined
+      "-1"?: number | undefined
+      confused?: number | undefined
+      eyes?: number | undefined
+      heart?: number | undefined
+      hooray?: number | undefined
+      laugh?: number | undefined
+      rocket?: number | undefined
+      total_count?: number | undefined
+      url?: string | undefined
+    }
+    subject_type?: (string | null) | undefined
+    updated_at: string
+    url: string
+    user: {
+      avatar_url?: string | undefined
+      deleted?: boolean | undefined
+      email?: (string | null) | undefined
+      events_url?: string | undefined
+      followers_url?: string | undefined
+      following_url?: string | undefined
+      gists_url?: string | undefined
+      gravatar_id?: string | undefined
+      html_url?: string | undefined
+      id?: number | undefined
+      login?: string | undefined
+      name?: string | undefined
+      node_id?: string | undefined
+      organizations_url?: string | undefined
+      received_events_url?: string | undefined
+      repos_url?: string | undefined
+      site_admin?: boolean | undefined
+      starred_url?: string | undefined
+      subscriptions_url?: string | undefined
+      type?:
+        | ("Bot" | "User" | "Organization" | UnknownEnumStringValue)
+        | undefined
+      url?: string | undefined
+      user_view_type?: string | undefined
+    } | null
+  }
+  pull_request: t_pull_request_minimal
+}
+
+export type t_pull_request_review_event = {
+  action: string
+  pull_request: t_pull_request_minimal
+  review: {
+    _links?:
+      | {
+          html: {
+            href: string
+          }
+          pull_request: {
+            href: string
+          }
+        }
+      | undefined
+    body?: string | undefined
+    commit_id?: string | undefined
+    html_url?: string | undefined
+    id?: number | undefined
+    node_id?: string | undefined
+    pull_request_url?: string | undefined
+    state?: string | undefined
+    submitted_at?: (string | null) | undefined
+    updated_at?: string | undefined
+    user?: t_nullable_simple_user | undefined
+  }
 }
 
 export type t_pull_request_review_request = {
@@ -5906,7 +7229,7 @@ export type t_pull_request_simple = {
   }
   active_lock_reason?: (string | null) | undefined
   assignee: t_nullable_simple_user
-  assignees?: (t_simple_user[] | null) | undefined
+  assignees?: t_simple_user[] | undefined
   author_association: t_author_association
   auto_merge: t_auto_merge
   base: {
@@ -5949,8 +7272,8 @@ export type t_pull_request_simple = {
   node_id: string
   number: number
   patch_url: string
-  requested_reviewers?: (t_simple_user[] | null) | undefined
-  requested_teams?: (t_team[] | null) | undefined
+  requested_reviewers?: t_simple_user[] | undefined
+  requested_teams?: t_team[] | undefined
   review_comment_url: string
   review_comments_url: string
   state: string
@@ -5959,6 +7282,14 @@ export type t_pull_request_simple = {
   updated_at: string
   url: string
   user: t_nullable_simple_user
+}
+
+export type t_push_event = {
+  before: string
+  head: string
+  push_id: number
+  ref: string
+  repository_id: number
 }
 
 export type t_rate_limit = {
@@ -6050,6 +7381,7 @@ export type t_release = {
   tag_name: string
   tarball_url: string | null
   target_commitish: string
+  updated_at?: (string | null) | undefined
   upload_url: string
   url: string
   zipball_url: string | null
@@ -6070,6 +7402,14 @@ export type t_release_asset = {
   updated_at: string
   uploader: t_nullable_simple_user
   url: string
+}
+
+export type t_release_event = {
+  action: string
+  release: t_release & {
+    is_short_description_html_truncated?: boolean | undefined
+    short_description_html?: string | undefined
+  }
 }
 
 export type t_release_notes_content = {
@@ -6161,6 +7501,7 @@ export type t_repo_search_result_item = {
   has_issues: boolean
   has_pages: boolean
   has_projects: boolean
+  has_pull_requests?: boolean | undefined
   has_wiki: boolean
   homepage: string | null
   hooks_url: string
@@ -6195,6 +7536,9 @@ export type t_repo_search_result_item = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at: string
   releases_url: string
@@ -6269,6 +7613,7 @@ export type t_repository = {
   has_issues: boolean
   has_pages: boolean
   has_projects: boolean
+  has_pull_requests?: boolean | undefined
   has_wiki: boolean
   homepage: string | null
   hooks_url: string
@@ -6309,6 +7654,9 @@ export type t_repository = {
       }
     | undefined
   private: boolean
+  pull_request_creation_policy?:
+    | ("all" | "collaborators_only" | UnknownEnumStringValue)
+    | undefined
   pulls_url: string
   pushed_at: string | null
   releases_url: string
@@ -6524,12 +7872,13 @@ export type t_repository_rule =
   | t_repository_rule_committer_email_pattern
   | t_repository_rule_branch_name_pattern
   | t_repository_rule_tag_name_pattern
+  | t_repository_rule_workflows
+  | t_repository_rule_code_scanning
+  | t_repository_rule_copilot_code_review
   | t_repository_rule_file_path_restriction
   | t_repository_rule_max_file_path_length
   | t_repository_rule_file_extension_restriction
   | t_repository_rule_max_file_size
-  | t_repository_rule_workflows
-  | t_repository_rule_code_scanning
 
 export type t_repository_rule_branch_name_pattern = {
   parameters?:
@@ -6608,6 +7957,16 @@ export type t_repository_rule_committer_email_pattern = {
   type: "committer_email_pattern"
 }
 
+export type t_repository_rule_copilot_code_review = {
+  parameters?:
+    | {
+        review_draft_pull_requests?: boolean | undefined
+        review_on_push?: boolean | undefined
+      }
+    | undefined
+  type: "copilot_code_review"
+}
+
 export type t_repository_rule_creation = {
   type: "creation"
 }
@@ -6633,13 +7992,14 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_committer_email_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_branch_name_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_tag_name_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
+  | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
+  | (t_repository_rule_copilot_code_review & t_repository_rule_ruleset_info)
   | (t_repository_rule_file_path_restriction & t_repository_rule_ruleset_info)
   | (t_repository_rule_max_file_path_length & t_repository_rule_ruleset_info)
   | (t_repository_rule_file_extension_restriction &
       t_repository_rule_ruleset_info)
   | (t_repository_rule_max_file_size & t_repository_rule_ruleset_info)
-  | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
-  | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
 export type t_repository_rule_enforcement =
   | "disabled"
@@ -6719,6 +8079,17 @@ export type t_repository_rule_params_code_scanning_tool = {
   tool: string
 }
 
+export type t_repository_rule_params_required_reviewer_configuration = {
+  file_patterns: string[]
+  minimum_approvals: number
+  reviewer: t_repository_rule_params_reviewer
+}
+
+export type t_repository_rule_params_reviewer = {
+  id: number
+  type: "Team"
+}
+
 export type t_repository_rule_params_status_check_configuration = {
   context: string
   integration_id?: number | undefined
@@ -6737,12 +8108,14 @@ export type t_repository_rule_pull_request = {
         allowed_merge_methods?:
           | ("merge" | "squash" | "rebase" | UnknownEnumStringValue)[]
           | undefined
-        automatic_copilot_code_review_enabled?: boolean | undefined
         dismiss_stale_reviews_on_push: boolean
         require_code_owner_review: boolean
         require_last_push_approval: boolean
         required_approving_review_count: number
         required_review_thread_resolution: boolean
+        required_reviewers?:
+          | t_repository_rule_params_required_reviewer_configuration[]
+          | undefined
       }
     | undefined
   type: "pull_request"
@@ -6863,7 +8236,13 @@ export type t_repository_ruleset = {
     | undefined
   created_at?: string | undefined
   current_user_can_bypass?:
-    | ("always" | "pull_requests_only" | "never" | UnknownEnumStringValue)
+    | (
+        | "always"
+        | "pull_requests_only"
+        | "never"
+        | "exempt"
+        | UnknownEnumStringValue
+      )
     | undefined
   enforcement: t_repository_rule_enforcement
   id: number
@@ -6888,8 +8267,11 @@ export type t_repository_ruleset_bypass_actor = {
     | "RepositoryRole"
     | "Team"
     | "DeployKey"
+    | "User"
     | UnknownEnumStringValue
-  bypass_mode?: ("always" | "pull_request" | UnknownEnumStringValue) | undefined
+  bypass_mode?:
+    | ("always" | "pull_request" | "exempt" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_repository_ruleset_conditions = {
@@ -7200,6 +8582,10 @@ export type t_search_result_text_matches = {
 }[]
 
 export type t_secret_scanning_alert = {
+  assigned_to?: t_nullable_simple_user | undefined
+  closure_request_comment?: (string | null) | undefined
+  closure_request_reviewer?: t_nullable_simple_user | undefined
+  closure_request_reviewer_comment?: (string | null) | undefined
   created_at?: t_alert_created_at | undefined
   first_location_detected?:
     | t_nullable_secret_scanning_first_detected_location
@@ -7210,6 +8596,8 @@ export type t_secret_scanning_alert = {
   locations_url?: string | undefined
   multi_repo?: (boolean | null) | undefined
   number?: t_alert_number | undefined
+  provider?: (string | null) | undefined
+  provider_slug?: (string | null) | undefined
   publicly_leaked?: (boolean | null) | undefined
   push_protection_bypass_request_comment?: (string | null) | undefined
   push_protection_bypass_request_html_url?: (string | null) | undefined
@@ -7232,6 +8620,8 @@ export type t_secret_scanning_alert = {
     | ("active" | "inactive" | "unknown" | UnknownEnumStringValue)
     | undefined
 }
+
+export type t_secret_scanning_alert_assignee = string | null
 
 export type t_secret_scanning_alert_resolution =
   | "false_positive"
@@ -7293,6 +8683,7 @@ export type t_secret_scanning_location_commit = {
   commit_url: string
   end_column: number
   end_line: number
+  html_url?: string | undefined
   path: string
   start_column: number
   start_line: number
@@ -7311,34 +8702,42 @@ export type t_secret_scanning_location_discussion_title = {
 }
 
 export type t_secret_scanning_location_issue_body = {
+  html_url?: string | undefined
   issue_body_url: string
 }
 
 export type t_secret_scanning_location_issue_comment = {
+  html_url?: string | undefined
   issue_comment_url: string
 }
 
 export type t_secret_scanning_location_issue_title = {
+  html_url?: string | undefined
   issue_title_url: string
 }
 
 export type t_secret_scanning_location_pull_request_body = {
+  html_url?: string | undefined
   pull_request_body_url: string
 }
 
 export type t_secret_scanning_location_pull_request_comment = {
+  html_url?: string | undefined
   pull_request_comment_url: string
 }
 
 export type t_secret_scanning_location_pull_request_review = {
+  html_url?: string | undefined
   pull_request_review_url: string
 }
 
 export type t_secret_scanning_location_pull_request_review_comment = {
+  html_url?: string | undefined
   pull_request_review_comment_url: string
 }
 
 export type t_secret_scanning_location_pull_request_title = {
+  html_url?: string | undefined
   pull_request_title_url: string
 }
 
@@ -7352,6 +8751,33 @@ export type t_secret_scanning_location_wiki_commit = {
   path: string
   start_column: number
   start_line: number
+}
+
+export type t_secret_scanning_pattern_configuration = {
+  custom_pattern_overrides?: t_secret_scanning_pattern_override[] | undefined
+  pattern_config_version?: t_secret_scanning_row_version | undefined
+  provider_pattern_overrides?: t_secret_scanning_pattern_override[] | undefined
+}
+
+export type t_secret_scanning_pattern_override = {
+  alert_total?: number | undefined
+  alert_total_percentage?: number | undefined
+  bypass_rate?: number | undefined
+  custom_pattern_version?: (string | null) | undefined
+  default_setting?:
+    | ("disabled" | "enabled" | UnknownEnumStringValue)
+    | undefined
+  display_name?: string | undefined
+  enterprise_setting?:
+    | ("not-set" | "disabled" | "enabled" | UnknownEnumStringValue | null)
+    | undefined
+  false_positive_rate?: number | undefined
+  false_positives?: number | undefined
+  setting?:
+    | ("not-set" | "disabled" | "enabled" | UnknownEnumStringValue)
+    | undefined
+  slug?: string | undefined
+  token_type?: string | undefined
 }
 
 export type t_secret_scanning_push_protection_bypass = {
@@ -7368,6 +8794,8 @@ export type t_secret_scanning_push_protection_bypass_reason =
   | "will_fix_later"
   | UnknownEnumStringValue
 
+export type t_secret_scanning_row_version = string | null
+
 export type t_secret_scanning_scan = {
   completed_at?: (string | null) | undefined
   started_at?: (string | null) | undefined
@@ -7383,6 +8811,7 @@ export type t_secret_scanning_scan_history = {
         pattern_scope?: string | undefined
       })[]
     | undefined
+  generic_secrets_backfill_scans?: t_secret_scanning_scan[] | undefined
   incremental_scans?: t_secret_scanning_scan[] | undefined
   pattern_update_scans?: t_secret_scanning_scan[] | undefined
 }
@@ -7447,6 +8876,27 @@ export type t_security_and_analysis = {
         status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
+  secret_scanning_delegated_alert_dismissal?:
+    | {
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
+      }
+    | undefined
+  secret_scanning_delegated_bypass?:
+    | {
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
+      }
+    | undefined
+  secret_scanning_delegated_bypass_options?:
+    | {
+        reviewers?:
+          | {
+              mode?: ("ALWAYS" | "EXEMPT" | UnknownEnumStringValue) | undefined
+              reviewer_id: number
+              reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
+            }[]
+          | undefined
+      }
+    | undefined
   secret_scanning_non_provider_patterns?:
     | {
         status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
@@ -7466,6 +8916,13 @@ export type t_selected_actions = {
 }
 
 export type t_selected_actions_url = string
+
+export type t_self_hosted_runners_settings = {
+  enabled_repositories: "all" | "selected" | "none" | UnknownEnumStringValue
+  selected_repositories_url?: string | undefined
+}
+
+export type t_sha_pinning_required = boolean
 
 export type t_short_blob = {
   sha: string
@@ -7735,22 +9192,16 @@ export type t_tag = {
   zipball_url: string
 }
 
-export type t_tag_protection = {
-  created_at?: string | undefined
-  enabled?: boolean | undefined
-  id?: number | undefined
-  pattern: string
-  updated_at?: string | undefined
-}
-
 export type t_team = {
   description: string | null
+  enterprise_id?: number | undefined
   html_url: string
   id: number
   members_url: string
   name: string
   node_id: string
   notification_setting?: string | undefined
+  organization_id?: number | undefined
   parent: t_nullable_team_simple
   permission: string
   permissions?:
@@ -7765,52 +9216,17 @@ export type t_team = {
   privacy?: string | undefined
   repositories_url: string
   slug: string
-  url: string
-}
-
-export type t_team_discussion = {
-  author: t_nullable_simple_user
-  body: string
-  body_html: string
-  body_version: string
-  comments_count: number
-  comments_url: string
-  created_at: string
-  html_url: string
-  last_edited_at: string | null
-  node_id: string
-  number: number
-  pinned: boolean
-  private: boolean
-  reactions?: t_reaction_rollup | undefined
-  team_url: string
-  title: string
-  updated_at: string
-  url: string
-}
-
-export type t_team_discussion_comment = {
-  author: t_nullable_simple_user
-  body: string
-  body_html: string
-  body_version: string
-  created_at: string
-  discussion_url: string
-  html_url: string
-  last_edited_at: string | null
-  node_id: string
-  number: number
-  reactions?: t_reaction_rollup | undefined
-  updated_at: string
+  type: "enterprise" | "organization" | UnknownEnumStringValue
   url: string
 }
 
 export type t_team_full = {
   created_at: string
   description: string | null
+  enterprise_id?: number | undefined
   html_url: string
   id: number
-  ldap_dn?: string | undefined
+  ldap_dn?: t_ldap_dn | undefined
   members_count: number
   members_url: string
   name: string
@@ -7823,12 +9239,14 @@ export type t_team_full = {
       )
     | undefined
   organization: t_team_organization
+  organization_id?: number | undefined
   parent?: t_nullable_team_simple | undefined
   permission: string
   privacy?: ("closed" | "secret" | UnknownEnumStringValue) | undefined
   repos_count: number
   repositories_url: string
   slug: string
+  type: "enterprise" | "organization" | UnknownEnumStringValue
   updated_at: string
   url: string
 }
@@ -7897,29 +9315,6 @@ export type t_team_organization = {
   updated_at: string
   url: string
   web_commit_signoff_required?: boolean | undefined
-}
-
-export type t_team_project = {
-  body: string | null
-  columns_url: string
-  created_at: string
-  creator: t_simple_user
-  html_url: string
-  id: number
-  name: string
-  node_id: string
-  number: number
-  organization_permission?: string | undefined
-  owner_url: string
-  permissions: {
-    admin: boolean
-    read: boolean
-    write: boolean
-  }
-  private?: boolean | undefined
-  state: string
-  updated_at: string
-  url: string
 }
 
 export type t_team_repository = {
@@ -8027,12 +9422,14 @@ export type t_team_role_assignment = {
     | ("direct" | "indirect" | "mixed" | UnknownEnumStringValue)
     | undefined
   description: string | null
+  enterprise_id?: number | undefined
   html_url: string
   id: number
   members_url: string
   name: string
   node_id: string
   notification_setting?: string | undefined
+  organization_id?: number | undefined
   parent: t_nullable_team_simple
   permission: string
   permissions?:
@@ -8047,11 +9444,13 @@ export type t_team_role_assignment = {
   privacy?: string | undefined
   repositories_url: string
   slug: string
+  type: "enterprise" | "organization" | UnknownEnumStringValue
   url: string
 }
 
 export type t_team_simple = {
   description: string | null
+  enterprise_id?: number | undefined
   html_url: string
   id: number
   ldap_dn?: string | undefined
@@ -8059,10 +9458,12 @@ export type t_team_simple = {
   name: string
   node_id: string
   notification_setting?: string | undefined
+  organization_id?: number | undefined
   permission: string
   privacy?: string | undefined
   repositories_url: string
   slug: string
+  type: "enterprise" | "organization" | UnknownEnumStringValue
   url: string
 }
 
@@ -8119,6 +9520,7 @@ export type t_timeline_comment_event = {
   issue_url: string
   node_id: string
   performed_via_github_app?: t_nullable_integration | undefined
+  pin?: t_nullable_pinned_issue_comment | undefined
   reactions?: t_reaction_rollup | undefined
   updated_at: string
   url: string
@@ -8229,6 +9631,7 @@ export type t_timeline_reviewed_event = {
   pull_request_url: string
   state: string
   submitted_at?: string | undefined
+  updated_at?: (string | null) | undefined
   user: t_simple_user
 }
 
@@ -8457,6 +9860,10 @@ export type t_vulnerability = {
 
 export type t_wait_timer = number
 
+export type t_watch_event = {
+  action: string
+}
+
 export type t_webhook_config = {
   content_type?: t_webhook_config_content_type | undefined
   insecure_ssl?: t_webhook_config_insecure_ssl | undefined
@@ -8490,6 +9897,12 @@ export type t_workflow = {
     | UnknownEnumStringValue
   updated_at: string
   url: string
+}
+
+export type t_workflow_dispatch_response = {
+  html_url: string
+  run_url: string
+  workflow_run_id: t_workflow_run_id
 }
 
 export type t_workflow_run = {
@@ -8530,6 +9943,8 @@ export type t_workflow_run = {
   workflow_id: number
   workflow_url: string
 }
+
+export type t_workflow_run_id = number
 
 export type t_workflow_run_usage = {
   billable: {
@@ -8613,7 +10028,9 @@ export type t_ActionsCreateHostedRunnerForOrgRequestBody = {
     source?:
       | ("github" | "partner" | "custom" | UnknownEnumStringValue)
       | undefined
+    version?: (string | null) | undefined
   }
+  image_gen?: boolean | undefined
   maximum_runners?: number | undefined
   name: string
   runner_group_id: number
@@ -8665,6 +10082,7 @@ export type t_ActionsCreateSelfHostedRunnerGroupForOrgRequestBody = {
 export type t_ActionsCreateWorkflowDispatchRequestBody = {
   inputs?: Record<string, unknown> | undefined
   ref: string
+  return_run_details?: boolean | undefined
 }
 
 export type t_ActionsGenerateRunnerJitconfigForOrgRequestBody = {
@@ -8683,6 +10101,7 @@ export type t_ActionsGenerateRunnerJitconfigForRepoRequestBody = {
 
 export type t_ActionsReRunJobForWorkflowRunRequestBody = {
   enable_debug_logging?: boolean | undefined
+  enable_debugger?: boolean | undefined
 } | null
 
 export type t_ActionsReRunWorkflowRequestBody = {
@@ -8710,16 +10129,19 @@ export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody = {
 export type t_ActionsSetCustomOidcSubClaimForRepoRequestBody = {
   include_claim_keys?: string[] | undefined
   use_default: boolean
+  use_immutable_subject?: boolean | undefined
 }
 
 export type t_ActionsSetGithubActionsPermissionsOrganizationRequestBody = {
   allowed_actions?: t_allowed_actions | undefined
   enabled_repositories: t_enabled_repositories
+  sha_pinning_required?: t_sha_pinning_required | undefined
 }
 
 export type t_ActionsSetGithubActionsPermissionsRepositoryRequestBody = {
   allowed_actions?: t_allowed_actions | undefined
   enabled: t_actions_enabled
+  sha_pinning_required?: t_sha_pinning_required | undefined
 }
 
 export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody = {
@@ -8739,8 +10161,17 @@ export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequ
     selected_repository_ids: number[]
   }
 
+export type t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody =
+  {
+    selected_repository_ids: number[]
+  }
+
 export type t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody = {
   runners: number[]
+}
+
+export type t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody = {
+  enabled_repositories: "all" | "selected" | "none" | UnknownEnumStringValue
 }
 
 export type t_ActionsUpdateEnvironmentVariableRequestBody = {
@@ -8750,9 +10181,16 @@ export type t_ActionsUpdateEnvironmentVariableRequestBody = {
 
 export type t_ActionsUpdateHostedRunnerForOrgRequestBody = {
   enable_static_ip?: boolean | undefined
+  image_gen?: boolean | undefined
+  image_id?: string | undefined
+  image_source?:
+    | ("github" | "partner" | "custom" | UnknownEnumStringValue)
+    | undefined
+  image_version?: (string | null) | undefined
   maximum_runners?: number | undefined
   name?: string | undefined
   runner_group_id?: number | undefined
+  size?: string | undefined
 }
 
 export type t_ActionsUpdateOrgVariableRequestBody = {
@@ -8798,6 +10236,60 @@ export type t_ActivitySetThreadSubscriptionRequestBody = {
   ignored?: boolean | undefined
 }
 
+export type t_AgentTasksCreateTaskInRepoRequestBody = {
+  base_ref?: string | undefined
+  create_pull_request?: boolean | undefined
+  head_ref?: string | undefined
+  model?: string | undefined
+  prompt: string
+}
+
+export type t_AgentsCreateOrUpdateOrgSecretRequestBody = {
+  encrypted_value: string
+  key_id: string
+  selected_repository_ids?: number[] | undefined
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_AgentsCreateOrUpdateRepoSecretRequestBody = {
+  encrypted_value: string
+  key_id: string
+}
+
+export type t_AgentsCreateOrgVariableRequestBody = {
+  name: string
+  selected_repository_ids?: number[] | undefined
+  value: string
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+}
+
+export type t_AgentsCreateRepoVariableRequestBody = {
+  name: string
+  value: string
+}
+
+export type t_AgentsSetSelectedReposForOrgSecretRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_AgentsSetSelectedReposForOrgVariableRequestBody = {
+  selected_repository_ids: number[]
+}
+
+export type t_AgentsUpdateOrgVariableRequestBody = {
+  name?: string | undefined
+  selected_repository_ids?: number[] | undefined
+  value?: string | undefined
+  visibility?:
+    | ("all" | "private" | "selected" | UnknownEnumStringValue)
+    | undefined
+}
+
+export type t_AgentsUpdateRepoVariableRequestBody = {
+  name?: string | undefined
+  value?: string | undefined
+}
+
 export type t_AppsCheckTokenRequestBody = {
   access_token: string
 }
@@ -8836,11 +10328,39 @@ export type t_AppsUpdateWebhookConfigForAppRequestBody = {
   url?: t_webhook_config_url | undefined
 }
 
+export type t_BillingUpdateBudgetOrgRequestBody = {
+  budget_alerting?:
+    | {
+        alert_recipients?: string[] | undefined
+        will_alert?: boolean | undefined
+      }
+    | undefined
+  budget_amount?: number | undefined
+  budget_entity_name?: string | undefined
+  budget_product_sku?: string | undefined
+  budget_scope?:
+    | (
+        | "enterprise"
+        | "organization"
+        | "repository"
+        | "cost_center"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  budget_type?: ("ProductPricing" | "SkuPricing") | undefined
+  prevent_further_usage?: boolean | undefined
+}
+
 export type t_CampaignsCreateCampaignRequestBody = {
-  code_scanning_alerts: {
-    alert_numbers: number[]
-    repository_id: number
-  }[]
+  code_scanning_alerts?:
+    | (
+        | {
+            alert_numbers: number[]
+            repository_id: number
+          }[]
+        | null
+      )
+    | undefined
   contact_link?: (string | null) | undefined
   description: string
   ends_at: string
@@ -8848,7 +10368,17 @@ export type t_CampaignsCreateCampaignRequestBody = {
   managers?: string[] | undefined
   name: string
   team_managers?: string[] | undefined
-}
+} & (
+  | {
+      code_scanning_alerts:
+        | {
+            alert_numbers: number[]
+            repository_id: number
+          }[]
+        | null
+    }
+  | unknown
+)
 
 export type t_CampaignsUpdateCampaignRequestBody = {
   contact_link?: (string | null) | undefined
@@ -9071,11 +10601,19 @@ export type t_CodeScanningCreateVariantAnalysisRequestBody = {
 )
 
 export type t_CodeScanningUpdateAlertRequestBody = {
+  assignees?: t_code_scanning_alert_assignees | undefined
   create_request?: t_code_scanning_alert_create_request | undefined
   dismissed_comment?: t_code_scanning_alert_dismissed_comment | undefined
   dismissed_reason?: t_code_scanning_alert_dismissed_reason | undefined
-  state: t_code_scanning_alert_set_state
-}
+  state?: t_code_scanning_alert_set_state | undefined
+} & (
+  | {
+      state: t_code_scanning_alert_set_state
+    }
+  | {
+      assignees: t_code_scanning_alert_assignees
+    }
+)
 
 export type t_CodeScanningUploadSarifRequestBody = {
   checkout_uri?: string | undefined
@@ -9128,6 +10666,9 @@ export type t_CodeSecurityCreateConfigurationRequestBody = {
   dependabot_alerts?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  dependabot_delegated_alert_dismissal?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
   dependabot_security_updates?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
@@ -9164,11 +10705,15 @@ export type t_CodeSecurityCreateConfigurationRequestBody = {
     | {
         reviewers?:
           | {
+              mode?: ("ALWAYS" | "EXEMPT" | UnknownEnumStringValue) | undefined
               reviewer_id: number
               reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
             }[]
           | undefined
       }
+    | undefined
+  secret_scanning_extended_metadata?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_generic_secrets?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -9239,6 +10784,9 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseRequestBody = {
   secret_scanning_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  secret_scanning_extended_metadata?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
   secret_scanning_generic_secrets?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
@@ -9254,7 +10802,7 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseRequestBody = {
 }
 
 export type t_CodeSecurityDetachConfigurationRequestBody = {
-  selected_repository_ids?: number[] | undefined
+  selected_repository_ids: number[]
 }
 
 export type t_CodeSecuritySetConfigurationAsDefaultRequestBody = {
@@ -9300,10 +10848,14 @@ export type t_CodeSecurityUpdateConfigurationRequestBody = {
   code_scanning_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  code_scanning_options?: t_code_scanning_options | undefined
   code_security?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   dependabot_alerts?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
+  dependabot_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   dependabot_security_updates?:
@@ -9342,11 +10894,15 @@ export type t_CodeSecurityUpdateConfigurationRequestBody = {
     | {
         reviewers?:
           | {
+              mode?: ("ALWAYS" | "EXEMPT" | UnknownEnumStringValue) | undefined
               reviewer_id: number
               reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
             }[]
           | undefined
       }
+    | undefined
+  secret_scanning_extended_metadata?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_generic_secrets?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -9381,6 +10937,7 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationRequestBody = {
   code_scanning_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  code_scanning_options?: t_code_scanning_options | undefined
   code_security?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
@@ -9414,6 +10971,9 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationRequestBody = {
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_delegated_alert_dismissal?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
+  secret_scanning_extended_metadata?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_generic_secrets?:
@@ -9581,12 +11141,248 @@ export type t_CopilotAddCopilotSeatsForUsersRequestBody = {
   selected_usernames: string[]
 }
 
+export type t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody =
+  {
+    custom_properties?:
+      | {
+          property_name: string
+          values: string[]
+        }[]
+      | undefined
+    organizations?: string[] | undefined
+  }
+
 export type t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody = {
   selected_teams: string[]
 }
 
 export type t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody = {
   selected_usernames: string[]
+}
+
+export type t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody =
+  {
+    custom_properties?:
+      | {
+          property_name: string
+          values: string[]
+        }[]
+      | undefined
+    organizations?: string[] | undefined
+  }
+
+export type t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody = {
+  enabled_repositories: "all" | "selected" | "none" | UnknownEnumStringValue
+}
+
+export type t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody =
+  {
+    selected_repository_ids: number[]
+  }
+
+export type t_CopilotSetCopilotContentExclusionForOrganizationRequestBody =
+  Record<
+    string,
+    (
+      | string
+      | {
+          ifAnyMatch: string[]
+        }
+      | {
+          ifNoneMatch: string[]
+        }
+    )[]
+  >
+
+export type t_CopilotSetEnterpriseCodingAgentPolicyRequestBody = {
+  policy_state:
+    | "enabled_for_all_orgs"
+    | "disabled_for_all_orgs"
+    | "enabled_for_selected_orgs"
+    | "configured_by_org_admins"
+    | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesAddCollaboratorForOrgRequestBody = {
+  actor_identifier: string
+  actor_type: "User" | "Team" | UnknownEnumStringValue
+  role: "reader" | "writer" | "admin" | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesAddCollaboratorForUserRequestBody = {
+  actor_identifier: string
+  actor_type: "User" | "Team" | UnknownEnumStringValue
+  role: "reader" | "writer" | "admin" | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesCreateForOrgRequestBody = {
+  base_role?:
+    | ("reader" | "writer" | "admin" | "no_access" | UnknownEnumStringValue)
+    | undefined
+  description?: string | undefined
+  general_instructions?: string | undefined
+  name: string
+  resources_attributes?:
+    | {
+        metadata?:
+          | {
+              file_path?: string | undefined
+              name?: string | undefined
+              number?: number | undefined
+              repository_id?: number | undefined
+              text?: string | undefined
+            }
+          | undefined
+        resource_type?:
+          | (
+              | "repository"
+              | "github_file"
+              | "free_text"
+              | "github_issue"
+              | "github_pull_request"
+              | "media_content"
+              | "uploaded_text_file"
+              | UnknownEnumStringValue
+            )
+          | undefined
+      }[]
+    | undefined
+}
+
+export type t_CopilotSpacesCreateForUserRequestBody = {
+  base_role?: ("reader" | "no_access" | UnknownEnumStringValue) | undefined
+  description?: string | undefined
+  general_instructions?: string | undefined
+  name: string
+  resources_attributes?:
+    | {
+        metadata?:
+          | {
+              file_path?: string | undefined
+              name?: string | undefined
+              number?: number | undefined
+              repository_id?: number | undefined
+              text?: string | undefined
+            }
+          | undefined
+        resource_type?:
+          | (
+              | "repository"
+              | "github_file"
+              | "free_text"
+              | "github_issue"
+              | "github_pull_request"
+              | "media_content"
+              | "uploaded_text_file"
+              | UnknownEnumStringValue
+            )
+          | undefined
+      }[]
+    | undefined
+}
+
+export type t_CopilotSpacesCreateResourceForOrgRequestBody = {
+  metadata: Record<string, unknown>
+  resource_type:
+    | "repository"
+    | "github_file"
+    | "free_text"
+    | "github_issue"
+    | "github_pull_request"
+    | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesCreateResourceForUserRequestBody = {
+  metadata: Record<string, unknown>
+  resource_type:
+    | "repository"
+    | "github_file"
+    | "free_text"
+    | "github_issue"
+    | "github_pull_request"
+    | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesUpdateCollaboratorForOrgRequestBody = {
+  role: "reader" | "writer" | "admin" | "no_access" | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesUpdateCollaboratorForUserRequestBody = {
+  role: "reader" | "writer" | "admin" | "no_access" | UnknownEnumStringValue
+}
+
+export type t_CopilotSpacesUpdateForOrgRequestBody = {
+  base_role?:
+    | ("reader" | "writer" | "admin" | "no_access" | UnknownEnumStringValue)
+    | undefined
+  description?: string | undefined
+  general_instructions?: string | undefined
+  name?: string | undefined
+  resources_attributes?:
+    | {
+        metadata?:
+          | {
+              file_path?: string | undefined
+              name?: string | undefined
+              number?: number | undefined
+              repository_id?: number | undefined
+              text?: string | undefined
+            }
+          | undefined
+        resource_type?:
+          | (
+              | "repository"
+              | "github_file"
+              | "free_text"
+              | "github_issue"
+              | "github_pull_request"
+              | "media_content"
+              | "uploaded_text_file"
+              | UnknownEnumStringValue
+            )
+          | undefined
+      }[]
+    | undefined
+}
+
+export type t_CopilotSpacesUpdateForUserRequestBody = {
+  base_role?: ("reader" | "no_access" | UnknownEnumStringValue) | undefined
+  description?: string | undefined
+  general_instructions?: string | undefined
+  name?: string | undefined
+  resources_attributes?:
+    | {
+        metadata?:
+          | {
+              file_path?: string | undefined
+              name?: string | undefined
+              number?: number | undefined
+              repository_id?: number | undefined
+              text?: string | undefined
+            }
+          | undefined
+        resource_type?:
+          | (
+              | "repository"
+              | "github_file"
+              | "free_text"
+              | "github_issue"
+              | "github_pull_request"
+              | "media_content"
+              | "uploaded_text_file"
+              | UnknownEnumStringValue
+            )
+          | undefined
+      }[]
+    | undefined
+}
+
+export type t_CopilotSpacesUpdateResourceForOrgRequestBody = {
+  metadata?: Record<string, unknown> | undefined
+}
+
+export type t_CopilotSpacesUpdateResourceForUserRequestBody = {
+  metadata?: Record<string, unknown> | undefined
 }
 
 export type t_CredentialsRevokeRequestBody = {
@@ -9596,7 +11392,7 @@ export type t_CredentialsRevokeRequestBody = {
 export type t_DependabotCreateOrUpdateOrgSecretRequestBody = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
-  selected_repository_ids?: string[] | undefined
+  selected_repository_ids?: (number | string)[] | undefined
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
@@ -9609,11 +11405,17 @@ export type t_DependabotSetRepositoryAccessDefaultLevelRequestBody = {
   default_level: "public" | "internal" | UnknownEnumStringValue
 }
 
+export type t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody =
+  {
+    default_level: "public" | "internal" | UnknownEnumStringValue
+  }
+
 export type t_DependabotSetSelectedReposForOrgSecretRequestBody = {
   selected_repository_ids: number[]
 }
 
 export type t_DependabotUpdateAlertRequestBody = {
+  assignees?: string[] | undefined
   dismissed_comment?: string | undefined
   dismissed_reason?:
     | (
@@ -9625,12 +11427,78 @@ export type t_DependabotUpdateAlertRequestBody = {
         | UnknownEnumStringValue
       )
     | undefined
-  state: "dismissed" | "open" | UnknownEnumStringValue
+  state?: ("dismissed" | "open" | UnknownEnumStringValue) | undefined
+} & (
+  | {
+      state: "dismissed" | "open" | UnknownEnumStringValue
+    }
+  | {
+      assignees: string[]
+    }
+)
+
+export type t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody = {
+  repository_ids_to_add?: number[] | undefined
+  repository_ids_to_remove?: number[] | undefined
 }
 
 export type t_DependabotUpdateRepositoryAccessForOrgRequestBody = {
   repository_ids_to_add?: number[] | undefined
   repository_ids_to_remove?: number[] | undefined
+}
+
+export type t_EnterpriseTeamMembershipsBulkAddRequestBody = {
+  usernames: string[]
+}
+
+export type t_EnterpriseTeamMembershipsBulkRemoveRequestBody = {
+  usernames: string[]
+}
+
+export type t_EnterpriseTeamOrganizationsBulkAddRequestBody = {
+  organization_slugs: string[]
+}
+
+export type t_EnterpriseTeamOrganizationsBulkRemoveRequestBody = {
+  organization_slugs: string[]
+}
+
+export type t_EnterpriseTeamsCreateRequestBody = {
+  description?: (string | null) | undefined
+  group_id?: (string | null) | undefined
+  name: string
+  notification_setting?:
+    | (
+        | "notifications_enabled"
+        | "notifications_disabled"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  organization_selection_type?:
+    | ("disabled" | "selected" | "all" | UnknownEnumStringValue)
+    | undefined
+  sync_to_organizations?:
+    | ("all" | "disabled" | UnknownEnumStringValue)
+    | undefined
+}
+
+export type t_EnterpriseTeamsUpdateRequestBody = {
+  description?: (string | null) | undefined
+  group_id?: (string | null) | undefined
+  name?: (string | null) | undefined
+  notification_setting?:
+    | (
+        | "notifications_enabled"
+        | "notifications_disabled"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  organization_selection_type?:
+    | ("disabled" | "selected" | "all" | UnknownEnumStringValue)
+    | undefined
+  sync_to_organizations?:
+    | ("all" | "disabled" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_GistsCreateRequestBody = {
@@ -9737,12 +11605,16 @@ export type t_GitUpdateRefRequestBody = {
 
 export type t_HostedComputeCreateNetworkConfigurationForOrgRequestBody = {
   compute_service?: ("none" | "actions" | UnknownEnumStringValue) | undefined
+  failover_network_enabled?: boolean | undefined
+  failover_network_settings_ids?: string[] | undefined
   name: string
   network_settings_ids: string[]
 }
 
 export type t_HostedComputeUpdateNetworkConfigurationForOrgRequestBody = {
   compute_service?: ("none" | "actions" | UnknownEnumStringValue) | undefined
+  failover_network_enabled?: boolean | undefined
+  failover_network_settings_ids?: string[] | undefined
   name?: string | undefined
   network_settings_ids?: string[] | undefined
 }
@@ -9751,22 +11623,27 @@ export type t_IssuesAddAssigneesRequestBody = {
   assignees?: string[] | undefined
 }
 
+export type t_IssuesAddBlockedByDependencyRequestBody = {
+  issue_id: number
+}
+
+export type t_IssuesAddIssueFieldValuesRequestBody = {
+  issue_field_values?:
+    | {
+        field_id: number
+        value: string | number
+      }[]
+    | undefined
+}
+
 export type t_IssuesAddLabelsRequestBody =
   | {
       labels?: string[] | undefined
     }
   | string[]
   | {
-      labels?:
-        | {
-            name: string
-          }[]
-        | undefined
-    }
-  | {
       name: string
     }[]
-  | string
 
 export type t_IssuesAddSubIssueRequestBody = {
   replace_parent?: boolean | undefined
@@ -9777,6 +11654,12 @@ export type t_IssuesCreateRequestBody = {
   assignee?: (string | null) | undefined
   assignees?: string[] | undefined
   body?: string | undefined
+  issue_field_values?:
+    | {
+        field_id: number
+        value: string | number
+      }[]
+    | undefined
   labels?:
     | (
         | string
@@ -9836,6 +11719,15 @@ export type t_IssuesReprioritizeSubIssueRequestBody = {
   sub_issue_id: number
 }
 
+export type t_IssuesSetIssueFieldValuesRequestBody = {
+  issue_field_values?:
+    | {
+        field_id: number
+        value: string | number
+      }[]
+    | undefined
+}
+
 export type t_IssuesSetLabelsRequestBody =
   | {
       labels?: string[] | undefined
@@ -9857,6 +11749,12 @@ export type t_IssuesUpdateRequestBody = {
   assignee?: (string | null) | undefined
   assignees?: string[] | undefined
   body?: (string | null) | undefined
+  issue_field_values?:
+    | {
+        field_id: number
+        value: string | number
+      }[]
+    | undefined
   labels?:
     | (
         | string
@@ -9959,8 +11857,49 @@ export type t_MigrationsUpdateImportRequestBody = {
   vcs_username?: string | undefined
 } | null
 
+export type t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody = {
+  include_claim_keys?: string[] | undefined
+  use_immutable_subject?: boolean | undefined
+}
+
 export type t_OrgsConvertMemberToOutsideCollaboratorRequestBody = {
   async?: boolean | undefined
+}
+
+export type t_OrgsCreateArtifactDeploymentRecordRequestBody = {
+  cluster?: string | undefined
+  deployment_name: string
+  digest: string
+  github_repository?: string | undefined
+  logical_environment: string
+  name: string
+  physical_environment?: string | undefined
+  return_records?: boolean | undefined
+  runtime_risks?:
+    | (
+        | "critical-resource"
+        | "internet-exposed"
+        | "lateral-movement"
+        | "sensitive-data"
+        | UnknownEnumStringValue
+      )[]
+    | undefined
+  status: "deployed" | "decommissioned" | UnknownEnumStringValue
+  tags?: Record<string, string> | undefined
+  version?: string | undefined
+}
+
+export type t_OrgsCreateArtifactStorageRecordRequestBody = {
+  artifact_url?: string | undefined
+  digest: string
+  github_repository?: string | undefined
+  name: string
+  path?: string | undefined
+  registry_url: string
+  repository?: string | undefined
+  return_records?: boolean | undefined
+  status?: ("active" | "eol" | "deleted" | UnknownEnumStringValue) | undefined
+  version?: string | undefined
 }
 
 export type t_OrgsCreateInvitationRequestBody = {
@@ -9978,15 +11917,6 @@ export type t_OrgsCreateInvitationRequestBody = {
   team_ids?: number[] | undefined
 }
 
-export type t_OrgsCreateOrUpdateCustomPropertiesRequestBody = {
-  properties: t_custom_property[]
-}
-
-export type t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody = {
-  properties: t_custom_property_value[]
-  repository_names: string[]
-}
-
 export type t_OrgsCreateWebhookRequestBody = {
   active?: boolean | undefined
   config: {
@@ -10000,6 +11930,17 @@ export type t_OrgsCreateWebhookRequestBody = {
   events?: string[] | undefined
   name: string
 }
+
+export type t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody =
+  {
+    properties: t_custom_property[]
+  }
+
+export type t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody =
+  {
+    properties: t_custom_property_value[]
+    repository_names: string[]
+  }
 
 export type t_OrgsDeleteAttestationsBulkRequestBody =
   | {
@@ -10027,6 +11968,41 @@ export type t_OrgsReviewPatGrantRequestsInBulkRequestBody = {
   action: "approve" | "deny" | UnknownEnumStringValue
   pat_request_ids?: number[] | undefined
   reason?: (string | null) | undefined
+}
+
+export type t_OrgsSetClusterDeploymentRecordsRequestBody = {
+  deployments: {
+    deployment_name: string
+    digest: string
+    github_repository?: string | undefined
+    name: string
+    runtime_risks?:
+      | (
+          | "critical-resource"
+          | "internet-exposed"
+          | "lateral-movement"
+          | "sensitive-data"
+          | UnknownEnumStringValue
+        )[]
+      | undefined
+    status?:
+      | ("deployed" | "decommissioned" | UnknownEnumStringValue)
+      | undefined
+    tags?: Record<string, string> | undefined
+    version?: string | undefined
+  }[]
+  logical_environment: string
+  physical_environment?: string | undefined
+  return_records?: boolean | undefined
+}
+
+export type t_OrgsSetImmutableReleasesSettingsRequestBody = {
+  enforced_repositories: "all" | "none" | "selected" | UnknownEnumStringValue
+  selected_repository_ids?: number[] | undefined
+}
+
+export type t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody = {
+  selected_repository_ids: number[]
 }
 
 export type t_OrgsSetMembershipForUserRequestBody = {
@@ -10107,8 +12083,30 @@ export type t_OrgsUpdateWebhookConfigForOrgRequestBody = {
 }
 
 export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody = {
-  encrypted_value: string
-  key_id: string
+  account_id?: string | undefined
+  api_host?: string | undefined
+  audience?: string | undefined
+  auth_type?:
+    | (
+        | "token"
+        | "username_password"
+        | "oidc_azure"
+        | "oidc_aws"
+        | "oidc_jfrog"
+        | "oidc_cloudsmith"
+        | "oidc_gcp"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  aws_region?: string | undefined
+  client_id?: string | undefined
+  domain?: string | undefined
+  domain_owner?: string | undefined
+  encrypted_value?: string | undefined
+  identity_mapping_name?: string | undefined
+  jfrog_oidc_provider_name?: string | undefined
+  key_id?: string | undefined
+  namespace?: string | undefined
   registry_type:
     | "maven_repository"
     | "nuget_feed"
@@ -10126,15 +12124,43 @@ export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody = {
     | "python_index"
     | "terraform_registry"
     | UnknownEnumStringValue
+  replaces_base?: boolean | undefined
+  role_name?: string | undefined
   selected_repository_ids?: number[] | undefined
+  service_account?: string | undefined
+  service_slug?: string | undefined
+  tenant_id?: string | undefined
   url: string
   username?: (string | null) | undefined
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
+  workload_identity_provider?: string | undefined
 }
 
 export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody = {
+  account_id?: string | undefined
+  api_host?: string | undefined
+  audience?: string | undefined
+  auth_type?:
+    | (
+        | "token"
+        | "username_password"
+        | "oidc_azure"
+        | "oidc_aws"
+        | "oidc_jfrog"
+        | "oidc_cloudsmith"
+        | "oidc_gcp"
+        | UnknownEnumStringValue
+      )
+    | undefined
+  aws_region?: string | undefined
+  client_id?: string | undefined
+  domain?: string | undefined
+  domain_owner?: string | undefined
   encrypted_value?: string | undefined
+  identity_mapping_name?: string | undefined
+  jfrog_oidc_provider_name?: string | undefined
   key_id?: string | undefined
+  namespace?: string | undefined
   registry_type?:
     | (
         | "maven_repository"
@@ -10155,72 +12181,125 @@ export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody = {
         | UnknownEnumStringValue
       )
     | undefined
+  replaces_base?: boolean | undefined
+  role_name?: string | undefined
   selected_repository_ids?: number[] | undefined
+  service_account?: string | undefined
+  service_slug?: string | undefined
+  tenant_id?: string | undefined
   url?: string | undefined
   username?: (string | null) | undefined
   visibility?:
     | ("all" | "private" | "selected" | UnknownEnumStringValue)
     | undefined
+  workload_identity_provider?: string | undefined
 }
 
-export type t_ProjectsClassicAddCollaboratorRequestBody = {
-  permission?: ("read" | "write" | "admin" | UnknownEnumStringValue) | undefined
-} | null
-
-export type t_ProjectsClassicCreateCardRequestBody =
+export type t_ProjectsAddFieldForOrgRequestBody =
   | {
-      note: string | null
+      issue_field_id: number
     }
   | {
-      content_id: number
-      content_type: string
+      data_type: "text" | "number" | "date" | UnknownEnumStringValue
+      name: string
+    }
+  | {
+      data_type: "single_select"
+      name: string
+      single_select_options: t_projects_v2_field_single_select_option[]
+    }
+  | {
+      data_type: "iteration"
+      iteration_configuration: t_projects_v2_field_iteration_configuration
+      name: string
     }
 
-export type t_ProjectsClassicCreateColumnRequestBody = {
-  name: string
-}
+export type t_ProjectsAddFieldForUserRequestBody =
+  | {
+      data_type: "text" | "number" | "date" | UnknownEnumStringValue
+      name: string
+    }
+  | {
+      data_type: "single_select"
+      name: string
+      single_select_options: t_projects_v2_field_single_select_option[]
+    }
+  | {
+      data_type: "iteration"
+      iteration_configuration: t_projects_v2_field_iteration_configuration
+      name: string
+    }
 
-export type t_ProjectsClassicCreateForAuthenticatedUserRequestBody = {
-  body?: (string | null) | undefined
-  name: string
-}
+export type t_ProjectsAddItemForOrgRequestBody = {
+  id?: number | undefined
+  number?: number | undefined
+  owner?: string | undefined
+  repo?: string | undefined
+  type: "Issue" | "PullRequest" | UnknownEnumStringValue
+} & (
+  | {
+      id: number
+    }
+  | {
+      number: number
+      owner: string
+      repo: string
+    }
+)
 
-export type t_ProjectsClassicCreateForOrgRequestBody = {
+export type t_ProjectsAddItemForUserRequestBody = {
+  id?: number | undefined
+  number?: number | undefined
+  owner?: string | undefined
+  repo?: string | undefined
+  type: "Issue" | "PullRequest" | UnknownEnumStringValue
+} & (
+  | {
+      id: number
+    }
+  | {
+      number: number
+      owner: string
+      repo: string
+    }
+)
+
+export type t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody = {
   body?: string | undefined
-  name: string
+  title: string
 }
 
-export type t_ProjectsClassicCreateForRepoRequestBody = {
+export type t_ProjectsCreateDraftItemForOrgRequestBody = {
   body?: string | undefined
+  title: string
+}
+
+export type t_ProjectsCreateViewForOrgRequestBody = {
+  filter?: string | undefined
+  layout: "table" | "board" | "roadmap" | UnknownEnumStringValue
   name: string
+  visible_fields?: number[] | undefined
 }
 
-export type t_ProjectsClassicMoveCardRequestBody = {
-  column_id?: number | undefined
-  position: string
-}
-
-export type t_ProjectsClassicMoveColumnRequestBody = {
-  position: string
-}
-
-export type t_ProjectsClassicUpdateRequestBody = {
-  body?: (string | null) | undefined
-  name?: string | undefined
-  organization_permission?:
-    | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
-    | undefined
-  private?: boolean | undefined
-  state?: string | undefined
-}
-
-export type t_ProjectsClassicUpdateCardRequestBody = {
-  archived?: boolean | undefined
-  note?: (string | null) | undefined
-}
-
-export type t_ProjectsClassicUpdateColumnRequestBody = {
+export type t_ProjectsCreateViewForUserRequestBody = {
+  filter?: string | undefined
+  layout: "table" | "board" | "roadmap" | UnknownEnumStringValue
   name: string
+  visible_fields?: number[] | undefined
+}
+
+export type t_ProjectsUpdateItemForOrgRequestBody = {
+  fields: {
+    id: number
+    value: string | number | null
+  }[]
+}
+
+export type t_ProjectsUpdateItemForUserRequestBody = {
+  fields: {
+    id: number
+    value: string | number | null
+  }[]
 }
 
 export type t_PullsCreateRequestBody = {
@@ -10382,58 +12461,6 @@ export type t_ReactionsCreateForReleaseRequestBody = {
   content:
     | "+1"
     | "laugh"
-    | "heart"
-    | "hooray"
-    | "rocket"
-    | "eyes"
-    | UnknownEnumStringValue
-}
-
-export type t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody = {
-  content:
-    | "+1"
-    | "-1"
-    | "laugh"
-    | "confused"
-    | "heart"
-    | "hooray"
-    | "rocket"
-    | "eyes"
-    | UnknownEnumStringValue
-}
-
-export type t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody = {
-  content:
-    | "+1"
-    | "-1"
-    | "laugh"
-    | "confused"
-    | "heart"
-    | "hooray"
-    | "rocket"
-    | "eyes"
-    | UnknownEnumStringValue
-}
-
-export type t_ReactionsCreateForTeamDiscussionInOrgRequestBody = {
-  content:
-    | "+1"
-    | "-1"
-    | "laugh"
-    | "confused"
-    | "heart"
-    | "hooray"
-    | "rocket"
-    | "eyes"
-    | UnknownEnumStringValue
-}
-
-export type t_ReactionsCreateForTeamDiscussionLegacyRequestBody = {
-  content:
-    | "+1"
-    | "-1"
-    | "laugh"
-    | "confused"
     | "heart"
     | "hooray"
     | "rocket"
@@ -10614,10 +12641,6 @@ export type t_ReposCreateInOrgRequestBody = {
   visibility?: ("public" | "private" | UnknownEnumStringValue) | undefined
 }
 
-export type t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody = {
-  properties: t_custom_property_value[]
-}
-
 export type t_ReposCreateOrUpdateEnvironmentRequestBody = {
   deployment_branch_policy?: t_deployment_branch_policy_settings | undefined
   prevent_self_review?: t_prevent_self_review | undefined
@@ -10720,10 +12743,6 @@ export type t_ReposCreateRepoRulesetRequestBody = {
   target?: ("branch" | "tag" | "push" | UnknownEnumStringValue) | undefined
 }
 
-export type t_ReposCreateTagProtectionRequestBody = {
-  pattern: string
-}
-
 export type t_ReposCreateUsingTemplateRequestBody = {
   description?: string | undefined
   include_all_branches?: boolean | undefined
@@ -10745,6 +12764,11 @@ export type t_ReposCreateWebhookRequestBody = {
   events?: string[] | undefined
   name?: string | undefined
 } | null
+
+export type t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody =
+  {
+    properties: t_custom_property_value[]
+  }
 
 export type t_ReposDeleteFileRequestBody = {
   author?:
@@ -10879,6 +12903,29 @@ export type t_ReposUpdateRequestBody = {
         secret_scanning_ai_detection?:
           | {
               status?: string | undefined
+            }
+          | undefined
+        secret_scanning_delegated_alert_dismissal?:
+          | {
+              status?: string | undefined
+            }
+          | undefined
+        secret_scanning_delegated_bypass?:
+          | {
+              status?: string | undefined
+            }
+          | undefined
+        secret_scanning_delegated_bypass_options?:
+          | {
+              reviewers?:
+                | {
+                    mode?:
+                      | ("ALWAYS" | "EXEMPT" | UnknownEnumStringValue)
+                      | undefined
+                    reviewer_id: number
+                    reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
+                  }[]
+                | undefined
             }
           | undefined
         secret_scanning_non_provider_patterns?:
@@ -11099,9 +13146,42 @@ export type t_SecretScanningCreatePushProtectionBypassRequestBody = {
 }
 
 export type t_SecretScanningUpdateAlertRequestBody = {
+  assignee?: t_secret_scanning_alert_assignee | undefined
   resolution?: t_secret_scanning_alert_resolution | undefined
   resolution_comment?: t_secret_scanning_alert_resolution_comment | undefined
-  state: t_secret_scanning_alert_state
+  state?: t_secret_scanning_alert_state | undefined
+  validity?: ("active" | "inactive" | UnknownEnumStringValue | null) | undefined
+} & (
+  | {
+      state: t_secret_scanning_alert_state
+    }
+  | {
+      assignee: t_secret_scanning_alert_assignee
+    }
+  | {
+      validity: "active" | "inactive" | UnknownEnumStringValue | null
+    }
+)
+
+export type t_SecretScanningUpdateOrgPatternConfigsRequestBody = {
+  custom_pattern_settings?:
+    | {
+        custom_pattern_version?: t_secret_scanning_row_version | undefined
+        push_protection_setting?:
+          | ("disabled" | "enabled" | UnknownEnumStringValue)
+          | undefined
+        token_type?: string | undefined
+      }[]
+    | undefined
+  pattern_config_version?: t_secret_scanning_row_version | undefined
+  provider_pattern_settings?:
+    | {
+        push_protection_setting?:
+          | ("not-set" | "disabled" | "enabled" | UnknownEnumStringValue)
+          | undefined
+        token_type?: string | undefined
+      }[]
+    | undefined
 }
 
 export type t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody = {
@@ -11110,14 +13190,6 @@ export type t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody = {
 
 export type t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody = {
   role?: ("member" | "maintainer" | UnknownEnumStringValue) | undefined
-}
-
-export type t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody = {
-  permission?: ("read" | "write" | "admin" | UnknownEnumStringValue) | undefined
-} | null
-
-export type t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody = {
-  permission?: ("read" | "write" | "admin" | UnknownEnumStringValue) | undefined
 }
 
 export type t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody = {
@@ -11143,44 +13215,6 @@ export type t_TeamsCreateRequestBody = {
   permission?: ("pull" | "push" | UnknownEnumStringValue) | undefined
   privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
   repo_names?: string[] | undefined
-}
-
-export type t_TeamsCreateDiscussionCommentInOrgRequestBody = {
-  body: string
-}
-
-export type t_TeamsCreateDiscussionCommentLegacyRequestBody = {
-  body: string
-}
-
-export type t_TeamsCreateDiscussionInOrgRequestBody = {
-  body: string
-  private?: boolean | undefined
-  title: string
-}
-
-export type t_TeamsCreateDiscussionLegacyRequestBody = {
-  body: string
-  private?: boolean | undefined
-  title: string
-}
-
-export type t_TeamsUpdateDiscussionCommentInOrgRequestBody = {
-  body: string
-}
-
-export type t_TeamsUpdateDiscussionCommentLegacyRequestBody = {
-  body: string
-}
-
-export type t_TeamsUpdateDiscussionInOrgRequestBody = {
-  body?: string | undefined
-  title?: string | undefined
-}
-
-export type t_TeamsUpdateDiscussionLegacyRequestBody = {
-  body?: string | undefined
-  title?: string | undefined
 }
 
 export type t_TeamsUpdateInOrgRequestBody = {

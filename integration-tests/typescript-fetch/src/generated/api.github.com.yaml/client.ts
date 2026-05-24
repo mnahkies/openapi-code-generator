@@ -35,7 +35,9 @@ import type {
   t_ActionsSetSelectedReposForOrgSecretRequestBody,
   t_ActionsSetSelectedReposForOrgVariableRequestBody,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationRequestBody,
+  t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody,
   t_ActionsSetSelfHostedRunnersInGroupForOrgRequestBody,
+  t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody,
   t_ActionsUpdateEnvironmentVariableRequestBody,
   t_ActionsUpdateHostedRunnerForOrgRequestBody,
   t_ActionsUpdateOrgVariableRequestBody,
@@ -45,6 +47,15 @@ import type {
   t_ActivityMarkRepoNotificationsAsReadRequestBody,
   t_ActivitySetRepoSubscriptionRequestBody,
   t_ActivitySetThreadSubscriptionRequestBody,
+  t_AgentsCreateOrgVariableRequestBody,
+  t_AgentsCreateOrUpdateOrgSecretRequestBody,
+  t_AgentsCreateOrUpdateRepoSecretRequestBody,
+  t_AgentsCreateRepoVariableRequestBody,
+  t_AgentsSetSelectedReposForOrgSecretRequestBody,
+  t_AgentsSetSelectedReposForOrgVariableRequestBody,
+  t_AgentsUpdateOrgVariableRequestBody,
+  t_AgentsUpdateRepoVariableRequestBody,
+  t_AgentTasksCreateTaskInRepoRequestBody,
   t_AppsCheckTokenRequestBody,
   t_AppsCreateInstallationAccessTokenRequestBody,
   t_AppsDeleteAuthorizationRequestBody,
@@ -52,13 +63,25 @@ import type {
   t_AppsResetTokenRequestBody,
   t_AppsScopeTokenRequestBody,
   t_AppsUpdateWebhookConfigForAppRequestBody,
-  t_actions_billing_usage,
+  t_actions_artifact_and_log_retention,
+  t_actions_artifact_and_log_retention_response,
   t_actions_cache_list,
+  t_actions_cache_retention_limit_for_enterprise,
+  t_actions_cache_retention_limit_for_organization,
+  t_actions_cache_retention_limit_for_repository,
+  t_actions_cache_storage_limit_for_enterprise,
+  t_actions_cache_storage_limit_for_organization,
+  t_actions_cache_storage_limit_for_repository,
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
+  t_actions_fork_pr_contributor_approval,
+  t_actions_fork_pr_workflows_private_repos,
+  t_actions_fork_pr_workflows_private_repos_request,
   t_actions_get_default_workflow_permissions,
   t_actions_hosted_runner,
-  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_curated_image,
+  t_actions_hosted_runner_custom_image,
+  t_actions_hosted_runner_custom_image_version,
   t_actions_hosted_runner_limits,
   t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
@@ -77,13 +100,19 @@ import type {
   t_api_insights_user_stats,
   t_api_overview,
   t_artifact,
+  t_artifact_deployment_record,
   t_authentication_token,
   t_authorization,
   t_autolink,
+  t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
   t_basic_error,
+  t_billing_premium_request_usage_report_org,
+  t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
   t_billing_usage_report_user,
+  t_billing_usage_summary_report_org,
+  t_billing_usage_summary_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -122,13 +151,32 @@ import type {
   t_CodespacesUpdateForAuthenticatedUserRequestBody,
   t_CopilotAddCopilotSeatsForTeamsRequestBody,
   t_CopilotAddCopilotSeatsForUsersRequestBody,
+  t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForTeamsRequestBody,
   t_CopilotCancelCopilotSeatAssignmentForUsersRequestBody,
+  t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody,
+  t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody,
+  t_CopilotSetCopilotContentExclusionForOrganizationRequestBody,
+  t_CopilotSetEnterpriseCodingAgentPolicyRequestBody,
+  t_CopilotSpacesAddCollaboratorForOrgRequestBody,
+  t_CopilotSpacesAddCollaboratorForUserRequestBody,
+  t_CopilotSpacesCreateForOrgRequestBody,
+  t_CopilotSpacesCreateForUserRequestBody,
+  t_CopilotSpacesCreateResourceForOrgRequestBody,
+  t_CopilotSpacesCreateResourceForUserRequestBody,
+  t_CopilotSpacesUpdateCollaboratorForOrgRequestBody,
+  t_CopilotSpacesUpdateCollaboratorForUserRequestBody,
+  t_CopilotSpacesUpdateForOrgRequestBody,
+  t_CopilotSpacesUpdateForUserRequestBody,
+  t_CopilotSpacesUpdateResourceForOrgRequestBody,
+  t_CopilotSpacesUpdateResourceForUserRequestBody,
   t_CredentialsRevokeRequestBody,
   t_campaign_state,
   t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
+  t_check_immutable_releases,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
@@ -139,8 +187,11 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_setup,
+  t_code_quality_setup_update,
+  t_code_quality_setup_update_response,
   t_code_scanning_alert,
-  t_code_scanning_alert_instance,
+  t_code_scanning_alert_instance_list,
   t_code_scanning_alert_items,
   t_code_scanning_alert_severity,
   t_code_scanning_alert_state_query,
@@ -178,14 +229,15 @@ import type {
   t_codespaces_secret,
   t_codespaces_user_public_key,
   t_collaborator,
-  t_combined_billing_usage,
   t_combined_commit_status,
   t_commit,
   t_commit_activity,
   t_commit_comment,
-  t_commit_comparison,
   t_commit_search_result_item,
   t_community_profile,
+  t_concurrency_group,
+  t_concurrency_group_list,
+  t_concurrency_group_run_list,
   t_content_directory,
   t_content_file,
   t_content_submodule,
@@ -193,8 +245,14 @@ import type {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_copilot_organization_content_exclusion_details,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_space,
+  t_copilot_space_collaborator,
+  t_copilot_space_resource,
+  t_copilot_usage_metrics_1_day_report,
+  t_copilot_usage_metrics_28_day_report,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -202,10 +260,13 @@ import type {
   t_custom_property_value,
   t_DependabotCreateOrUpdateOrgSecretRequestBody,
   t_DependabotCreateOrUpdateRepoSecretRequestBody,
+  t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody,
   t_DependabotSetRepositoryAccessDefaultLevelRequestBody,
   t_DependabotSetSelectedReposForOrgSecretRequestBody,
   t_DependabotUpdateAlertRequestBody,
+  t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody,
   t_DependabotUpdateRepositoryAccessForOrgRequestBody,
+  t_delete_budget,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -221,8 +282,15 @@ import type {
   t_deployment_protection_rule,
   t_deployment_status,
   t_diff_entry,
+  t_EnterpriseTeamMembershipsBulkAddRequestBody,
+  t_EnterpriseTeamMembershipsBulkRemoveRequestBody,
+  t_EnterpriseTeamOrganizationsBulkAddRequestBody,
+  t_EnterpriseTeamOrganizationsBulkRemoveRequestBody,
+  t_EnterpriseTeamsCreateRequestBody,
+  t_EnterpriseTeamsUpdateRequestBody,
   t_email,
   t_empty_object,
+  t_enterprise_team,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -239,6 +307,8 @@ import type {
   t_GitCreateTagRequestBody,
   t_GitCreateTreeRequestBody,
   t_GitUpdateRefRequestBody,
+  t_get_all_budgets,
+  t_get_budget,
   t_gist_comment,
   t_gist_commit,
   t_gist_simple,
@@ -256,6 +326,8 @@ import type {
   t_hook_delivery_item,
   t_hovercard,
   t_IssuesAddAssigneesRequestBody,
+  t_IssuesAddBlockedByDependencyRequestBody,
+  t_IssuesAddIssueFieldValuesRequestBody,
   t_IssuesAddLabelsRequestBody,
   t_IssuesAddSubIssueRequestBody,
   t_IssuesCreateCommentRequestBody,
@@ -266,11 +338,13 @@ import type {
   t_IssuesRemoveAssigneesRequestBody,
   t_IssuesRemoveSubIssueRequestBody,
   t_IssuesReprioritizeSubIssueRequestBody,
+  t_IssuesSetIssueFieldValuesRequestBody,
   t_IssuesSetLabelsRequestBody,
   t_IssuesUpdateCommentRequestBody,
   t_IssuesUpdateLabelRequestBody,
   t_IssuesUpdateMilestoneRequestBody,
   t_IssuesUpdateRequestBody,
+  t_immutable_releases_organization_settings,
   t_import,
   t_installation,
   t_installation_token,
@@ -282,6 +356,8 @@ import type {
   t_issue_comment,
   t_issue_event,
   t_issue_event_for_issue,
+  t_issue_field,
+  t_issue_field_value,
   t_issue_search_result_item,
   t_issue_type,
   t_job,
@@ -308,16 +384,22 @@ import type {
   t_minimal_repository,
   t_network_configuration,
   t_network_settings,
+  t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody,
   t_OrgsConvertMemberToOutsideCollaboratorRequestBody,
+  t_OrgsCreateArtifactDeploymentRecordRequestBody,
+  t_OrgsCreateArtifactStorageRecordRequestBody,
   t_OrgsCreateInvitationRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertiesRequestBody,
-  t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody,
   t_OrgsCreateWebhookRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody,
+  t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody,
   t_OrgsDeleteAttestationsBulkRequestBody,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBody,
   t_OrgsListAttestationsBulkRequestBody,
   t_OrgsReviewPatGrantRequestRequestBody,
   t_OrgsReviewPatGrantRequestsInBulkRequestBody,
+  t_OrgsSetClusterDeploymentRecordsRequestBody,
+  t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody,
+  t_OrgsSetImmutableReleasesSettingsRequestBody,
   t_OrgsSetMembershipForUserRequestBody,
   t_OrgsUpdateMembershipForAuthenticatedUserRequestBody,
   t_OrgsUpdatePatAccessesRequestBody,
@@ -325,6 +407,8 @@ import type {
   t_OrgsUpdateRequestBody,
   t_OrgsUpdateWebhookConfigForOrgRequestBody,
   t_OrgsUpdateWebhookRequestBody,
+  t_oidc_custom_property_inclusion,
+  t_oidc_custom_property_inclusion_input,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -334,6 +418,7 @@ import type {
   t_org_repo_custom_property_values,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_field,
   t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
@@ -343,20 +428,20 @@ import type {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_field,
   t_organization_update_issue_type,
   t_PrivateRegistriesCreateOrgPrivateRegistryRequestBody,
   t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBody,
-  t_ProjectsClassicAddCollaboratorRequestBody,
-  t_ProjectsClassicCreateCardRequestBody,
-  t_ProjectsClassicCreateColumnRequestBody,
-  t_ProjectsClassicCreateForAuthenticatedUserRequestBody,
-  t_ProjectsClassicCreateForOrgRequestBody,
-  t_ProjectsClassicCreateForRepoRequestBody,
-  t_ProjectsClassicMoveCardRequestBody,
-  t_ProjectsClassicMoveColumnRequestBody,
-  t_ProjectsClassicUpdateCardRequestBody,
-  t_ProjectsClassicUpdateColumnRequestBody,
-  t_ProjectsClassicUpdateRequestBody,
+  t_ProjectsAddFieldForOrgRequestBody,
+  t_ProjectsAddFieldForUserRequestBody,
+  t_ProjectsAddItemForOrgRequestBody,
+  t_ProjectsAddItemForUserRequestBody,
+  t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody,
+  t_ProjectsCreateDraftItemForOrgRequestBody,
+  t_ProjectsCreateViewForOrgRequestBody,
+  t_ProjectsCreateViewForUserRequestBody,
+  t_ProjectsUpdateItemForOrgRequestBody,
+  t_ProjectsUpdateItemForUserRequestBody,
   t_PullsCreateReplyForReviewCommentRequestBody,
   t_PullsCreateRequestBody,
   t_PullsCreateReviewCommentRequestBody,
@@ -372,7 +457,6 @@ import type {
   t_PullsUpdateReviewRequestBody,
   t_package,
   t_package_version,
-  t_packages_billing_usage,
   t_page,
   t_page_build,
   t_page_build_status,
@@ -385,10 +469,11 @@ import type {
   t_porter_large_file,
   t_private_user,
   t_private_vulnerability_report_create,
-  t_project,
-  t_project_card,
-  t_project_collaborator_permission,
-  t_project_column,
+  t_projects_v2,
+  t_projects_v2_field,
+  t_projects_v2_item_simple,
+  t_projects_v2_item_with_content,
+  t_projects_v2_view,
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
@@ -404,10 +489,6 @@ import type {
   t_ReactionsCreateForIssueRequestBody,
   t_ReactionsCreateForPullRequestReviewCommentRequestBody,
   t_ReactionsCreateForReleaseRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody,
-  t_ReactionsCreateForTeamDiscussionInOrgRequestBody,
-  t_ReactionsCreateForTeamDiscussionLegacyRequestBody,
   t_ReposAddAppAccessRestrictionsRequestBody,
   t_ReposAddCollaboratorRequestBody,
   t_ReposAddStatusCheckContextsRequestBody,
@@ -426,16 +507,15 @@ import type {
   t_ReposCreateForkRequestBody,
   t_ReposCreateInOrgRequestBody,
   t_ReposCreateOrgRulesetRequestBody,
-  t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody,
   t_ReposCreateOrUpdateEnvironmentRequestBody,
   t_ReposCreateOrUpdateFileContentsRequestBody,
   t_ReposCreatePagesDeploymentRequestBody,
   t_ReposCreatePagesSiteRequestBody,
   t_ReposCreateReleaseRequestBody,
   t_ReposCreateRepoRulesetRequestBody,
-  t_ReposCreateTagProtectionRequestBody,
   t_ReposCreateUsingTemplateRequestBody,
   t_ReposCreateWebhookRequestBody,
+  t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody,
   t_ReposDeleteFileRequestBody,
   t_ReposGenerateReleaseNotesRequestBody,
   t_ReposMergeRequestBody,
@@ -496,13 +576,16 @@ import type {
   t_runner_label,
   t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningUpdateAlertRequestBody,
+  t_SecretScanningUpdateOrgPatternConfigsRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
   t_secret_scanning_location,
+  t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
+  t_self_hosted_runners_settings,
   t_short_blob,
   t_short_branch,
   t_simple_classroom,
@@ -517,29 +600,15 @@ import type {
   t_status_check_policy,
   t_TeamsAddOrUpdateMembershipForUserInOrgRequestBody,
   t_TeamsAddOrUpdateMembershipForUserLegacyRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody,
-  t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsInOrgRequestBody,
   t_TeamsAddOrUpdateRepoPermissionsLegacyRequestBody,
-  t_TeamsCreateDiscussionCommentInOrgRequestBody,
-  t_TeamsCreateDiscussionCommentLegacyRequestBody,
-  t_TeamsCreateDiscussionInOrgRequestBody,
-  t_TeamsCreateDiscussionLegacyRequestBody,
   t_TeamsCreateRequestBody,
-  t_TeamsUpdateDiscussionCommentInOrgRequestBody,
-  t_TeamsUpdateDiscussionCommentLegacyRequestBody,
-  t_TeamsUpdateDiscussionInOrgRequestBody,
-  t_TeamsUpdateDiscussionLegacyRequestBody,
   t_TeamsUpdateInOrgRequestBody,
   t_TeamsUpdateLegacyRequestBody,
   t_tag,
-  t_tag_protection,
   t_team,
-  t_team_discussion,
-  t_team_discussion_comment,
   t_team_full,
   t_team_membership,
-  t_team_project,
   t_team_repository,
   t_team_role_assignment,
   t_team_simple,
@@ -567,6 +636,7 @@ import type {
   t_view_traffic,
   t_webhook_config,
   t_workflow,
+  t_workflow_dispatch_response,
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
@@ -724,6 +794,865 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async agentTasksListTasksForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      sort?: "updated_at" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: string
+      isArchived?: boolean
+      since?: string
+      creatorId?: number[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          tasks: {
+            archived_at?: string | null
+            artifacts?: {
+              data:
+                | {
+                    global_id?: string
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+            created_at: string
+            creator?: {
+              id?: number
+            }
+            creator_type?: "user" | "organization" | UnknownEnumStringValue
+            html_url?: string
+            id: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            repository?: {
+              id?: number
+            }
+            session_count?: number
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            updated_at?: string
+            url?: string
+            user_collaborators?: {
+              id?: number
+            }[]
+          }[]
+          total_active_count?: number
+          total_archived_count?: number
+        }
+      >
+    | Res<
+        400,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        401,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        403,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        404,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        422,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+  > {
+    const url = this.basePath + `/agents/repos/${p["owner"]}/${p["repo"]}/tasks`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        per_page: p["perPage"],
+        page: p["page"],
+        sort: p["sort"],
+        direction: p["direction"],
+        state: p["state"],
+        is_archived: p["isArchived"],
+        since: p["since"],
+        creator_id: p["creatorId"],
+      },
+      {
+        creator_id: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentTasksCreateTaskInRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_AgentTasksCreateTaskInRepoRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        201,
+        {
+          archived_at?: string | null
+          artifacts?: {
+            data:
+              | {
+                  global_id?: string
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+          created_at: string
+          creator?: {
+            id?: number
+          }
+          creator_type?: "user" | "organization" | UnknownEnumStringValue
+          html_url?: string
+          id: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          repository?: {
+            id?: number
+          }
+          session_count?: number
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+            | UnknownEnumStringValue
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
+          }[]
+        }
+      >
+    | Res<
+        400,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        401,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        403,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        422,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+  > {
+    const url = this.basePath + `/agents/repos/${p["owner"]}/${p["repo"]}/tasks`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async agentTasksGetTaskByRepoAndId(
+    p: {
+      owner: string
+      repo: string
+      taskId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          archived_at?: string | null
+          artifacts?: {
+            data:
+              | {
+                  global_id?: string
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+          created_at: string
+          creator?: {
+            id?: number
+          }
+          creator_type?: "user" | "organization" | UnknownEnumStringValue
+          html_url?: string
+          id: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          repository?: {
+            id?: number
+          }
+          session_count?: number
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+            | UnknownEnumStringValue
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
+          }[]
+        } & {
+          sessions?: {
+            base_ref?: string
+            completed_at?: string
+            created_at: string
+            error?: {
+              message?: string
+            }
+            head_ref?: string
+            id: string
+            model?: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            prompt?: string
+            repository?: {
+              id?: number
+            }
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            task_id?: string
+            updated_at?: string
+            user?: {
+              id?: number
+            }
+          }[]
+        }
+      >
+    | Res<
+        400,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        401,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        403,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        404,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        422,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/agents/repos/${p["owner"]}/${p["repo"]}/tasks/${p["taskId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentTasksListTasks(
+    p: {
+      perPage?: number
+      page?: number
+      sort?: "updated_at" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: string
+      isArchived?: boolean
+      since?: string
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          tasks: {
+            archived_at?: string | null
+            artifacts?: {
+              data:
+                | {
+                    global_id?: string
+                    id: number
+                  }
+                | {
+                    base_ref: string
+                    head_ref: string
+                  }
+              provider: "github"
+              type: "pull" | "branch" | UnknownEnumStringValue
+            }[]
+            created_at: string
+            creator?: {
+              id?: number
+            }
+            creator_type?: "user" | "organization" | UnknownEnumStringValue
+            html_url?: string
+            id: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            repository?: {
+              id?: number
+            }
+            session_count?: number
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            updated_at?: string
+            url?: string
+            user_collaborators?: {
+              id?: number
+            }[]
+          }[]
+          total_active_count?: number
+          total_archived_count?: number
+        }
+      >
+    | Res<
+        400,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        401,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        403,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        422,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+  > {
+    const url = this.basePath + `/agents/tasks`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      state: p["state"],
+      is_archived: p["isArchived"],
+      since: p["since"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentTasksGetTaskById(
+    p: {
+      taskId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          archived_at?: string | null
+          artifacts?: {
+            data:
+              | {
+                  global_id?: string
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+          created_at: string
+          creator?: {
+            id?: number
+          }
+          creator_type?: "user" | "organization" | UnknownEnumStringValue
+          html_url?: string
+          id: string
+          name?: string
+          owner?: {
+            id?: number
+          }
+          repository?: {
+            id?: number
+          }
+          session_count?: number
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+            | UnknownEnumStringValue
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
+          }[]
+        } & {
+          sessions?: {
+            base_ref?: string
+            completed_at?: string
+            created_at: string
+            error?: {
+              message?: string
+            }
+            head_ref?: string
+            id: string
+            model?: string
+            name?: string
+            owner?: {
+              id?: number
+            }
+            prompt?: string
+            repository?: {
+              id?: number
+            }
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            task_id?: string
+            updated_at?: string
+            user?: {
+              id?: number
+            }
+          }[]
+        }
+      >
+    | Res<
+        400,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        401,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        403,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        404,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+    | Res<
+        422,
+        {
+          documentation_url: string
+          errors?: {
+            code:
+              | "missing"
+              | "missing_field"
+              | "invalid"
+              | "already_exists"
+              | "unprocessable"
+              | "custom"
+              | UnknownEnumStringValue
+            message?: string
+          }[]
+          message: string
+        }
+      >
+  > {
+    const url = this.basePath + `/agents/tasks/${p["taskId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async appsGetAuthenticated(
     timeout?: number,
     opts: RequestInit = {},
@@ -791,6 +1720,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -801,7 +1731,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/app/hook/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -1226,6 +2160,156 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async actionsGetActionsCacheRetentionLimitForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_cache_retention_limit_for_enterprise>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/cache/retention-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetActionsCacheRetentionLimitForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_actions_cache_retention_limit_for_enterprise
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/cache/retention-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetActionsCacheStorageLimitForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_cache_storage_limit_for_enterprise>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetActionsCacheStorageLimitForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_actions_cache_storage_limit_for_enterprise
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async oidcListOidcCustomPropertyInclusionsForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_oidc_custom_property_inclusion[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async oidcCreateOidcCustomPropertyInclusionForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_oidc_custom_property_inclusion_input
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_oidc_custom_property_inclusion>
+    | Res<400, void>
+    | Res<403, t_basic_error>
+    | Res<422, void>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async oidcDeleteOidcCustomPropertyInclusionForEnterprise(
+    p: {
+      enterprise: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<400, void> | Res<403, t_basic_error> | Res<404, void>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/oidc/customization/properties/repo/${p["customPropertyName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
   async codeSecurityGetConfigurationsForEnterprise(
     p: {
       enterprise: string
@@ -1455,22 +2539,188 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async copilotCopilotEnterpriseOneDayUsageMetrics(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/enterprise-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotEnterpriseUsageMetrics(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_28_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/enterprise-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotEnterpriseUserTeamsOneDayReport(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/user-teams-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotUsersOneDayUsageMetrics(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/users-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotUsersUsageMetrics(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_28_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/users-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSetEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotSetEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<400, t_scim_error>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotAddOrganizationsToEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<400, t_scim_error>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent/organizations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotRemoveOrganizationsFromEnterpriseCodingAgentPolicy(
+    p: {
+      enterprise: string
+      requestBody: t_CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<400, t_scim_error>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/policies/coding_agent/organizations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
+  }
+
   async dependabotListAlertsForEnterprise(
     p: {
       enterprise: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
       package?: string
       epssPercentage?: string
       has?: string | "patch"[]
+      assignee?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      first?: number
-      last?: number
       perPage?: number
     },
     timeout?: number,
@@ -1487,19 +2737,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
         package: p["package"],
         epss_percentage: p["epssPercentage"],
         has: p["has"],
+        assignee: p["assignee"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
         per_page: p["perPage"],
       },
       {
@@ -1513,55 +2763,378 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async secretScanningListAlertsForEnterprise(
+  async dependabotRepositoryAccessForEnterprise(
     p: {
       enterprise: string
-      state?: "open" | "resolved" | UnknownEnumStringValue
-      secretType?: string
-      resolution?: string
-      sort?: "created" | "updated" | UnknownEnumStringValue
-      direction?: "asc" | "desc" | UnknownEnumStringValue
+      page?: number
       perPage?: number
-      before?: string
-      after?: string
-      validity?: string
-      isPubliclyLeaked?: boolean
-      isMultiRepo?: boolean
-      hideSecret?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_secret_scanning_alert[]>
+    | Res<200, t_dependabot_repository_access_details>
+    | Res<403, t_basic_error>
     | Res<404, t_basic_error>
-    | Res<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
   > {
     const url =
-      this.basePath + `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/dependabot/repository-access`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      secret_type: p["secretType"],
-      resolution: p["resolution"],
-      sort: p["sort"],
-      direction: p["direction"],
-      per_page: p["perPage"],
-      before: p["before"],
-      after: p["after"],
-      validity: p["validity"],
-      is_publicly_leaked: p["isPubliclyLeaked"],
-      is_multi_repo: p["isMultiRepo"],
-      hide_secret: p["hideSecret"],
-    })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async dependabotUpdateRepositoryAccessForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_DependabotUpdateRepositoryAccessForEnterpriseRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/dependabot/repository-access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevelForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamsList(
+    p: {
+      enterprise: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_enterprise_team[]> | Res<403, t_basic_error>> {
+    const url = this.basePath + `/enterprises/${p["enterprise"]}/teams`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamsCreate(
+    p: {
+      enterprise: string
+      requestBody: t_EnterpriseTeamsCreateRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_enterprise_team>> {
+    const url = this.basePath + `/enterprises/${p["enterprise"]}/teams`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsList(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_simple_user[]>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsBulkAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamMembershipsBulkAddRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_simple_user[]>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/add`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsBulkRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamMembershipsBulkRemoveRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_simple_user[]>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/remove`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsGet(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_simple_user>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_simple_user>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamMembershipsRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      username: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<403, t_basic_error>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/memberships/${p["username"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsGetAssignments(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_organization_simple[]>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsBulkAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamOrganizationsBulkAddRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_organization_simple[]>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/add`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsBulkRemove(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      requestBody: t_EnterpriseTeamOrganizationsBulkRemoveRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/remove`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsGetAssignment(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_organization_simple> | Res<404, void>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsAdd(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_organization_simple>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamOrganizationsDelete(
+    p: {
+      enterprise: string
+      enterpriseTeam: string
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/teams/${p["enterpriseTeam"]}/organizations/${p["org"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamsGet(
+    p: {
+      enterprise: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_enterprise_team> | Res<403, t_basic_error>> {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamsUpdate(
+    p: {
+      enterprise: string
+      teamSlug: string
+      requestBody: t_EnterpriseTeamsUpdateRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_enterprise_team> | Res<403, t_basic_error>> {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async enterpriseTeamsDelete(
+    p: {
+      enterprise: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<403, t_basic_error>> {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async activityListPublicEvents(
@@ -2048,7 +3621,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<
         200,
         {
-          repositories: t_repository[]
+          repositories: (t_repository & {
+            custom_properties?: Record<string, unknown>
+          })[]
           repository_selection?: string
           total_count: number
         }
@@ -2559,61 +4134,39 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async dependabotRepositoryAccessForOrg(
+  async actionsGetActionsCacheRetentionLimitForOrganization(
     p: {
       org: string
-      page?: number
-      perPage?: number
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_dependabot_repository_access_details>
+    | Res<200, t_actions_cache_retention_limit_for_organization>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
     const url =
-      this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
+      this.basePath + `/organizations/${p["org"]}/actions/cache/retention-limit`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async dependabotUpdateRepositoryAccessForOrg(
+  async actionsSetActionsCacheRetentionLimitForOrganization(
     p: {
       org: string
-      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
+      requestBody: t_actions_cache_retention_limit_for_organization
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
   > {
     const url =
-      this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async dependabotSetRepositoryAccessDefaultLevel(
-    p: {
-      org: string
-      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/organizations/${p["org"]}/dependabot/repository-access/default-level`
+      this.basePath + `/organizations/${p["org"]}/actions/cache/retention-limit`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -2623,13 +4176,241 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
+  async actionsGetActionsCacheStorageLimitForOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_cache_storage_limit_for_organization>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetActionsCacheStorageLimitForOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_cache_storage_limit_for_organization
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async billingGetAllBudgetsOrg(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+      scope?:
+        | "enterprise"
+        | "organization"
+        | "repository"
+        | "cost_center"
+        | UnknownEnumStringValue
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_get_all_budgets>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/settings/billing/budgets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+      scope: p["scope"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingGetBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_get_budget>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingUpdateBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+      requestBody: t_BillingUpdateBudgetOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          budget?: {
+            budget_alerting?: {
+              alert_recipients: string[]
+              will_alert: boolean
+            }
+            budget_amount?: number
+            budget_entity_name?: string
+            budget_product_sku?: string
+            budget_scope?:
+              | "enterprise"
+              | "organization"
+              | "repository"
+              | "cost_center"
+              | UnknownEnumStringValue
+            budget_type?: "ProductPricing" | "SkuPricing"
+            id?: string
+            prevent_further_usage?: boolean
+          }
+          message?: string
+        }
+      >
+    | Res<400, t_scim_error>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async billingDeleteBudgetOrg(
+    p: {
+      org: string
+      budgetId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_delete_budget>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/budgets/${p["budgetId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async billingGetGithubBillingPremiumRequestUsageReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      user?: string
+      model?: string
+      product?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_premium_request_usage_report_org>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/premium_request/usage`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      user: p["user"],
+      model: p["model"],
+      product: p["product"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async billingGetGithubBillingUsageReportOrg(
     p: {
       org: string
       year?: number
       month?: number
       day?: number
-      hour?: number
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2654,7 +4435,48 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       year: p["year"],
       month: p["month"],
       day: p["day"],
-      hour: p["hour"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingGetGithubBillingUsageSummaryReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      repository?: string
+      product?: string
+      sku?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_usage_summary_report_org>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/usage/summary`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      repository: p["repository"],
+      product: p["product"],
+      sku: p["sku"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -2797,6 +4619,118 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
+  async actionsListCustomImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        images: t_actions_hosted_runner_custom_image[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/hosted-runners/images/custom`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsGetCustomImageForOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_hosted_runner_custom_image>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsDeleteCustomImageFromOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async actionsListCustomImageVersionsForOrg(
+    p: {
+      imageDefinitionId: number
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        image_versions: t_actions_hosted_runner_custom_image_version[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsGetCustomImageVersionForOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+      version: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_hosted_runner_custom_image_version>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions/${p["version"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsDeleteCustomImageVersionFromOrg(
+    p: {
+      org: string
+      imageDefinitionId: number
+      version: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/custom/${p["imageDefinitionId"]}/versions/${p["version"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
   async actionsGetHostedRunnersGithubOwnedImagesForOrg(
     p: {
       org: string
@@ -2807,7 +4741,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     Res<
       200,
       {
-        images: t_actions_hosted_runner_image[]
+        images: t_actions_hosted_runner_curated_image[]
         total_count: number
       }
     >
@@ -2830,7 +4764,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     Res<
       200,
       {
-        images: t_actions_hosted_runner_image[]
+        images: t_actions_hosted_runner_curated_image[]
         total_count: number
       }
     >
@@ -2953,6 +4887,68 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async oidcListOidcCustomPropertyInclusionsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_oidc_custom_property_inclusion[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async oidcCreateOidcCustomPropertyInclusionForOrg(
+    p: {
+      org: string
+      requestBody: t_oidc_custom_property_inclusion_input
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_oidc_custom_property_inclusion>
+    | Res<400, void>
+    | Res<403, t_basic_error>
+    | Res<422, void>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/oidc/customization/properties/repo`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async oidcDeleteOidcCustomPropertyInclusionForOrg(
+    p: {
+      org: string
+      customPropertyName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<400, void> | Res<403, t_basic_error> | Res<404, void>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/oidc/customization/properties/repo/${p["customPropertyName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
   async oidcGetOidcCustomSubTemplateForOrg(
     p: {
       org: string
@@ -2970,7 +4966,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async oidcUpdateOidcCustomSubTemplateForOrg(
     p: {
       org: string
-      requestBody: t_oidc_custom_sub
+      requestBody: t_OidcUpdateOidcCustomSubTemplateForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3010,6 +5006,134 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetArtifactAndLogRetentionSettingsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_artifact_and_log_retention_response>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetArtifactAndLogRetentionSettingsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_artifact_and_log_retention
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetForkPrContributorApprovalPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_actions_fork_pr_contributor_approval> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetForkPrContributorApprovalPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_fork_pr_contributor_approval
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetPrivateRepoForkPrWorkflowsSettingsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_fork_pr_workflows_private_repos>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/fork-pr-workflows-private-repos`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization(
+    p: {
+      org: string
+      requestBody: t_actions_fork_pr_workflows_private_repos_request
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/fork-pr-workflows-private-repos`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -3131,6 +5255,148 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetSelfHostedRunnersPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_self_hosted_runners_settings>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetSelfHostedRunnersPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsListSelectedRepositoriesSelfHostedRunnersOrganization(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          repositories?: t_repository[]
+          total_count?: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetSelectedRepositoriesSelfHostedRunnersOrganization(
+    p: {
+      org: string
+      requestBody: t_ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsEnableSelectedRepositorySelfHostedRunnersOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async actionsDisableSelectedRepositorySelfHostedRunnersOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/self-hosted-runners/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -4072,6 +6338,507 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async agentsListOrgSecrets(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        secrets: t_organization_actions_secret[]
+        total_count: number
+      }
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/agents/secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_public_key>> {
+    const url = this.basePath + `/orgs/${p["org"]}/agents/secrets/public-key`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsGetOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_organization_actions_secret>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsCreateOrUpdateOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: t_AgentsCreateOrUpdateOrgSecretRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_empty_object> | Res<204, void>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async agentsDeleteOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async agentsListSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsSetSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: t_AgentsSetSelectedReposForOrgSecretRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async agentsAddSelectedRepoToOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async agentsRemoveSelectedRepoFromOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async agentsListOrgVariables(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        total_count: number
+        variables: t_organization_actions_variable[]
+      }
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/agents/variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsCreateOrgVariable(
+    p: {
+      org: string
+      requestBody: t_AgentsCreateOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_empty_object>> {
+    const url = this.basePath + `/orgs/${p["org"]}/agents/variables`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async agentsGetOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_organization_actions_variable>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsUpdateOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: t_AgentsUpdateOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async agentsDeleteOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async agentsListSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          repositories: t_minimal_repository[]
+          total_count: number
+        }
+      >
+    | Res<409, void>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsSetSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: t_AgentsSetSelectedReposForOrgVariableRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async agentsAddSelectedRepoToOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async agentsRemoveSelectedRepoFromOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/agents/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async orgsCreateArtifactDeploymentRecord(
+    p: {
+      org: string
+      requestBody: t_OrgsCreateArtifactDeploymentRecordRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          deployment_records?: t_artifact_deployment_record[]
+          total_count: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/artifacts/metadata/deployment-record`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async orgsSetClusterDeploymentRecords(
+    p: {
+      org: string
+      cluster: string
+      requestBody: t_OrgsSetClusterDeploymentRecordsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          deployment_records?: t_artifact_deployment_record[]
+          total_count: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/artifacts/metadata/deployment-record/cluster/${p["cluster"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async orgsCreateArtifactStorageRecord(
+    p: {
+      org: string
+      requestBody: t_OrgsCreateArtifactStorageRecordRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          storage_records?: {
+            artifact_url?: string | null
+            created_at?: string
+            digest?: string
+            id?: number
+            name?: string
+            registry_url?: string
+            repository?: string | null
+            status?: string
+            updated_at?: string
+          }[]
+          total_count: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/artifacts/metadata/storage-record`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async orgsListArtifactDeploymentRecords(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        deployment_records?: t_artifact_deployment_record[]
+        total_count?: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/artifacts/${p["subjectDigest"]}/metadata/deployment-records`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async orgsListArtifactStorageRecords(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        storage_records?: {
+          artifact_url?: string
+          created_at?: string
+          digest?: string
+          id?: number
+          name?: string
+          registry_url?: string
+          repository?: string
+          status?: string
+          updated_at?: string
+        }[]
+        total_count?: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/artifacts/${p["subjectDigest"]}/metadata/storage-records`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async orgsListAttestationsBulk(
     p: {
       perPage?: number
@@ -4161,6 +6928,37 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async orgsListAttestationRepositories(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      predicateType?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        id?: number
+        name?: string
+      }[]
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/attestations/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      predicate_type: p["predicateType"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async orgsDeleteAttestationsById(
     p: {
       org: string
@@ -4201,8 +6999,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             dsseEnvelope?: Record<string, unknown>
             mediaType?: string
             verificationMaterial?: Record<string, unknown>
-          }
+          } | null
           bundle_url?: string
+          initiator?: string
           repository_id?: number
         }[]
       }
@@ -4451,6 +7250,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       state?: t_code_scanning_alert_state_query
       sort?: "created" | "updated" | UnknownEnumStringValue
       severity?: t_code_scanning_alert_severity
+      assignees?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4479,6 +7279,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       state: p["state"],
       sort: p["sort"],
       severity: p["severity"],
+      assignees: p["assignees"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -5016,6 +7817,339 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async copilotSpacesListForOrg(
+    p: {
+      org: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          spaces: t_copilot_space[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot-spaces`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesCreateForOrg(
+    p: {
+      org: string
+      requestBody: t_CopilotSpacesCreateForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot-spaces`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesGetForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesUpdateForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesDeleteForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesListCollaboratorsForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          collaborators: t_copilot_space_collaborator[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesAddCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesAddCollaboratorForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_copilot_space_collaborator>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+      requestBody: t_CopilotSpacesUpdateCollaboratorForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_collaborator>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesRemoveCollaboratorForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesListResourcesForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          resources: t_copilot_space_resource[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesCreateResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesCreateResourceForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<201, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesGetResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+      requestBody: t_CopilotSpacesUpdateResourceForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesDeleteResourceForOrg(
+    p: {
+      org: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
   async copilotGetCopilotOrganizationDetails(
     p: {
       org: string
@@ -5188,6 +8322,218 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
 
+  async copilotGetCopilotCodingAgentPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          enabled_repositories:
+            | "all"
+            | "selected"
+            | "none"
+            | UnknownEnumStringValue
+          selected_repositories_url?: string
+        }
+      >
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot/coding-agent/permissions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSetCopilotCodingAgentPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot/coding-agent/permissions`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotListCopilotCodingAgentSelectedRepositoriesForOrganization(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          repositories: t_minimal_repository[]
+          total_count: number
+        }
+      >
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotEnableCopilotCodingAgentForRepositoryInOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async copilotDisableCopilotCodingAgentForRepositoryInOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/coding-agent/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotContentExclusionForOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_organization_content_exclusion_details>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot/content_exclusion`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSetCopilotContentExclusionForOrganization(
+    p: {
+      org: string
+      requestBody: t_CopilotSetCopilotContentExclusionForOrganizationRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          message?: string
+        }
+      >
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<413, t_basic_error>
+    | Res<422, t_validation_error_simple>
+    | Res<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot/content_exclusion`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
   async copilotCopilotMetricsForOrganization(
     p: {
       org: string
@@ -5217,22 +8563,133 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async copilotCopilotOrganizationOneDayUsageMetrics(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/metrics/reports/organization-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotOrganizationUsageMetrics(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_28_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/metrics/reports/organization-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotOrganizationUserTeamsOneDayReport(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/metrics/reports/user-teams-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotOrganizationUsersOneDayUsageMetrics(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot/metrics/reports/users-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotOrganizationUsersUsageMetrics(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_28_day_report>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/copilot/metrics/reports/users-28-day/latest`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async dependabotListAlertsForOrg(
     p: {
       org: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      has?: string | "patch"[]
+      artifactRegistryUrl?: string
+      artifactRegistry?: string
+      has?: string | ("patch" | "deployment" | UnknownEnumStringValue)[]
+      assignee?: string
+      runtimeRisk?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      first?: number
-      last?: number
       perPage?: number
     },
     timeout?: number,
@@ -5249,19 +8706,22 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
         package: p["package"],
         epss_percentage: p["epssPercentage"],
+        artifact_registry_url: p["artifactRegistryUrl"],
+        artifact_registry: p["artifactRegistry"],
         has: p["has"],
+        assignee: p["assignee"],
+        runtime_risk: p["runtimeRisk"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
         per_page: p["perPage"],
       },
       {
@@ -5273,6 +8733,68 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async dependabotRepositoryAccessForOrg(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_dependabot_repository_access_details>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async dependabotUpdateRepositoryAccessForOrg(
+    p: {
+      org: string
+      requestBody: t_DependabotUpdateRepositoryAccessForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevel(
+    p: {
+      org: string
+      requestBody: t_DependabotSetRepositoryAccessDefaultLevelRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
   async dependabotListOrgSecrets(
@@ -5630,6 +9152,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       hookId: number
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5641,7 +9164,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -6165,6 +9692,84 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async orgsListIssueFields(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issue_field[]> | Res<404, t_basic_error>> {
+    const url = this.basePath + `/orgs/${p["org"]}/issue-fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async orgsCreateIssueField(
+    p: {
+      org: string
+      requestBody: t_organization_create_issue_field
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_field>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/issue-fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async orgsUpdateIssueField(
+    p: {
+      org: string
+      issueFieldId: number
+      requestBody: t_organization_update_issue_field
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_field>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/issue-fields/${p["issueFieldId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async orgsDeleteIssueField(
+    p: {
+      org: string
+      issueFieldId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/issue-fields/${p["issueFieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async orgsListIssueTypes(
@@ -7521,43 +11126,71 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsClassicListForOrg(
+  async projectsListForOrg(
     p: {
       org: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      q?: string
+      before?: string
+      after?: string
       perPage?: number
-      page?: number
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_project[]> | Res<422, t_validation_error_simple>> {
-    const url = this.basePath + `/orgs/${p["org"]}/projects`
+  ): Promise<
+    | Res<200, t_projects_v2[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/projectsV2`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
-      state: p["state"],
+      q: p["q"],
+      before: p["before"],
+      after: p["after"],
       per_page: p["perPage"],
-      page: p["page"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsClassicCreateForOrg(
+  async projectsGetForOrg(
     p: {
+      projectNumber: number
       org: string
-      requestBody: t_ProjectsClassicCreateForOrgRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_project>
+    | Res<200, t_projects_v2>
+    | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<410, t_basic_error>
-    | Res<422, t_validation_error_simple>
   > {
-    const url = this.basePath + `/orgs/${p["org"]}/projects`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsCreateDraftItemForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateDraftItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_item_simple>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/drafts`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -7567,7 +11200,298 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
-  async orgsGetAllCustomProperties(
+  async projectsListFieldsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_field[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsAddFieldForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      requestBody: t_ProjectsAddFieldForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_field>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async projectsGetFieldForOrg(
+    p: {
+      projectNumber: number
+      fieldId: number
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_field>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/fields/${p["fieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsListItemsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      q?: string
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        q: p["q"],
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsAddItemForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsAddItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_item_simple>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async projectsGetOrgItem(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {fields: p["fields"]},
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsUpdateItemForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+      requestBody: t_ProjectsUpdateItemForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async projectsDeleteItemForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      itemId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<401, t_basic_error> | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async projectsCreateViewForOrg(
+    p: {
+      org: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateViewForOrgRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_view>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<503, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/views`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async projectsListViewItemsForOrg(
+    p: {
+      projectNumber: number
+      org: string
+      viewNumber: number
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/projectsV2/${p["projectNumber"]}/views/${p["viewNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async orgsCustomPropertiesForReposGetOrganizationDefinitions(
     p: {
       org: string
     },
@@ -7584,10 +11508,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async orgsCreateOrUpdateCustomProperties(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions(
     p: {
       org: string
-      requestBody: t_OrgsCreateOrUpdateCustomPropertiesRequestBody
+      requestBody: t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7606,7 +11530,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
-  async orgsGetCustomProperty(
+  async orgsCustomPropertiesForReposGetOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -7626,7 +11550,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async orgsCreateOrUpdateCustomProperty(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -7651,7 +11575,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
-  async orgsRemoveCustomProperty(
+  async orgsCustomPropertiesForReposDeleteOrganizationDefinition(
     p: {
       org: string
       customPropertyName: string
@@ -7669,7 +11593,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async orgsListCustomPropertiesValuesForRepos(
+  async orgsCustomPropertiesForReposGetOrganizationValues(
     p: {
       org: string
       perPage?: number
@@ -7694,10 +11618,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
+  async orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(
     p: {
       org: string
-      requestBody: t_OrgsCreateOrUpdateCustomPropertiesValuesForReposRequestBody
+      requestBody: t_OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7872,6 +11796,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<
     | Res<201, t_repository_ruleset>
     | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
     | Res<500, t_basic_error>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
@@ -7967,6 +11892,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_repository_ruleset>
     | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
     | Res<500, t_basic_error>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
@@ -8048,7 +11974,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
+      excludeSecretTypes?: string
+      excludeProviders?: string
+      providers?: string
       resolution?: string
+      assignee?: string
       sort?: "created" | "updated" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
@@ -8059,6 +11989,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
       hideSecret?: boolean
+      isBypassed?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8079,7 +12010,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
+      exclude_secret_types: p["excludeSecretTypes"],
+      exclude_providers: p["excludeProviders"],
+      providers: p["providers"],
       resolution: p["resolution"],
+      assignee: p["assignee"],
       sort: p["sort"],
       direction: p["direction"],
       page: p["page"],
@@ -8090,9 +12025,59 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
+      is_bypassed: p["isBypassed"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningListOrgPatternConfigs(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_secret_scanning_pattern_configuration>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/secret-scanning/pattern-configurations`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningUpdateOrgPatternConfigs(
+    p: {
+      org: string
+      requestBody: t_SecretScanningUpdateOrgPatternConfigsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          pattern_config_version?: string
+        }
+      >
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/secret-scanning/pattern-configurations`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
   async securityAdvisoriesListOrgRepositoryAdvisories(
@@ -8176,44 +12161,113 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async billingGetGithubActionsBillingOrg(
+  async orgsGetImmutableReleasesSettings(
     p: {
       org: string
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_actions_billing_usage>> {
-    const url = this.basePath + `/orgs/${p["org"]}/settings/billing/actions`
+  ): Promise<Res<200, t_immutable_releases_organization_settings>> {
+    const url = this.basePath + `/orgs/${p["org"]}/settings/immutable-releases`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async billingGetGithubPackagesBillingOrg(
+  async orgsSetImmutableReleasesSettings(
     p: {
       org: string
+      requestBody: t_OrgsSetImmutableReleasesSettingsRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_packages_billing_usage>> {
-    const url = this.basePath + `/orgs/${p["org"]}/settings/billing/packages`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+  ): Promise<Res<204, void>> {
+    const url = this.basePath + `/orgs/${p["org"]}/settings/immutable-releases`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
-  async billingGetSharedStorageBillingOrg(
+  async orgsGetImmutableReleasesSettingsRepositories(
     p: {
       org: string
+      page?: number
+      perPage?: number
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_combined_billing_usage>> {
+  ): Promise<
+    Res<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+  > {
     const url =
-      this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
+      this.basePath +
+      `/orgs/${p["org"]}/settings/immutable-releases/repositories`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async orgsSetImmutableReleasesSettingsRepositories(
+    p: {
+      org: string
+      requestBody: t_OrgsSetImmutableReleasesSettingsRepositoriesRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/immutable-releases/repositories`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async orgsEnableSelectedRepositoryImmutableReleasesOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/immutable-releases/repositories/${p["repositoryId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async orgsDisableSelectedRepositoryImmutableReleasesOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/immutable-releases/repositories/${p["repositoryId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async hostedComputeListNetworkConfigurationsForOrg(
@@ -8365,13 +12419,18 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       perPage?: number
       page?: number
+      teamType?: "all" | "enterprise" | "organization" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, t_team[]> | Res<403, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      team_type: p["teamType"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -8449,371 +12508,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<204, void> | Res<422, void>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async teamsListDiscussionsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-      pinned?: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion[]>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-      pinned: p["pinned"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCreateDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      requestBody: t_TeamsCreateDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_team_discussion>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async teamsGetDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsUpdateDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody?: t_TeamsUpdateDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async teamsDeleteDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async teamsListDiscussionCommentsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment[]>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCreateDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody: t_TeamsCreateDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async teamsGetDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsUpdateDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_TeamsUpdateDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async teamsDeleteDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async reactionsListForTeamDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async reactionsCreateForTeamDiscussionCommentInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionCommentInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction> | Res<201, t_reaction>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async reactionsDeleteForTeamDiscussionComment(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      commentNumber: number
-      reactionId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async reactionsListForTeamDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async reactionsCreateForTeamDiscussionInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction> | Res<201, t_reaction>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async reactionsDeleteForTeamDiscussion(
-    p: {
-      org: string
-      teamSlug: string
-      discussionNumber: number
-      reactionId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
@@ -8828,7 +12524,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_invitation[]>> {
+  ): Promise<Res<200, t_organization_invitation[]> | Res<422, void>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -8916,94 +12612,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async teamsListProjectsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project[]>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCheckPermissionsForProjectInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project> | Res<404, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsAddOrUpdateProjectPermissionsInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-      requestBody?: t_TeamsAddOrUpdateProjectPermissionsInOrgRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-  > {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
-  }
-
-  async teamsRemoveProjectInOrg(
-    p: {
-      org: string
-      teamSlug: string
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
@@ -9138,514 +12746,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
     const body =
       p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicGetCard(
-    p: {
-      cardId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_card>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicUpdateCard(
-    p: {
-      cardId: number
-      requestBody?: t_ProjectsClassicUpdateCardRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_card>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicDeleteCard(
-    p: {
-      cardId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Res<404, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicMoveCard(
-    p: {
-      cardId: number
-      requestBody: t_ProjectsClassicMoveCardRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, Record<string, never>>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          errors?: {
-            code?: string
-            field?: string
-            message?: string
-            resource?: string
-          }[]
-          message?: string
-        }
-      >
-    | Res<422, t_validation_error>
-    | Res<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          errors?: {
-            code?: string
-            message?: string
-          }[]
-          message?: string
-        }
-      >
-  > {
-    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}/moves`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicGetColumn(
-    p: {
-      columnId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_column>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicUpdateColumn(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicUpdateColumnRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_column>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicDeleteColumn(
-    p: {
-      columnId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicListCards(
-    p: {
-      columnId: number
-      archivedState?:
-        | "all"
-        | "archived"
-        | "not_archived"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_card[]>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      archived_state: p["archivedState"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicCreateCard(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicCreateCardRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, t_project_card>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<422, t_validation_error | t_validation_error_simple>
-    | Res<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          errors?: {
-            code?: string
-            message?: string
-          }[]
-          message?: string
-        }
-      >
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicMoveColumn(
-    p: {
-      columnId: number
-      requestBody: t_ProjectsClassicMoveColumnRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, Record<string, never>>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/projects/columns/${p["columnId"]}/moves`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicGet(
-    p: {
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicUpdate(
-    p: {
-      projectId: number
-      requestBody?: t_ProjectsClassicUpdateRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Res<404, void>
-    | Res<410, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicDelete(
-    p: {
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Res<404, t_basic_error>
-    | Res<410, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicListCollaborators(
-    p: {
-      projectId: number
-      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_simple_user[]>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}/collaborators`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      affiliation: p["affiliation"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicAddCollaborator(
-    p: {
-      projectId: number
-      username: string
-      requestBody?: t_ProjectsClassicAddCollaboratorRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error>
-  > {
-    const url =
-      this.basePath +
-      `/projects/${p["projectId"]}/collaborators/${p["username"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
-  }
-
-  async projectsClassicRemoveCollaborator(
-    p: {
-      projectId: number
-      username: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error>
-  > {
-    const url =
-      this.basePath +
-      `/projects/${p["projectId"]}/collaborators/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicGetPermissionForUser(
-    p: {
-      projectId: number
-      username: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_collaborator_permission>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error>
-  > {
-    const url =
-      this.basePath +
-      `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicListColumns(
-    p: {
-      projectId: number
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project_column[]>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}/columns`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicCreateColumn(
-    p: {
-      projectId: number
-      requestBody: t_ProjectsClassicCreateColumnRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, t_project_column>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/projects/${p["projectId"]}/columns`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9820,6 +12920,98 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async actionsGetActionsCacheRetentionLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_cache_retention_limit_for_repository>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/cache/retention-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetActionsCacheRetentionLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_cache_retention_limit_for_repository
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/cache/retention-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetActionsCacheStorageLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_cache_storage_limit_for_repository>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/cache/storage-limit`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetActionsCacheStorageLimitForRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_cache_storage_limit_for_repository
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/cache/storage-limit`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
   async actionsGetActionsCacheUsage(
     p: {
       owner: string
@@ -9905,6 +13097,54 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async actionsListConcurrencyGroupsForRepository(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_concurrency_group_list> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/concurrency_groups`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], after: p["after"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsGetConcurrencyGroupForRepository(
+    p: {
+      owner: string
+      repo: string
+      concurrencyGroupName: string
+      aheadOfRun?: number
+      aheadOfJob?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_concurrency_group>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/concurrency_groups/${p["concurrencyGroupName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      ahead_of_run: p["aheadOfRun"],
+      ahead_of_job: p["aheadOfJob"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async actionsGetJobForWorkflowRun(
@@ -10131,6 +13371,132 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetArtifactAndLogRetentionSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_artifact_and_log_retention_response>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetArtifactAndLogRetentionSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_artifact_and_log_retention
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/artifact-and-log-retention`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetForkPrContributorApprovalPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_actions_fork_pr_contributor_approval> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetForkPrContributorApprovalPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_fork_pr_contributor_approval
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-contributor-approval`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async actionsGetPrivateRepoForkPrWorkflowsSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_actions_fork_pr_workflows_private_repos>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-workflows-private-repos`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async actionsSetPrivateRepoForkPrWorkflowsSettingsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_fork_pr_workflows_private_repos_request
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/fork-pr-workflows-private-repos`
     const headers = this._headers(
       {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
@@ -10647,6 +14013,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       perPage?: number
       page?: number
       name?: string
+      direction?: "asc" | "desc" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10667,6 +14034,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
+      direction: p["direction"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -10755,6 +14123,35 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
+  }
+
+  async actionsListConcurrencyGroupsForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_concurrency_group_run_list>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/concurrency_groups`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async actionsReviewCustomGatesForRun(
@@ -11246,7 +14643,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<200, t_workflow_dispatch_response> | Res<204, void>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
@@ -11400,6 +14797,260 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async agentsListRepoOrganizationSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        secrets: t_actions_secret[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/organization-secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsListRepoOrganizationVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        total_count: number
+        variables: t_actions_variable[]
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/organization-variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsListRepoSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        secrets: t_actions_secret[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/agents/secrets`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsGetRepoPublicKey(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_public_key>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/public-key`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsGetRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_secret>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsCreateOrUpdateRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+      requestBody: t_AgentsCreateOrUpdateRepoSecretRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_empty_object> | Res<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async agentsDeleteRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/secrets/${p["secretName"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async agentsListRepoVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        total_count: number
+        variables: t_actions_variable[]
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/agents/variables`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsCreateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_AgentsCreateRepoVariableRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_empty_object>> {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/agents/variables`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async agentsGetRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_variable>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async agentsUpdateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      requestBody: t_AgentsUpdateRepoVariableRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async agentsDeleteRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/agents/variables/${p["name"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
   async issuesListAssignees(
     p: {
       owner: string
@@ -11485,6 +15136,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             verificationMaterial?: Record<string, unknown>
           }
           bundle_url?: string
+          initiator?: string
           repository_id?: number
         }[]
       }
@@ -12591,6 +16243,68 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
+  async codeQualityGetSetup(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_quality_setup>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-quality/setup`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async codeQualityUpdateSetup(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_code_quality_setup_update
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_empty_object>
+    | Res<202, t_code_quality_setup_update_response>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+    | Res<422, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-quality/setup`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
   async codeScanningListAlertsForRepo(
     p: {
       owner: string
@@ -12607,6 +16321,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       sort?: "created" | "updated" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
       severity?: t_code_scanning_alert_severity
+      assignees?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12640,6 +16355,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       sort: p["sort"],
       state: p["state"],
       severity: p["severity"],
+      assignees: p["assignees"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -12826,7 +16542,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_code_scanning_alert_instance[]>
+    | Res<200, t_code_scanning_alert_instance_list[]>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<
@@ -14013,7 +17729,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_commit>
+    | Res<200, string>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
     | Res<422, t_validation_error>
@@ -14175,7 +17891,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_commit_comparison>
+    | Res<200, string>
     | Res<404, t_basic_error>
     | Res<500, t_basic_error>
     | Res<
@@ -14314,10 +18030,48 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async copilotGetCopilotCloudAgentConfiguration(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          custom_allowlist: string[]
+          enabled_tools: {
+            codeql: boolean
+            copilot_code_review: boolean
+            dependency_vulnerability_checks: boolean
+            secret_scanning: boolean
+          }
+          is_firewall_enabled: boolean
+          is_firewall_recommended_allowlist_enabled: boolean
+          mcp_configuration: Record<string, unknown> | null
+          require_actions_workflow_approval: boolean
+        }
+      >
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/copilot/cloud-agent/configuration`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async dependabotListAlertsForRepo(
     p: {
       owner: string
       repo: string
+      classification?: string
       state?: string
       severity?: string
       ecosystem?: string
@@ -14325,15 +18079,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       manifest?: string
       epssPercentage?: string
       has?: string | "patch"[]
+      assignee?: string
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
-      page?: number
-      perPage?: number
       before?: string
       after?: string
-      first?: number
-      last?: number
+      perPage?: number
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14350,6 +18102,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
       {
+        classification: p["classification"],
         state: p["state"],
         severity: p["severity"],
         ecosystem: p["ecosystem"],
@@ -14357,15 +18110,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         manifest: p["manifest"],
         epss_percentage: p["epssPercentage"],
         has: p["has"],
+        assignee: p["assignee"],
         scope: p["scope"],
         sort: p["sort"],
         direction: p["direction"],
-        page: p["page"],
-        per_page: p["perPage"],
         before: p["before"],
         after: p["after"],
-        first: p["first"],
-        last: p["last"],
+        per_page: p["perPage"],
       },
       {
         has: {
@@ -14538,8 +18289,18 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_dependency_graph_diff>
+    | Res<400, t_scim_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
   > {
     const url =
       this.basePath +
@@ -14564,6 +18325,53 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async dependencyGraphFetchSbomReport(
+    p: {
+      owner: string
+      repo: string
+      sbomUuid: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<202, void>
+    | Res<302, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom/fetch-report/${p["sbomUuid"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async dependencyGraphGenerateSbomReport(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        201,
+        {
+          sbom_url?: string
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom/generate-report`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
@@ -15798,6 +19606,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       hookId: number
       perPage?: number
       cursor?: string
+      status?: "success" | "failure" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -15810,7 +19619,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      cursor: p["cursor"],
+      status: p["status"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -15891,6 +19704,51 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
+  }
+
+  async reposCheckImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_check_immutable_releases> | Res<404, void>> {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async reposEnableImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, t_basic_error>> {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async reposDisableImmutableReleases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<409, t_basic_error>> {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/immutable-releases`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async migrationsGetImportStatus(
@@ -16197,6 +20055,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       type?: string
       creator?: string
       mentioned?: string
+      issueFieldValues?: string
       labels?: string
       sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -16221,6 +20080,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       type: p["type"],
       creator: p["creator"],
       mentioned: p["mentioned"],
+      issue_field_values: p["issueFieldValues"],
       labels: p["labels"],
       sort: p["sort"],
       direction: p["direction"],
@@ -16348,6 +20208,61 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async issuesPinComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_comment>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/pin`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "PUT", ...opts, headers}, timeout)
+  }
+
+  async issuesUnpinComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/pin`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
@@ -16658,6 +20573,111 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
+  async issuesListDependenciesBlockedBy(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue[]>
+    | Res<301, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async issuesAddBlockedByDependency(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesAddBlockedByDependencyRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_issue>
+    | Res<301, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async issuesRemoveDependencyBlockedBy(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      issueId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue>
+    | Res<301, t_basic_error>
+    | Res<400, t_scim_error>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocked_by/${p["issueId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async issuesListDependenciesBlocking(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue[]>
+    | Res<301, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/dependencies/blocking`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async issuesListEvents(
     p: {
       owner: string
@@ -16676,6 +20696,134 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async issuesListIssueFieldValuesForIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_field_value[]>
+    | Res<301, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async issuesAddIssueFieldValues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesAddIssueFieldValuesRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_field_value[]>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async issuesSetIssueFieldValues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: t_IssuesSetIssueFieldValuesRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_field_value[]>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async issuesDeleteIssueFieldValue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      issueFieldId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/issue-field-values/${p["issueFieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async issuesListLabelsOnIssue(
@@ -16864,6 +21012,28 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async issuesGetParent(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue>
+    | Res<301, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/parent`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async reactionsListForIssue(
@@ -17786,62 +21956,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsClassicListForRepo(
-    p: {
-      owner: string
-      repo: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_project[]>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<410, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      state: p["state"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async projectsClassicCreateForRepo(
-    p: {
-      owner: string
-      repo: string
-      requestBody: t_ProjectsClassicCreateForRepoRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, t_project>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<410, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async reposGetCustomPropertiesValues(
+  async reposCustomPropertiesForReposGetRepositoryValues(
     p: {
       owner: string
       repo: string
@@ -17860,11 +21975,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async reposCreateOrUpdateCustomPropertiesValues(
+  async reposCustomPropertiesForReposCreateOrUpdateRepositoryValues(
     p: {
       owner: string
       repo: string
-      requestBody: t_ReposCreateOrUpdateCustomPropertiesValuesRequestBody
+      requestBody: t_ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -18833,7 +22948,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<204, void> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
@@ -18870,7 +22985,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_release>> {
+  ): Promise<Res<200, t_release> | Res<404, t_basic_error>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -18947,7 +23062,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<204, void> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
@@ -19147,6 +23262,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<
     | Res<201, t_repository_ruleset>
     | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
     | Res<500, t_basic_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
@@ -19249,6 +23365,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_repository_ruleset>
     | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
     | Res<500, t_basic_error>
   > {
     const url =
@@ -19339,7 +23456,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
+      excludeSecretTypes?: string
+      excludeProviders?: string
+      providers?: string
       resolution?: string
+      assignee?: string
       sort?: "created" | "updated" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
@@ -19350,6 +23471,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
       hideSecret?: boolean
+      isBypassed?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19371,7 +23493,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
+      exclude_secret_types: p["excludeSecretTypes"],
+      exclude_providers: p["excludeProviders"],
+      providers: p["providers"],
       resolution: p["resolution"],
+      assignee: p["assignee"],
       sort: p["sort"],
       direction: p["direction"],
       page: p["page"],
@@ -19382,6 +23508,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
+      is_bypassed: p["isBypassed"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -19430,6 +23557,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<
     | Res<200, t_secret_scanning_alert>
     | Res<400, void>
+    | Res<403, void>
     | Res<404, void>
     | Res<422, void>
     | Res<
@@ -19946,68 +24074,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async reposListTagProtection(
-    p: {
-      owner: string
-      repo: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_tag_protection[]>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async reposCreateTagProtection(
-    p: {
-      owner: string
-      repo: string
-      requestBody: t_ReposCreateTagProtectionRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, t_tag_protection>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async reposDeleteTagProtection(
-    p: {
-      owner: string
-      repo: string
-      tagProtectionId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
   async reposDownloadTarballArchive(
     p: {
       owner: string
@@ -20363,6 +24429,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       perPage?: number
       page?: number
       advancedSearch?: string
+      searchType?: "semantic" | "hybrid" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -20372,10 +24439,27 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           incomplete_results: boolean
           items: t_issue_search_result_item[]
+          lexical_fallback_reason?: (
+            | "no_text_terms"
+            | "quoted_text"
+            | "non_issue_target"
+            | "or_boolean_not_supported"
+            | "no_accessible_repos"
+            | "server_error"
+            | "only_non_semantic_fields_requested"
+            | "service_unavailable"
+            | UnknownEnumStringValue
+          )[]
+          search_type:
+            | "lexical"
+            | "semantic"
+            | "hybrid"
+            | UnknownEnumStringValue
           total_count: number
         }
       >
     | Res<304, void>
+    | Res<401, t_basic_error>
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
     | Res<
@@ -20396,6 +24480,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
       advanced_search: p["advancedSearch"],
+      search_type: p["searchType"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -20613,314 +24698,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async teamsListDiscussionsLegacy(
-    p: {
-      teamId: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion[]>> {
-    const url = this.basePath + `/teams/${p["teamId"]}/discussions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCreateDiscussionLegacy(
-    p: {
-      teamId: number
-      requestBody: t_TeamsCreateDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_team_discussion>> {
-    const url = this.basePath + `/teams/${p["teamId"]}/discussions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async teamsGetDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsUpdateDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody?: t_TeamsUpdateDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async teamsDeleteDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async teamsListDiscussionCommentsLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      direction?: "asc" | "desc" | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment[]>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      direction: p["direction"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCreateDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody: t_TeamsCreateDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async teamsGetDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsUpdateDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_TeamsUpdateDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
-  }
-
-  async teamsDeleteDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async reactionsListForTeamDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async reactionsCreateForTeamDiscussionCommentLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      commentNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionCommentLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_reaction>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
-  async reactionsListForTeamDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      content?:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-        | UnknownEnumStringValue
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async reactionsCreateForTeamDiscussionLegacy(
-    p: {
-      teamId: number
-      discussionNumber: number
-      requestBody: t_ReactionsCreateForTeamDiscussionLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<201, t_reaction>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
   async teamsListPendingInvitationsLegacy(
     p: {
       teamId: number
@@ -21057,90 +24834,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<204, void> | Res<403, void>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
-  }
-
-  async teamsListProjectsLegacy(
-    p: {
-      teamId: number
-      perPage?: number
-      page?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project[]> | Res<404, t_basic_error>> {
-    const url = this.basePath + `/teams/${p["teamId"]}/projects`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsCheckPermissionsForProjectLegacy(
-    p: {
-      teamId: number
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project> | Res<404, void>> {
-    const url =
-      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async teamsAddOrUpdateProjectPermissionsLegacy(
-    p: {
-      teamId: number
-      projectId: number
-      requestBody?: t_TeamsAddOrUpdateProjectPermissionsLegacyRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<204, void>
-    | Res<
-        403,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Res<404, t_basic_error>
-    | Res<422, t_validation_error>
-  > {
-    const url =
-      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
-    const headers = this._headers(
-      {
-        Accept: "application/json",
-        "Content-Type":
-          p.requestBody !== undefined ? "application/json" : undefined,
-      },
-      opts.headers,
-    )
-    const body =
-      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
-
-    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
-  }
-
-  async teamsRemoveProjectLegacy(
-    p: {
-      teamId: number
-      projectId: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
-  > {
-    const url =
-      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
@@ -22132,7 +25825,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<
         200,
         {
-          repositories: t_repository[]
+          repositories: (t_repository & {
+            custom_properties?: Record<string, unknown>
+          })[]
           repository_selection?: string
           total_count: number
         }
@@ -22853,29 +26548,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
-  async projectsClassicCreateForAuthenticatedUser(
-    p: {
-      requestBody: t_ProjectsClassicCreateForAuthenticatedUserRequestBody
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<201, t_project>
-    | Res<304, void>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/user/projects`
-    const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
-  }
-
   async usersListPublicEmailsForAuthenticatedUser(
     p: {
       perPage?: number
@@ -23326,6 +26998,32 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async projectsCreateDraftItemForAuthenticatedUser(
+    p: {
+      userId: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateDraftItemForAuthenticatedUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_item_simple>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/user/${p["userId"]}/projectsV2/${p["projectNumber"]}/drafts`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
   async usersList(
     p: {
       since?: number
@@ -23339,6 +27037,35 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({since: p["since"], per_page: p["perPage"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsCreateViewForUser(
+    p: {
+      userId: string
+      projectNumber: number
+      requestBody: t_ProjectsCreateViewForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_view>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<503, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["userId"]}/projectsV2/${p["projectNumber"]}/views`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async usersGetByUsername(
@@ -23489,6 +27216,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               verificationMaterial?: Record<string, unknown>
             }
             bundle_url?: string
+            initiator?: string
             repository_id?: number
           }[]
         }
@@ -23509,6 +27237,342 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesListForUser(
+    p: {
+      username: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          spaces: t_copilot_space[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url = this.basePath + `/users/${p["username"]}/copilot-spaces`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesCreateForUser(
+    p: {
+      username: string
+      requestBody: t_CopilotSpacesCreateForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url = this.basePath + `/users/${p["username"]}/copilot-spaces`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesGetForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesUpdateForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesDeleteForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesListCollaboratorsForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          collaborators: t_copilot_space_collaborator[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesAddCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesAddCollaboratorForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_copilot_space_collaborator>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+      requestBody: t_CopilotSpacesUpdateCollaboratorForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_collaborator>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesRemoveCollaboratorForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      actorType: "User" | "Team" | UnknownEnumStringValue
+      actorIdentifier: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/collaborators/${p["actorType"]}/${p["actorIdentifier"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesListResourcesForUser(
+    p: {
+      username: string
+      spaceNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          resources: t_copilot_space_resource[]
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesCreateResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      requestBody: t_CopilotSpacesCreateResourceForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<201, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesGetResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesUpdateResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+      requestBody: t_CopilotSpacesUpdateResourceForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_space_resource>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async copilotSpacesDeleteResourceForUser(
+    p: {
+      username: string
+      spaceNumber: number
+      spaceResourceId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/copilot-spaces/${p["spaceNumber"]}/resources/${p["spaceResourceId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(
@@ -23966,23 +28030,315 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
-  async projectsClassicListForUser(
+  async projectsListForUser(
     p: {
       username: string
-      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      q?: string
+      before?: string
+      after?: string
       perPage?: number
-      page?: number
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_project[]> | Res<422, t_validation_error>> {
-    const url = this.basePath + `/users/${p["username"]}/projects`
+  ): Promise<
+    | Res<200, t_projects_v2[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url = this.basePath + `/users/${p["username"]}/projectsV2`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
-      state: p["state"],
+      q: p["q"],
+      before: p["before"],
+      after: p["after"],
       per_page: p["perPage"],
-      page: p["page"],
     })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsGetForUser(
+    p: {
+      projectNumber: number
+      username: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/users/${p["username"]}/projectsV2/${p["projectNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsListFieldsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_field[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsAddFieldForUser(
+    p: {
+      username: string
+      projectNumber: number
+      requestBody: t_ProjectsAddFieldForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_field>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async projectsGetFieldForUser(
+    p: {
+      projectNumber: number
+      fieldId: number
+      username: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_field>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/fields/${p["fieldId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsListItemsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      before?: string
+      after?: string
+      perPage?: number
+      q?: string
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+        q: p["q"],
+        fields: p["fields"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsAddItemForUser(
+    p: {
+      username: string
+      projectNumber: number
+      requestBody: t_ProjectsAddItemForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_projects_v2_item_simple>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async projectsGetUserItem(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+      fields?: string | string[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {fields: p["fields"]},
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async projectsUpdateItemForUser(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+      requestBody: t_ProjectsUpdateItemForUserRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
+  async projectsDeleteItemForUser(
+    p: {
+      projectNumber: number
+      username: string
+      itemId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<401, t_basic_error> | Res<403, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/items/${p["itemId"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async projectsListViewItemsForUser(
+    p: {
+      projectNumber: number
+      username: string
+      viewNumber: number
+      fields?: string | string[]
+      before?: string
+      after?: string
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_projects_v2_item_with_content[]>
+    | Res<304, void>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/projectsV2/${p["projectNumber"]}/views/${p["viewNumber"]}/items`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query(
+      {
+        fields: p["fields"],
+        before: p["before"],
+        after: p["after"],
+        per_page: p["perPage"],
+      },
+      {
+        fields: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -24049,46 +28405,45 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async billingGetGithubActionsBillingUser(
+  async billingGetGithubBillingPremiumRequestUsageReportUser(
     p: {
       username: string
+      year?: number
+      month?: number
+      day?: number
+      model?: string
+      product?: string
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_actions_billing_usage>> {
+  ): Promise<
+    | Res<200, t_billing_premium_request_usage_report_user>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
     const url =
-      this.basePath + `/users/${p["username"]}/settings/billing/actions`
+      this.basePath +
+      `/users/${p["username"]}/settings/billing/premium_request/usage`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      model: p["model"],
+      product: p["product"],
+    })
 
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async billingGetGithubPackagesBillingUser(
-    p: {
-      username: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_packages_billing_usage>> {
-    const url =
-      this.basePath + `/users/${p["username"]}/settings/billing/packages`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-  }
-
-  async billingGetSharedStorageBillingUser(
-    p: {
-      username: string
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, t_combined_billing_usage>> {
-    const url =
-      this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async billingGetGithubBillingUsageReportUser(
@@ -24097,7 +28452,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       year?: number
       month?: number
       day?: number
-      hour?: number
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24121,7 +28475,48 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       year: p["year"],
       month: p["month"],
       day: p["day"],
-      hour: p["hour"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingGetGithubBillingUsageSummaryReportUser(
+    p: {
+      username: string
+      year?: number
+      month?: number
+      day?: number
+      repository?: string
+      product?: string
+      sku?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_usage_summary_report_user>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/users/${p["username"]}/settings/billing/usage/summary`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      repository: p["repository"],
+      product: p["product"],
+      sku: p["sku"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)

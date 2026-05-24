@@ -35,6 +35,7 @@ import type {
   t_application_fee,
   t_apps_secret,
   t_balance,
+  t_balance_settings,
   t_balance_transaction,
   t_bank_account,
   t_billing_alert,
@@ -181,6 +182,7 @@ import type {
   t_GetBalanceHistoryIdQuerySchema,
   t_GetBalanceHistoryQuerySchema,
   t_GetBalanceQuerySchema,
+  t_GetBalanceSettingsQuerySchema,
   t_GetBalanceTransactionsIdParamSchema,
   t_GetBalanceTransactionsIdQuerySchema,
   t_GetBalanceTransactionsQuerySchema,
@@ -373,6 +375,11 @@ import type {
   t_GetLinkedAccountsQuerySchema,
   t_GetMandatesMandateParamSchema,
   t_GetMandatesMandateQuerySchema,
+  t_GetPaymentAttemptRecordsIdParamSchema,
+  t_GetPaymentAttemptRecordsIdQuerySchema,
+  t_GetPaymentAttemptRecordsQuerySchema,
+  t_GetPaymentIntentsIntentAmountDetailsLineItemsParamSchema,
+  t_GetPaymentIntentsIntentAmountDetailsLineItemsQuerySchema,
   t_GetPaymentIntentsIntentParamSchema,
   t_GetPaymentIntentsIntentQuerySchema,
   t_GetPaymentIntentsQuerySchema,
@@ -391,6 +398,8 @@ import type {
   t_GetPaymentMethodsPaymentMethodParamSchema,
   t_GetPaymentMethodsPaymentMethodQuerySchema,
   t_GetPaymentMethodsQuerySchema,
+  t_GetPaymentRecordsIdParamSchema,
+  t_GetPaymentRecordsIdQuerySchema,
   t_GetPayoutsPayoutParamSchema,
   t_GetPayoutsPayoutQuerySchema,
   t_GetPayoutsQuerySchema,
@@ -470,6 +479,7 @@ import type {
   t_GetSubscriptionsSearchQuerySchema,
   t_GetSubscriptionsSubscriptionExposedIdParamSchema,
   t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
+  t_GetTaxAssociationsFindQuerySchema,
   t_GetTaxCalculationsCalculationLineItemsParamSchema,
   t_GetTaxCalculationsCalculationLineItemsQuerySchema,
   t_GetTaxCalculationsCalculationParamSchema,
@@ -605,6 +615,7 @@ import type {
   t_PostApplicationFeesIdRefundsRequestBody,
   t_PostAppsSecretsDeleteRequestBody,
   t_PostAppsSecretsRequestBody,
+  t_PostBalanceSettingsRequestBody,
   t_PostBillingAlertsIdActivateParamSchema,
   t_PostBillingAlertsIdActivateRequestBody,
   t_PostBillingAlertsIdArchiveParamSchema,
@@ -824,6 +835,19 @@ import type {
   t_PostPaymentMethodsPaymentMethodParamSchema,
   t_PostPaymentMethodsPaymentMethodRequestBody,
   t_PostPaymentMethodsRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptCanceledParamSchema,
+  t_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptFailedParamSchema,
+  t_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedParamSchema,
+  t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptInformationalParamSchema,
+  t_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody,
+  t_PostPaymentRecordsIdReportPaymentAttemptParamSchema,
+  t_PostPaymentRecordsIdReportPaymentAttemptRequestBody,
+  t_PostPaymentRecordsIdReportRefundParamSchema,
+  t_PostPaymentRecordsIdReportRefundRequestBody,
+  t_PostPaymentRecordsReportPaymentRequestBody,
   t_PostPayoutsPayoutCancelParamSchema,
   t_PostPayoutsPayoutCancelRequestBody,
   t_PostPayoutsPayoutParamSchema,
@@ -854,6 +878,7 @@ import type {
   t_PostQuotesQuoteParamSchema,
   t_PostQuotesQuoteRequestBody,
   t_PostQuotesRequestBody,
+  t_PostRadarPaymentEvaluationsRequestBody,
   t_PostRadarValueListItemsRequestBody,
   t_PostRadarValueListsRequestBody,
   t_PostRadarValueListsValueListParamSchema,
@@ -920,6 +945,7 @@ import type {
   t_PostTerminalLocationsLocationParamSchema,
   t_PostTerminalLocationsLocationRequestBody,
   t_PostTerminalLocationsRequestBody,
+  t_PostTerminalOnboardingLinksRequestBody,
   t_PostTerminalReadersReaderCancelActionParamSchema,
   t_PostTerminalReadersReaderCancelActionRequestBody,
   t_PostTerminalReadersReaderCollectInputsParamSchema,
@@ -939,6 +965,7 @@ import type {
   t_PostTerminalReadersReaderSetReaderDisplayParamSchema,
   t_PostTerminalReadersReaderSetReaderDisplayRequestBody,
   t_PostTerminalReadersRequestBody,
+  t_PostTerminalRefundsRequestBody,
   t_PostTestHelpersConfirmationTokensRequestBody,
   t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema,
   t_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
@@ -1047,11 +1074,14 @@ import type {
   t_PostWebhookEndpointsRequestBody,
   t_PostWebhookEndpointsWebhookEndpointParamSchema,
   t_PostWebhookEndpointsWebhookEndpointRequestBody,
+  t_payment_attempt_record,
   t_payment_intent,
+  t_payment_intent_amount_details_line_item,
   t_payment_link,
   t_payment_method,
   t_payment_method_configuration,
   t_payment_method_domain,
+  t_payment_record,
   t_payment_source,
   t_payout,
   t_person,
@@ -1062,6 +1092,7 @@ import type {
   t_promotion_code,
   t_quote,
   t_radar_early_fraud_warning,
+  t_radar_payment_evaluation,
   t_radar_value_list,
   t_radar_value_list_item,
   t_refund,
@@ -1079,6 +1110,7 @@ import type {
   t_subscription,
   t_subscription_item,
   t_subscription_schedule,
+  t_tax_association,
   t_tax_calculation,
   t_tax_calculation_line_item,
   t_tax_code,
@@ -1091,7 +1123,9 @@ import type {
   t_terminal_configuration,
   t_terminal_connection_token,
   t_terminal_location,
+  t_terminal_onboarding_link,
   t_terminal_reader,
+  t_terminal_refund,
   t_test_helpers_test_clock,
   t_token,
   t_topup,
@@ -1119,6 +1153,7 @@ import {
   s_application_fee,
   s_apps_secret,
   s_balance,
+  s_balance_settings,
   s_balance_transaction,
   s_bank_account,
   s_billing_alert,
@@ -1235,6 +1270,7 @@ import {
   s_PostApplicationFeesIdRefundsRequestBody,
   s_PostAppsSecretsDeleteRequestBody,
   s_PostAppsSecretsRequestBody,
+  s_PostBalanceSettingsRequestBody,
   s_PostBillingAlertsIdActivateRequestBody,
   s_PostBillingAlertsIdArchiveRequestBody,
   s_PostBillingAlertsIdDeactivateRequestBody,
@@ -1361,6 +1397,13 @@ import {
   s_PostPaymentMethodsPaymentMethodDetachRequestBody,
   s_PostPaymentMethodsPaymentMethodRequestBody,
   s_PostPaymentMethodsRequestBody,
+  s_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody,
+  s_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody,
+  s_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody,
+  s_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody,
+  s_PostPaymentRecordsIdReportPaymentAttemptRequestBody,
+  s_PostPaymentRecordsIdReportRefundRequestBody,
+  s_PostPaymentRecordsReportPaymentRequestBody,
   s_PostPayoutsPayoutCancelRequestBody,
   s_PostPayoutsPayoutRequestBody,
   s_PostPayoutsPayoutReverseRequestBody,
@@ -1379,6 +1422,7 @@ import {
   s_PostQuotesQuoteFinalizeRequestBody,
   s_PostQuotesQuoteRequestBody,
   s_PostQuotesRequestBody,
+  s_PostRadarPaymentEvaluationsRequestBody,
   s_PostRadarValueListItemsRequestBody,
   s_PostRadarValueListsRequestBody,
   s_PostRadarValueListsValueListRequestBody,
@@ -1422,6 +1466,7 @@ import {
   s_PostTerminalConnectionTokensRequestBody,
   s_PostTerminalLocationsLocationRequestBody,
   s_PostTerminalLocationsRequestBody,
+  s_PostTerminalOnboardingLinksRequestBody,
   s_PostTerminalReadersReaderCancelActionRequestBody,
   s_PostTerminalReadersReaderCollectInputsRequestBody,
   s_PostTerminalReadersReaderCollectPaymentMethodRequestBody,
@@ -1432,6 +1477,7 @@ import {
   s_PostTerminalReadersReaderRequestBody,
   s_PostTerminalReadersReaderSetReaderDisplayRequestBody,
   s_PostTerminalReadersRequestBody,
+  s_PostTerminalRefundsRequestBody,
   s_PostTestHelpersConfirmationTokensRequestBody,
   s_PostTestHelpersCustomersCustomerFundCashBalanceRequestBody,
   s_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBody,
@@ -1495,11 +1541,14 @@ import {
   s_PostTreasuryOutboundTransfersRequestBody,
   s_PostWebhookEndpointsRequestBody,
   s_PostWebhookEndpointsWebhookEndpointRequestBody,
+  s_payment_attempt_record,
   s_payment_intent,
+  s_payment_intent_amount_details_line_item,
   s_payment_link,
   s_payment_method,
   s_payment_method_configuration,
   s_payment_method_domain,
+  s_payment_record,
   s_payment_source,
   s_payout,
   s_person,
@@ -1510,6 +1559,7 @@ import {
   s_promotion_code,
   s_quote,
   s_radar_early_fraud_warning,
+  s_radar_payment_evaluation,
   s_radar_value_list,
   s_radar_value_list_item,
   s_refund,
@@ -1527,6 +1577,7 @@ import {
   s_subscription,
   s_subscription_item,
   s_subscription_schedule,
+  s_tax_association,
   s_tax_calculation,
   s_tax_calculation_line_item,
   s_tax_code,
@@ -1539,7 +1590,9 @@ import {
   s_terminal_configuration,
   s_terminal_connection_token,
   s_terminal_location,
+  s_terminal_onboarding_link,
   s_terminal_reader,
+  s_terminal_refund,
   s_test_helpers_test_clock,
   s_token,
   s_topup,
@@ -2429,6 +2482,37 @@ export type GetBalanceHistoryId = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type GetBalanceSettingsResponder = {
+  with200(): ExpressRuntimeResponse<t_balance_settings>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetBalanceSettings = (
+  params: Params<void, t_GetBalanceSettingsQuerySchema, void, void>,
+  respond: GetBalanceSettingsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostBalanceSettingsResponder = {
+  with200(): ExpressRuntimeResponse<t_balance_settings>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostBalanceSettings = (
+  params: Params<
+    void,
+    void,
+    t_PostBalanceSettingsRequestBody | undefined,
+    void
+  >,
+  respond: PostBalanceSettingsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type GetBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_balance_transaction[]
@@ -2960,7 +3044,12 @@ export type PostBillingPortalSessionsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostBillingPortalSessions = (
-  params: Params<void, void, t_PostBillingPortalSessionsRequestBody, void>,
+  params: Params<
+    void,
+    void,
+    t_PostBillingPortalSessionsRequestBody | undefined,
+    void
+  >,
   respond: PostBillingPortalSessionsResponder,
   req: Request,
   res: Response,
@@ -5622,7 +5711,7 @@ export type PostInvoiceitemsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostInvoiceitems = (
-  params: Params<void, void, t_PostInvoiceitemsRequestBody, void>,
+  params: Params<void, void, t_PostInvoiceitemsRequestBody | undefined, void>,
   respond: PostInvoiceitemsResponder,
   req: Request,
   res: Response,
@@ -6715,6 +6804,42 @@ export type GetMandatesMandate = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type GetPaymentAttemptRecordsResponder = {
+  with200(): ExpressRuntimeResponse<{
+    data: t_payment_attempt_record[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetPaymentAttemptRecords = (
+  params: Params<void, t_GetPaymentAttemptRecordsQuerySchema, void, void>,
+  respond: GetPaymentAttemptRecordsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type GetPaymentAttemptRecordsIdResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_attempt_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetPaymentAttemptRecordsId = (
+  params: Params<
+    t_GetPaymentAttemptRecordsIdParamSchema,
+    t_GetPaymentAttemptRecordsIdQuerySchema,
+    void,
+    void
+  >,
+  respond: GetPaymentAttemptRecordsIdResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type GetPaymentIntentsResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_payment_intent[]
@@ -6797,6 +6922,29 @@ export type PostPaymentIntentsIntent = (
     void
   >,
   respond: PostPaymentIntentsIntentResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type GetPaymentIntentsIntentAmountDetailsLineItemsResponder = {
+  with200(): ExpressRuntimeResponse<{
+    data: t_payment_intent_amount_details_line_item[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetPaymentIntentsIntentAmountDetailsLineItems = (
+  params: Params<
+    t_GetPaymentIntentsIntentAmountDetailsLineItemsParamSchema,
+    t_GetPaymentIntentsIntentAmountDetailsLineItemsQuerySchema,
+    void,
+    void
+  >,
+  respond: GetPaymentIntentsIntentAmountDetailsLineItemsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -7234,7 +7382,7 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodAttachParamSchema,
     void,
-    t_PostPaymentMethodsPaymentMethodAttachRequestBody,
+    t_PostPaymentMethodsPaymentMethodAttachRequestBody | undefined,
     void
   >,
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
@@ -7256,6 +7404,151 @@ export type PostPaymentMethodsPaymentMethodDetach = (
     void
   >,
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsReportPaymentResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsReportPayment = (
+  params: Params<
+    void,
+    void,
+    t_PostPaymentRecordsReportPaymentRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsReportPaymentResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type GetPaymentRecordsIdResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetPaymentRecordsId = (
+  params: Params<
+    t_GetPaymentRecordsIdParamSchema,
+    t_GetPaymentRecordsIdQuerySchema,
+    void,
+    void
+  >,
+  respond: GetPaymentRecordsIdResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportPaymentAttemptResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportPaymentAttempt = (
+  params: Params<
+    t_PostPaymentRecordsIdReportPaymentAttemptParamSchema,
+    void,
+    t_PostPaymentRecordsIdReportPaymentAttemptRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportPaymentAttemptResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportPaymentAttemptCanceledResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportPaymentAttemptCanceled = (
+  params: Params<
+    t_PostPaymentRecordsIdReportPaymentAttemptCanceledParamSchema,
+    void,
+    t_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportPaymentAttemptCanceledResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportPaymentAttemptFailedResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportPaymentAttemptFailed = (
+  params: Params<
+    t_PostPaymentRecordsIdReportPaymentAttemptFailedParamSchema,
+    void,
+    t_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportPaymentAttemptFailedResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportPaymentAttemptGuaranteedResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportPaymentAttemptGuaranteed = (
+  params: Params<
+    t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedParamSchema,
+    void,
+    t_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportPaymentAttemptGuaranteedResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportPaymentAttemptInformationalResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportPaymentAttemptInformational = (
+  params: Params<
+    t_PostPaymentRecordsIdReportPaymentAttemptInformationalParamSchema,
+    void,
+    | t_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody
+    | undefined,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportPaymentAttemptInformationalResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostPaymentRecordsIdReportRefundResponder = {
+  with200(): ExpressRuntimeResponse<t_payment_record>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostPaymentRecordsIdReportRefund = (
+  params: Params<
+    t_PostPaymentRecordsIdReportRefundParamSchema,
+    void,
+    t_PostPaymentRecordsIdReportRefundRequestBody,
+    void
+  >,
+  respond: PostPaymentRecordsIdReportRefundResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -7991,6 +8284,19 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
     void
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostRadarPaymentEvaluationsResponder = {
+  with200(): ExpressRuntimeResponse<t_radar_payment_evaluation>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostRadarPaymentEvaluations = (
+  params: Params<void, void, t_PostRadarPaymentEvaluationsRequestBody, void>,
+  respond: PostRadarPaymentEvaluationsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -8965,7 +9271,7 @@ export type PostSubscriptionsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostSubscriptions = (
-  params: Params<void, void, t_PostSubscriptionsRequestBody, void>,
+  params: Params<void, void, t_PostSubscriptionsRequestBody | undefined, void>,
   respond: PostSubscriptionsResponder,
   req: Request,
   res: Response,
@@ -9095,6 +9401,19 @@ export type PostSubscriptionsSubscriptionResume = (
     void
   >,
   respond: PostSubscriptionsSubscriptionResumeResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type GetTaxAssociationsFindResponder = {
+  with200(): ExpressRuntimeResponse<t_tax_association>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type GetTaxAssociationsFind = (
+  params: Params<void, t_GetTaxAssociationsFindQuerySchema, void, void>,
+  respond: GetTaxAssociationsFindResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -9625,7 +9944,12 @@ export type PostTerminalLocationsResponder = {
 } & ExpressRuntimeResponder
 
 export type PostTerminalLocations = (
-  params: Params<void, void, t_PostTerminalLocationsRequestBody, void>,
+  params: Params<
+    void,
+    void,
+    t_PostTerminalLocationsRequestBody | undefined,
+    void
+  >,
   respond: PostTerminalLocationsResponder,
   req: Request,
   res: Response,
@@ -9685,6 +10009,19 @@ export type PostTerminalLocationsLocation = (
     void
   >,
   respond: PostTerminalLocationsLocationResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTerminalOnboardingLinksResponder = {
+  with200(): ExpressRuntimeResponse<t_terminal_onboarding_link>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostTerminalOnboardingLinks = (
+  params: Params<void, void, t_PostTerminalOnboardingLinksRequestBody, void>,
+  respond: PostTerminalOnboardingLinksResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -9913,6 +10250,24 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
     void
   >,
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTerminalRefundsResponder = {
+  with200(): ExpressRuntimeResponse<t_terminal_refund>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostTerminalRefunds = (
+  params: Params<
+    void,
+    void,
+    t_PostTerminalRefundsRequestBody | undefined,
+    void
+  >,
+  respond: PostTerminalRefundsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -11699,6 +12054,8 @@ export type Implementation = {
   getBalance: GetBalance
   getBalanceHistory: GetBalanceHistory
   getBalanceHistoryId: GetBalanceHistoryId
+  getBalanceSettings: GetBalanceSettings
+  postBalanceSettings: PostBalanceSettings
   getBalanceTransactions: GetBalanceTransactions
   getBalanceTransactionsId: GetBalanceTransactionsId
   getBillingAlerts: GetBillingAlerts
@@ -11938,11 +12295,14 @@ export type Implementation = {
   getLinkedAccountsAccountOwners: GetLinkedAccountsAccountOwners
   postLinkedAccountsAccountRefresh: PostLinkedAccountsAccountRefresh
   getMandatesMandate: GetMandatesMandate
+  getPaymentAttemptRecords: GetPaymentAttemptRecords
+  getPaymentAttemptRecordsId: GetPaymentAttemptRecordsId
   getPaymentIntents: GetPaymentIntents
   postPaymentIntents: PostPaymentIntents
   getPaymentIntentsSearch: GetPaymentIntentsSearch
   getPaymentIntentsIntent: GetPaymentIntentsIntent
   postPaymentIntentsIntent: PostPaymentIntentsIntent
+  getPaymentIntentsIntentAmountDetailsLineItems: GetPaymentIntentsIntentAmountDetailsLineItems
   postPaymentIntentsIntentApplyCustomerBalance: PostPaymentIntentsIntentApplyCustomerBalance
   postPaymentIntentsIntentCancel: PostPaymentIntentsIntentCancel
   postPaymentIntentsIntentCapture: PostPaymentIntentsIntentCapture
@@ -11969,6 +12329,14 @@ export type Implementation = {
   postPaymentMethodsPaymentMethod: PostPaymentMethodsPaymentMethod
   postPaymentMethodsPaymentMethodAttach: PostPaymentMethodsPaymentMethodAttach
   postPaymentMethodsPaymentMethodDetach: PostPaymentMethodsPaymentMethodDetach
+  postPaymentRecordsReportPayment: PostPaymentRecordsReportPayment
+  getPaymentRecordsId: GetPaymentRecordsId
+  postPaymentRecordsIdReportPaymentAttempt: PostPaymentRecordsIdReportPaymentAttempt
+  postPaymentRecordsIdReportPaymentAttemptCanceled: PostPaymentRecordsIdReportPaymentAttemptCanceled
+  postPaymentRecordsIdReportPaymentAttemptFailed: PostPaymentRecordsIdReportPaymentAttemptFailed
+  postPaymentRecordsIdReportPaymentAttemptGuaranteed: PostPaymentRecordsIdReportPaymentAttemptGuaranteed
+  postPaymentRecordsIdReportPaymentAttemptInformational: PostPaymentRecordsIdReportPaymentAttemptInformational
+  postPaymentRecordsIdReportRefund: PostPaymentRecordsIdReportRefund
   getPayouts: GetPayouts
   postPayouts: PostPayouts
   getPayoutsPayout: GetPayoutsPayout
@@ -12011,6 +12379,7 @@ export type Implementation = {
   getQuotesQuotePdf: GetQuotesQuotePdf
   getRadarEarlyFraudWarnings: GetRadarEarlyFraudWarnings
   getRadarEarlyFraudWarningsEarlyFraudWarning: GetRadarEarlyFraudWarningsEarlyFraudWarning
+  postRadarPaymentEvaluations: PostRadarPaymentEvaluations
   getRadarValueListItems: GetRadarValueListItems
   postRadarValueListItems: PostRadarValueListItems
   deleteRadarValueListItemsItem: DeleteRadarValueListItemsItem
@@ -12075,6 +12444,7 @@ export type Implementation = {
   deleteSubscriptionsSubscriptionExposedIdDiscount: DeleteSubscriptionsSubscriptionExposedIdDiscount
   postSubscriptionsSubscriptionMigrate: PostSubscriptionsSubscriptionMigrate
   postSubscriptionsSubscriptionResume: PostSubscriptionsSubscriptionResume
+  getTaxAssociationsFind: GetTaxAssociationsFind
   postTaxCalculations: PostTaxCalculations
   getTaxCalculationsCalculation: GetTaxCalculationsCalculation
   getTaxCalculationsCalculationLineItems: GetTaxCalculationsCalculationLineItems
@@ -12109,6 +12479,7 @@ export type Implementation = {
   deleteTerminalLocationsLocation: DeleteTerminalLocationsLocation
   getTerminalLocationsLocation: GetTerminalLocationsLocation
   postTerminalLocationsLocation: PostTerminalLocationsLocation
+  postTerminalOnboardingLinks: PostTerminalOnboardingLinks
   getTerminalReaders: GetTerminalReaders
   postTerminalReaders: PostTerminalReaders
   deleteTerminalReadersReader: DeleteTerminalReadersReader
@@ -12122,6 +12493,7 @@ export type Implementation = {
   postTerminalReadersReaderProcessSetupIntent: PostTerminalReadersReaderProcessSetupIntent
   postTerminalReadersReaderRefundPayment: PostTerminalReadersReaderRefundPayment
   postTerminalReadersReaderSetReaderDisplay: PostTerminalReadersReaderSetReaderDisplay
+  postTerminalRefunds: PostTerminalRefunds
   postTestHelpersConfirmationTokens: PostTestHelpersConfirmationTokens
   postTestHelpersCustomersCustomerFundCashBalance: PostTestHelpersCustomersCustomerFundCashBalance
   postTestHelpersIssuingAuthorizations: PostTestHelpersIssuingAuthorizations
@@ -15776,6 +16148,111 @@ export function createRouter(
     },
   )
 
+  const getBalanceSettingsQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getBalanceSettingsResponseBodyValidator = responseValidationFactory(
+    [["200", s_balance_settings]],
+    s_error,
+  )
+
+  // getBalanceSettings
+  router.get(
+    `/v1/balance_settings`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: parseRequestInput(
+            getBalanceSettingsQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_balance_settings>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getBalanceSettings(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getBalanceSettingsResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postBalanceSettingsResponseBodyValidator = responseValidationFactory(
+    [["200", s_balance_settings]],
+    s_error,
+  )
+
+  // postBalanceSettings
+  router.post(
+    `/v1/balance_settings`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_PostBalanceSettingsRequestBody.optional(),
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_balance_settings>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postBalanceSettings(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postBalanceSettingsResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const getBalanceTransactionsQuerySchema = z.object({
     created: z
       .union([
@@ -16388,7 +16865,8 @@ export function createRouter(
   )
 
   const getBillingCreditBalanceSummaryQuerySchema = z.object({
-    customer: z.string().max(5000),
+    customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     expand: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -16427,6 +16905,12 @@ export function createRouter(
               [
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -16501,7 +16985,8 @@ export function createRouter(
 
   const getBillingCreditBalanceTransactionsQuerySchema = z.object({
     credit_grant: z.string().max(5000).optional(),
-    customer: z.string().max(5000),
+    customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -16552,6 +17037,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -16706,6 +17197,7 @@ export function createRouter(
 
   const getBillingCreditGrantsQuerySchema = z.object({
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -16749,6 +17241,12 @@ export function createRouter(
               [
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -18031,7 +18529,7 @@ export function createRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            s_PostBillingPortalSessionsRequestBody,
+            s_PostBillingPortalSessionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -19045,6 +19543,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     customer_details: z.object({email: z.string()}).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
@@ -19104,6 +19603,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -20785,6 +21290,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -20840,6 +21346,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -20972,6 +21484,7 @@ export function createRouter(
             amount: z.coerce.number().optional(),
             description: z.string().max(5000).optional(),
             invoice_line_item: z.string().max(5000).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             quantity: z.coerce.number().optional(),
             tax_amounts: z
               .union([
@@ -21013,7 +21526,14 @@ export function createRouter(
         z.array(
           z.object({
             amount_refunded: z.coerce.number().optional(),
+            payment_record_refund: z
+              .object({
+                payment_record: z.string().max(5000),
+                refund_group: z.string().max(5000),
+              })
+              .optional(),
             refund: z.string().optional(),
+            type: z.enum(["payment_record_refund", "refund"]).optional(),
           }),
         ),
       )
@@ -21088,6 +21608,7 @@ export function createRouter(
                         amount: {type: "number"},
                         description: {type: "string"},
                         invoice_line_item: {type: "string"},
+                        metadata: {type: "object", properties: {}},
                         quantity: {type: "number"},
                         tax_amounts: {
                           type: "array",
@@ -21148,7 +21669,15 @@ export function createRouter(
                       type: "object",
                       properties: {
                         amount_refunded: {type: "number"},
+                        payment_record_refund: {
+                          type: "object",
+                          properties: {
+                            payment_record: {type: "string"},
+                            refund_group: {type: "string"},
+                          },
+                        },
                         refund: {type: "string"},
+                        type: {type: "string"},
                       },
                     },
                   },
@@ -21214,6 +21743,7 @@ export function createRouter(
             amount: z.coerce.number().optional(),
             description: z.string().max(5000).optional(),
             invoice_line_item: z.string().max(5000).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             quantity: z.coerce.number().optional(),
             tax_amounts: z
               .union([
@@ -21255,7 +21785,14 @@ export function createRouter(
         z.array(
           z.object({
             amount_refunded: z.coerce.number().optional(),
+            payment_record_refund: z
+              .object({
+                payment_record: z.string().max(5000),
+                refund_group: z.string().max(5000),
+              })
+              .optional(),
             refund: z.string().optional(),
+            type: z.enum(["payment_record_refund", "refund"]).optional(),
           }),
         ),
       )
@@ -21354,6 +21891,7 @@ export function createRouter(
                         amount: {type: "number"},
                         description: {type: "string"},
                         invoice_line_item: {type: "string"},
+                        metadata: {type: "object", properties: {}},
                         quantity: {type: "number"},
                         tax_amounts: {
                           type: "array",
@@ -21414,7 +21952,15 @@ export function createRouter(
                       type: "object",
                       properties: {
                         amount_refunded: {type: "number"},
+                        payment_record_refund: {
+                          type: "object",
+                          properties: {
+                            payment_record: {type: "string"},
+                            refund_group: {type: "string"},
+                          },
+                        },
                         refund: {type: "string"},
+                        type: {type: "string"},
                       },
                     },
                   },
@@ -22252,6 +22798,17 @@ export function createRouter(
   })
 
   const getCustomersCustomerBalanceTransactionsQuerySchema = z.object({
+    created: z
+      .union([
+        z.object({
+          gt: z.coerce.number().optional(),
+          gte: z.coerce.number().optional(),
+          lt: z.coerce.number().optional(),
+          lte: z.coerce.number().optional(),
+        }),
+        z.coerce.number(),
+      ])
+      .optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -22259,6 +22816,7 @@ export function createRouter(
         z.array(z.string().max(5000)),
       )
       .optional(),
+    invoice: z.string().max(5000).optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -22296,6 +22854,20 @@ export function createRouter(
               new URL(`http://localhost${req.originalUrl}`).search,
               [
                 {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
                   name: "ending_before",
                   explode: true,
                   style: "form",
@@ -22306,6 +22878,12 @@ export function createRouter(
                   explode: true,
                   style: "deepObject",
                   schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "invoice",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
                 },
                 {
                   name: "limit",
@@ -23932,11 +24510,13 @@ export function createRouter(
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "card",
         "cashapp",
         "crypto",
+        "custom",
         "customer_balance",
         "eps",
         "fpx",
@@ -23948,6 +24528,7 @@ export function createRouter(
         "konbini",
         "kr_card",
         "link",
+        "mb_way",
         "mobilepay",
         "multibanco",
         "naver_pay",
@@ -23958,15 +24539,19 @@ export function createRouter(
         "payco",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "sofort",
+        "sunbit",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -27062,10 +27647,14 @@ export function createRouter(
         "identity_document_downloadable",
         "issuing_regulatory_reporting",
         "pci_document",
+        "platform_terms_of_service",
         "selfie",
         "sigma_scheduled_query",
         "tax_document_user_upload",
+        "terminal_android_apk",
         "terminal_reader_splashscreen",
+        "terminal_wifi_certificate",
+        "terminal_wifi_private_key",
       ])
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -27294,6 +27883,7 @@ export function createRouter(
       .object({
         account: z.string().max(5000).optional(),
         customer: z.string().max(5000).optional(),
+        customer_account: z.string().max(5000).optional(),
       })
       .optional(),
     ending_before: z.string().max(5000).optional(),
@@ -27348,6 +27938,7 @@ export function createRouter(
                     properties: {
                       account: {type: "string"},
                       customer: {type: "string"},
+                      customer_account: {type: "string"},
                     },
                   },
                 },
@@ -28751,6 +29342,7 @@ export function createRouter(
       .optional(),
     limit: z.coerce.number().optional(),
     related_customer: z.string().max(5000).optional(),
+    related_customer_account: z.string().max(5000).optional(),
     starting_after: z.string().max(5000).optional(),
     status: z
       .enum(["canceled", "processing", "requires_input", "verified"])
@@ -28828,6 +29420,12 @@ export function createRouter(
                 },
                 {
                   name: "related_customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "related_customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -29215,6 +29813,17 @@ export function createRouter(
   )
 
   const getInvoicePaymentsQuerySchema = z.object({
+    created: z
+      .union([
+        z.object({
+          gt: z.coerce.number().optional(),
+          gte: z.coerce.number().optional(),
+          lt: z.coerce.number().optional(),
+          lte: z.coerce.number().optional(),
+        }),
+        z.coerce.number(),
+      ])
+      .optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -29227,7 +29836,8 @@ export function createRouter(
     payment: z
       .object({
         payment_intent: z.string().max(5000).optional(),
-        type: z.literal("payment_intent"),
+        payment_record: z.string().max(5000).optional(),
+        type: z.enum(["payment_intent", "payment_record"]),
       })
       .optional(),
     starting_after: z.string().max(5000).optional(),
@@ -29262,6 +29872,20 @@ export function createRouter(
               new URL(`http://localhost${req.originalUrl}`).search,
               [
                 {
+                  name: "created",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {
+                    type: "object",
+                    properties: {
+                      gt: {type: "number"},
+                      gte: {type: "number"},
+                      lt: {type: "number"},
+                      lte: {type: "number"},
+                    },
+                  },
+                },
+                {
                   name: "ending_before",
                   explode: true,
                   style: "form",
@@ -29293,6 +29917,7 @@ export function createRouter(
                     type: "object",
                     properties: {
                       payment_intent: {type: "string"},
+                      payment_record: {type: "string"},
                       type: {type: "string"},
                     },
                   },
@@ -29747,6 +30372,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -29803,6 +30429,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -29892,7 +30524,7 @@ export function createRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            s_PostInvoiceitemsRequestBody,
+            s_PostInvoiceitemsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -30114,6 +30746,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     due_date: z
       .union([
         z.object({
@@ -30189,6 +30822,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -34044,6 +34683,7 @@ export function createRouter(
       .object({
         account: z.string().max(5000).optional(),
         customer: z.string().max(5000).optional(),
+        customer_account: z.string().max(5000).optional(),
       })
       .optional(),
     ending_before: z.string().max(5000).optional(),
@@ -34097,6 +34737,7 @@ export function createRouter(
                     properties: {
                       account: {type: "string"},
                       customer: {type: "string"},
+                      customer_account: {type: "string"},
                     },
                   },
                 },
@@ -34545,6 +35186,180 @@ export function createRouter(
     },
   )
 
+  const getPaymentAttemptRecordsQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    limit: z.coerce.number().optional(),
+    payment_record: z.string().max(5000),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getPaymentAttemptRecordsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            data: z.array(z.lazy(() => s_payment_attempt_record)),
+            has_more: PermissiveBoolean,
+            object: z.literal("list"),
+            url: z.string().max(5000),
+          }),
+        ],
+      ],
+      s_error,
+    )
+
+  // getPaymentAttemptRecords
+  router.get(
+    `/v1/payment_attempt_records`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: parseRequestInput(
+            getPaymentAttemptRecordsQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "payment_record",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              data: t_payment_attempt_record[]
+              has_more: boolean
+              object: "list"
+              url: string
+            }>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getPaymentAttemptRecords(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getPaymentAttemptRecordsResponseBodyValidator),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getPaymentAttemptRecordsIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const getPaymentAttemptRecordsIdQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getPaymentAttemptRecordsIdResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_attempt_record]], s_error)
+
+  // getPaymentAttemptRecordsId
+  router.get(
+    `/v1/payment_attempt_records/:id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            getPaymentAttemptRecordsIdParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            getPaymentAttemptRecordsIdQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_attempt_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getPaymentAttemptRecordsId(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentAttemptRecordsIdResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const getPaymentIntentsQuerySchema = z.object({
     created: z
       .union([
@@ -34558,6 +35373,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -34612,6 +35428,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -34944,6 +35766,124 @@ export function createRouter(
           .catch(handleImplementationError)
           .then(
             handleResponse(res, postPaymentIntentsIntentResponseBodyValidator),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getPaymentIntentsIntentAmountDetailsLineItemsParamSchema = z.object({
+    intent: z.string().max(5000),
+  })
+
+  const getPaymentIntentsIntentAmountDetailsLineItemsQuerySchema = z.object({
+    ending_before: z.string().max(5000).optional(),
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getPaymentIntentsIntentAmountDetailsLineItemsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            data: z.array(s_payment_intent_amount_details_line_item),
+            has_more: PermissiveBoolean,
+            object: z.literal("list"),
+            url: z.string().max(5000),
+          }),
+        ],
+      ],
+      s_error,
+    )
+
+  // getPaymentIntentsIntentAmountDetailsLineItems
+  router.get(
+    `/v1/payment_intents/:intent/amount_details_line_items`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            getPaymentIntentsIntentAmountDetailsLineItemsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            getPaymentIntentsIntentAmountDetailsLineItemsQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "ending_before",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "limit",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "number"},
+                },
+                {
+                  name: "starting_after",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              data: t_payment_intent_amount_details_line_item[]
+              has_more: boolean
+              object: "list"
+              url: string
+            }>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getPaymentIntentsIntentAmountDetailsLineItems(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              getPaymentIntentsIntentAmountDetailsLineItemsResponseBodyValidator,
+            ),
           )
       } catch (error) {
         next(error)
@@ -35681,6 +36621,7 @@ export function createRouter(
   )
 
   const getPaymentMethodConfigurationsQuerySchema = z.object({
+    active: PermissiveBoolean.optional(),
     application: z.union([z.string().max(100), z.literal("")]).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
@@ -35724,6 +36665,12 @@ export function createRouter(
             parseQueryParameters(
               new URL(`http://localhost${req.originalUrl}`).search,
               [
+                {
+                  name: "active",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "boolean"},
+                },
                 {
                   name: "application",
                   explode: true,
@@ -36354,7 +37301,9 @@ export function createRouter(
   )
 
   const getPaymentMethodsQuerySchema = z.object({
+    allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -36376,11 +37325,13 @@ export function createRouter(
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "card",
         "cashapp",
         "crypto",
+        "custom",
         "customer_balance",
         "eps",
         "fpx",
@@ -36392,6 +37343,7 @@ export function createRouter(
         "konbini",
         "kr_card",
         "link",
+        "mb_way",
         "mobilepay",
         "multibanco",
         "naver_pay",
@@ -36402,15 +37354,19 @@ export function createRouter(
         "payco",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "sofort",
+        "sunbit",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -36446,7 +37402,19 @@ export function createRouter(
               new URL(`http://localhost${req.originalUrl}`).search,
               [
                 {
+                  name: "allow_redisplay",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -36706,7 +37674,7 @@ export function createRouter(
           ),
           query: undefined,
           body: parseRequestInput(
-            s_PostPaymentMethodsPaymentMethodAttachRequestBody,
+            s_PostPaymentMethodsPaymentMethodAttachRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -36798,6 +37766,472 @@ export function createRouter(
             handleResponse(
               res,
               postPaymentMethodsPaymentMethodDetachResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsReportPaymentResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsReportPayment
+  router.post(
+    `/v1/payment_records/report_payment`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsReportPaymentRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsReportPayment(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsReportPaymentResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getPaymentRecordsIdParamSchema = z.object({id: z.string().max(5000)})
+
+  const getPaymentRecordsIdQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getPaymentRecordsIdResponseBodyValidator = responseValidationFactory(
+    [["200", s_payment_record]],
+    s_error,
+  )
+
+  // getPaymentRecordsId
+  router.get(
+    `/v1/payment_records/:id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            getPaymentRecordsIdParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            getPaymentRecordsIdQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getPaymentRecordsId(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, getPaymentRecordsIdResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportPaymentAttemptParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postPaymentRecordsIdReportPaymentAttemptResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportPaymentAttempt
+  router.post(
+    `/v1/payment_records/:id/report_payment_attempt`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportPaymentAttemptParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportPaymentAttemptRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportPaymentAttempt(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportPaymentAttemptResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportPaymentAttemptCanceledParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postPaymentRecordsIdReportPaymentAttemptCanceledResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportPaymentAttemptCanceled
+  router.post(
+    `/v1/payment_records/:id/report_payment_attempt_canceled`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportPaymentAttemptCanceledParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportPaymentAttemptCanceledRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportPaymentAttemptCanceled(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportPaymentAttemptCanceledResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportPaymentAttemptFailedParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postPaymentRecordsIdReportPaymentAttemptFailedResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportPaymentAttemptFailed
+  router.post(
+    `/v1/payment_records/:id/report_payment_attempt_failed`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportPaymentAttemptFailedParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportPaymentAttemptFailedRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportPaymentAttemptFailed(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportPaymentAttemptFailedResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportPaymentAttemptGuaranteedParamSchema =
+    z.object({id: z.string().max(5000)})
+
+  const postPaymentRecordsIdReportPaymentAttemptGuaranteedResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportPaymentAttemptGuaranteed
+  router.post(
+    `/v1/payment_records/:id/report_payment_attempt_guaranteed`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportPaymentAttemptGuaranteedParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportPaymentAttemptGuaranteedRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportPaymentAttemptGuaranteed(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportPaymentAttemptGuaranteedResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportPaymentAttemptInformationalParamSchema =
+    z.object({id: z.string().max(5000)})
+
+  const postPaymentRecordsIdReportPaymentAttemptInformationalResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportPaymentAttemptInformational
+  router.post(
+    `/v1/payment_records/:id/report_payment_attempt_informational`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportPaymentAttemptInformationalParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportPaymentAttemptInformationalRequestBody.optional(),
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportPaymentAttemptInformational(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportPaymentAttemptInformationalResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postPaymentRecordsIdReportRefundParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postPaymentRecordsIdReportRefundResponseBodyValidator =
+    responseValidationFactory([["200", s_payment_record]], s_error)
+
+  // postPaymentRecordsIdReportRefund
+  router.post(
+    `/v1/payment_records/:id/report_refund`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postPaymentRecordsIdReportRefundParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_PostPaymentRecordsIdReportRefundRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_payment_record>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postPaymentRecordsIdReportRefund(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postPaymentRecordsIdReportRefundResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -38787,6 +40221,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -38859,6 +40294,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -39094,6 +40535,7 @@ export function createRouter(
 
   const getQuotesQuerySchema = z.object({
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -39136,6 +40578,12 @@ export function createRouter(
               [
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -40036,6 +41484,52 @@ export function createRouter(
             handleResponse(
               res,
               getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postRadarPaymentEvaluationsResponseBodyValidator =
+    responseValidationFactory([["200", s_radar_payment_evaluation]], s_error)
+
+  // postRadarPaymentEvaluations
+  router.post(
+    `/v1/radar/payment_evaluations`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_PostRadarPaymentEvaluationsRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_radar_payment_evaluation>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postRadarPaymentEvaluations(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postRadarPaymentEvaluationsResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -41843,6 +43337,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -41904,6 +43399,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -43715,6 +45216,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -43813,6 +45315,12 @@ export function createRouter(
                 },
                 {
                   name: "customer",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
+                  name: "customer_account",
                   explode: true,
                   style: "form",
                   schema: {type: "string"},
@@ -44227,6 +45735,7 @@ export function createRouter(
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
+    customer_account: z.string().max(5000).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -44345,6 +45854,12 @@ export function createRouter(
                   schema: {type: "string"},
                 },
                 {
+                  name: "customer_account",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+                {
                   name: "ending_before",
                   explode: true,
                   style: "form",
@@ -44435,7 +45950,7 @@ export function createRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            s_PostSubscriptionsRequestBody,
+            s_PostSubscriptionsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -44930,6 +46445,77 @@ export function createRouter(
               res,
               postSubscriptionsSubscriptionResumeResponseBodyValidator,
             ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getTaxAssociationsFindQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    payment_intent: z.string().max(5000),
+  })
+
+  const getTaxAssociationsFindResponseBodyValidator = responseValidationFactory(
+    [["200", s_tax_association]],
+    s_error,
+  )
+
+  // getTaxAssociationsFind
+  router.get(
+    `/v1/tax/associations/find`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: parseRequestInput(
+            getTaxAssociationsFindQuerySchema,
+            parseQueryParameters(
+              new URL(`http://localhost${req.originalUrl}`).search,
+              [
+                {
+                  name: "expand",
+                  explode: true,
+                  style: "deepObject",
+                  schema: {type: "array", items: {type: "string"}},
+                },
+                {
+                  name: "payment_intent",
+                  explode: true,
+                  style: "form",
+                  schema: {type: "string"},
+                },
+              ],
+            ),
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_tax_association>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .getTaxAssociationsFind(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, getTaxAssociationsFindResponseBodyValidator),
           )
       } catch (error) {
         next(error)
@@ -46017,6 +47603,7 @@ export function createRouter(
       .object({
         account: z.string().optional(),
         customer: z.string().max(5000).optional(),
+        customer_account: z.string().max(5000).optional(),
         type: z.enum(["account", "application", "customer", "self"]),
       })
       .optional(),
@@ -46077,6 +47664,7 @@ export function createRouter(
                     properties: {
                       account: {type: "string"},
                       customer: {type: "string"},
+                      customer_account: {type: "string"},
                       type: {type: "string"},
                     },
                   },
@@ -47123,7 +48711,7 @@ export function createRouter(
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            s_PostTerminalLocationsRequestBody,
+            s_PostTerminalLocationsRequestBody.optional(),
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47339,6 +48927,52 @@ export function createRouter(
     },
   )
 
+  const postTerminalOnboardingLinksResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_onboarding_link]], s_error)
+
+  // postTerminalOnboardingLinks
+  router.post(
+    `/v1/terminal/onboarding_links`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_PostTerminalOnboardingLinksRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_onboarding_link>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postTerminalOnboardingLinks(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              postTerminalOnboardingLinksResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const getTerminalReadersQuerySchema = z.object({
     device_type: z
       .enum([
@@ -47347,10 +48981,20 @@ export function createRouter(
         "bbpos_wisepos_e",
         "mobile_phone_reader",
         "simulated_stripe_s700",
+        "simulated_stripe_s710",
+        "simulated_verifone_m425",
+        "simulated_verifone_p630",
+        "simulated_verifone_ux700",
+        "simulated_verifone_v660p",
         "simulated_wisepos_e",
         "stripe_m2",
         "stripe_s700",
+        "stripe_s710",
         "verifone_P400",
+        "verifone_m425",
+        "verifone_p630",
+        "verifone_ux700",
+        "verifone_v660p",
       ])
       .optional(),
     ending_before: z.string().max(5000).optional(),
@@ -48185,6 +49829,49 @@ export function createRouter(
               postTerminalReadersReaderSetReaderDisplayResponseBodyValidator,
             ),
           )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postTerminalRefundsResponseBodyValidator = responseValidationFactory(
+    [["200", s_terminal_refund]],
+    s_error,
+  )
+
+  // postTerminalRefunds
+  router.post(
+    `/v1/terminal/refunds`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            s_PostTerminalRefundsRequestBody.optional(),
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_refund>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .postTerminalRefunds(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, postTerminalRefundsResponseBodyValidator))
       } catch (error) {
         next(error)
       }

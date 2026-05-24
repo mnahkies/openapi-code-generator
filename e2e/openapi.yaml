@@ -173,6 +173,13 @@ paths:
           required: true
           schema:
             type: number
+        - name: authorIds
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
         - name: statuses
           in: query
           required: true
@@ -197,6 +204,10 @@ paths:
                     type: array
                     items:
                       type: string
+                  authorIds:
+                    type: array
+                    items:
+                      type: integer
 
   /validation/numbers/random-number:
     get:

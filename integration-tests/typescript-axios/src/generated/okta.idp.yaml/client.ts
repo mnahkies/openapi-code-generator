@@ -16,6 +16,7 @@ import type {
   t_CreateEmailRequestBody,
   t_CreatePasswordRequestBody,
   t_CreatePhoneRequestBody,
+  t_CreateWebAuthnRequest,
   t_Email,
   t_OktaApplication,
   t_Organization,
@@ -31,8 +32,11 @@ import type {
   t_SendPhoneChallengeRequestBody,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  t_UpdatePasswordRequestBody,
   t_VerifyEmailOtpRequestBody,
   t_VerifyPhoneChallengeRequestBody,
+  t_WebAuthn,
+  t_WebAuthnRegistrationOptions,
   UnknownEnumStringValue,
 } from "./models"
 
@@ -195,7 +199,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
 
   async listAuthenticators(
     p: {
-      expand?: string
+      expand?: "enrollments" | "requirements" | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -216,7 +220,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async getAuthenticator(
     p: {
       authenticatorId: string
-      expand?: string
+      expand?: "enrollments" | "requirements" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -621,6 +625,46 @@ export class MyAccountManagement extends AbstractAxiosClient {
     })
   }
 
+  async updatePassword(
+    p: {
+      requestBody: t_UpdatePasswordRequestBody
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/idp/myaccount/password/change-password`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getPasswordRequirements(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_PasswordResponse>> {
+    const url = `/idp/myaccount/password/complexity-requirements`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async listPhones(
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -825,6 +869,100 @@ export class MyAccountManagement extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/sessions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async listWebAuthn(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_WebAuthn>> {
+    const url = `/idp/myaccount/webauthn`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async createWebAuthnEnrollment(
+    p: {
+      requestBody: t_CreateWebAuthnRequest
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_WebAuthn>> {
+    const url = `/idp/myaccount/webauthn`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async startWebAuthnEnrollment(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_WebAuthnRegistrationOptions>> {
+    const url = `/idp/myaccount/webauthn/registration`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getWebAuthn(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_WebAuthn>> {
+    const url = `/idp/myaccount/webauthn/${p["id"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async deleteWebAuthn(
+    p: {
+      id: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/idp/myaccount/webauthn/${p["id"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({

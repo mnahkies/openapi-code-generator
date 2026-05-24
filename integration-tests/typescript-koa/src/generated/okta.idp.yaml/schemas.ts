@@ -89,6 +89,13 @@ export const s_AuthenticatorKey = z.enum([
   "yubikey_token",
 ])
 
+export const s_CreateWebAuthnRequest = z.object({
+  attestation: z.string(),
+  clientData: z.string(),
+  clientExtensions: z.string().optional(),
+  transports: z.string().optional(),
+})
+
 export const s_Email = z.object({
   id: z.string().min(1),
   profile: z.object({email: z.string().min(1)}),
@@ -150,6 +157,14 @@ export const s_Error = z.object({
   errorCauses: z
     .array(z.object({errorSummary: z.string().optional()}))
     .optional(),
+  errorCode: z.string().optional(),
+  errorId: z.string().optional(),
+  errorLink: z.string().optional(),
+  errorSummary: z.string().optional(),
+})
+
+export const s_Error406 = z.object({
+  errorCauses: z.string().optional(),
   errorCode: z.string().optional(),
   errorId: z.string().optional(),
   errorLink: z.string().optional(),
@@ -301,6 +316,89 @@ export const s_UpdateAuthenticatorEnrollmentRequest = z.object({
   nickname: z.string().optional(),
 })
 
+export const s_WebAuthn = z.object({
+  created: z.string().optional(),
+  credentialId: z.string().optional(),
+  id: z.string().min(1).optional(),
+  key: z.string().optional(),
+  lastUpdated: z.string().optional(),
+  name: z.string().optional(),
+  status: z.enum(["ACTIVE", "SUSPENDED", "EXPIRED"]).optional(),
+  type: z.literal("security_key").optional(),
+  _links: z
+    .object({
+      self: z
+        .object({
+          href: z.string().min(1).optional(),
+          hints: z
+            .object({allow: z.array(z.enum(["DELETE", "GET"])).optional()})
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
+export const s_WebAuthnRegistrationOptions = z.object({
+  expiresAt: z.string().optional(),
+  options: z
+    .object({
+      rp: z.object({name: z.string().optional()}).optional(),
+      user: z
+        .object({
+          displayName: z.string().optional(),
+          name: z.string().optional(),
+          id: z.string().optional(),
+        })
+        .optional(),
+      pubKeyCredParams: z
+        .array(
+          z.object({
+            type: z.literal("public-key").optional(),
+            alg: z.coerce.number().optional(),
+          }),
+        )
+        .optional(),
+      challenge: z.string().optional(),
+      attestation: z
+        .enum(["none", "indirect", "direct", "enterprise"])
+        .optional(),
+      authenticatorSelection: z
+        .object({
+          userVerification: z
+            .enum(["required", "preferred", "discouraged"])
+            .optional(),
+          residentKey: z
+            .enum(["required", "preferred", "discouraged"])
+            .optional(),
+          requireResidentKey: PermissiveBoolean.optional(),
+        })
+        .optional(),
+      u2fParams: z.object({appid: z.string().optional()}).optional(),
+      excludeCredentials: z
+        .array(
+          z.object({
+            type: z.literal("public-key").optional(),
+            id: z.string().optional(),
+          }),
+        )
+        .optional(),
+    })
+    .optional(),
+  _links: z
+    .object({
+      enroll: z
+        .object({
+          href: z.string().optional(),
+          hints: z
+            .object({allow: z.array(z.literal("POST")).optional()})
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
 export const s_HrefObject = z.object({
   hints: z.object({allow: z.array(s_HttpMethod).optional()}).optional(),
   href: z.string(),
@@ -340,7 +438,9 @@ export const s_AppAuthenticatorEnrollmentRequest = z.object({
 })
 
 export const s_AuthenticatorEnrollment = z.object({
+  canChangePassword: PermissiveBoolean.optional(),
   canReset: PermissiveBoolean.optional(),
+  canResetPassword: PermissiveBoolean.optional(),
   canUnenroll: PermissiveBoolean.optional(),
   created: z.string().optional(),
   id: z.string().optional(),
@@ -376,6 +476,7 @@ export const s_Authenticator = z.object({
   enrollable: PermissiveBoolean.optional(),
   id: z.string().optional(),
   key: s_AuthenticatorKey.optional(),
+  logo: z.object({uri: z.string().optional()}).optional(),
   name: z.string().optional(),
   _embedded: z
     .object({enrollments: z.array(s_AuthenticatorEnrollment).optional()})
@@ -408,6 +509,11 @@ export const s_CreatePasswordRequestBody = z.object({
 
 export const s_ReplacePasswordRequestBody = z.object({
   profile: z.object({password: z.string()}),
+})
+
+export const s_UpdatePasswordRequestBody = z.object({
+  oldPassword: z.string(),
+  newPassword: z.string(),
 })
 
 export const s_CreatePhoneRequestBody = z.object({

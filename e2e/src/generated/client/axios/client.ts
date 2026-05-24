@@ -235,6 +235,7 @@ export class E2ETestClient extends AbstractAxiosClient {
   async getParamsMixedQuery(
     p: {
       limit: number
+      authorIds: number[]
       statuses: ("open" | "closed" | UnknownEnumStringValue)[]
     },
     timeout?: number,
@@ -243,8 +244,12 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/params/mixed-query`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query(
-      {limit: p["limit"], statuses: p["statuses"]},
+      {limit: p["limit"], authorIds: p["authorIds"], statuses: p["statuses"]},
       {
+        authorIds: {
+          style: "form",
+          explode: true,
+        },
         statuses: {
           style: "form",
           explode: true,

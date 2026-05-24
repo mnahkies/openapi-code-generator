@@ -62,11 +62,13 @@ export type t_GetParamsDefaultObjectQueryQuerySchema = {
 }
 
 export type t_GetParamsMixedQuery200Response = {
+  authorIds?: number[] | undefined
   limit?: number | undefined
   statuses?: string[] | undefined
 }
 
 export type t_GetParamsMixedQueryQuerySchema = {
+  authorIds: number[]
   limit: number
   statuses: ("open" | "closed")[]
 }
