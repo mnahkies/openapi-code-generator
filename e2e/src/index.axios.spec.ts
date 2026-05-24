@@ -509,6 +509,7 @@ describe.each(
       const {status, data} = await client.getParamsMixedQuery({
         limit: 10,
         statuses: ["open", "closed"],
+        kebabCase: "some kebab value",
         authorIds: [1, 2, 3],
       })
 
@@ -516,7 +517,8 @@ describe.each(
       expect(data).toEqual({
         limit: 10,
         statuses: ["open", "closed"],
-        authorIds: [1, 2, 3],
+        author_ids: [1, 2, 3],
+        "kebab-case": "some kebab value",
       })
     })
   })

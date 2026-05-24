@@ -32,7 +32,12 @@ const getParamsUnexplodedObjectQuery: GetParamsUnexplodedObjectQuery = async (
 }
 
 const getParamsMixedQuery: GetParamsMixedQuery = async ({query}, respond) => {
-  return respond.with200().body(query)
+  return respond.with200().body({
+    statuses: query.statuses,
+    author_ids: query.author_ids,
+    limit: query.limit,
+    "kebab-case": query["kebab-case"],
+  })
 }
 
 export function createQueryParametersRouter() {
