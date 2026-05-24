@@ -4,6 +4,7 @@ import type {
   IRModel,
   IRModelArray,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
@@ -103,6 +104,16 @@ export class JoiBuilder extends AbstractSchemaBuilder<
 
   protected lazy(schema: string): string {
     return [joi, `link('#${schema}')`].join(".")
+  }
+
+  protected intersection(model: IRModelIntersection): string {
+    const schemas = model.schemas.map((it) => this.fromModel(it, true))
+
+    const isMergable = model.schemas
+      .map((it) => this.schemaProvider.schema(it))
+      .every((it) => it.type === "object" && !it.additionalProperties)
+
+    return isMergable ? this.merge(schemas) : this.intersect(schemas)
   }
 
   protected merge(schemas: string[]): string {

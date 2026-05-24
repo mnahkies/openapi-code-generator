@@ -1160,22 +1160,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             id?: number
           }
           session_count?: number
-          state:
-            | "queued"
-            | "in_progress"
-            | "completed"
-            | "failed"
-            | "idle"
-            | "waiting_for_user"
-            | "timed_out"
-            | "cancelled"
-            | UnknownEnumStringValue
-          updated_at?: string
-          url?: string
-          user_collaborators?: {
-            id?: number
-          }[]
-        } & {
           sessions?: {
             base_ref?: string
             completed_at?: string
@@ -1209,6 +1193,21 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             user?: {
               id?: number
             }
+          }[]
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+            | UnknownEnumStringValue
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
           }[]
         }
       >
@@ -1504,22 +1503,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             id?: number
           }
           session_count?: number
-          state:
-            | "queued"
-            | "in_progress"
-            | "completed"
-            | "failed"
-            | "idle"
-            | "waiting_for_user"
-            | "timed_out"
-            | "cancelled"
-            | UnknownEnumStringValue
-          updated_at?: string
-          url?: string
-          user_collaborators?: {
-            id?: number
-          }[]
-        } & {
           sessions?: {
             base_ref?: string
             completed_at?: string
@@ -1553,6 +1536,21 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             user?: {
               id?: number
             }
+          }[]
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+            | UnknownEnumStringValue
+          updated_at?: string
+          url?: string
+          user_collaborators?: {
+            id?: number
           }[]
         }
       >

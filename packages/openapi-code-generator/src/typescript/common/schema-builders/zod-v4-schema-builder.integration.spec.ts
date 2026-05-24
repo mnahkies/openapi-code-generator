@@ -147,7 +147,7 @@ describe.each(
           breed: z.string().optional(),
         })
 
-        export const s_AllOf = s_Base.merge(z.object({ id: z.coerce.number() }))"
+        export const s_AllOf = s_Base.extend({ id: z.coerce.number() })"
       `)
   })
 

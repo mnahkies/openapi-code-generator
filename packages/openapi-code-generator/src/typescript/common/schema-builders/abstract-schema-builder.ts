@@ -9,6 +9,7 @@ import type {
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
@@ -238,17 +239,7 @@ export abstract class AbstractSchemaBuilder<
         result = this.array(model, [this.arrayItems(model.items)])
         break
       case "intersection": {
-        // todo: do we need to special case a single schema?
-        const schemas = model.schemas.map((it) => this.fromModel(it, true))
-
-        // Note: for zod in particular it's desirable to use merge over intersection
-        //       where possible, as it returns a more malleable schema
-        const isMergable = model.schemas
-          .map((it) => this.schemaProvider.schema(it))
-          .every((it) => it.type === "object" && !it.additionalProperties)
-
-        result = isMergable ? this.merge(schemas) : this.intersect(schemas)
-
+        result = this.intersection(model)
         break
       }
 
@@ -342,6 +333,8 @@ export abstract class AbstractSchemaBuilder<
   public abstract parse(schema: string, value: string): string
 
   protected abstract lazy(schema: string): string
+
+  protected abstract intersection(model: IRModelIntersection): string
 
   /**
    * Equivalent to `type z = x & y` but only works on non-record object schemas

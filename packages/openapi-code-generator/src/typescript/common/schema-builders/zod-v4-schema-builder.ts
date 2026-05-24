@@ -4,6 +4,7 @@ import type {
   IRModel,
   IRModelArray,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
@@ -116,6 +117,42 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     return [zod, `lazy(() => ${schema})`].join(".")
   }
 
+  protected intersection(model: IRModelIntersection): string {
+    const schemas = model.schemas
+
+    if (hasSingleElement(schemas)) {
+      return this.fromModel(schemas[0], true)
+    }
+
+    const allSchemasAreObjects = schemas
+      .map((it) => this.schemaProvider.schema(it))
+      .every((it) => it.type === "object" && !it.additionalProperties)
+
+    if (!allSchemasAreObjects) {
+      return this.intersect(schemas.map((it) => this.fromModel(it, true)))
+    }
+
+    if (schemas.length === 2) {
+      const first = schemas[0]
+      const second = schemas[1]
+
+      const shouldExtend =
+        isRef(first) && !isRef(second) && second && second.type === "object"
+
+      if (shouldExtend) {
+        return `${this.fromModel(first, true)}.extend({${Object.entries(
+          second.properties,
+        )
+          .map(([key, value]) => {
+            return `${key} : ${this.fromModel(value, second.required.includes(key))}`
+          })
+          .join(", ")}})`
+      }
+    }
+
+    return this.merge(schemas.map((it) => this.fromModel(it, true)))
+  }
+
   protected merge(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
@@ -123,10 +160,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       return definedSchemas[0]
     }
 
-    // todo: .merge is deprecated in v4, plan migration to .extend
-    return definedSchemas.reduce((acc, it) => {
-      return `${acc}\n.merge(${it})`
-    })
+    return `${zod}.object({${definedSchemas.map((it) => `...${it}.shape`)}})`
   }
 
   protected intersect(schemas: string[]): string {

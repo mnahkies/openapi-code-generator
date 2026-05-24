@@ -3052,107 +3052,104 @@ export type AgentTasksCreateTaskInRepo = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type AgentTasksGetTaskByRepoAndIdResponder = {
-  with200(): ExpressRuntimeResponse<
-    {
-      archived_at?: (string | null) | undefined
-      artifacts?:
-        | {
-            data:
-              | {
-                  global_id?: string | undefined
-                  id: number
-                }
-              | {
-                  base_ref: string
-                  head_ref: string
-                }
-            provider: "github"
-            type: "pull" | "branch"
-          }[]
-        | undefined
-      created_at: string
-      creator?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      creator_type?: ("user" | "organization") | undefined
-      html_url?: string | undefined
-      id: string
-      name?: string | undefined
-      owner?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      repository?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      session_count?: number | undefined
-      state:
-        | "queued"
-        | "in_progress"
-        | "completed"
-        | "failed"
-        | "idle"
-        | "waiting_for_user"
-        | "timed_out"
-        | "cancelled"
-      updated_at?: string | undefined
-      url?: string | undefined
-      user_collaborators?:
-        | {
-            id?: number | undefined
-          }[]
-        | undefined
-    } & {
-      sessions?:
-        | {
-            base_ref?: string | undefined
-            completed_at?: string | undefined
-            created_at: string
-            error?:
-              | {
-                  message?: string | undefined
-                }
-              | undefined
-            head_ref?: string | undefined
-            id: string
-            model?: string | undefined
-            name?: string | undefined
-            owner?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-            prompt?: string | undefined
-            repository?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-            state:
-              | "queued"
-              | "in_progress"
-              | "completed"
-              | "failed"
-              | "idle"
-              | "waiting_for_user"
-              | "timed_out"
-              | "cancelled"
-            task_id?: string | undefined
-            updated_at?: string | undefined
-            user?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-          }[]
-        | undefined
-    }
-  >
+  with200(): ExpressRuntimeResponse<{
+    archived_at?: (string | null) | undefined
+    artifacts?:
+      | {
+          data:
+            | {
+                global_id?: string | undefined
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch"
+        }[]
+      | undefined
+    created_at: string
+    creator?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    creator_type?: ("user" | "organization") | undefined
+    html_url?: string | undefined
+    id: string
+    name?: string | undefined
+    owner?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    repository?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    session_count?: number | undefined
+    sessions?:
+      | {
+          base_ref?: string | undefined
+          completed_at?: string | undefined
+          created_at: string
+          error?:
+            | {
+                message?: string | undefined
+              }
+            | undefined
+          head_ref?: string | undefined
+          id: string
+          model?: string | undefined
+          name?: string | undefined
+          owner?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+          prompt?: string | undefined
+          repository?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          task_id?: string | undefined
+          updated_at?: string | undefined
+          user?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+        }[]
+      | undefined
+    state:
+      | "queued"
+      | "in_progress"
+      | "completed"
+      | "failed"
+      | "idle"
+      | "waiting_for_user"
+      | "timed_out"
+      | "cancelled"
+    updated_at?: string | undefined
+    url?: string | undefined
+    user_collaborators?:
+      | {
+          id?: number | undefined
+        }[]
+      | undefined
+  }>
   with400(): ExpressRuntimeResponse<{
     documentation_url: string
     errors?:
@@ -3378,107 +3375,104 @@ export type AgentTasksListTasks = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type AgentTasksGetTaskByIdResponder = {
-  with200(): ExpressRuntimeResponse<
-    {
-      archived_at?: (string | null) | undefined
-      artifacts?:
-        | {
-            data:
-              | {
-                  global_id?: string | undefined
-                  id: number
-                }
-              | {
-                  base_ref: string
-                  head_ref: string
-                }
-            provider: "github"
-            type: "pull" | "branch"
-          }[]
-        | undefined
-      created_at: string
-      creator?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      creator_type?: ("user" | "organization") | undefined
-      html_url?: string | undefined
-      id: string
-      name?: string | undefined
-      owner?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      repository?:
-        | {
-            id?: number | undefined
-          }
-        | undefined
-      session_count?: number | undefined
-      state:
-        | "queued"
-        | "in_progress"
-        | "completed"
-        | "failed"
-        | "idle"
-        | "waiting_for_user"
-        | "timed_out"
-        | "cancelled"
-      updated_at?: string | undefined
-      url?: string | undefined
-      user_collaborators?:
-        | {
-            id?: number | undefined
-          }[]
-        | undefined
-    } & {
-      sessions?:
-        | {
-            base_ref?: string | undefined
-            completed_at?: string | undefined
-            created_at: string
-            error?:
-              | {
-                  message?: string | undefined
-                }
-              | undefined
-            head_ref?: string | undefined
-            id: string
-            model?: string | undefined
-            name?: string | undefined
-            owner?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-            prompt?: string | undefined
-            repository?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-            state:
-              | "queued"
-              | "in_progress"
-              | "completed"
-              | "failed"
-              | "idle"
-              | "waiting_for_user"
-              | "timed_out"
-              | "cancelled"
-            task_id?: string | undefined
-            updated_at?: string | undefined
-            user?:
-              | {
-                  id?: number | undefined
-                }
-              | undefined
-          }[]
-        | undefined
-    }
-  >
+  with200(): ExpressRuntimeResponse<{
+    archived_at?: (string | null) | undefined
+    artifacts?:
+      | {
+          data:
+            | {
+                global_id?: string | undefined
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch"
+        }[]
+      | undefined
+    created_at: string
+    creator?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    creator_type?: ("user" | "organization") | undefined
+    html_url?: string | undefined
+    id: string
+    name?: string | undefined
+    owner?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    repository?:
+      | {
+          id?: number | undefined
+        }
+      | undefined
+    session_count?: number | undefined
+    sessions?:
+      | {
+          base_ref?: string | undefined
+          completed_at?: string | undefined
+          created_at: string
+          error?:
+            | {
+                message?: string | undefined
+              }
+            | undefined
+          head_ref?: string | undefined
+          id: string
+          model?: string | undefined
+          name?: string | undefined
+          owner?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+          prompt?: string | undefined
+          repository?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+          state:
+            | "queued"
+            | "in_progress"
+            | "completed"
+            | "failed"
+            | "idle"
+            | "waiting_for_user"
+            | "timed_out"
+            | "cancelled"
+          task_id?: string | undefined
+          updated_at?: string | undefined
+          user?:
+            | {
+                id?: number | undefined
+              }
+            | undefined
+        }[]
+      | undefined
+    state:
+      | "queued"
+      | "in_progress"
+      | "completed"
+      | "failed"
+      | "idle"
+      | "waiting_for_user"
+      | "timed_out"
+      | "cancelled"
+    updated_at?: string | undefined
+    url?: string | undefined
+    user_collaborators?:
+      | {
+          id?: number | undefined
+        }[]
+      | undefined
+  }>
   with400(): ExpressRuntimeResponse<{
     documentation_url: string
     errors?:
@@ -26939,93 +26933,82 @@ export function createRouter(
       [
         [
           "200",
-          z
-            .object({
-              id: z.string(),
-              url: z.string().optional(),
-              html_url: z.string().optional(),
-              name: z.string().optional(),
-              creator: z.object({id: z.coerce.number().optional()}).optional(),
-              creator_type: z.enum(["user", "organization"]).optional(),
-              user_collaborators: z
-                .array(z.object({id: z.coerce.number().optional()}))
-                .optional(),
-              owner: z.object({id: z.coerce.number().optional()}).optional(),
-              repository: z
-                .object({id: z.coerce.number().optional()})
-                .optional(),
-              state: z.enum([
-                "queued",
-                "in_progress",
-                "completed",
-                "failed",
-                "idle",
-                "waiting_for_user",
-                "timed_out",
-                "cancelled",
-              ]),
-              session_count: z.coerce.number().optional(),
-              artifacts: z
-                .array(
-                  z.object({
-                    provider: z.literal("github"),
-                    type: z.enum(["pull", "branch"]),
-                    data: z.union([
-                      z.object({
-                        id: z.coerce.number(),
-                        global_id: z.string().optional(),
-                      }),
-                      z.object({head_ref: z.string(), base_ref: z.string()}),
-                    ]),
-                  }),
-                )
-                .optional(),
-              archived_at: z.iso.datetime({offset: true}).nullable().optional(),
-              updated_at: z.iso.datetime({offset: true}).optional(),
-              created_at: z.iso.datetime({offset: true}),
-            })
-            .merge(
-              z.object({
-                sessions: z
-                  .array(
+          z.object({
+            id: z.string(),
+            url: z.string().optional(),
+            html_url: z.string().optional(),
+            name: z.string().optional(),
+            creator: z.object({id: z.coerce.number().optional()}).optional(),
+            creator_type: z.enum(["user", "organization"]).optional(),
+            user_collaborators: z
+              .array(z.object({id: z.coerce.number().optional()}))
+              .optional(),
+            owner: z.object({id: z.coerce.number().optional()}).optional(),
+            repository: z.object({id: z.coerce.number().optional()}).optional(),
+            state: z.enum([
+              "queued",
+              "in_progress",
+              "completed",
+              "failed",
+              "idle",
+              "waiting_for_user",
+              "timed_out",
+              "cancelled",
+            ]),
+            session_count: z.coerce.number().optional(),
+            artifacts: z
+              .array(
+                z.object({
+                  provider: z.literal("github"),
+                  type: z.enum(["pull", "branch"]),
+                  data: z.union([
                     z.object({
-                      id: z.string(),
-                      name: z.string().optional(),
-                      user: z
-                        .object({id: z.coerce.number().optional()})
-                        .optional(),
-                      owner: z
-                        .object({id: z.coerce.number().optional()})
-                        .optional(),
-                      repository: z
-                        .object({id: z.coerce.number().optional()})
-                        .optional(),
-                      task_id: z.string().optional(),
-                      state: z.enum([
-                        "queued",
-                        "in_progress",
-                        "completed",
-                        "failed",
-                        "idle",
-                        "waiting_for_user",
-                        "timed_out",
-                        "cancelled",
-                      ]),
-                      created_at: z.iso.datetime({offset: true}),
-                      updated_at: z.iso.datetime({offset: true}).optional(),
-                      completed_at: z.iso.datetime({offset: true}).optional(),
-                      prompt: z.string().optional(),
-                      head_ref: z.string().optional(),
-                      base_ref: z.string().optional(),
-                      model: z.string().optional(),
-                      error: z
-                        .object({message: z.string().optional()})
-                        .optional(),
+                      id: z.coerce.number(),
+                      global_id: z.string().optional(),
                     }),
-                  )
-                  .optional(),
-              }),
-            ),
+                    z.object({head_ref: z.string(), base_ref: z.string()}),
+                  ]),
+                }),
+              )
+              .optional(),
+            archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+            updated_at: z.iso.datetime({offset: true}).optional(),
+            created_at: z.iso.datetime({offset: true}),
+            sessions: z
+              .array(
+                z.object({
+                  id: z.string(),
+                  name: z.string().optional(),
+                  user: z.object({id: z.coerce.number().optional()}).optional(),
+                  owner: z
+                    .object({id: z.coerce.number().optional()})
+                    .optional(),
+                  repository: z
+                    .object({id: z.coerce.number().optional()})
+                    .optional(),
+                  task_id: z.string().optional(),
+                  state: z.enum([
+                    "queued",
+                    "in_progress",
+                    "completed",
+                    "failed",
+                    "idle",
+                    "waiting_for_user",
+                    "timed_out",
+                    "cancelled",
+                  ]),
+                  created_at: z.iso.datetime({offset: true}),
+                  updated_at: z.iso.datetime({offset: true}).optional(),
+                  completed_at: z.iso.datetime({offset: true}).optional(),
+                  prompt: z.string().optional(),
+                  head_ref: z.string().optional(),
+                  base_ref: z.string().optional(),
+                  model: z.string().optional(),
+                  error: z.object({message: z.string().optional()}).optional(),
+                }),
+              )
+              .optional(),
+          }),
         ],
         [
           "400",
@@ -27159,107 +27142,104 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<
-              {
-                archived_at?: (string | null) | undefined
-                artifacts?:
-                  | {
-                      data:
-                        | {
-                            global_id?: string | undefined
-                            id: number
-                          }
-                        | {
-                            base_ref: string
-                            head_ref: string
-                          }
-                      provider: "github"
-                      type: "pull" | "branch"
-                    }[]
-                  | undefined
-                created_at: string
-                creator?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                creator_type?: ("user" | "organization") | undefined
-                html_url?: string | undefined
-                id: string
-                name?: string | undefined
-                owner?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                repository?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                session_count?: number | undefined
-                state:
-                  | "queued"
-                  | "in_progress"
-                  | "completed"
-                  | "failed"
-                  | "idle"
-                  | "waiting_for_user"
-                  | "timed_out"
-                  | "cancelled"
-                updated_at?: string | undefined
-                url?: string | undefined
-                user_collaborators?:
-                  | {
-                      id?: number | undefined
-                    }[]
-                  | undefined
-              } & {
-                sessions?:
-                  | {
-                      base_ref?: string | undefined
-                      completed_at?: string | undefined
-                      created_at: string
-                      error?:
-                        | {
-                            message?: string | undefined
-                          }
-                        | undefined
-                      head_ref?: string | undefined
-                      id: string
-                      model?: string | undefined
-                      name?: string | undefined
-                      owner?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                      prompt?: string | undefined
-                      repository?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                      state:
-                        | "queued"
-                        | "in_progress"
-                        | "completed"
-                        | "failed"
-                        | "idle"
-                        | "waiting_for_user"
-                        | "timed_out"
-                        | "cancelled"
-                      task_id?: string | undefined
-                      updated_at?: string | undefined
-                      user?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                    }[]
-                  | undefined
-              }
-            >(200)
+            return new ExpressRuntimeResponse<{
+              archived_at?: (string | null) | undefined
+              artifacts?:
+                | {
+                    data:
+                      | {
+                          global_id?: string | undefined
+                          id: number
+                        }
+                      | {
+                          base_ref: string
+                          head_ref: string
+                        }
+                    provider: "github"
+                    type: "pull" | "branch"
+                  }[]
+                | undefined
+              created_at: string
+              creator?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              creator_type?: ("user" | "organization") | undefined
+              html_url?: string | undefined
+              id: string
+              name?: string | undefined
+              owner?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              repository?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              session_count?: number | undefined
+              sessions?:
+                | {
+                    base_ref?: string | undefined
+                    completed_at?: string | undefined
+                    created_at: string
+                    error?:
+                      | {
+                          message?: string | undefined
+                        }
+                      | undefined
+                    head_ref?: string | undefined
+                    id: string
+                    model?: string | undefined
+                    name?: string | undefined
+                    owner?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                    prompt?: string | undefined
+                    repository?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                    state:
+                      | "queued"
+                      | "in_progress"
+                      | "completed"
+                      | "failed"
+                      | "idle"
+                      | "waiting_for_user"
+                      | "timed_out"
+                      | "cancelled"
+                    task_id?: string | undefined
+                    updated_at?: string | undefined
+                    user?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                  }[]
+                | undefined
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+              updated_at?: string | undefined
+              url?: string | undefined
+              user_collaborators?:
+                | {
+                    id?: number | undefined
+                  }[]
+                | undefined
+            }>(200)
           },
           with400() {
             return new ExpressRuntimeResponse<{
@@ -27699,91 +27679,80 @@ export function createRouter(
     [
       [
         "200",
-        z
-          .object({
-            id: z.string(),
-            url: z.string().optional(),
-            html_url: z.string().optional(),
-            name: z.string().optional(),
-            creator: z.object({id: z.coerce.number().optional()}).optional(),
-            creator_type: z.enum(["user", "organization"]).optional(),
-            user_collaborators: z
-              .array(z.object({id: z.coerce.number().optional()}))
-              .optional(),
-            owner: z.object({id: z.coerce.number().optional()}).optional(),
-            repository: z.object({id: z.coerce.number().optional()}).optional(),
-            state: z.enum([
-              "queued",
-              "in_progress",
-              "completed",
-              "failed",
-              "idle",
-              "waiting_for_user",
-              "timed_out",
-              "cancelled",
-            ]),
-            session_count: z.coerce.number().optional(),
-            artifacts: z
-              .array(
-                z.object({
-                  provider: z.literal("github"),
-                  type: z.enum(["pull", "branch"]),
-                  data: z.union([
-                    z.object({
-                      id: z.coerce.number(),
-                      global_id: z.string().optional(),
-                    }),
-                    z.object({head_ref: z.string(), base_ref: z.string()}),
-                  ]),
-                }),
-              )
-              .optional(),
-            archived_at: z.iso.datetime({offset: true}).nullable().optional(),
-            updated_at: z.iso.datetime({offset: true}).optional(),
-            created_at: z.iso.datetime({offset: true}),
-          })
-          .merge(
-            z.object({
-              sessions: z
-                .array(
+        z.object({
+          id: z.string(),
+          url: z.string().optional(),
+          html_url: z.string().optional(),
+          name: z.string().optional(),
+          creator: z.object({id: z.coerce.number().optional()}).optional(),
+          creator_type: z.enum(["user", "organization"]).optional(),
+          user_collaborators: z
+            .array(z.object({id: z.coerce.number().optional()}))
+            .optional(),
+          owner: z.object({id: z.coerce.number().optional()}).optional(),
+          repository: z.object({id: z.coerce.number().optional()}).optional(),
+          state: z.enum([
+            "queued",
+            "in_progress",
+            "completed",
+            "failed",
+            "idle",
+            "waiting_for_user",
+            "timed_out",
+            "cancelled",
+          ]),
+          session_count: z.coerce.number().optional(),
+          artifacts: z
+            .array(
+              z.object({
+                provider: z.literal("github"),
+                type: z.enum(["pull", "branch"]),
+                data: z.union([
                   z.object({
-                    id: z.string(),
-                    name: z.string().optional(),
-                    user: z
-                      .object({id: z.coerce.number().optional()})
-                      .optional(),
-                    owner: z
-                      .object({id: z.coerce.number().optional()})
-                      .optional(),
-                    repository: z
-                      .object({id: z.coerce.number().optional()})
-                      .optional(),
-                    task_id: z.string().optional(),
-                    state: z.enum([
-                      "queued",
-                      "in_progress",
-                      "completed",
-                      "failed",
-                      "idle",
-                      "waiting_for_user",
-                      "timed_out",
-                      "cancelled",
-                    ]),
-                    created_at: z.iso.datetime({offset: true}),
-                    updated_at: z.iso.datetime({offset: true}).optional(),
-                    completed_at: z.iso.datetime({offset: true}).optional(),
-                    prompt: z.string().optional(),
-                    head_ref: z.string().optional(),
-                    base_ref: z.string().optional(),
-                    model: z.string().optional(),
-                    error: z
-                      .object({message: z.string().optional()})
-                      .optional(),
+                    id: z.coerce.number(),
+                    global_id: z.string().optional(),
                   }),
-                )
-                .optional(),
-            }),
-          ),
+                  z.object({head_ref: z.string(), base_ref: z.string()}),
+                ]),
+              }),
+            )
+            .optional(),
+          archived_at: z.iso.datetime({offset: true}).nullable().optional(),
+          updated_at: z.iso.datetime({offset: true}).optional(),
+          created_at: z.iso.datetime({offset: true}),
+          sessions: z
+            .array(
+              z.object({
+                id: z.string(),
+                name: z.string().optional(),
+                user: z.object({id: z.coerce.number().optional()}).optional(),
+                owner: z.object({id: z.coerce.number().optional()}).optional(),
+                repository: z
+                  .object({id: z.coerce.number().optional()})
+                  .optional(),
+                task_id: z.string().optional(),
+                state: z.enum([
+                  "queued",
+                  "in_progress",
+                  "completed",
+                  "failed",
+                  "idle",
+                  "waiting_for_user",
+                  "timed_out",
+                  "cancelled",
+                ]),
+                created_at: z.iso.datetime({offset: true}),
+                updated_at: z.iso.datetime({offset: true}).optional(),
+                completed_at: z.iso.datetime({offset: true}).optional(),
+                prompt: z.string().optional(),
+                head_ref: z.string().optional(),
+                base_ref: z.string().optional(),
+                model: z.string().optional(),
+                error: z.object({message: z.string().optional()}).optional(),
+              }),
+            )
+            .optional(),
+        }),
       ],
       [
         "400",
@@ -27917,107 +27886,104 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<
-              {
-                archived_at?: (string | null) | undefined
-                artifacts?:
-                  | {
-                      data:
-                        | {
-                            global_id?: string | undefined
-                            id: number
-                          }
-                        | {
-                            base_ref: string
-                            head_ref: string
-                          }
-                      provider: "github"
-                      type: "pull" | "branch"
-                    }[]
-                  | undefined
-                created_at: string
-                creator?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                creator_type?: ("user" | "organization") | undefined
-                html_url?: string | undefined
-                id: string
-                name?: string | undefined
-                owner?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                repository?:
-                  | {
-                      id?: number | undefined
-                    }
-                  | undefined
-                session_count?: number | undefined
-                state:
-                  | "queued"
-                  | "in_progress"
-                  | "completed"
-                  | "failed"
-                  | "idle"
-                  | "waiting_for_user"
-                  | "timed_out"
-                  | "cancelled"
-                updated_at?: string | undefined
-                url?: string | undefined
-                user_collaborators?:
-                  | {
-                      id?: number | undefined
-                    }[]
-                  | undefined
-              } & {
-                sessions?:
-                  | {
-                      base_ref?: string | undefined
-                      completed_at?: string | undefined
-                      created_at: string
-                      error?:
-                        | {
-                            message?: string | undefined
-                          }
-                        | undefined
-                      head_ref?: string | undefined
-                      id: string
-                      model?: string | undefined
-                      name?: string | undefined
-                      owner?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                      prompt?: string | undefined
-                      repository?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                      state:
-                        | "queued"
-                        | "in_progress"
-                        | "completed"
-                        | "failed"
-                        | "idle"
-                        | "waiting_for_user"
-                        | "timed_out"
-                        | "cancelled"
-                      task_id?: string | undefined
-                      updated_at?: string | undefined
-                      user?:
-                        | {
-                            id?: number | undefined
-                          }
-                        | undefined
-                    }[]
-                  | undefined
-              }
-            >(200)
+            return new ExpressRuntimeResponse<{
+              archived_at?: (string | null) | undefined
+              artifacts?:
+                | {
+                    data:
+                      | {
+                          global_id?: string | undefined
+                          id: number
+                        }
+                      | {
+                          base_ref: string
+                          head_ref: string
+                        }
+                    provider: "github"
+                    type: "pull" | "branch"
+                  }[]
+                | undefined
+              created_at: string
+              creator?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              creator_type?: ("user" | "organization") | undefined
+              html_url?: string | undefined
+              id: string
+              name?: string | undefined
+              owner?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              repository?:
+                | {
+                    id?: number | undefined
+                  }
+                | undefined
+              session_count?: number | undefined
+              sessions?:
+                | {
+                    base_ref?: string | undefined
+                    completed_at?: string | undefined
+                    created_at: string
+                    error?:
+                      | {
+                          message?: string | undefined
+                        }
+                      | undefined
+                    head_ref?: string | undefined
+                    id: string
+                    model?: string | undefined
+                    name?: string | undefined
+                    owner?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                    prompt?: string | undefined
+                    repository?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                    state:
+                      | "queued"
+                      | "in_progress"
+                      | "completed"
+                      | "failed"
+                      | "idle"
+                      | "waiting_for_user"
+                      | "timed_out"
+                      | "cancelled"
+                    task_id?: string | undefined
+                    updated_at?: string | undefined
+                    user?:
+                      | {
+                          id?: number | undefined
+                        }
+                      | undefined
+                  }[]
+                | undefined
+              state:
+                | "queued"
+                | "in_progress"
+                | "completed"
+                | "failed"
+                | "idle"
+                | "waiting_for_user"
+                | "timed_out"
+                | "cancelled"
+              updated_at?: string | undefined
+              url?: string | undefined
+              user_collaborators?:
+                | {
+                    id?: number | undefined
+                  }[]
+                | undefined
+            }>(200)
           },
           with400() {
             return new ExpressRuntimeResponse<{
@@ -34113,13 +34079,9 @@ export function createRouter(
           z.object({
             total_count: z.coerce.number(),
             repositories: z.array(
-              s_repository.merge(
-                z.object({
-                  custom_properties: z
-                    .record(z.string(), z.unknown())
-                    .optional(),
-                }),
-              ),
+              s_repository.extend({
+                custom_properties: z.record(z.string(), z.unknown()).optional(),
+              }),
             ),
             repository_selection: z.string().optional(),
           }),
@@ -95735,13 +95697,9 @@ export function createRouter(
             total_count: z.coerce.number(),
             repository_selection: z.string().optional(),
             repositories: z.array(
-              s_repository.merge(
-                z.object({
-                  custom_properties: z
-                    .record(z.string(), z.unknown())
-                    .optional(),
-                }),
-              ),
+              s_repository.extend({
+                custom_properties: z.record(z.string(), z.unknown()).optional(),
+              }),
             ),
           }),
         ],

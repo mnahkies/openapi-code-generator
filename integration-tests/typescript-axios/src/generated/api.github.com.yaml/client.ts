@@ -1006,111 +1006,108 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
-    AxiosResponse<
-      {
-        archived_at?: (string | null) | undefined
-        artifacts?:
-          | {
-              data:
-                | {
-                    global_id?: string | undefined
-                    id: number
-                  }
-                | {
-                    base_ref: string
-                    head_ref: string
-                  }
-              provider: "github"
-              type: "pull" | "branch" | UnknownEnumStringValue
-            }[]
-          | undefined
-        created_at: string
-        creator?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        creator_type?:
-          | ("user" | "organization" | UnknownEnumStringValue)
-          | undefined
-        html_url?: string | undefined
-        id: string
-        name?: string | undefined
-        owner?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        repository?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        session_count?: number | undefined
-        state:
-          | "queued"
-          | "in_progress"
-          | "completed"
-          | "failed"
-          | "idle"
-          | "waiting_for_user"
-          | "timed_out"
-          | "cancelled"
-          | UnknownEnumStringValue
-        updated_at?: string | undefined
-        url?: string | undefined
-        user_collaborators?:
-          | {
-              id?: number | undefined
-            }[]
-          | undefined
-      } & {
-        sessions?:
-          | {
-              base_ref?: string | undefined
-              completed_at?: string | undefined
-              created_at: string
-              error?:
-                | {
-                    message?: string | undefined
-                  }
-                | undefined
-              head_ref?: string | undefined
-              id: string
-              model?: string | undefined
-              name?: string | undefined
-              owner?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-              prompt?: string | undefined
-              repository?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-              state:
-                | "queued"
-                | "in_progress"
-                | "completed"
-                | "failed"
-                | "idle"
-                | "waiting_for_user"
-                | "timed_out"
-                | "cancelled"
-                | UnknownEnumStringValue
-              task_id?: string | undefined
-              updated_at?: string | undefined
-              user?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-            }[]
-          | undefined
-      }
-    >
+    AxiosResponse<{
+      archived_at?: (string | null) | undefined
+      artifacts?:
+        | {
+            data:
+              | {
+                  global_id?: string | undefined
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+        | undefined
+      created_at: string
+      creator?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      creator_type?:
+        | ("user" | "organization" | UnknownEnumStringValue)
+        | undefined
+      html_url?: string | undefined
+      id: string
+      name?: string | undefined
+      owner?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      repository?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      session_count?: number | undefined
+      sessions?:
+        | {
+            base_ref?: string | undefined
+            completed_at?: string | undefined
+            created_at: string
+            error?:
+              | {
+                  message?: string | undefined
+                }
+              | undefined
+            head_ref?: string | undefined
+            id: string
+            model?: string | undefined
+            name?: string | undefined
+            owner?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+            prompt?: string | undefined
+            repository?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            task_id?: string | undefined
+            updated_at?: string | undefined
+            user?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+          }[]
+        | undefined
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+        | UnknownEnumStringValue
+      updated_at?: string | undefined
+      url?: string | undefined
+      user_collaborators?:
+        | {
+            id?: number | undefined
+          }[]
+        | undefined
+    }>
   > {
     const url = `/agents/repos/${p["owner"]}/${p["repo"]}/tasks/${p["taskId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -1228,111 +1225,108 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
-    AxiosResponse<
-      {
-        archived_at?: (string | null) | undefined
-        artifacts?:
-          | {
-              data:
-                | {
-                    global_id?: string | undefined
-                    id: number
-                  }
-                | {
-                    base_ref: string
-                    head_ref: string
-                  }
-              provider: "github"
-              type: "pull" | "branch" | UnknownEnumStringValue
-            }[]
-          | undefined
-        created_at: string
-        creator?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        creator_type?:
-          | ("user" | "organization" | UnknownEnumStringValue)
-          | undefined
-        html_url?: string | undefined
-        id: string
-        name?: string | undefined
-        owner?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        repository?:
-          | {
-              id?: number | undefined
-            }
-          | undefined
-        session_count?: number | undefined
-        state:
-          | "queued"
-          | "in_progress"
-          | "completed"
-          | "failed"
-          | "idle"
-          | "waiting_for_user"
-          | "timed_out"
-          | "cancelled"
-          | UnknownEnumStringValue
-        updated_at?: string | undefined
-        url?: string | undefined
-        user_collaborators?:
-          | {
-              id?: number | undefined
-            }[]
-          | undefined
-      } & {
-        sessions?:
-          | {
-              base_ref?: string | undefined
-              completed_at?: string | undefined
-              created_at: string
-              error?:
-                | {
-                    message?: string | undefined
-                  }
-                | undefined
-              head_ref?: string | undefined
-              id: string
-              model?: string | undefined
-              name?: string | undefined
-              owner?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-              prompt?: string | undefined
-              repository?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-              state:
-                | "queued"
-                | "in_progress"
-                | "completed"
-                | "failed"
-                | "idle"
-                | "waiting_for_user"
-                | "timed_out"
-                | "cancelled"
-                | UnknownEnumStringValue
-              task_id?: string | undefined
-              updated_at?: string | undefined
-              user?:
-                | {
-                    id?: number | undefined
-                  }
-                | undefined
-            }[]
-          | undefined
-      }
-    >
+    AxiosResponse<{
+      archived_at?: (string | null) | undefined
+      artifacts?:
+        | {
+            data:
+              | {
+                  global_id?: string | undefined
+                  id: number
+                }
+              | {
+                  base_ref: string
+                  head_ref: string
+                }
+            provider: "github"
+            type: "pull" | "branch" | UnknownEnumStringValue
+          }[]
+        | undefined
+      created_at: string
+      creator?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      creator_type?:
+        | ("user" | "organization" | UnknownEnumStringValue)
+        | undefined
+      html_url?: string | undefined
+      id: string
+      name?: string | undefined
+      owner?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      repository?:
+        | {
+            id?: number | undefined
+          }
+        | undefined
+      session_count?: number | undefined
+      sessions?:
+        | {
+            base_ref?: string | undefined
+            completed_at?: string | undefined
+            created_at: string
+            error?:
+              | {
+                  message?: string | undefined
+                }
+              | undefined
+            head_ref?: string | undefined
+            id: string
+            model?: string | undefined
+            name?: string | undefined
+            owner?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+            prompt?: string | undefined
+            repository?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+            state:
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "failed"
+              | "idle"
+              | "waiting_for_user"
+              | "timed_out"
+              | "cancelled"
+              | UnknownEnumStringValue
+            task_id?: string | undefined
+            updated_at?: string | undefined
+            user?:
+              | {
+                  id?: number | undefined
+                }
+              | undefined
+          }[]
+        | undefined
+      state:
+        | "queued"
+        | "in_progress"
+        | "completed"
+        | "failed"
+        | "idle"
+        | "waiting_for_user"
+        | "timed_out"
+        | "cancelled"
+        | UnknownEnumStringValue
+      updated_at?: string | undefined
+      url?: string | undefined
+      user_collaborators?:
+        | {
+            id?: number | undefined
+          }[]
+        | undefined
+    }>
   > {
     const url = `/agents/tasks/${p["taskId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)

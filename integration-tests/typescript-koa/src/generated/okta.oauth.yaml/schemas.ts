@@ -423,11 +423,7 @@ export const s_Client = z.object({
 
 export const s_OAuthKeys = z.object({keys: z.array(s_JsonWebKey).optional()})
 
-export const s_OidcMetadata = s_OAuthMetadata.merge(
-  z.object({
-    id_token_signing_alg_values_supported: z
-      .array(s_SigningAlgorithm)
-      .optional(),
-    userinfo_endpoint: z.string().optional(),
-  }),
-)
+export const s_OidcMetadata = s_OAuthMetadata.extend({
+  id_token_signing_alg_values_supported: z.array(s_SigningAlgorithm).optional(),
+  userinfo_endpoint: z.string().optional(),
+})

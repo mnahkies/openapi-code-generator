@@ -115,12 +115,10 @@ export const s_OperationListResult = z.object({
 })
 
 export const s_Azure_ResourceManager_CommonTypes_TrackedResource =
-  s_Azure_ResourceManager_CommonTypes_Resource.merge(
-    z.object({
-      tags: z.record(z.string(), z.string()).optional(),
-      location: s_Azure_Core_azureLocation,
-    }),
-  )
+  s_Azure_ResourceManager_CommonTypes_Resource.extend({
+    tags: z.record(z.string(), z.string()).optional(),
+    location: s_Azure_Core_azureLocation,
+  })
 
 export const s_Employee = z.intersection(
   s_Azure_ResourceManager_CommonTypes_TrackedResource,
