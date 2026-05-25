@@ -1201,37 +1201,54 @@ export class GitHubV3RestApiService {
     repo: string
     taskId: string
   }): Observable<
-    | (HttpResponse<
-        {
-          archived_at?: string | null
-          artifacts?: {
-            data:
-              | {
-                  global_id?: string
-                  id: number
-                }
-              | {
-                  base_ref: string
-                  head_ref: string
-                }
-            provider: "github"
-            type: "pull" | "branch" | UnknownEnumStringValue
-          }[]
+    | (HttpResponse<{
+        archived_at?: string | null
+        artifacts?: {
+          data:
+            | {
+                global_id?: string
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch" | UnknownEnumStringValue
+        }[]
+        created_at: string
+        creator?: {
+          id?: number
+        }
+        creator_type?: "user" | "organization" | UnknownEnumStringValue
+        html_url?: string
+        id: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        repository?: {
+          id?: number
+        }
+        session_count?: number
+        sessions?: {
+          base_ref?: string
+          completed_at?: string
           created_at: string
-          creator?: {
-            id?: number
+          error?: {
+            message?: string
           }
-          creator_type?: "user" | "organization" | UnknownEnumStringValue
-          html_url?: string
+          head_ref?: string
           id: string
+          model?: string
           name?: string
           owner?: {
             id?: number
           }
+          prompt?: string
           repository?: {
             id?: number
           }
-          session_count?: number
           state:
             | "queued"
             | "in_progress"
@@ -1242,48 +1259,28 @@ export class GitHubV3RestApiService {
             | "timed_out"
             | "cancelled"
             | UnknownEnumStringValue
+          task_id?: string
           updated_at?: string
-          url?: string
-          user_collaborators?: {
+          user?: {
             id?: number
-          }[]
-        } & {
-          sessions?: {
-            base_ref?: string
-            completed_at?: string
-            created_at: string
-            error?: {
-              message?: string
-            }
-            head_ref?: string
-            id: string
-            model?: string
-            name?: string
-            owner?: {
-              id?: number
-            }
-            prompt?: string
-            repository?: {
-              id?: number
-            }
-            state:
-              | "queued"
-              | "in_progress"
-              | "completed"
-              | "failed"
-              | "idle"
-              | "waiting_for_user"
-              | "timed_out"
-              | "cancelled"
-              | UnknownEnumStringValue
-            task_id?: string
-            updated_at?: string
-            user?: {
-              id?: number
-            }
-          }[]
-        }
-      > & {status: 200})
+          }
+        }[]
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string
+        url?: string
+        user_collaborators?: {
+          id?: number
+        }[]
+      }> & {status: 200})
     | (HttpResponse<{
         documentation_url: string
         errors?: {
@@ -1522,37 +1519,54 @@ export class GitHubV3RestApiService {
   }
 
   agentTasksGetTaskById(p: {taskId: string}): Observable<
-    | (HttpResponse<
-        {
-          archived_at?: string | null
-          artifacts?: {
-            data:
-              | {
-                  global_id?: string
-                  id: number
-                }
-              | {
-                  base_ref: string
-                  head_ref: string
-                }
-            provider: "github"
-            type: "pull" | "branch" | UnknownEnumStringValue
-          }[]
+    | (HttpResponse<{
+        archived_at?: string | null
+        artifacts?: {
+          data:
+            | {
+                global_id?: string
+                id: number
+              }
+            | {
+                base_ref: string
+                head_ref: string
+              }
+          provider: "github"
+          type: "pull" | "branch" | UnknownEnumStringValue
+        }[]
+        created_at: string
+        creator?: {
+          id?: number
+        }
+        creator_type?: "user" | "organization" | UnknownEnumStringValue
+        html_url?: string
+        id: string
+        name?: string
+        owner?: {
+          id?: number
+        }
+        repository?: {
+          id?: number
+        }
+        session_count?: number
+        sessions?: {
+          base_ref?: string
+          completed_at?: string
           created_at: string
-          creator?: {
-            id?: number
+          error?: {
+            message?: string
           }
-          creator_type?: "user" | "organization" | UnknownEnumStringValue
-          html_url?: string
+          head_ref?: string
           id: string
+          model?: string
           name?: string
           owner?: {
             id?: number
           }
+          prompt?: string
           repository?: {
             id?: number
           }
-          session_count?: number
           state:
             | "queued"
             | "in_progress"
@@ -1563,48 +1577,28 @@ export class GitHubV3RestApiService {
             | "timed_out"
             | "cancelled"
             | UnknownEnumStringValue
+          task_id?: string
           updated_at?: string
-          url?: string
-          user_collaborators?: {
+          user?: {
             id?: number
-          }[]
-        } & {
-          sessions?: {
-            base_ref?: string
-            completed_at?: string
-            created_at: string
-            error?: {
-              message?: string
-            }
-            head_ref?: string
-            id: string
-            model?: string
-            name?: string
-            owner?: {
-              id?: number
-            }
-            prompt?: string
-            repository?: {
-              id?: number
-            }
-            state:
-              | "queued"
-              | "in_progress"
-              | "completed"
-              | "failed"
-              | "idle"
-              | "waiting_for_user"
-              | "timed_out"
-              | "cancelled"
-              | UnknownEnumStringValue
-            task_id?: string
-            updated_at?: string
-            user?: {
-              id?: number
-            }
-          }[]
-        }
-      > & {status: 200})
+          }
+        }[]
+        state:
+          | "queued"
+          | "in_progress"
+          | "completed"
+          | "failed"
+          | "idle"
+          | "waiting_for_user"
+          | "timed_out"
+          | "cancelled"
+          | UnknownEnumStringValue
+        updated_at?: string
+        url?: string
+        user_collaborators?: {
+          id?: number
+        }[]
+      }> & {status: 200})
     | (HttpResponse<{
         documentation_url: string
         errors?: {

@@ -1350,7 +1350,7 @@ export const s_copilot_dotcom_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1378,7 +1378,7 @@ export const s_copilot_dotcom_pull_requests = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1408,7 +1408,7 @@ export const s_copilot_ide_chat = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -1465,7 +1465,7 @@ export const s_copilot_ide_code_completions = z
         )
         .optional(),
     }),
-    z.record(z.string(), z.unknown()).nullable(),
+    z.record(z.string(), z.unknown()),
   )
   .nullable()
 
@@ -4745,12 +4745,10 @@ export const s_copilot_space = z.object({
 })
 
 export const s_copilot_space_collaborator = z.union([
-  s_simple_user.merge(
-    z.object({
-      actor_type: z.literal("User"),
-      role: z.enum(["reader", "writer", "admin"]),
-    }),
-  ),
+  s_simple_user.extend({
+    actor_type: z.literal("User"),
+    role: z.enum(["reader", "writer", "admin"]),
+  }),
   z.object({
     actor_type: z.literal("Team"),
     role: z.enum(["reader", "writer", "admin"]),
@@ -6612,9 +6610,9 @@ export const s_review_comment = z.object({
   subject_type: z.enum(["line", "file"]).optional(),
 })
 
-export const s_ruleset_version_with_state = s_ruleset_version.merge(
-  z.object({state: z.record(z.string(), z.unknown())}),
-)
+export const s_ruleset_version_with_state = s_ruleset_version.extend({
+  state: z.record(z.string(), z.unknown()),
+})
 
 export const s_runner = z.object({
   id: z.coerce.number(),
@@ -6686,12 +6684,10 @@ export const s_secret_scanning_scan_history = z.object({
   backfill_scans: z.array(s_secret_scanning_scan).optional(),
   custom_pattern_backfill_scans: z
     .array(
-      s_secret_scanning_scan.merge(
-        z.object({
-          pattern_name: z.string().optional(),
-          pattern_scope: z.string().optional(),
-        }),
-      ),
+      s_secret_scanning_scan.extend({
+        pattern_name: z.string().optional(),
+        pattern_scope: z.string().optional(),
+      }),
     )
     .optional(),
   generic_secrets_backfill_scans: z.array(s_secret_scanning_scan).optional(),
@@ -8252,15 +8248,18 @@ export const s_nullable_issue_comment = z
   .nullable()
 
 export const s_org_ruleset_conditions = z.union([
-  s_repository_ruleset_conditions.merge(
-    s_repository_ruleset_conditions_repository_name_target,
-  ),
-  s_repository_ruleset_conditions.merge(
-    s_repository_ruleset_conditions_repository_id_target,
-  ),
-  s_repository_ruleset_conditions.merge(
-    s_repository_ruleset_conditions_repository_property_target,
-  ),
+  z.object({
+    ...s_repository_ruleset_conditions.shape,
+    ...s_repository_ruleset_conditions_repository_name_target.shape,
+  }),
+  z.object({
+    ...s_repository_ruleset_conditions.shape,
+    ...s_repository_ruleset_conditions_repository_id_target.shape,
+  }),
+  z.object({
+    ...s_repository_ruleset_conditions.shape,
+    ...s_repository_ruleset_conditions_repository_property_target.shape,
+  }),
 ])
 
 export const s_organization_secret_scanning_alert = z.object({
@@ -9441,12 +9440,10 @@ export const s_protected_branch = z.object({
 
 export const s_release_event = z.object({
   action: z.string(),
-  release: s_release.merge(
-    z.object({
-      is_short_description_html_truncated: PermissiveBoolean.optional(),
-      short_description_html: z.string().optional(),
-    }),
-  ),
+  release: s_release.extend({
+    is_short_description_html_truncated: PermissiveBoolean.optional(),
+    short_description_html: z.string().optional(),
+  }),
 })
 
 export const s_repository_rule = z.union([
@@ -9475,40 +9472,94 @@ export const s_repository_rule = z.union([
 ])
 
 export const s_repository_rule_detailed = z.union([
-  s_repository_rule_creation.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_update.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_deletion.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_required_linear_history.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_merge_queue.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_required_deployments.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_required_signatures.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_pull_request.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_required_status_checks.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_non_fast_forward.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_commit_message_pattern.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_commit_author_email_pattern.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_committer_email_pattern.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_branch_name_pattern.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_tag_name_pattern.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_workflows.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_code_scanning.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_copilot_code_review.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_file_path_restriction.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_max_file_path_length.merge(s_repository_rule_ruleset_info),
-  s_repository_rule_file_extension_restriction.merge(
-    s_repository_rule_ruleset_info,
-  ),
-  s_repository_rule_max_file_size.merge(s_repository_rule_ruleset_info),
+  z.object({
+    ...s_repository_rule_creation.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_update.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_deletion.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_required_linear_history.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_merge_queue.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_required_deployments.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_required_signatures.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_pull_request.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_required_status_checks.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_non_fast_forward.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_commit_message_pattern.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_commit_author_email_pattern.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_committer_email_pattern.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_branch_name_pattern.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_tag_name_pattern.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_workflows.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_code_scanning.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_copilot_code_review.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_file_path_restriction.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_max_file_path_length.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_file_extension_restriction.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
+  z.object({
+    ...s_repository_rule_max_file_size.shape,
+    ...s_repository_rule_ruleset_info.shape,
+  }),
 ])
 
 export const s_snapshot = z.object({

@@ -9,6 +9,7 @@ import type {
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
@@ -173,7 +174,13 @@ export abstract class AbstractSchemaBuilder<
     // the schema library.
     if (isAnonymous && this.imports) {
       this.importHelpers(this.imports)
-      this.imports.from(this.filename).add("joiIntersect")
+
+      // todo: hack, why does the abstract schema builder know about the joiIntersect helper
+      if (this.parent) {
+        this.imports.from(this.filename).add("joiIntersect")
+        // @ts-expect-error force generation of the helper.
+        this.parent.includeIntersectHelper = true
+      }
     }
 
     let result: string
@@ -232,17 +239,7 @@ export abstract class AbstractSchemaBuilder<
         result = this.array(model, [this.arrayItems(model.items)])
         break
       case "intersection": {
-        // todo: do we need to special case a single schema?
-        const schemas = model.schemas.map((it) => this.fromModel(it, true))
-
-        // Note: for zod in particular it's desirable to use merge over intersection
-        //       where possible, as it returns a more malleable schema
-        const isMergable = model.schemas
-          .map((it) => this.schemaProvider.schema(it))
-          .every((it) => it.type === "object" && !it.additionalProperties)
-
-        result = isMergable ? this.merge(schemas) : this.intersect(schemas)
-
+        result = this.intersection(model)
         break
       }
 
@@ -252,6 +249,24 @@ export abstract class AbstractSchemaBuilder<
       }
 
       case "object": {
+        if (
+          Object.keys(model.properties).length &&
+          model.additionalProperties
+        ) {
+          return this.fromModel(
+            {
+              isIRModel: true,
+              nullable: model.nullable,
+              type: "intersection",
+              schemas: [
+                {...model, nullable: false, additionalProperties: undefined},
+                {...model.additionalProperties, nullable: false},
+              ],
+            },
+            true,
+          )
+        }
+
         const properties =
           Object.keys(model.properties).length &&
           this.object(
@@ -270,9 +285,7 @@ export abstract class AbstractSchemaBuilder<
           model.additionalProperties &&
           this.fromModel(model.additionalProperties, true)
 
-        if (properties && additionalProperties) {
-          result = this.intersect([properties, additionalProperties])
-        } else if (properties) {
+        if (properties) {
           result = properties
         } else if (additionalProperties) {
           result = additionalProperties
@@ -337,19 +350,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract lazy(schema: string): string
 
-  /**
-   * Equivalent to `type z = x & y` but only works on non-record object schemas
-   * @param schemas
-   * @protected
-   */
-  protected abstract merge(schemas: string[]): string
-
-  /**
-   * Equivalent to `type z = x & y`, works on any schemas
-   * @param schemas
-   * @protected
-   */
-  protected abstract intersect(schemas: string[]): string
+  protected abstract intersection(model: IRModelIntersection): string
 
   protected abstract union(schemas: string[]): string
 

@@ -1183,11 +1183,14 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
       )
 
       expect(code).toMatchInlineSnapshot(`
-          "const x = z.union([
-            z.string(),
-            z.object({ foo: z.string() }).merge(z.object({ bar: z.string() })),
-          ])"
-        `)
+        "const x = z.union([
+          z.string(),
+          z.object({
+            ...z.object({ foo: z.string() }).shape,
+            ...z.object({ bar: z.string() }).shape,
+          }),
+        ])"
+      `)
 
       await expect(execute("some string")).resolves.toEqual("some string")
       await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
@@ -1230,9 +1233,12 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
         }),
       )
 
-      expect(code).toMatchInlineSnapshot(
-        `"const x = z.object({ foo: z.string() }).merge(z.object({ bar: z.string() }))"`,
-      )
+      expect(code).toMatchInlineSnapshot(`
+        "const x = z.object({
+          ...z.object({ foo: z.string() }).shape,
+          ...z.object({ bar: z.string() }).shape,
+        })"
+      `)
 
       await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
         foo: "bla",

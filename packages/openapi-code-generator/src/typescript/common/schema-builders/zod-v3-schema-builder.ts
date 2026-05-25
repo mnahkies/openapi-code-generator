@@ -4,6 +4,7 @@ import type {
   IRModel,
   IRModelArray,
   IRModelBoolean,
+  IRModelIntersection,
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
@@ -113,6 +114,16 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
 
   protected lazy(schema: string): string {
     return [zod, `lazy(() => ${schema})`].join(".")
+  }
+
+  protected intersection(model: IRModelIntersection): string {
+    const schemas = model.schemas.map((it) => this.fromModel(it, true))
+
+    const isMergable = model.schemas
+      .map((it) => this.schemaProvider.schema(it))
+      .every((it) => it.type === "object" && !it.additionalProperties)
+
+    return isMergable ? this.merge(schemas) : this.intersect(schemas)
   }
 
   protected merge(schemas: string[]): string {
