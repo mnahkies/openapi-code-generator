@@ -284,10 +284,7 @@ export abstract class AbstractSchemaBuilder<
         const additionalProperties =
           model.additionalProperties &&
           this.fromModel(model.additionalProperties, true)
-        //
-        // if (properties && additionalProperties) {
-        //   result = this.intersect([properties, additionalProperties])
-        // } else
+
         if (properties) {
           result = properties
         } else if (additionalProperties) {
