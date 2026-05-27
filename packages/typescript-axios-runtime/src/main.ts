@@ -1,7 +1,7 @@
 import {
   type Encoding,
   requestBodyToUrlSearchParams,
-} from "@nahkies/typescript-common-runtime/request-bodies"
+} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
 import type {
   HeaderParams,
   QueryParams,

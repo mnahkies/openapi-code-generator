@@ -23,7 +23,7 @@ export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-par
 import {
   parseOctetStreamRequestBody,
   type SizeLimit,
-} from "@nahkies/typescript-common-runtime/request-bodies"
+} from "@nahkies/typescript-common-runtime/request-bodies/octet-stream"
 
 export {
   type Params,

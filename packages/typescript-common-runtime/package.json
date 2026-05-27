@@ -59,14 +59,24 @@
         "default": "./dist/cjs/query-parser.cjs"
       }
     },
-    "./request-bodies": {
+    "./request-bodies/octet-stream": {
       "import": {
-        "types": "./dist/esm/request-bodies/index.d.mts",
-        "default": "./dist/esm/request-bodies/index.mjs"
+        "types": "./dist/esm/request-bodies/octet-stream.d.mts",
+        "default": "./dist/esm/request-bodies/octet-stream.mjs"
       },
       "require": {
-        "types": "./dist/cjs/request-bodies/index.d.cts",
-        "default": "./dist/cjs/request-bodies/index.cjs"
+        "types": "./dist/cjs/request-bodies/octet-stream.d.cts",
+        "default": "./dist/cjs/request-bodies/octet-stream.cjs"
+      }
+    },
+    "./request-bodies/url-search-params": {
+      "import": {
+        "types": "./dist/esm/request-bodies/url-search-params.d.mts",
+        "default": "./dist/esm/request-bodies/url-search-params.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/request-bodies/url-search-params.d.cts",
+        "default": "./dist/cjs/request-bodies/url-search-params.cjs"
       }
     }
   },

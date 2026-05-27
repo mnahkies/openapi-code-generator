@@ -2,8 +2,8 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
-import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
-import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies"
+import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies/octet-stream"
+import {parseOctetStreamRequestBody} from "@nahkies/typescript-common-runtime/request-bodies/octet-stream"
 import {
   type Res,
   SkipResponse,
