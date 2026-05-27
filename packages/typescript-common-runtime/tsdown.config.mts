@@ -20,6 +20,8 @@ export default defineConfig({
   publint: true,
   attw: {profile: "node16"},
 
+  deps: {onlyBundle: []},
+
   format: {
     esm: {
       outDir: "./dist/esm",
