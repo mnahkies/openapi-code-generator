@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.24.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.23.0...v0.24.0) (2026-05-27)
+
+### Bug Fixes
+
+- extranous runtime deps bundled ([#471](https://github.com/mnahkies/openapi-code-generator/issues/471)) ([4ca6a09](https://github.com/mnahkies/openapi-code-generator/commit/4ca6a09f6f21a6a27a57118f9693e9750dab4752))
+
+### Features
+
+- support format: date / time ([#467](https://github.com/mnahkies/openapi-code-generator/issues/467)) ([e7eb164](https://github.com/mnahkies/openapi-code-generator/commit/e7eb164ebead56e9e7c26111213f319e933f95a0))
+- zod v4 uses spread / extend ([#468](https://github.com/mnahkies/openapi-code-generator/issues/468)) ([1b551f5](https://github.com/mnahkies/openapi-code-generator/commit/1b551f52db307df44898a979518ac5721333d2d8))
+
 # [0.23.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0...v0.23.0) (2026-05-09)
 
 ### Bug Fixes

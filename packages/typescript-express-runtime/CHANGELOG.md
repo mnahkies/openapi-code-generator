@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.24.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.23.0...v0.24.0) (2026-05-27)
+
+### Bug Fixes
+
+- extranous runtime deps bundled ([#471](https://github.com/mnahkies/openapi-code-generator/issues/471)) ([4ca6a09](https://github.com/mnahkies/openapi-code-generator/commit/4ca6a09f6f21a6a27a57118f9693e9750dab4752))
+
 # [0.23.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0...v0.23.0) (2026-05-09)
 
 ### Bug Fixes
