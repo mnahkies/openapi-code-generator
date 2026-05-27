@@ -12,7 +12,7 @@ const nextConfig = {
     resolveAlias: {
       "next-mdx-import-source-file": "./src/mdx-components.tsx",
       // todo: ajv validator uses `require` in esm context, causing `node:module` to be used
-      //       figure out a way to prevent this.
+      //       https://github.com/ajv-validator/ajv/issues/2598 should solve upstream
       "@nahkies/openapi-code-generator/web":
         "./node_modules/@nahkies/openapi-code-generator/dist/cjs/web.cjs",
     },
