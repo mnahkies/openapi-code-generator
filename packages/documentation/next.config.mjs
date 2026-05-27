@@ -11,6 +11,8 @@ const nextConfig = {
   turbopack: {
     resolveAlias: {
       "next-mdx-import-source-file": "./src/mdx-components.tsx",
+      // todo: ajv validator uses `require` in esm context, causing `node:module` to be used
+      //       figure out a way to prevent this.
       "@nahkies/openapi-code-generator/web":
         "./node_modules/@nahkies/openapi-code-generator/dist/cjs/web.cjs",
     },

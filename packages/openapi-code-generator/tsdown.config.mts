@@ -13,6 +13,10 @@ export default defineConfig({
   publint: true,
   attw: {profile: "node16"},
 
+  deps: {
+    onlyBundle: ["@nahkies/typescript-common-runtime"],
+  },
+
   format: {
     esm: {
       outDir: "./dist/esm",
