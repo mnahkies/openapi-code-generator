@@ -2,7 +2,7 @@ import type {
   QueryParameter,
   SchemaStructure,
 } from "@nahkies/typescript-common-runtime/query-parser"
-import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies"
+import type {SizeLimit} from "@nahkies/typescript-common-runtime/request-bodies/octet-stream"
 import type {Input} from "../../core/input.ts"
 import {logger} from "../../core/logger.ts"
 import type {IRModel, IROperation} from "../../core/openapi-types-normalized.ts"

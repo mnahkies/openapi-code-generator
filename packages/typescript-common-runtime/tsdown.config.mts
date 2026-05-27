@@ -8,7 +8,8 @@ export default defineConfig({
     "./src/validation.ts",
     "./src/types.ts",
     "./src/query-parser.ts",
-    "./src/request-bodies/index.ts",
+    "./src/request-bodies/octet-stream.ts",
+    "./src/request-bodies/url-search-params.ts",
   ],
 
   target: "esnext",
