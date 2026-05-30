@@ -4,6 +4,7 @@ import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
 import type {IRModel} from "../../../core/openapi-types-normalized.ts"
 import {isDefined} from "../../../core/utils.ts"
 import {FakeSchemaProvider} from "../../../test/fake-schema-provider.ts"
+import {unitTestInput} from "../../../test/input.test-utils.ts"
 import {irFixture as ir} from "../../../test/ir-model.fixtures.test-utils.ts"
 import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder.ts"
@@ -1273,6 +1274,48 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
         bar: "bar",
       })
     })
+
+    it("can generate a discriminated union with $ref", async () => {
+      const {code} = await getActual(
+        ir.union({
+          schemas: [
+            ir.ref("/components/schemas/A"),
+            ir.ref("/components/schemas/B"),
+          ],
+          discriminator: {
+            propertyName: "kind",
+            mapping: {
+              a: ir.ref("/components/schemas/A"),
+              b: ir.ref("/components/schemas/B"),
+            },
+          },
+        }),
+        {
+          schemas: {
+            "/components/schemas/A": ir.object({
+              properties: {
+                kind: ir.string({enum: ["a"]}),
+                foo: ir.string(),
+              },
+              required: ["kind", "foo"],
+            }),
+            "/components/schemas/B": ir.object({
+              properties: {
+                kind: ir.string({enum: ["b"]}),
+                bar: ir.string(),
+              },
+              required: ["kind", "bar"],
+            }),
+          },
+        },
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "import { s_A, s_B } from "./unit-test.schemas"
+
+        const x = z.discriminatedUnion("kind", [s_A, s_B])"
+      `)
+    })
   })
 
   describe("intersections", () => {
@@ -1516,11 +1559,17 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
     {
       config = {allowAny: false},
       compilerOptions = {exactOptionalPropertyTypes: false},
+      schemas = {},
     }: {
       config?: SchemaBuilderConfig
       compilerOptions?: CompilerOptions
+      schemas?: Record<string, IRModel>
     } = {},
   ) {
+    for (const [ref, model] of Object.entries(schemas)) {
+      schemaProvider.registerTestRef(ir.ref(ref), model)
+    }
+
     return testHarness.getActual(schema, schemaProvider, {
       config,
       compilerOptions,
