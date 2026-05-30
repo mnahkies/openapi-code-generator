@@ -91568,10 +91568,7 @@ export function createRouter(
 
   const usersGetAuthenticatedResponseValidator = responseValidationFactory(
     [
-      [
-        "200",
-        z.discriminatedUnion("user_view_type", [s_public_user, s_private_user]),
-      ],
+      ["200", z.union([s_private_user, s_public_user])],
       ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
@@ -97335,10 +97332,7 @@ export function createRouter(
 
   const usersGetByIdResponseValidator = responseValidationFactory(
     [
-      [
-        "200",
-        z.discriminatedUnion("user_view_type", [s_public_user, s_private_user]),
-      ],
+      ["200", z.union([s_private_user, s_public_user])],
       ["404", s_basic_error],
     ],
     undefined,
@@ -97557,10 +97551,7 @@ export function createRouter(
 
   const usersGetByUsernameResponseValidator = responseValidationFactory(
     [
-      [
-        "200",
-        z.discriminatedUnion("user_view_type", [s_public_user, s_private_user]),
-      ],
+      ["200", z.union([s_private_user, s_public_user])],
       ["404", s_basic_error],
     ],
     undefined,

@@ -452,6 +452,7 @@ export class SchemaNormalizer {
       )
 
       if (!isRequired) {
+        // todo: when defaultMapping support is added, an undefined discriminator property value will map to the defaultMapping
         logger.warn(
           `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's not required in one or more schemas`,
         )
