@@ -45,7 +45,7 @@
     "@biomejs/wasm-nodejs": "2.4.15",
     "@commander-js/extra-typings": "^14.0.0",
     "@jest/reporters": "^30.4.1",
-    "@swc/core": "^1.15.33",
+    "@swc/core": "^1.15.40",
     "@swc/jest": "^0.2.39",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",

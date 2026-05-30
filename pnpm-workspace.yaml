@@ -41,7 +41,7 @@ overrides:
   'lodash-es@~4.17': ^4.18.0
   qs: ^6.14.2
   tar: ^7.5.11
-  zod@4.1.11: 4.1.13
+  zod: ^4.3.6
   fast-uri@^3: ^3.1.1
   # todo: https://github.com/arethetypeswrong/arethetypeswrong.github.io/issues/258
   fflate: "0.8.2"
