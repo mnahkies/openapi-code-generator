@@ -9,9 +9,9 @@ fi
 
 git pull origin main
 
-pnpm clean
+pnpm run clean
 
-pnpm install --frozen-lockfile
+pnpm ci
 
 pnpm ci-pipeline
 

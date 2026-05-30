@@ -41,28 +41,20 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-fetch-runtime/package.json",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/main.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/main.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/esm/main.d.mts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/main.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/zod-v3.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v3.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/esm/zod-v3.d.mts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v3.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/zod-v4.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v4.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/esm/zod-v4.d.mts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v4.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/joi.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/joi.d.ts",
-      },
-      {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/common.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/common.d.ts",
-      },
-      {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/types.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/types.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/esm/joi.d.mts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/joi.d.mts",
       },
     ],
     "typescript-axios": [
@@ -71,8 +63,8 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-axios-runtime/package.json",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-axios-runtime@latest/dist/main.d.ts",
-        path: "/node_modules/@nahkies/typescript-axios-runtime/main.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-axios-runtime@latest/dist/esm/main.d.mts",
+        path: "/node_modules/@nahkies/typescript-axios-runtime/main.d.mts",
       },
     ],
     "typescript-koa": [
@@ -81,24 +73,24 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-koa-runtime/package.json",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/server.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/server.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/esm/server.d.mts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/server.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/errors.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/esm/errors.d.mts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod-v3.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v3.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/esm/zod-v3.d.mts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v3.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod-v4.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v4.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/esm/zod-v4.d.mts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v4.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/joi.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/joi.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/esm/joi.d.mts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/joi.d.mts",
       },
     ],
     "typescript-express": [
@@ -107,24 +99,24 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-express-runtime/package.json",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/server.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/server.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/esm/server.d.mts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/server.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/errors.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/esm/errors.d.mts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/errors.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod-v3.d.ts",
-        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v3.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/esm/zod-v3.d.mts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v3.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod-v4.d.ts",
-        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v4.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/esm/zod-v4.d.mts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v4.d.mts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/joi.d.ts",
-        path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/esm/joi.d.mts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.mts",
       },
     ],
   }
