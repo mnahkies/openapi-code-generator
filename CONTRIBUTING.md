@@ -24,11 +24,9 @@ PR with a detailed description is fine too.
 
 ## Setup
 
-1. Install a node version manager that respects `.nvmrc` files, such as
-   [fnm](https://github.com/Schniz/fnm)
-2. Enable [corepack](https://nodejs.org/api/corepack.html) using `corepack
-   enable`
-3. Install `devDependencies` using `pnpm`
+1. Install [mise](https://mise.jdx.dev/)
+2. Run `mise trust && mise i` (Ensures Node.js >= 22.x is used)
+3. Install dependencies using `pnpm install`
 
 ## Workflow
 
@@ -37,21 +35,9 @@ See [package.json](./package.json) for available scripts.
 Main ones of interest are `build`, `test`, `lint`. E.g:
 
 ```shell
-pnpm build
-pnpm test
-pnpm lint
-```
-
-To regenerate the integration tests:
-
-```shell
-pnpm integration:generate
-```
-
-And to build them / check the code output is valid:
-
-```shell
-pnpm integration:validate
+pnpm run build
+pnpm run test
+pnpm run lint
 ```
 
 There's also a `ci-pipeline` script that can be used as a pre-push check, e.g:
@@ -85,34 +71,49 @@ The config can be seen here [./biome.json](./biome.json)
 ## Testing
 
 ```shell
-pnpm test
-pnpm integration:generate && pnpm integration:validate
+pnpm run test # unit tests
+pnpm run integration:generate && pnpm run integration:validate # integration test
+pnpm run e2e:generate && pnpm run e2e:validate # e2e tests
 ```
 
-We have two types of testing in play:
+We have three types of testing in play:
 
-* Unit tests using `jest`
+* Unit tests
 * Integration tests
+* E2E tests
 
-The unit testing is currently a bit on the "light" side - the project started
-as a fun experiment on a weekend and there is still some back filling to do.
-New code, and particularly bug fixes should include unit tests.
+### Unit Testing
 
-There is also a heavy reliance on integration tests, where we use the openapi
-specifications for large API surfaces to run the code generation and check that
-the result builds, currently this includes:
+All new code should include unit tests. These are the most useful in terms of catching regressions,
+and run the fastest.
+
+Use `pnpm run test`
+
+### Integration Tests
+
+We use publically available, large API surfaces to run our integration tests. Currently, this includes:
 
 * Github API
 * Stripe API
-* Okta API (partial)
-* Petstore API (from Swagger)
+* Okta API (Identity and OAuth)
+* Petstore API
+* Azure Core Service and Resource Manager (TypeSpec)
 * A Todo List API (written for this repo, showcases definitions split across
   multiple files)
 
 At this stage we don't actually execute the code generated for these API's, but
-this would be a nice improvement for the future. The Github client in
-particular gets a fair amount of use for automating tasks against my
-workplace's Github organisation.
+the build check ensures that the generated code is syntactically correct and
+type-safe.
+
+Use `pnpm run integration:generate && pnpm run integration:validate`
+
+### E2E Tests
+
+E2E tests involve generating code for a specific specification and running
+actual functional tests against it to ensure the runtime behavior is correct.
+
+Use `pnpm run e2e:generate` to generate the test code and `pnpm run e2e:validate` to run
+the tests.
 
 ## Publishing
 
