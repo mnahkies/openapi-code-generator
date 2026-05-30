@@ -7,7 +7,7 @@ import {Callout} from "nextra/components"
 
 # Welcome
 
-`@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
+`@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDKs,
 and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
 Currently, [OpenAPI 3.0.x](https://spec.openapis.org/oas/v3.0.4.html), [OpenAPI 3.1.x](https://spec.openapis.org/oas/v3.1.1.html), and [TypeSpec](https://typespec.io/) are supported input specifications.
@@ -42,7 +42,7 @@ never misspell a field name or route again.
 - [typescript-angular](../guides/client-templates/typescript-angular)
 
 
-## Project Goal / Principals
+## Project Goal / Principles
 To make it fun, easy, and productive to generate both client and server "glue"
 code from openapi 3 definitions. This is code that is tedious and error-prone to maintain by hand,
 by automating it we can **reduce toil and frustration**.
@@ -51,9 +51,9 @@ The generated code **output should be "stable"** in the sense that it will not
 arbitrarily change between generation without need (for a given version). For
 example outputting entities in alphabetic order where possible.
 
-It should also be **generated in a way that human would reasonably write it**,
+It should also be **generated in a way that a human would reasonably write it**,
 the intent is that the generated code can and should be committed to the consuming project
-repositories, allowing it to be reviewed, and audited overtime.
+repositories, allowing it to be reviewed and audited over time.
 
 This is particularly useful in the case of mistakes in the generation or schemas, and also
 serves to reduce risk of adoption. **There should be no lock-in** - if you wish to stop using the

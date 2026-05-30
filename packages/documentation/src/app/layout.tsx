@@ -81,12 +81,24 @@ export default async function RootLayout({children}: {children: ReactNode}) {
 
         <Script
           async
-          src="https://plausible.nahkies.co.nz/js/pa-0fbOteYkFF3Wja9FWEfQB.js"
+          src="https://ps.nahkies.co.nz/js/pa-0fbOteYkFF3Wja9FWEfQB.js"
+          onLoad={() => {
+            window.plausible =
+              window.plausible ||
+              function () {
+                window.plausible.q = window.plausible.q || []
+                // biome-ignore lint/complexity/noArguments: analytics
+                window.plausible.q.push(arguments)
+              }
+
+            window.plausible.init =
+              window.plausible.init ||
+              ((i: unknown) => {
+                window.plausible.o = i || {}
+              })
+            window.plausible.init()
+          }}
         />
-        <Script id="plausible-init">
-          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-          plausible.init()`}
-        </Script>
       </Head>
       <body>
         <Layout
