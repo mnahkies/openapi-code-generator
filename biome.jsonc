@@ -55,6 +55,9 @@
       "complexity": {
         "noForEach": "error"
       },
+      "correctness": {
+        "noUnusedImports": "error"
+      },
       "suspicious": {
         "noImportCycles": "error"
       },
