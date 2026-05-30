@@ -3,28 +3,36 @@ packages:
   - integration-tests/*
   - e2e
 
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
+  nx: false
+  sharp: false
+  unrs-resolver: false
+
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 10080
+
 dedupeInjectedDeps: true
 
 gitChecks: false
 
-ignoredBuiltDependencies:
-  - '@parcel/watcher'
-  - '@swc/core'
-  - esbuild
-  - lmdb
-  - msgpackr-extract
-  - nx
-  - sharp
-  - unrs-resolver
-
 linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
-
-minimumReleaseAgeExclude:
-  - '@koa/router@15.5.0'
+minimumReleaseAgeExclude: []
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
+
+strictPeerDependencies: true
+peerDependencyRules:
+  allowedVersions:
+    typescript: ^6
+    zod: ^4
 
 overrides:
   '@isaacs/brace-expansion': ^5.0.1
@@ -35,6 +43,8 @@ overrides:
   tar: ^7.5.11
   zod@4.1.11: 4.1.13
   fast-uri@^3: ^3.1.1
+  # todo: https://github.com/arethetypeswrong/arethetypeswrong.github.io/issues/258
+  fflate: "0.8.2"
 
 preferWorkspacePackages: true
 
