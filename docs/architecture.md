@@ -68,10 +68,10 @@ graph TD
 ### Invariants
 - **No `npx`**: Always use `pnpm run` or `pnpm exec`.
 - **Read-Only Generation**: Never manually edit files in `src/generated/` directories; they are overwritten during generation.
-- **Jest Globals**: Always explicitly import Jest globals (`describe`, `it`, `expect`) from `@jest/globals`.
+- **Vitest Globals**: Always explicitly import vitest globals (`describe`, `it`, `expect`) from `vitest`.
 
 ### Conventions
-- **Co-location**: Unit tests (`*.spec.ts`) are co-located with the source code they test. Use explicit jest imports (`import {describe, it, expect} from "@jest/globals"`).
+- **Co-location**: Unit tests (`*.spec.ts`) are co-located with the source code they test. Use explicit vitest imports (`import {describe, it, expect} from "vitest"`).
 - **Import Extensions**: Use `.ts` extensions in imports (e.g., `import {foo} from "./foo.ts"`) to support ESM.
 - **Dependency Migration**: Prefer `pnpm` workspace references (e.g., `"@nahkies/typescript-common-runtime": "workspace:*"`).
 

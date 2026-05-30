@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from "@jest/globals"
+import {describe, expect, it, vi} from "vitest"
 import {WebFsAdaptor} from "../file-system/web-fs-adaptor.ts"
 import {loadTsConfigCompilerOptions} from "./tsconfig.loader.ts"
 
@@ -108,7 +108,7 @@ describe("core/loaders/tsconfig.loader", () => {
       }),
     })
 
-    const spy = jest
+    const spy = vi
       .spyOn(fs, "readFile")
       .mockRejectedValue(new Error("EACCES: permission denied"))
 

@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, it, jest} from "@jest/globals"
+import {beforeEach, describe, expect, it, type Mocked, vi} from "vitest"
 import {FakeSchemaProvider} from "../../test/fake-schema-provider.ts"
 import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils.ts"
 import type {OpenapiLoader} from "../loaders/openapi-loader.ts"
@@ -8,17 +8,17 @@ import {ParameterNormalizer} from "./parameter-normalizer.ts"
 import {SchemaNormalizer} from "./schema-normalizer.ts"
 
 describe("ParameterNormalizer", () => {
-  let loader: jest.Mocked<OpenapiLoader>
+  let loader: Mocked<OpenapiLoader>
   let fakeSchemaProvider: FakeSchemaProvider
   let schemaNormalizer: SchemaNormalizer
   let parameterNormalizer: ParameterNormalizer
 
   beforeEach(() => {
     loader = {
-      parameter: jest.fn(),
-      schema: jest.fn(),
-      addVirtualType: jest.fn(),
-    } as unknown as jest.Mocked<OpenapiLoader>
+      parameter: vi.fn(),
+      schema: vi.fn(),
+      addVirtualType: vi.fn(),
+    } as unknown as Mocked<OpenapiLoader>
 
     fakeSchemaProvider = new FakeSchemaProvider()
 

@@ -1,5 +1,5 @@
 import * as vm from "node:vm"
-import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
+import {beforeAll, beforeEach, describe, expect, it} from "vitest"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
 import type {IRModel} from "../../../core/openapi-types-normalized.ts"
 import {FakeSchemaProvider} from "../../../test/fake-schema-provider.ts"
@@ -645,11 +645,8 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).required()"`,
       )
 
-      await expect(execute([])).resolves.toStrictEqual([])
-      await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
-        "foo",
-        "bar",
-      ])
+      await expect(execute([])).resolves.toEqual([])
+      await expect(execute(["foo", "bar"])).resolves.toEqual(["foo", "bar"])
       await expect(execute([1, 2])).rejects.toThrow('"[0]" must be a string')
     })
 
@@ -665,10 +662,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).unique().required()"`,
       )
 
-      await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
-        "foo",
-        "bar",
-      ])
+      await expect(execute(["foo", "bar"])).resolves.toEqual(["foo", "bar"])
       await expect(execute(["foo", "foo"])).rejects.toThrow(
         '"[1]" contains a duplicate value',
       )
@@ -686,10 +680,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).min(2).required()"`,
       )
 
-      await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
-        "foo",
-        "bar",
-      ])
+      await expect(execute(["foo", "bar"])).resolves.toEqual(["foo", "bar"])
       await expect(execute(["foo"])).rejects.toThrow(
         '"value" must contain at least 2 items',
       )
@@ -707,10 +698,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).max(2).required()"`,
       )
 
-      await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
-        "foo",
-        "bar",
-      ])
+      await expect(execute(["foo", "bar"])).resolves.toEqual(["foo", "bar"])
       await expect(execute(["foo", "bar", "foobar"])).rejects.toThrow(
         '"value" must contain less than or equal to 2 items',
       )
@@ -730,7 +718,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.number()).unique().min(1).max(3).required()"`,
       )
 
-      await expect(execute([1, 2])).resolves.toStrictEqual([1, 2])
+      await expect(execute([1, 2])).resolves.toEqual([1, 2])
       await expect(execute([])).rejects.toThrow(
         '"value" must contain at least 1 items',
       )
@@ -754,7 +742,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).default(["example"])"`,
       )
 
-      await expect(execute(undefined)).resolves.toStrictEqual(["example"])
+      await expect(execute(undefined)).resolves.toEqual(["example"])
     })
 
     it("supports empty array default values", async () => {
@@ -769,7 +757,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
         `"const x = joi.array().items(joi.string()).default([])"`,
       )
 
-      await expect(execute(undefined)).resolves.toStrictEqual([])
+      await expect(execute(undefined)).resolves.toEqual([])
     })
   })
 
@@ -925,9 +913,6 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
             .default({ name: "example", age: 22 })"
         `)
 
-      // HACK: If we do a toStrictEqual, we get 'Received: serializes to the same string'
-      //       presumably due to the use of global that differs inside the VM to outside.
-      //       Passing through `Object` doesn't fix it, so just use toEqual ¯\_(ツ)_/¯
       await expect(execute(undefined)).resolves.toEqual({
         name: "example",
         age: 22,

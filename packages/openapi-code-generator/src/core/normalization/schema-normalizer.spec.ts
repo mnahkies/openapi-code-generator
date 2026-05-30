@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, it} from "@jest/globals"
+import {beforeEach, describe, expect, it} from "vitest"
 import {FakeSchemaProvider} from "../../test/fake-schema-provider.ts"
 import {irFixture as ir} from "../../test/ir-model.fixtures.test-utils.ts"
 import {generationLib} from "../generation-lib.ts"

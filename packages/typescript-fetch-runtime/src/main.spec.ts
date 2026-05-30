@@ -1,7 +1,7 @@
 // biome-ignore-all lint/suspicious/noExplicitAny: tests
 
-import {describe, expect, it} from "@jest/globals"
 import type {Encoding} from "@nahkies/typescript-common-runtime/request-bodies/url-search-params"
+import {describe, expect, it} from "vitest"
 import {
   AbstractFetchClient,
   type AbstractFetchClientConfig,

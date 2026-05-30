@@ -1,6 +1,6 @@
 import path from "node:path"
-import {jest} from "@jest/globals"
 import yaml from "js-yaml"
+import {vi} from "vitest"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor.ts"
 import {Input, type InputConfig} from "../core/input.ts"
 import {GenericLoader} from "../core/loaders/generic.loader.ts"
@@ -40,7 +40,7 @@ export async function unitTestInput(
   const validator = await OpenapiValidator.create()
 
   if (skipValidation) {
-    jest.spyOn(validator, "validate").mockResolvedValue()
+    vi.spyOn(validator, "validate").mockResolvedValue()
   }
 
   const file = fileForVersion(version)
@@ -75,7 +75,7 @@ export async function createTestInputFromYamlString(
   const validator = await OpenapiValidator.create()
 
   if (skipValidation) {
-    jest.spyOn(validator, "validate").mockResolvedValue()
+    vi.spyOn(validator, "validate").mockResolvedValue()
   }
 
   const loader = await OpenapiLoader.createFromLiteral(

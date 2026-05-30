@@ -1,4 +1,4 @@
-import {beforeAll, describe, expect, it} from "@jest/globals"
+import {beforeAll, describe, expect, it} from "vitest"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
 import {testVersions, unitTestInput} from "../../../test/input.test-utils.ts"
 import {TypescriptFormatterBiome} from "../typescript-formatter.biome.ts"

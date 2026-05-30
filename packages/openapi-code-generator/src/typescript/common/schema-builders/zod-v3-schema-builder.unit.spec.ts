@@ -1,5 +1,5 @@
 import * as vm from "node:vm"
-import {beforeAll, beforeEach, describe, expect, it} from "@jest/globals"
+import {beforeAll, beforeEach, describe, expect, it} from "vitest"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
 import type {IRModel} from "../../../core/openapi-types-normalized.ts"
 import {isDefined} from "../../../core/utils.ts"

@@ -74,7 +74,7 @@
     "dev": "nodemon --watch ./src -e ts --delay 2 --exec 'pnpm build'",
     "build": "tsc -p ./tsconfig.json",
     "bundle": "tsdown",
-    "test": "jest"
+    "test": "vitest run"
   },
   "dependencies": {
     "raw-body": "^3.0.2",
@@ -103,10 +103,10 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "body-parser": "^2.2.2",
-    "jest": "^30.4.2",
     "joi": "^18.2.1",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
+    "vitest": "^4.0.11",
     "zod": "^4.3.6"
   },
   "files": [
