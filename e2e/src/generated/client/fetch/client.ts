@@ -12,6 +12,7 @@ import {
 import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
 import {z} from "zod/v4"
 import type {
+  t_Animal,
   t_Enumerations,
   t_GetHeadersRequest200Response,
   t_GetHeadersUndeclared200Response,
@@ -29,6 +30,7 @@ import type {
   UnknownEnumStringValue,
 } from "./models.ts"
 import {
+  s_Animal,
   s_Enumerations,
   s_GetHeadersRequest200Response,
   s_GetHeadersUndeclared200Response,
@@ -357,6 +359,29 @@ export class E2ETestClient extends AbstractFetchClient {
       ],
       undefined,
     )(res)
+  }
+
+  async postValidationObjectsDiscriminatedUnion(
+    p: {
+      requestBody: t_Animal
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_Animal>> {
+    const url = this.basePath + `/validation/objects/discriminated-union`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    const res = this._fetch(
+      url,
+      {method: "POST", body, ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory([["200", s_Animal]], undefined)(res)
   }
 
   async getResponses500(

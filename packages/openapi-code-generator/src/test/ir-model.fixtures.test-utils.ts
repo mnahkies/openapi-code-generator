@@ -115,6 +115,7 @@ const extension = {
     schemas: [base.any],
     nullable: false,
     default: undefined,
+    discriminator: undefined,
     "x-internal-preprocess": undefined,
   } satisfies IRModelUnion,
   null: {
@@ -178,7 +179,6 @@ export const irFixture = {
   ref(path: string, file = ""): IRRef {
     return {
       $ref: `${file}#${path}`,
-      "x-internal-preprocess": undefined,
     }
   },
   any(partial: Partial<IRModelAny> = {}): IRModelAny {

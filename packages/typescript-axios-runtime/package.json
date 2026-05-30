@@ -44,7 +44,7 @@
   "devDependencies": {
     "@jest/globals": "^30.4.1",
     "@nahkies/typescript-common-runtime": "workspace:^",
-    "axios": "^1.16.1",
+    "axios": "^1.15.2",
     "jest": "^30.4.2",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3"

@@ -82,7 +82,7 @@
     "@typespec/xml": "0.82.0",
     "joi": "^18.2.1",
     "tsdown": "^0.22.0",
-    "tsx": "^4.22.1"
+    "tsx": "^4.22.3"
   },
   "dependencies": {
     "@biomejs/biome": "2.4.15",

@@ -5,6 +5,7 @@ import {
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
+  type PostValidationObjectsDiscriminatedUnion,
   type PostValidationOptionalBody,
 } from "../../generated/server/express/routes/validation.ts"
 
@@ -22,6 +23,25 @@ const postValidationOptionalBody: PostValidationOptionalBody = async (
     return respond.with204()
   }
 }
+
+const postValidationObjectsDiscriminatedUnion: PostValidationObjectsDiscriminatedUnion =
+  async ({body}, respond) => {
+    if (body.type === "cat") {
+      return respond.with200().body({
+        name: body.name,
+        type: body.type,
+        lives: body.lives,
+      })
+    } else if (body.type === "dog") {
+      return respond.with200().body({
+        name: body.name,
+        type: body.type,
+        sticks: body.sticks,
+      })
+    }
+
+    return respond.withStatus(404)
+  }
 
 const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
   async ({query}, respond) => {
@@ -72,6 +92,7 @@ export function createValidationRouter() {
   return createRouter({
     postValidationEnums,
     postValidationOptionalBody,
+    postValidationObjectsDiscriminatedUnion,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
     getResponsesDefault,

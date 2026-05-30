@@ -381,6 +381,38 @@ describe.each(
     })
   })
 
+  describe("POST /validation/objects/discriminated-union", () => {
+    it("can post a cat", async () => {
+      const cat = {
+        type: "cat" as const,
+        name: "Felix",
+        lives: 9,
+      }
+
+      const res = await client.postValidationObjectsDiscriminatedUnion({
+        requestBody: cat,
+      })
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toStrictEqual(cat)
+    })
+
+    it("can post a dog", async () => {
+      const dog = {
+        type: "dog" as const,
+        name: "Rex",
+        sticks: 5,
+      }
+
+      const res = await client.postValidationObjectsDiscriminatedUnion({
+        requestBody: dog,
+      })
+
+      expect(res.status).toBe(200)
+      await expect(res.json()).resolves.toStrictEqual(dog)
+    })
+  })
+
   describe("GET /responses/empty", () => {
     it("returns undefined", async () => {
       const res = await client.getResponsesEmpty()
