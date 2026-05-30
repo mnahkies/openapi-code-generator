@@ -647,11 +647,17 @@ describe("core/input - SchemaNormalizer", () => {
       it("supports mapping", () => {
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Foo"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["foo"]})},
+            required: ["type"],
+          }),
         )
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Bar"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["bar"]})},
+            required: ["type"],
+          }),
         )
 
         const actual = schemaNormalizer.normalize({
@@ -689,11 +695,17 @@ describe("core/input - SchemaNormalizer", () => {
       it("supports a defined path mapping", () => {
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["foo"]})},
+            required: ["type"],
+          }),
         )
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["bar"]})},
+            required: ["type"],
+          }),
         )
 
         const actual = schemaNormalizer.normalize({
@@ -774,11 +786,17 @@ describe("core/input - SchemaNormalizer", () => {
       it("infers a mapping when none provided", () => {
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Foo"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["foo"]})},
+            required: ["type"],
+          }),
         )
         schemaProvider.registerTestRef(
           ir.ref("/components/schemas/Bar"),
-          ir.object({properties: {type: ir.string()}}),
+          ir.object({
+            properties: {type: ir.string({enum: ["bar"]})},
+            required: ["type"],
+          }),
         )
 
         const actual = schemaNormalizer.normalize({
@@ -920,6 +938,105 @@ describe("core/input - SchemaNormalizer", () => {
         ir.union({
           schemas: [
             ir.object({properties: {type: ir.string()}}),
+            ir.ref("/components/schemas/Bar"),
+          ],
+        }),
+      )
+    })
+
+    it("ignores the discriminator property when the discriminator property is missing in one or more alternatives", () => {
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Foo"),
+        ir.object({
+          properties: {type: ir.string({enum: ["foo"]})},
+          required: ["type"],
+        }),
+      )
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Bar"),
+        ir.object({
+          properties: {other: ir.string({enum: ["bar"]})},
+          required: ["other"],
+        }),
+      )
+
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+        },
+        oneOf: [
+          {$ref: "#/components/schemas/Foo"},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          schemas: [
+            ir.ref("/components/schemas/Foo"),
+            ir.ref("/components/schemas/Bar"),
+          ],
+        }),
+      )
+    })
+
+    it("ignores the discriminator property when the discriminator property is not an enum in all alternatives", () => {
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Foo"),
+        ir.object({properties: {type: ir.string()}}),
+      )
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Bar"),
+        ir.object({properties: {type: ir.string()}}),
+      )
+
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+        },
+        oneOf: [
+          {$ref: "#/components/schemas/Foo"},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          schemas: [
+            ir.ref("/components/schemas/Foo"),
+            ir.ref("/components/schemas/Bar"),
+          ],
+        }),
+      )
+    })
+
+    it("ignores the discriminator property when the discriminator property is not required in all alternatives", () => {
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Foo"),
+        ir.object({properties: {type: ir.string({enum: ["foo"]})}}),
+      )
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Bar"),
+        ir.object({properties: {type: ir.string({enum: ["bar"]})}}),
+      )
+
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+        },
+        oneOf: [
+          {$ref: "#/components/schemas/Foo"},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          schemas: [
+            ir.ref("/components/schemas/Foo"),
             ir.ref("/components/schemas/Bar"),
           ],
         }),

@@ -425,6 +425,40 @@ export class SchemaNormalizer {
     // todo: validate that the discriminated property is actually an enum? otherwise it can't be used.
     // todo: also validate that the discriminated property is required? (avoid 'Duplicate discriminator value "undefined"')
 
+    for (const ref of referencedSchemas) {
+      const referencedSchema = this.schemaProvider.schema(ref) as SchemaObject
+      const property = referencedSchema.properties?.[discriminator.propertyName]
+
+      if (!property) {
+        logger.warn(
+          `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's missing from one or more schemas`,
+        )
+        return undefined
+      }
+
+      const normalizedProperty = isRef(property)
+        ? this.schemaProvider.schema(property)
+        : property
+
+      if (!normalizedProperty || !Reflect.get(normalizedProperty, "enum")) {
+        logger.warn(
+          `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's not an enum in one or more schemas`,
+        )
+        return undefined
+      }
+
+      const isRequired = referencedSchema.required?.includes(
+        discriminator.propertyName,
+      )
+
+      if (!isRequired) {
+        logger.warn(
+          `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's not required in one or more schemas`,
+        )
+        return undefined
+      }
+    }
+
     // note: mapping is optional, where the default is ${NAME} -> '#/components/schemas/${NAME}'
     const mapping = discriminator.mapping
       ? Object.fromEntries(
