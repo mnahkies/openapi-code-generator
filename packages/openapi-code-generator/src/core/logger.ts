@@ -139,7 +139,7 @@ function diff(start: bigint, end: bigint) {
 }
 
 export const logger = new Logger(
-  process.stdout.isTTY,
+  process?.stdout?.isTTY ?? false,
   defaultFormat,
   ConsoleSinkFactory(process.env.NODE_ENV === "test" ? "warn" : "info"),
 )
