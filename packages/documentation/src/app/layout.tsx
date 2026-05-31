@@ -3,8 +3,8 @@ import {getPageMap} from "nextra/page-map"
 import {Footer, Layout, Link, Navbar} from "nextra-theme-docs"
 import "nextra-theme-docs/style.css"
 import type {Metadata} from "next"
-import Script from "next/script"
 import type {ReactNode} from "react"
+import PlausibleScript from "../lib/plausible-script"
 
 export const metadata: Metadata = {
   title: {
@@ -79,26 +79,7 @@ export default async function RootLayout({children}: {children: ReactNode}) {
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href={baseUrl} />
 
-        <Script
-          async
-          src="https://ps.nahkies.co.nz/js/pa-0fbOteYkFF3Wja9FWEfQB.js"
-          onLoad={() => {
-            window.plausible =
-              window.plausible ||
-              function () {
-                window.plausible.q = window.plausible.q || []
-                // biome-ignore lint/complexity/noArguments: analytics
-                window.plausible.q.push(arguments)
-              }
-
-            window.plausible.init =
-              window.plausible.init ||
-              ((i: unknown) => {
-                window.plausible.o = i || {}
-              })
-            window.plausible.init()
-          }}
-        />
+        <PlausibleScript />
       </Head>
       <body>
         <Layout
