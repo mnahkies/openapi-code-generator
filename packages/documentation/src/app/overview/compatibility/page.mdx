@@ -183,10 +183,13 @@ everything should just work as you'd guess/expect.
 | content                  |    🚫     |                                                            Not yet supported |
 
 ### Request Body Object
-Well-supported for `application/json` (including some variations like `application/scim+json`), `text/plain`,
-and `application/x-www-form-urlencoded` content types,
+Well-supported for:
+- `application/json` (including some variations like `application/scim+json`)
+- `text/plain` / `text/x-markdown` (plain `string`)
+- `application/x-www-form-urlencoded` (`URLSearchParams`)
+- `application/octet-stream` (`Blob`)
 
-Support for `multipart/form-data`, `application/octocat-stream`, etc. planned to come soon.
+Support for `multipart/form-data`, etc. planned to come soon.
 
 | Attribute                     | Supported |                                                          Notes |
 |:------------------------------|:---------:|---------------------------------------------------------------:|
@@ -212,8 +215,13 @@ Well supported.
 | [`{http-status-code}`](#response-object) |     ✅     |       |
 
 ### Response Object
-Generally well-supported for `application/json` content types.
+Well-supported for:
+- `application/json` (including some variations like `application/scim+json`)
+- `text/plain` / `text/x-markdown` (plain `string`)
+- `application/x-www-form-urlencoded` (`URLSearchParams`)
+- `application/octet-stream` (`Blob`)
 
+Support for `multipart/form-data`, etc. planned to come soon.
 | Attribute                     | Supported | Notes                                               |
 |:------------------------------|:---------:|:----------------------------------------------------|
 | description                   |  __N/A__  | Ignored                                             |
