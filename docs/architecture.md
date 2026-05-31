@@ -83,9 +83,9 @@ graph TD
 4.  **Add Unit Tests**: Add a `.spec.ts` next to the modified file.
 5.  **Add Integration Spec**: If the feature is a new OpenAPI concept, add a minimal reproduction spec to `integration-tests-definitions`.
 6.  **Run Pipeline**: 
-    - `pnpm build`
-    - `pnpm integration:generate`
-    - `pnpm integration:validate`
+    - `pnpm run build`
+    - `pnpm run integration:generate`
+    - `pnpm run integration:validate`
 7.  **Documentation**: Update the external documentation in `packages/documentation` if user-facing.
 
 ## Common Gotchas

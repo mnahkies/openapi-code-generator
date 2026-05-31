@@ -21,13 +21,13 @@
     "docs:generate": "node ./scripts/generate-toc.mjs",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome check --fix .",
-    "build": "node ./scripts/generate-ajv-validator.js && pnpm -r --workspace-concurrency=4 run bundle && tsc -b tsconfig.json",
+    "build": "node ./scripts/generate-ajv-validator.js && pnpm run -r --workspace-concurrency=4 bundle && tsc -b tsconfig.json",
     "build:docs": "pnpm --filter @nahkies/openapi-code-generator-documentation run build",
     "build:watch": "tsc -b tsconfig.json -w",
     "test": "vitest run",
     "integration:clean": "pnpm --filter @integration/* run clean",
     "integration:generate": "node ./scripts/generate.mjs",
-    "integration:validate": "pnpm -r --filter @integration/* --workspace-concurrency=2 run validate",
+    "integration:validate": "pnpm run -r --filter @integration/* --workspace-concurrency=2 validate",
     "e2e:generate": "pnpm --filter e2e run clean && pnpm --filter e2e run generate",
     "e2e:validate": "pnpm --filter e2e run build && pnpm --filter e2e run test",
     "ci-test": "vitest run --coverage",
@@ -70,11 +70,11 @@
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx,mts,mjs,cts,cjs}": [
-      "pnpm biome lint --write --no-errors-on-unmatched",
-      "pnpm biome check --write --no-errors-on-unmatched"
+      "pnpm exec biome lint --write --no-errors-on-unmatched",
+      "pnpm exec biome check --write --no-errors-on-unmatched"
     ],
     "*.md": [
-      "sh -c 'pnpm docs:generate'"
+      "sh -c 'pnpm run docs:generate'"
     ]
   },
   "engines": {

@@ -26,16 +26,16 @@ This is a monorepo managed with `pnpm`. It produces a CLI tool for generating hi
 
 ### Common Commands
 - **Install**: `pnpm install`
-- **Build**: `pnpm build` (generates validators, bundles packages, and runs `tsc -b`).
-- **Lint/Format**: `pnpm lint` (uses Biome). For CI-style checks, use `pnpm ci-lint`.
-- **Unit Tests**: `pnpm test` (uses Vitest). For coverage, use `pnpm ci-test`.
+- **Build**: `pnpm run build` (generates validators, bundles packages, and runs `tsc -b`).
+- **Lint/Format**: `pnpm run lint` (uses Biome). For CI-style checks, use `pnpm run ci-lint`.
+- **Unit Tests**: `pnpm run test` (uses Vitest). For coverage, use `pnpm run ci-test`.
 - **Integration Tests**:
-    - Generate: `pnpm integration:generate`
-    - Validate/Build: `pnpm integration:validate`
+    - Generate: `pnpm run integration:generate`
+    - Validate/Build: `pnpm run integration:validate`
 - **E2E Tests**:
-    - Generate: `pnpm e2e:generate`
-    - Validate: `pnpm e2e:validate`
-- **Full Pipeline**: `pnpm ci-pipeline` (runs all checks locally).
+    - Generate: `pnpm run e2e:generate`
+    - Validate: `pnpm run e2e:validate`
+- **Full Pipeline**: `pnpm run ci-pipeline` (runs all checks locally).
 
 ## Testing Standards
 
@@ -44,7 +44,7 @@ This is a monorepo managed with `pnpm`. It produces a CLI tool for generating hi
   ```typescript
   import {describe, expect, it} from "vitest"
   ```
-- **Regression**: Always ensure `pnpm integration:validate` passes after changes to generation logic.
+- **Regression**: Always ensure `pnpm run integration:validate` passes after changes to generation logic.
 
 ## Project Structure
 

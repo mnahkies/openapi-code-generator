@@ -16,7 +16,7 @@ It's hosted at https://openapi-code-generator.nahkies.co.nz/ using GitHub pages.
 Run the development server with the `dev` script:
 
 ```shell
-pnpm dev
+pnpm run dev
 ```
 
 Open <http://localhost:3000> with your browser to see the result.
