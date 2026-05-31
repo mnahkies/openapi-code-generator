@@ -13,6 +13,224 @@ import { Callout, Steps } from 'nextra/components'
 </Callout>
 
 <Steps>
+### 27 May 2026 (v0.24.0)
+This is a relatively small release, mostly focused on a few notable bug fixes. Also contains some improvements to generated zod-v4 schemas.
+
+**Axios Client Default Timeout**
+**(potentially breaking)**
+- Previously this was **ignored** (since forever apparently :grimacing:)
+- This meant that unless you passed an `axios` instance that itself had a default timeout configured, the `axios` default of **no timeout** was used
+- Now the `defaultTimeout` value will be respected, overriding that of the passed `axios` instance
+- https://github.com/mnahkies/openapi-code-generator/pull/463
+
+This may cause some request timeouts, if you previously had too low of a timeout. It may prevent seeming "hung" requests under certain network conditions that you may have previously experienced.
+
+**Browser compatibility for fetch / axios runtimes**
+- The previous v0.23.0 release inadvertently broke including the fetch / axios runtimes in eg: NextJS applications
+- Now solved, with `tsdown` configuration updated to prevent re-occurrence
+- https://github.com/mnahkies/openapi-code-generator/pull/471
+
+- `zod-v4` schema generation now uses `z.object({...foo.shape, ...bar.shape})` or `s_Foo.extend(z.object({...}))` as appropriate, instead of the deprecated `merge` function. According to the documentation this may bring some boost to `tsc` / language server performance (https://github.com/mnahkies/openapi-code-generator/pull/468)
+- **(potentially breaking)** `zod-v4` schema generation will now validate `format: date` and `format: time` using `z.iso.date()` / `z.iso.time()` (https://github.com/mnahkies/openapi-code-generator/pull/467)
+- **(potentially breaking)** enums with a single possible value will now be treated as closed by default / as a literal. This better fits the typical usage in discriminated union type schemas. (https://github.com/mnahkies/openapi-code-generator/pull/466)
+
+* chore: bump deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/462
+* fix: axios client respects the defaultTimeout by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/463
+* docs: add AGENTS.md / docs/architecture.md by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/464
+* chore: reduce tsdown log verbosity and fail on warnings by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/465
+* feat!: enum of 1 is a literal by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/466
+* feat: support format: date / time by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/467
+* chore: refresh data / deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/469
+* test: add some more e2e query parameter assertions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/470
+* feat: zod v4 uses spread / extend by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/468
+* fix: extranous runtime deps bundled by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/471
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.23.0...v0.24.0
+
+### 9 May 2026 (v0.23.0)
+This is an unusually large release, containing major architectural improvements, enhanced query parameter handling, and support for binary data.
+
+It also contains several breaking changes to improve the internal domain model and consistency of the generated code, that will unblock further enhancements.
+
+- Migrated to tsdown for bundling, providing both ESM and CJS variants of runtime packages #452, #456
+- This _shouldn't_ be a breaking change, but its significant enough to be aware of it
+- Runtime & Response Processing
+- Renamed Response to Res in runtime packages to avoid conflicts with the global DOM Response object #405
+- Removed deprecated exports that are no longer used in regenerated code #406
+- **Migration:** Regenerate your code using the latest CLI and update any manual imports from runtime packages referencing Response
+- Schema & Type Naming
+- Refactored "virtual schema" generation. This improves support for OAS 3.1+ but results in changed names for some anonymous types #398
+- Some indirection has been removed e.g., types that just pointed to other types are now unwrapped
+- **Migration:** You may need to update manual type references in your project if they were using generated anonymous names
+- Query Parameter Serialization
+- Dropped qs dependency in favor of internal logic that strictly respects OpenAPI style and explode modifiers #381
+- `koa` v3 and `@koa/router@v15` now the minimum requirement #442
+- Dropped broken `readOnly` modifier support #409
+
+- Binary Data Support: Added support for `application/octet-stream` in both request and response bodies #359
+- Improved Records: Better handling of `additionalProperties`, emitting `Record<string, T>` or `any` as appropriate #408, #402
+- Middleware: Added support for mounting middleware on individual routers via an optional parameter to `createRouter` #442
+- Improved handling of `allOf`, `anyOf`, and `oneOf` #410
+
+- Fixed missing types when enum is defined without an explicit type #407
+- Fixed handling of boolean values for exclusiveMaximum and exclusiveMinimum #386
+- Fixed tsconfig loading when compilerOptions is missing #382
+- The logger now correctly respects NO_COLOR and similar environment variables #414
+- Client Fetch: Fixed type narrowing issues with default response types in the fetch runtime #443
+- Koa Server: Fixed overlapping route matching by no longer calling next() after a route handler is executed #442
+
+- Dependencies: Extensive dependency refreshes, including migrations to Angular v21, Next.js v16.1, and TypeScript v6
+- Testing: Significant expansion of the test suite, including new unit tests for schema normalization and type building #387, #389, #412
+- CI/CD: Dropped Node v20 from CI, improved integration test performance using tsgo #451, and enabled publint and attw for better package compatibility #454
+- Refactors: Major internal reorganization of the Input class and schema providers to simplify the dependency graph and improve testability #388, #416, #420
+- Introduced code sharing between the runtime packages #401
+
+* fix: tsconfig loading when no compilerOptions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/382
+* chore(deps): update all dependencies by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/380
+* chore(deps): update dependency js-yaml to v4.1.1 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/383
+* chore: upgrade dependencies, integration tests use angular v21 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/384
+* refactor: allow narrowing IRParameter into more specific types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/385
+* test: add some missing unit tests by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/387
+* refactor: split input into more testable classes by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/388
+* test: backfill tests for schema normalization by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/389
+* fix: use schema types rather than ir by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/390
+* fix: remove an instance of double normalization by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/391
+* chore(deps): update dependency @angular/common to v21.0.1 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/393
+* chore(deps): update dependency body-parser to v2.2.1 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/392
+* chore(deps): update dependency next to v15.5.7 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/394
+* chore(deps): update dependency @angular/compiler to v21.0.2 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/395
+* chore: bump deps, separate build:docs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/397
+* feat!: move virtual schemas by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/398
+* fix: remove request body indirection by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/399
+* fix: handle boolean exclusiveMaximum / exclusiveMinimum by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/386
+* feat!: introduce a new common runtime by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/401
+* fix: correctly output `Record<string, unknown>` when irrelevant properties present by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/402
+* fix!: query param serialization/parsing by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/381
+* chore: update biome by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/403
+* chore: upgrade nextjs to 16.1.0 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/404
+* refactor!: move more response processing into runtime package by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/405
+* chore!: drop deprecated export by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/406
+* feat: support application/octet-stream (Blob) req/res bodies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/359
+* fix: handle missing type when enum is defined by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/407
+* feat: improve Record / additionalProperties handling by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/408
+* fix: drop broken readOnly modifier support by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/409
+* fix: make custom jest reporter more agent friendly by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/411
+* fix: improve handling of allOf / anyOf / oneOf by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/410
+* test: improve type builder unit tests by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/412
+* test: expand extractPlaceholders tests by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/413
+* fix: logger disables color based on NO_COLOR / etc by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/414
+* refactor: split input.ts into several files by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/416
+* refactor: simplify dependency graph by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/417
+* refactor: copy schema builder test suites into unit / integration files by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/418
+* refactor: de-duplicate the split tests by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/419
+* refactor: schema-builders use ISchemaProvider instead of Input by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/420
+* chore(deps): update dependency @angular/compiler to v21.0.7 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/421
+* chore(deps): update dependency @angular/core to v21.0.7 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/422
+* chore(deps): update dependency next to v16.1.5 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/424
+* chore(deps): update dependency lodash to v4.17.23 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/423
+* chore: refresh dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/425
+* fix: patch axios temporarily / bump version by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/427
+* chore: refresh dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/429
+* chore(deps): update dependency ajv to v8.18.0 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/428
+* chore(deps): update dependency koa to v3.1.2 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/430
+* chore(deps): update dependency @angular/core to v21.1.6 [security] by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/431
+* chore: refresh deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/434
+* chore: add pnpm run ci-pipeline:fast by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/441
+* chore: refresh dependencies / typescript v6 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/449
+* fix(fetch): type narrowing with default response types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/443
+* chore: bump gh action deps, drop node v20 from ci by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/450
+* feat: use tsgo for most integration test builds by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/451
+* feat: bundle esm + cjs variants of runtime packages using tsdown by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/452
+* fix: only package dist/esm, dist/cjs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/453
+* feat: enable publint and attw by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/454
+* feat!(koa): router v15, improve middleware support, fix overlapping route matching by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/442
+* fix: use global symbol for SkipResponse by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/455
+* feat: adopt tsdown for cli package, inline the typescript-common-runtime by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/456
+* fix: devDependency not dependency by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/457
+* fix: remove import 'joi' from bundle by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/458
+* fix: required peer dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/459
+* fix: clean works when already clean by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/460
+
+
+* @paztis made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/444
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.22.0...v0.23.0
+
+### 2 Nov 2025 (v0.22.0)
+This is a pretty significant release, with two larger features:
+- Support for Zod V4, whilst retaining support for Zod V3
+- Support for projects using ESM, and use `import type` where possible
+
+Aside from this, we've made efforts to improve supply chain security :lock:
+- Adopted trusted publishers / Github Actions to publish releases
+- Added a minimum release age of 7 days for dependencies
+- Removed unmaintained dependency
+
+As well as improving the CI setup to run integration and e2e tests across more variants to reduce risk of regressions :test_tube:
+
+- `--schema-builder` defaults to `zod-v4`
+- `--schema-builder` no longer accepts `zod`, you must specify either `zod-v3` or `zod-v4` as required for your project
+
+* feat: set minimumReleaseAge of 7 days by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/363
+* chore: update biome by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/364
+* chore: upgrade documentation related dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/365
+* refactor: avoid dependency on concrete schema builders by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/367
+* fix: integration tests pass with joi schema builder by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/368
+* test: run integration for all schema builders by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/369
+* fix: use nodejs built-in sourcemap support by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/370
+* chore: update deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/371
+* refactor: rename zod.ts -> zod-v3.ts by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/372
+* feat!: support both zod v3 and zod v4 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/366
+* docs: fix example commands by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/373
+* fix: use import type when possible by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/374
+* fix: consistently use json5 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/376
+* fix: replace markdown-toc with remark-toc by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/377
+* feat: support esm projects by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/375
+* feat: adopt trusted publishers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/378
+* fix: avoid lerna reformatting lockfile by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/379
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.21.1...v0.22.0
+
+### 26 Oct 2025 (v0.22.0-alpha.0)
+This is a pretty significant release, with two larger features:
+- Support for Zod V4, whilst retaining support for Zod V3
+- Support for projects using ESM, and use `import type` where possible
+
+As such it's being made available as an alpha release for further regression testing: https://www.npmjs.com/package/@nahkies/openapi-code-generator/v/0.22.0-alpha.0
+
+Aside from this, we've made efforts to improve supply chain security :lock:
+- Adopted trusted publishers / Github Actions to publish releases
+- Added a minimum release age of 7 days for dependencies
+- Removed unmaintained dependency
+
+As well as improving the CI setup to run integration and e2e tests across more variants to reduce risk of regressions.
+
+- `--schema-builder` defaults to `zod-v4`
+- `--schema-builder` no longer accepts `zod`, you must specify either `zod-v3` or `zod-v4` as required for your project
+
+* feat: set minimumReleaseAge of 7 days by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/363
+* chore: update biome by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/364
+* chore: upgrade documentation related dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/365
+* refactor: avoid dependency on concrete schema builders by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/367
+* fix: integration tests pass with joi schema builder by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/368
+* test: run integration for all schema builders by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/369
+* fix: use nodejs built-in sourcemap support by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/370
+* chore: update deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/371
+* refactor: rename zod.ts -> zod-v3.ts by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/372
+* feat!: support both zod v3 and zod v4 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/366
+* docs: fix example commands by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/373
+* fix: use import type when possible by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/374
+* fix: consistently use json5 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/376
+* fix: replace markdown-toc with remark-toc by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/377
+* feat: support esm projects by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/375
+* feat: adopt trusted publishers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/378
+* fix: avoid lerna reformatting lockfile by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/379
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.21.1...v0.22.0-alpha.0
+
 ### 13 Aug 2025 (v0.21.1)
 Bug fix release for #360 / #361 - previously nullable string schemas with a default of `null` would instead default to the string `"null"` - thanks @geuben!
 

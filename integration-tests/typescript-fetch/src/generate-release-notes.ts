@@ -68,7 +68,7 @@ ${notes.join("\n")}
 
   fs.writeFileSync(
     path.resolve(
-      __dirname,
+      import.meta.dirname,
       "../../../packages/documentation/src/app/reference/release-notes/page.mdx",
     ),
     result.replace(/\r\n/g, "\n"),

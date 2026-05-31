@@ -18,11 +18,11 @@
   },
   "scripts": {
     "clean": "rm -rf ./.next ./dist",
-    "dev": "pnpm copy-sample-data && next dev",
-    "build": "pnpm copy-sample-data && next build",
-    "lint": "pnpm -w lint",
-    "copy-sample-data": "tsx ./scripts/copy-sample-data.ts",
-    "publish:gh-pages": "pnpm gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
+    "dev": "pnpm run copy-sample-data && next dev",
+    "build": "pnpm run copy-sample-data && next build",
+    "lint": "pnpm run -w lint",
+    "copy-sample-data": "pnpm exec tsx ./scripts/copy-sample-data.ts",
+    "publish:gh-pages": "pnpm exec gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

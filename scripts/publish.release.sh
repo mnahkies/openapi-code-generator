@@ -13,7 +13,7 @@ pnpm run clean
 
 pnpm ci
 
-pnpm ci-pipeline
+pnpm run ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
