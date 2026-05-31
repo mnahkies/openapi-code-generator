@@ -17,7 +17,7 @@
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
   "scripts": {
-    "clean": "pnpm -r clean",
+    "clean": "pnpm run -r clean",
     "docs:generate": "node ./scripts/generate-toc.mjs",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome check --fix .",
