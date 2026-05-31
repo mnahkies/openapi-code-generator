@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.24.0...v0.25.0) (2026-05-31)
+
+### Features
+
+- discriminated unions ([#436](https://github.com/mnahkies/openapi-code-generator/issues/436)) ([0bb67f6](https://github.com/mnahkies/openapi-code-generator/commit/0bb67f66dc18d91cf892413a1432f46c33cb0453))
+
 # [0.24.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.23.0...v0.24.0) (2026-05-27)
 
 ### Bug Fixes
