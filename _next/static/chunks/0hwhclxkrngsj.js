@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,19825,o=>{"use strict";var e=o.i(89812);function t(){return(0,e.useEffect)(()=>{window.plausible&&window.plausible("404",{props:void 0})},[]),null}o.s(["NotFoundTracker",0,t,"default",0,t],19825)}]);
