@@ -21,7 +21,7 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
   try {
     return schema?.parse(input)
   } catch (err) {
-    throw KoaRuntimeError.RequestError(err, type)
+    throw KoaRuntimeError.RequestError(new Error(`Invalid request input - ${z.prettifyError(err)}`, { cause: err }), type)
   }
 }
 
@@ -48,7 +48,7 @@ export function responseValidationFactory(
       // TODO: throw on unmatched response
       return value
     } catch (err) {
-      throw KoaRuntimeError.ResponseError(err)
+      throw KoaRuntimeError.ResponseError(new Error(`Invalid response - ${z.prettifyError(err)}`, { cause: err }))
     }
   }
 }
