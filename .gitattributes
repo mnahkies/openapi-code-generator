@@ -6,3 +6,4 @@ integration-tests/*/src/generated/** linguist-generated=true
 e2e/src/generated/** linguist-generated=true
 integration-tests-definitions/** linguist-vendored=true
 yarn.lock linguist-generated=true
+* text=auto eol=lf
