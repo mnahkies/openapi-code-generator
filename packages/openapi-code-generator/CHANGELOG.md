@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.25.0...v0.26.0) (2026-06-13)
+
+### Bug Fixes
+
+- windows path issues ([#482](https://github.com/mnahkies/openapi-code-generator/issues/482)) ([1b29327](https://github.com/mnahkies/openapi-code-generator/commit/1b29327cf80e71563d711e8abed7dd1e90f1cf14)), closes [#481](https://github.com/mnahkies/openapi-code-generator/issues/481) [#479](https://github.com/mnahkies/openapi-code-generator/issues/479)
+
 # [0.25.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.24.0...v0.25.0) (2026-05-31)
 
 ### Bug Fixes
