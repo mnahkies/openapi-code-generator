@@ -53,4 +53,4 @@ jobs:
             NPM_DIST_TAG=latest
           fi
 
-          pnpm publish -r --tag $NPM_DIST_TAG
+          pnpm stage publish -r --tag $NPM_DIST_TAG
