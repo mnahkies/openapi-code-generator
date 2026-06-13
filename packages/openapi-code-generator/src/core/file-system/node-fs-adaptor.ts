@@ -1,6 +1,7 @@
 import {existsSync} from "node:fs"
 import fs from "node:fs/promises"
 import {createRequire} from "node:module"
+import pathModule from "node:path"
 import type {IFsAdaptor} from "./fs-adaptor.ts"
 
 export class NodeFsAdaptor implements IFsAdaptor {
@@ -39,5 +40,13 @@ export class NodeFsAdaptor implements IFsAdaptor {
   resolve(request: string, fromDir: string): string {
     const require = createRequire(import.meta.url)
     return require.resolve(request, {paths: [fromDir]})
+  }
+
+  pathJoin(...paths: string[]): string {
+    return pathModule.join(...paths)
+  }
+
+  dirname(path: string): string {
+    return pathModule.dirname(path)
   }
 }

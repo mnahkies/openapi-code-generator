@@ -1,4 +1,3 @@
-import path from "node:path"
 import json5 from "json5"
 import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
 import {logger} from "../logger.ts"
@@ -17,7 +16,7 @@ export async function loadTypescriptFormatterConfig(
   const biomeConfigFile = findConfigFile(
     ["biome.json", "biome.jsonc"],
     searchPath,
-    (it) => fsAdaptor.existsSync(it),
+    fsAdaptor,
   )
 
   if (biomeConfigFile) {
@@ -41,7 +40,7 @@ export async function loadTypescriptFormatterConfig(
       ".prettierrc.yml",
     ],
     searchPath,
-    (it) => fsAdaptor.existsSync(it),
+    fsAdaptor,
   )
 
   if (prettierConfigFile) {
@@ -60,22 +59,22 @@ export async function loadTypescriptFormatterConfig(
   return null
 }
 
-function findConfigFile(
+export function findConfigFile(
   names: string[],
   searchPath: string,
-  fileExists: (it: string) => boolean,
+  fsAdaptor: IFsAdaptor,
 ) {
-  if (searchPath === "/") {
+  if (searchPath === fsAdaptor.dirname(searchPath)) {
     return null
   }
 
   for (const name of names) {
-    const fullPath = path.join(searchPath, name)
-    if (fileExists(fullPath)) {
+    const fullPath = fsAdaptor.pathJoin(searchPath, name)
+    if (fsAdaptor.existsSync(fullPath)) {
       logger.info(`found ${fullPath} in ${searchPath}`)
       return fullPath
     }
   }
 
-  return findConfigFile(names, path.dirname(searchPath), fileExists)
+  return findConfigFile(names, fsAdaptor.dirname(searchPath), fsAdaptor)
 }
