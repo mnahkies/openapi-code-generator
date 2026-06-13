@@ -30,7 +30,7 @@ export class TestOutputTypeChecker {
       readFile: (fileName: string): string => {
         const file = this.files[fileName]
 
-        if (file === undefined && fileName.startsWith("/")) {
+        if (file === undefined && path.isAbsolute(fileName)) {
           return fs.readFileSync(fileName, "utf-8").toString()
         }
 
