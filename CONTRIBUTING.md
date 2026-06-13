@@ -126,7 +126,7 @@ The release process is as follows:
    * generates changelogs
    * commits and tags
 2. When happy with the release commit / tags, push to `main`
-3. The [publish-npm](./.github/workflows/publish-npm.yml) action will be triggered by the version tag, build and publish the packages to npm.
+3. The [publish-npm](./.github/workflows/publish-npm.yml) action will be triggered by the version tag, build and stage the packages to npm.
    * A repository admin will need to manually approve the workflow run.
-
-After publishing a release, manually create a release in Github.
+4. Once the package is staged, a repository admin will need to review and approve on npm with 2FA
+5. After publishing a release, manually create a release in Github.
