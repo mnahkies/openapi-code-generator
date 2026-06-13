@@ -49,11 +49,19 @@ enum ImportCategory {
   PATH = 4,
 }
 
+function normalizeToUnix(it: string) {
+  return it.replace(/\\/g, "/").replace(/^([a-zA-Z]+:\/)/, "/")
+}
+
 export function categorizeImportSource(source: string): ImportCategory {
   const isUrl = source.startsWith("http://") || source.startsWith("https://")
 
   if (isUrl) {
     return ImportCategory.URL
+  }
+
+  if (path.posix.isAbsolute(source) || path.win32.isAbsolute(source)) {
+    return ImportCategory.PATH
   }
 
   if (/^[a-z]+:/.test(source)) {
@@ -67,10 +75,7 @@ export function categorizeImportSource(source: string): ImportCategory {
     source.startsWith("$") ||
     source.startsWith("%")
 
-  const isPath =
-    source.startsWith("./") ||
-    source.startsWith("../") ||
-    source.startsWith("/")
+  const isPath = source.startsWith("./") || source.startsWith("../")
 
   if (!isAlias && !isPath) {
     return ImportCategory.PACKAGE
@@ -94,7 +99,11 @@ export class ImportBuilder {
   > = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly config: ImportBuilderConfig) {}
+  constructor(private readonly config: ImportBuilderConfig) {
+    if (this.config.unit?.filename) {
+      this.config.unit.filename = normalizeToUnix(this.config.unit.filename)
+    }
+  }
 
   from(from: string) {
     const chain = {
@@ -229,19 +238,38 @@ export class ImportBuilder {
       // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
     }
+    if (categorizeImportSource(from) === ImportCategory.PATH) {
+      // biome-ignore lint/style/noParameterAssign: final normalization
+      from = normalizeToUnix(from)
+    }
 
-    if (this.config.unit && from.startsWith("./")) {
-      const unitDirname = path.dirname(this.config.unit.filename)
-      const fromDirname = path.dirname(from)
+    if (this.config.unit) {
+      const unitFilename = this.config.unit.filename
+      const isFromPath =
+        from.startsWith("./") ||
+        from.startsWith("../") ||
+        path.posix.isAbsolute(from)
 
-      const relative = path.relative(unitDirname, fromDirname)
+      if (isFromPath) {
+        const root = path.posix.isAbsolute(unitFilename)
+          ? path.posix.parse(unitFilename).root
+          : "/"
 
-      // biome-ignore lint/style/noParameterAssign: normalization
-      from = path.join(relative, path.basename(from))
+        const unitDir = path.posix.dirname(
+          path.posix.resolve(root, unitFilename),
+        )
+        const fromDir = path.posix.dirname(path.posix.resolve(root, from))
 
-      if (!from.startsWith("../") && !from.startsWith("./")) {
+        const relativeDir = path.posix.relative(unitDir, fromDir)
+        const basename = path.posix.basename(from)
+
         // biome-ignore lint/style/noParameterAssign: normalization
-        from = `./${from}`
+        from = path.posix.join(relativeDir, basename)
+
+        if (!from.startsWith("../") && !from.startsWith("./")) {
+          // biome-ignore lint/style/noParameterAssign: normalization
+          from = `./${from}`
+        }
       }
     }
 

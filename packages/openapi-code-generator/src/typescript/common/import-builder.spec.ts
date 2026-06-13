@@ -40,7 +40,7 @@ describe("typescript/common/import-builder", () => {
     it("same directory", () => {
       const builder = new ImportBuilder({
         unit: {
-          filename: "./foo/example",
+          filename: "./foo/example.ts",
         },
         includeFileExtensions: false,
       })
@@ -53,7 +53,7 @@ describe("typescript/common/import-builder", () => {
     it("parent directory", () => {
       const builder = new ImportBuilder({
         unit: {
-          filename: "./foo/example",
+          filename: "./foo/example.ts",
         },
         includeFileExtensions: false,
       })
@@ -66,7 +66,7 @@ describe("typescript/common/import-builder", () => {
     it("child directory", () => {
       const builder = new ImportBuilder({
         unit: {
-          filename: "./example",
+          filename: "./example.ts",
         },
         includeFileExtensions: false,
       })
@@ -79,7 +79,7 @@ describe("typescript/common/import-builder", () => {
     it("sibling directory", () => {
       const builder = new ImportBuilder({
         unit: {
-          filename: "./foo/example",
+          filename: "./foo/example.ts",
         },
         includeFileExtensions: false,
       })
@@ -87,6 +87,22 @@ describe("typescript/common/import-builder", () => {
       builder.addSingle("Cat", "./bar/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from '../bar/models'")
+    })
+
+    it("handles absolute paths", () => {
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "/home/user/project/src/index.ts",
+        },
+        includeFileExtensions: false,
+      })
+
+      builder.addSingle("Cat", "/home/user/project/src/models.ts", false)
+      builder.addSingle("Dog", "/home/user/project/other/models.ts", false)
+
+      expect(builder.toString()).toBe(
+        "import {Dog} from '../other/models'\nimport {Cat} from './models'",
+      )
     })
   })
 
@@ -189,7 +205,7 @@ describe("typescript/common/import-builder", () => {
     it("orders sources by Biome distance (URL > protocol pkg > pkg > alias > paths)", () => {
       const builder = new ImportBuilder({
         unit: {
-          filename: "./foo/example",
+          filename: "./foo/example.ts",
         },
         includeFileExtensions: false,
       })
