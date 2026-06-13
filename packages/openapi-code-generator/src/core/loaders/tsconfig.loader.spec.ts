@@ -1,14 +1,10 @@
 import {describe, expect, it, vi} from "vitest"
-import {WebFsAdaptor} from "../file-system/web-fs-adaptor.ts"
+import {testFsAdaptor} from "../file-system/test-fs-adaptor.ts"
 import {loadTsConfigCompilerOptions} from "./tsconfig.loader.ts"
-
-function fsAdaptor(files: Record<string, string>) {
-  return new WebFsAdaptor(new Map(Object.entries(files)))
-}
 
 describe("core/loaders/tsconfig.loader", () => {
   it("returns defaults when no tsconfig.json is found", async () => {
-    const fs = fsAdaptor({})
+    const fs = testFsAdaptor({})
 
     const actual = await loadTsConfigCompilerOptions(
       "/virtual/workspace/src",
@@ -22,7 +18,7 @@ describe("core/loaders/tsconfig.loader", () => {
   })
 
   it("parses tsconfig.json without compilerOptions and applies defaults", async () => {
-    const fs = fsAdaptor({
+    const fs = testFsAdaptor({
       "/virtual/workspace/tsconfig.json": "{}",
     })
 
@@ -35,7 +31,7 @@ describe("core/loaders/tsconfig.loader", () => {
   })
 
   it("reads and returns specified compilerOptions overriding defaults", async () => {
-    const fs = fsAdaptor({
+    const fs = testFsAdaptor({
       "/virtual/ws/tsconfig.json": JSON.stringify({
         compilerOptions: {
           exactOptionalPropertyTypes: true,
@@ -55,7 +51,7 @@ describe("core/loaders/tsconfig.loader", () => {
   })
 
   it("supports both options when set", async () => {
-    const fs = fsAdaptor({
+    const fs = testFsAdaptor({
       "/v/tsconfig.json": JSON.stringify({
         compilerOptions: {
           exactOptionalPropertyTypes: true,
@@ -76,7 +72,7 @@ describe("core/loaders/tsconfig.loader", () => {
     const basePath = "/virt/base/tsconfig.base.json"
     const childPath = "/virt/proj/tsconfig.json"
 
-    const fs = fsAdaptor({
+    const fs = testFsAdaptor({
       [basePath]: JSON.stringify({
         compilerOptions: {
           exactOptionalPropertyTypes: true,
@@ -100,7 +96,7 @@ describe("core/loaders/tsconfig.loader", () => {
   })
 
   it("falls back to defaults if an exception occurs", async () => {
-    const fs = fsAdaptor({
+    const fs = testFsAdaptor({
       "/virtual/ws/tsconfig.json": JSON.stringify({
         compilerOptions: {
           exactOptionalPropertyTypes: true,

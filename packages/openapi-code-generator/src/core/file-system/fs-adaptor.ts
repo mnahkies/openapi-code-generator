@@ -10,4 +10,8 @@ export interface IFsAdaptor {
   mkDir(path: string, recursive: boolean): Promise<void>
 
   resolve(request: string, fromDir: string): string
+
+  pathJoin(...paths: string[]): string
+
+  dirname(path: string): string
 }

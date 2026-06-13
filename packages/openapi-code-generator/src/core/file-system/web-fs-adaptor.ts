@@ -2,7 +2,11 @@ import pathModule from "node:path"
 import type {IFsAdaptor} from "./fs-adaptor.ts"
 
 export class WebFsAdaptor implements IFsAdaptor {
-  constructor(readonly files = new Map<string, string>()) {}
+  constructor(
+    readonly files = new Map<string, string>(),
+    readonly pathJoin = (...paths: string[]) => pathModule.join(...paths),
+    readonly dirname = (path: string) => pathModule.dirname(path),
+  ) {}
 
   clearFiles(filter: (it: string) => boolean) {
     for (const file of this.files.keys()) {
