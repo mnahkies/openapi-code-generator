@@ -6,16 +6,21 @@ on:
 
 permissions:
   contents: read
+  # required to publish using trusted publishing
   id-token: write
 
 jobs:
   publish_npm:
+    name: publish_npm
     runs-on: ubuntu-latest
     environment: prod
+    concurrency:
+      group: publish-npm
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
@@ -25,20 +30,12 @@ jobs:
         with:
           registry-url: "https://registry.npmjs.org"
           node-version: 26.2.0
-          cache: "pnpm"
-
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        id: nextjs-cache
-        with:
-          path: packages/documentation/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
+          package-manager-cache: false
 
       - name: Validate tag matches package.json versions
+        env:
+          TAG_VERSION: ${{ github.ref_name }}
         run: |
-          TAG_VERSION="${{ github.ref_name }}"
-
           node scripts/validate-package-version.mjs "${TAG_VERSION}"
 
       - run: pnpm ci
@@ -46,8 +43,9 @@ jobs:
       - run: pnpm run build
 
       - name: Publish packages
+        env:
+          TAG_VERSION: ${{ github.ref_name }}
         run: |
-          TAG_VERSION="${{ github.ref_name }}"
 
           if [[ $TAG_VERSION == *"alpha"* ]]; then
             NPM_DIST_TAG=alpha
