@@ -24,7 +24,11 @@ gitChecks: false
 linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude: []
+minimumReleaseAgeExclude:
+  [
+    # Renovate security update: @angular/common@21.2.15
+    "@angular/common@21.2.15"
+  ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
