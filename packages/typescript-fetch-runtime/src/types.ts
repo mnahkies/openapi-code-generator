@@ -34,8 +34,11 @@ export interface AbstractFetchClientConfig {
 }
 
 // fetch HeadersInit type
+export type HeaderValue = string | readonly string[] | undefined
+
 export type HeadersInit =
   | string[][]
   | readonly (readonly [string, string])[]
-  | Record<string, string | ReadonlyArray<string>>
+  | Iterable<readonly [string, string]>
+  | Record<string, HeaderValue>
   | Headers
