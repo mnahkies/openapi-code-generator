@@ -102,11 +102,11 @@
     "@types/body-parser": "^1.19.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "body-parser": "^2.2.2",
-    "joi": "^18.2.1",
-    "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vitest": "^4.0.11",
+    "body-parser": "catalog:",
+    "joi": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
     "zod": "^4.3.6"
   },
   "files": [

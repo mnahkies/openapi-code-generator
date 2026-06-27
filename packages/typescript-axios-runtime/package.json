@@ -44,9 +44,9 @@
   "devDependencies": {
     "@nahkies/typescript-common-runtime": "workspace:^",
     "axios": "^1.15.2",
-    "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vitest": "^4.0.11"
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "files": [
     "src",

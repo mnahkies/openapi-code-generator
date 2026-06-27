@@ -82,10 +82,10 @@
   },
   "devDependencies": {
     "@nahkies/typescript-common-runtime": "workspace:^",
-    "joi": "^18.2.1",
-    "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vitest": "^4.0.11",
+    "joi": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
     "zod": "^4.3.6"
   },
   "files": [

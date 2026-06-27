@@ -1,3 +1,32 @@
+catalog:
+  '@arethetypeswrong/core': ^0.18.3
+  '@azure-tools/typespec-autorest': 0.69.1
+  '@azure-tools/typespec-azure-core': 0.69.0
+  '@azure-tools/typespec-azure-resource-manager': 0.69.1
+  '@azure-tools/typespec-client-generator-core': 0.69.0
+  '@commander-js/extra-typings': ^15.0.0
+  '@koa/router': ^15.6.0
+  "@types/node": ^22.20.0
+  '@types/react': ^19.2.17
+  '@vitest/coverage-v8': 4.1.9
+  axios: ^1.18.0
+  body-parser: ^2.3.0
+  commander: ^15.0.0
+  joi: ^18.2.3
+  js-yaml: ^4.2.0
+  lint-staged: ^17.0.7
+  next: ^16.2.9
+  prettier: ^3.8.4
+  react: 19.2.7
+  react-dom: 19.2.7
+  react-hook-form: ^7.80.0
+  tsdown: ^0.22.3
+  tsx: ^4.22.4
+  typescript: ^6.0.3
+  vitest: ^4.1.9
+
+catalogMode: strict
+
 packages:
   - packages/*
   - integration-tests/*
@@ -36,7 +65,7 @@ peerDependencyRules:
 
 overrides:
   '@isaacs/brace-expansion': ^5.0.1
-  '@types/node': ^22.19.17
+  '@types/node': "catalog:"
   axios: ^1.15.2
   'lodash-es@~4.17': ^4.18.0
   qs: ^6.14.2
@@ -56,3 +85,4 @@ publicHoistPattern:
 
 patchedDependencies:
   nextra-theme-docs: patches/nextra-theme-docs.patch
+  rolldown-plugin-dts: patches/rolldown-plugin-dts.patch
