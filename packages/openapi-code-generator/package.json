@@ -111,7 +111,7 @@
     "@typespec/streams": "^0.82.0",
     "@typespec/versioning": "^0.82.0",
     "@typespec/xml": "^0.82.0",
-    "prettier": "^3.8.3"
+    "prettier": "catalog:"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {
