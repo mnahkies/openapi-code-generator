@@ -97,16 +97,16 @@
   },
   "devDependencies": {
     "@koa/cors": "^5.0.0",
-    "@koa/router": "^15.5.0",
+    "@koa/router": "catalog:",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "@types/koa": "^3.0.3",
     "@types/koa__cors": "^5.0.1",
-    "joi": "^18.2.1",
+    "joi": "catalog:",
     "koa": "^3.2.1",
     "koa-body": "^8.0.0",
-    "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vitest": "^4.0.11",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
     "zod": "^4.3.6"
   },
   "files": [

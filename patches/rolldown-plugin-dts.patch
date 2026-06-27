@@ -1,0 +1,13 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 2d347569cdcdd3ea988efdd5778032c56ad9edbc..9f7cce48777c31adc677688293c8204519ee3db0 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -326,7 +326,7 @@ function createFakeJsPlugin({ sourcemap, cjsDefault, sideEffects }) {
+ 			}
+ 			return inheritNodeComments(node, declaration.decl);
+ 		}).filter((node) => !!node);
+-		if (program.body.length === 0) return "export { };";
++		if (program.body.length === 0) return { code: 'export { };', map: null };
+ 		const comments = /* @__PURE__ */ new Set();
+ 		const commentsValue = /* @__PURE__ */ new Set();
+ 		for (const id of chunk.moduleIds) {
