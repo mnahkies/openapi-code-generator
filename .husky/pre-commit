@@ -1,1 +1,6 @@
-pnpm lint-staged
+pnpm exec biome check --staged --write --no-errors-on-unmatched --error-on-warnings
+
+if git diff --cached --name-only --diff-filter=ACMR | grep -q "\.md$"; then
+  pnpm run docs:generate
+  git diff --cached --name-only --diff-filter=ACMR | grep "\.md$" | xargs git add
+fi
