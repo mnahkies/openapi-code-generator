@@ -100,10 +100,10 @@ importers:
         version: 2.5.0
       '@biomejs/js-api':
         specifier: 4.0.0
-        version: 4.0.0(@biomejs/wasm-nodejs@2.4.15)
+        version: 4.0.0(@biomejs/wasm-nodejs@2.5.0)
       '@biomejs/wasm-nodejs':
-        specifier: 2.4.15
-        version: 2.4.15
+        specifier: 2.5.0
+        version: 2.5.0
       '@commander-js/extra-typings':
         specifier: 'catalog:'
         version: 15.0.0(commander@15.0.0)
@@ -431,10 +431,10 @@ importers:
         version: 2.5.0
       '@biomejs/js-api':
         specifier: 4.0.0
-        version: 4.0.0(@biomejs/wasm-nodejs@2.4.15)
+        version: 4.0.0(@biomejs/wasm-nodejs@2.5.0)
       '@biomejs/wasm-nodejs':
-        specifier: 2.4.15
-        version: 2.4.15
+        specifier: 2.5.0
+        version: 2.5.0
       '@commander-js/extra-typings':
         specifier: 'catalog:'
         version: 15.0.0(commander@15.0.0)
@@ -1141,8 +1141,8 @@ packages:
       '@biomejs/wasm-web':
         optional: true
 
-  '@biomejs/wasm-nodejs@2.4.15':
-    resolution: {integrity: sha512-5mfoUf66sFwBkR9T82KRxapviesSadJH+qH4+w06gge87sYwjLKTXw4rxGOiJkUTCRtxCuMSUT9VO6VAqhsmkg==}
+  '@biomejs/wasm-nodejs@2.5.0':
+    resolution: {integrity: sha512-8yng33quWVLdyfNiYmr9Hq3fd9GTRqXAbhrsvpaw+iME1gd7oJBVcczucDFl/tsz69TnfrR42O/PDBoA8MSWYw==}
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
@@ -7374,11 +7374,11 @@ snapshots:
   '@biomejs/cli-win32-x64@2.5.0':
     optional: true
 
-  '@biomejs/js-api@4.0.0(@biomejs/wasm-nodejs@2.4.15)':
+  '@biomejs/js-api@4.0.0(@biomejs/wasm-nodejs@2.5.0)':
     optionalDependencies:
-      '@biomejs/wasm-nodejs': 2.4.15
+      '@biomejs/wasm-nodejs': 2.5.0
 
-  '@biomejs/wasm-nodejs@2.4.15': {}
+  '@biomejs/wasm-nodejs@2.5.0': {}
 
   '@braidai/lang@1.1.2': {}
 

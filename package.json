@@ -42,7 +42,7 @@
     "@arethetypeswrong/core": "catalog:",
     "@biomejs/biome": "2.5.0",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.4.15",
+    "@biomejs/wasm-nodejs": "2.5.0",
     "@commander-js/extra-typings": "catalog:",
     "@lerna-lite/cli": "^5.3.0",
     "@lerna-lite/publish": "^5.3.0",
