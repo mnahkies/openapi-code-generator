@@ -85,7 +85,7 @@
     "vitest": "catalog:"
   },
   "dependencies": {
-    "@biomejs/biome": "2.4.15",
+    "@biomejs/biome": "2.5.0",
     "@biomejs/js-api": "4.0.0",
     "@biomejs/wasm-nodejs": "2.4.15",
     "@commander-js/extra-typings": "catalog:",
