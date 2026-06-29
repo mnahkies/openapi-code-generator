@@ -1,4 +1,13 @@
+[settings]
+lockfile = true
+experimental = true
+
 [tools]
 node = "26.3.0"
-pnpm = '11.5.0'
+"npm:corepack" = "0.35.0"
 
+[hooks]
+postinstall = 'npx corepack enable'
+
+[tasks.lint-actions]
+run = "docker run --rm -v $PWD:/code ghcr.io/zizmorcore/zizmor:1.26.1@sha256:d1117e5dbd9ee4970644067b534ab6ab50371f3c6f7f4d05446eb603a6e78f48 --pedantic --fix /code"

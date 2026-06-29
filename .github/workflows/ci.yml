@@ -5,15 +5,22 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   build:
+    name: build (${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: &node-versions [^22, ^24, ^26]
+    env:
+      NODE_VERSION: ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -30,7 +37,7 @@ jobs:
 
       - name: adjust @types/node version
         run: |
-          sed -i 's/\("@types\/node": \).*/\1${{ matrix.node-version }}/' pnpm-workspace.yaml
+          sed -i 's/\("@types\/node": \).*/\1'"${NODE_VERSION}"'/' pnpm-workspace.yaml
           pnpm i --no-frozen-lockfile
 
       - run: pnpm run build
@@ -41,13 +48,15 @@ jobs:
         run: ./scripts/assert-clean-working-directory.sh
 
       - name: Create workspace archive
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
           tar --exclude='./node_modules' \
               --exclude='./**/node_modules' \
               --exclude='./.git' \
               --exclude='./coverage' \
               --exclude='./**/*.log' \
-              -cvf ${{ runner.temp }}/workspace.tar .
+              -cvf "${RUNNER_TEMP}/workspace.tar" .
 
       - name: Upload workspace
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -57,6 +66,7 @@ jobs:
           retention-days: 7
 
   build-docs:
+    name: build-docs (${{ matrix.node-version }})
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -87,14 +97,17 @@ jobs:
           name: workspace-${{ matrix.node-version }}
           path: ${{runner.temp}}
       - name: Extract workspace
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          tar -xf ${{runner.temp}}/workspace.tar -C .
+          tar -xf "${RUNNER_TEMP}/workspace.tar" -C .
 
       - run: pnpm ci
 
       - run: pnpm run build:docs
 
   unit:
+    name: unit (${{ matrix.node-version }})
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -116,8 +129,10 @@ jobs:
           name: workspace-${{ matrix.node-version }}
           path: ${{runner.temp}}
       - name: Extract workspace
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          tar -xf ${{runner.temp}}/workspace.tar -C .
+          tar -xf "${RUNNER_TEMP}/workspace.tar" -C .
 
       - run: pnpm ci
 
@@ -127,6 +142,7 @@ jobs:
         run: ./scripts/assert-clean-working-directory.sh
 
   integration:
+    name: integration (${{ matrix.node-version }}, ${{ matrix.schema-builder }})
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -150,13 +166,17 @@ jobs:
           name: workspace-${{ matrix.node-version }}
           path: ${{runner.temp}}
       - name: Extract workspace
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          tar -xf ${{runner.temp}}/workspace.tar -C .
+          tar -xf "${RUNNER_TEMP}/workspace.tar" -C .
 
       - run: pnpm ci
 
       - run: pnpm run integration:clean
-      - run: pnpm run integration:generate --schema-builder ${{ matrix.schema-builder }}
+      - run: pnpm run integration:generate --schema-builder "${SCHEMA_BUILDER}"
+        env:
+          SCHEMA_BUILDER: ${{ matrix.schema-builder }}
       - run: pnpm run integration:validate
 
       - name: Check for uncommitted changes
@@ -164,6 +184,7 @@ jobs:
         run: ./scripts/assert-clean-working-directory.sh
 
   e2e:
+    name: e2e (${{ matrix.node-version }})
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -186,8 +207,10 @@ jobs:
           name: workspace-${{ matrix.node-version }}
           path: ${{runner.temp}}
       - name: Extract workspace
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
         run: |
-          tar -xf ${{runner.temp}}/workspace.tar -C .
+          tar -xf "${RUNNER_TEMP}/workspace.tar" -C .
 
       - run: pnpm ci
 
@@ -201,6 +224,7 @@ jobs:
         run: ./scripts/assert-clean-working-directory.sh
 
   windows:
+    name: windows
     runs-on: windows-latest
     steps:
      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
