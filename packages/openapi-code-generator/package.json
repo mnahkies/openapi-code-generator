@@ -87,7 +87,7 @@
   "dependencies": {
     "@biomejs/biome": "2.5.0",
     "@biomejs/js-api": "4.0.0",
-    "@biomejs/wasm-nodejs": "2.4.15",
+    "@biomejs/wasm-nodejs": "2.5.0",
     "@commander-js/extra-typings": "catalog:",
     "ajv": "^8.20.0",
     "ajv-draft-04": "^1.0.0",
