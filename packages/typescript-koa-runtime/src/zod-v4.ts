@@ -1,6 +1,6 @@
 import {findMatchingSchema} from "@nahkies/typescript-common-runtime/validation"
 
-import type {z} from "zod/v4"
+import {z} from "zod/v4"
 import {KoaRuntimeError, type RequestInputType} from "./errors.ts"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
@@ -21,7 +21,14 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
   try {
     return schema?.parse(input)
   } catch (err) {
-    throw KoaRuntimeError.RequestError(err, type)
+    const enhancedMessagePostfix =
+      err instanceof z.ZodError ? ` - ${z.prettifyError(err)}` : ""
+    throw KoaRuntimeError.RequestError(
+      new Error(`Invalid request input${enhancedMessagePostfix}`, {
+        cause: err,
+      }),
+      type,
+    )
   }
 }
 
@@ -48,7 +55,11 @@ export function responseValidationFactory(
       // TODO: throw on unmatched response
       return value
     } catch (err) {
-      throw KoaRuntimeError.ResponseError(err)
+      const enhancedMessagePostfix =
+        err instanceof z.ZodError ? ` - ${z.prettifyError(err)}` : ""
+      throw KoaRuntimeError.ResponseError(
+        new Error(`Invalid response${enhancedMessagePostfix}`, {cause: err}),
+      )
     }
   }
 }
