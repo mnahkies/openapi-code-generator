@@ -75,7 +75,7 @@ catalogs:
 
 overrides:
   '@isaacs/brace-expansion': ^5.0.1
-  '@types/node': ^22.20.0
+  '@types/node': ^26.0.0
   axios: ^1.15.2
   lodash-es@~4.17: ^4.18.0
   qs: ^6.14.2
@@ -109,13 +109,13 @@ importers:
         version: 15.0.0(commander@15.0.0)
       '@lerna-lite/cli':
         specifier: ^5.3.0
-        version: 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)
+        version: 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)
       '@lerna-lite/publish':
         specifier: ^5.3.0
-        version: 5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0)
+        version: 5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0)
       '@lerna-lite/version':
         specifier: ^5.3.0
-        version: 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0)
+        version: 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0)
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -123,8 +123,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^22.20.0
-        version: 22.20.0
+        specifier: ^26.0.0
+        version: 26.0.0
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.9(vitest@4.1.9)
@@ -166,7 +166,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   e2e:
     dependencies:
@@ -215,7 +215,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   integration-tests/typescript-angular:
     dependencies:
@@ -246,10 +246,10 @@ importers:
     devDependencies:
       '@angular/build':
         specifier: ^22.0.3
-        version: 22.0.3(@angular/compiler-cli@22.0.2(@angular/compiler@22.0.2)(typescript@6.0.3))(@angular/compiler@22.0.2)(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)))(@types/node@22.20.0)(chokidar@5.0.0)(postcss@8.5.15)(tslib@2.8.1)(tsx@4.22.4)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)
+        version: 22.0.3(@angular/compiler-cli@22.0.2(@angular/compiler@22.0.2)(typescript@6.0.3))(@angular/compiler@22.0.2)(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)))(@types/node@26.0.0)(chokidar@5.0.0)(postcss@8.5.15)(tslib@2.8.1)(tsx@4.22.4)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)
       '@angular/cli':
         specifier: ^22.0.3
-        version: 22.0.3(@types/node@22.20.0)(chokidar@5.0.0)
+        version: 22.0.3(@types/node@26.0.0)(chokidar@5.0.0)
       '@angular/compiler-cli':
         specifier: ^22.0.0
         version: 22.0.2(@angular/compiler@22.0.2)(typescript@6.0.3)
@@ -261,7 +261,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   integration-tests/typescript-axios:
     dependencies:
@@ -279,8 +279,8 @@ importers:
         version: 2.8.1
     devDependencies:
       '@types/node':
-        specifier: ^22.20.0
-        version: 22.20.0
+        specifier: ^26.0.0
+        version: 26.0.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -323,8 +323,8 @@ importers:
         version: 2.8.1
     devDependencies:
       '@types/node':
-        specifier: ^22.20.0
-        version: 22.20.0
+        specifier: ^26.0.0
+        version: 26.0.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -406,8 +406,8 @@ importers:
         specifier: ^4.17.24
         version: 4.17.24
       '@types/node':
-        specifier: ^22.20.0
-        version: 22.20.0
+        specifier: ^26.0.0
+        version: 26.0.0
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.17
@@ -474,16 +474,16 @@ importers:
     devDependencies:
       '@azure-tools/typespec-autorest':
         specifier: 'catalog:'
-        version: 0.69.1(3c613581435a8853c610b2bafe6f2d45)
+        version: 0.69.1(810501a1c14da19544bc9fe0c5f08e83)
       '@azure-tools/typespec-azure-core':
         specifier: 'catalog:'
-        version: 0.69.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))))
+        version: 0.69.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))))
       '@azure-tools/typespec-azure-resource-manager':
         specifier: 'catalog:'
-        version: 0.69.1(1f21e1792ef5c6e2b7519beec7c9c9f5)
+        version: 0.69.1(92ee4c7cc75d87272dd11b441ccbeb66)
       '@azure-tools/typespec-client-generator-core':
         specifier: 'catalog:'
-        version: 0.69.0(d7e7f74eceef116719b3c10b6b0489b8)
+        version: 0.69.0(1c7bca31f4807dd83f2823b577ee4665)
       '@nahkies/typescript-common-runtime':
         specifier: workspace:^
         version: link:../typescript-common-runtime
@@ -495,34 +495,34 @@ importers:
         version: 4.17.24
       '@typespec/compiler':
         specifier: ^1.12.0
-        version: 1.13.0(@types/node@22.20.0)
+        version: 1.13.0(@types/node@26.0.0)
       '@typespec/events':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       '@typespec/http':
         specifier: ^1.12.0
-        version: 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
+        version: 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
       '@typespec/openapi':
         specifier: ^1.12.0
-        version: 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
+        version: 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
       '@typespec/openapi3':
         specifier: ^1.12.0
-        version: 1.13.0(d40defdf02a20bbce34f949d2f323956)
+        version: 1.13.0(50aa834907c7f63129a519948b2906e7)
       '@typespec/rest':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
       '@typespec/sse':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
       '@typespec/streams':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       '@typespec/versioning':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       '@typespec/xml':
         specifier: 0.83.0
-        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+        version: 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       joi:
         specifier: 'catalog:'
         version: 18.2.3
@@ -534,7 +534,7 @@ importers:
         version: 4.22.4
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   packages/typescript-axios-runtime:
     dependencies:
@@ -556,7 +556,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   packages/typescript-common-runtime:
     dependencies:
@@ -575,7 +575,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   packages/typescript-express-runtime:
     dependencies:
@@ -618,7 +618,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
       zod:
         specifier: ^4.3.6
         version: 4.4.3
@@ -643,7 +643,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
       zod:
         specifier: ^4.3.6
         version: 4.4.3
@@ -689,7 +689,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 'catalog:'
-        version: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
       zod:
         specifier: ^4.3.6
         version: 4.4.3
@@ -1779,7 +1779,7 @@ packages:
     resolution: {integrity: sha512-b6xmA/VlTe0ZgDQHDui+Nav470u7u49nRd8/iuhOcQPO9Ch7lGuogydhi2VOmNlZ+zXcM8IcPuNSwQcdJaF/kw==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1788,7 +1788,7 @@ packages:
     resolution: {integrity: sha512-h9FgGun3QwVYNj5TWIZZ+slii73bMoBFjPfVIGtnFuL4t8gBiNDV9PcSfIzkuxvgquJKt9nr1QzszpBzTbH8Og==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^21.7.0 || ^20.12.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1797,7 +1797,7 @@ packages:
     resolution: {integrity: sha512-eb8DBZcz/2qHWQda4rk2JiQk5h9QV/cVHi1yjt0f69WFZMRFn0sJTye3EAP8icut8UDMjQPsaH5KbcOogefrFQ==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1806,7 +1806,7 @@ packages:
     resolution: {integrity: sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1815,7 +1815,7 @@ packages:
     resolution: {integrity: sha512-ZRVd/oD+sYsUd5zVm0NflqEzlqfYCyHNsqkHl2oWXEUHs12tCbcSFi+wVFEvD8+LGRaMUsVrE7qeo6lSG/S1Vg==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1824,7 +1824,7 @@ packages:
     resolution: {integrity: sha512-YmQpenjbFSHAK3sOd44puHh3V1KXXr+JiNpUztoSQ4drLh2rTVzTap/YtlAVu/5xavifIlBfNEzJ/neZJ1a/1g==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1833,7 +1833,7 @@ packages:
     resolution: {integrity: sha512-6thf5I8q7lZwzGLAxPaaGEREEkZ3nyePPDQ1oyobblxmEE8mqTLguScP7pDjUTAibiyb4hfXl+qjUEJ+di/aNA==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1846,7 +1846,7 @@ packages:
     resolution: {integrity: sha512-9K/DDBSQpOyZSkt6sOVP9Vo0TR7atX2kuILsUu0x3wVcVbe97lJwIJKMLdMw25tDYuXl/qp6erT0Xs1rfmcfZg==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1855,7 +1855,7 @@ packages:
     resolution: {integrity: sha512-XF4IXAbPnGPgw0wsbC/i2tPcyfdZgDpUlhsqU0SfT4IRIGWha6Xm9VRgN5yYxJq+jnyXlfXI/nQ3ulfk0iEICA==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1864,7 +1864,7 @@ packages:
     resolution: {integrity: sha512-3XBfF7DAsp5qeDsvN5Rd1HmbNokVvEQoUM0QLrRcybC9nX96w3Pbmu7qUsb3IT3J3jBvs2+mTXaKHOUsgHMLzg==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1873,7 +1873,7 @@ packages:
     resolution: {integrity: sha512-XJmn/wY4AX56l1BRU+ZjDrFtg9+2uBEi4JvJQj82kwJDQKiPgSn4CEsbfGGygS4Gw6rkL4W18oATjfVfaqub2Q==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^21.7.0 || ^20.12.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1882,7 +1882,7 @@ packages:
     resolution: {integrity: sha512-IYR/3C/paEVVQYQvdDlFZVjRCJVYHHON0XXMH91KO9GSxs0TdKYWlUdvfQl2EfAHDxUaN3IBffkE/BDTh5nJ6g==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1891,7 +1891,7 @@ packages:
     resolution: {integrity: sha512-QqdTqQddL3qPX/PPrjobpsO25NZ4dWXgTLenrR445L2ptLEYE6Z+PD5c5CNDJNx4ugRgELAIpSIJxZaO2jJ2Og==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1900,7 +1900,7 @@ packages:
     resolution: {integrity: sha512-xJj8QWKRSrfKoBIITLZK61dD3zwo0Rz11fgDImku30/Oe81zMdIdGgrLY2h6RkJ+KZ/GhNYIRMKnH/62qBTA5g==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1909,7 +1909,7 @@ packages:
     resolution: {integrity: sha512-FlDndEUww8m7BfukO2nJa25vhD+H5jxxCv4oGioKqzyWz3nPHhhw4LKdYRSlXuAx7DsdWia7iyaBPKKS95Evfw==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -1918,7 +1918,7 @@ packages:
     resolution: {integrity: sha512-t28inv14nMQ1PhKpsJPY+kEs/c00qzeCOS2gTNRyTjG5d6qsVA2fItxW4hkvGZ5lvanGLdtCzVIx5dwdRpN1+g==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -3228,8 +3228,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@22.20.0':
-    resolution: {integrity: sha512-QWlFW2wf3nTjC13/DqRnBpR4ZO36VJH/JVBkA/vcnmbTBNQIlnObqyqZE1tUR7+Ni23Lda8R1BxMfbXRpCUx5g==}
+  '@types/node@26.0.0':
+    resolution: {integrity: sha512-vf2YFi1iY9lHGwNJMs01biZFbKJkrZR1T6/MlzjhJLPdntOHLhTrDSnSVcdtvjihi4VQNlrFRIxLsDBlQpAipA==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -6374,8 +6374,8 @@ packages:
   unconfig-core@7.5.0:
     resolution: {integrity: sha512-Su3FauozOGP44ZmKdHy2oE6LPjk51M/TRRjHv2HNCWiDvfvCoxC2lno6jevMA91MYAdCdwP05QnWdWpSbncX/w==}
 
-  undici-types@6.21.0:
-    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+  undici-types@8.3.0:
+    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
 
   undici@6.27.0:
     resolution: {integrity: sha512-YmfV3YnEDzXRC5lZ2jWtWWHKGUm1zIt8AhesR1tens+HTNv+YZlN/dp6G727LOvMJ8xjP9Be7Y2Sdr96LDm+pg==}
@@ -6479,7 +6479,7 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
       jiti: '>=1.21.0'
       less: ^4.0.0
       lightningcss: ^1.21.0
@@ -6521,7 +6521,7 @@ packages:
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@opentelemetry/api': ^1.9.0
-      '@types/node': ^22.20.0
+      '@types/node': ^26.0.0
       '@vitest/browser-playwright': 4.1.9
       '@vitest/browser-preview': 4.1.9
       '@vitest/browser-webdriverio': 4.1.9
@@ -6839,7 +6839,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular/build@22.0.3(@angular/compiler-cli@22.0.2(@angular/compiler@22.0.2)(typescript@6.0.3))(@angular/compiler@22.0.2)(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)))(@types/node@22.20.0)(chokidar@5.0.0)(postcss@8.5.15)(tslib@2.8.1)(tsx@4.22.4)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)':
+  '@angular/build@22.0.3(@angular/compiler-cli@22.0.2(@angular/compiler@22.0.2)(typescript@6.0.3))(@angular/compiler@22.0.2)(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(@angular/platform-browser@22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)))(@types/node@26.0.0)(chokidar@5.0.0)(postcss@8.5.15)(tslib@2.8.1)(tsx@4.22.4)(typescript@6.0.3)(vitest@4.1.9)(yaml@2.9.0)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2200.3(chokidar@5.0.0)
@@ -6848,8 +6848,8 @@ snapshots:
       '@babel/core': 7.29.0
       '@babel/helper-annotate-as-pure': 7.27.3
       '@babel/helper-split-export-declaration': 7.24.7
-      '@inquirer/confirm': 6.0.12(@types/node@22.20.0)
-      '@vitejs/plugin-basic-ssl': 2.3.0(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+      '@inquirer/confirm': 6.0.12(@types/node@26.0.0)
+      '@vitejs/plugin-basic-ssl': 2.3.0(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
       beasties: 0.4.2
       browserslist: 4.28.2
       esbuild: 0.28.1
@@ -6868,14 +6868,14 @@ snapshots:
       tinyglobby: 0.2.16
       tslib: 2.8.1
       typescript: 6.0.3
-      vite: 7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
+      vite: 7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
       watchpack: 2.5.1
     optionalDependencies:
       '@angular/core': 22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2)
       '@angular/platform-browser': 22.0.2(@angular/common@22.0.2(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.2(@angular/compiler@22.0.2)(rxjs@7.8.2))
       lmdb: 3.5.4
       postcss: 8.5.15
-      vitest: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+      vitest: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
     transitivePeerDependencies:
       - '@types/node'
       - chokidar
@@ -6889,13 +6889,13 @@ snapshots:
       - tsx
       - yaml
 
-  '@angular/cli@22.0.3(@types/node@22.20.0)(chokidar@5.0.0)':
+  '@angular/cli@22.0.3(@types/node@26.0.0)(chokidar@5.0.0)':
     dependencies:
       '@angular-devkit/architect': 0.2200.3(chokidar@5.0.0)
       '@angular-devkit/core': 22.0.3(chokidar@5.0.0)
       '@angular-devkit/schematics': 22.0.3(chokidar@5.0.0)
-      '@inquirer/prompts': 8.4.2(@types/node@22.20.0)
-      '@listr2/prompt-adapter-inquirer': 4.2.3(@inquirer/prompts@8.4.2(@types/node@22.20.0))(@types/node@22.20.0)(listr2@10.2.1)
+      '@inquirer/prompts': 8.4.2(@types/node@26.0.0)
+      '@listr2/prompt-adapter-inquirer': 4.2.3(@inquirer/prompts@8.4.2(@types/node@26.0.0))(@types/node@26.0.0)(listr2@10.2.1)
       '@modelcontextprotocol/sdk': 1.29.0(zod@4.4.3)
       '@schematics/angular': 22.0.3(chokidar@5.0.0)
       '@yarnpkg/lockfile': 1.1.0
@@ -7008,48 +7008,48 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@azure-tools/typespec-autorest@0.69.1(3c613581435a8853c610b2bafe6f2d45)':
+  '@azure-tools/typespec-autorest@0.69.1(810501a1c14da19544bc9fe0c5f08e83)':
     dependencies:
-      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))))
-      '@azure-tools/typespec-azure-resource-manager': 0.69.1(1f21e1792ef5c6e2b7519beec7c9c9f5)
-      '@azure-tools/typespec-client-generator-core': 0.69.0(d7e7f74eceef116719b3c10b6b0489b8)
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))))
+      '@azure-tools/typespec-azure-resource-manager': 0.69.1(92ee4c7cc75d87272dd11b441ccbeb66)
+      '@azure-tools/typespec-client-generator-core': 0.69.0(1c7bca31f4807dd83f2823b577ee4665)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
     optionalDependencies:
-      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
 
-  '@azure-tools/typespec-azure-core@0.69.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))))':
+  '@azure-tools/typespec-azure-core@0.69.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
 
-  '@azure-tools/typespec-azure-resource-manager@0.69.1(1f21e1792ef5c6e2b7519beec7c9c9f5)':
+  '@azure-tools/typespec-azure-resource-manager@0.69.1(92ee4c7cc75d87272dd11b441ccbeb66)':
     dependencies:
-      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))))
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       change-case: 5.4.4
       pluralize: 8.0.0
 
-  '@azure-tools/typespec-client-generator-core@0.69.0(d7e7f74eceef116719b3c10b6b0489b8)':
+  '@azure-tools/typespec-client-generator-core@0.69.0(1c7bca31f4807dd83f2823b577ee4665)':
     dependencies:
-      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))))
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
-      '@typespec/sse': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@azure-tools/typespec-azure-core': 0.69.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/rest': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
+      '@typespec/sse': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
       change-case: 5.4.4
       pluralize: 8.0.0
       yaml: 2.9.0
@@ -7628,144 +7628,144 @@ snapshots:
 
   '@inquirer/ansi@2.0.7': {}
 
-  '@inquirer/checkbox@5.2.1(@types/node@22.20.0)':
+  '@inquirer/checkbox@5.2.1(@types/node@26.0.0)':
     dependencies:
       '@inquirer/ansi': 2.0.7
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
       '@inquirer/figures': 2.0.7
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/confirm@6.0.12(@types/node@22.20.0)':
+  '@inquirer/confirm@6.0.12(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/confirm@6.1.1(@types/node@22.20.0)':
+  '@inquirer/confirm@6.1.1(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/core@11.2.1(@types/node@22.20.0)':
+  '@inquirer/core@11.2.1(@types/node@26.0.0)':
     dependencies:
       '@inquirer/ansi': 2.0.7
       '@inquirer/figures': 2.0.7
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
       signal-exit: 4.1.0
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/editor@5.2.2(@types/node@22.20.0)':
+  '@inquirer/editor@5.2.2(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/external-editor': 3.0.3(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/external-editor': 3.0.3(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/expand@5.1.1(@types/node@22.20.0)':
+  '@inquirer/expand@5.1.1(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/external-editor@3.0.3(@types/node@22.20.0)':
+  '@inquirer/external-editor@3.0.3(@types/node@26.0.0)':
     dependencies:
       chardet: 2.2.0
       iconv-lite: 0.7.2
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@inquirer/figures@2.0.7': {}
 
-  '@inquirer/input@5.1.2(@types/node@22.20.0)':
+  '@inquirer/input@5.1.2(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/number@4.1.1(@types/node@22.20.0)':
+  '@inquirer/number@4.1.1(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/password@5.1.1(@types/node@22.20.0)':
-    dependencies:
-      '@inquirer/ansi': 2.0.7
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
-    optionalDependencies:
-      '@types/node': 22.20.0
-
-  '@inquirer/prompts@8.4.2(@types/node@22.20.0)':
-    dependencies:
-      '@inquirer/checkbox': 5.2.1(@types/node@22.20.0)
-      '@inquirer/confirm': 6.1.1(@types/node@22.20.0)
-      '@inquirer/editor': 5.2.2(@types/node@22.20.0)
-      '@inquirer/expand': 5.1.1(@types/node@22.20.0)
-      '@inquirer/input': 5.1.2(@types/node@22.20.0)
-      '@inquirer/number': 4.1.1(@types/node@22.20.0)
-      '@inquirer/password': 5.1.1(@types/node@22.20.0)
-      '@inquirer/rawlist': 5.3.1(@types/node@22.20.0)
-      '@inquirer/search': 4.2.1(@types/node@22.20.0)
-      '@inquirer/select': 5.2.1(@types/node@22.20.0)
-    optionalDependencies:
-      '@types/node': 22.20.0
-
-  '@inquirer/prompts@8.5.2(@types/node@22.20.0)':
-    dependencies:
-      '@inquirer/checkbox': 5.2.1(@types/node@22.20.0)
-      '@inquirer/confirm': 6.1.1(@types/node@22.20.0)
-      '@inquirer/editor': 5.2.2(@types/node@22.20.0)
-      '@inquirer/expand': 5.1.1(@types/node@22.20.0)
-      '@inquirer/input': 5.1.2(@types/node@22.20.0)
-      '@inquirer/number': 4.1.1(@types/node@22.20.0)
-      '@inquirer/password': 5.1.1(@types/node@22.20.0)
-      '@inquirer/rawlist': 5.3.1(@types/node@22.20.0)
-      '@inquirer/search': 4.2.1(@types/node@22.20.0)
-      '@inquirer/select': 5.2.1(@types/node@22.20.0)
-    optionalDependencies:
-      '@types/node': 22.20.0
-
-  '@inquirer/rawlist@5.3.1(@types/node@22.20.0)':
-    dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
-    optionalDependencies:
-      '@types/node': 22.20.0
-
-  '@inquirer/search@4.2.1(@types/node@22.20.0)':
-    dependencies:
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/figures': 2.0.7
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
-    optionalDependencies:
-      '@types/node': 22.20.0
-
-  '@inquirer/select@5.2.1(@types/node@22.20.0)':
+  '@inquirer/password@5.1.1(@types/node@26.0.0)':
     dependencies:
       '@inquirer/ansi': 2.0.7
-      '@inquirer/core': 11.2.1(@types/node@22.20.0)
-      '@inquirer/figures': 2.0.7
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
-  '@inquirer/type@4.0.7(@types/node@22.20.0)':
+  '@inquirer/prompts@8.4.2(@types/node@26.0.0)':
+    dependencies:
+      '@inquirer/checkbox': 5.2.1(@types/node@26.0.0)
+      '@inquirer/confirm': 6.1.1(@types/node@26.0.0)
+      '@inquirer/editor': 5.2.2(@types/node@26.0.0)
+      '@inquirer/expand': 5.1.1(@types/node@26.0.0)
+      '@inquirer/input': 5.1.2(@types/node@26.0.0)
+      '@inquirer/number': 4.1.1(@types/node@26.0.0)
+      '@inquirer/password': 5.1.1(@types/node@26.0.0)
+      '@inquirer/rawlist': 5.3.1(@types/node@26.0.0)
+      '@inquirer/search': 4.2.1(@types/node@26.0.0)
+      '@inquirer/select': 5.2.1(@types/node@26.0.0)
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
+
+  '@inquirer/prompts@8.5.2(@types/node@26.0.0)':
+    dependencies:
+      '@inquirer/checkbox': 5.2.1(@types/node@26.0.0)
+      '@inquirer/confirm': 6.1.1(@types/node@26.0.0)
+      '@inquirer/editor': 5.2.2(@types/node@26.0.0)
+      '@inquirer/expand': 5.1.1(@types/node@26.0.0)
+      '@inquirer/input': 5.1.2(@types/node@26.0.0)
+      '@inquirer/number': 4.1.1(@types/node@26.0.0)
+      '@inquirer/password': 5.1.1(@types/node@26.0.0)
+      '@inquirer/rawlist': 5.3.1(@types/node@26.0.0)
+      '@inquirer/search': 4.2.1(@types/node@26.0.0)
+      '@inquirer/select': 5.2.1(@types/node@26.0.0)
+    optionalDependencies:
+      '@types/node': 26.0.0
+
+  '@inquirer/rawlist@5.3.1(@types/node@26.0.0)':
+    dependencies:
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
+    optionalDependencies:
+      '@types/node': 26.0.0
+
+  '@inquirer/search@4.2.1(@types/node@26.0.0)':
+    dependencies:
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/figures': 2.0.7
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
+    optionalDependencies:
+      '@types/node': 26.0.0
+
+  '@inquirer/select@5.2.1(@types/node@26.0.0)':
+    dependencies:
+      '@inquirer/ansi': 2.0.7
+      '@inquirer/core': 11.2.1(@types/node@26.0.0)
+      '@inquirer/figures': 2.0.7
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
+    optionalDependencies:
+      '@types/node': 26.0.0
+
+  '@inquirer/type@4.0.7(@types/node@26.0.0)':
+    optionalDependencies:
+      '@types/node': 26.0.0
 
   '@internationalized/date@3.12.2':
     dependencies:
@@ -7795,7 +7795,7 @@ snapshots:
 
   '@jest/pattern@30.4.0':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       jest-regex-util: 30.4.0
 
   '@jest/schemas@30.4.1':
@@ -7808,7 +7808,7 @@ snapshots:
       '@jest/schemas': 30.4.1
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
@@ -7845,25 +7845,25 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lerna-lite/cli@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)':
+  '@lerna-lite/cli@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)':
     dependencies:
-      '@lerna-lite/core': 5.3.0(@types/node@22.20.0)
-      '@lerna-lite/init': 5.3.0(@types/node@22.20.0)
+      '@lerna-lite/core': 5.3.0(@types/node@26.0.0)
+      '@lerna-lite/init': 5.3.0(@types/node@26.0.0)
       '@lerna-lite/npmlog': 5.3.0
       dotenv: 17.4.2
       import-local: 3.2.0
       yargs: 18.0.0
     optionalDependencies:
-      '@lerna-lite/publish': 5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0)
-      '@lerna-lite/version': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0)
+      '@lerna-lite/publish': 5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0)
+      '@lerna-lite/version': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@lerna-lite/core@5.3.0(@types/node@22.20.0)':
+  '@lerna-lite/core@5.3.0(@types/node@26.0.0)':
     dependencies:
-      '@inquirer/expand': 5.1.1(@types/node@22.20.0)
-      '@inquirer/input': 5.1.2(@types/node@22.20.0)
-      '@inquirer/select': 5.2.1(@types/node@22.20.0)
+      '@inquirer/expand': 5.1.1(@types/node@26.0.0)
+      '@inquirer/input': 5.1.2(@types/node@26.0.0)
+      '@inquirer/select': 5.2.1(@types/node@26.0.0)
       '@lerna-lite/npmlog': 5.3.0
       '@npmcli/run-script': 10.0.4
       ci-info: 4.4.0
@@ -7879,9 +7879,9 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@lerna-lite/init@5.3.0(@types/node@22.20.0)':
+  '@lerna-lite/init@5.3.0(@types/node@26.0.0)':
     dependencies:
-      '@lerna-lite/core': 5.3.0(@types/node@22.20.0)
+      '@lerna-lite/core': 5.3.0(@types/node@26.0.0)
       write-json-file: 7.0.0
     transitivePeerDependencies:
       - '@types/node'
@@ -7891,12 +7891,12 @@ snapshots:
       fast-string-width: 3.0.2
       signal-exit: 4.1.0
 
-  '@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0)':
+  '@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0)':
     dependencies:
-      '@lerna-lite/cli': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)
-      '@lerna-lite/core': 5.3.0(@types/node@22.20.0)
+      '@lerna-lite/cli': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)
+      '@lerna-lite/core': 5.3.0(@types/node@26.0.0)
       '@lerna-lite/npmlog': 5.3.0
-      '@lerna-lite/version': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0)
+      '@lerna-lite/version': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0)
       '@npmcli/arborist': 9.8.0
       '@npmcli/package-json': 7.0.5
       ci-info: 4.4.0
@@ -7918,11 +7918,11 @@ snapshots:
       - conventional-commits-filter
       - supports-color
 
-  '@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0)':
+  '@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0)':
     dependencies:
       '@conventional-changelog/git-client': 2.7.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.4.0)
-      '@lerna-lite/cli': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)(conventional-commits-filter@5.0.0))(@types/node@22.20.0)
-      '@lerna-lite/core': 5.3.0(@types/node@22.20.0)
+      '@lerna-lite/cli': 5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@lerna-lite/version@5.3.0(@lerna-lite/publish@5.3.0(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)(conventional-commits-filter@5.0.0))(@types/node@26.0.0)
+      '@lerna-lite/core': 5.3.0(@types/node@26.0.0)
       '@lerna-lite/npmlog': 5.3.0
       '@octokit/plugin-enterprise-rest': 6.0.1
       '@octokit/rest': 22.0.1
@@ -7945,10 +7945,10 @@ snapshots:
       - '@types/node'
       - conventional-commits-filter
 
-  '@listr2/prompt-adapter-inquirer@4.2.3(@inquirer/prompts@8.4.2(@types/node@22.20.0))(@types/node@22.20.0)(listr2@10.2.1)':
+  '@listr2/prompt-adapter-inquirer@4.2.3(@inquirer/prompts@8.4.2(@types/node@26.0.0))(@types/node@26.0.0)(listr2@10.2.1)':
     dependencies:
-      '@inquirer/prompts': 8.4.2(@types/node@22.20.0)
-      '@inquirer/type': 4.0.7(@types/node@22.20.0)
+      '@inquirer/prompts': 8.4.2(@types/node@26.0.0)
+      '@inquirer/type': 4.0.7(@types/node@26.0.0)
       listr2: 10.2.1
     transitivePeerDependencies:
       - '@types/node'
@@ -8823,12 +8823,12 @@ snapshots:
 
   '@types/accepts@1.3.7':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/chai@5.2.3':
     dependencies:
@@ -8837,12 +8837,12 @@ snapshots:
 
   '@types/co-body@6.1.3':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       '@types/qs': 6.15.1
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/content-disposition@0.5.9': {}
 
@@ -8851,11 +8851,11 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/express': 5.0.6
       '@types/keygrip': 1.0.6
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/cors@2.8.19':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/d3-array@3.2.2': {}
 
@@ -8990,7 +8990,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.1.1':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       '@types/qs': 6.15.1
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -9003,7 +9003,7 @@ snapshots:
 
   '@types/formidable@3.5.1':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/geojson@7946.0.16': {}
 
@@ -9046,7 +9046,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.9
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/koa__cors@5.0.1':
     dependencies:
@@ -9066,9 +9066,9 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@22.20.0':
+  '@types/node@26.0.0':
     dependencies:
-      undici-types: 6.21.0
+      undici-types: 8.3.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -9090,12 +9090,12 @@ snapshots:
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/serve-static@2.2.0':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
 
   '@types/stack-utils@2.0.3': {}
 
@@ -9121,14 +9121,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typespec/asset-emitter@0.79.1(@typespec/compiler@1.13.0(@types/node@22.20.0))':
+  '@typespec/asset-emitter@0.79.1(@typespec/compiler@1.13.0(@types/node@26.0.0))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
 
-  '@typespec/compiler@1.13.0(@types/node@22.20.0)':
+  '@typespec/compiler@1.13.0(@types/node@26.0.0)':
     dependencies:
       '@babel/code-frame': 7.29.7
-      '@inquirer/prompts': 8.5.2(@types/node@22.20.0)
+      '@inquirer/prompts': 8.5.2(@types/node@26.0.0)
       ajv: 8.20.0
       change-case: 5.4.4
       env-paths: 4.0.0
@@ -9146,61 +9146,61 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))':
+  '@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
 
-  '@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))':
+  '@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
     optionalDependencies:
-      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
 
-  '@typespec/openapi3@1.13.0(d40defdf02a20bbce34f949d2f323956)':
+  '@typespec/openapi3@1.13.0(50aa834907c7f63129a519948b2906e7)':
     dependencies:
       '@scalar/json-magic': 0.12.16
       '@scalar/openapi-parser': 0.28.7
       '@scalar/openapi-types': 0.9.1
-      '@typespec/asset-emitter': 0.79.1(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))
+      '@typespec/asset-emitter': 0.79.1(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/openapi': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))
       yaml: 2.9.0
     optionalDependencies:
-      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/sse': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/sse': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/versioning': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/xml': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
 
-  '@typespec/openapi@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))':
+  '@typespec/openapi@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
 
-  '@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))':
+  '@typespec/rest@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
 
-  '@typespec/sse@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))':
+  '@typespec/sse@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/events@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))(@typespec/http@1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
-      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
-      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@22.20.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0)))
-      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
+      '@typespec/events': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
+      '@typespec/http': 1.13.0(@typespec/compiler@1.13.0(@types/node@26.0.0))(@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0)))
+      '@typespec/streams': 0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))
 
-  '@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))':
+  '@typespec/streams@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
 
-  '@typespec/versioning@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))':
+  '@typespec/versioning@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
 
-  '@typespec/xml@0.83.0(@typespec/compiler@1.13.0(@types/node@22.20.0))':
+  '@typespec/xml@0.83.0(@typespec/compiler@1.13.0(@types/node@26.0.0))':
     dependencies:
-      '@typespec/compiler': 1.13.0(@types/node@22.20.0)
+      '@typespec/compiler': 1.13.0(@types/node@26.0.0)
 
   '@ungap/structured-clone@1.3.1': {}
 
@@ -9209,9 +9209,9 @@ snapshots:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
 
-  '@vitejs/plugin-basic-ssl@2.3.0(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))':
+  '@vitejs/plugin-basic-ssl@2.3.0(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
-      vite: 7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
+      vite: 7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
 
   '@vitest/coverage-v8@4.1.9(vitest@4.1.9)':
     dependencies:
@@ -9225,7 +9225,7 @@ snapshots:
       obug: 2.1.3
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+      vitest: 4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
 
   '@vitest/expect@4.1.9':
     dependencies:
@@ -9236,13 +9236,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.9(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))':
+  '@vitest/mocker@4.1.9(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.9
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
+      vite: 7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.9':
     dependencies:
@@ -10840,7 +10840,7 @@ snapshots:
   jest-mock@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       jest-util: 30.4.1
 
   jest-regex-util@30.4.0: {}
@@ -10848,7 +10848,7 @@ snapshots:
   jest-util@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       chalk: 4.1.2
       ci-info: 4.4.0
       graceful-fs: 4.2.11
@@ -13007,7 +13007,7 @@ snapshots:
       '@quansync/fs': 1.0.0
       quansync: 1.0.0
 
-  undici-types@6.21.0: {}
+  undici-types@8.3.0: {}
 
   undici@6.27.0: {}
 
@@ -13121,25 +13121,25 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0):
+  vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0):
     dependencies:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
       postcss: 8.5.15
       rollup: 4.60.2
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       fsevents: 2.3.3
       sass: 1.99.0
       tsx: 4.22.4
       yaml: 2.9.0
 
-  vitest@4.1.9(@types/node@22.20.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)):
+  vitest@4.1.9(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(jsdom@28.1.0(@noble/hashes@1.8.0))(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.9
-      '@vitest/mocker': 4.1.9(vite@7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
+      '@vitest/mocker': 4.1.9(vite@7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.9
       '@vitest/runner': 4.1.9
       '@vitest/snapshot': 4.1.9
@@ -13156,10 +13156,10 @@ snapshots:
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vite: 7.3.5(@types/node@22.20.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
+      vite: 7.3.5(@types/node@26.0.0)(sass@1.99.0)(tsx@4.22.4)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.20.0
+      '@types/node': 26.0.0
       '@vitest/coverage-v8': 4.1.9(vitest@4.1.9)
       jsdom: 28.1.0(@noble/hashes@1.8.0)
     transitivePeerDependencies:
