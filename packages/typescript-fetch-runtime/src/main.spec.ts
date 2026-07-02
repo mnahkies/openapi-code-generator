@@ -162,6 +162,20 @@ describe("typescript-fetch-runtime/main", () => {
     })
 
     describe("route headers", () => {
+      it("preserves Xquik API key header names", () => {
+        const actual = getActual({
+          defaultHeaders: {Accept: "application/json"},
+          routeHeaders: {"x-api-key": "test-key"},
+          configHeaders: {"Xquik-Api-Key": "alias-key"},
+        })
+
+        expect(Array.from(actual.entries())).toStrictEqual([
+          ["accept", "application/json"],
+          ["x-api-key", "test-key"],
+          ["xquik-api-key", "alias-key"],
+        ])
+      })
+
       it("applies number route headers", () => {
         const actual = getActual({
           routeHeaders: {"X-Rate-Limit": 10},
