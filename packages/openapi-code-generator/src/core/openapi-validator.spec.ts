@@ -89,6 +89,40 @@ describe("core/openapi-validator", () => {
       ).resolves.toBeUndefined()
     })
 
+    it("should accept anonymous security alternatives", async () => {
+      const validator = await OpenapiValidator.create()
+      await expect(
+        validator.validate(
+          "optional-security.yaml",
+          {
+            openapi: "3.1.0",
+            info: {
+              title: "Optional Security",
+              version: "1.0.0",
+            },
+            paths: {
+              "/public-or-keyed": {
+                get: {
+                  security: [{ApiKeyAuth: []}, {}],
+                  responses: {default: {description: "ok"}},
+                },
+              },
+            },
+            components: {
+              securitySchemes: {
+                ApiKeyAuth: {
+                  type: "apiKey",
+                  in: "header",
+                  name: "X-API-Key",
+                },
+              },
+            },
+          },
+          true,
+        ),
+      ).resolves.toBeUndefined()
+    })
+
     it.skip("should reject an invalid specification", async () => {
       const validator = await OpenapiValidator.create()
       await expect(
