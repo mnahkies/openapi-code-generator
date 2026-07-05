@@ -55,7 +55,7 @@
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^3.0.1",
     "commander": "catalog:",
-    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "conventional-changelog-conventionalcommits": "^10.2.0",
     "husky": "^9.1.7",
     "json5": "^2.2.3",
     "prettier": "catalog:",
