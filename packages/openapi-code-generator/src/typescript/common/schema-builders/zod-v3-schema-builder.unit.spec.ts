@@ -1178,10 +1178,9 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
         const x = z.discriminatedUnion("kind", [
           s_A,
           z.object({
-            kind: z.union([
-              z.enum([]),
-              z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
-            ]),
+            kind: z
+              .string()
+              .transform((it) => it as typeof it & UnknownEnumStringValue),
           }),
         ])"
       `)

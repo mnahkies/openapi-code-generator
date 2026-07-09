@@ -49,7 +49,15 @@ export const s_RandomNumber = z.object({
     .optional(),
 })
 
-export const s_Animal = z.discriminatedUnion("type", [s_Cat, s_Dog])
+export const s_Animal = z.discriminatedUnion("type", [
+  s_Cat,
+  s_Dog,
+  z.object({
+    type: z
+      .string()
+      .transform((it) => it as typeof it & UnknownEnumStringValue),
+  }),
+])
 
 export const s_GetHeadersUndeclared200Response = z.object({
   rawHeaders: z.record(z.string(), z.unknown()).optional(),
