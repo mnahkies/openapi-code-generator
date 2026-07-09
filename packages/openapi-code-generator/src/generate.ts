@@ -30,6 +30,25 @@ function enumExtensibility(
   throw new Error(`Unsupported generator type '${generator.type}'`)
 }
 
+function unionExtensibility(
+  config: Config,
+  generator: OpenapiGenerator,
+): "open" | "closed" {
+  if (config.unionExtensibility) {
+    return config.unionExtensibility
+  }
+
+  if (generator.type === "client") {
+    return "open"
+  }
+
+  if (generator.type === "server") {
+    return "closed"
+  }
+
+  throw new Error(`Unsupported generator type '${generator.type}'`)
+}
+
 export async function generate(
   config: Config,
   fsAdaptor: IFsAdaptor,
@@ -63,6 +82,7 @@ export async function generate(
     {
       extractInlineSchemas: config.extractInlineSchemas,
       enumExtensibility: enumExtensibility(config, generator),
+      unionExtensibility: unionExtensibility(config, generator),
     },
     generator.syntheticNameGenerator,
   )

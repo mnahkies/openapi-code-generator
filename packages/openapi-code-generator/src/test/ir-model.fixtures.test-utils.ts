@@ -116,6 +116,7 @@ const extension = {
     nullable: false,
     default: undefined,
     discriminator: undefined,
+    "x-union-extensibility": undefined,
     "x-internal-preprocess": undefined,
   } satisfies IRModelUnion,
   null: {

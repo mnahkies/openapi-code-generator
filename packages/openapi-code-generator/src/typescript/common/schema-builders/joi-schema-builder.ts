@@ -160,6 +160,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   protected discriminatedUnion(
     _propertyName: string,
     mapping: Record<string, string>,
+    _extensibility: "open" | "closed" | undefined,
   ): string {
     return this.union(Object.values(mapping))
   }

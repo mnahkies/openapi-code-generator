@@ -193,8 +193,24 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
   protected discriminatedUnion(
     propertyName: string,
     mapping: Record<string, string>,
+    extensibility: "open" | "closed" | undefined,
   ): string {
     const schemas = Object.values(mapping)
+
+    if (extensibility === "open") {
+      schemas.push(
+        this.object({
+          // todo: number discriminators
+          [propertyName]: this.string({
+            type: "string",
+            enum: [],
+            "x-enum-extensibility": "open",
+            isIRModel: true,
+            nullable: false,
+          }),
+        }),
+      )
+    }
 
     return [
       zod,

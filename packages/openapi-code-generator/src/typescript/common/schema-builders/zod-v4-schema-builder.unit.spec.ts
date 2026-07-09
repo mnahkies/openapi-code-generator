@@ -1315,6 +1315,46 @@ describe("typescript/common/schema-builders/zod-v4-schema-builder - unit tests",
         const x = z.discriminatedUnion("kind", [s_A, s_B])"
       `)
     })
+
+    it("can generate an open-ended discriminated union", async () => {
+      const {code} = await getActual(
+        ir.union({
+          schemas: [ir.ref("/components/schemas/A")],
+          discriminator: {
+            propertyName: "kind",
+            mapping: {
+              a: ir.ref("/components/schemas/A"),
+            },
+          },
+          "x-union-extensibility": "open",
+        }),
+        {
+          schemas: {
+            "/components/schemas/A": ir.object({
+              properties: {
+                kind: ir.string({enum: ["a"]}),
+                foo: ir.string(),
+              },
+              required: ["kind", "foo"],
+            }),
+          },
+        },
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "import { s_A } from "./unit-test.schemas"
+
+        const x = z.discriminatedUnion("kind", [
+          s_A,
+          z.object({
+            kind: z.union([
+              z.enum([]),
+              z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+            ]),
+          }),
+        ])"
+      `)
+    })
   })
 
   describe("intersections", () => {

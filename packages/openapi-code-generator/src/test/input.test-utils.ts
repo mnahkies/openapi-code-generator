@@ -54,6 +54,7 @@ export async function unitTestInput(
   const config = {
     extractInlineSchemas: true,
     enumExtensibility: "closed",
+    unionExtensibility: "closed",
   } satisfies InputConfig
 
   return {
@@ -87,5 +88,6 @@ export async function createTestInputFromYamlString(
   return new Input(loader, {
     extractInlineSchemas: true,
     enumExtensibility: "closed",
+    unionExtensibility: "closed",
   })
 }

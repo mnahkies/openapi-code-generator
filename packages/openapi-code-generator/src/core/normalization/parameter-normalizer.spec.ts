@@ -26,6 +26,7 @@ describe("ParameterNormalizer", () => {
       {
         extractInlineSchemas: true,
         enumExtensibility: "open",
+        unionExtensibility: "open",
       },
       fakeSchemaProvider,
     )
