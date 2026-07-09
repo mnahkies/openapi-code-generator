@@ -19,6 +19,7 @@ const schema = configSchema.pick({
   tsServerImplementationMethod: true,
   tsIsEsmProject: true,
   enumExtensibility: true,
+  unionExtensibility: true,
 })
 
 type Inputs = z.infer<typeof schema>
@@ -40,6 +41,7 @@ export const ConfigForm: React.FC<{
       tsServerImplementationMethod: config.tsServerImplementationMethod,
       tsIsEsmProject: config.tsIsEsmProject,
       enumExtensibility: config.enumExtensibility,
+      unionExtensibility: config.unionExtensibility,
     } as const,
   })
 
@@ -107,6 +109,12 @@ export const ConfigForm: React.FC<{
         control={control}
         label={"--enum-extensibility"}
         values={schema.shape.enumExtensibility.options}
+      />
+      <ControlledSelect
+        name={"unionExtensibility"}
+        control={control}
+        label={"--union-extensibility"}
+        values={schema.shape.unionExtensibility.options}
       />
     </div>
   )
