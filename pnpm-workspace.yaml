@@ -1,27 +1,43 @@
 catalog:
-  '@arethetypeswrong/core': ^0.18.3
+  '@angular/build': ^22.0.5
+  '@angular/cli': ^22.0.5
+  '@angular/common': ^22.0.5
+  '@angular/compiler': ^22.0.5
+  '@angular/compiler-cli': ^22.0.5
+  '@angular/core': ^22.0.5
+  '@angular/forms': ^22.0.5
+  '@angular/platform-browser': ^22.0.5
+  '@angular/router': ^22.0.5
+  '@arethetypeswrong/core': ^0.18.4
   '@azure-tools/typespec-autorest': 0.69.1
   '@azure-tools/typespec-azure-core': 0.69.0
   '@azure-tools/typespec-azure-resource-manager': 0.69.1
   '@azure-tools/typespec-client-generator-core': 0.69.0
+  '@biomejs/biome': 2.5.2
+  '@biomejs/js-api': 6.0.0
+  '@biomejs/wasm-nodejs': 2.5.2
   '@commander-js/extra-typings': ^15.0.0
   '@koa/router': ^15.6.0
+  '@lerna-lite/cli': ^5.4.0
+  '@lerna-lite/publish': ^5.4.0
+  '@lerna-lite/version': ^5.4.0
   "@types/node": ^22.20.0
   '@types/react': ^19.2.17
   '@vitest/coverage-v8': 4.1.9
-  axios: ^1.18.0
+  axios: ^1.18.1
   body-parser: ^2.3.0
   commander: ^15.0.0
+  conventional-changelog-conventionalcommits: ^10.2.0
   joi: ^18.2.3
-  js-yaml: ^4.2.0
+  js-yaml: ^5.2.1
   lint-staged: ^17.0.7
-  next: ^16.2.9
-  prettier: ^3.8.4
+  next: ^16.2.10
+  prettier: ^3.9.4
   react: 19.2.7
   react-dom: 19.2.7
   react-hook-form: ^7.80.0
   tsdown: ^0.22.3
-  tsx: ^4.22.4
+  tsx: ^4.23.0
   typescript: ^6.0.3
   vitest: ^4.1.9
 

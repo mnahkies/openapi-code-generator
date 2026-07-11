@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@nahkies/typescript-common-runtime": "workspace:^",
-    "axios": "^1.15.2",
+    "axios": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
