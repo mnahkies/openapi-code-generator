@@ -132,9 +132,9 @@ export const s_EmployeeListResult = z.object({
 
 export const s_Azure_ResourceManager_CommonTypes_ErrorResponse: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorResponse> =
   z.object({
-    error: z.lazy(() =>
-      s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional(),
-    ),
+    get error() {
+      return s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional()
+    },
   })
 
 export const s_Azure_ResourceManager_CommonTypes_ErrorDetail: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorDetail> =
@@ -142,9 +142,9 @@ export const s_Azure_ResourceManager_CommonTypes_ErrorDetail: z.ZodType<t_Azure_
     code: z.string().optional(),
     message: z.string().optional(),
     target: z.string().optional(),
-    details: z
-      .array(z.lazy(() => s_Azure_ResourceManager_CommonTypes_ErrorDetail))
-      .optional(),
+    get details() {
+      return z.array(s_Azure_ResourceManager_CommonTypes_ErrorDetail).optional()
+    },
     additionalInfo: z
       .array(s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo)
       .optional(),

@@ -202,13 +202,18 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     return schema
   }
 
-  protected object(keys: Record<string, string>): string {
+  protected object(
+    keys: Record<string, {schema: string; isLazy: boolean}>,
+  ): string {
     const entries = Object.entries(keys)
 
     return [
       zod,
       `object({${entries
-        .map(([key, value]) => `"${key}": ${value}`)
+        .map(
+          ([key, value]) =>
+            `"${key}": ${value.isLazy ? this.lazy(value.schema) : value.schema}`,
+        )
         .join(",")}})`,
     ]
       .filter(isDefined)

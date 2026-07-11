@@ -207,10 +207,10 @@ describe.each(
     const {code, schemas} = await getActual("components/schemas/Recursive")
 
     expect(code).toMatchInlineSnapshot(`
-        "import { s_Recursive } from "./unit-test.schemas"
+      "import { s_Recursive } from "./unit-test.schemas"
 
-        const x = joi.link("#s_Recursive.required()")"
-      `)
+      const x = s_Recursive.required()"
+    `)
 
     expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"

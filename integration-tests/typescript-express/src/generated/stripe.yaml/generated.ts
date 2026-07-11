@@ -12779,7 +12779,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_account)),
+          get data() {
+            return z.array(s_account)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/accounts")),
@@ -13338,7 +13340,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_capability)),
+            get data() {
+              return z.array(s_capability)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -13574,9 +13578,11 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(
-              z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
-            ),
+            get data() {
+              return z.array(
+                z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
+              )
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -14010,7 +14016,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_person)),
+            get data() {
+              return z.array(s_person)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -14376,7 +14384,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_person)),
+            get data() {
+              return z.array(s_person)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -15061,7 +15071,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_application_fee)),
+          get data() {
+            return z.array(s_application_fee)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/application_fees")),
@@ -15435,7 +15447,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_fee_refund)),
+            get data() {
+              return z.array(s_fee_refund)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -15958,7 +15972,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_balance_transaction)),
+          get data() {
+            return z.array(s_balance_transaction)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -16285,7 +16301,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_balance_transaction)),
+          get data() {
+            return z.array(s_balance_transaction)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -16498,7 +16516,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_billing_alert)),
+          get data() {
+            return z.array(s_billing_alert)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/billing/alerts")),
@@ -17004,7 +17024,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_billing_credit_balance_transaction)),
+            get data() {
+              return z.array(s_billing_credit_balance_transaction)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -17214,7 +17236,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_billing_credit_grant)),
+          get data() {
+            return z.array(s_billing_credit_grant)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -18591,7 +18615,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_charge)),
+          get data() {
+            return z.array(s_charge)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/charges")),
@@ -18764,7 +18790,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_charge)),
+          get data() {
+            return z.array(s_charge)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -19263,7 +19291,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_refund)),
+            get data() {
+              return z.array(s_refund)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -19565,7 +19595,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_checkout_session)),
+          get data() {
+            return z.array(s_checkout_session)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -19951,7 +19983,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_item)),
+            get data() {
+              return z.array(s_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -21308,7 +21342,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_credit_note)),
+          get data() {
+            return z.array(s_credit_note)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -21809,7 +21845,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_credit_note_line_item)),
+            get data() {
+              return z.array(s_credit_note_line_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -22042,7 +22080,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_credit_note_line_item)),
+            get data() {
+              return z.array(s_credit_note_line_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -22371,7 +22411,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_customer)),
+          get data() {
+            return z.array(s_customer)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/customers")),
@@ -22538,7 +22580,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_customer)),
+          get data() {
+            return z.array(s_customer)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -22827,7 +22871,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_customer_balance_transaction)),
+            get data() {
+              return z.array(s_customer_balance_transaction)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -23181,7 +23227,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_bank_account)),
+            get data() {
+              return z.array(s_bank_account)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -23622,7 +23670,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_card)),
+            get data() {
+              return z.array(s_card)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -24120,7 +24170,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
+            get data() {
+              return z.array(s_customer_cash_balance_transaction)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -24565,7 +24617,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_payment_method)),
+            get data() {
+              return z.array(s_payment_method)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -24770,13 +24824,15 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(
-              z.union([
-                z.lazy(() => s_bank_account),
-                z.lazy(() => s_card),
-                s_source,
-              ]),
-            ),
+            get data() {
+              return z.array(
+                z.union([
+                  z.lazy(() => s_bank_account),
+                  z.lazy(() => s_card),
+                  s_source,
+                ]),
+              )
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -25217,7 +25273,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_subscription)),
+            get data() {
+              return z.array(s_subscription)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -25729,7 +25787,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_tax_id)),
+            get data() {
+              return z.array(s_tax_id)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -26028,7 +26088,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_dispute)),
+          get data() {
+            return z.array(s_dispute)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/disputes")),
@@ -27345,7 +27407,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_file_link)),
+          get data() {
+            return z.array(s_file_link)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
@@ -27665,7 +27729,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_file)),
+          get data() {
+            return z.array(s_file)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/files")),
@@ -27904,7 +27970,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_financial_connections_account)),
+            get data() {
+              return z.array(s_financial_connections_account)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -29849,7 +29917,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_invoice_payment)),
+          get data() {
+            return z.array(s_invoice_payment)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -30391,7 +30461,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_invoiceitem)),
+          get data() {
+            return z.array(s_invoiceitem)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoiceitems")),
@@ -30778,7 +30850,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_invoice)),
+          get data() {
+            return z.array(s_invoice)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/invoices")),
@@ -31020,7 +31094,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_invoice)),
+          get data() {
+            return z.array(s_invoice)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -31457,7 +31533,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_line_item)),
+            get data() {
+              return z.array(s_line_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -31954,7 +32032,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_issuing_authorization)),
+            get data() {
+              return z.array(s_issuing_authorization)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -32363,7 +32443,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_issuing_cardholder)),
+          get data() {
+            return z.array(s_issuing_cardholder)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -32692,7 +32774,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_issuing_card)),
+          get data() {
+            return z.array(s_issuing_card)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cards")),
@@ -33021,7 +33105,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_issuing_dispute)),
+          get data() {
+            return z.array(s_issuing_dispute)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/issuing/disputes")),
@@ -33380,7 +33466,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_issuing_personalization_design)),
+            get data() {
+              return z.array(s_issuing_personalization_design)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -34046,7 +34134,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_issuing_token)),
+          get data() {
+            return z.array(s_issuing_token)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -34307,7 +34397,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_issuing_transaction)),
+          get data() {
+            return z.array(s_issuing_transaction)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -34703,7 +34795,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_financial_connections_account)),
+          get data() {
+            return z.array(s_financial_connections_account)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -35204,7 +35298,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_payment_attempt_record)),
+            get data() {
+              return z.array(s_payment_attempt_record)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -35390,7 +35486,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_payment_intent)),
+          get data() {
+            return z.array(s_payment_intent)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_intents")),
@@ -35558,7 +35656,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_payment_intent)),
+            get data() {
+              return z.array(s_payment_intent)
+            },
             has_more: PermissiveBoolean,
             next_page: z.string().max(5000).nullable().optional(),
             object: z.literal("search_result"),
@@ -36251,7 +36351,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_payment_link)),
+          get data() {
+            return z.array(s_payment_link)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_links")),
@@ -36530,7 +36632,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_item)),
+            get data() {
+              return z.array(s_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -37379,7 +37483,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_payment_method)),
+          get data() {
+            return z.array(s_payment_method)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payment_methods")),
@@ -38281,7 +38387,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_payout)),
+          get data() {
+            return z.array(s_payout)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/payouts")),
@@ -38694,7 +38802,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_plan)),
+          get data() {
+            return z.array(s_plan)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/plans")),
@@ -39051,7 +39161,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_price)),
+          get data() {
+            return z.array(s_price)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/prices")),
@@ -39249,7 +39361,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_price)),
+          get data() {
+            return z.array(s_price)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -39488,7 +39602,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_product)),
+          get data() {
+            return z.array(s_product)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/products")),
@@ -39667,7 +39783,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_product)),
+          get data() {
+            return z.array(s_product)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -40238,7 +40356,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_promotion_code)),
+          get data() {
+            return z.array(s_promotion_code)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/promotion_codes")),
@@ -40554,7 +40674,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_quote)),
+          get data() {
+            return z.array(s_quote)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/quotes")),
@@ -40943,7 +41065,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_item)),
+            get data() {
+              return z.array(s_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -41112,7 +41236,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_item)),
+            get data() {
+              return z.array(s_item)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -41298,7 +41424,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
+            get data() {
+              return z.array(s_radar_early_fraud_warning)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -42238,7 +42366,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_refund)),
+          get data() {
+            return z.array(s_refund)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/refunds")),
@@ -42582,7 +42712,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_reporting_report_run)),
+          get data() {
+            return z.array(s_reporting_report_run)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -42979,7 +43111,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_review)),
+          get data() {
+            return z.array(s_review)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -43222,7 +43356,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_setup_attempt)),
+          get data() {
+            return z.array(s_setup_attempt)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_attempts")),
@@ -43355,7 +43491,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_setup_intent)),
+          get data() {
+            return z.array(s_setup_intent)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/setup_intents")),
@@ -44191,7 +44329,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_scheduled_query_run)),
+            get data() {
+              return z.array(s_scheduled_query_run)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -44873,7 +45013,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_subscription_item)),
+          get data() {
+            return z.array(s_subscription_item)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z
@@ -45246,7 +45388,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_subscription_schedule)),
+            get data() {
+              return z.array(s_subscription_schedule)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -45768,7 +45912,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_subscription)),
+          get data() {
+            return z.array(s_subscription)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/subscriptions")),
@@ -45996,7 +46142,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_subscription)),
+          get data() {
+            return z.array(s_subscription)
+          },
           has_more: PermissiveBoolean,
           next_page: z.string().max(5000).nullable().optional(),
           object: z.literal("search_result"),
@@ -47615,7 +47763,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_tax_id)),
+          get data() {
+            return z.array(s_tax_id)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -48186,7 +48336,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_terminal_configuration)),
+            get data() {
+              return z.array(s_terminal_configuration)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -49016,7 +49168,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_terminal_reader)),
+          get data() {
+            return z.array(s_terminal_reader)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000),
@@ -52638,7 +52792,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_topup)),
+          get data() {
+            return z.array(s_topup)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/topups")),
@@ -52994,7 +53150,9 @@ export function createRouter(
       [
         "200",
         z.object({
-          data: z.array(z.lazy(() => s_transfer)),
+          get data() {
+            return z.array(s_transfer)
+          },
           has_more: PermissiveBoolean,
           object: z.literal("list"),
           url: z.string().max(5000).regex(new RegExp("^/v1/transfers")),
@@ -53166,7 +53324,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_transfer_reversal)),
+            get data() {
+              return z.array(s_transfer_reversal)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -53575,7 +53735,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_credit_reversal)),
+            get data() {
+              return z.array(s_treasury_credit_reversal)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -53826,7 +53988,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_debit_reversal)),
+            get data() {
+              return z.array(s_treasury_debit_reversal)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -54611,7 +54775,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
+            get data() {
+              return z.array(s_treasury_inbound_transfer)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -54922,7 +55088,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_outbound_payment)),
+            get data() {
+              return z.array(s_treasury_outbound_payment)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -55244,7 +55412,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
+            get data() {
+              return z.array(s_treasury_outbound_transfer)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -55557,7 +55727,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_received_credit)),
+            get data() {
+              return z.array(s_treasury_received_credit)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -55757,7 +55929,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_received_debit)),
+            get data() {
+              return z.array(s_treasury_received_debit)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),
@@ -55968,7 +56142,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_transaction_entry)),
+            get data() {
+              return z.array(s_treasury_transaction_entry)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z
@@ -56223,7 +56399,9 @@ export function createRouter(
         [
           "200",
           z.object({
-            data: z.array(z.lazy(() => s_treasury_transaction)),
+            get data() {
+              return z.array(s_treasury_transaction)
+            },
             has_more: PermissiveBoolean,
             object: z.literal("list"),
             url: z.string().max(5000),

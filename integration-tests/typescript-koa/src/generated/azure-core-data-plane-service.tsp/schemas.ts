@@ -91,19 +91,29 @@ export const s_PagedWidgetPart = z.object({
 })
 
 export const s_Azure_Core_Foundations_ErrorResponse: z.ZodType<t_Azure_Core_Foundations_ErrorResponse> =
-  z.object({error: z.lazy(() => s_Azure_Core_Foundations_Error)})
+  z.object({
+    get error() {
+      return s_Azure_Core_Foundations_Error
+    },
+  })
 
 export const s_Azure_Core_Foundations_Error: z.ZodType<t_Azure_Core_Foundations_Error> =
   z.object({
     code: z.string(),
     message: z.string(),
     target: z.string().optional(),
-    details: z.array(z.lazy(() => s_Azure_Core_Foundations_Error)).optional(),
-    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
+    get details() {
+      return z.array(s_Azure_Core_Foundations_Error).optional()
+    },
+    get innererror() {
+      return s_Azure_Core_Foundations_InnerError.optional()
+    },
   })
 
 export const s_Azure_Core_Foundations_InnerError: z.ZodType<t_Azure_Core_Foundations_InnerError> =
   z.object({
     code: z.string().optional(),
-    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
+    get innererror() {
+      return s_Azure_Core_Foundations_InnerError.optional()
+    },
   })

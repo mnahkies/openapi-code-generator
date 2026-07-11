@@ -33,7 +33,7 @@ export abstract class AbstractSchemaBuilder<
 {
   public abstract readonly type: SchemaBuilderType
 
-  private readonly graph: DependencyGraph
+  protected readonly graph: DependencyGraph
 
   protected readonly typeBuilder: TypeBuilder
 
@@ -204,9 +204,9 @@ export abstract class AbstractSchemaBuilder<
 
       result = required ? this.required(result, false) : this.optional(result)
 
-      if (this.graph.circular.has(name) && !isAnonymous) {
-        return this.lazy(result)
-      }
+      // if (wrapLazy && this.graph.circular.has(name) && !isAnonymous) {
+      //   return this.lazy(result)
+      // }
       return result
     }
 
@@ -255,7 +255,15 @@ export abstract class AbstractSchemaBuilder<
           )
         } else {
           result = this.union(
-            model.schemas.map((it) => this.fromModel(it, true)),
+            model.schemas.map((it) => {
+              const result = this.fromModel(it, true)
+
+              // todo: but what if we're already in a get lazyProperty(){ } block...
+              if (this.isSchemaLazy(it)) {
+                return this.lazy(result)
+              }
+              return result
+            }),
           )
         }
         break
@@ -285,9 +293,20 @@ export abstract class AbstractSchemaBuilder<
           this.object(
             Object.fromEntries(
               Object.entries(model.properties).map(([key, value]) => {
+                const schema = this.fromModel(
+                  value,
+                  model.required.includes(key),
+                  false,
+                  false,
+                )
+                const isLazy = this.isSchemaLazy(value)
+
                 return [
                   key,
-                  this.fromModel(value, model.required.includes(key)),
+                  {
+                    schema,
+                    isLazy,
+                  },
                 ]
               }),
             ),
@@ -359,6 +378,25 @@ export abstract class AbstractSchemaBuilder<
     return result
   }
 
+  private isSchemaLazy(schema: MaybeIRModel): boolean {
+    const candidates = []
+
+    if (isRef(schema)) {
+      candidates.push(schema)
+    } else if (schema.type === "union") {
+      candidates.push(...schema.schemas.filter(isRef))
+    } else if (schema.type === "intersection") {
+      candidates.push(...schema.schemas.filter(isRef))
+    } else if (schema.type === "array") {
+      return this.isSchemaLazy(schema.items)
+    }
+
+    return candidates.some(($ref) => {
+      const name = this.add($ref)
+      return this.graph.circular.has(name)
+    })
+  }
+
   public abstract parse(schema: string, value: string): string
 
   protected abstract lazy(schema: string): string
@@ -384,7 +422,7 @@ export abstract class AbstractSchemaBuilder<
   protected abstract required(schema: string, hasDefaultValue: boolean): string
 
   protected abstract object(
-    keys: Record<string, string>,
+    keys: Record<string, {schema: string; isLazy: boolean}>,
     required: boolean,
   ): string
 

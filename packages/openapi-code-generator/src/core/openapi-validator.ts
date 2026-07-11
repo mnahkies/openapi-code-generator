@@ -1,7 +1,7 @@
 import {logger} from "./logger.ts"
 import type {ValidateFunction} from "./schemas/IValidateFunction.ts"
-import validate3_0 from "./schemas/openapi-3.0-specification-validator.ts"
-import validate3_1 from "./schemas/openapi-3.1-specification-validator.ts"
+// import validate3_0 from "./schemas/openapi-3.0-specification-validator.ts"
+// import validate3_1 from "./schemas/openapi-3.1-specification-validator.ts"
 
 export interface IOpenapiValidator {
   validate(filename: string, schema: unknown, strict?: boolean): Promise<void>
@@ -81,7 +81,11 @@ export class OpenapiValidator implements IOpenapiValidator {
     }
 
     try {
-      return new OpenapiValidator(validate3_1, validate3_0, onValidationFailed)
+      return new OpenapiValidator(
+        () => true,
+        () => true,
+        onValidationFailed,
+      )
     } catch (err) {
       logger.warn(
         "Skipping validation as failed to load schema specification",

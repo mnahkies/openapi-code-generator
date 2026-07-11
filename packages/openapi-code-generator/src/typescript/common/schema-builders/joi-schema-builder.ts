@@ -214,14 +214,19 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return [schema, "required()"].join(".")
   }
 
-  protected object(keys: Record<string, string>): string {
+  protected object(
+    keys: Record<string, {schema: string; isLazy: boolean}>,
+  ): string {
     const entries = Object.entries(keys)
 
     return [
       joi,
       "object()",
       `keys({${entries
-        .map(([key, value]) => `"${key}": ${value}`)
+        .map(
+          ([key, value]) =>
+            `"${key}": ${value.isLazy ? this.lazy(value.schema) : value.schema}`,
+        )
         .join(",")} })`,
       "options({ stripUnknown: true })",
     ]
