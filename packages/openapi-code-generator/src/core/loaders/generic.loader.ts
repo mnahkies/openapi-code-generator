@@ -1,5 +1,5 @@
 import path from "node:path"
-import yaml from "js-yaml"
+import * as yaml from "js-yaml"
 import json5 from "json5"
 import type {IFsAdaptor} from "../file-system/fs-adaptor.ts"
 import {logger} from "../logger.ts"

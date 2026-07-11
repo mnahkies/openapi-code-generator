@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@nahkies/typescript-axios-runtime": "workspace:*",
-    "axios": "^1.15.2",
+    "axios": "catalog:",
     "dotenv": "^17.4.2",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
+    "@types/node": "^22.20.0",
     "typescript": "catalog:"
   }
 }

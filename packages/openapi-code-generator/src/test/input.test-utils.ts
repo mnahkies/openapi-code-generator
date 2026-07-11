@@ -1,5 +1,5 @@
 import path from "node:path"
-import yaml from "js-yaml"
+import * as yaml from "js-yaml"
 import {vi} from "vitest"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor.ts"
 import {Input, type InputConfig} from "../core/input.ts"
