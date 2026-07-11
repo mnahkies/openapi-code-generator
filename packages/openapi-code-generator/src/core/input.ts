@@ -40,6 +40,7 @@ export type InputConfig = {
 export interface ISchemaProvider {
   schema(maybeRef: MaybeIRModel | Reference): IRModel
   allSchemas(): Record<string, MaybeIRModel>
+  allJsonSchemaDocuments(): {filename: string; schema: IRModel}[]
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess
 }
 
@@ -65,10 +66,23 @@ export class Input implements ISchemaProvider {
     return this.normalizeServers(coalesce(this.loader.entryPoint.servers, []))
   }
 
-  allSchemas(): Record<string, IRModel> {
-    const allDocuments = this.loader.allDocuments()
+  entryPoint() {
+    return this.loader.entryPoint
+  }
 
-    const schemas = allDocuments.reduce(
+  allDocuments() {
+    return this.loader.allDocuments()
+  }
+
+  allJsonSchemaDocuments(): {filename: string; schema: IRModel}[] {
+    return this.loader.allJsonSchemas().map((it) => ({
+      filename: it.filename,
+      schema: this.schemaNormalizer.normalize(it.schema),
+    }))
+  }
+
+  allSchemas(documents = this.allDocuments()): Record<string, IRModel> {
+    const schemas = documents.reduce(
       (acc, it) => {
         return Object.assign(acc, it.components?.schemas ?? {})
       },

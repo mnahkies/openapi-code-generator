@@ -3,6 +3,7 @@ import type {
   OutputFormat,
   ValidationOptions,
 } from "@hyperjump/json-schema"
+import {validate as validateJsonSchema202012} from "@hyperjump/json-schema/draft-2020-12"
 import {validate as validate3_0} from "@hyperjump/json-schema/openapi-3-0"
 import {validate as validate3_1} from "@hyperjump/json-schema/openapi-3-1"
 import {
@@ -13,17 +14,27 @@ import {logger} from "./logger.ts"
 import type {ValidateFunction} from "./schemas/IValidateFunction.ts"
 
 export interface IOpenapiValidator {
-  validate(filename: string, schema: unknown, strict?: boolean): Promise<void>
+  validate(
+    filename: string,
+    schema: unknown,
+    strict?: boolean,
+    type?: "openapi" | "json-schema",
+  ): Promise<void>
 }
 
 export class OpenapiValidator implements IOpenapiValidator {
   private constructor(
     private readonly validate3_1: ValidateFunction,
     private readonly validate3_0: ValidateFunction,
+    private readonly validateJsonSchema: ValidateFunction,
     private readonly onValidationFailed: (filename: string) => Promise<void>,
   ) {}
 
   private validationFunction(version: string): ValidateFunction {
+    if (version === "json-schema") {
+      logger.info("Validating against JSON Schema")
+      return this.validateJsonSchema
+    }
     if (version.startsWith("3.0")) {
       logger.info("Validating against 3.0")
       return this.validate3_0
@@ -42,12 +53,14 @@ export class OpenapiValidator implements IOpenapiValidator {
     filename: string,
     schema: unknown,
     strict = false,
+    type: "openapi" | "json-schema" = "openapi",
   ): Promise<void> {
     const version =
-      (schema &&
-        typeof schema === "object" &&
-        Reflect.get(schema, "openapi")) ||
-      "unknown"
+      type === "openapi"
+        ? schema && typeof schema === "object" && Reflect.get(schema, "openapi")
+        : type === "json-schema"
+          ? "json-schema"
+          : "unknown"
     const validate = this.validationFunction(version)
 
     const {isValid, errors} = await validate(schema)
@@ -100,6 +113,10 @@ export class OpenapiValidator implements IOpenapiValidator {
     return new OpenapiValidator(
       wrapHyperjump(validate3_1, "https://spec.openapis.org/oas/3.1/schema"),
       wrapHyperjump(validate3_0, "https://spec.openapis.org/oas/3.0/schema"),
+      wrapHyperjump(
+        validateJsonSchema202012,
+        "https://json-schema.org/draft/2020-12/schema",
+      ),
       onValidationFailed,
     )
   }

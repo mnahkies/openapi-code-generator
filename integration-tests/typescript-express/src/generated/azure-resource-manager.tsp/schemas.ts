@@ -3,10 +3,7 @@
 /* eslint-disable */
 
 import {z} from "zod/v4"
-import type {
-  t_Azure_ResourceManager_CommonTypes_ErrorDetail,
-  t_Azure_ResourceManager_CommonTypes_ErrorResponse,
-} from "./models.ts"
+import type {t_EmployeeListResult} from "./models.ts"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -16,38 +13,6 @@ export const PermissiveBoolean = z.preprocess((value) => {
   }
   return value
 }, z.boolean())
-
-export const s_Azure_Core_armResourceType = z.string()
-
-export const s_Azure_Core_azureLocation = z.string()
-
-export const s_Azure_Core_uuid = z.string()
-
-export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
-  z.literal("Internal"),
-  z.string(),
-])
-
-export const s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = z.object(
-  {type: z.string().optional(), info: z.unknown().optional()},
-)
-
-export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
-  provider: z.string().optional(),
-  resource: z.string().optional(),
-  operation: z.string().optional(),
-  description: z.string().optional(),
-})
-
-export const s_Azure_ResourceManager_CommonTypes_Origin = z.union([
-  z.enum(["user", "system", "user,system"]),
-  z.string(),
-])
-
-export const s_Azure_ResourceManager_CommonTypes_createdByType = z.union([
-  z.enum(["User", "Application", "ManagedIdentity", "Key"]),
-  z.string(),
-])
 
 export const s_EmployeeUpdateProperties = z.object({
   age: z.coerce.number().optional(),
@@ -72,24 +37,6 @@ export const s_ProvisioningState = z.union([
   ]),
 ])
 
-export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
-  name: z.string().optional(),
-  isDataAction: PermissiveBoolean.optional(),
-  display: s_Azure_ResourceManager_CommonTypes_OperationDisplay.optional(),
-  origin: s_Azure_ResourceManager_CommonTypes_Origin.optional(),
-  actionType: s_Azure_ResourceManager_CommonTypes_ActionType.optional(),
-})
-
-export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
-  createdBy: z.string().optional(),
-  createdByType: s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  createdAt: z.iso.datetime({offset: true}).optional(),
-  lastModifiedBy: z.string().optional(),
-  lastModifiedByType:
-    s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  lastModifiedAt: z.iso.datetime({offset: true}).optional(),
-})
-
 export const s_EmployeeProperties = z.object({
   age: z.coerce.number().optional(),
   city: z.string().optional(),
@@ -102,16 +49,43 @@ export const s_EmployeeUpdate = z.object({
   properties: s_EmployeeUpdateProperties.optional(),
 })
 
-export const s_Azure_ResourceManager_CommonTypes_Resource = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  type: s_Azure_Core_armResourceType.optional(),
-  systemData: s_Azure_ResourceManager_CommonTypes_SystemData.optional(),
-})
-
 export const s_OperationListResult = z.object({
   value: z.array(s_Azure_ResourceManager_CommonTypes_Operation),
   nextLink: z.string().optional(),
+})
+
+export const s_Azure_ResourceManager_CommonTypes_ErrorResponse = z.object({
+  error: s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional(),
+})
+
+export const s_Azure_Core_uuid = z.string()
+
+export const s_Employee = z.intersection(
+  s_Azure_ResourceManager_CommonTypes_TrackedResource,
+  z.object({properties: s_EmployeeProperties.optional()}),
+)
+
+export const s_EmployeeListResult: z.ZodType<t_EmployeeListResult> = z.object({
+  value: z.array(z.lazy(() => s_Employee)),
+  nextLink: z.string().optional(),
+})
+
+export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
+  name: z.string().optional(),
+  isDataAction: PermissiveBoolean.optional(),
+  display: s_Azure_ResourceManager_CommonTypes_OperationDisplay.optional(),
+  origin: s_Azure_ResourceManager_CommonTypes_Origin.optional(),
+  actionType: s_Azure_ResourceManager_CommonTypes_ActionType.optional(),
+})
+
+export const s_Azure_ResourceManager_CommonTypes_ErrorDetail = z.object({
+  code: z.string().optional(),
+  message: z.string().optional(),
+  target: z.string().optional(),
+  details: z.array(s_Azure_ResourceManager_CommonTypes_ErrorDetail).optional(),
+  additionalInfo: z
+    .array(s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo)
+    .optional(),
 })
 
 export const s_Azure_ResourceManager_CommonTypes_TrackedResource =
@@ -120,32 +94,49 @@ export const s_Azure_ResourceManager_CommonTypes_TrackedResource =
     location: s_Azure_Core_azureLocation,
   })
 
-export const s_Employee = z.intersection(
-  s_Azure_ResourceManager_CommonTypes_TrackedResource,
-  z.object({properties: s_EmployeeProperties.optional()}),
-)
-
-export const s_EmployeeListResult = z.object({
-  value: z.array(s_Employee),
-  nextLink: z.string().optional(),
+export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
+  provider: z.string().optional(),
+  resource: z.string().optional(),
+  operation: z.string().optional(),
+  description: z.string().optional(),
 })
 
-export const s_Azure_ResourceManager_CommonTypes_ErrorResponse: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorResponse> =
-  z.object({
-    error: z.lazy(() =>
-      s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional(),
-    ),
-  })
+export const s_Azure_ResourceManager_CommonTypes_Origin = z.union([
+  z.enum(["user", "system", "user,system"]),
+  z.string(),
+])
 
-export const s_Azure_ResourceManager_CommonTypes_ErrorDetail: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorDetail> =
-  z.object({
-    code: z.string().optional(),
-    message: z.string().optional(),
-    target: z.string().optional(),
-    details: z
-      .array(z.lazy(() => s_Azure_ResourceManager_CommonTypes_ErrorDetail))
-      .optional(),
-    additionalInfo: z
-      .array(s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo)
-      .optional(),
-  })
+export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
+  z.literal("Internal"),
+  z.string(),
+])
+
+export const s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = z.object(
+  {type: z.string().optional(), info: z.unknown().optional()},
+)
+
+export const s_Azure_ResourceManager_CommonTypes_Resource = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  type: s_Azure_Core_armResourceType.optional(),
+  systemData: s_Azure_ResourceManager_CommonTypes_SystemData.optional(),
+})
+
+export const s_Azure_Core_azureLocation = z.string()
+
+export const s_Azure_Core_armResourceType = z.string()
+
+export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
+  createdBy: z.string().optional(),
+  createdByType: s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
+  createdAt: z.iso.datetime({offset: true}).optional(),
+  lastModifiedBy: z.string().optional(),
+  lastModifiedByType:
+    s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
+  lastModifiedAt: z.iso.datetime({offset: true}).optional(),
+})
+
+export const s_Azure_ResourceManager_CommonTypes_createdByType = z.union([
+  z.enum(["User", "Application", "ManagedIdentity", "Key"]),
+  z.string(),
+])

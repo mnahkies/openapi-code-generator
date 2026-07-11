@@ -110,7 +110,13 @@ export function buildDependencyGraph(
   const order: string[] = []
 
   // TODO: this may miss extracted in-line schemas
-  for (const [name, schema] of Object.entries(schemaProvider.allSchemas())) {
+  for (const [name, schema] of Object.entries(
+    schemaProvider.allSchemas(),
+  ).concat(
+    schemaProvider
+      .allJsonSchemaDocuments()
+      .map((it) => [it.filename, it.schema]),
+  )) {
     remaining.set(
       getNameForRef({$ref: name}),
       getDependenciesFromSchema(schema, getNameForRef),

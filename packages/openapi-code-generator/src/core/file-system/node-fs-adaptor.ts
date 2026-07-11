@@ -15,8 +15,8 @@ export class NodeFsAdaptor implements IFsAdaptor {
 
   async exists(path: string) {
     try {
-      const stat = await fs.stat(path)
-      return stat.isFile()
+      await fs.stat(path)
+      return true
     } catch (err) {
       if (
         typeof err === "object" &&
@@ -31,6 +31,27 @@ export class NodeFsAdaptor implements IFsAdaptor {
 
   existsSync(path: string) {
     return existsSync(path)
+  }
+
+  async isDir(path: string) {
+    try {
+      const stat = await fs.stat(path)
+      return stat.isDirectory()
+    } catch (err) {
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        Reflect.get(err, "code") === "ENOENT"
+      ) {
+        return false
+      }
+      throw err
+    }
+  }
+
+  async readDir(path: string) {
+    const files = await fs.readdir(path, {recursive: true})
+    return files.map((file) => pathModule.join(path, file))
   }
 
   async mkDir(path: string, recursive = true) {
