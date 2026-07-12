@@ -1,7 +1,17 @@
+import type {Json} from "@hyperjump/json-pointer"
+import type {
+  Output,
+  OutputFormat,
+  ValidationOptions,
+} from "@hyperjump/json-schema/lib/index.d.ts"
+import {validate as validate3_0} from "@hyperjump/json-schema/openapi-3-0"
+import {validate as validate3_1} from "@hyperjump/json-schema/openapi-3-1"
+import {
+  jsonSchemaErrors,
+  setNormalizationHandler,
+} from "@hyperjump/json-schema-errors"
 import {logger} from "./logger.ts"
 import type {ValidateFunction} from "./schemas/IValidateFunction.ts"
-import validate3_0 from "./schemas/openapi-3.0-specification-validator.ts"
-import validate3_1 from "./schemas/openapi-3.1-specification-validator.ts"
 
 export interface IOpenapiValidator {
   validate(filename: string, schema: unknown, strict?: boolean): Promise<void>
@@ -41,7 +51,7 @@ export class OpenapiValidator implements IOpenapiValidator {
       "unknown"
     const validate = this.validationFunction(version)
 
-    const isValid = validate(schema)
+    const {isValid, errors} = await validate(schema)
 
     if (!isValid) {
       logger.warn(`Found errors validating '${filename}'.`)
@@ -50,10 +60,16 @@ export class OpenapiValidator implements IOpenapiValidator {
       )
 
       const messages =
-        validate.errors?.map((err) => {
+        errors.map((err) => {
           return [
-            `-> ${err.message} at path '${err.instancePath}'`,
-            err.params,
+            `-> ${err.message} at path '${err.instanceLocation}'`.replace(
+              /[\u202A-\u202E\u2066-\u2069]/g,
+              "'",
+            ),
+            {
+              schemaLocations: err.schemaLocations,
+              alternatives: err.alternatives,
+            },
           ] as const
         }) ?? []
 
@@ -76,22 +92,51 @@ export class OpenapiValidator implements IOpenapiValidator {
   static async create(
     onValidationFailed: (filename: string) => Promise<void> = async () => {},
   ): Promise<OpenapiValidator> {
-    const skipValidationLoadSpecificationError: ValidateFunction = () => {
-      return true
-    }
+    setNormalizationHandler("https://json-schema.org/keyword/comment", {
+      evaluate() {
+        // Only applicator keywords need to return a value
+      },
+    })
 
+    return new OpenapiValidator(
+      wrapHyperjump(validate3_1, "https://spec.openapis.org/oas/3.1/schema"),
+      wrapHyperjump(validate3_0, "https://spec.openapis.org/oas/3.0/schema"),
+      onValidationFailed,
+    )
+  }
+}
+
+function wrapHyperjump(
+  validate: (
+    url: string,
+    value: Json,
+    options?: OutputFormat | ValidationOptions,
+  ) => Promise<Output>,
+  uri: string,
+): ValidateFunction {
+  // biome-ignore lint/suspicious/noExplicitAny: unknown input
+  return async (it: any) => {
     try {
-      return new OpenapiValidator(validate3_1, validate3_0, onValidationFailed)
-    } catch (err) {
-      logger.warn(
-        "Skipping validation as failed to load schema specification",
-        {err},
-      )
-      return new OpenapiValidator(
-        skipValidationLoadSpecificationError,
-        skipValidationLoadSpecificationError,
-        onValidationFailed,
-      )
+      const res = await validate(uri, it, "BASIC")
+
+      if (res.valid) {
+        return {isValid: true, errors: []}
+      }
+
+      const errors = await jsonSchemaErrors(res, uri, it)
+      return {isValid: false, errors}
+    } catch (err: unknown) {
+      return {
+        isValid: false,
+        errors: [
+          {
+            message: err instanceof Error ? err.message : String(err),
+            alternatives: [],
+            schemaLocations: [],
+            instanceLocation: "",
+          },
+        ],
+      }
     }
   }
 }

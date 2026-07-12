@@ -16,8 +16,6 @@ pnpm run build
 pnpm run build:docs
 pnpm run ci-test
 
-pnpm run lint
-
 for SCHEMA_BUILDER in "${SCHEMA_BUILDERS[@]}"; do
   pnpm run integration:clean
   pnpm run integration:generate --schema-builder "$SCHEMA_BUILDER"
@@ -31,3 +29,5 @@ fi
 
 SCHEMA_BUILDER=zod-v4 pnpm run e2e:generate
 pnpm run e2e:validate
+
+pnpm run lint

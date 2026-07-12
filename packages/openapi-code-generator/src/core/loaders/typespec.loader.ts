@@ -72,7 +72,8 @@ export class TypespecLoader {
       throw new Error("no versions returned")
     }
 
-    return newestVersion.document
+    // remove undefined properties, as the validator will reject these.
+    return JSON.parse(JSON.stringify(newestVersion.document))
   }
 
   static async create(
