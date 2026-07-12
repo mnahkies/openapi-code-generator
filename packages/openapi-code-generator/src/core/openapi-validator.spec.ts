@@ -49,7 +49,7 @@ describe("core/openapi-validator", () => {
           true,
         ),
       ).rejects.toThrow(
-        "Validation failed: -> must NOT have fewer than 1 properties at path '/paths/~1something/get/responses'",
+        "Validation failed: -> Expected an object with at least '1' properties at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.0/schema/2021-09-28#/definitions/Responses/minProperties\"]})",
       )
     })
   })
@@ -89,7 +89,7 @@ describe("core/openapi-validator", () => {
       ).resolves.toBeUndefined()
     })
 
-    it.skip("should reject an invalid specification", async () => {
+    it("should reject an invalid specification", async () => {
       const validator = await OpenapiValidator.create()
       await expect(
         validator.validate(
@@ -111,7 +111,8 @@ describe("core/openapi-validator", () => {
           true,
         ),
       ).rejects.toThrow(
-        "Validation failed: -> must NOT have fewer than 1 properties at path '/paths/~1something/get/responses'",
+        "Validation failed: -> Expected an object with at least '1' properties at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.1/schema#/$defs/responses/minProperties\"]})\n" +
+          "-> Missing required 'property: 'default'' at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.1/schema#/$defs/responses/then/required\"]})",
       )
     })
   })

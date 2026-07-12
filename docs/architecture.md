@@ -8,7 +8,7 @@ This document describes the high-level architecture, package structure, and comm
 
 The system follows a typical compiler/generator pipeline:
 1.  **Loading**: Specifications are loaded and resolved (including remote/local references).
-2.  **Validation**: Loaded specifications are validated against their respective schemas using pre-compiled AJV validators.
+2.  **Validation**: Loaded specifications are validated against their respective schemas using `@hyperjump/json-schema`
 3.  **Normalization**: The specification is transformed into a normalized Intermediate Representation (IR).
 4.  **Building**: Template-specific builders transform the IR into code structures (types, schemas, clients/routers).
 5.  **Emission**: The generated structures are formatted and written to the file system.

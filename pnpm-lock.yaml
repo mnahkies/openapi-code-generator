@@ -60,6 +60,9 @@ catalogs:
     '@commander-js/extra-typings':
       specifier: ^15.0.0
       version: 15.0.0
+    '@hyperjump/json-schema':
+      specifier: ^1.17.6
+      version: 1.17.6
     '@koa/router':
       specifier: ^15.6.0
       version: 15.6.0
@@ -179,15 +182,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.9(vitest@4.1.9)
-      ajv:
-        specifier: ^8.20.0
-        version: 8.20.0
-      ajv-draft-04:
-        specifier: ^1.0.0
-        version: 1.0.0(ajv@8.20.0)
-      ajv-formats:
-        specifier: ^3.0.1
-        version: 3.0.1(ajv@8.20.0)
       commander:
         specifier: 'catalog:'
         version: 15.0.0
@@ -489,15 +483,12 @@ importers:
       '@commander-js/extra-typings':
         specifier: 'catalog:'
         version: 15.0.0(commander@15.0.0)
-      ajv:
-        specifier: ^8.20.0
-        version: 8.20.0
-      ajv-draft-04:
-        specifier: ^1.0.0
-        version: 1.0.0(ajv@8.20.0)
-      ajv-formats:
-        specifier: ^3.0.1
-        version: 3.0.1(ajv@8.20.0)
+      '@hyperjump/json-schema':
+        specifier: 'catalog:'
+        version: 1.17.6(@hyperjump/browser@1.4.0)
+      '@hyperjump/json-schema-errors':
+        specifier: github:hyperjump-io/json-schema-errors#429b18eb914fa1e01b23f38519e4da240e4113d8
+        version: https://codeload.github.com/hyperjump-io/json-schema-errors/tar.gz/429b18eb914fa1e01b23f38519e4da240e4113d8(@hyperjump/browser@1.4.0)
       commander:
         specifier: 'catalog:'
         version: 15.0.0
@@ -1600,6 +1591,10 @@ packages:
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
+  '@fluent/bundle@0.19.1':
+    resolution: {integrity: sha512-SWJLZrPamDPsJlFFOW1nkgN0j0rbPbmSdmK0XAoXlyqKieLtMVl4vzng3aR5pwKoUx0scug8+YY2oct3fdfy9A==}
+    engines: {node: '>=18.0.0', npm: '>=7.0.0'}
+
   '@formatjs/intl-localematcher@0.6.2':
     resolution: {integrity: sha512-XOMO2Hupl0wdd172Y06h6kLpBz6Dv+J4okPLl4LPtzbr8f66WbIoy4ev98EBuZ6ZK4h5ydTN6XneT4QVpD7cdA==}
 
@@ -1650,6 +1645,31 @@ packages:
     resolution: {integrity: sha512-EIsqr/t/qbinPIhGjMdtvutIN1Kk4uwbROE9/UQ93CAVGR7GkA7Y92+fX80OzXi/OB67jVFYwKGO1WzkxmkFZw==}
     peerDependencies:
       react-hook-form: ^7.55.0
+
+  '@hyperjump/browser@1.4.0':
+    resolution: {integrity: sha512-AbtynPyALR2wkN3ngYIiMEc21cZhP170zb5y3YIje4kTZ0J515GDgxeCK8D+PjyMhER7idU2Q3d0Zk0z/W1QLQ==}
+    engines: {node: '>=18.0.0'}
+
+  '@hyperjump/json-pointer@1.1.2':
+    resolution: {integrity: sha512-zPNgu1zdhtjQHFNLGzvEsLDsLOEvhRj6u6ktIQmlz7YPESv5uF8SnAe3Dq0oL6gZ6OGWSLq2n7pphRNF6Hpg6w==}
+
+  '@hyperjump/json-schema-errors@https://codeload.github.com/hyperjump-io/json-schema-errors/tar.gz/429b18eb914fa1e01b23f38519e4da240e4113d8':
+    resolution: {gitHosted: true, integrity: sha512-U1aw7XzAPjeGDJzFBa/3PxP5bwn7INj4usufrZNiNRaYr2EtKmGBEz57FrhRL0ugHdImCLLR23SRsGVnmwmyjw==, tarball: https://codeload.github.com/hyperjump-io/json-schema-errors/tar.gz/429b18eb914fa1e01b23f38519e4da240e4113d8}
+    version: 0.1.0
+
+  '@hyperjump/json-schema-formats@1.0.2':
+    resolution: {integrity: sha512-LwV7YMBst77SCvZJS/Fq5od/2dWvefU+a7RF9/MOo9mVXEcA7PJ0Ax6zgoL2x69f6PmEfFXTp3l1vGdtyziW6w==}
+
+  '@hyperjump/json-schema@1.17.6':
+    resolution: {integrity: sha512-m0QggWCn58IACqLi3fqI9cuUrFju79DVAxjkDENo+xgE26963rudPMwKwwlkZkB+JqAgu+OGvJAMfE1toevfGw==}
+    peerDependencies:
+      '@hyperjump/browser': ^1.1.0
+
+  '@hyperjump/pact@1.4.0':
+    resolution: {integrity: sha512-01Q7VY6BcAkp9W31Fv+ciiZycxZHGlR2N6ba9BifgyclHYHdbaZgITo0U6QMhYRlem4k8pf8J31/tApxvqAz8A==}
+
+  '@hyperjump/uri@1.3.4':
+    resolution: {integrity: sha512-aUVWwu2GtC/cU4DwdTM+b+5jjboM6wft6vNg1+7pUTk/nNRNaBYcYhaEnCir9eRLBbkcGPkiEO7XRUlcDkxj4Q==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -5063,6 +5083,9 @@ packages:
     resolution: {integrity: sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==}
     engines: {node: '>=0.10.0'}
 
+  idn-hostname@15.1.10:
+    resolution: {integrity: sha512-/mSXWRhVasTJ7Z4z18523rTA6CmStYN29yDt+oXi9fe1/M0SO2Un1BgUr3v28aAZG5hWicyUtIamC/juXt3nZQ==}
+
   ignore-walk@8.0.0:
     resolution: {integrity: sha512-FCeMZT4NiRQGh+YkeKMtWrOmBgWjHjMJ26WQWrRQyoyzqevdaGSakUaJW5xQYmjLlUVk2qUnCjYVBax9EKKg8A==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -5278,6 +5301,10 @@ packages:
   json-schema-typed@8.0.2:
     resolution: {integrity: sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA==}
 
+  json-stringify-deterministic@1.0.14:
+    resolution: {integrity: sha512-aP0bu09AgPQ0siVLg+64SVR9jXRCxwM+fW8pheDCoMKc3fipsVojQtsKyuUdoy1319v/Bgm978q2Il6brzPTFg==}
+    engines: {node: '>= 4'}
+
   json-stringify-nice@1.1.4:
     resolution: {integrity: sha512-5Z5RFW63yxReJ7vANgW6eZFGWaQvnPE3WNmZoOJrSkGju2etKA2L5rrOa1sm877TVTFt57A80BH1bArcmlLfPw==}
 
@@ -5302,6 +5329,9 @@ packages:
   jsonpointer@5.0.1:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
+
+  just-curry-it@5.3.0:
+    resolution: {integrity: sha512-silMIRiFjUWlfaDhkgSzpuAyQ6EX/o09Eu8ZBfmFwQMbax7+LQzeIU2CBrICT6Ne4l86ITCGvUCBpCubWYy0Yw==}
 
   just-diff-apply@5.5.0:
     resolution: {integrity: sha512-OYTthRfSh55WOItVqwpefPtNt2VdKsq5AnAK6apdtR6yCH8pr0CmSr710J0Mf+WdQy7K/OzMy7K2MgAfdQURDw==}
@@ -7885,6 +7915,8 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
+  '@fluent/bundle@0.19.1': {}
+
   '@formatjs/intl-localematcher@0.6.2':
     dependencies:
       tslib: 2.8.1
@@ -7930,6 +7962,47 @@ snapshots:
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.80.0(react@19.2.7)
+
+  '@hyperjump/browser@1.4.0':
+    dependencies:
+      '@hyperjump/json-pointer': 1.1.2
+      '@hyperjump/uri': 1.3.4
+      content-type: 1.0.5
+      just-curry-it: 5.3.0
+
+  '@hyperjump/json-pointer@1.1.2': {}
+
+  '@hyperjump/json-schema-errors@https://codeload.github.com/hyperjump-io/json-schema-errors/tar.gz/429b18eb914fa1e01b23f38519e4da240e4113d8(@hyperjump/browser@1.4.0)':
+    dependencies:
+      '@fluent/bundle': 0.19.1
+      '@hyperjump/json-pointer': 1.1.2
+      '@hyperjump/json-schema': 1.17.6(@hyperjump/browser@1.4.0)
+      '@hyperjump/pact': 1.4.0
+      '@hyperjump/uri': 1.3.4
+      json-stringify-deterministic: 1.0.14
+    transitivePeerDependencies:
+      - '@hyperjump/browser'
+
+  '@hyperjump/json-schema-formats@1.0.2':
+    dependencies:
+      '@hyperjump/uri': 1.3.4
+      idn-hostname: 15.1.10
+
+  '@hyperjump/json-schema@1.17.6(@hyperjump/browser@1.4.0)':
+    dependencies:
+      '@hyperjump/browser': 1.4.0
+      '@hyperjump/json-pointer': 1.1.2
+      '@hyperjump/json-schema-formats': 1.0.2
+      '@hyperjump/pact': 1.4.0
+      '@hyperjump/uri': 1.3.4
+      content-type: 1.0.5
+      json-stringify-deterministic: 1.0.14
+      just-curry-it: 5.3.0
+      uuid: 14.0.1
+
+  '@hyperjump/pact@1.4.0': {}
+
+  '@hyperjump/uri@1.3.4': {}
 
   '@iconify/types@2.0.0': {}
 
@@ -11286,6 +11359,10 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
+  idn-hostname@15.1.10:
+    dependencies:
+      punycode: 2.3.1
+
   ignore-walk@8.0.0:
     dependencies:
       minimatch: 10.2.5
@@ -11491,6 +11568,8 @@ snapshots:
 
   json-schema-typed@8.0.2: {}
 
+  json-stringify-deterministic@1.0.14: {}
+
   json-stringify-nice@1.1.4: {}
 
   json-with-bigint@3.5.8: {}
@@ -11508,6 +11587,8 @@ snapshots:
   jsonparse@1.3.1: {}
 
   jsonpointer@5.0.1: {}
+
+  just-curry-it@5.3.0: {}
 
   just-diff-apply@5.5.0: {}
 
