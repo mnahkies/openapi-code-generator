@@ -45,7 +45,7 @@
     "@nahkies/typescript-common-runtime": "workspace:^",
     "axios": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:",
+    "typescript": "catalog:typescript7",
     "vitest": "catalog:"
   },
   "files": [

@@ -1,5 +1,5 @@
 {
-  "name": "typescript-koa",
+  "name": "@integration/typescript-koa",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "author": "Michael Nahkies",
@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "@types/koa": "^3.0.3",
-    "typescript": "catalog:"
+    "typescript": "catalog:typescript7"
   }
 }

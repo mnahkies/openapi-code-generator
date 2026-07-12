@@ -105,7 +105,7 @@
     "koa": "^3.2.1",
     "koa-body": "^8.0.0",
     "tsdown": "catalog:",
-    "typescript": "catalog:",
+    "typescript": "catalog:typescript7",
     "vitest": "catalog:",
     "zod": "^4.3.6"
   },
