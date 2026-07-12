@@ -1,9 +1,8 @@
-import type {Json} from "@hyperjump/json-pointer"
 import type {
   Output,
   OutputFormat,
   ValidationOptions,
-} from "@hyperjump/json-schema/lib/index.d.ts"
+} from "@hyperjump/json-schema"
 import {validate as validate3_0} from "@hyperjump/json-schema/openapi-3-0"
 import {validate as validate3_1} from "@hyperjump/json-schema/openapi-3-1"
 import {
@@ -109,7 +108,8 @@ export class OpenapiValidator implements IOpenapiValidator {
 function wrapHyperjump(
   validate: (
     url: string,
-    value: Json,
+    // biome-ignore lint/suspicious/noExplicitAny: unknown input
+    value: any,
     options?: OutputFormat | ValidationOptions,
   ) => Promise<Output>,
   uri: string,
