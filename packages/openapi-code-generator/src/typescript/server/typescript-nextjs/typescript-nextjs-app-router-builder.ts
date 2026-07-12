@@ -4,24 +4,44 @@ import {
   ts,
   VariableDeclarationKind,
 } from "ts-morph"
-import type {Input} from "../../../core/input"
-import type {IROperation} from "../../../core/openapi-types-normalized"
+import type {Input} from "../../../core/input.ts"
+import type {IROperation} from "../../../core/openapi-types-normalized.ts"
 import {
   type HttpMethod,
   isDefined,
   isHttpMethod,
   titleCase,
-} from "../../../core/utils"
-import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
-import type {ImportBuilder} from "../../common/import-builder"
-import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import type {TypeBuilder} from "../../common/type-builder"
-import type {ServerSymbols} from "../abstract-router-builder"
-import {ServerOperationBuilder} from "../server-operation-builder"
+} from "../../../core/utils.ts"
+import {
+  CompilationUnit,
+  type ICompilable,
+} from "../../common/compilation-units.ts"
+import type {ImportBuilder} from "../../common/import-builder.ts"
+import type {SchemaBuilder} from "../../common/schema-builders/schema-builder.ts"
+import type {TypeBuilder} from "../../common/type-builder/type-builder.ts"
+import {
+  ServerOperationBuilder,
+  type ServerSymbols,
+} from "../server-operation-builder.ts"
 
 import SyntaxKind = ts.SyntaxKind
 
 export class TypescriptNextjsAppRouterBuilder implements ICompilable {
+  protected readonly capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "application/octet-stream",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   constructor(
     private readonly filename: string,
     private readonly name: string,
@@ -41,10 +61,15 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       this.input,
       this.types,
       this.schemaBuilder,
+      {
+        requestBody: {
+          supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+          defaultMaxSize: "10mb",
+        },
+      },
     )
 
-    const symbols = this.operationSymbols(builder.operationId)
-    const params = builder.parameters(symbols)
+    const params = builder.parameters()
 
     const sourceFile = this.sourceFile
 
@@ -136,10 +161,6 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       implPropName: operationId,
       implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
-      paramSchema: `${operationId}ParamSchema`,
-      querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
-      requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }
   }

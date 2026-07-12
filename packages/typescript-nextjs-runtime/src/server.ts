@@ -38,10 +38,3 @@ export type OpenAPIRuntimeResponder<
 > = {
   withStatus: (status: Status) => OpenAPIRuntimeResponse<Type>
 }
-
-export type Params<Params, Query, Body, Header> = {
-  params: Params
-  query: Query
-  body: Body
-  headers: Header
-}

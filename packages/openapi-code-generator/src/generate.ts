@@ -84,6 +84,7 @@ export async function generate(
   await generator.run({
     input,
     emitter,
+    fsAdaptor,
     schemaBuilder: config.schemaBuilder,
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
     enableTypedBasePaths: config.enableTypedBasePaths,

@@ -1,17 +1,21 @@
-import type {Input} from "../../../core/input"
-import {isDefined, titleCase} from "../../../core/utils"
-import type {ImportBuilder} from "../../common/import-builder"
-import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
-import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
-import type {TypeBuilder} from "../../common/type-builder"
-import {constStatement} from "../../common/type-utils"
-import {buildExport} from "../../common/typescript-common"
+import type {Input} from "../../../core/input.ts"
+import {isDefined, titleCase} from "../../../core/utils.ts"
+import type {ImportBuilder} from "../../common/import-builder.ts"
+import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder.ts"
+import type {SchemaBuilder} from "../../common/schema-builders/schema-builder.ts"
+import {ZodV3Builder as ZodBuilder} from "../../common/schema-builders/zod-v3-schema-builder.ts"
+import type {TypeBuilder} from "../../common/type-builder/type-builder.ts"
 import {
-  AbstractRouterBuilder,
-  type ServerSymbols,
-} from "../abstract-router-builder"
-import type {ServerOperationBuilder} from "../server-operation-builder"
+  constStatement,
+  object,
+  quotedStringLiteral,
+} from "../../common/type-utils.ts"
+import {buildExport} from "../../common/typescript-common.ts"
+import {AbstractRouterBuilder} from "../abstract-router-builder.ts"
+import type {
+  ServerOperationBuilder,
+  ServerSymbols,
+} from "../server-operation-builder.ts"
 
 export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   private readonly operationTypes: {
@@ -66,23 +70,18 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
     const statements: string[] = []
 
     const symbols = this.operationSymbols(builder.operationId)
-    const params = builder.parameters(symbols)
+    const params = builder.parameters()
 
     if (params.path.schema) {
-      statements.push(constStatement(symbols.paramSchema, params.path.schema))
+      statements.push(constStatement(params.path.name, params.path.schema))
     }
+
     if (params.query.schema) {
-      statements.push(constStatement(symbols.querySchema, params.query.schema))
+      statements.push(constStatement(params.query.name, params.query.schema))
     }
+
     if (params.header.schema) {
-      statements.push(
-        constStatement(symbols.requestHeaderSchema, params.header.schema),
-      )
-    }
-    if (params.body.schema) {
-      statements.push(
-        constStatement(symbols.requestBodySchema, params.body.schema),
-      )
+      statements.push(constStatement(params.header.name, params.header.schema))
     }
 
     const responseSchemas = builder.responseSchemas()
@@ -113,36 +112,46 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       ],
     })
 
+    const inputObject = object([
+      this.parseRequestInput("params", {
+        name: params.path.name,
+        schema: params.path.schema,
+        source: "await params",
+        type: "RequestInputType.RouteParam",
+      }),
+      this.parseRequestInput("query", {
+        name: params.query.name,
+        schema: params.query.schema,
+        source: params.query.isSimpleQuery
+          ? `Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
+          : `parseQueryParameters(ctx.querystring, ${JSON.stringify(params.query.parameters)})`,
+        type: "RequestInputType.QueryString",
+      }),
+      this.parseRequestInput("body", {
+        name: params.body.schema,
+        schema: params.body.schema,
+        source: "await request.json()",
+        type: `RequestInputType.RequestBody`,
+        comment:
+          params.body.schema && !params.body.isSupported
+            ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`
+            : "",
+      }) + (params.body.schema && !params.body.isSupported ? " as never" : ""),
+      this.parseRequestInput("headers", {
+        name: params.header.name,
+        schema: params.header.schema,
+        source: 'Reflect.get(request, "headers")',
+        type: "RequestInputType.RequestHeader",
+      }),
+    ])
+
     statements.push(
       buildExport({
         name: `_${builder.method.toUpperCase()}`,
         kind: "const",
         value: `(implementation: ${symbols.implTypeName}, onError: (err: unknown) => Promise<Response>) => async (${["request: NextRequest", params.path.schema ? "{params}: {params: Promise<unknown>}" : undefined].filter(isDefined).join(",")}): Promise<Response> => {
 try {
-  const input = {
-        params: ${
-          params.path.schema
-            ? `parseRequestInput(${symbols.paramSchema}, await params, RequestInputType.RouteParam)`
-            : "undefined"
-        },
-        // TODO: this swallows repeated parameters
-        query: ${
-          params.query.schema
-            ? `parseRequestInput(${symbols.querySchema}, Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
-            : "undefined"
-        },
-        body: ${
-          params.body.schema
-            ? `parseRequestInput(${symbols.requestBodySchema}, await request.json(), RequestInputType.RequestBody)`
-            : "undefined"
-        },
-        headers: ${
-          params.header.schema
-            ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(request, "headers"), RequestInputType.RequestHeader)`
-            : "undefined"
-        }
-       }
-
+       const input = ${inputObject}
        const responder = ${responder.implementation}
 
        const res = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
@@ -172,10 +181,6 @@ try {
       implPropName: operationId,
       implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
-      paramSchema: `${operationId}ParamSchema`,
-      querySchema: `${operationId}QuerySchema`,
-      requestBodySchema: `${operationId}BodySchema`,
-      requestHeaderSchema: `${operationId}HeaderSchema`,
       responseBodyValidator: `${operationId}ResponseValidator`,
     }
   }

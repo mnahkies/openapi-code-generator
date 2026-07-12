@@ -49,7 +49,7 @@ export interface ISchemaProvider {
 
 export class Input implements ISchemaProvider {
   constructor(
-    private loader: OpenapiLoader,
+    public loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config, this),

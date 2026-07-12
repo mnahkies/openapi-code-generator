@@ -1,16 +1,16 @@
 // biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import path from "path"
 import {Project, type SourceFile} from "ts-morph"
-import type {IFsAdaptor} from "../../../core/file-system/fs-adaptor"
-import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
-import {isTruthy} from "../../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
-import {TypescriptFetchClientBuilder} from "../../client/typescript-fetch/typescript-fetch-client-builder"
-import {ImportBuilder} from "../../common/import-builder"
-import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../../common/type-builder"
-import {TypescriptNextjsAppRouterBuilder} from "./typescript-nextjs-app-router-builder"
-import {TypescriptNextjsRouterBuilder} from "./typescript-nextjs-router-builder"
+import type {IFsAdaptor} from "../../../core/file-system/fs-adaptor.ts"
+import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader.ts"
+import {isTruthy} from "../../../core/utils.ts"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types.ts"
+import {TypescriptFetchClientBuilder} from "../../client/typescript-fetch/typescript-fetch-client-builder.ts"
+import {ImportBuilder} from "../../common/import-builder.ts"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder.ts"
+import {TypeBuilder} from "../../common/type-builder/type-builder.ts"
+import {TypescriptNextjsAppRouterBuilder} from "./typescript-nextjs-app-router-builder.ts"
+import {TypescriptNextjsRouterBuilder} from "./typescript-nextjs-router-builder.ts"
 
 function findImportAlias(dest: string, compilerOptions: CompilerOptions) {
   const relative = `./${path.relative(process.cwd(), dest)}/*`
@@ -45,7 +45,10 @@ export async function generateTypescriptNextJS(
     .filter(isTruthy)
     .join(path.sep)
 
-  const rootTypeBuilder = await TypeBuilder.fromInput(
+  const importBuilderConfig = {includeFileExtensions: false}
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+
+  const rootTypeBuilder = await TypeBuilder.fromSchemaProvider(
     [generatedDirectory, "models.ts"].join(path.sep),
     input,
     config.compilerOptions,
@@ -57,6 +60,8 @@ export async function generateTypescriptNextJS(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
+    rootTypeBuilder,
   )
 
   const project = new Project({useInMemoryFileSystem: true})
@@ -69,7 +74,11 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const imports = new ImportBuilder({filename}, importAlias)
+        const imports = new ImportBuilder({
+          unit: {filename},
+          includeFileExtensions: false,
+          importAlias,
+        })
 
         const routerBuilder = new TypescriptNextjsRouterBuilder(
           filename,
@@ -117,10 +126,11 @@ export async function generateTypescriptNextJS(
   ).flat()
 
   const clientOutputPath = [generatedDirectory, "client.ts"].join(path.sep)
-  const clientImportBuilder = new ImportBuilder(
-    {filename: clientOutputPath},
+  const clientImportBuilder = new ImportBuilder({
+    unit: {filename: clientOutputPath},
     importAlias,
-  )
+    includeFileExtensions: false,
+  })
 
   const fetchClientBuilder = new TypescriptFetchClientBuilder(
     clientOutputPath,

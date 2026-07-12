@@ -89,7 +89,7 @@ export function categorizeImportSource(source: string): ImportCategory {
 
 export type ImportBuilderConfig = {
   unit?: {filename: string} | undefined
-  importAlias?: string
+  importAlias?: string | undefined
   includeFileExtensions: boolean
 }
 
