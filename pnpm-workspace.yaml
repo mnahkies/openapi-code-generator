@@ -12,7 +12,7 @@ catalog:
   '@azure-tools/typespec-autorest': 0.69.1
   '@azure-tools/typespec-azure-core': 0.69.0
   '@azure-tools/typespec-azure-resource-manager': 0.69.1
-  '@azure-tools/typespec-client-generator-core': 0.69.0
+  '@azure-tools/typespec-client-generator-core': 0.69.2
   '@biomejs/biome': 2.5.2
   '@biomejs/js-api': 6.0.0
   '@biomejs/wasm-nodejs': 2.5.2
