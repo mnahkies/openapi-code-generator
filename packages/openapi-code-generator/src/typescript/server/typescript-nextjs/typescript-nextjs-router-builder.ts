@@ -32,8 +32,8 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   protected buildImports(): void {
     this.imports
       .from("@nahkies/typescript-nextjs-runtime/server")
-      .add(
-        "OpenAPIRuntimeResponse",
+      .add("OpenAPIRuntimeResponse", "parseQueryParameters")
+      .addType(
         "OpenAPIRuntimeResponder",
         "Params",
         "StatusCode2xx",
@@ -41,10 +41,9 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
         "StatusCode",
-        "parseQueryParameters",
       )
 
-    this.imports.from("next/server").add("NextRequest", "NextResponse")
+    this.imports.from("next/server").addType("NextRequest", "NextResponse")
 
     this.imports
       .from("@nahkies/typescript-nextjs-runtime/errors")
