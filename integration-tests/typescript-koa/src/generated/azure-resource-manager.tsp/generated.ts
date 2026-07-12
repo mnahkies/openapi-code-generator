@@ -13,6 +13,7 @@ import {
   type Res,
   type ServerConfig,
   type SkipResponse,
+  type StartedServer,
   type StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
@@ -829,7 +830,7 @@ export function createRouter(
   return router
 }
 
-export async function bootstrap(config: ServerConfig) {
+export async function bootstrap(config: ServerConfig): Promise<StartedServer> {
   // ContosoProviderHubClient
   return startServer(config)
 }

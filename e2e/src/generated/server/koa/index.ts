@@ -4,10 +4,11 @@
 
 import {
   type ServerConfig,
+  type StartedServer,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 
-export async function bootstrap(config: ServerConfig) {
+export async function bootstrap(config: ServerConfig): Promise<StartedServer> {
   // E2E Tests for @nahkies/openapi-code-generator
   return startServer(config)
 }

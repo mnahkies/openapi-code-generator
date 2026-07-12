@@ -84,7 +84,7 @@
     "@nahkies/typescript-common-runtime": "workspace:^",
     "joi": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:",
+    "typescript": "catalog:typescript7",
     "vitest": "catalog:",
     "zod": "^4.3.6"
   },

@@ -21,7 +21,7 @@ catalog:
   '@lerna-lite/cli': ^5.4.0
   '@lerna-lite/publish': ^5.4.0
   '@lerna-lite/version': ^5.4.0
-  "@types/node": ^22.20.0
+  '@types/node': ^22.20.0
   '@types/react': ^19.2.17
   '@vitest/coverage-v8': 4.1.9
   axios: ^1.18.1
@@ -36,10 +36,15 @@ catalog:
   react: 19.2.7
   react-dom: 19.2.7
   react-hook-form: ^7.80.0
-  tsdown: ^0.22.3
+  tsdown: ^0.22.5
   tsx: ^4.23.0
-  typescript: ^6.0.3
   vitest: ^4.1.9
+
+catalogs:
+  typescript6:
+    typescript: ^6.0.3
+  typescript7:
+    typescript: ^7.0.2
 
 catalogMode: strict
 
@@ -69,11 +74,77 @@ gitChecks: false
 linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude: []
+minimumReleaseAgeExclude:
+  - '@oxc-project/types@0.139.0'
+  - '@rolldown/binding-android-arm64@1.1.5'
+  - '@rolldown/binding-darwin-arm64@1.1.5'
+  - '@rolldown/binding-darwin-x64@1.1.5'
+  - '@rolldown/binding-freebsd-x64@1.1.5'
+  - '@rolldown/binding-linux-arm-gnueabihf@1.1.5'
+  - '@rolldown/binding-linux-arm64-gnu@1.1.5'
+  - '@rolldown/binding-linux-arm64-musl@1.1.5'
+  - '@rolldown/binding-linux-ppc64-gnu@1.1.5'
+  - '@rolldown/binding-linux-s390x-gnu@1.1.5'
+  - '@rolldown/binding-linux-x64-gnu@1.1.5'
+  - '@rolldown/binding-linux-x64-musl@1.1.5'
+  - '@rolldown/binding-openharmony-arm64@1.1.5'
+  - '@rolldown/binding-wasm32-wasi@1.1.5'
+  - '@rolldown/binding-win32-arm64-msvc@1.1.5'
+  - '@rolldown/binding-win32-x64-msvc@1.1.5'
+  - '@typescript/typescript-aix-ppc64@7.0.2'
+  - '@typescript/typescript-darwin-arm64@7.0.2'
+  - '@typescript/typescript-darwin-x64@7.0.2'
+  - '@typescript/typescript-freebsd-arm64@7.0.2'
+  - '@typescript/typescript-freebsd-x64@7.0.2'
+  - '@typescript/typescript-linux-arm64@7.0.2'
+  - '@typescript/typescript-linux-arm@7.0.2'
+  - '@typescript/typescript-linux-loong64@7.0.2'
+  - '@typescript/typescript-linux-mips64el@7.0.2'
+  - '@typescript/typescript-linux-ppc64@7.0.2'
+  - '@typescript/typescript-linux-riscv64@7.0.2'
+  - '@typescript/typescript-linux-s390x@7.0.2'
+  - '@typescript/typescript-linux-x64@7.0.2'
+  - '@typescript/typescript-netbsd-arm64@7.0.2'
+  - '@typescript/typescript-netbsd-x64@7.0.2'
+  - '@typescript/typescript-openbsd-arm64@7.0.2'
+  - '@typescript/typescript-openbsd-x64@7.0.2'
+  - '@typescript/typescript-sunos-x64@7.0.2'
+  - '@typescript/typescript-win32-arm64@7.0.2'
+  - '@typescript/typescript-win32-x64@7.0.2'
+  - '@yuku-codegen/binding-darwin-arm64@0.5.44'
+  - '@yuku-codegen/binding-darwin-x64@0.5.44'
+  - '@yuku-codegen/binding-freebsd-x64@0.5.44'
+  - '@yuku-codegen/binding-linux-arm-gnu@0.5.44'
+  - '@yuku-codegen/binding-linux-arm-musl@0.5.44'
+  - '@yuku-codegen/binding-linux-arm64-gnu@0.5.44'
+  - '@yuku-codegen/binding-linux-arm64-musl@0.5.44'
+  - '@yuku-codegen/binding-linux-x64-gnu@0.5.44'
+  - '@yuku-codegen/binding-linux-x64-musl@0.5.44'
+  - '@yuku-codegen/binding-win32-arm64@0.5.44'
+  - '@yuku-codegen/binding-win32-x64@0.5.44'
+  - '@yuku-parser/binding-darwin-arm64@0.5.44'
+  - '@yuku-parser/binding-darwin-x64@0.5.44'
+  - '@yuku-parser/binding-freebsd-x64@0.5.44'
+  - '@yuku-parser/binding-linux-arm-gnu@0.5.44'
+  - '@yuku-parser/binding-linux-arm-musl@0.5.44'
+  - '@yuku-parser/binding-linux-arm64-gnu@0.5.44'
+  - '@yuku-parser/binding-linux-arm64-musl@0.5.44'
+  - '@yuku-parser/binding-linux-x64-gnu@0.5.44'
+  - '@yuku-parser/binding-linux-x64-musl@0.5.44'
+  - '@yuku-parser/binding-win32-arm64@0.5.44'
+  - '@yuku-parser/binding-win32-x64@0.5.44'
+  - rolldown-plugin-dts@0.27.4
+  - rolldown@1.1.5
+  - tsdown@0.22.5
+  - typescript@7.0.2
+  - yuku-ast@0.1.7
+  - yuku-codegen@0.5.44
+  - yuku-parser@0.5.44
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
 strictPeerDependencies: true
+
 peerDependencyRules:
   allowedVersions:
     typescript: ^6
@@ -81,15 +152,13 @@ peerDependencyRules:
 
 overrides:
   '@isaacs/brace-expansion': ^5.0.1
-  '@types/node': "catalog:"
+  '@types/node': 'catalog:'
   axios: ^1.18.0
   'lodash-es@~4.17': ^4.18.0
   qs: ^6.14.2
   tar: ^7.5.11
   zod: ^4.3.6
   fast-uri@^3: ^3.1.1
-  # todo: https://github.com/arethetypeswrong/arethetypeswrong.github.io/issues/258
-  fflate: "0.8.2"
 
 preferWorkspacePackages: true
 
@@ -101,4 +170,3 @@ publicHoistPattern:
 
 patchedDependencies:
   nextra-theme-docs: patches/nextra-theme-docs.patch
-  rolldown-plugin-dts: patches/rolldown-plugin-dts.patch

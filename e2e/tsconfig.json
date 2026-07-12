@@ -1,13 +1,8 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.integration.base.json",
   "compilerOptions": {
-    "composite": false,
-    "outDir": "./dist",
-    "rootDir": "./src",
     "module": "NodeNext",
     "target": "ESNext",
-    "verbatimModuleSyntax": true,
-    "rewriteRelativeImportExtensions": true
-  },
-  "include": ["src/**/*"]
+    "verbatimModuleSyntax": true
+  }
 }

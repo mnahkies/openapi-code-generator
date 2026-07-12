@@ -1,10 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.integration.base.json",
   "compilerOptions": {
-    "composite": false,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "types": [],
     /* exercise the code path where exactOptionalPropertyTypes is disabled */
     "exactOptionalPropertyTypes": false,
     "noUnusedLocals": true

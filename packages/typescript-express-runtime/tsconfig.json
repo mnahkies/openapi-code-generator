@@ -1,11 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "emitDeclarationOnly": true
-  },
-  "include": ["src/**/*"],
   "references": [
     {
       "path": "../typescript-common-runtime"

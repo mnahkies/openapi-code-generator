@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "typescript": "catalog:"
+    "typescript": "catalog:typescript7"
   }
 }

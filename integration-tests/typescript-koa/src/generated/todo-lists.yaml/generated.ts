@@ -14,6 +14,7 @@ import {
   type Res,
   type ServerConfig,
   type SkipResponse,
+  type StartedServer,
   type StatusCode,
   type StatusCode4xx,
   type StatusCode5xx,
@@ -604,7 +605,7 @@ export function createRouter(
   return router
 }
 
-export async function bootstrap(config: ServerConfig) {
+export async function bootstrap(config: ServerConfig): Promise<StartedServer> {
   // Todo Lists Example API
   return startServer(config)
 }

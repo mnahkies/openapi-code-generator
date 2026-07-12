@@ -122,6 +122,12 @@ export async function parseOctetStream(
   return body
 }
 
+export type StartedServer = {
+  app: Koa
+  server: Server
+  address: AddressInfo
+}
+
 /**
  * Starts a Koa server and listens on `port` or a randomly allocated port if none provided.
  * Enables CORS and body parsing by default. It's recommended to customize the CORS options
@@ -137,11 +143,7 @@ export async function startServer({
   body = undefined,
   port = 0,
   router,
-}: ServerConfig): Promise<{
-  app: Koa
-  server: Server
-  address: AddressInfo
-}> {
+}: ServerConfig): Promise<StartedServer> {
   const app = new Koa()
 
   if (cors !== "disabled") {
@@ -159,7 +161,7 @@ export async function startServer({
   app.use(router.routes())
   app.use(router.allowedMethods())
 
-  return new Promise((resolve, reject) => {
+  return new Promise<StartedServer>((resolve, reject) => {
     try {
       const server = app.listen(port)
 

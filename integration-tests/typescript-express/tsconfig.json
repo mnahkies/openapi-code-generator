@@ -1,9 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.integration.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "types": [],
     /* exercise the code path where exactOptionalPropertyTypes is enabled */
     "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
