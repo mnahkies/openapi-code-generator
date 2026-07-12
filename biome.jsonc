@@ -26,7 +26,8 @@
       "!**/package.json",
       "!!**/.next",
       "!!**/.angular",
-      "!!**/dist"
+      "!!**/dist",
+      "!!**/*.svg"
     ]
   },
   "formatter": {

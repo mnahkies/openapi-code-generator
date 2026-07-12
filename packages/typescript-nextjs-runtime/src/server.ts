@@ -1,33 +1,20 @@
-// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
-type Enumerate<
-  N extends number,
-  Acc extends number[] = [],
-> = Acc["length"] extends N
-  ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>
+import {
+  type Res,
+  SkipResponse,
+  type StatusCode,
+} from "@nahkies/typescript-common-runtime/types"
 
-type IntRange<F extends number, T extends number> = F extends T
-  ? F
-  : Exclude<Enumerate<T>, Enumerate<F>> extends never
-    ? never
-    : Exclude<Enumerate<T>, Enumerate<F>> | T
-
-export type StatusCode1xx = IntRange<100, 199> // `1${number}${number}`
-export type StatusCode2xx = IntRange<200, 299> // `2${number}${number}`
-export type StatusCode3xx = IntRange<300, 399> // `3${number}${number}`
-export type StatusCode4xx = IntRange<400, 499> // `4${number}${number}`
-export type StatusCode5xx = IntRange<500, 599> // `5${number}${number}`
-export type StatusCode =
-  | StatusCode1xx
-  | StatusCode2xx
-  | StatusCode3xx
-  | StatusCode4xx
-  | StatusCode5xx
-
-export type Response<Status extends StatusCode, Type> = {
-  status: Status
-  body: Type
-}
+export {
+  type Params,
+  type Res,
+  SkipResponse,
+  type StatusCode,
+  type StatusCode1xx,
+  type StatusCode2xx,
+  type StatusCode3xx,
+  type StatusCode4xx,
+  type StatusCode5xx,
+} from "@nahkies/typescript-common-runtime/types"
 
 export class OpenAPIRuntimeResponse<Type> {
   private _body?: Type
@@ -39,7 +26,7 @@ export class OpenAPIRuntimeResponse<Type> {
     return this
   }
 
-  unpack(): Response<StatusCode, Type | undefined> {
+  unpack(): Res<StatusCode, Type | undefined> {
     return {status: this.status, body: this._body}
   }
 }

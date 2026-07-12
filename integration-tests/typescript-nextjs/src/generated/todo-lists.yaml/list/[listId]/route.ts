@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_DeleteTodoListByIdParamSchema,
   t_Error,
   t_GetTodoListByIdParamSchema,
@@ -16,14 +16,14 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
-  StatusCode4xx,
+  type Params,
+  type StatusCode,
+  type StatusCode4xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
 import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
+import type {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list/{listId}

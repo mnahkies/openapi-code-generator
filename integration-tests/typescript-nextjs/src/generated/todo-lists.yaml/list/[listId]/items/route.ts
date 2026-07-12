@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_CreateTodoListItemBodySchema,
   t_CreateTodoListItemParamSchema,
   t_GetTodoListItemsParamSchema,
@@ -12,14 +12,14 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
-  StatusCode5xx,
+  type Params,
+  type StatusCode,
+  type StatusCode5xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
 import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
+import type {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list/{listId}/items

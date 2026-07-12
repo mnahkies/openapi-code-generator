@@ -1,8 +1,8 @@
 import {
   type SourceFile,
   StructureKind,
-  VariableDeclarationKind,
   ts,
+  VariableDeclarationKind,
 } from "ts-morph"
 import type {Input} from "../../../core/input"
 import type {IROperation} from "../../../core/openapi-types-normalized"
@@ -18,6 +18,7 @@ import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import type {ServerSymbols} from "../abstract-router-builder"
 import {ServerOperationBuilder} from "../server-operation-builder"
+
 import SyntaxKind = ts.SyntaxKind
 
 export class TypescriptNextjsAppRouterBuilder implements ICompilable {

@@ -252,9 +252,11 @@ export class ImportBuilder {
         path.posix.isAbsolute(from)
 
       if (isFromPath) {
-
         if (this.config.importAlias) {
-          return this.config.importAlias + from.split(path.posix.sep).slice(1).join(path.posix.sep)
+          return (
+            this.config.importAlias +
+            from.split(path.posix.sep).slice(1).join(path.posix.sep)
+          )
         }
 
         const root = path.posix.isAbsolute(unitFilename)

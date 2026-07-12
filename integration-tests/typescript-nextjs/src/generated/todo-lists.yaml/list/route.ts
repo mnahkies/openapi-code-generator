@@ -2,20 +2,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
+import type {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
 import {s_Statuses} from "../schemas"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  OpenAPIRuntimeResponder,
+  type OpenAPIRuntimeResponder,
   OpenAPIRuntimeResponse,
-  Params,
-  StatusCode,
+  type Params,
+  type StatusCode,
 } from "@nahkies/typescript-nextjs-runtime/server"
 import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
-import {NextRequest} from "next/server"
+import type {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list
