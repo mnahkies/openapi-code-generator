@@ -28,7 +28,7 @@ catalog:
   axios: ^1.18.1
   body-parser: ^2.3.0
   commander: ^15.0.0
-  conventional-changelog-conventionalcommits: ^10.2.0
+  conventional-changelog-conventionalcommits: ^10.2.1
   joi: ^18.2.3
   js-yaml: ^5.2.1
   lint-staged: ^17.0.7
@@ -36,7 +36,7 @@ catalog:
   prettier: ^3.9.4
   react: 19.2.7
   react-dom: 19.2.7
-  react-hook-form: ^7.80.0
+  react-hook-form: ^7.81.0
   tsdown: ^0.22.5
   tsx: ^4.23.0
   vitest: ^4.1.9
@@ -154,11 +154,11 @@ peerDependencyRules:
 overrides:
   '@isaacs/brace-expansion': ^5.0.1
   '@types/node': 'catalog:'
-  axios: ^1.18.0
+  axios: ^1.18.1
   'lodash-es@~4.17': ^4.18.0
   qs: ^6.14.2
   tar: ^7.5.11
-  zod: ^4.3.6
+  zod: ^4.4.3
   fast-uri@^3: ^3.1.1
 
 preferWorkspacePackages: true

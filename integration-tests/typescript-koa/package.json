@@ -15,7 +15,7 @@
     "joi": "catalog:",
     "koa": "^3.2.1",
     "tslib": "^2.8.1",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/koa": "^3.0.3",
