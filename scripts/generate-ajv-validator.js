@@ -158,16 +158,25 @@ compileOpenapi30Standalone()
   .then((output) => {
     // todo: workaround https://github.com/ajv-validator/ajv/pull/2618
     return output
-      .replace("const func0 = require(\"ajv/dist/runtime/equal\").default", "const func0 = (await import(\"ajv/dist/runtime/equal\")).default")
-      .replace("const formats14 = require(\"ajv-formats/dist/formats\").fullFormats.regex", "const formats14 = (await import(\"ajv-formats/dist/formats\")).fullFormats.regex")
-      .replace("const formats32 = require(\"ajv-formats/dist/formats\").fullFormats.uri", "const formats32 = (await import(\"ajv-formats/dist/formats\")).fullFormats.uri")
+      .replace(
+        'const func0 = require("ajv/dist/runtime/equal").default',
+        'const func0 = (await import("ajv/dist/runtime/equal")).default',
+      )
+      .replace(
+        'const formats14 = require("ajv-formats/dist/formats").fullFormats.regex',
+        'const formats14 = (await import("ajv-formats/dist/formats")).fullFormats.regex',
+      )
+      .replace(
+        'const formats32 = require("ajv-formats/dist/formats").fullFormats.uri',
+        'const formats32 = (await import("ajv-formats/dist/formats")).fullFormats.uri',
+      )
   })
   .then((output) =>
-  writeOutput(
-    path.join(outputDir, "openapi-3.0-specification-validator.ts"),
-    output,
-  ),
-)
+    writeOutput(
+      path.join(outputDir, "openapi-3.0-specification-validator.ts"),
+      output,
+    ),
+  )
 
 compileOpenapi31Standalone(true).then((output) =>
   writeOutput(
