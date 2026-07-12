@@ -19,10 +19,10 @@
     "@nahkies/typescript-express-runtime": "workspace:*",
     "@nahkies/typescript-fetch-runtime": "workspace:*",
     "@nahkies/typescript-koa-runtime": "workspace:*",
-    "axios": "catalog:",
+    "axios": "^1.18.1",
     "express": "^5.2.1",
     "koa": "^3.2.1",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@nahkies/openapi-code-generator": "workspace:*",

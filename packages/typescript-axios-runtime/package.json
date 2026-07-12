@@ -39,11 +39,11 @@
     "tslib": "^2.8.1"
   },
   "peerDependencies": {
-    "axios": "^1.15.2"
+    "axios": "^1.18.1"
   },
   "devDependencies": {
     "@nahkies/typescript-common-runtime": "workspace:^",
-    "axios": "catalog:",
+    "axios": "^1.18.1",
     "tsdown": "catalog:",
     "typescript": "catalog:typescript7",
     "vitest": "catalog:"
