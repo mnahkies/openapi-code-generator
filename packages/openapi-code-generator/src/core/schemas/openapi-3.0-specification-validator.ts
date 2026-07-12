@@ -2013,7 +2013,7 @@ const schema33 = {
   patternProperties: {"^\\$ref$": {type: "string", format: "uri-reference"}},
 }
 const func3 = Object.prototype.hasOwnProperty
-const func0 = require("ajv/dist/runtime/equal").default
+const func0 = (await import("ajv/dist/runtime/equal")).default
 const pattern18 = new RegExp("^\\$ref$", "u")
 const schema23 = {
   type: "object",
@@ -2295,8 +2295,8 @@ const schema42 = {
   patternProperties: {"^x-": {}},
   additionalProperties: false,
 }
-const formats14 = require("ajv-formats/dist/formats").fullFormats.regex
-const formats32 = require("ajv-formats/dist/formats").fullFormats.uri
+const formats14 = (await import("ajv-formats/dist/formats")).fullFormats.regex
+const formats32 = (await import("ajv-formats/dist/formats")).fullFormats.uri
 const wrapper0 = {validate: validate21}
 function validate21(
   data,
