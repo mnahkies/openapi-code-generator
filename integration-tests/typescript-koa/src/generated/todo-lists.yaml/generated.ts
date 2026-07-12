@@ -564,7 +564,7 @@ export function createRouter(
       .then(handleResponse(ctx, uploadAttachmentResponseValidator))
   })
 
-  const replaceAttachmentParamSchema = z.object({id: z.string().optional()})
+  const replaceAttachmentParamSchema = z.object({id: z.string()})
 
   const replaceAttachmentResponseValidator = responseValidationFactory(
     [["202", z.undefined()]],

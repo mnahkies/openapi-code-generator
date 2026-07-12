@@ -607,7 +607,7 @@ export function createRouter(
     },
   )
 
-  const replaceAttachmentParamSchema = z.object({id: z.string().optional()})
+  const replaceAttachmentParamSchema = z.object({id: z.string()})
 
   const replaceAttachmentResponseBodyValidator = responseValidationFactory(
     [["202", z.undefined()]],
