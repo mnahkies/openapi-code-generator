@@ -20,7 +20,7 @@
   "bin": {
     "openapi-code-generator": "./bin/cli.mjs"
   },
-  "main": "./dist/cjs/index.cjs",
+  "main": "./dist/esm/index.mjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/esm/index.d.mts",
   "exports": {
@@ -28,30 +28,18 @@
       "import": {
         "types": "./dist/esm/index.d.mts",
         "default": "./dist/esm/index.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
       }
     },
     "./cli": {
       "import": {
         "types": "./dist/esm/cli.d.mts",
         "default": "./dist/esm/cli.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/cli.d.cts",
-        "default": "./dist/cjs/cli.cjs"
       }
     },
     "./web": {
       "import": {
         "types": "./dist/esm/web.d.mts",
         "default": "./dist/esm/web.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/web.d.cts",
-        "default": "./dist/cjs/web.cjs"
       }
     }
   },

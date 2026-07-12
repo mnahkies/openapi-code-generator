@@ -11,7 +11,7 @@ export default defineConfig({
   failOnWarn: true,
   logLevel: "warn",
   publint: true,
-  attw: {profile: "node16"},
+  attw: {profile: "esm-only"},
 
   deps: {
     onlyBundle: ["@nahkies/typescript-common-runtime"],
@@ -20,9 +20,6 @@ export default defineConfig({
   format: {
     esm: {
       outDir: "./dist/esm",
-    },
-    cjs: {
-      outDir: "./dist/cjs",
     },
   },
 })
