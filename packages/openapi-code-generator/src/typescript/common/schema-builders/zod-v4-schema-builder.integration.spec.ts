@@ -157,17 +157,19 @@ describe.each(
     expect(code).toMatchInlineSnapshot(`
         "import { s_Recursive } from "./unit-test.schemas"
 
-        const x = z.lazy(() => s_Recursive)"
+        const x = s_Recursive"
       `)
 
     expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod/v4"
-        import type { t_Recursive } from "./unit-test.types"
+      "import { z } from "zod/v4"
+      import type { t_Recursive } from "./unit-test.types"
 
-        export const s_Recursive: z.ZodType<t_Recursive> = z.object({
-          child: z.lazy(() => s_Recursive.optional()),
-        })"
-      `)
+      export const s_Recursive: z.ZodType<t_Recursive> = z.object({
+        get child() {
+          return s_Recursive.optional()
+        },
+      })"
+    `)
   })
 
   it("orders schemas such that dependencies are defined first", async () => {

@@ -8,6 +8,7 @@ import type {
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
+  IRRef,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized.ts"
 import {isRef} from "../../../core/openapi-utils.ts"
@@ -181,6 +182,15 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected $ref(
+    maybeModel: IRRef,
+    nullable: boolean,
+    required: boolean,
+    isAnonymous: boolean,
+  ): string {
+    return this.internal$ref(maybeModel, nullable, required, isAnonymous, false)
+  }
+
   protected preprocess(
     schema: string,
     transformation: string | ((it: unknown) => unknown),
@@ -202,13 +212,18 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     return schema
   }
 
-  protected object(keys: Record<string, string>): string {
+  protected object(
+    keys: Record<string, {schema: string; isLazy: boolean}>,
+  ): string {
     const entries = Object.entries(keys)
 
     return [
       zod,
       `object({${entries
-        .map(([key, value]) => `"${key}": ${value}`)
+        .map(
+          ([key, value]) =>
+            `"${key}": ${value.isLazy ? this.lazy(value.schema) : value.schema}`,
+        )
         .join(",")}})`,
     ]
       .filter(isDefined)

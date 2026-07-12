@@ -159,10 +159,10 @@ describe.each(
     const {code, schemas} = await getActual("components/schemas/Recursive")
 
     expect(code).toMatchInlineSnapshot(`
-        "import { s_Recursive } from "./unit-test.schemas"
+      "import { s_Recursive } from "./unit-test.schemas"
 
-        const x = z.lazy(() => s_Recursive)"
-      `)
+      const x = s_Recursive"
+    `)
 
     expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"

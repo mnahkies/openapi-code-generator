@@ -13,6 +13,7 @@ import type {
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
+  IRRef,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized.ts"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils.ts"
@@ -33,7 +34,7 @@ export abstract class AbstractSchemaBuilder<
 {
   public abstract readonly type: SchemaBuilderType
 
-  private readonly graph: DependencyGraph
+  protected readonly graph: DependencyGraph
 
   protected readonly typeBuilder: TypeBuilder
 
@@ -186,28 +187,7 @@ export abstract class AbstractSchemaBuilder<
     let result: string
 
     if (isRef(maybeModel)) {
-      const name = this.add(maybeModel)
-      result = name
-
-      if (nullable) {
-        result = this.nullable(result)
-      }
-
-      if (maybeModel["x-internal-preprocess"]) {
-        const dereferenced = this.schemaProvider.preprocess(
-          maybeModel["x-internal-preprocess"],
-        )
-        if (dereferenced.deserialize) {
-          result = this.preprocess(result, dereferenced.deserialize.fn)
-        }
-      }
-
-      result = required ? this.required(result, false) : this.optional(result)
-
-      if (this.graph.circular.has(name) && !isAnonymous) {
-        return this.lazy(result)
-      }
-      return result
+      return this.$ref(maybeModel, nullable, required, isAnonymous)
     }
 
     if (!Reflect.get(maybeModel, "isIRModel")) {
@@ -255,7 +235,15 @@ export abstract class AbstractSchemaBuilder<
           )
         } else {
           result = this.union(
-            model.schemas.map((it) => this.fromModel(it, true)),
+            model.schemas.map((it) => {
+              const result = this.fromModel(it, true)
+
+              // todo: but what if we're already in a get lazyProperty(){ } block...
+              if (this.isSchemaLazy(it)) {
+                return this.lazy(result)
+              }
+              return result
+            }),
           )
         }
         break
@@ -285,9 +273,20 @@ export abstract class AbstractSchemaBuilder<
           this.object(
             Object.fromEntries(
               Object.entries(model.properties).map(([key, value]) => {
+                const schema = this.fromModel(
+                  value,
+                  model.required.includes(key),
+                  false,
+                  false,
+                )
+                const isLazy = this.isSchemaLazy(value)
+
                 return [
                   key,
-                  this.fromModel(value, model.required.includes(key)),
+                  {
+                    schema,
+                    isLazy,
+                  },
                 ]
               }),
             ),
@@ -359,7 +358,65 @@ export abstract class AbstractSchemaBuilder<
     return result
   }
 
+  private isSchemaLazy(schema: MaybeIRModel): boolean {
+    const candidates = []
+
+    if (isRef(schema)) {
+      candidates.push(schema)
+    } else if (schema.type === "union") {
+      candidates.push(...schema.schemas.filter(isRef))
+    } else if (schema.type === "intersection") {
+      candidates.push(...schema.schemas.filter(isRef))
+    } else if (schema.type === "array") {
+      return this.isSchemaLazy(schema.items)
+    }
+
+    return candidates.some(($ref) => {
+      const name = this.add($ref)
+      return this.graph.circular.has(name)
+    })
+  }
+
   public abstract parse(schema: string, value: string): string
+
+  protected abstract $ref(
+    maybeModel: IRRef,
+    nullable: boolean,
+    required: boolean,
+    isAnonymous: boolean,
+  ): string
+
+  protected internal$ref(
+    maybeModel: IRRef,
+    nullable: boolean,
+    required: boolean,
+    isAnonymous: boolean,
+    useLazy = false,
+  ): string {
+    const name = this.add(maybeModel)
+    let result = name
+
+    if (nullable) {
+      result = this.nullable(result)
+    }
+
+    if (maybeModel["x-internal-preprocess"]) {
+      const dereferenced = this.schemaProvider.preprocess(
+        maybeModel["x-internal-preprocess"],
+      )
+      if (dereferenced.deserialize) {
+        result = this.preprocess(result, dereferenced.deserialize.fn)
+      }
+    }
+
+    result = required ? this.required(result, false) : this.optional(result)
+
+    if (useLazy && this.graph.circular.has(name) && !isAnonymous) {
+      return this.lazy(result)
+    }
+
+    return result
+  }
 
   protected abstract lazy(schema: string): string
 
@@ -384,7 +441,7 @@ export abstract class AbstractSchemaBuilder<
   protected abstract required(schema: string, hasDefaultValue: boolean): string
 
   protected abstract object(
-    keys: Record<string, string>,
+    keys: Record<string, {schema: string; isLazy: boolean}>,
     required: boolean,
   ): string
 
