@@ -44,7 +44,7 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
 
   constructor(
     private readonly filename: string,
-    private readonly name: string,
+    readonly name: string,
     private readonly input: Input,
     private readonly imports: ImportBuilder,
     private readonly types: TypeBuilder,
@@ -101,18 +101,18 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       })
 
     // Replace the params based on what inputs we have
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: todo
     const declarations = variableDeclaration.getDeclarations()[0]!
     const callExpression = declarations.getInitializerIfKindOrThrow(
       SyntaxKind.CallExpression,
     )
 
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: todo
     const implementationFunction = callExpression
       .getArguments()[0]!
       .asKind(SyntaxKind.ArrowFunction)!
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: todo
     implementationFunction?.getParameters().forEach((parameter) => {
       parameter.remove()
     })
@@ -176,10 +176,12 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       `./${this.companionFilename}`,
       `./${this.filename}`,
     )
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: todo
     imports
       .filter((it) => it.getModuleSpecifierValue().includes(from))
-      .forEach((it) => it.remove())
+      .forEach((it) => {
+        it.remove()
+      })
 
     this.sourceFile.addImportDeclaration({
       namedImports: Array.from(this.httpMethodsUsed)
@@ -189,14 +191,16 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     })
 
     // Remove any methods that were removed from the spec
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: todo
     this.sourceFile
       .getVariableDeclarations()
       .filter((it) => {
         const name = it.getName()
         return isHttpMethod(name) && !this.httpMethodsUsed.has(name)
       })
-      .forEach((it) => it.remove())
+      .forEach((it) => {
+        it.remove()
+      })
 
     return new CompilationUnit(
       this.filename,

@@ -404,9 +404,15 @@ importers:
 
   integration-tests/typescript-nextjs:
     dependencies:
+      '@nahkies/typescript-fetch-runtime':
+        specifier: workspace:*
+        version: link:../../packages/typescript-fetch-runtime
       '@nahkies/typescript-nextjs-runtime':
         specifier: workspace:*
         version: link:../../packages/typescript-nextjs-runtime
+      joi:
+        specifier: 'catalog:'
+        version: 18.2.3
       next:
         specifier: 'catalog:'
         version: 16.2.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass@1.99.0)
@@ -416,6 +422,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.2.7(react@19.2.7)
+      zod:
+        specifier: ^4.3.6
+        version: 4.4.3
     devDependencies:
       '@types/node':
         specifier: ^22.20.0

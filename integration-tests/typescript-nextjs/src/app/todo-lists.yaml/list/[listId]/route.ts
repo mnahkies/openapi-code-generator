@@ -2,7 +2,7 @@ import {
   _DELETE,
   _GET,
   _PUT,
-} from "../../../../generated/todo-lists.yaml/list/[listId]/route"
+} from "@/generated/todo-lists.yaml/list/[listId]/route"
 
 export const GET = _GET(
   async ({params}, respond, request) => {

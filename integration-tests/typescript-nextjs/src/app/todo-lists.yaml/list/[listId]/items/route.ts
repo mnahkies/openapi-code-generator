@@ -1,7 +1,7 @@
 import {
   _GET,
   _POST,
-} from "../../../../../generated/todo-lists.yaml/list/[listId]/items/route"
+} from "@/generated/todo-lists.yaml/list/[listId]/items/route"
 
 export const GET = _GET(
   async ({params}, respond, request) => {

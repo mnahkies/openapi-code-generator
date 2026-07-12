@@ -2,15 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_DeleteTodoListByIdParamSchema,
-  t_Error,
-  t_GetTodoListByIdParamSchema,
-  t_TodoList,
-  t_UpdateTodoListByIdBodySchema,
-  t_UpdateTodoListByIdParamSchema,
-} from "../../models"
-import {s_CreateUpdateTodoList} from "../../schemas"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
@@ -22,9 +13,25 @@ import {
   type StatusCode,
   type StatusCode4xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-nextjs-runtime/zod-v4"
 import type {NextRequest} from "next/server"
-import {z} from "zod"
+import {z} from "zod/v4"
+import type {
+  t_CreateUpdateTodoList,
+  t_DeleteTodoListByIdParamSchema,
+  t_Error,
+  t_GetTodoListByIdParamSchema,
+  t_TodoList,
+  t_UpdateTodoListByIdParamSchema,
+} from "@/generated/todo-lists.yaml/models"
+import {
+  s_CreateUpdateTodoList,
+  s_Error,
+  s_TodoList,
+} from "@/generated/todo-lists.yaml/schemas"
 
 // /list/{listId}
 export type GetTodoListByIdResponder = {
@@ -49,7 +56,7 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdBodySchema,
+    t_CreateUpdateTodoList,
     void
   >,
   respond: UpdateTodoListByIdResponder,
@@ -86,12 +93,10 @@ export const _GET =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
       }
-
       const responder = {
         with200() {
           return new OpenAPIRuntimeResponse<t_TodoList>(200)
@@ -106,6 +111,13 @@ export const _GET =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [
+          ["200", s_TodoList],
+          ["4XX", s_Error],
+        ],
+        z.undefined(),
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -113,9 +125,10 @@ export const _GET =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {
@@ -129,8 +142,6 @@ export const _GET =
   }
 
 const updateTodoListByIdParamSchema = z.object({listId: z.string()})
-
-const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
 export const _PUT =
   (
@@ -148,16 +159,14 @@ export const _PUT =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
         query: undefined,
         body: parseRequestInput(
-          updateTodoListByIdBodySchema,
+          s_CreateUpdateTodoList,
           await request.json(),
           RequestInputType.RequestBody,
         ),
         headers: undefined,
       }
-
       const responder = {
         with200() {
           return new OpenAPIRuntimeResponse<t_TodoList>(200)
@@ -172,6 +181,13 @@ export const _PUT =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [
+          ["200", s_TodoList],
+          ["4XX", s_Error],
+        ],
+        z.undefined(),
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -179,9 +195,10 @@ export const _PUT =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {
@@ -212,12 +229,10 @@ export const _DELETE =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
       }
-
       const responder = {
         with204() {
           return new OpenAPIRuntimeResponse<void>(204)
@@ -232,6 +247,13 @@ export const _DELETE =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [
+          ["204", z.undefined()],
+          ["4XX", s_Error],
+        ],
+        z.undefined(),
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -239,9 +261,10 @@ export const _DELETE =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {

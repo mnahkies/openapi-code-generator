@@ -22,23 +22,21 @@ export type t_TodoList = {
   updated: string
 }
 
-export type t_CreateTodoListItemBodySchema = {
+export type t_CreateTodoListItemParamSchema = {
+  listId: string
+}
+
+export type t_CreateTodoListItemRequestBody = {
   completedAt?: string
   content: string
   id: string
-}
-
-export type t_CreateTodoListItemParamSchema = {
-  listId: string
 }
 
 export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }
 
-export type t_UnknownObject = {
-  [key: string]: unknown | undefined
-}
+export type t_UnknownObject = Record<string, unknown>
 
 export type t_GetTodoListByIdParamSchema = {
   listId: string
@@ -54,14 +52,10 @@ export type t_GetTodoListsQuerySchema = {
   tags?: string[]
 }
 
-export type t_UpdateTodoListByIdBodySchema = {
-  name: string
+export type t_ReplaceAttachmentParamSchema = {
+  id: string
 }
 
 export type t_UpdateTodoListByIdParamSchema = {
   listId: string
-}
-
-export type t_UploadAttachmentBodySchema = {
-  file?: unknown
 }

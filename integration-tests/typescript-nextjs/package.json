@@ -1,5 +1,5 @@
 {
-  "name": "typescript-nextjs",
+  "name": "@integration/typescript-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,10 +11,13 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
+    "@nahkies/typescript-fetch-runtime": "workspace:*",
     "@nahkies/typescript-nextjs-runtime": "workspace:*",
+    "joi": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
-    "react-dom":"catalog:"
+    "react-dom":"catalog:",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "catalog:",

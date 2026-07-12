@@ -2,7 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {t_UnknownObject, t_UploadAttachmentBodySchema} from "../models"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
@@ -13,9 +12,14 @@ import {
   type Params,
   type StatusCode,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-nextjs-runtime/zod-v4"
 import type {NextRequest} from "next/server"
-import {z} from "zod"
+import {z} from "zod/v4"
+import type {t_UnknownObject} from "@/generated/todo-lists.yaml/models"
+import {s_UnknownObject} from "@/generated/todo-lists.yaml/schemas"
 
 // /attachments
 export type ListAttachmentsResponder = {
@@ -32,7 +36,7 @@ export type UploadAttachmentResponder = {
 } & OpenAPIRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentBodySchema, void>,
+  params: Params<void, void, never, void>,
   respond: UploadAttachmentResponder,
   request: NextRequest,
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
@@ -44,14 +48,6 @@ export const _GET =
   ) =>
   async (request: NextRequest): Promise<Response> => {
     try {
-      const input = {
-        params: undefined,
-        // TODO: this swallows repeated parameters
-        query: undefined,
-        body: undefined,
-        headers: undefined,
-      }
-
       const responder = {
         with200() {
           return new OpenAPIRuntimeResponse<t_UnknownObject[]>(200)
@@ -60,6 +56,10 @@ export const _GET =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [["200", z.array(s_UnknownObject)]],
+        undefined,
+      )
 
       const res = await implementation(responder, request)
         .then((it) => {
@@ -67,9 +67,10 @@ export const _GET =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {
@@ -82,8 +83,6 @@ export const _GET =
     }
   }
 
-const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
-
 export const _POST =
   (
     implementation: UploadAttachment,
@@ -93,16 +92,15 @@ export const _POST =
     try {
       const input = {
         params: undefined,
-        // TODO: this swallows repeated parameters
         query: undefined,
+        // todo: request bodies with content-type 'multipart/form-data' not yet supported
         body: parseRequestInput(
-          uploadAttachmentBodySchema,
-          await request.json(),
+          z.never(),
+          await request.formData(),
           RequestInputType.RequestBody,
-        ),
+        ) as never,
         headers: undefined,
       }
-
       const responder = {
         with202() {
           return new OpenAPIRuntimeResponse<void>(202)
@@ -111,6 +109,10 @@ export const _POST =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [["202", z.undefined()]],
+        undefined,
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -118,9 +120,10 @@ export const _POST =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {

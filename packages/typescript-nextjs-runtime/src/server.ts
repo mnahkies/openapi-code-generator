@@ -1,9 +1,10 @@
-import {
-  type Res,
-  SkipResponse,
-  type StatusCode,
+import type {
+  Res,
+  // SkipResponse,
+  StatusCode,
 } from "@nahkies/typescript-common-runtime/types"
 
+export {parseQueryParameters} from "@nahkies/typescript-common-runtime/query-parser"
 export {
   type Params,
   type Res,
@@ -33,7 +34,7 @@ export class OpenAPIRuntimeResponse<Type> {
 
 export type OpenAPIRuntimeResponder<
   Status extends StatusCode = StatusCode,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
   Type = any,
 > = {
   withStatus: (status: Status) => OpenAPIRuntimeResponse<Type>

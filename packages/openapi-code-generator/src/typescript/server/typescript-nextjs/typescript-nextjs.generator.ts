@@ -1,4 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+// biome-ignore lint/style/useNodejsImportProtocol: todo
 import path from "path"
 import {Project, type SourceFile} from "ts-morph"
 import type {IFsAdaptor} from "../../../core/file-system/fs-adaptor.ts"
@@ -16,7 +16,7 @@ function findImportAlias(dest: string, compilerOptions: CompilerOptions) {
   const relative = `./${path.relative(process.cwd(), dest)}/*`
 
   const alias = Object.entries(compilerOptions.paths || {}).find(([, paths]) =>
-    paths.includes(relative),
+    paths.some((p) => p === relative || relative.endsWith(p.substring(1))),
   )
 
   return alias ? alias[0].replace("*", "") : undefined
@@ -32,7 +32,7 @@ export async function generateTypescriptNextJS(
     config.compilerOptions,
   )
 
-  // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+  // biome-ignore lint/complexity/useLiteralKeys: todo
   const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
     ? path.basename(config.input.loader.entryPointKey)
     : ""
@@ -74,7 +74,7 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const imports = new ImportBuilder({
+        const routerImports = new ImportBuilder({
           unit: {filename},
           includeFileExtensions: false,
           importAlias,
@@ -84,15 +84,21 @@ export async function generateTypescriptNextJS(
           filename,
           group.name,
           input,
-          imports,
-          rootTypeBuilder.withImports(imports),
-          rootSchemaBuilder.withImports(imports),
+          routerImports,
+          rootTypeBuilder.withImports(routerImports),
+          rootSchemaBuilder.withImports(routerImports),
         )
 
         const nextJsAppRouterPath = path.join(
           appDirectory,
           routeToNextJSFilepath(group.name),
         )
+
+        const appRouterImports = new ImportBuilder({
+          unit: {filename: nextJsAppRouterPath},
+          includeFileExtensions: false,
+          importAlias,
+        })
 
         const sourceFile = await loadExistingRouteImplementation({
           fsAdaptor: config.fsAdaptor,
@@ -105,9 +111,9 @@ export async function generateTypescriptNextJS(
           nextJsAppRouterPath,
           group.name,
           input,
-          imports,
-          rootTypeBuilder.withImports(imports),
-          rootSchemaBuilder.withImports(imports),
+          appRouterImports,
+          rootTypeBuilder.withImports(appRouterImports),
+          rootSchemaBuilder.withImports(appRouterImports),
           filename,
           sourceFile,
         )

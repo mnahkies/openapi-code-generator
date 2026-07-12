@@ -2,11 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_CreateTodoListItemBodySchema,
-  t_CreateTodoListItemParamSchema,
-  t_GetTodoListItemsParamSchema,
-} from "../../../models"
 import {
   OpenAPIRuntimeError,
   RequestInputType,
@@ -18,9 +13,18 @@ import {
   type StatusCode,
   type StatusCode5xx,
 } from "@nahkies/typescript-nextjs-runtime/server"
-import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-nextjs-runtime/zod-v4"
 import type {NextRequest} from "next/server"
-import {z} from "zod"
+import {z} from "zod/v4"
+import type {
+  t_CreateTodoListItemParamSchema,
+  t_CreateTodoListItemRequestBody,
+  t_GetTodoListItemsParamSchema,
+} from "@/generated/todo-lists.yaml/models"
+import {s_CreateTodoListItemRequestBody} from "@/generated/todo-lists.yaml/schemas"
 
 // /list/{listId}/items
 export type GetTodoListItemsResponder = {
@@ -50,7 +54,7 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemBodySchema,
+    t_CreateTodoListItemRequestBody,
     void
   >,
   respond: CreateTodoListItemResponder,
@@ -75,12 +79,10 @@ export const _GET =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
         query: undefined,
         body: undefined,
         headers: undefined,
       }
-
       const responder = {
         with200() {
           return new OpenAPIRuntimeResponse<{
@@ -100,6 +102,21 @@ export const _GET =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [
+          [
+            "200",
+            z.object({
+              id: z.string(),
+              content: z.string(),
+              createdAt: z.iso.datetime({offset: true}),
+              completedAt: z.iso.datetime({offset: true}).optional(),
+            }),
+          ],
+          ["5XX", z.object({message: z.string(), code: z.string()})],
+        ],
+        undefined,
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -107,9 +124,10 @@ export const _GET =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {
@@ -123,12 +141,6 @@ export const _GET =
   }
 
 const createTodoListItemParamSchema = z.object({listId: z.string()})
-
-const createTodoListItemBodySchema = z.object({
-  id: z.string(),
-  content: z.string(),
-  completedAt: z.string().datetime({offset: true}).optional(),
-})
 
 export const _POST =
   (
@@ -146,16 +158,14 @@ export const _POST =
           await params,
           RequestInputType.RouteParam,
         ),
-        // TODO: this swallows repeated parameters
         query: undefined,
         body: parseRequestInput(
-          createTodoListItemBodySchema,
+          s_CreateTodoListItemRequestBody,
           await request.json(),
           RequestInputType.RequestBody,
         ),
         headers: undefined,
       }
-
       const responder = {
         with204() {
           return new OpenAPIRuntimeResponse<void>(204)
@@ -164,6 +174,10 @@ export const _POST =
           return new OpenAPIRuntimeResponse(status)
         },
       }
+      const responseValidator = responseValidationFactory(
+        [["204", z.undefined()]],
+        undefined,
+      )
 
       const res = await implementation(input, responder, request)
         .then((it) => {
@@ -171,9 +185,10 @@ export const _POST =
             return it
           }
           const {status, body} = it.unpack()
+          const validatedBody = responseValidator(status, body)
 
-          return body !== undefined
-            ? Response.json(body, {status})
+          return validatedBody !== undefined
+            ? Response.json(validatedBody, {status})
             : new Response(undefined, {status})
         })
         .catch((err) => {

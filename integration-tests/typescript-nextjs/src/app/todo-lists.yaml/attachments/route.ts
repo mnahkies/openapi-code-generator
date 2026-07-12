@@ -1,4 +1,4 @@
-import {_GET, _POST} from "../../../generated/todo-lists.yaml/attachments/route"
+import {_GET, _POST} from "@/generated/todo-lists.yaml/attachments/route"
 
 export const GET = _GET(
   async (respond, request) => {

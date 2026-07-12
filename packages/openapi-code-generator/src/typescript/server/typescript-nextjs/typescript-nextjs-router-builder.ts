@@ -1,15 +1,9 @@
 import type {Input} from "../../../core/input.ts"
 import {isDefined, titleCase} from "../../../core/utils.ts"
 import type {ImportBuilder} from "../../common/import-builder.ts"
-import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder.ts"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder.ts"
-import {ZodV3Builder as ZodBuilder} from "../../common/schema-builders/zod-v3-schema-builder.ts"
 import type {TypeBuilder} from "../../common/type-builder/type-builder.ts"
-import {
-  constStatement,
-  object,
-  quotedStringLiteral,
-} from "../../common/type-utils.ts"
+import {constStatement, object} from "../../common/type-utils.ts"
 import {buildExport} from "../../common/typescript-common.ts"
 import {AbstractRouterBuilder} from "../abstract-router-builder.ts"
 import type {
@@ -23,7 +17,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
     statements: string[]
   }[] = []
 
-  // biome-ignore lint/complexity/noUselessConstructor: <explanation>
+  // biome-ignore lint/complexity/noUselessConstructor: todo
   constructor(
     filename: string,
     name: string,
@@ -47,6 +41,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
         "StatusCode",
+        "parseQueryParameters",
       )
 
     this.imports.from("next/server").add("NextRequest", "NextResponse")
@@ -55,14 +50,32 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-nextjs-runtime/errors")
       .add("OpenAPIRuntimeError", "RequestInputType")
 
-    if (this.schemaBuilder instanceof ZodBuilder) {
-      this.imports
-        .from("@nahkies/typescript-nextjs-runtime/zod")
-        .add("parseRequestInput", "responseValidationFactory")
-    } else if (this.schemaBuilder instanceof JoiBuilder) {
-      this.imports
-        .from("@nahkies/typescript-nextjs-runtime/joi")
-        .add("parseRequestInput", "responseValidationFactory")
+    const schemaBuilderType = this.schemaBuilder.type
+
+    switch (schemaBuilderType) {
+      case "joi": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/joi")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+      case "zod-v3": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/zod-v3")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+      case "zod-v4": {
+        this.imports
+          .from("@nahkies/typescript-nextjs-runtime/zod-v4")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+      default: {
+        throw new Error(
+          `unsupported schema builder type '${schemaBuilderType satisfies never}'`,
+        )
+      }
     }
   }
 
@@ -84,7 +97,6 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       statements.push(constStatement(params.header.name, params.header.schema))
     }
 
-    const responseSchemas = builder.responseSchemas()
     const responder = builder.responder(
       "OpenAPIRuntimeResponder",
       "OpenAPIRuntimeResponse",
@@ -123,15 +135,21 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         name: params.query.name,
         schema: params.query.schema,
         source: params.query.isSimpleQuery
-          ? `Object.fromEntries(request.nextUrl.searchParams.entries()), RequestInputType.QueryString)`
-          : `parseQueryParameters(ctx.querystring, ${JSON.stringify(params.query.parameters)})`,
+          ? "Object.fromEntries(request.nextUrl.searchParams.entries())"
+          : `parseQueryParameters(request.nextUrl.search, ${JSON.stringify(params.query.parameters)})`,
         type: "RequestInputType.QueryString",
       }),
       this.parseRequestInput("body", {
         name: params.body.schema,
         schema: params.body.schema,
-        source: "await request.json()",
-        type: `RequestInputType.RequestBody`,
+        source:
+          params.body.contentType === "application/octet-stream"
+            ? "await request.blob()"
+            : params.body.contentType === "application/x-www-form-urlencoded" ||
+                params.body.contentType === "multipart/form-data"
+              ? "await request.formData()"
+              : "await request.json()",
+        type: "RequestInputType.RequestBody",
         comment:
           params.body.schema && !params.body.isSupported
             ? `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`
@@ -151,8 +169,9 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         kind: "const",
         value: `(implementation: ${symbols.implTypeName}, onError: (err: unknown) => Promise<Response>) => async (${["request: NextRequest", params.path.schema ? "{params}: {params: Promise<unknown>}" : undefined].filter(isDefined).join(",")}): Promise<Response> => {
 try {
-       const input = ${inputObject}
+       ${params.hasParams ? `const input = ${inputObject}` : ""}
        const responder = ${responder.implementation}
+       const responseValidator = ${builder.responseValidator()}
 
        const res = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
           .then(it => {
@@ -160,8 +179,9 @@ try {
               return it
             }
             const {status, body} = it.unpack()
+            const validatedBody = responseValidator(status, body)
 
-           return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
+           return validatedBody !== undefined ? Response.json(validatedBody, {status}) : new Response(undefined, {status})
           })
           .catch(err => { throw OpenAPIRuntimeError.HandlerError(err) })
 

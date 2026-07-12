@@ -1,4 +1,4 @@
-import type {z} from "zod"
+import type {z} from "zod/v3"
 import {OpenAPIRuntimeError, type RequestInputType} from "./errors"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(

@@ -1,7 +1,7 @@
-import {_GET} from "@/generated/todo-lists.yaml/list/route"
+import {_PUT} from "@/generated/todo-lists.yaml/attachments/[id]/route"
 
-export const GET = _GET(
-  async ({query}, respond, request) => {
+export const PUT = _PUT(
+  async ({params, body}, respond, request) => {
     // TODO: implementation
     return respond.withStatus(501).body({message: "not implemented"} as any)
   },

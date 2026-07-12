@@ -244,8 +244,10 @@ export class ImportBuilder {
       from = normalizeToUnix(from)
     }
 
-    if (this.config.unit) {
-      const unitFilename = this.config.unit.filename
+    const unitFilename = filename ?? this.config.unit?.filename
+
+    if (unitFilename) {
+      const normalizedUnitFilename = normalizeToUnix(unitFilename)
       const isFromPath =
         from.startsWith("./") ||
         from.startsWith("../") ||
@@ -259,12 +261,12 @@ export class ImportBuilder {
           )
         }
 
-        const root = path.posix.isAbsolute(unitFilename)
-          ? path.posix.parse(unitFilename).root
+        const root = path.posix.isAbsolute(normalizedUnitFilename)
+          ? path.posix.parse(normalizedUnitFilename).root
           : "/"
 
         const unitDir = path.posix.dirname(
-          path.posix.resolve(root, unitFilename),
+          path.posix.resolve(root, normalizedUnitFilename),
         )
         const fromDir = path.posix.dirname(path.posix.resolve(root, from))
 

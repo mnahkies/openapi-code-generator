@@ -20,6 +20,7 @@
       "!!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.ts",
       "!!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.ts",
       "!!**/integration-tests/typescript-angular/src/generated/**/*",
+      "!!**/integration-tests/typescript-nextjs/src/app/**/*",
       "!!**/integration-tests-definitions/**/*",
       "!**/schemas/**/*.json",
       "!**/package.json",

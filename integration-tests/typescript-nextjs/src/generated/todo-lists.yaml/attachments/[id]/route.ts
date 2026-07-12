@@ -18,66 +18,55 @@ import {
 } from "@nahkies/typescript-nextjs-runtime/zod-v4"
 import type {NextRequest} from "next/server"
 import {z} from "zod/v4"
-import type {
-  t_GetTodoListsQuerySchema,
-  t_TodoList,
-} from "@/generated/todo-lists.yaml/models"
-import {s_Statuses, s_TodoList} from "@/generated/todo-lists.yaml/schemas"
+import type {t_ReplaceAttachmentParamSchema} from "@/generated/todo-lists.yaml/models"
 
-// /list
-export type GetTodoListsResponder = {
-  with200(): OpenAPIRuntimeResponse<t_TodoList[]>
+// /attachments/{id}
+export type ReplaceAttachmentResponder = {
+  with202(): OpenAPIRuntimeResponse<void>
 } & OpenAPIRuntimeResponder
 
-export type GetTodoLists = (
-  params: Params<void, t_GetTodoListsQuerySchema, void, void>,
-  respond: GetTodoListsResponder,
+export type ReplaceAttachment = (
+  params: Params<t_ReplaceAttachmentParamSchema, void, Blob, void>,
+  respond: ReplaceAttachmentResponder,
   request: NextRequest,
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
 
-const getTodoListsQuerySchema = z.object({
-  created: z.iso.datetime({offset: true}).optional(),
-  statuses: z
-    .preprocess(
-      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-      s_Statuses,
-    )
-    .optional(),
-  tags: z
-    .preprocess(
-      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-      z.array(z.string()),
-    )
-    .optional(),
-})
+const replaceAttachmentParamSchema = z.object({id: z.string()})
 
-export const _GET =
+export const _PUT =
   (
-    implementation: GetTodoLists,
+    implementation: ReplaceAttachment,
     onError: (err: unknown) => Promise<Response>,
   ) =>
-  async (request: NextRequest): Promise<Response> => {
+  async (
+    request: NextRequest,
+    {params}: {params: Promise<unknown>},
+  ): Promise<Response> => {
     try {
       const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getTodoListsQuerySchema,
-          Object.fromEntries(request.nextUrl.searchParams.entries()),
-          RequestInputType.QueryString,
+        params: parseRequestInput(
+          replaceAttachmentParamSchema,
+          await params,
+          RequestInputType.RouteParam,
         ),
-        body: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          z.any(),
+          await request.blob(),
+          RequestInputType.RequestBody,
+        ),
         headers: undefined,
       }
       const responder = {
-        with200() {
-          return new OpenAPIRuntimeResponse<t_TodoList[]>(200)
+        with202() {
+          return new OpenAPIRuntimeResponse<void>(202)
         },
         withStatus(status: StatusCode) {
           return new OpenAPIRuntimeResponse(status)
         },
       }
       const responseValidator = responseValidationFactory(
-        [["200", z.array(s_TodoList)]],
+        [["202", z.undefined()]],
         undefined,
       )
 
