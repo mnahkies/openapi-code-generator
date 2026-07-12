@@ -117,7 +117,7 @@ export class ParameterNormalizer {
 
       properties[parameter.name] = schema
 
-      if (parameter.required) {
+      if (parameter.required || parameter.in === "path") {
         required.push(parameter.name)
       }
     }
