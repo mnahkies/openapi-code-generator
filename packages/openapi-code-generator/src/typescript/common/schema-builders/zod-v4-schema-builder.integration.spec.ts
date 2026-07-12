@@ -162,8 +162,9 @@ describe.each(
 
     expect(schemas).toMatchInlineSnapshot(`
       "import { z } from "zod/v4"
+      import type { t_Recursive } from "./unit-test.types"
 
-      export const s_Recursive = z.object({
+      export const s_Recursive: z.ZodType<t_Recursive> = z.object({
         get child() {
           return s_Recursive.optional()
         },

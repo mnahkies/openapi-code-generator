@@ -209,19 +209,19 @@ describe.each(
     expect(code).toMatchInlineSnapshot(`
       "import { s_Recursive } from "./unit-test.schemas"
 
-      const x = s_Recursive.required()"
+      const x = joi.link("#s_Recursive.required()")"
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "joi"
+      "import joi from "joi"
 
-        export const s_Recursive = joi
-          .object()
-          .keys({ child: joi.link("#s_Recursive") })
-          .options({ stripUnknown: true })
-          .required()
-          .id("s_Recursive")"
-      `)
+      export const s_Recursive = joi
+        .object()
+        .keys({ child: joi.link("#s_Recursive") })
+        .options({ stripUnknown: true })
+        .required()
+        .id("s_Recursive")"
+    `)
   })
 
   it("orders schemas such that dependencies are defined first", async () => {

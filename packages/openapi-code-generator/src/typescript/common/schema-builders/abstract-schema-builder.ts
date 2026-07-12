@@ -13,6 +13,7 @@ import type {
   IRModelNumeric,
   IRModelRecord,
   IRModelString,
+  IRRef,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized.ts"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils.ts"
@@ -186,28 +187,7 @@ export abstract class AbstractSchemaBuilder<
     let result: string
 
     if (isRef(maybeModel)) {
-      const name = this.add(maybeModel)
-      result = name
-
-      if (nullable) {
-        result = this.nullable(result)
-      }
-
-      if (maybeModel["x-internal-preprocess"]) {
-        const dereferenced = this.schemaProvider.preprocess(
-          maybeModel["x-internal-preprocess"],
-        )
-        if (dereferenced.deserialize) {
-          result = this.preprocess(result, dereferenced.deserialize.fn)
-        }
-      }
-
-      result = required ? this.required(result, false) : this.optional(result)
-
-      // if (wrapLazy && this.graph.circular.has(name) && !isAnonymous) {
-      //   return this.lazy(result)
-      // }
-      return result
+      return this.$ref(maybeModel, nullable, required, isAnonymous)
     }
 
     if (!Reflect.get(maybeModel, "isIRModel")) {
@@ -398,6 +378,45 @@ export abstract class AbstractSchemaBuilder<
   }
 
   public abstract parse(schema: string, value: string): string
+
+  protected abstract $ref(
+    maybeModel: IRRef,
+    nullable: boolean,
+    required: boolean,
+    isAnonymous: boolean,
+  ): string
+
+  protected internal$ref(
+    maybeModel: IRRef,
+    nullable: boolean,
+    required: boolean,
+    isAnonymous: boolean,
+    useLazy = false,
+  ): string {
+    const name = this.add(maybeModel)
+    let result = name
+
+    if (nullable) {
+      result = this.nullable(result)
+    }
+
+    if (maybeModel["x-internal-preprocess"]) {
+      const dereferenced = this.schemaProvider.preprocess(
+        maybeModel["x-internal-preprocess"],
+      )
+      if (dereferenced.deserialize) {
+        result = this.preprocess(result, dereferenced.deserialize.fn)
+      }
+    }
+
+    result = required ? this.required(result, false) : this.optional(result)
+
+    if (useLazy && this.graph.circular.has(name) && !isAnonymous) {
+      return this.lazy(result)
+    }
+
+    return result
+  }
 
   protected abstract lazy(schema: string): string
 
