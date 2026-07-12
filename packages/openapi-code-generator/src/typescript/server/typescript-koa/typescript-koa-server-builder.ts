@@ -16,12 +16,12 @@ export class KoaServerBuilder implements ICompilable {
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
       .add("startServer")
-      .addType("ServerConfig")
+      .addType("ServerConfig", "StartedServer")
   }
 
   toString(): string {
     return `
-      export async function bootstrap(config: ServerConfig) {
+      export async function bootstrap(config: ServerConfig): Promise<StartedServer> {
         // ${this.name}
         return startServer(config)
       }

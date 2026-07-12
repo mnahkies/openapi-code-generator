@@ -1,6 +1,10 @@
 {
   "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node24/tsconfig"],
+  "include": ["${configDir}/src/**/*"],
   "compilerOptions": {
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/dist/dts",
+    "emitDeclarationOnly": true,
     "composite": true,
     "skipLibCheck": true,
     "declaration": true,
