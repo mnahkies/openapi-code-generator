@@ -18,7 +18,7 @@ catalog:
   '@biomejs/wasm-nodejs': 2.5.2
   '@commander-js/extra-typings': ^15.0.0
   '@hyperjump/json-schema': ^1.17.6
-  '@koa/router': ^15.6.0
+  '@koa/router': ^15.7.0
   '@lerna-lite/cli': ^5.4.0
   '@lerna-lite/publish': ^5.4.0
   '@lerna-lite/version': ^5.4.0

@@ -30,7 +30,11 @@ import {
 import {camelCase, coalesce, isDefined, isHttpMethod} from "./utils.ts"
 
 export type OperationGroup = {name: string; operations: IROperation[]}
-export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
+export type OperationGroupStrategy =
+  | "none"
+  | "first-tag"
+  | "first-slug"
+  | "route"
 
 export type InputConfig = {
   extractInlineSchemas: boolean
@@ -45,7 +49,7 @@ export interface ISchemaProvider {
 
 export class Input implements ISchemaProvider {
   constructor(
-    private loader: OpenapiLoader,
+    public loader: OpenapiLoader,
     readonly config: InputConfig,
     private readonly syntheticNameGenerator: SyntheticNameGenerator = defaultSyntheticNameGenerator,
     private readonly schemaNormalizer = new SchemaNormalizer(config, this),
@@ -98,6 +102,8 @@ export class Input implements ISchemaProvider {
         return this.operationsByFirstTag()
       case "first-slug":
         return this.operationsByFirstSlug()
+      case "route":
+        return this.operationsByRoute()
       default:
         throw new Error(`unsupported grouping strategy '${strategy}'`)
     }
@@ -202,6 +208,12 @@ export class Input implements ISchemaProvider {
       }
 
       return slug.toLowerCase()
+    })
+  }
+
+  private operationsByRoute(): OperationGroup[] {
+    return this.groupOperations((operation) => {
+      return operation.route
     })
   }
 

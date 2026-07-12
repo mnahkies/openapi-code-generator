@@ -5,6 +5,10 @@ export function isDefined<T>(it: T | undefined): it is T {
   return it !== undefined
 }
 
+export function isTruthy<T>(it: T | undefined | null | "" | 0): it is T {
+  return Boolean(it)
+}
+
 export function hasSingleElement<T>(it: T[]): it is [T] {
   return it.length === 1
 }

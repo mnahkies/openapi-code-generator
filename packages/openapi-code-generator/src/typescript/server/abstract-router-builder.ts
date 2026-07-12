@@ -17,6 +17,8 @@ export abstract class AbstractRouterBuilder implements ICompilable {
         "application/scim+json",
         "application/merge-patch+json",
         "application/x-www-form-urlencoded",
+        // todo:
+        // "multipart/form-data",
         "application/octet-stream",
         "text/json",
         "text/plain",

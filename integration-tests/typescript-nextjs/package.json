@@ -1,0 +1,28 @@
+{
+  "name": "@integration/typescript-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -rf ./.next && rm -rf ./src/generated && rm -rf -- ./src/app/*/",
+    "validate": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "@nahkies/typescript-fetch-runtime": "workspace:*",
+    "@nahkies/typescript-nextjs-runtime": "workspace:*",
+    "joi": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom":"catalog:",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "catalog:typescript6"
+  }
+}
