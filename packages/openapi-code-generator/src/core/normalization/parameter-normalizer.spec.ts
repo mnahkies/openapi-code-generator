@@ -103,13 +103,15 @@ describe("ParameterNormalizer", () => {
         ).toThrow("unsupported parameter style: 'form' for in: 'path'")
       })
 
-      it("forces required=true", ()=>{
-        expect(parameterNormalizer.normalizeParameter({
-          name: "id",
-          in: "path",
-          required: false,
-          schema: {type: "string"},
-        })).toStrictEqual(
+      it("forces required=true", () => {
+        expect(
+          parameterNormalizer.normalizeParameter({
+            name: "id",
+            in: "path",
+            required: false,
+            schema: {type: "string"},
+          }),
+        ).toStrictEqual(
           ir.pathParameter({style: "simple", explode: false, required: true}),
         )
       })
