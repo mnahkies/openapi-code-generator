@@ -3221,8 +3221,8 @@ components:
           type: string
         type:
           description: >-
-            Transaction type: `adjustment`, `advance`, `advance_funding`,
-            `anticipation_repayment`, `application_fee`,
+            Transaction type: `tax_fund`, `adjustment`, `advance`,
+            `advance_funding`, `anticipation_repayment`, `application_fee`,
             `application_fee_refund`, `charge`, `climate_order_purchase`,
             `climate_order_refund`, `connect_collection_transfer`,
             `contribution`, `inbound_transfer`, `inbound_transfer_reversal`,
@@ -3287,6 +3287,7 @@ components:
             - stripe_fee
             - stripe_fx_fee
             - tax_fee
+            - tax_fund
             - topup
             - topup_reversal
             - transfer
@@ -3552,6 +3553,44 @@ components:
         - status
         - supported_networks
       title: BankConnectionsResourceAccountNumberDetails
+      type: object
+      x-expandableFields: []
+    bank_connections_resource_account_status_details:
+      description: ''
+      properties:
+        active:
+          $ref: >-
+            #/components/schemas/bank_connections_resource_account_status_details_api_resource_active_status_details
+      title: BankConnectionsResourceAccountStatusDetails
+      type: object
+      x-expandableFields:
+        - active
+    bank_connections_resource_account_status_details_api_resource_active_status_details:
+      description: ''
+      properties:
+        action:
+          description: The action (if any) to proactively relink the Account.
+          enum:
+            - none
+            - relink_required
+          type: string
+        cause:
+          description: The underlying cause of the Account becoming inactive.
+          enum:
+            - access_expired
+            - institution_requirement
+            - unspecified
+          type: string
+        expected_deactivation_date:
+          description: 'When the Account is expected to become inactive, if applicable.'
+          format: unix-time
+          type: integer
+      required:
+        - action
+        - cause
+        - expected_deactivation_date
+      title: >-
+        BankConnectionsResourceAccountStatusDetailsAPIResourceActiveStatusDetails
       type: object
       x-expandableFields: []
     bank_connections_resource_accountholder:
@@ -8887,6 +8926,8 @@ components:
           $ref: '#/components/schemas/checkout_sepa_debit_payment_method_options'
         sofort:
           $ref: '#/components/schemas/checkout_sofort_payment_method_options'
+        sunbit:
+          $ref: '#/components/schemas/checkout_sunbit_payment_method_options'
         swish:
           $ref: '#/components/schemas/checkout_swish_payment_method_options'
         twint:
@@ -8895,6 +8936,8 @@ components:
           $ref: '#/components/schemas/checkout_upi_payment_method_options'
         us_bank_account:
           $ref: '#/components/schemas/checkout_us_bank_account_payment_method_options'
+        wechat_pay:
+          $ref: '#/components/schemas/checkout_wechat_pay_payment_method_options'
       title: CheckoutSessionPaymentMethodOptions
       type: object
       x-expandableFields:
@@ -8938,10 +8981,12 @@ components:
         - scalapay
         - sepa_debit
         - sofort
+        - sunbit
         - swish
         - twint
         - upi
         - us_bank_account
+        - wechat_pay
     checkout_session_wallet_options:
       description: ''
       properties:
@@ -8982,6 +9027,46 @@ components:
             - none
           type: string
       title: CheckoutSofortPaymentMethodOptions
+      type: object
+      x-expandableFields: []
+    checkout_sunbit_payment_method_options:
+      description: ''
+      properties:
+        capture_method:
+          description: >-
+            Controls when the funds will be captured from the customer's
+            account.
+          enum:
+            - manual
+          type: string
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            If you provide a Customer with the PaymentIntent, you can use this
+            parameter to [attach the payment
+            method](/payments/save-during-payment) to the Customer after the
+            PaymentIntent is confirmed and the customer completes any required
+            actions. If you don't provide a Customer, you can still
+            [attach](/api/payment_methods/attach) the payment method to a
+            Customer after the transaction completes.
+
+
+            If the payment method is `card_present` and isn't a digital wallet,
+            Stripe creates and attaches a
+            [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card)
+            payment method representing the card to the Customer instead.
+
+
+            When processing card payments, Stripe uses `setup_future_usage` to
+            help you comply with regional legislation and network rules, such as
+            [SCA](/strong-customer-authentication).
+          enum:
+            - none
+          type: string
+      title: CheckoutSunbitPaymentMethodOptions
       type: object
       x-expandableFields: []
     checkout_swish_payment_method_options:
@@ -9122,6 +9207,56 @@ components:
       type: object
       x-expandableFields:
         - financial_connections
+    checkout_wechat_pay_payment_method_options:
+      description: ''
+      properties:
+        app_id:
+          description: >-
+            The app ID registered with WeChat Pay. Only required when client is
+            iOS or Android.
+          maxLength: 5000
+          nullable: true
+          type: string
+        client:
+          description: The client type that the end customer will pay from
+          enum:
+            - android
+            - ios
+            - web
+          nullable: true
+          type: string
+          x-stripeBypassValidation: true
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            If you provide a Customer with the PaymentIntent, you can use this
+            parameter to [attach the payment
+            method](/payments/save-during-payment) to the Customer after the
+            PaymentIntent is confirmed and the customer completes any required
+            actions. If you don't provide a Customer, you can still
+            [attach](/api/payment_methods/attach) the payment method to a
+            Customer after the transaction completes.
+
+
+            If the payment method is `card_present` and isn't a digital wallet,
+            Stripe creates and attaches a
+            [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card)
+            payment method representing the card to the Customer instead.
+
+
+            When processing card payments, Stripe uses `setup_future_usage` to
+            help you comply with regional legislation and network rules, such as
+            [SCA](/strong-customer-authentication).
+          enum:
+            - none
+          type: string
+          x-stripeBypassValidation: true
+      title: CheckoutWechatPayPaymentMethodOptions
+      type: object
+      x-expandableFields: []
     climate.order:
       description: >-
         Orders represent your intent to purchase a particular Climate product.
@@ -14102,6 +14237,7 @@ components:
           description: List of eligibility types that are included in `enhanced_evidence`.
           items:
             enum:
+              - mastercard_compliance
               - visa_compelling_evidence_3
               - visa_compliance
             type: string
@@ -14211,6 +14347,9 @@ components:
     dispute_enhanced_eligibility:
       description: ''
       properties:
+        mastercard_compliance:
+          $ref: >-
+            #/components/schemas/dispute_enhanced_eligibility_mastercard_compliance
         visa_compelling_evidence_3:
           $ref: >-
             #/components/schemas/dispute_enhanced_eligibility_visa_compelling_evidence3
@@ -14219,8 +14358,23 @@ components:
       title: DisputeEnhancedEligibility
       type: object
       x-expandableFields:
+        - mastercard_compliance
         - visa_compelling_evidence_3
         - visa_compliance
+    dispute_enhanced_eligibility_mastercard_compliance:
+      description: ''
+      properties:
+        status:
+          description: Mastercard compliance eligibility status.
+          enum:
+            - fee_acknowledged
+            - requires_fee_acknowledgement
+          type: string
+      required:
+        - status
+      title: DisputeEnhancedEligibilityMastercardCompliance
+      type: object
+      x-expandableFields: []
     dispute_enhanced_eligibility_visa_compelling_evidence3:
       description: ''
       properties:
@@ -14267,6 +14421,8 @@ components:
     dispute_enhanced_evidence:
       description: ''
       properties:
+        mastercard_compliance:
+          $ref: '#/components/schemas/dispute_enhanced_evidence_mastercard_compliance'
         visa_compelling_evidence_3:
           $ref: >-
             #/components/schemas/dispute_enhanced_evidence_visa_compelling_evidence3
@@ -14275,8 +14431,23 @@ components:
       title: DisputeEnhancedEvidence
       type: object
       x-expandableFields:
+        - mastercard_compliance
         - visa_compelling_evidence_3
         - visa_compliance
+    dispute_enhanced_evidence_mastercard_compliance:
+      description: ''
+      properties:
+        fee_acknowledged:
+          description: >-
+            A field acknowledging the fee incurred when countering a Mastercard
+            compliance dispute. If this field is set to true, evidence can be
+            submitted for the compliance dispute.
+          type: boolean
+      required:
+        - fee_acknowledged
+      title: DisputeEnhancedEvidenceMastercardCompliance
+      type: object
+      x-expandableFields: []
     dispute_enhanced_evidence_visa_compelling_evidence3:
       description: ''
       properties:
@@ -15780,6 +15951,9 @@ components:
             - disconnected
             - inactive
           type: string
+        status_details:
+          $ref: >-
+            #/components/schemas/bank_connections_resource_account_status_details
         subcategory:
           description: |-
             If `category` is `cash`, one of:
@@ -15852,6 +16026,7 @@ components:
         - balance_refresh
         - ownership
         - ownership_refresh
+        - status_details
         - transaction_refresh
       x-resourceId: financial_connections.account
     financial_connections.account_owner:
@@ -19970,6 +20145,7 @@ components:
               - payment_method
               - transactions
             type: string
+            x-stripeBypassValidation: true
           type: array
         prefetch:
           description: Data features requested to be retrieved upon account creation.
@@ -20667,6 +20843,7 @@ components:
               - pix
               - promptpay
               - revolut_pay
+              - satispay
               - sepa_credit_transfer
               - sepa_debit
               - sofort
@@ -27687,6 +27864,7 @@ components:
               - payment_method
               - transactions
             type: string
+            x-stripeBypassValidation: true
           type: array
         prefetch:
           description: Data features requested to be retrieved upon account creation.
@@ -29579,6 +29757,12 @@ components:
       title: PaymentFlowsPrivatePaymentMethodsSamsungPayPaymentMethodOptions
       type: object
       x-expandableFields: []
+    payment_flows_private_payment_methods_satispay_setup_attempt_details:
+      description: ''
+      properties: {}
+      title: PaymentFlowsPrivatePaymentMethodsSatispaySetupAttemptDetails
+      type: object
+      x-expandableFields: []
     payment_intent:
       description: >-
         A PaymentIntent guides you through the process of collecting a payment
@@ -31266,6 +31450,11 @@ components:
             - $ref: '#/components/schemas/payment_method_options_sofort'
             - $ref: >-
                 #/components/schemas/payment_intent_type_specific_payment_method_options_client
+        sunbit:
+          anyOf:
+            - $ref: '#/components/schemas/payment_method_options_sunbit'
+            - $ref: >-
+                #/components/schemas/payment_intent_type_specific_payment_method_options_client
         swish:
           anyOf:
             - $ref: '#/components/schemas/payment_intent_payment_method_options_swish'
@@ -31349,6 +31538,7 @@ components:
         - scalapay
         - sepa_debit
         - sofort
+        - sunbit
         - swish
         - twint
         - upi
@@ -34147,13 +34337,25 @@ components:
       x-expandableFields: []
     payment_method_bizum:
       description: ''
-      properties: {}
+      properties:
+        buyer_id:
+          description: >-
+            A unique identifier for the buyer as determined by the local payment
+            processor.
+          maxLength: 5000
+          nullable: true
+          type: string
       title: payment_method_bizum
       type: object
       x-expandableFields: []
     payment_method_blik:
       description: ''
-      properties: {}
+      properties:
+        buyer_id:
+          description: A unique and immutable identifier assigned by BLIK to every buyer.
+          maxLength: 5000
+          nullable: true
+          type: string
       title: payment_method_blik
       type: object
       x-expandableFields: []
@@ -35629,6 +35831,13 @@ components:
     payment_method_details_bizum:
       description: ''
       properties:
+        buyer_id:
+          description: >-
+            A unique identifier for the buyer as determined by the local payment
+            processor.
+          maxLength: 5000
+          nullable: true
+          type: string
         transaction_id:
           description: The Bizum transaction ID associated with this payment.
           maxLength: 5000
@@ -35802,6 +36011,16 @@ components:
             - $ref: '#/components/schemas/three_d_secure_details_charge'
           description: Populated if this transaction used 3D Secure authentication.
           nullable: true
+        transaction_link_id:
+          description: >-
+            Transaction Link ID (TLID) is a unique identifier for a transaction.
+            This is used by some card networks, such as Mastercard, for
+            transaction linking, in addition to Network Transaction IDs. This
+            value will be present if it is returned by the financial network in
+            the authorization response, and null otherwise.
+          maxLength: 22
+          nullable: true
+          type: string
         wallet:
           anyOf:
             - $ref: '#/components/schemas/payment_method_details_card_wallet'
@@ -36396,6 +36615,7 @@ components:
             - ethereum
             - polygon
             - solana
+            - sui
             - tempo
           type: string
           x-stripeBypassValidation: true
@@ -36406,6 +36626,7 @@ components:
             - usdc
             - usdg
             - usdp
+            - usdsui
             - usdt
           type: string
           x-stripeBypassValidation: true
@@ -37507,6 +37728,13 @@ components:
     payment_method_details_payment_record_bizum:
       description: ''
       properties:
+        buyer_id:
+          description: >-
+            A unique identifier for the buyer as determined by the local payment
+            processor.
+          maxLength: 5000
+          nullable: true
+          type: string
         transaction_id:
           description: The Bizum transaction ID associated with this payment.
           maxLength: 5000
@@ -38261,6 +38489,17 @@ components:
       x-expandableFields:
         - generated_sepa_debit
         - generated_sepa_debit_mandate
+    payment_method_details_payment_record_sunbit:
+      description: ''
+      properties:
+        transaction_id:
+          description: The Sunbit transaction ID associated with this payment.
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: payment_method_details_payment_record_sunbit
+      type: object
+      x-expandableFields: []
     payment_method_details_payment_record_swish:
       description: ''
       properties:
@@ -38514,6 +38753,13 @@ components:
       properties:
         bank_transaction_id:
           description: Unique transaction id generated by BCB
+          maxLength: 5000
+          nullable: true
+          type: string
+        fingerprint:
+          description: >-
+            Uniquely identifies this particular Pix account. You can use this
+            attribute to check whether two Pix accounts are the same.
           maxLength: 5000
           nullable: true
           type: string
@@ -40831,6 +41077,35 @@ components:
           enum:
             - manual
           type: string
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            If you provide a Customer with the PaymentIntent, you can use this
+            parameter to [attach the payment
+            method](/payments/save-during-payment) to the Customer after the
+            PaymentIntent is confirmed and the customer completes any required
+            actions. If you don't provide a Customer, you can still
+            [attach](/api/payment_methods/attach) the payment method to a
+            Customer after the transaction completes.
+
+
+            If the payment method is `card_present` and isn't a digital wallet,
+            Stripe creates and attaches a
+            [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card)
+            payment method representing the card to the Customer instead.
+
+
+            When processing card payments, Stripe uses `setup_future_usage` to
+            help you comply with regional legislation and network rules, such as
+            [SCA](/strong-customer-authentication).
+          enum:
+            - none
+            - off_session
+            - on_session
+          type: string
       title: payment_method_options_satispay
       type: object
       x-expandableFields: []
@@ -40893,6 +41168,46 @@ components:
             - off_session
           type: string
       title: payment_method_options_sofort
+      type: object
+      x-expandableFields: []
+    payment_method_options_sunbit:
+      description: ''
+      properties:
+        capture_method:
+          description: >-
+            Controls when the funds will be captured from the customer's
+            account.
+          enum:
+            - manual
+          type: string
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            If you provide a Customer with the PaymentIntent, you can use this
+            parameter to [attach the payment
+            method](/payments/save-during-payment) to the Customer after the
+            PaymentIntent is confirmed and the customer completes any required
+            actions. If you don't provide a Customer, you can still
+            [attach](/api/payment_methods/attach) the payment method to a
+            Customer after the transaction completes.
+
+
+            If the payment method is `card_present` and isn't a digital wallet,
+            Stripe creates and attaches a
+            [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card)
+            payment method representing the card to the Customer instead.
+
+
+            When processing card payments, Stripe uses `setup_future_usage` to
+            help you comply with regional legislation and network rules, such as
+            [SCA](/strong-customer-authentication).
+          enum:
+            - none
+          type: string
+      title: payment_method_options_sunbit
       type: object
       x-expandableFields: []
     payment_method_options_twint:
@@ -40981,7 +41296,7 @@ components:
         app_id:
           description: >-
             The app ID registered with WeChat Pay. Only required when client is
-            ios or android.
+            ios, android, or mini_program.
           maxLength: 5000
           nullable: true
           type: string
@@ -41173,7 +41488,14 @@ components:
       x-expandableFields: []
     payment_method_pix:
       description: ''
-      properties: {}
+      properties:
+        fingerprint:
+          description: >-
+            Uniquely identifies this particular Pix account. You can use this
+            attribute to check whether two Pix accounts are the same.
+          maxLength: 5000
+          nullable: true
+          type: string
       title: payment_method_pix
       type: object
       x-expandableFields: []
@@ -43311,11 +43633,6 @@ components:
           maxLength: 5000
           nullable: true
           type: string
-        description:
-          description: A high-level description of the type of cards issued in this range.
-          maxLength: 5000
-          nullable: true
-          type: string
         exp_month:
           description: Two-digit number representing the card's expiration month.
           nullable: true
@@ -43351,22 +43668,12 @@ components:
             - unknown
           nullable: true
           type: string
-        iin:
-          description: Issuer identification number of the card.
-          maxLength: 5000
-          nullable: true
-          type: string
         installments:
           anyOf:
             - $ref: >-
                 #/components/schemas/payments_primitives_payment_records_resource_payment_method_card_details_resource_installments
           description: Installment details for this payment.
           nullable: true
-        issuer:
-          description: The name of the card's issuing bank.
-          maxLength: 5000
-          nullable: true
-          type: string
         last4:
           description: The last four digits of the card.
           maxLength: 5000
@@ -43419,15 +43726,6 @@ components:
             This value will be present if it is returned by the financial
             network in the authorization response, and null otherwise.
           maxLength: 5000
-          nullable: true
-          type: string
-        stored_credential_usage:
-          description: >-
-            The transaction type that was passed for an off-session,
-            Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
-          enum:
-            - recurring
-            - unscheduled
           nullable: true
           type: string
         three_d_secure:
@@ -43851,7 +44149,7 @@ components:
         stripe_account:
           $ref: '#/components/schemas/payment_method_details_stripe_account'
         sunbit:
-          $ref: '#/components/schemas/payment_method_details_sunbit'
+          $ref: '#/components/schemas/payment_method_details_payment_record_sunbit'
         swish:
           $ref: '#/components/schemas/payment_method_details_payment_record_swish'
         twint:
@@ -49086,6 +49384,9 @@ components:
         revolut_pay:
           $ref: >-
             #/components/schemas/setup_attempt_payment_method_details_revolut_pay
+        satispay:
+          $ref: >-
+            #/components/schemas/payment_flows_private_payment_methods_satispay_setup_attempt_details
         sepa_debit:
           $ref: '#/components/schemas/setup_attempt_payment_method_details_sepa_debit'
         sofort:
@@ -49130,6 +49431,7 @@ components:
         - payto
         - pix
         - revolut_pay
+        - satispay
         - sepa_debit
         - sofort
         - twint
@@ -49572,7 +49874,14 @@ components:
       x-expandableFields: []
     setup_attempt_payment_method_details_pix:
       description: ''
-      properties: {}
+      properties:
+        fingerprint:
+          description: >-
+            Uniquely identifies this particular Pix account. You can use this
+            attribute to check whether two Pix accounts are the same.
+          maxLength: 5000
+          nullable: true
+          type: string
       title: setup_attempt_payment_method_details_pix
       type: object
       x-expandableFields: []
@@ -54348,6 +54657,7 @@ components:
               - pix
               - promptpay
               - revolut_pay
+              - satispay
               - sepa_credit_transfer
               - sepa_debit
               - sofort
@@ -54480,6 +54790,24 @@ components:
                 - $ref: '#/components/schemas/deleted_tax_id'
           nullable: true
           type: array
+        custom_fields:
+          description: A list of up to 4 custom fields to be displayed on the invoice.
+          items:
+            $ref: '#/components/schemas/invoice_setting_custom_field'
+          nullable: true
+          type: array
+        description:
+          description: >-
+            An arbitrary string attached to the object. Often useful for
+            displaying to users.
+          maxLength: 5000
+          nullable: true
+          type: string
+        footer:
+          description: Footer to be displayed on the invoice.
+          maxLength: 5000
+          nullable: true
+          type: string
         issuer:
           $ref: '#/components/schemas/connect_account_reference'
       required:
@@ -54488,6 +54816,7 @@ components:
       type: object
       x-expandableFields:
         - account_tax_ids
+        - custom_fields
         - issuer
     subscriptions_resource_subscription_presentment_details:
       description: ''
@@ -56128,6 +56457,7 @@ components:
             - oss_union
             - standard
           type: string
+          x-stripeBypassValidation: true
       required:
         - type
       title: TaxProductRegistrationsResourceCountryOptionsEurope
@@ -62252,6 +62582,7 @@ components:
           enum:
             - processing
             - redacted
+            - validated
           type: string
       required:
         - status
@@ -62383,7 +62714,7 @@ info:
     details.
   termsOfService: 'https://stripe.com/us/terms/'
   title: Stripe API
-  version: 2026-05-27.dahlia
+  version: 2026-06-24.dahlia
   x-stripeSpecFilename: spec3
 openapi: 3.0.0
 paths:
@@ -71100,13 +71431,13 @@ paths:
     get:
       description: >-
         <p>Returns a list of transactions that have contributed to the Stripe
-        account balance (e.g., charges, transfers, and so forth). The
-        transactions are returned in sorted order, with the most recent
-        transactions appearing first.</p>
+        account balance (for example, charges, transfers, and so on). The
+        transactions return in sorted order, with the most recent transactions
+        appearing first.</p>
 
 
-        <p>Note that this endpoint was previously called “Balance history” and
-        used the path <code>/v1/balance/history</code>.</p>
+        <p>The previous name of this endpoint was “Balance history,” and it used
+        the path <code>/v1/balance/history</code>.</p>
       operationId: GetBalanceHistory
       parameters:
         - description: >-
@@ -71208,14 +71539,14 @@ paths:
             type: string
           style: form
         - description: >-
-            Only returns transactions of the given type. One of: `adjustment`,
-            `advance`, `advance_funding`, `anticipation_repayment`,
-            `application_fee`, `application_fee_refund`, `charge`,
-            `climate_order_purchase`, `climate_order_refund`,
-            `connect_collection_transfer`, `contribution`, `inbound_transfer`,
-            `inbound_transfer_reversal`, `issuing_authorization_hold`,
-            `issuing_authorization_release`, `issuing_dispute`,
-            `issuing_transaction`, `obligation_outbound`,
+            Only returns transactions of the given type. One of: `tax_fund`,
+            `adjustment`, `advance`, `advance_funding`,
+            `anticipation_repayment`, `application_fee`,
+            `application_fee_refund`, `charge`, `climate_order_purchase`,
+            `climate_order_refund`, `connect_collection_transfer`,
+            `contribution`, `inbound_transfer`, `inbound_transfer_reversal`,
+            `issuing_authorization_hold`, `issuing_authorization_release`,
+            `issuing_dispute`, `issuing_transaction`, `obligation_outbound`,
             `obligation_reversal_inbound`, `payment`, `payment_failure_refund`,
             `payment_network_reserve_hold`, `payment_network_reserve_release`,
             `payment_refund`, `payment_reversal`, `payment_unreconciled`,
@@ -71531,13 +71862,13 @@ paths:
     get:
       description: >-
         <p>Returns a list of transactions that have contributed to the Stripe
-        account balance (e.g., charges, transfers, and so forth). The
-        transactions are returned in sorted order, with the most recent
-        transactions appearing first.</p>
+        account balance (for example, charges, transfers, and so on). The
+        transactions return in sorted order, with the most recent transactions
+        appearing first.</p>
 
 
-        <p>Note that this endpoint was previously called “Balance history” and
-        used the path <code>/v1/balance/history</code>.</p>
+        <p>The previous name of this endpoint was “Balance history,” and it used
+        the path <code>/v1/balance/history</code>.</p>
       operationId: GetBalanceTransactions
       parameters:
         - description: >-
@@ -71639,14 +71970,14 @@ paths:
             type: string
           style: form
         - description: >-
-            Only returns transactions of the given type. One of: `adjustment`,
-            `advance`, `advance_funding`, `anticipation_repayment`,
-            `application_fee`, `application_fee_refund`, `charge`,
-            `climate_order_purchase`, `climate_order_refund`,
-            `connect_collection_transfer`, `contribution`, `inbound_transfer`,
-            `inbound_transfer_reversal`, `issuing_authorization_hold`,
-            `issuing_authorization_release`, `issuing_dispute`,
-            `issuing_transaction`, `obligation_outbound`,
+            Only returns transactions of the given type. One of: `tax_fund`,
+            `adjustment`, `advance`, `advance_funding`,
+            `anticipation_repayment`, `application_fee`,
+            `application_fee_refund`, `charge`, `climate_order_purchase`,
+            `climate_order_refund`, `connect_collection_transfer`,
+            `contribution`, `inbound_transfer`, `inbound_transfer_reversal`,
+            `issuing_authorization_hold`, `issuing_authorization_release`,
+            `issuing_dispute`, `issuing_transaction`, `obligation_outbound`,
             `obligation_reversal_inbound`, `payment`, `payment_failure_refund`,
             `payment_network_reserve_hold`, `payment_network_reserve_release`,
             `payment_refund`, `payment_reversal`, `payment_unreconciled`,
@@ -74909,6 +75240,9 @@ paths:
                         cvc:
                           maxLength: 5000
                           type: string
+                        encrypted:
+                          maxLength: 5000
+                          type: string
                         exp_month:
                           type: integer
                         exp_year:
@@ -74920,12 +75254,22 @@ paths:
                         name:
                           maxLength: 5000
                           type: string
+                        network_token:
+                          properties:
+                            number:
+                              maxLength: 5000
+                              type: string
+                          title: source_deprecated_card_network_token
+                          type: object
                         number:
                           maxLength: 5000
                           type: string
                         object:
                           enum:
                             - card
+                          maxLength: 5000
+                          type: string
+                        swipe_data:
                           maxLength: 5000
                           type: string
                       required:
@@ -75738,6 +76082,12 @@ paths:
                     enhanced_evidence:
                       anyOf:
                         - properties:
+                            mastercard_compliance:
+                              properties:
+                                fee_acknowledged:
+                                  type: boolean
+                              title: mastercard_compliance
+                              type: object
                             visa_compelling_evidence_3:
                               properties:
                                 disputed_transaction:
@@ -77736,9 +78086,6 @@ paths:
                     If a [Customer](https://docs.stripe.com/api/customers) is
                     created or provided, the names can be saved to the Customer
                     object as well.
-
-
-                    You can't set this parameter if `ui_mode` is `custom`.
                   properties:
                     business:
                       properties:
@@ -78731,6 +79078,18 @@ paths:
                           type: string
                       title: payment_method_options_param
                       type: object
+                    sunbit:
+                      properties:
+                        capture_method:
+                          enum:
+                            - manual
+                          type: string
+                        setup_future_usage:
+                          enum:
+                            - none
+                          type: string
+                      title: payment_method_options_param
+                      type: object
                     swish:
                       properties:
                         reference:
@@ -79411,6 +79770,22 @@ paths:
                     billing_cycle_anchor:
                       format: unix-time
                       type: integer
+                    billing_cycle_anchor_config:
+                      properties:
+                        day_of_month:
+                          type: integer
+                        hour:
+                          type: integer
+                        minute:
+                          type: integer
+                        month:
+                          type: integer
+                        second:
+                          type: integer
+                      required:
+                        - day_of_month
+                      title: cycle_anchor_config_param
+                      type: object
                     billing_mode:
                       properties:
                         flexible:
@@ -81718,6 +82093,14 @@ paths:
         <code>post_payment_credit_notes_amount</code>, or both, depending on the
         invoice’s <code>amount_remaining</code> at the time of credit note
         creation.</p>
+
+
+        <p>For invoices that also have refunds created through the <a
+        href="/docs/api/refunds">Refund API</a>, the credit note API subtracts
+        those refund amounts from the maximum creditable amount. This prevents
+        the combined credit notes and refunds from exceeding the invoice amount.
+        If you use both, ensure the combined total does not exceed the invoice’s
+        paid amount.</p>
       operationId: PostCreditNotes
       requestBody:
         content:
@@ -83997,6 +84380,9 @@ paths:
                         cvc:
                           maxLength: 5000
                           type: string
+                        encrypted:
+                          maxLength: 5000
+                          type: string
                         exp_month:
                           type: integer
                         exp_year:
@@ -84008,12 +84394,22 @@ paths:
                         name:
                           maxLength: 5000
                           type: string
+                        network_token:
+                          properties:
+                            number:
+                              maxLength: 5000
+                              type: string
+                          title: source_deprecated_card_network_token
+                          type: object
                         number:
                           maxLength: 5000
                           type: string
                         object:
                           enum:
                             - card
+                          maxLength: 5000
+                          type: string
+                        swipe_data:
                           maxLength: 5000
                           type: string
                       required:
@@ -84879,6 +85275,9 @@ paths:
                         cvc:
                           maxLength: 5000
                           type: string
+                        encrypted:
+                          maxLength: 5000
+                          type: string
                         exp_month:
                           type: integer
                         exp_year:
@@ -84890,12 +85289,22 @@ paths:
                         name:
                           maxLength: 5000
                           type: string
+                        network_token:
+                          properties:
+                            number:
+                              maxLength: 5000
+                              type: string
+                          title: source_deprecated_card_network_token
+                          type: object
                         number:
                           maxLength: 5000
                           type: string
                         object:
                           enum:
                             - card
+                          maxLength: 5000
+                          type: string
+                        swipe_data:
                           maxLength: 5000
                           type: string
                       required:
@@ -85508,6 +85917,9 @@ paths:
                         cvc:
                           maxLength: 5000
                           type: string
+                        encrypted:
+                          maxLength: 5000
+                          type: string
                         exp_month:
                           type: integer
                         exp_year:
@@ -85519,12 +85931,22 @@ paths:
                         name:
                           maxLength: 5000
                           type: string
+                        network_token:
+                          properties:
+                            number:
+                              maxLength: 5000
+                              type: string
+                          title: source_deprecated_card_network_token
+                          type: object
                         number:
                           maxLength: 5000
                           type: string
                         object:
                           enum:
                             - card
+                          maxLength: 5000
+                          type: string
+                        swipe_data:
                           maxLength: 5000
                           type: string
                       required:
@@ -86796,6 +87218,9 @@ paths:
                         cvc:
                           maxLength: 5000
                           type: string
+                        encrypted:
+                          maxLength: 5000
+                          type: string
                         exp_month:
                           type: integer
                         exp_year:
@@ -86807,12 +87232,22 @@ paths:
                         name:
                           maxLength: 5000
                           type: string
+                        network_token:
+                          properties:
+                            number:
+                              maxLength: 5000
+                              type: string
+                          title: source_deprecated_card_network_token
+                          type: object
                         number:
                           maxLength: 5000
                           type: string
                         object:
                           enum:
                             - card
+                          maxLength: 5000
+                          type: string
+                        swipe_data:
                           maxLength: 5000
                           type: string
                       required:
@@ -87681,6 +88116,31 @@ paths:
                         - enum:
                             - ''
                           type: string
+                    custom_fields:
+                      anyOf:
+                        - items:
+                            properties:
+                              name:
+                                maxLength: 40
+                                type: string
+                              value:
+                                maxLength: 140
+                                type: string
+                            required:
+                              - name
+                              - value
+                            title: custom_field_params
+                            type: object
+                          type: array
+                        - enum:
+                            - ''
+                          type: string
+                    description:
+                      maxLength: 1500
+                      type: string
+                    footer:
+                      maxLength: 5000
+                      type: string
                     issuer:
                       properties:
                         account:
@@ -88144,6 +88604,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -88842,6 +89303,39 @@ paths:
                         - enum:
                             - ''
                           type: string
+                    custom_fields:
+                      anyOf:
+                        - items:
+                            properties:
+                              name:
+                                maxLength: 40
+                                type: string
+                              value:
+                                maxLength: 140
+                                type: string
+                            required:
+                              - name
+                              - value
+                            title: custom_field_params
+                            type: object
+                          type: array
+                        - enum:
+                            - ''
+                          type: string
+                    description:
+                      anyOf:
+                        - maxLength: 1500
+                          type: string
+                        - enum:
+                            - ''
+                          type: string
+                    footer:
+                      anyOf:
+                        - maxLength: 5000
+                          type: string
+                        - enum:
+                            - ''
+                          type: string
                     issuer:
                       properties:
                         account:
@@ -88856,7 +89350,7 @@ paths:
                         - type
                       title: param
                       type: object
-                  title: invoice_settings_param
+                  title: invoice_settings_update_param
                   type: object
                 items:
                   description: >-
@@ -89339,6 +89833,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -90258,6 +90753,12 @@ paths:
                     enhanced_evidence:
                       anyOf:
                         - properties:
+                            mastercard_compliance:
+                              properties:
+                                fee_acknowledged:
+                                  type: boolean
+                              title: mastercard_compliance
+                              type: object
                             visa_compelling_evidence_3:
                               properties:
                                 disputed_transaction:
@@ -96508,6 +97009,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -98830,6 +99332,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -99255,7 +99758,7 @@ paths:
                                       maxLength: 5000
                                       type: string
                                     display_name:
-                                      maxLength: 100
+                                      maxLength: 200
                                       type: string
                                     inclusive:
                                       type: boolean
@@ -99849,7 +100352,7 @@ paths:
                                 maxLength: 5000
                                 type: string
                               display_name:
-                                maxLength: 100
+                                maxLength: 200
                                 type: string
                               inclusive:
                                 type: boolean
@@ -99926,7 +100429,7 @@ paths:
                         - ''
                       type: string
                   description: >-
-                    A list of up to 10 tax amounts for this line item. This can
+                    A list of up to 20 tax amounts for this line item. This can
                     be useful if you calculate taxes on your own or use a
                     third-party to calculate them. You cannot set tax amounts if
                     any line item has
@@ -100451,7 +100954,7 @@ paths:
                                       maxLength: 5000
                                       type: string
                                     display_name:
-                                      maxLength: 100
+                                      maxLength: 200
                                       type: string
                                     inclusive:
                                       type: boolean
@@ -112113,6 +112616,13 @@ paths:
                                 - ''
                                 - manual
                               type: string
+                            setup_future_usage:
+                              enum:
+                                - ''
+                                - none
+                                - off_session
+                                - on_session
+                              type: string
                           title: payment_method_options_param
                           type: object
                         - enum:
@@ -112179,6 +112689,23 @@ paths:
                                 - ''
                                 - none
                                 - off_session
+                              type: string
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
+                    sunbit:
+                      anyOf:
+                        - properties:
+                            capture_method:
+                              enum:
+                                - ''
+                                - manual
+                              type: string
+                            setup_future_usage:
+                              enum:
+                                - none
                               type: string
                           title: payment_method_options_param
                           type: object
@@ -112639,7 +113166,7 @@ paths:
             The search query string. See [search query
             language](https://docs.stripe.com/search#search-query-language) and
             the list of supported [query fields for payment
-            intents](https://docs.stripe.com/search#query-fields-for-payment-intents).
+            intents](https://docs.stripe.com/search#query-fields-for-paymentintents).
           in: query
           name: query
           required: true
@@ -115123,6 +115650,13 @@ paths:
                                 - ''
                                 - manual
                               type: string
+                            setup_future_usage:
+                              enum:
+                                - ''
+                                - none
+                                - off_session
+                                - on_session
+                              type: string
                           title: payment_method_options_param
                           type: object
                         - enum:
@@ -115189,6 +115723,23 @@ paths:
                                 - ''
                                 - none
                                 - off_session
+                              type: string
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
+                    sunbit:
+                      anyOf:
+                        - properties:
+                            capture_method:
+                              enum:
+                                - ''
+                                - manual
+                              type: string
+                            setup_future_usage:
+                              enum:
+                                - none
                               type: string
                           title: payment_method_options_param
                           type: object
@@ -118592,6 +119143,13 @@ paths:
                                 - ''
                                 - manual
                               type: string
+                            setup_future_usage:
+                              enum:
+                                - ''
+                                - none
+                                - off_session
+                                - on_session
+                              type: string
                           title: payment_method_options_param
                           type: object
                         - enum:
@@ -118658,6 +119216,23 @@ paths:
                                 - ''
                                 - none
                                 - off_session
+                              type: string
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
+                    sunbit:
+                      anyOf:
+                        - properties:
+                            capture_method:
+                              enum:
+                                - ''
+                                - manual
+                              type: string
+                            setup_future_usage:
+                              enum:
+                                - none
                               type: string
                           title: payment_method_options_param
                           type: object
@@ -120229,6 +120804,7 @@ paths:
                     - if_required
                   type: string
                 payment_method_options:
+                  description: Payment-method-specific configuration.
                   properties:
                     card:
                       properties:
@@ -126506,7 +127082,7 @@ paths:
                   type: object
                 sunbit:
                   description: >-
-                    If this is a Sunbit PaymentMethod, this hash contains
+                    If this is a `sunbit` PaymentMethod, this hash contains
                     details about the Sunbit payment method.
                   properties: {}
                   title: param
@@ -127244,6 +127820,7 @@ paths:
                       enum:
                         - custom
                       type: string
+                      x-stripeBypassValidation: true
                   title: payment_method_details
                   type: object
                 processor_details:
@@ -127521,6 +128098,7 @@ paths:
                       enum:
                         - custom
                       type: string
+                      x-stripeBypassValidation: true
                   title: payment_method_details
                   type: object
                 shipping_details:
@@ -128020,6 +128598,7 @@ paths:
                   enum:
                     - refunded
                   type: string
+                  x-stripeBypassValidation: true
                 processor_details:
                   description: Processor information for this refund.
                   properties:
@@ -128053,7 +128632,6 @@ paths:
               required:
                 - outcome
                 - processor_details
-                - refunded
               type: object
         required: true
       responses:
@@ -145346,6 +145924,31 @@ paths:
                         - enum:
                             - ''
                           type: string
+                    custom_fields:
+                      anyOf:
+                        - items:
+                            properties:
+                              name:
+                                maxLength: 40
+                                type: string
+                              value:
+                                maxLength: 140
+                                type: string
+                            required:
+                              - name
+                              - value
+                            title: custom_field_params
+                            type: object
+                          type: array
+                        - enum:
+                            - ''
+                          type: string
+                    description:
+                      maxLength: 1500
+                      type: string
+                    footer:
+                      maxLength: 5000
+                      type: string
                     issuer:
                       properties:
                         account:
@@ -145818,6 +146421,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -146093,7 +146697,7 @@ paths:
         are also left in place and collected at the end of the period. But if
         the subscription is set to cancel immediately, pending prorations are
         removed if <code>invoice_now</code> and <code>prorate</code> are both
-        set to true.</p>
+        set to false.</p>
 
 
         <p>By default, upon subscription cancellation, Stripe stops automatic
@@ -146780,6 +147384,39 @@ paths:
                         - enum:
                             - ''
                           type: string
+                    custom_fields:
+                      anyOf:
+                        - items:
+                            properties:
+                              name:
+                                maxLength: 40
+                                type: string
+                              value:
+                                maxLength: 140
+                                type: string
+                            required:
+                              - name
+                              - value
+                            title: custom_field_params
+                            type: object
+                          type: array
+                        - enum:
+                            - ''
+                          type: string
+                    description:
+                      anyOf:
+                        - maxLength: 1500
+                          type: string
+                        - enum:
+                            - ''
+                          type: string
+                    footer:
+                      anyOf:
+                        - maxLength: 5000
+                          type: string
+                        - enum:
+                            - ''
+                          type: string
                     issuer:
                       properties:
                         account:
@@ -146794,7 +147431,7 @@ paths:
                         - type
                       title: param
                       type: object
-                  title: invoice_settings_param
+                  title: invoice_settings_update_param
                   type: object
                 items:
                   description: >-
@@ -147286,6 +147923,7 @@ paths:
                               - pix
                               - promptpay
                               - revolut_pay
+                              - satispay
                               - sepa_credit_transfer
                               - sepa_debit
                               - sofort
@@ -148464,6 +149102,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148594,6 +149233,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148638,6 +149278,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148830,6 +149471,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148855,6 +149497,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148880,6 +149523,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148905,6 +149549,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148940,6 +149585,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -148975,6 +149621,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149019,6 +149666,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149044,6 +149692,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149117,6 +149766,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149142,6 +149792,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149167,6 +149818,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149202,6 +149854,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149256,6 +149909,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149370,6 +150024,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149395,6 +150050,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149420,6 +150076,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149522,6 +150179,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149577,6 +150235,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149689,6 +150348,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149714,6 +150374,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149739,6 +150400,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149803,6 +150465,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149847,6 +150510,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -149872,6 +150536,7 @@ paths:
                             - oss_union
                             - standard
                           type: string
+                          x-stripeBypassValidation: true
                       required:
                         - type
                       title: europe
@@ -161613,6 +162278,9 @@ paths:
               metadata:
                 explode: true
                 style: deepObject
+              payment_method_options:
+                explode: true
+                style: deepObject
             schema:
               additionalProperties: false
               properties:
@@ -161654,6 +162322,29 @@ paths:
                     format. Individual keys can be unset by posting an empty
                     value to them. All keys can be unset by posting an empty
                     value to `metadata`.
+                payment_method:
+                  description: >-
+                    The ID of a PaymentMethod representing the payment method to
+                    be used for the top-up. A PaymentMethod of type
+                    `us_bank_account` can be used.
+                  maxLength: 5000
+                  type: string
+                payment_method_options:
+                  description: Payment method-specific configuration for this top-up.
+                  properties:
+                    us_bank_account:
+                      properties:
+                        network:
+                          enum:
+                            - ach
+                          type: string
+                          x-stripeBypassValidation: true
+                      required:
+                        - network
+                      title: us_bank_account_param
+                      type: object
+                  title: payment_method_options_param
+                  type: object
                 source:
                   description: >-
                     The ID of a source to transfer funds from. For most users,
@@ -166170,6 +166861,7 @@ paths:
                     - 2026-03-25.dahlia
                     - 2026-04-22.dahlia
                     - 2026-05-27.dahlia
+                    - 2026-06-24.dahlia
                   maxLength: 5000
                   type: string
                   x-stripeBypassValidation: true
@@ -166207,7 +166899,13 @@ paths:
                       - balance.available
                       - balance_settings.updated
                       - billing.alert.triggered
+                      - billing.credit_balance_transaction.created
                       - billing.credit_grant.created
+                      - billing.credit_grant.updated
+                      - billing.meter.created
+                      - billing.meter.deactivated
+                      - billing.meter.reactivated
+                      - billing.meter.updated
                       - billing_portal.configuration.created
                       - billing_portal.configuration.updated
                       - billing_portal.session.created
@@ -166644,7 +167342,13 @@ paths:
                       - balance.available
                       - balance_settings.updated
                       - billing.alert.triggered
+                      - billing.credit_balance_transaction.created
                       - billing.credit_grant.created
+                      - billing.credit_grant.updated
+                      - billing.meter.created
+                      - billing.meter.deactivated
+                      - billing.meter.reactivated
+                      - billing.meter.updated
                       - billing_portal.configuration.created
                       - billing_portal.configuration.updated
                       - billing_portal.session.created

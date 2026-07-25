@@ -815,6 +815,10 @@ export class MyAccountManagement extends AbstractFetchClient {
   }
 
   async deleteSessions(
+    p: {
+      oauthTokens?: boolean
+      excludeCurrentAuthorizationContext?: boolean
+    } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
@@ -822,8 +826,17 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/sessions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      oauthTokens: p["oauthTokens"],
+      excludeCurrentAuthorizationContext:
+        p["excludeCurrentAuthorizationContext"],
+    })
 
-    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+    return this._fetch(
+      url + query,
+      {method: "DELETE", ...opts, headers},
+      timeout,
+    )
   }
 
   async listWebAuthn(

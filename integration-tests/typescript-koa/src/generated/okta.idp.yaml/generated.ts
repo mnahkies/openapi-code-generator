@@ -34,6 +34,7 @@ import type {
   t_DeleteAppAuthenticatorEnrollmentParamSchema,
   t_DeleteEmailParamSchema,
   t_DeletePhoneParamSchema,
+  t_DeleteSessionsQuerySchema,
   t_DeleteWebAuthnParamSchema,
   t_Email,
   t_Error,
@@ -76,6 +77,7 @@ import type {
   t_WebAuthnRegistrationOptions,
 } from "./models"
 import {
+  PermissiveBoolean,
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
   s_Authenticator,
@@ -985,7 +987,7 @@ export type DeleteSessionsResponder = {
 } & KoaRuntimeResponder
 
 export type DeleteSessions = (
-  params: Params<void, void, void, void>,
+  params: Params<void, t_DeleteSessionsQuerySchema, void, void>,
   respond: DeleteSessionsResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -3047,6 +3049,12 @@ export function createRouter(
     },
   )
 
+  const deleteSessionsQuerySchema = z.object({
+    oauthTokens: PermissiveBoolean.optional().default(true),
+    excludeCurrentAuthorizationContext:
+      PermissiveBoolean.optional().default(false),
+  })
+
   const deleteSessionsResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -3060,7 +3068,11 @@ export function createRouter(
   router.delete("deleteSessions", "/idp/myaccount/sessions", async (ctx) => {
     const input = {
       params: undefined,
-      query: undefined,
+      query: parseRequestInput(
+        deleteSessionsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
       headers: undefined,
     }

@@ -958,6 +958,7 @@ export type t_balance_transaction = {
     | "stripe_fee"
     | "stripe_fx_fee"
     | "tax_fee"
+    | "tax_fund"
     | "topup"
     | "topup_reversal"
     | "transfer"
@@ -1000,6 +1001,23 @@ export type t_bank_connections_resource_account_number_details = {
   status: "deactivated" | "transactable" | UnknownEnumStringValue
   supported_networks: "ach"[]
 }
+
+export type t_bank_connections_resource_account_status_details = {
+  active?:
+    | t_bank_connections_resource_account_status_details_api_resource_active_status_details
+    | undefined
+}
+
+export type t_bank_connections_resource_account_status_details_api_resource_active_status_details =
+  {
+    action: "none" | "relink_required" | UnknownEnumStringValue
+    cause:
+      | "access_expired"
+      | "institution_requirement"
+      | "unspecified"
+      | UnknownEnumStringValue
+    expected_deactivation_date: number
+  }
 
 export type t_bank_connections_resource_accountholder = {
   account?: (string | t_account) | undefined
@@ -2235,12 +2253,14 @@ export type t_checkout_session_payment_method_options = {
   scalapay?: t_checkout_scalapay_payment_method_options | undefined
   sepa_debit?: t_checkout_sepa_debit_payment_method_options | undefined
   sofort?: t_checkout_sofort_payment_method_options | undefined
+  sunbit?: t_checkout_sunbit_payment_method_options | undefined
   swish?: t_checkout_swish_payment_method_options | undefined
   twint?: t_checkout_twint_payment_method_options | undefined
   upi?: t_checkout_upi_payment_method_options | undefined
   us_bank_account?:
     | t_checkout_us_bank_account_payment_method_options
     | undefined
+  wechat_pay?: t_checkout_wechat_pay_payment_method_options | undefined
 }
 
 export type t_checkout_session_wallet_options = {
@@ -2248,6 +2268,11 @@ export type t_checkout_session_wallet_options = {
 }
 
 export type t_checkout_sofort_payment_method_options = {
+  setup_future_usage?: "none" | undefined
+}
+
+export type t_checkout_sunbit_payment_method_options = {
+  capture_method?: "manual" | undefined
   setup_future_usage?: "none" | undefined
 }
 
@@ -2277,6 +2302,14 @@ export type t_checkout_us_bank_account_payment_method_options = {
   verification_method?:
     | ("automatic" | "instant" | UnknownEnumStringValue)
     | undefined
+}
+
+export type t_checkout_wechat_pay_payment_method_options = {
+  app_id?: (string | null) | undefined
+  client?:
+    | ("android" | "ios" | "web" | UnknownEnumStringValue | null)
+    | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_climate_order = {
@@ -3486,6 +3519,7 @@ export type t_dispute = {
   created: number
   currency: string
   enhanced_eligibility_types: (
+    | "mastercard_compliance"
     | "visa_compelling_evidence_3"
     | "visa_compliance"
     | UnknownEnumStringValue
@@ -3513,10 +3547,20 @@ export type t_dispute = {
 }
 
 export type t_dispute_enhanced_eligibility = {
+  mastercard_compliance?:
+    | t_dispute_enhanced_eligibility_mastercard_compliance
+    | undefined
   visa_compelling_evidence_3?:
     | t_dispute_enhanced_eligibility_visa_compelling_evidence3
     | undefined
   visa_compliance?: t_dispute_enhanced_eligibility_visa_compliance | undefined
+}
+
+export type t_dispute_enhanced_eligibility_mastercard_compliance = {
+  status:
+    | "fee_acknowledged"
+    | "requires_fee_acknowledgement"
+    | UnknownEnumStringValue
 }
 
 export type t_dispute_enhanced_eligibility_visa_compelling_evidence3 = {
@@ -3543,10 +3587,17 @@ export type t_dispute_enhanced_eligibility_visa_compliance = {
 }
 
 export type t_dispute_enhanced_evidence = {
+  mastercard_compliance?:
+    | t_dispute_enhanced_evidence_mastercard_compliance
+    | undefined
   visa_compelling_evidence_3?:
     | t_dispute_enhanced_evidence_visa_compelling_evidence3
     | undefined
   visa_compliance?: t_dispute_enhanced_evidence_visa_compliance | undefined
+}
+
+export type t_dispute_enhanced_evidence_mastercard_compliance = {
+  fee_acknowledged: boolean
 }
 
 export type t_dispute_enhanced_evidence_visa_compelling_evidence3 = {
@@ -3845,6 +3896,9 @@ export type t_financial_connections_account = {
       )
     | undefined
   status: "active" | "disconnected" | "inactive" | UnknownEnumStringValue
+  status_details?:
+    | t_bank_connections_resource_account_status_details
+    | undefined
   subcategory:
     | "checking"
     | "credit_card"
@@ -5196,6 +5250,7 @@ export type t_invoices_payment_settings = {
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "satispay"
             | "sepa_credit_transfer"
             | "sepa_debit"
             | "sofort"
@@ -9106,6 +9161,9 @@ export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_o
     capture_method?: "manual" | undefined
   }
 
+export type t_payment_flows_private_payment_methods_satispay_setup_attempt_details =
+  Record<string, unknown>
+
 export type t_payment_intent = {
   amount?: number | undefined
   amount_capturable?: number | undefined
@@ -9814,6 +9872,12 @@ export type t_payment_intent_payment_method_options = {
   sofort?:
     | (
         | t_payment_method_options_sofort
+        | t_payment_intent_type_specific_payment_method_options_client
+      )
+    | undefined
+  sunbit?:
+    | (
+        | t_payment_method_options_sunbit
         | t_payment_intent_type_specific_payment_method_options_client
       )
     | undefined
@@ -10841,9 +10905,13 @@ export type t_payment_method_bancontact = Record<string, unknown>
 
 export type t_payment_method_billie = Record<string, unknown>
 
-export type t_payment_method_bizum = Record<string, unknown>
+export type t_payment_method_bizum = {
+  buyer_id?: (string | null) | undefined
+}
 
-export type t_payment_method_blik = Record<string, unknown>
+export type t_payment_method_blik = {
+  buyer_id?: (string | null) | undefined
+}
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -11294,6 +11362,7 @@ export type t_payment_method_details_billie = {
 }
 
 export type t_payment_method_details_bizum = {
+  buyer_id?: (string | null) | undefined
   transaction_id?: (string | null) | undefined
 }
 
@@ -11340,6 +11409,7 @@ export type t_payment_method_details_card = {
     | ("regulated" | "unregulated" | UnknownEnumStringValue | null)
     | undefined
   three_d_secure?: (t_three_d_secure_details_charge | null) | undefined
+  transaction_link_id?: (string | null) | undefined
   wallet?: (t_payment_method_details_card_wallet | null) | undefined
 }
 
@@ -11495,6 +11565,7 @@ export type t_payment_method_details_crypto = {
         | "ethereum"
         | "polygon"
         | "solana"
+        | "sui"
         | "tempo"
         | UnknownEnumStringValue
       )
@@ -11505,6 +11576,7 @@ export type t_payment_method_details_crypto = {
         | "usdc"
         | "usdg"
         | "usdp"
+        | "usdsui"
         | "usdt"
         | UnknownEnumStringValue
       )
@@ -11904,6 +11976,7 @@ export type t_payment_method_details_payment_record_billie = {
 }
 
 export type t_payment_method_details_payment_record_bizum = {
+  buyer_id?: (string | null) | undefined
   transaction_id?: (string | null) | undefined
 }
 
@@ -12200,6 +12273,10 @@ export type t_payment_method_details_payment_record_sofort = {
   verified_name?: (string | null) | undefined
 }
 
+export type t_payment_method_details_payment_record_sunbit = {
+  transaction_id?: (string | null) | undefined
+}
+
 export type t_payment_method_details_payment_record_swish = {
   fingerprint?: (string | null) | undefined
   payment_reference?: (string | null) | undefined
@@ -12266,6 +12343,7 @@ export type t_payment_method_details_payto = {
 
 export type t_payment_method_details_pix = {
   bank_transaction_id?: (string | null) | undefined
+  fingerprint?: (string | null) | undefined
   mandate?: string | undefined
 }
 
@@ -12885,6 +12963,9 @@ export type t_payment_method_options_revolut_pay = {
 
 export type t_payment_method_options_satispay = {
   capture_method?: "manual" | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_scalapay = {
@@ -12908,6 +12989,11 @@ export type t_payment_method_options_sofort = {
   setup_future_usage?:
     | ("none" | "off_session" | UnknownEnumStringValue)
     | undefined
+}
+
+export type t_payment_method_options_sunbit = {
+  capture_method?: "manual" | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_payment_method_options_twint = {
@@ -12993,7 +13079,9 @@ export type t_payment_method_payto = {
   pay_id?: (string | null) | undefined
 }
 
-export type t_payment_method_pix = Record<string, unknown>
+export type t_payment_method_pix = {
+  fingerprint?: (string | null) | undefined
+}
 
 export type t_payment_method_promptpay = Record<string, unknown>
 
@@ -13863,7 +13951,6 @@ export type t_payments_primitives_payment_records_resource_payment_method_card_d
       | (t_payments_primitives_payment_records_resource_payment_method_card_details_resource_checks | null)
       | undefined
     country?: (string | null) | undefined
-    description?: (string | null) | undefined
     exp_month?: (number | null) | undefined
     exp_year?: (number | null) | undefined
     fingerprint?: (string | null) | undefined
@@ -13877,11 +13964,9 @@ export type t_payments_primitives_payment_records_resource_payment_method_card_d
           | null
         )
       | undefined
-    iin?: (string | null) | undefined
     installments?:
       | (t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installments | null)
       | undefined
-    issuer?: (string | null) | undefined
     last4?: (string | null) | undefined
     network?:
       | (
@@ -13907,9 +13992,6 @@ export type t_payments_primitives_payment_records_resource_payment_method_card_d
       | (t_payments_primitives_payment_records_resource_payment_method_card_details_resource_network_token | null)
       | undefined
     network_transaction_id?: (string | null) | undefined
-    stored_credential_usage?:
-      | ("recurring" | "unscheduled" | UnknownEnumStringValue | null)
-      | undefined
     three_d_secure?:
       | (t_payments_primitives_payment_records_resource_payment_method_card_details_resource_three_d_secure | null)
       | undefined
@@ -14123,7 +14205,7 @@ export type t_payments_primitives_payment_records_resource_payment_method_detail
     sepa_debit?: t_payment_method_details_payment_record_sepa_debit | undefined
     sofort?: t_payment_method_details_payment_record_sofort | undefined
     stripe_account?: t_payment_method_details_stripe_account | undefined
-    sunbit?: t_payment_method_details_sunbit | undefined
+    sunbit?: t_payment_method_details_payment_record_sunbit | undefined
     swish?: t_payment_method_details_payment_record_swish | undefined
     twint?: t_payment_method_details_payment_record_twint | undefined
     type: string
@@ -15307,6 +15389,9 @@ export type t_setup_attempt_payment_method_details = {
   payto?: t_setup_attempt_payment_method_details_payto | undefined
   pix?: t_setup_attempt_payment_method_details_pix | undefined
   revolut_pay?: t_setup_attempt_payment_method_details_revolut_pay | undefined
+  satispay?:
+    | t_payment_flows_private_payment_methods_satispay_setup_attempt_details
+    | undefined
   sepa_debit?: t_setup_attempt_payment_method_details_sepa_debit | undefined
   sofort?: t_setup_attempt_payment_method_details_sofort | undefined
   twint?: t_setup_attempt_payment_method_details_twint | undefined
@@ -15494,7 +15579,9 @@ export type t_setup_attempt_payment_method_details_payto = Record<
   unknown
 >
 
-export type t_setup_attempt_payment_method_details_pix = Record<string, unknown>
+export type t_setup_attempt_payment_method_details_pix = {
+  fingerprint?: (string | null) | undefined
+}
 
 export type t_setup_attempt_payment_method_details_revolut_pay = Record<
   string,
@@ -16914,6 +17001,7 @@ export type t_subscriptions_resource_payment_settings = {
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "satispay"
             | "sepa_credit_transfer"
             | "sepa_debit"
             | "sofort"
@@ -16947,6 +17035,9 @@ export type t_subscriptions_resource_subscription_invoice_settings = {
   account_tax_ids?:
     | ((string | t_tax_id | t_deleted_tax_id)[] | null)
     | undefined
+  custom_fields?: (t_invoice_setting_custom_field[] | null) | undefined
+  description?: (string | null) | undefined
+  footer?: (string | null) | undefined
   issuer: t_connect_account_reference
 }
 
@@ -19497,7 +19588,7 @@ export type t_us_bank_account_networks = {
 }
 
 export type t_verification_session_redaction = {
-  status: "processing" | "redacted" | UnknownEnumStringValue
+  status: "processing" | "redacted" | "validated" | UnknownEnumStringValue
 }
 
 export type t_webhook_endpoint = {
@@ -23097,12 +23188,19 @@ export type t_PostChargesRequestBody = {
             address_state?: string | undefined
             address_zip?: string | undefined
             cvc?: string | undefined
+            encrypted?: string | undefined
             exp_month: number
             exp_year: number
             metadata?: Record<string, string> | undefined
             name?: string | undefined
+            network_token?:
+              | {
+                  number?: string | undefined
+                }
+              | undefined
             number: string
             object?: "card" | undefined
+            swipe_data?: string | undefined
           }
         | string
       )
@@ -23222,6 +23320,11 @@ export type t_PostChargesChargeDisputeRequestBody = {
         enhanced_evidence?:
           | (
               | {
+                  mastercard_compliance?:
+                    | {
+                        fee_acknowledged?: boolean | undefined
+                      }
+                    | undefined
                   visa_compelling_evidence_3?:
                     | {
                         disputed_transaction?:
@@ -24362,6 +24465,12 @@ export type t_PostCheckoutSessionsRequestBody = {
               setup_future_usage?: "none" | undefined
             }
           | undefined
+        sunbit?:
+          | {
+              capture_method?: "manual" | undefined
+              setup_future_usage?: "none" | undefined
+            }
+          | undefined
         swish?:
           | {
               reference?: string | undefined
@@ -24868,6 +24977,15 @@ export type t_PostCheckoutSessionsRequestBody = {
     | {
         application_fee_percent?: number | undefined
         billing_cycle_anchor?: number | undefined
+        billing_cycle_anchor_config?:
+          | {
+              day_of_month: number
+              hour?: number | undefined
+              minute?: number | undefined
+              month?: number | undefined
+              second?: number | undefined
+            }
+          | undefined
         billing_mode?:
           | {
               flexible?:
@@ -25627,12 +25745,19 @@ export type t_PostCustomersCustomerRequestBody = {
             address_state?: string | undefined
             address_zip?: string | undefined
             cvc?: string | undefined
+            encrypted?: string | undefined
             exp_month: number
             exp_year: number
             metadata?: Record<string, string> | undefined
             name?: string | undefined
+            network_token?:
+              | {
+                  number?: string | undefined
+                }
+              | undefined
             number: string
             object?: "card" | undefined
+            swipe_data?: string | undefined
           }
         | string
       )
@@ -25771,12 +25896,19 @@ export type t_PostCustomersCustomerBankAccountsRequestBody = {
             address_state?: string | undefined
             address_zip?: string | undefined
             cvc?: string | undefined
+            encrypted?: string | undefined
             exp_month: number
             exp_year: number
             metadata?: Record<string, string> | undefined
             name?: string | undefined
+            network_token?:
+              | {
+                  number?: string | undefined
+                }
+              | undefined
             number: string
             object?: "card" | undefined
+            swipe_data?: string | undefined
           }
         | string
       )
@@ -25854,12 +25986,19 @@ export type t_PostCustomersCustomerCardsRequestBody = {
             address_state?: string | undefined
             address_zip?: string | undefined
             cvc?: string | undefined
+            encrypted?: string | undefined
             exp_month: number
             exp_year: number
             metadata?: Record<string, string> | undefined
             name?: string | undefined
+            network_token?:
+              | {
+                  number?: string | undefined
+                }
+              | undefined
             number: string
             object?: "card" | undefined
+            swipe_data?: string | undefined
           }
         | string
       )
@@ -25971,12 +26110,19 @@ export type t_PostCustomersCustomerSourcesRequestBody = {
             address_state?: string | undefined
             address_zip?: string | undefined
             cvc?: string | undefined
+            encrypted?: string | undefined
             exp_month: number
             exp_year: number
             metadata?: Record<string, string> | undefined
             name?: string | undefined
+            network_token?:
+              | {
+                  number?: string | undefined
+                }
+              | undefined
             number: string
             object?: "card" | undefined
+            swipe_data?: string | undefined
           }
         | string
       )
@@ -26133,6 +26279,17 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
   invoice_settings?:
     | {
         account_tax_ids?: (string[] | "") | undefined
+        custom_fields?:
+          | (
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ""
+            )
+          | undefined
+        description?: string | undefined
+        footer?: string | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -26466,6 +26623,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
                   | "pix"
                   | "promptpay"
                   | "revolut_pay"
+                  | "satispay"
                   | "sepa_credit_transfer"
                   | "sepa_debit"
                   | "sofort"
@@ -26646,6 +26804,17 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
     invoice_settings?:
       | {
           account_tax_ids?: (string[] | "") | undefined
+          custom_fields?:
+            | (
+                | {
+                    name: string
+                    value: string
+                  }[]
+                | ""
+              )
+            | undefined
+          description?: (string | "") | undefined
+          footer?: (string | "") | undefined
           issuer?:
             | {
                 account?: string | undefined
@@ -27013,6 +27182,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                     | "pix"
                     | "promptpay"
                     | "revolut_pay"
+                    | "satispay"
                     | "sepa_credit_transfer"
                     | "sepa_debit"
                     | "sofort"
@@ -27220,6 +27390,11 @@ export type t_PostDisputesDisputeRequestBody = {
         enhanced_evidence?:
           | (
               | {
+                  mastercard_compliance?:
+                    | {
+                        fee_acknowledged?: boolean | undefined
+                      }
+                    | undefined
                   visa_compelling_evidence_3?:
                     | {
                         disputed_transaction?:
@@ -27963,6 +28138,7 @@ export type t_PostInvoicesRequestBody = {
                   | "pix"
                   | "promptpay"
                   | "revolut_pay"
+                  | "satispay"
                   | "sepa_credit_transfer"
                   | "sepa_debit"
                   | "sofort"
@@ -28996,6 +29172,7 @@ export type t_PostInvoicesInvoiceRequestBody = {
                   | "pix"
                   | "promptpay"
                   | "revolut_pay"
+                  | "satispay"
                   | "sepa_credit_transfer"
                   | "sepa_debit"
                   | "sofort"
@@ -35383,6 +35560,15 @@ export type t_PostPaymentIntentsRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
+                  setup_future_usage?:
+                    | (
+                        | ""
+                        | "none"
+                        | "off_session"
+                        | "on_session"
+                        | UnknownEnumStringValue
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -35438,6 +35624,17 @@ export type t_PostPaymentIntentsRequestBody = {
                   setup_future_usage?:
                     | ("" | "none" | "off_session" | UnknownEnumStringValue)
                     | undefined
+                }
+              | ""
+            )
+          | undefined
+        sunbit?:
+          | (
+              | {
+                  capture_method?:
+                    | ("" | "manual" | UnknownEnumStringValue)
+                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
             )
@@ -37082,6 +37279,15 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
+                  setup_future_usage?:
+                    | (
+                        | ""
+                        | "none"
+                        | "off_session"
+                        | "on_session"
+                        | UnknownEnumStringValue
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -37137,6 +37343,17 @@ export type t_PostPaymentIntentsIntentRequestBody = {
                   setup_future_usage?:
                     | ("" | "none" | "off_session" | UnknownEnumStringValue)
                     | undefined
+                }
+              | ""
+            )
+          | undefined
+        sunbit?:
+          | (
+              | {
+                  capture_method?:
+                    | ("" | "manual" | UnknownEnumStringValue)
+                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
             )
@@ -38937,6 +39154,15 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   capture_method?:
                     | ("" | "manual" | UnknownEnumStringValue)
                     | undefined
+                  setup_future_usage?:
+                    | (
+                        | ""
+                        | "none"
+                        | "off_session"
+                        | "on_session"
+                        | UnknownEnumStringValue
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -38992,6 +39218,17 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
                   setup_future_usage?:
                     | ("" | "none" | "off_session" | UnknownEnumStringValue)
                     | undefined
+                }
+              | ""
+            )
+          | undefined
+        sunbit?:
+          | (
+              | {
+                  capture_method?:
+                    | ("" | "manual" | UnknownEnumStringValue)
+                    | undefined
+                  setup_future_usage?: "none" | undefined
                 }
               | ""
             )
@@ -42518,9 +42755,11 @@ export type t_PostPaymentRecordsIdReportRefundRequestBody = {
       | undefined
     type: "custom"
   }
-  refunded: {
-    refunded_at: number
-  }
+  refunded?:
+    | {
+        refunded_at: number
+      }
+    | undefined
 }
 
 export type t_PostPaymentRecordsReportPaymentRequestBody = {
@@ -47789,6 +48028,17 @@ export type t_PostSubscriptionsRequestBody = {
   invoice_settings?:
     | {
         account_tax_ids?: (string[] | "") | undefined
+        custom_fields?:
+          | (
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ""
+            )
+          | undefined
+        description?: string | undefined
+        footer?: string | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -48123,6 +48373,7 @@ export type t_PostSubscriptionsRequestBody = {
                   | "pix"
                   | "promptpay"
                   | "revolut_pay"
+                  | "satispay"
                   | "sepa_credit_transfer"
                   | "sepa_debit"
                   | "sofort"
@@ -48334,6 +48585,17 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
   invoice_settings?:
     | {
         account_tax_ids?: (string[] | "") | undefined
+        custom_fields?:
+          | (
+              | {
+                  name: string
+                  value: string
+                }[]
+              | ""
+            )
+          | undefined
+        description?: (string | "") | undefined
+        footer?: (string | "") | undefined
         issuer?:
           | {
               account?: string | undefined
@@ -48684,6 +48946,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
                   | "pix"
                   | "promptpay"
                   | "revolut_pay"
+                  | "satispay"
                   | "sepa_credit_transfer"
                   | "sepa_debit"
                   | "sofort"
@@ -54011,6 +54274,16 @@ export type t_PostTopupsRequestBody = {
   description?: string | undefined
   expand?: string[] | undefined
   metadata?: (Record<string, string> | "") | undefined
+  payment_method?: string | undefined
+  payment_method_options?:
+    | {
+        us_bank_account?:
+          | {
+              network: "ach"
+            }
+          | undefined
+      }
+    | undefined
   source?: string | undefined
   statement_descriptor?: string | undefined
   transfer_group?: string | undefined
@@ -54571,6 +54844,7 @@ export type t_PostWebhookEndpointsRequestBody = {
         | "2026-03-25.dahlia"
         | "2026-04-22.dahlia"
         | "2026-05-27.dahlia"
+        | "2026-06-24.dahlia"
         | UnknownEnumStringValue
       )
     | undefined
@@ -54590,7 +54864,13 @@ export type t_PostWebhookEndpointsRequestBody = {
     | "balance.available"
     | "balance_settings.updated"
     | "billing.alert.triggered"
+    | "billing.credit_balance_transaction.created"
     | "billing.credit_grant.created"
+    | "billing.credit_grant.updated"
+    | "billing.meter.created"
+    | "billing.meter.deactivated"
+    | "billing.meter.reactivated"
+    | "billing.meter.updated"
     | "billing_portal.configuration.created"
     | "billing_portal.configuration.updated"
     | "billing_portal.session.created"
@@ -54857,7 +55137,13 @@ export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
         | "balance.available"
         | "balance_settings.updated"
         | "billing.alert.triggered"
+        | "billing.credit_balance_transaction.created"
         | "billing.credit_grant.created"
+        | "billing.credit_grant.updated"
+        | "billing.meter.created"
+        | "billing.meter.deactivated"
+        | "billing.meter.reactivated"
+        | "billing.meter.updated"
         | "billing_portal.configuration.created"
         | "billing_portal.configuration.updated"
         | "billing_portal.session.created"

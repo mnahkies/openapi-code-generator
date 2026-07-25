@@ -104,9 +104,12 @@ import type {
   t_authentication_token,
   t_authorization,
   t_autolink,
+  t_BillingCreateOrganizationBudgetRequestBody,
   t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
   t_basic_error,
+  t_billing_ai_credit_usage_report_org,
+  t_billing_ai_credit_usage_report_user,
   t_billing_premium_request_usage_report_org,
   t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
@@ -187,6 +190,7 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_finding,
   t_code_quality_setup,
   t_code_quality_setup_update,
   t_code_quality_setup_update_response,
@@ -253,7 +257,7 @@ import type {
   t_copilot_space_resource,
   t_copilot_usage_metrics_1_day_report,
   t_copilot_usage_metrics_28_day_report,
-  t_copilot_usage_metrics_day,
+  t_create_budget,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
@@ -325,6 +329,7 @@ import type {
   t_hook_delivery,
   t_hook_delivery_item,
   t_hovercard,
+  t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
   t_IssuesAddAssigneesRequestBody,
   t_IssuesAddBlockedByDependencyRequestBody,
   t_IssuesAddIssueFieldValuesRequestBody,
@@ -351,6 +356,7 @@ import type {
   t_integration,
   t_integration_installation_request,
   t_interaction_limit,
+  t_interaction_limit_pull_request_bypass_list,
   t_interaction_limit_response,
   t_issue,
   t_issue_comment,
@@ -359,6 +365,7 @@ import type {
   t_issue_field,
   t_issue_field_value,
   t_issue_search_result_item,
+  t_issue_suggestion,
   t_issue_type,
   t_job,
   t_key,
@@ -557,6 +564,7 @@ import type {
   t_repository_advisory_create,
   t_repository_advisory_update,
   t_repository_collaborator_permission,
+  t_repository_hash_algorithm,
   t_repository_invitation,
   t_repository_rule_detailed,
   t_repository_rule_violation_error,
@@ -574,11 +582,19 @@ import type {
   t_runner_application,
   t_runner_groups_org,
   t_runner_label,
+  t_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
   t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningUpdateAlertRequestBody,
   t_SecretScanningUpdateOrgPatternConfigsRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
+  t_secret_scanning_alert_with_metadata,
+  t_secret_scanning_custom_pattern,
+  t_secret_scanning_custom_pattern_to_update,
+  t_secret_scanning_custom_pattern_validation_error,
   t_secret_scanning_location,
   t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
@@ -608,6 +624,7 @@ import type {
   t_tag,
   t_team,
   t_team_full,
+  t_team_member,
   t_team_membership,
   t_team_repository,
   t_team_role_assignment,
@@ -628,6 +645,7 @@ import type {
   t_UsersListAttestationsBulkRequestBody,
   t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
   t_UsersUpdateAuthenticatedRequestBody,
+  t_update_budget,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
@@ -833,6 +851,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               id?: number
             }
             creator_type?: "user" | "organization" | UnknownEnumStringValue
+            custom_agent?: {
+              id?: string
+            }
             html_url?: string
             id: string
             name?: string
@@ -1009,6 +1030,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             id?: number
           }
           creator_type?: "user" | "organization" | UnknownEnumStringValue
+          custom_agent?: {
+            id?: string
+          }
           html_url?: string
           id: string
           name?: string
@@ -1150,6 +1174,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             id?: number
           }
           creator_type?: "user" | "organization" | UnknownEnumStringValue
+          custom_agent?: {
+            id?: string
+          }
           html_url?: string
           id: string
           name?: string
@@ -1190,6 +1217,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               | UnknownEnumStringValue
             task_id?: string
             updated_at?: string
+            usage?: {
+              amount: number
+              type: "ai_credits" | "premium_requests" | UnknownEnumStringValue
+            }
             user?: {
               id?: number
             }
@@ -1346,6 +1377,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               id?: number
             }
             creator_type?: "user" | "organization" | UnknownEnumStringValue
+            custom_agent?: {
+              id?: string
+            }
             html_url?: string
             id: string
             name?: string
@@ -1493,6 +1527,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             id?: number
           }
           creator_type?: "user" | "organization" | UnknownEnumStringValue
+          custom_agent?: {
+            id?: string
+          }
           html_url?: string
           id: string
           name?: string
@@ -1533,6 +1570,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               | UnknownEnumStringValue
             task_id?: string
             updated_at?: string
+            usage?: {
+              amount: number
+              type: "ai_credits" | "premium_requests" | UnknownEnumStringValue
+            }
             user?: {
               id?: number
             }
@@ -2019,7 +2060,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_classroom_assignment> | Res<404, t_basic_error>> {
+  ): Promise<
+    | Res<200, t_classroom_assignment>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
+  > {
     const url = this.basePath + `/assignments/${p["assignmentId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -2034,7 +2079,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_classroom_accepted_assignment[]>> {
+  ): Promise<
+    Res<200, t_classroom_accepted_assignment[]> | Res<410, t_basic_error>
+  > {
     const url =
       this.basePath + `/assignments/${p["assignmentId"]}/accepted_assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -2050,7 +2097,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_classroom_assignment_grade[]> | Res<404, t_basic_error>
+    | Res<200, t_classroom_assignment_grade[]>
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
   > {
     const url = this.basePath + `/assignments/${p["assignmentId"]}/grades`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -2065,7 +2114,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_classroom[]>> {
+  ): Promise<Res<200, t_simple_classroom[]> | Res<410, t_basic_error>> {
     const url = this.basePath + `/classrooms`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({page: p["page"], per_page: p["perPage"]})
@@ -2079,7 +2128,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_classroom> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_classroom> | Res<404, t_basic_error> | Res<410, t_basic_error>
+  > {
     const url = this.basePath + `/classrooms/${p["classroomId"]}`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
@@ -2094,7 +2145,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_classroom_assignment[]>> {
+  ): Promise<
+    Res<200, t_simple_classroom_assignment[]> | Res<410, t_basic_error>
+  > {
     const url = this.basePath + `/classrooms/${p["classroomId"]}/assignments`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({page: p["page"], per_page: p["perPage"]})
@@ -2577,6 +2630,29 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotEnterpriseReposOneDayReport(
+    p: {
+      enterprise: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/copilot/metrics/reports/repos-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async copilotCopilotEnterpriseUserTeamsOneDayReport(
@@ -4216,6 +4292,49 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
+  async billingGetGithubBillingAiCreditUsageReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      user?: string
+      model?: string
+      product?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_ai_credit_usage_report_org>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/settings/billing/ai_credit/usage`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      user: p["user"],
+      model: p["model"],
+      product: p["product"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async billingGetAllBudgetsOrg(
     p: {
       org: string
@@ -4226,7 +4345,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "organization"
         | "repository"
         | "cost_center"
+        | "multi_user_customer"
+        | "user"
         | UnknownEnumStringValue
+      user?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -4243,9 +4365,42 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
       scope: p["scope"],
+      user: p["user"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingCreateOrganizationBudget(
+    p: {
+      org: string
+      requestBody?: t_BillingCreateOrganizationBudgetRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_create_budget>
+    | Res<400, t_scim_error>
+    | Res<401, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/settings/billing/budgets`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async billingGetBudgetOrg(
@@ -4287,30 +4442,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        200,
-        {
-          budget?: {
-            budget_alerting?: {
-              alert_recipients: string[]
-              will_alert: boolean
-            }
-            budget_amount?: number
-            budget_entity_name?: string
-            budget_product_sku?: string
-            budget_scope?:
-              | "enterprise"
-              | "organization"
-              | "repository"
-              | "cost_center"
-              | UnknownEnumStringValue
-            budget_type?: "ProductPricing" | "SkuPricing"
-            id?: string
-            prevent_further_usage?: boolean
-          }
-          message?: string
-        }
-      >
+    | Res<200, t_update_budget>
     | Res<400, t_scim_error>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -6725,6 +6857,26 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           total_count: number
         }
       >
+    | Res<
+        207,
+        {
+          deployment_records?: t_artifact_deployment_record[]
+          errors?: {
+            cause?: "unauthorized" | "not_found" | UnknownEnumStringValue
+            deployment?: {
+              deployment_name?: string
+              digest?: string
+              github_repository?: string | null
+              name?: string
+              runtime_risks?: string[]
+              status?: string
+              tags?: Record<string, string>
+              version?: string | null
+            }
+          }[]
+          total_count: number
+        }
+      >
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -8532,35 +8684,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
-  async copilotCopilotMetricsForOrganization(
-    p: {
-      org: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics_day[]>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/copilot/metrics`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
   async copilotCopilotOrganizationOneDayUsageMetrics(
     p: {
       org: string
@@ -8602,6 +8725,28 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async copilotCopilotOrganizationReposOneDayReport(
+    p: {
+      org: string
+      day: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_copilot_usage_metrics_1_day_report>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/copilot/metrics/reports/repos-1-day`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({day: p["day"]})
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async copilotCopilotOrganizationUserTeamsOneDayReport(
@@ -11820,6 +11965,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "bypass"
         | "all"
         | UnknownEnumStringValue
+      evaluateStatus?: "all" | "active" | "evaluate" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -11836,6 +11982,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
       rule_suite_result: p["ruleSuiteResult"],
+      evaluate_status: p["evaluateStatus"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -11988,6 +12135,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       isMultiRepo?: boolean
       hideSecret?: boolean
       isBypassed?: boolean
+      includedMetadata?: string
+      ownerEmailHash?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12024,9 +12173,137 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
       is_bypassed: p["isBypassed"],
+      included_metadata: p["includedMetadata"],
+      owner_email_hash: p["ownerEmailHash"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningListOrgCustomPatterns(
+    p: {
+      org: string
+      state?: "published" | "unpublished" | UnknownEnumStringValue
+      pushProtection?: "enabled" | "disabled" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "name" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_secret_scanning_custom_pattern[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/secret-scanning/custom-patterns`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      state: p["state"],
+      push_protection: p["pushProtection"],
+      sort: p["sort"],
+      direction: p["direction"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningBulkCreateOrgCustomPatterns(
+    p: {
+      org: string
+      requestBody: t_SecretScanningBulkCreateOrgCustomPatternsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        201,
+        {
+          created_patterns?: t_secret_scanning_custom_pattern[]
+        }
+      >
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        422,
+        {
+          message?: string
+          validation_errors?: Record<
+            string,
+            {
+              errors?: t_secret_scanning_custom_pattern_validation_error[]
+            }
+          >
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/secret-scanning/custom-patterns`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async secretScanningBulkDeleteOrgCustomPatterns(
+    p: {
+      org: string
+      requestBody: t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<412, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/secret-scanning/custom-patterns`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
+  }
+
+  async secretScanningUpdateOrgCustomPattern(
+    p: {
+      org: string
+      patternId: number
+      requestBody: t_secret_scanning_custom_pattern_to_update
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_secret_scanning_custom_pattern>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<412, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/secret-scanning/custom-patterns/${p["patternId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
   async secretScanningListOrgPatternConfigs(
@@ -12381,37 +12658,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async copilotCopilotMetricsForTeam(
-    p: {
-      org: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics_day[]>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
-  }
-
   async teamsList(
     p: {
       org: string
@@ -12541,7 +12787,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_team_member[]>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
@@ -16241,6 +16487,74 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
+  async codeQualityListFindingsForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      before?: string
+      after?: string
+      state?: "open" | "dismissed" | UnknownEnumStringValue
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_quality_finding[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-quality/findings`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      direction: p["direction"],
+      before: p["before"],
+      after: p["after"],
+      state: p["state"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async codeQualityGetFinding(
+    p: {
+      owner: string
+      repo: string
+      findingNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_quality_finding>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-quality/findings/${p["findingNumber"]}`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async codeQualityGetSetup(
     p: {
       owner: string
@@ -16437,14 +16751,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<400, t_basic_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
-    | Res<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+    | Res<500, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -16469,14 +16776,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, void>
-    | Res<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+    | Res<500, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -18046,10 +18346,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             dependency_vulnerability_checks: boolean
             secret_scanning: boolean
           }
+          is_automations_enabled: boolean
           is_firewall_enabled: boolean
           is_firewall_recommended_allowlist_enabled: boolean
           mcp_configuration: Record<string, unknown> | null
           require_actions_workflow_approval: boolean
+          require_write_access_for_automation_triggers: boolean
         }
       >
     | Res<401, t_basic_error>
@@ -19452,6 +19754,25 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
+  async reposGetHashAlgorithm(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_repository_hash_algorithm>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hash-algorithm`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
   async reposListWebhooks(
     p: {
       owner: string
@@ -19982,6 +20303,138 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
+  async interactionsGetPullRequestBypassListForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_simple_user[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async interactionsSetPullRequestBypassListForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_interaction_limit_pull_request_bypass_list
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
+  }
+
+  async interactionsRemovePullRequestBypassListForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_interaction_limit_pull_request_bypass_list
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
+  }
+
+  async interactionsGetPullRequestCreationCapForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          enabled: boolean
+          max_open_pull_requests: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<405, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/creation-cap`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async interactionsUpdatePullRequestCreationCapForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          enabled: boolean
+          max_open_pull_requests: number
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<405, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/creation-cap`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
+  }
+
   async reposListInvitations(
     p: {
       owner: string
@@ -20041,6 +20494,20 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
+  }
+
+  async reposListIssueTypes(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issue_type[]> | Res<404, t_basic_error>> {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issue-types`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async issuesListForRepo(
@@ -20415,7 +20882,51 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_issue>
+    | Res<
+        200,
+        t_issue & {
+          suggestions?: {
+            assignees?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              login?: string
+              rationale?: string
+              suggest?: boolean
+            }[]
+            issue_field_values?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              field_id?: number
+              rationale?: string
+              suggest?: boolean
+              value?: string | number | string[]
+            }[]
+            labels?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              name?: string
+              rationale?: string
+              suggest?: boolean
+            }[]
+            state?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              duplicate_issue_id?: number
+              rationale?: string
+              state_reason?: string
+              suggest?: boolean
+              value?: string
+            }[]
+            type?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              rationale?: string
+              suggest?: boolean
+              value?: string
+            }[]
+          }
+        }
+      >
     | Res<301, t_basic_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -21221,6 +21732,96 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
+  async issuesListSuggestions(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      state?:
+        | "pending"
+        | "applied"
+        | "approved"
+        | "dismissed"
+        | "replaced"
+        | "all"
+        | UnknownEnumStringValue
+      action?:
+        | "set_type"
+        | "add_label"
+        | "add_field"
+        | "add_assignee"
+        | "close_issue"
+        | UnknownEnumStringValue
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_suggestion[]>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      state: p["state"],
+      action: p["action"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async issuesApproveSuggestion(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      suggestionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_suggestion>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions/${p["suggestionId"]}/approve`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
+  }
+
+  async issuesDismissSuggestion(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      suggestionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_suggestion>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions/${p["suggestionId"]}/dismiss`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
+  }
+
   async issuesListEventsForTimeline(
     p: {
       owner: string
@@ -21228,11 +21829,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       issueNumber: number
       perPage?: number
       page?: number
+      exclude?: string
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_timeline_issue_events[]>
+    | Res<400, t_scim_error>
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
   > {
@@ -21240,7 +21843,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({per_page: p["perPage"], page: p["page"]})
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      exclude: p["exclude"],
+    })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -23286,6 +23893,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "bypass"
         | "all"
         | UnknownEnumStringValue
+      evaluateStatus?: "all" | "active" | "evaluate" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23302,6 +23910,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
       rule_suite_result: p["ruleSuiteResult"],
+      evaluate_status: p["evaluateStatus"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -23470,6 +24079,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       isMultiRepo?: boolean
       hideSecret?: boolean
       isBypassed?: boolean
+      includedMetadata?: string
+      ownerEmailHash?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -23507,6 +24118,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
       is_bypassed: p["isBypassed"],
+      included_metadata: p["includedMetadata"],
+      owner_email_hash: p["ownerEmailHash"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -23522,7 +24135,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_secret_scanning_alert>
+    | Res<200, t_secret_scanning_alert_with_metadata>
     | Res<304, void>
     | Res<404, void>
     | Res<
@@ -23553,7 +24166,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_secret_scanning_alert>
+    | Res<200, t_secret_scanning_alert_with_metadata>
     | Res<400, void>
     | Res<403, void>
     | Res<404, void>
@@ -23608,6 +24221,139 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningListRepoCustomPatterns(
+    p: {
+      owner: string
+      repo: string
+      state?: "published" | "unpublished" | UnknownEnumStringValue
+      pushProtection?: "enabled" | "disabled" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "name" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_secret_scanning_custom_pattern[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      state: p["state"],
+      push_protection: p["pushProtection"],
+      sort: p["sort"],
+      direction: p["direction"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async secretScanningBulkCreateRepoCustomPatterns(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_SecretScanningBulkCreateRepoCustomPatternsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        201,
+        {
+          created_patterns?: t_secret_scanning_custom_pattern[]
+        }
+      >
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        422,
+        {
+          message?: string
+          validation_errors?: Record<
+            string,
+            {
+              errors?: t_secret_scanning_custom_pattern_validation_error[]
+            }
+          >
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async secretScanningBulkDeleteRepoCustomPatterns(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<412, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
+  }
+
+  async secretScanningUpdateRepoCustomPattern(
+    p: {
+      owner: string
+      repo: string
+      patternId: number
+      requestBody: t_secret_scanning_custom_pattern_to_update
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_secret_scanning_custom_pattern>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<412, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns/${p["patternId"]}`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "application/json"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
   async secretScanningCreatePushProtectionBypass(
@@ -24721,7 +25467,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_team_member[]> | Res<404, t_basic_error>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
@@ -26138,6 +26884,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_org_membership>
+    | Res<202, t_org_membership>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -28398,6 +29145,46 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
+    })
+
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
+  }
+
+  async billingGetGithubBillingAiCreditUsageReportUser(
+    p: {
+      username: string
+      year?: number
+      month?: number
+      day?: number
+      model?: string
+      product?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_ai_credit_usage_report_user>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/users/${p["username"]}/settings/billing/ai_credit/usage`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      model: p["model"],
+      product: p["product"],
     })
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)

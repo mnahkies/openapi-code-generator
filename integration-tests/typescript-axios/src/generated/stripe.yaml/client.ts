@@ -21494,6 +21494,7 @@ export class StripeApi extends AbstractAxiosClient {
     const body = this._requestBodyToUrlSearchParams(p.requestBody, {
       expand: {explode: true, style: "deepObject"},
       metadata: {explode: true, style: "deepObject"},
+      payment_method_options: {explode: true, style: "deepObject"},
     })
 
     return this._request({

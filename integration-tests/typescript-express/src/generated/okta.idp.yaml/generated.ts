@@ -38,6 +38,7 @@ import type {
   t_DeleteAppAuthenticatorEnrollmentParamSchema,
   t_DeleteEmailParamSchema,
   t_DeletePhoneParamSchema,
+  t_DeleteSessionsQuerySchema,
   t_DeleteWebAuthnParamSchema,
   t_Email,
   t_Error,
@@ -80,6 +81,7 @@ import type {
   t_WebAuthnRegistrationOptions,
 } from "./models.ts"
 import {
+  PermissiveBoolean,
   s_AppAuthenticatorEnrollment,
   s_AppAuthenticatorEnrollmentRequest,
   s_Authenticator,
@@ -749,7 +751,7 @@ export type DeleteSessionsResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteSessions = (
-  params: Params<void, void, void, void>,
+  params: Params<void, t_DeleteSessionsQuerySchema, void, void>,
   respond: DeleteSessionsResponder,
   req: Request,
   res: Response,
@@ -2996,6 +2998,12 @@ export function createRouter(
     },
   )
 
+  const deleteSessionsQuerySchema = z.object({
+    oauthTokens: PermissiveBoolean.optional().default(true),
+    excludeCurrentAuthorizationContext:
+      PermissiveBoolean.optional().default(false),
+  })
+
   const deleteSessionsResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
@@ -3013,7 +3021,11 @@ export function createRouter(
       try {
         const input = {
           params: undefined,
-          query: undefined,
+          query: parseRequestInput(
+            deleteSessionsQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
           body: undefined,
           headers: undefined,
         }

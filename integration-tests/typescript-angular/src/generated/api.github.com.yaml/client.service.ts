@@ -101,9 +101,12 @@ import type {
   t_authentication_token,
   t_authorization,
   t_autolink,
+  t_BillingCreateOrganizationBudgetRequestBody,
   t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
   t_basic_error,
+  t_billing_ai_credit_usage_report_org,
+  t_billing_ai_credit_usage_report_user,
   t_billing_premium_request_usage_report_org,
   t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
@@ -184,6 +187,7 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_finding,
   t_code_quality_setup,
   t_code_quality_setup_update,
   t_code_quality_setup_update_response,
@@ -250,7 +254,7 @@ import type {
   t_copilot_space_resource,
   t_copilot_usage_metrics_1_day_report,
   t_copilot_usage_metrics_28_day_report,
-  t_copilot_usage_metrics_day,
+  t_create_budget,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
@@ -322,6 +326,7 @@ import type {
   t_hook_delivery,
   t_hook_delivery_item,
   t_hovercard,
+  t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
   t_IssuesAddAssigneesRequestBody,
   t_IssuesAddBlockedByDependencyRequestBody,
   t_IssuesAddIssueFieldValuesRequestBody,
@@ -348,6 +353,7 @@ import type {
   t_integration,
   t_integration_installation_request,
   t_interaction_limit,
+  t_interaction_limit_pull_request_bypass_list,
   t_interaction_limit_response,
   t_issue,
   t_issue_comment,
@@ -356,6 +362,7 @@ import type {
   t_issue_field,
   t_issue_field_value,
   t_issue_search_result_item,
+  t_issue_suggestion,
   t_issue_type,
   t_job,
   t_key,
@@ -554,6 +561,7 @@ import type {
   t_repository_advisory_create,
   t_repository_advisory_update,
   t_repository_collaborator_permission,
+  t_repository_hash_algorithm,
   t_repository_invitation,
   t_repository_rule_detailed,
   t_repository_rule_violation_error,
@@ -571,11 +579,19 @@ import type {
   t_runner_application,
   t_runner_groups_org,
   t_runner_label,
+  t_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
   t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningUpdateAlertRequestBody,
   t_SecretScanningUpdateOrgPatternConfigsRequestBody,
   t_scim_error,
   t_secret_scanning_alert,
+  t_secret_scanning_alert_with_metadata,
+  t_secret_scanning_custom_pattern,
+  t_secret_scanning_custom_pattern_to_update,
+  t_secret_scanning_custom_pattern_validation_error,
   t_secret_scanning_location,
   t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
@@ -605,6 +621,7 @@ import type {
   t_tag,
   t_team,
   t_team_full,
+  t_team_member,
   t_team_membership,
   t_team_repository,
   t_team_role_assignment,
@@ -625,6 +642,7 @@ import type {
   t_UsersListAttestationsBulkRequestBody,
   t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
   t_UsersUpdateAuthenticatedRequestBody,
+  t_update_budget,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
@@ -927,6 +945,9 @@ export class GitHubV3RestApiService {
             id?: number
           }
           creator_type?: "user" | "organization" | UnknownEnumStringValue
+          custom_agent?: {
+            id?: string
+          }
           html_url?: string
           id: string
           name?: string
@@ -1090,6 +1111,9 @@ export class GitHubV3RestApiService {
           id?: number
         }
         creator_type?: "user" | "organization" | UnknownEnumStringValue
+        custom_agent?: {
+          id?: string
+        }
         html_url?: string
         id: string
         name?: string
@@ -1221,6 +1245,9 @@ export class GitHubV3RestApiService {
           id?: number
         }
         creator_type?: "user" | "organization" | UnknownEnumStringValue
+        custom_agent?: {
+          id?: string
+        }
         html_url?: string
         id: string
         name?: string
@@ -1261,6 +1288,10 @@ export class GitHubV3RestApiService {
             | UnknownEnumStringValue
           task_id?: string
           updated_at?: string
+          usage?: {
+            amount: number
+            type: "ai_credits" | "premium_requests" | UnknownEnumStringValue
+          }
           user?: {
             id?: number
           }
@@ -1404,6 +1435,9 @@ export class GitHubV3RestApiService {
             id?: number
           }
           creator_type?: "user" | "organization" | UnknownEnumStringValue
+          custom_agent?: {
+            id?: string
+          }
           html_url?: string
           id: string
           name?: string
@@ -1539,6 +1573,9 @@ export class GitHubV3RestApiService {
           id?: number
         }
         creator_type?: "user" | "organization" | UnknownEnumStringValue
+        custom_agent?: {
+          id?: string
+        }
         html_url?: string
         id: string
         name?: string
@@ -1579,6 +1616,10 @@ export class GitHubV3RestApiService {
             | UnknownEnumStringValue
           task_id?: string
           updated_at?: string
+          usage?: {
+            amount: number
+            type: "ai_credits" | "premium_requests" | UnknownEnumStringValue
+          }
           user?: {
             id?: number
           }
@@ -2166,6 +2207,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<t_classroom_assignment> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -2187,6 +2229,7 @@ export class GitHubV3RestApiService {
     perPage?: number
   }): Observable<
     | (HttpResponse<t_classroom_accepted_assignment[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -2210,6 +2253,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<t_classroom_assignment_grade[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -2228,7 +2272,9 @@ export class GitHubV3RestApiService {
   classroomListClassrooms(
     p: {page?: number; perPage?: number} = {},
   ): Observable<
-    (HttpResponse<t_simple_classroom[]> & {status: 200}) | HttpResponse<unknown>
+    | (HttpResponse<t_simple_classroom[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query({page: p["page"], per_page: p["perPage"]})
@@ -2250,6 +2296,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<t_classroom> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -2271,6 +2318,7 @@ export class GitHubV3RestApiService {
     perPage?: number
   }): Observable<
     | (HttpResponse<t_simple_classroom_assignment[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -2857,6 +2905,33 @@ export class GitHubV3RestApiService {
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/copilot/metrics/reports/enterprise-28-day/latest`,
       {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCopilotEnterpriseReposOneDayReport(p: {
+    enterprise: string
+    day: string
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_1_day_report> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({day: p["day"]})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/copilot/metrics/reports/repos-1-day`,
+      {
+        params,
         headers,
         observe: "response",
         reportProgress: false,
@@ -4882,6 +4957,50 @@ export class GitHubV3RestApiService {
     )
   }
 
+  billingGetGithubBillingAiCreditUsageReportOrg(p: {
+    org: string
+    year?: number
+    month?: number
+    day?: number
+    user?: string
+    model?: string
+    product?: string
+  }): Observable<
+    | (HttpResponse<t_billing_ai_credit_usage_report_org> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & {status: 503})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      user: p["user"],
+      model: p["model"],
+      product: p["product"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/settings/billing/ai_credit/usage`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   billingGetAllBudgetsOrg(p: {
     org: string
     page?: number
@@ -4891,7 +5010,10 @@ export class GitHubV3RestApiService {
       | "organization"
       | "repository"
       | "cost_center"
+      | "multi_user_customer"
+      | "user"
       | UnknownEnumStringValue
+    user?: string
   }): Observable<
     | (HttpResponse<t_get_all_budgets> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -4904,6 +5026,7 @@ export class GitHubV3RestApiService {
       page: p["page"],
       per_page: p["perPage"],
       scope: p["scope"],
+      user: p["user"],
     })
 
     return this.httpClient.request<any>(
@@ -4913,6 +5036,39 @@ export class GitHubV3RestApiService {
       {
         params,
         headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  billingCreateOrganizationBudget(p: {
+    org: string
+    requestBody?: t_BillingCreateOrganizationBudgetRequestBody
+  }): Observable<
+    | (HttpResponse<t_create_budget> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/organizations/${p["org"]}/settings/billing/budgets`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4951,27 +5107,7 @@ export class GitHubV3RestApiService {
     budgetId: string
     requestBody: t_BillingUpdateBudgetOrgRequestBody
   }): Observable<
-    | (HttpResponse<{
-        budget?: {
-          budget_alerting?: {
-            alert_recipients: string[]
-            will_alert: boolean
-          }
-          budget_amount?: number
-          budget_entity_name?: string
-          budget_product_sku?: string
-          budget_scope?:
-            | "enterprise"
-            | "organization"
-            | "repository"
-            | "cost_center"
-            | UnknownEnumStringValue
-          budget_type?: "ProductPricing" | "SkuPricing"
-          id?: string
-          prevent_further_usage?: boolean
-        }
-        message?: string
-      }> & {status: 200})
+    | (HttpResponse<t_update_budget> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -7778,6 +7914,23 @@ export class GitHubV3RestApiService {
         deployment_records?: t_artifact_deployment_record[]
         total_count: number
       }> & {status: 200})
+    | (HttpResponse<{
+        deployment_records?: t_artifact_deployment_record[]
+        errors?: {
+          cause?: "unauthorized" | "not_found" | UnknownEnumStringValue
+          deployment?: {
+            deployment_name?: string
+            digest?: string
+            github_repository?: string | null
+            name?: string
+            runtime_risks?: string[]
+            status?: string
+            tags?: Record<string, string>
+            version?: string | null
+          }
+        }[]
+        total_count: number
+      }> & {status: 207})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
@@ -9839,40 +9992,6 @@ export class GitHubV3RestApiService {
     )
   }
 
-  copilotCopilotMetricsForOrganization(p: {
-    org: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & {status: 200})
-    | (HttpResponse<t_basic_error> & {status: 403})
-    | (HttpResponse<t_basic_error> & {status: 404})
-    | (HttpResponse<t_basic_error> & {status: 422})
-    | (HttpResponse<t_basic_error> & {status: 500})
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/orgs/${p["org"]}/copilot/metrics`,
-      {
-        params,
-        headers,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   copilotCopilotOrganizationOneDayUsageMetrics(p: {
     org: string
     day: string
@@ -9916,6 +10035,33 @@ export class GitHubV3RestApiService {
       this.config.basePath +
         `/orgs/${p["org"]}/copilot/metrics/reports/organization-28-day/latest`,
       {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCopilotOrganizationReposOneDayReport(p: {
+    org: string
+    day: string
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_1_day_report> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({day: p["day"]})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/copilot/metrics/reports/repos-1-day`,
+      {
+        params,
         headers,
         observe: "response",
         reportProgress: false,
@@ -13799,6 +13945,7 @@ export class GitHubV3RestApiService {
       | "bypass"
       | "all"
       | UnknownEnumStringValue
+    evaluateStatus?: "all" | "active" | "evaluate" | UnknownEnumStringValue
     perPage?: number
     page?: number
   }): Observable<
@@ -13814,6 +13961,7 @@ export class GitHubV3RestApiService {
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
       rule_suite_result: p["ruleSuiteResult"],
+      evaluate_status: p["evaluateStatus"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -13998,6 +14146,8 @@ export class GitHubV3RestApiService {
     isMultiRepo?: boolean
     hideSecret?: boolean
     isBypassed?: boolean
+    includedMetadata?: string
+    ownerEmailHash?: string
   }): Observable<
     | (HttpResponse<t_organization_secret_scanning_alert[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -14028,6 +14178,8 @@ export class GitHubV3RestApiService {
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
       is_bypassed: p["isBypassed"],
+      included_metadata: p["includedMetadata"],
+      owner_email_hash: p["ownerEmailHash"],
     })
 
     return this.httpClient.request<any>(
@@ -14036,6 +14188,145 @@ export class GitHubV3RestApiService {
       {
         params,
         headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningListOrgCustomPatterns(p: {
+    org: string
+    state?: "published" | "unpublished" | UnknownEnumStringValue
+    pushProtection?: "enabled" | "disabled" | UnknownEnumStringValue
+    sort?: "created" | "updated" | "name" | UnknownEnumStringValue
+    direction?: "asc" | "desc" | UnknownEnumStringValue
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_custom_pattern[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      state: p["state"],
+      push_protection: p["pushProtection"],
+      sort: p["sort"],
+      direction: p["direction"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/secret-scanning/custom-patterns`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningBulkCreateOrgCustomPatterns(p: {
+    org: string
+    requestBody: t_SecretScanningBulkCreateOrgCustomPatternsRequestBody
+  }): Observable<
+    | (HttpResponse<{
+        created_patterns?: t_secret_scanning_custom_pattern[]
+      }> & {status: 201})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<{
+        message?: string
+        validation_errors?: Record<
+          string,
+          {
+            errors?: t_secret_scanning_custom_pattern_validation_error[]
+          }
+        >
+      }> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/secret-scanning/custom-patterns`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningBulkDeleteOrgCustomPatterns(p: {
+    org: string
+    requestBody: t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 412})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/secret-scanning/custom-patterns`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningUpdateOrgCustomPattern(p: {
+    org: string
+    patternId: number
+    requestBody: t_secret_scanning_custom_pattern_to_update
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_custom_pattern> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 412})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/secret-scanning/custom-patterns/${p["patternId"]}`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -14453,42 +14744,6 @@ export class GitHubV3RestApiService {
     )
   }
 
-  copilotCopilotMetricsForTeam(p: {
-    org: string
-    teamSlug: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & {status: 200})
-    | (HttpResponse<t_basic_error> & {status: 403})
-    | (HttpResponse<t_basic_error> & {status: 404})
-    | (HttpResponse<t_basic_error> & {status: 422})
-    | (HttpResponse<t_basic_error> & {status: 500})
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`,
-      {
-        params,
-        headers,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   teamsList(p: {
     org: string
     perPage?: number
@@ -14651,7 +14906,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
+    (HttpResponse<t_team_member[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
     const params = this._query({
@@ -19030,6 +19285,76 @@ export class GitHubV3RestApiService {
     )
   }
 
+  codeQualityListFindingsForRepo(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    direction?: "asc" | "desc" | UnknownEnumStringValue
+    before?: string
+    after?: string
+    state?: "open" | "dismissed" | UnknownEnumStringValue
+  }): Observable<
+    | (HttpResponse<t_code_quality_finding[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & {status: 503})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      per_page: p["perPage"],
+      direction: p["direction"],
+      before: p["before"],
+      after: p["after"],
+      state: p["state"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-quality/findings`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeQualityGetFinding(p: {
+    owner: string
+    repo: string
+    findingNumber: number
+  }): Observable<
+    | (HttpResponse<t_code_quality_finding> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & {status: 503})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-quality/findings/${p["findingNumber"]}`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codeQualityGetSetup(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_code_quality_setup> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -19225,11 +19550,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 400})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
-    | (HttpResponse<{
-        code?: string
-        documentation_url?: string
-        message?: string
-      }> & {status: 503})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -19257,11 +19578,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<void> & {status: 422})
-    | (HttpResponse<{
-        code?: string
-        documentation_url?: string
-        message?: string
-      }> & {status: 503})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
@@ -21002,10 +21319,12 @@ export class GitHubV3RestApiService {
           dependency_vulnerability_checks: boolean
           secret_scanning: boolean
         }
+        is_automations_enabled: boolean
         is_firewall_enabled: boolean
         is_firewall_recommended_allowlist_enabled: boolean
         mcp_configuration: Record<string, unknown> | null
         require_actions_workflow_approval: boolean
+        require_write_access_for_automation_triggers: boolean
       }> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<t_basic_error> & {status: 403})
@@ -22667,6 +22986,28 @@ export class GitHubV3RestApiService {
     )
   }
 
+  reposGetHashAlgorithm(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_repository_hash_algorithm> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hash-algorithm`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   reposListWebhooks(p: {
     owner: string
     repo: string
@@ -23344,6 +23685,150 @@ export class GitHubV3RestApiService {
     )
   }
 
+  interactionsGetPullRequestBypassListForRepo(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  interactionsSetPullRequestBypassListForRepo(p: {
+    owner: string
+    repo: string
+    requestBody: t_interaction_limit_pull_request_bypass_list
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  interactionsRemovePullRequestBypassListForRepo(p: {
+    owner: string
+    repo: string
+    requestBody: t_interaction_limit_pull_request_bypass_list
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/bypass-list`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  interactionsGetPullRequestCreationCapForRepo(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<{
+        enabled: boolean
+        max_open_pull_requests: number
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 405})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/creation-cap`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  interactionsUpdatePullRequestCreationCapForRepo(p: {
+    owner: string
+    repo: string
+    requestBody: t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody
+  }): Observable<
+    | (HttpResponse<{
+        enabled: boolean
+        max_open_pull_requests: number
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 405})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/interaction-limits/pulls/creation-cap`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   reposListInvitations(p: {
     owner: string
     repo: string
@@ -23408,6 +23893,27 @@ export class GitHubV3RestApiService {
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposListIssueTypes(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_issue_type[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issue-types`,
       {
         headers,
         observe: "response",
@@ -23842,7 +24348,50 @@ export class GitHubV3RestApiService {
     issueNumber: number
     requestBody?: t_IssuesUpdateRequestBody
   }): Observable<
-    | (HttpResponse<t_issue> & {status: 200})
+    | (HttpResponse<
+        t_issue & {
+          suggestions?: {
+            assignees?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              login?: string
+              rationale?: string
+              suggest?: boolean
+            }[]
+            issue_field_values?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              field_id?: number
+              rationale?: string
+              suggest?: boolean
+              value?: string | number | string[]
+            }[]
+            labels?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              name?: string
+              rationale?: string
+              suggest?: boolean
+            }[]
+            state?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              duplicate_issue_id?: number
+              rationale?: string
+              state_reason?: string
+              suggest?: boolean
+              value?: string
+            }[]
+            type?: {
+              already_applied?: boolean
+              confidence?: "low" | "medium" | "high" | UnknownEnumStringValue
+              rationale?: string
+              suggest?: boolean
+              value?: string
+            }[]
+          }
+        }
+      > & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 301})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -24746,20 +25295,126 @@ export class GitHubV3RestApiService {
     )
   }
 
+  issuesListSuggestions(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    state?:
+      | "pending"
+      | "applied"
+      | "approved"
+      | "dismissed"
+      | "replaced"
+      | "all"
+      | UnknownEnumStringValue
+    action?:
+      | "set_type"
+      | "add_label"
+      | "add_field"
+      | "add_assignee"
+      | "close_issue"
+      | UnknownEnumStringValue
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<t_issue_suggestion[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      state: p["state"],
+      action: p["action"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  issuesApproveSuggestion(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    suggestionId: number
+  }): Observable<
+    | (HttpResponse<t_issue_suggestion> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions/${p["suggestionId"]}/approve`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  issuesDismissSuggestion(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    suggestionId: number
+  }): Observable<
+    | (HttpResponse<t_issue_suggestion> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/suggestions/${p["suggestionId"]}/dismiss`,
+      {
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   issuesListEventsForTimeline(p: {
     owner: string
     repo: string
     issueNumber: number
     perPage?: number
     page?: number
+    exclude?: string
   }): Observable<
     | (HttpResponse<t_timeline_issue_events[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({per_page: p["perPage"], page: p["page"]})
+    const params = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      exclude: p["exclude"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -27231,6 +27886,7 @@ export class GitHubV3RestApiService {
       | "bypass"
       | "all"
       | UnknownEnumStringValue
+    evaluateStatus?: "all" | "active" | "evaluate" | UnknownEnumStringValue
     perPage?: number
     page?: number
   }): Observable<
@@ -27245,6 +27901,7 @@ export class GitHubV3RestApiService {
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
       rule_suite_result: p["ruleSuiteResult"],
+      evaluate_status: p["evaluateStatus"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -27443,6 +28100,8 @@ export class GitHubV3RestApiService {
     isMultiRepo?: boolean
     hideSecret?: boolean
     isBypassed?: boolean
+    includedMetadata?: string
+    ownerEmailHash?: string
   }): Observable<
     | (HttpResponse<t_secret_scanning_alert[]> & {status: 200})
     | (HttpResponse<void> & {status: 404})
@@ -27473,6 +28132,8 @@ export class GitHubV3RestApiService {
       is_multi_repo: p["isMultiRepo"],
       hide_secret: p["hideSecret"],
       is_bypassed: p["isBypassed"],
+      included_metadata: p["includedMetadata"],
+      owner_email_hash: p["ownerEmailHash"],
     })
 
     return this.httpClient.request<any>(
@@ -27494,7 +28155,7 @@ export class GitHubV3RestApiService {
     alertNumber: t_alert_number
     hideSecret?: boolean
   }): Observable<
-    | (HttpResponse<t_secret_scanning_alert> & {status: 200})
+    | (HttpResponse<t_secret_scanning_alert_with_metadata> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
@@ -27526,7 +28187,7 @@ export class GitHubV3RestApiService {
     alertNumber: t_alert_number
     requestBody: t_SecretScanningUpdateAlertRequestBody
   }): Observable<
-    | (HttpResponse<t_secret_scanning_alert> & {status: 200})
+    | (HttpResponse<t_secret_scanning_alert_with_metadata> & {status: 200})
     | (HttpResponse<void> & {status: 400})
     | (HttpResponse<void> & {status: 403})
     | (HttpResponse<void> & {status: 404})
@@ -27583,6 +28244,149 @@ export class GitHubV3RestApiService {
       {
         params,
         headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningListRepoCustomPatterns(p: {
+    owner: string
+    repo: string
+    state?: "published" | "unpublished" | UnknownEnumStringValue
+    pushProtection?: "enabled" | "disabled" | UnknownEnumStringValue
+    sort?: "created" | "updated" | "name" | UnknownEnumStringValue
+    direction?: "asc" | "desc" | UnknownEnumStringValue
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_custom_pattern[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      state: p["state"],
+      push_protection: p["pushProtection"],
+      sort: p["sort"],
+      direction: p["direction"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningBulkCreateRepoCustomPatterns(p: {
+    owner: string
+    repo: string
+    requestBody: t_SecretScanningBulkCreateRepoCustomPatternsRequestBody
+  }): Observable<
+    | (HttpResponse<{
+        created_patterns?: t_secret_scanning_custom_pattern[]
+      }> & {status: 201})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<{
+        message?: string
+        validation_errors?: Record<
+          string,
+          {
+            errors?: t_secret_scanning_custom_pattern_validation_error[]
+          }
+        >
+      }> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningBulkDeleteRepoCustomPatterns(p: {
+    owner: string
+    repo: string
+    requestBody: t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody
+  }): Observable<
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 412})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningUpdateRepoCustomPattern(p: {
+    owner: string
+    repo: string
+    patternId: number
+    requestBody: t_secret_scanning_custom_pattern_to_update
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_custom_pattern> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 412})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/custom-patterns/${p["patternId"]}`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28881,7 +29685,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_team_member[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
@@ -30586,6 +31390,7 @@ export class GitHubV3RestApiService {
     requestBody: t_OrgsUpdateMembershipForAuthenticatedUserRequestBody
   }): Observable<
     | (HttpResponse<t_org_membership> & {status: 200})
+    | (HttpResponse<t_org_membership> & {status: 202})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_validation_error> & {status: 422})
@@ -33273,6 +34078,48 @@ export class GitHubV3RestApiService {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/repos`,
+      {
+        params,
+        headers,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  billingGetGithubBillingAiCreditUsageReportUser(p: {
+    username: string
+    year?: number
+    month?: number
+    day?: number
+    model?: string
+    product?: string
+  }): Observable<
+    | (HttpResponse<t_billing_ai_credit_usage_report_user> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & {status: 503})
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      model: p["model"],
+      product: p["product"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/users/${p["username"]}/settings/billing/ai_credit/usage`,
       {
         params,
         headers,

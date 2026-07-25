@@ -484,10 +484,16 @@ import type {
   t_authentication_token,
   t_authorization,
   t_autolink,
+  t_BillingCreateOrganizationBudgetParamSchema,
+  t_BillingCreateOrganizationBudgetRequestBody,
   t_BillingDeleteBudgetOrgParamSchema,
   t_BillingGetAllBudgetsOrgParamSchema,
   t_BillingGetAllBudgetsOrgQuerySchema,
   t_BillingGetBudgetOrgParamSchema,
+  t_BillingGetGithubBillingAiCreditUsageReportOrgParamSchema,
+  t_BillingGetGithubBillingAiCreditUsageReportOrgQuerySchema,
+  t_BillingGetGithubBillingAiCreditUsageReportUserParamSchema,
+  t_BillingGetGithubBillingAiCreditUsageReportUserQuerySchema,
   t_BillingGetGithubBillingPremiumRequestUsageReportOrgParamSchema,
   t_BillingGetGithubBillingPremiumRequestUsageReportOrgQuerySchema,
   t_BillingGetGithubBillingPremiumRequestUsageReportUserParamSchema,
@@ -504,6 +510,8 @@ import type {
   t_BillingUpdateBudgetOrgRequestBody,
   t_base_gist,
   t_basic_error,
+  t_billing_ai_credit_usage_report_org,
+  t_billing_ai_credit_usage_report_user,
   t_billing_premium_request_usage_report_org,
   t_billing_premium_request_usage_report_user,
   t_billing_usage_report,
@@ -551,7 +559,10 @@ import type {
   t_ClassroomListAssignmentsForAClassroomParamSchema,
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
+  t_CodeQualityGetFindingParamSchema,
   t_CodeQualityGetSetupParamSchema,
+  t_CodeQualityListFindingsForRepoParamSchema,
+  t_CodeQualityListFindingsForRepoQuerySchema,
   t_CodeQualityUpdateSetupParamSchema,
   t_CodeScanningCommitAutofixParamSchema,
   t_CodeScanningCreateAutofixParamSchema,
@@ -698,15 +709,15 @@ import type {
   t_CopilotCopilotContentExclusionForOrganizationParamSchema,
   t_CopilotCopilotEnterpriseOneDayUsageMetricsParamSchema,
   t_CopilotCopilotEnterpriseOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotEnterpriseReposOneDayReportParamSchema,
+  t_CopilotCopilotEnterpriseReposOneDayReportQuerySchema,
   t_CopilotCopilotEnterpriseUsageMetricsParamSchema,
   t_CopilotCopilotEnterpriseUserTeamsOneDayReportParamSchema,
   t_CopilotCopilotEnterpriseUserTeamsOneDayReportQuerySchema,
-  t_CopilotCopilotMetricsForOrganizationParamSchema,
-  t_CopilotCopilotMetricsForOrganizationQuerySchema,
-  t_CopilotCopilotMetricsForTeamParamSchema,
-  t_CopilotCopilotMetricsForTeamQuerySchema,
   t_CopilotCopilotOrganizationOneDayUsageMetricsParamSchema,
   t_CopilotCopilotOrganizationOneDayUsageMetricsQuerySchema,
+  t_CopilotCopilotOrganizationReposOneDayReportParamSchema,
+  t_CopilotCopilotOrganizationReposOneDayReportQuerySchema,
   t_CopilotCopilotOrganizationUsageMetricsParamSchema,
   t_CopilotCopilotOrganizationUsersOneDayUsageMetricsParamSchema,
   t_CopilotCopilotOrganizationUsersOneDayUsageMetricsQuerySchema,
@@ -793,6 +804,7 @@ import type {
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
+  t_code_quality_finding,
   t_code_quality_setup,
   t_code_quality_setup_update,
   t_code_quality_setup_update_response,
@@ -853,7 +865,7 @@ import type {
   t_copilot_space_resource,
   t_copilot_usage_metrics_1_day_report,
   t_copilot_usage_metrics_28_day_report,
-  t_copilot_usage_metrics_day,
+  t_create_budget,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_set_payload,
@@ -1029,12 +1041,18 @@ import type {
   t_hook_delivery,
   t_hook_delivery_item,
   t_hovercard,
+  t_InteractionsGetPullRequestBypassListForRepoParamSchema,
+  t_InteractionsGetPullRequestCreationCapForRepoParamSchema,
   t_InteractionsGetRestrictionsForOrgParamSchema,
   t_InteractionsGetRestrictionsForRepoParamSchema,
+  t_InteractionsRemovePullRequestBypassListForRepoParamSchema,
   t_InteractionsRemoveRestrictionsForOrgParamSchema,
   t_InteractionsRemoveRestrictionsForRepoParamSchema,
+  t_InteractionsSetPullRequestBypassListForRepoParamSchema,
   t_InteractionsSetRestrictionsForOrgParamSchema,
   t_InteractionsSetRestrictionsForRepoParamSchema,
+  t_InteractionsUpdatePullRequestCreationCapForRepoParamSchema,
+  t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
   t_IssuesAddAssigneesParamSchema,
   t_IssuesAddAssigneesRequestBody,
   t_IssuesAddBlockedByDependencyParamSchema,
@@ -1045,6 +1063,7 @@ import type {
   t_IssuesAddLabelsRequestBody,
   t_IssuesAddSubIssueParamSchema,
   t_IssuesAddSubIssueRequestBody,
+  t_IssuesApproveSuggestionParamSchema,
   t_IssuesCheckUserCanBeAssignedParamSchema,
   t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
   t_IssuesCreateCommentParamSchema,
@@ -1059,6 +1078,7 @@ import type {
   t_IssuesDeleteIssueFieldValueParamSchema,
   t_IssuesDeleteLabelParamSchema,
   t_IssuesDeleteMilestoneParamSchema,
+  t_IssuesDismissSuggestionParamSchema,
   t_IssuesGetCommentParamSchema,
   t_IssuesGetEventParamSchema,
   t_IssuesGetLabelParamSchema,
@@ -1099,6 +1119,8 @@ import type {
   t_IssuesListQuerySchema,
   t_IssuesListSubIssuesParamSchema,
   t_IssuesListSubIssuesQuerySchema,
+  t_IssuesListSuggestionsParamSchema,
+  t_IssuesListSuggestionsQuerySchema,
   t_IssuesLockParamSchema,
   t_IssuesLockRequestBody,
   t_IssuesPinCommentParamSchema,
@@ -1132,6 +1154,7 @@ import type {
   t_integration,
   t_integration_installation_request,
   t_interaction_limit,
+  t_interaction_limit_pull_request_bypass_list,
   t_interaction_limit_response,
   t_issue,
   t_issue_comment,
@@ -1140,6 +1163,7 @@ import type {
   t_issue_field,
   t_issue_field_value,
   t_issue_search_result_item,
+  t_issue_suggestion,
   t_issue_type,
   t_job,
   t_key,
@@ -1699,6 +1723,7 @@ import type {
   t_ReposGetDeploymentParamSchema,
   t_ReposGetDeploymentStatusParamSchema,
   t_ReposGetEnvironmentParamSchema,
+  t_ReposGetHashAlgorithmParamSchema,
   t_ReposGetLatestPagesBuildParamSchema,
   t_ReposGetLatestReleaseParamSchema,
   t_ReposGetOrgRuleSuiteParamSchema,
@@ -1782,6 +1807,7 @@ import type {
   t_ReposListInvitationsForAuthenticatedUserQuerySchema,
   t_ReposListInvitationsParamSchema,
   t_ReposListInvitationsQuerySchema,
+  t_ReposListIssueTypesParamSchema,
   t_ReposListLanguagesParamSchema,
   t_ReposListPagesBuildsParamSchema,
   t_ReposListPagesBuildsQuerySchema,
@@ -1875,6 +1901,7 @@ import type {
   t_repository_advisory_create,
   t_repository_advisory_update,
   t_repository_collaborator_permission,
+  t_repository_hash_algorithm,
   t_repository_invitation,
   t_repository_rule_detailed,
   t_repository_rule_violation_error,
@@ -1899,6 +1926,14 @@ import type {
   t_SearchReposQuerySchema,
   t_SearchTopicsQuerySchema,
   t_SearchUsersQuerySchema,
+  t_SecretScanningBulkCreateOrgCustomPatternsParamSchema,
+  t_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkCreateRepoCustomPatternsParamSchema,
+  t_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteOrgCustomPatternsParamSchema,
+  t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+  t_SecretScanningBulkDeleteRepoCustomPatternsParamSchema,
+  t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
   t_SecretScanningCreatePushProtectionBypassParamSchema,
   t_SecretScanningCreatePushProtectionBypassRequestBody,
   t_SecretScanningGetAlertParamSchema,
@@ -1910,11 +1945,17 @@ import type {
   t_SecretScanningListAlertsForRepoQuerySchema,
   t_SecretScanningListLocationsForAlertParamSchema,
   t_SecretScanningListLocationsForAlertQuerySchema,
+  t_SecretScanningListOrgCustomPatternsParamSchema,
+  t_SecretScanningListOrgCustomPatternsQuerySchema,
   t_SecretScanningListOrgPatternConfigsParamSchema,
+  t_SecretScanningListRepoCustomPatternsParamSchema,
+  t_SecretScanningListRepoCustomPatternsQuerySchema,
   t_SecretScanningUpdateAlertParamSchema,
   t_SecretScanningUpdateAlertRequestBody,
+  t_SecretScanningUpdateOrgCustomPatternParamSchema,
   t_SecretScanningUpdateOrgPatternConfigsParamSchema,
   t_SecretScanningUpdateOrgPatternConfigsRequestBody,
+  t_SecretScanningUpdateRepoCustomPatternParamSchema,
   t_SecurityAdvisoriesCreateForkParamSchema,
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
@@ -1929,6 +1970,10 @@ import type {
   t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
   t_scim_error,
   t_secret_scanning_alert,
+  t_secret_scanning_alert_with_metadata,
+  t_secret_scanning_custom_pattern,
+  t_secret_scanning_custom_pattern_to_update,
+  t_secret_scanning_custom_pattern_validation_error,
   t_secret_scanning_location,
   t_secret_scanning_pattern_configuration,
   t_secret_scanning_push_protection_bypass,
@@ -1998,6 +2043,7 @@ import type {
   t_tag,
   t_team,
   t_team_full,
+  t_team_member,
   t_team_membership,
   t_team_repository,
   t_team_role_assignment,
@@ -2064,6 +2110,7 @@ import type {
   t_UsersUnblockParamSchema,
   t_UsersUnfollowParamSchema,
   t_UsersUpdateAuthenticatedRequestBody,
+  t_update_budget,
   t_user_marketplace_purchase,
   t_user_role_assignment,
   t_user_search_result_item,
@@ -2174,9 +2221,12 @@ import {
   s_authentication_token,
   s_authorization,
   s_autolink,
+  s_BillingCreateOrganizationBudgetRequestBody,
   s_BillingUpdateBudgetOrgRequestBody,
   s_base_gist,
   s_basic_error,
+  s_billing_ai_credit_usage_report_org,
+  s_billing_ai_credit_usage_report_user,
   s_billing_premium_request_usage_report_org,
   s_billing_premium_request_usage_report_user,
   s_billing_usage_report,
@@ -2257,6 +2307,7 @@ import {
   s_clone_traffic,
   s_code_frequency_stat,
   s_code_of_conduct,
+  s_code_quality_finding,
   s_code_quality_setup,
   s_code_quality_setup_update,
   s_code_quality_setup_update_response,
@@ -2323,7 +2374,7 @@ import {
   s_copilot_space_resource,
   s_copilot_usage_metrics_1_day_report,
   s_copilot_usage_metrics_28_day_report,
-  s_copilot_usage_metrics_day,
+  s_create_budget,
   s_custom_deployment_rule_app,
   s_custom_property,
   s_custom_property_set_payload,
@@ -2395,6 +2446,7 @@ import {
   s_hook_delivery,
   s_hook_delivery_item,
   s_hovercard,
+  s_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
   s_IssuesAddAssigneesRequestBody,
   s_IssuesAddBlockedByDependencyRequestBody,
   s_IssuesAddIssueFieldValuesRequestBody,
@@ -2421,6 +2473,7 @@ import {
   s_integration,
   s_integration_installation_request,
   s_interaction_limit,
+  s_interaction_limit_pull_request_bypass_list,
   s_interaction_limit_response,
   s_issue,
   s_issue_comment,
@@ -2429,6 +2482,7 @@ import {
   s_issue_field,
   s_issue_field_value,
   s_issue_search_result_item,
+  s_issue_suggestion,
   s_issue_type,
   s_job,
   s_key,
@@ -2627,6 +2681,7 @@ import {
   s_repository_advisory_create,
   s_repository_advisory_update,
   s_repository_collaborator_permission,
+  s_repository_hash_algorithm,
   s_repository_invitation,
   s_repository_rule_detailed,
   s_repository_rule_violation_error,
@@ -2644,11 +2699,19 @@ import {
   s_runner_application,
   s_runner_groups_org,
   s_runner_label,
+  s_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+  s_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+  s_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+  s_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
   s_SecretScanningCreatePushProtectionBypassRequestBody,
   s_SecretScanningUpdateAlertRequestBody,
   s_SecretScanningUpdateOrgPatternConfigsRequestBody,
   s_scim_error,
   s_secret_scanning_alert,
+  s_secret_scanning_alert_with_metadata,
+  s_secret_scanning_custom_pattern,
+  s_secret_scanning_custom_pattern_to_update,
+  s_secret_scanning_custom_pattern_validation_error,
   s_secret_scanning_location,
   s_secret_scanning_pattern_configuration,
   s_secret_scanning_push_protection_bypass,
@@ -2678,6 +2741,7 @@ import {
   s_tag,
   s_team,
   s_team_full,
+  s_team_member,
   s_team_membership,
   s_team_repository,
   s_team_role_assignment,
@@ -2698,6 +2762,7 @@ import {
   s_UsersListAttestationsBulkRequestBody,
   s_UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody,
   s_UsersUpdateAuthenticatedRequestBody,
+  s_update_budget,
   s_user_marketplace_purchase,
   s_user_role_assignment,
   s_user_search_result_item,
@@ -2787,6 +2852,11 @@ export type AgentTasksListTasksForRepoResponder = {
           }
         | undefined
       creator_type?: ("user" | "organization") | undefined
+      custom_agent?:
+        | {
+            id?: string | undefined
+          }
+        | undefined
       html_url?: string | undefined
       id: string
       name?: string | undefined
@@ -2941,6 +3011,11 @@ export type AgentTasksCreateTaskInRepoResponder = {
         }
       | undefined
     creator_type?: ("user" | "organization") | undefined
+    custom_agent?:
+      | {
+          id?: string | undefined
+        }
+      | undefined
     html_url?: string | undefined
     id: string
     name?: string | undefined
@@ -3076,6 +3151,11 @@ export type AgentTasksGetTaskByRepoAndIdResponder = {
         }
       | undefined
     creator_type?: ("user" | "organization") | undefined
+    custom_agent?:
+      | {
+          id?: string | undefined
+        }
+      | undefined
     html_url?: string | undefined
     id: string
     name?: string | undefined
@@ -3126,6 +3206,12 @@ export type AgentTasksGetTaskByRepoAndIdResponder = {
             | "cancelled"
           task_id?: string | undefined
           updated_at?: string | undefined
+          usage?:
+            | {
+                amount: number
+                type: "ai_credits" | "premium_requests"
+              }
+            | undefined
           user?:
             | {
                 id?: number | undefined
@@ -3266,6 +3352,11 @@ export type AgentTasksListTasksResponder = {
           }
         | undefined
       creator_type?: ("user" | "organization") | undefined
+      custom_agent?:
+        | {
+            id?: string | undefined
+          }
+        | undefined
       html_url?: string | undefined
       id: string
       name?: string | undefined
@@ -3399,6 +3490,11 @@ export type AgentTasksGetTaskByIdResponder = {
         }
       | undefined
     creator_type?: ("user" | "organization") | undefined
+    custom_agent?:
+      | {
+          id?: string | undefined
+        }
+      | undefined
     html_url?: string | undefined
     id: string
     name?: string | undefined
@@ -3449,6 +3545,12 @@ export type AgentTasksGetTaskByIdResponder = {
             | "cancelled"
           task_id?: string | undefined
           updated_at?: string | undefined
+          usage?:
+            | {
+                amount: number
+                type: "ai_credits" | "premium_requests"
+              }
+            | undefined
           user?:
             | {
                 id?: number | undefined
@@ -3878,6 +3980,7 @@ export type AppsGetBySlug = (
 export type ClassroomGetAnAssignmentResponder = {
   with200(): ExpressRuntimeResponse<t_classroom_assignment>
   with404(): ExpressRuntimeResponse<t_basic_error>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomGetAnAssignment = (
@@ -3890,6 +3993,7 @@ export type ClassroomGetAnAssignment = (
 
 export type ClassroomListAcceptedAssignmentsForAnAssignmentResponder = {
   with200(): ExpressRuntimeResponse<t_classroom_accepted_assignment[]>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomListAcceptedAssignmentsForAnAssignment = (
@@ -3908,6 +4012,7 @@ export type ClassroomListAcceptedAssignmentsForAnAssignment = (
 export type ClassroomGetAssignmentGradesResponder = {
   with200(): ExpressRuntimeResponse<t_classroom_assignment_grade[]>
   with404(): ExpressRuntimeResponse<t_basic_error>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomGetAssignmentGrades = (
@@ -3920,6 +4025,7 @@ export type ClassroomGetAssignmentGrades = (
 
 export type ClassroomListClassroomsResponder = {
   with200(): ExpressRuntimeResponse<t_simple_classroom[]>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomListClassrooms = (
@@ -3933,6 +4039,7 @@ export type ClassroomListClassrooms = (
 export type ClassroomGetAClassroomResponder = {
   with200(): ExpressRuntimeResponse<t_classroom>
   with404(): ExpressRuntimeResponse<t_basic_error>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomGetAClassroom = (
@@ -3945,6 +4052,7 @@ export type ClassroomGetAClassroom = (
 
 export type ClassroomListAssignmentsForAClassroomResponder = {
   with200(): ExpressRuntimeResponse<t_simple_classroom_assignment[]>
+  with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ClassroomListAssignmentsForAClassroom = (
@@ -4369,6 +4477,27 @@ export type CopilotCopilotEnterpriseUsageMetrics = (
     void
   >,
   respond: CopilotCopilotEnterpriseUsageMetricsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type CopilotCopilotEnterpriseReposOneDayReportResponder = {
+  with200(): ExpressRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type CopilotCopilotEnterpriseReposOneDayReport = (
+  params: Params<
+    t_CopilotCopilotEnterpriseReposOneDayReportParamSchema,
+    t_CopilotCopilotEnterpriseReposOneDayReportQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotEnterpriseReposOneDayReportResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -5719,6 +5848,32 @@ export type ActionsSetActionsCacheStorageLimitForOrganization = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type BillingGetGithubBillingAiCreditUsageReportOrgResponder = {
+  with200(): ExpressRuntimeResponse<t_billing_ai_credit_usage_report_org>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+  with503(): ExpressRuntimeResponse<{
+    code?: string | undefined
+    documentation_url?: string | undefined
+    message?: string | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type BillingGetGithubBillingAiCreditUsageReportOrg = (
+  params: Params<
+    t_BillingGetGithubBillingAiCreditUsageReportOrgParamSchema,
+    t_BillingGetGithubBillingAiCreditUsageReportOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingAiCreditUsageReportOrgResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type BillingGetAllBudgetsOrgResponder = {
   with200(): ExpressRuntimeResponse<t_get_all_budgets>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -5734,6 +5889,29 @@ export type BillingGetAllBudgetsOrg = (
     void
   >,
   respond: BillingGetAllBudgetsOrgResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type BillingCreateOrganizationBudgetResponder = {
+  with200(): ExpressRuntimeResponse<t_create_budget>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with401(): ExpressRuntimeResponse<t_basic_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type BillingCreateOrganizationBudget = (
+  params: Params<
+    t_BillingCreateOrganizationBudgetParamSchema,
+    void,
+    t_BillingCreateOrganizationBudgetRequestBody | undefined,
+    void
+  >,
+  respond: BillingCreateOrganizationBudgetResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -5761,28 +5939,7 @@ export type BillingGetBudgetOrg = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type BillingUpdateBudgetOrgResponder = {
-  with200(): ExpressRuntimeResponse<{
-    budget?:
-      | {
-          budget_alerting?:
-            | {
-                alert_recipients: string[]
-                will_alert: boolean
-              }
-            | undefined
-          budget_amount?: number | undefined
-          budget_entity_name?: string | undefined
-          budget_product_sku?: string | undefined
-          budget_scope?:
-            | ("enterprise" | "organization" | "repository" | "cost_center")
-            | undefined
-          budget_type?: ("ProductPricing" | "SkuPricing") | undefined
-          id?: string | undefined
-          prevent_further_usage?: boolean | undefined
-        }
-      | undefined
-    message?: string | undefined
-  }>
+  with200(): ExpressRuntimeResponse<t_update_budget>
   with400(): ExpressRuntimeResponse<t_scim_error>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -7895,6 +8052,27 @@ export type OrgsSetClusterDeploymentRecordsResponder = {
     deployment_records?: t_artifact_deployment_record[] | undefined
     total_count: number
   }>
+  with207(): ExpressRuntimeResponse<{
+    deployment_records?: t_artifact_deployment_record[] | undefined
+    errors?:
+      | {
+          cause?: ("unauthorized" | "not_found") | undefined
+          deployment?:
+            | {
+                deployment_name?: string | undefined
+                digest?: string | undefined
+                github_repository?: (string | null) | undefined
+                name?: string | undefined
+                runtime_risks?: string[] | undefined
+                status?: string | undefined
+                tags?: Record<string, string> | undefined
+                version?: (string | null) | undefined
+              }
+            | undefined
+        }[]
+      | undefined
+    total_count: number
+  }>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
@@ -9368,27 +9546,6 @@ export type CopilotSetCopilotContentExclusionForOrganization = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type CopilotCopilotMetricsForOrganizationResponder = {
-  with200(): ExpressRuntimeResponse<t_copilot_usage_metrics_day[]>
-  with403(): ExpressRuntimeResponse<t_basic_error>
-  with404(): ExpressRuntimeResponse<t_basic_error>
-  with422(): ExpressRuntimeResponse<t_basic_error>
-  with500(): ExpressRuntimeResponse<t_basic_error>
-} & ExpressRuntimeResponder
-
-export type CopilotCopilotMetricsForOrganization = (
-  params: Params<
-    t_CopilotCopilotMetricsForOrganizationParamSchema,
-    t_CopilotCopilotMetricsForOrganizationQuerySchema,
-    void,
-    void
-  >,
-  respond: CopilotCopilotMetricsForOrganizationResponder,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
-
 export type CopilotCopilotOrganizationOneDayUsageMetricsResponder = {
   with200(): ExpressRuntimeResponse<t_copilot_usage_metrics_1_day_report>
   with204(): ExpressRuntimeResponse<void>
@@ -9425,6 +9582,27 @@ export type CopilotCopilotOrganizationUsageMetrics = (
     void
   >,
   respond: CopilotCopilotOrganizationUsageMetricsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type CopilotCopilotOrganizationReposOneDayReportResponder = {
+  with200(): ExpressRuntimeResponse<t_copilot_usage_metrics_1_day_report>
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type CopilotCopilotOrganizationReposOneDayReport = (
+  params: Params<
+    t_CopilotCopilotOrganizationReposOneDayReportParamSchema,
+    t_CopilotCopilotOrganizationReposOneDayReportQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotOrganizationReposOneDayReportResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -11998,6 +12176,103 @@ export type SecretScanningListAlertsForOrg = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type SecretScanningListOrgCustomPatternsResponder = {
+  with200(): ExpressRuntimeResponse<t_secret_scanning_custom_pattern[]>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningListOrgCustomPatterns = (
+  params: Params<
+    t_SecretScanningListOrgCustomPatternsParamSchema,
+    t_SecretScanningListOrgCustomPatternsQuerySchema,
+    void,
+    void
+  >,
+  respond: SecretScanningListOrgCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningBulkCreateOrgCustomPatternsResponder = {
+  with201(): ExpressRuntimeResponse<{
+    created_patterns?: t_secret_scanning_custom_pattern[] | undefined
+  }>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<{
+    message?: string | undefined
+    validation_errors?:
+      | Record<
+          string,
+          {
+            errors?:
+              | t_secret_scanning_custom_pattern_validation_error[]
+              | undefined
+          }
+        >
+      | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type SecretScanningBulkCreateOrgCustomPatterns = (
+  params: Params<
+    t_SecretScanningBulkCreateOrgCustomPatternsParamSchema,
+    void,
+    t_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+    void
+  >,
+  respond: SecretScanningBulkCreateOrgCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningBulkDeleteOrgCustomPatternsResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with412(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningBulkDeleteOrgCustomPatterns = (
+  params: Params<
+    t_SecretScanningBulkDeleteOrgCustomPatternsParamSchema,
+    void,
+    t_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+    void
+  >,
+  respond: SecretScanningBulkDeleteOrgCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningUpdateOrgCustomPatternResponder = {
+  with200(): ExpressRuntimeResponse<t_secret_scanning_custom_pattern>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with412(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningUpdateOrgCustomPattern = (
+  params: Params<
+    t_SecretScanningUpdateOrgCustomPatternParamSchema,
+    void,
+    t_secret_scanning_custom_pattern_to_update,
+    void
+  >,
+  respond: SecretScanningUpdateOrgCustomPatternResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type SecretScanningListOrgPatternConfigsResponder = {
   with200(): ExpressRuntimeResponse<t_secret_scanning_pattern_configuration>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -12308,27 +12583,6 @@ export type HostedComputeGetNetworkSettingsForOrg = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type CopilotCopilotMetricsForTeamResponder = {
-  with200(): ExpressRuntimeResponse<t_copilot_usage_metrics_day[]>
-  with403(): ExpressRuntimeResponse<t_basic_error>
-  with404(): ExpressRuntimeResponse<t_basic_error>
-  with422(): ExpressRuntimeResponse<t_basic_error>
-  with500(): ExpressRuntimeResponse<t_basic_error>
-} & ExpressRuntimeResponder
-
-export type CopilotCopilotMetricsForTeam = (
-  params: Params<
-    t_CopilotCopilotMetricsForTeamParamSchema,
-    t_CopilotCopilotMetricsForTeamQuerySchema,
-    void,
-    void
-  >,
-  respond: CopilotCopilotMetricsForTeamResponder,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
-
 export type TeamsListResponder = {
   with200(): ExpressRuntimeResponse<t_team[]>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -12427,7 +12681,7 @@ export type TeamsListPendingInvitationsInOrg = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type TeamsListMembersInOrgResponder = {
-  with200(): ExpressRuntimeResponse<t_simple_user[]>
+  with200(): ExpressRuntimeResponse<t_team_member[]>
 } & ExpressRuntimeResponder
 
 export type TeamsListMembersInOrg = (
@@ -15272,6 +15526,49 @@ export type ChecksRerequestSuite = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type CodeQualityListFindingsForRepoResponder = {
+  with200(): ExpressRuntimeResponse<t_code_quality_finding[]>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with503(): ExpressRuntimeResponse<{
+    code?: string | undefined
+    documentation_url?: string | undefined
+    message?: string | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type CodeQualityListFindingsForRepo = (
+  params: Params<
+    t_CodeQualityListFindingsForRepoParamSchema,
+    t_CodeQualityListFindingsForRepoQuerySchema,
+    void,
+    void
+  >,
+  respond: CodeQualityListFindingsForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type CodeQualityGetFindingResponder = {
+  with200(): ExpressRuntimeResponse<t_code_quality_finding>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with503(): ExpressRuntimeResponse<{
+    code?: string | undefined
+    documentation_url?: string | undefined
+    message?: string | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type CodeQualityGetFinding = (
+  params: Params<t_CodeQualityGetFindingParamSchema, void, void, void>,
+  respond: CodeQualityGetFindingResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type CodeQualityGetSetupResponder = {
   with200(): ExpressRuntimeResponse<t_code_quality_setup>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -15393,11 +15690,7 @@ export type CodeScanningGetAutofixResponder = {
   with400(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
-  with503(): ExpressRuntimeResponse<{
-    code?: string | undefined
-    documentation_url?: string | undefined
-    message?: string | undefined
-  }>
+  with500(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type CodeScanningGetAutofix = (
@@ -15415,11 +15708,7 @@ export type CodeScanningCreateAutofixResponder = {
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with422(): ExpressRuntimeResponse<void>
-  with503(): ExpressRuntimeResponse<{
-    code?: string | undefined
-    documentation_url?: string | undefined
-    message?: string | undefined
-  }>
+  with500(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type CodeScanningCreateAutofix = (
@@ -16579,10 +16868,12 @@ export type CopilotGetCopilotCloudAgentConfigurationResponder = {
       dependency_vulnerability_checks: boolean
       secret_scanning: boolean
     }
+    is_automations_enabled: boolean
     is_firewall_enabled: boolean
     is_firewall_recommended_allowlist_enabled: boolean
     mcp_configuration: Record<string, unknown> | null
     require_actions_workflow_approval: boolean
+    require_write_access_for_automation_triggers: boolean
   }>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -17644,6 +17935,20 @@ export type GitGetTree = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type ReposGetHashAlgorithmResponder = {
+  with200(): ExpressRuntimeResponse<t_repository_hash_algorithm>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type ReposGetHashAlgorithm = (
+  params: Params<t_ReposGetHashAlgorithmParamSchema, void, void, void>,
+  respond: ReposGetHashAlgorithmResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type ReposListWebhooksResponder = {
   with200(): ExpressRuntimeResponse<t_hook[]>
   with404(): ExpressRuntimeResponse<t_basic_error>
@@ -18073,6 +18378,112 @@ export type InteractionsRemoveRestrictionsForRepo = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type InteractionsGetPullRequestBypassListForRepoResponder = {
+  with200(): ExpressRuntimeResponse<t_simple_user[]>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type InteractionsGetPullRequestBypassListForRepo = (
+  params: Params<
+    t_InteractionsGetPullRequestBypassListForRepoParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: InteractionsGetPullRequestBypassListForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type InteractionsSetPullRequestBypassListForRepoResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type InteractionsSetPullRequestBypassListForRepo = (
+  params: Params<
+    t_InteractionsSetPullRequestBypassListForRepoParamSchema,
+    void,
+    t_interaction_limit_pull_request_bypass_list,
+    void
+  >,
+  respond: InteractionsSetPullRequestBypassListForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type InteractionsRemovePullRequestBypassListForRepoResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type InteractionsRemovePullRequestBypassListForRepo = (
+  params: Params<
+    t_InteractionsRemovePullRequestBypassListForRepoParamSchema,
+    void,
+    t_interaction_limit_pull_request_bypass_list,
+    void
+  >,
+  respond: InteractionsRemovePullRequestBypassListForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type InteractionsGetPullRequestCreationCapForRepoResponder = {
+  with200(): ExpressRuntimeResponse<{
+    enabled: boolean
+    max_open_pull_requests: number
+  }>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with405(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type InteractionsGetPullRequestCreationCapForRepo = (
+  params: Params<
+    t_InteractionsGetPullRequestCreationCapForRepoParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: InteractionsGetPullRequestCreationCapForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type InteractionsUpdatePullRequestCreationCapForRepoResponder = {
+  with200(): ExpressRuntimeResponse<{
+    enabled: boolean
+    max_open_pull_requests: number
+  }>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with405(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type InteractionsUpdatePullRequestCreationCapForRepo = (
+  params: Params<
+    t_InteractionsUpdatePullRequestCreationCapForRepoParamSchema,
+    void,
+    t_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
+    void
+  >,
+  respond: InteractionsUpdatePullRequestCreationCapForRepoResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type ReposListInvitationsResponder = {
   with200(): ExpressRuntimeResponse<t_repository_invitation[]>
 } & ExpressRuntimeResponder
@@ -18114,6 +18525,19 @@ export type ReposDeleteInvitationResponder = {
 export type ReposDeleteInvitation = (
   params: Params<t_ReposDeleteInvitationParamSchema, void, void, void>,
   respond: ReposDeleteInvitationResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type ReposListIssueTypesResponder = {
+  with200(): ExpressRuntimeResponse<t_issue_type[]>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type ReposListIssueTypes = (
+  params: Params<t_ReposListIssueTypesParamSchema, void, void, void>,
+  respond: ReposListIssueTypesResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -18365,7 +18789,62 @@ export type IssuesGet = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type IssuesUpdateResponder = {
-  with200(): ExpressRuntimeResponse<t_issue>
+  with200(): ExpressRuntimeResponse<
+    t_issue & {
+      suggestions?:
+        | {
+            assignees?:
+              | {
+                  already_applied?: boolean | undefined
+                  confidence?: ("low" | "medium" | "high") | undefined
+                  login?: string | undefined
+                  rationale?: string | undefined
+                  suggest?: boolean | undefined
+                }[]
+              | undefined
+            issue_field_values?:
+              | {
+                  already_applied?: boolean | undefined
+                  confidence?: ("low" | "medium" | "high") | undefined
+                  field_id?: number | undefined
+                  rationale?: string | undefined
+                  suggest?: boolean | undefined
+                  value?: (string | number | string[]) | undefined
+                }[]
+              | undefined
+            labels?:
+              | {
+                  already_applied?: boolean | undefined
+                  confidence?: ("low" | "medium" | "high") | undefined
+                  name?: string | undefined
+                  rationale?: string | undefined
+                  suggest?: boolean | undefined
+                }[]
+              | undefined
+            state?:
+              | {
+                  already_applied?: boolean | undefined
+                  confidence?: ("low" | "medium" | "high") | undefined
+                  duplicate_issue_id?: number | undefined
+                  rationale?: string | undefined
+                  state_reason?: string | undefined
+                  suggest?: boolean | undefined
+                  value?: string | undefined
+                }[]
+              | undefined
+            type?:
+              | {
+                  already_applied?: boolean | undefined
+                  confidence?: ("low" | "medium" | "high") | undefined
+                  rationale?: string | undefined
+                  suggest?: boolean | undefined
+                  value?: string | undefined
+                }[]
+              | undefined
+          }
+        | undefined
+    }
+  >
   with301(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
@@ -18954,8 +19433,58 @@ export type IssuesReprioritizeSubIssue = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type IssuesListSuggestionsResponder = {
+  with200(): ExpressRuntimeResponse<t_issue_suggestion[]>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type IssuesListSuggestions = (
+  params: Params<
+    t_IssuesListSuggestionsParamSchema,
+    t_IssuesListSuggestionsQuerySchema,
+    void,
+    void
+  >,
+  respond: IssuesListSuggestionsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type IssuesApproveSuggestionResponder = {
+  with200(): ExpressRuntimeResponse<t_issue_suggestion>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type IssuesApproveSuggestion = (
+  params: Params<t_IssuesApproveSuggestionParamSchema, void, void, void>,
+  respond: IssuesApproveSuggestionResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type IssuesDismissSuggestionResponder = {
+  with200(): ExpressRuntimeResponse<t_issue_suggestion>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type IssuesDismissSuggestion = (
+  params: Params<t_IssuesDismissSuggestionParamSchema, void, void, void>,
+  respond: IssuesDismissSuggestionResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type IssuesListEventsForTimelineResponder = {
   with200(): ExpressRuntimeResponse<t_timeline_issue_events[]>
+  with400(): ExpressRuntimeResponse<t_scim_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
@@ -20640,7 +21169,7 @@ export type SecretScanningListAlertsForRepo = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type SecretScanningGetAlertResponder = {
-  with200(): ExpressRuntimeResponse<t_secret_scanning_alert>
+  with200(): ExpressRuntimeResponse<t_secret_scanning_alert_with_metadata>
   with304(): ExpressRuntimeResponse<void>
   with404(): ExpressRuntimeResponse<void>
   with503(): ExpressRuntimeResponse<{
@@ -20664,7 +21193,7 @@ export type SecretScanningGetAlert = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type SecretScanningUpdateAlertResponder = {
-  with200(): ExpressRuntimeResponse<t_secret_scanning_alert>
+  with200(): ExpressRuntimeResponse<t_secret_scanning_alert_with_metadata>
   with400(): ExpressRuntimeResponse<void>
   with403(): ExpressRuntimeResponse<void>
   with404(): ExpressRuntimeResponse<void>
@@ -20707,6 +21236,103 @@ export type SecretScanningListLocationsForAlert = (
     void
   >,
   respond: SecretScanningListLocationsForAlertResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningListRepoCustomPatternsResponder = {
+  with200(): ExpressRuntimeResponse<t_secret_scanning_custom_pattern[]>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningListRepoCustomPatterns = (
+  params: Params<
+    t_SecretScanningListRepoCustomPatternsParamSchema,
+    t_SecretScanningListRepoCustomPatternsQuerySchema,
+    void,
+    void
+  >,
+  respond: SecretScanningListRepoCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningBulkCreateRepoCustomPatternsResponder = {
+  with201(): ExpressRuntimeResponse<{
+    created_patterns?: t_secret_scanning_custom_pattern[] | undefined
+  }>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<{
+    message?: string | undefined
+    validation_errors?:
+      | Record<
+          string,
+          {
+            errors?:
+              | t_secret_scanning_custom_pattern_validation_error[]
+              | undefined
+          }
+        >
+      | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type SecretScanningBulkCreateRepoCustomPatterns = (
+  params: Params<
+    t_SecretScanningBulkCreateRepoCustomPatternsParamSchema,
+    void,
+    t_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+    void
+  >,
+  respond: SecretScanningBulkCreateRepoCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningBulkDeleteRepoCustomPatternsResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with412(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningBulkDeleteRepoCustomPatterns = (
+  params: Params<
+    t_SecretScanningBulkDeleteRepoCustomPatternsParamSchema,
+    void,
+    t_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
+    void
+  >,
+  respond: SecretScanningBulkDeleteRepoCustomPatternsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type SecretScanningUpdateRepoCustomPatternResponder = {
+  with200(): ExpressRuntimeResponse<t_secret_scanning_custom_pattern>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with412(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_validation_error>
+} & ExpressRuntimeResponder
+
+export type SecretScanningUpdateRepoCustomPattern = (
+  params: Params<
+    t_SecretScanningUpdateRepoCustomPatternParamSchema,
+    void,
+    t_secret_scanning_custom_pattern_to_update,
+    void
+  >,
+  respond: SecretScanningUpdateRepoCustomPatternResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -21530,7 +22156,7 @@ export type TeamsListPendingInvitationsLegacy = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type TeamsListMembersLegacyResponder = {
-  with200(): ExpressRuntimeResponse<t_simple_user[]>
+  with200(): ExpressRuntimeResponse<t_team_member[]>
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
@@ -22850,6 +23476,7 @@ export type OrgsGetMembershipForAuthenticatedUser = (
 
 export type OrgsUpdateMembershipForAuthenticatedUserResponder = {
   with200(): ExpressRuntimeResponse<t_org_membership>
+  with202(): ExpressRuntimeResponse<t_org_membership>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with422(): ExpressRuntimeResponse<t_validation_error>
@@ -24670,6 +25297,32 @@ export type ReposListForUser = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type BillingGetGithubBillingAiCreditUsageReportUserResponder = {
+  with200(): ExpressRuntimeResponse<t_billing_ai_credit_usage_report_user>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+  with503(): ExpressRuntimeResponse<{
+    code?: string | undefined
+    documentation_url?: string | undefined
+    message?: string | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type BillingGetGithubBillingAiCreditUsageReportUser = (
+  params: Params<
+    t_BillingGetGithubBillingAiCreditUsageReportUserParamSchema,
+    t_BillingGetGithubBillingAiCreditUsageReportUserQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingAiCreditUsageReportUserResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type BillingGetGithubBillingPremiumRequestUsageReportUserResponder = {
   with200(): ExpressRuntimeResponse<t_billing_premium_request_usage_report_user>
   with400(): ExpressRuntimeResponse<t_scim_error>
@@ -24897,6 +25550,7 @@ export type Implementation = {
   codeSecurityGetRepositoriesForEnterpriseConfiguration: CodeSecurityGetRepositoriesForEnterpriseConfiguration
   copilotCopilotEnterpriseOneDayUsageMetrics: CopilotCopilotEnterpriseOneDayUsageMetrics
   copilotCopilotEnterpriseUsageMetrics: CopilotCopilotEnterpriseUsageMetrics
+  copilotCopilotEnterpriseReposOneDayReport: CopilotCopilotEnterpriseReposOneDayReport
   copilotCopilotEnterpriseUserTeamsOneDayReport: CopilotCopilotEnterpriseUserTeamsOneDayReport
   copilotCopilotUsersOneDayUsageMetrics: CopilotCopilotUsersOneDayUsageMetrics
   copilotCopilotUsersUsageMetrics: CopilotCopilotUsersUsageMetrics
@@ -24976,7 +25630,9 @@ export type Implementation = {
   actionsSetActionsCacheRetentionLimitForOrganization: ActionsSetActionsCacheRetentionLimitForOrganization
   actionsGetActionsCacheStorageLimitForOrganization: ActionsGetActionsCacheStorageLimitForOrganization
   actionsSetActionsCacheStorageLimitForOrganization: ActionsSetActionsCacheStorageLimitForOrganization
+  billingGetGithubBillingAiCreditUsageReportOrg: BillingGetGithubBillingAiCreditUsageReportOrg
   billingGetAllBudgetsOrg: BillingGetAllBudgetsOrg
+  billingCreateOrganizationBudget: BillingCreateOrganizationBudget
   billingGetBudgetOrg: BillingGetBudgetOrg
   billingUpdateBudgetOrg: BillingUpdateBudgetOrg
   billingDeleteBudgetOrg: BillingDeleteBudgetOrg
@@ -25165,9 +25821,9 @@ export type Implementation = {
   copilotDisableCopilotCodingAgentForRepositoryInOrganization: CopilotDisableCopilotCodingAgentForRepositoryInOrganization
   copilotCopilotContentExclusionForOrganization: CopilotCopilotContentExclusionForOrganization
   copilotSetCopilotContentExclusionForOrganization: CopilotSetCopilotContentExclusionForOrganization
-  copilotCopilotMetricsForOrganization: CopilotCopilotMetricsForOrganization
   copilotCopilotOrganizationOneDayUsageMetrics: CopilotCopilotOrganizationOneDayUsageMetrics
   copilotCopilotOrganizationUsageMetrics: CopilotCopilotOrganizationUsageMetrics
+  copilotCopilotOrganizationReposOneDayReport: CopilotCopilotOrganizationReposOneDayReport
   copilotCopilotOrganizationUserTeamsOneDayReport: CopilotCopilotOrganizationUserTeamsOneDayReport
   copilotCopilotOrganizationUsersOneDayUsageMetrics: CopilotCopilotOrganizationUsersOneDayUsageMetrics
   copilotCopilotOrganizationUsersUsageMetrics: CopilotCopilotOrganizationUsersUsageMetrics
@@ -25313,6 +25969,10 @@ export type Implementation = {
   orgsGetOrgRulesetHistory: OrgsGetOrgRulesetHistory
   orgsGetOrgRulesetVersion: OrgsGetOrgRulesetVersion
   secretScanningListAlertsForOrg: SecretScanningListAlertsForOrg
+  secretScanningListOrgCustomPatterns: SecretScanningListOrgCustomPatterns
+  secretScanningBulkCreateOrgCustomPatterns: SecretScanningBulkCreateOrgCustomPatterns
+  secretScanningBulkDeleteOrgCustomPatterns: SecretScanningBulkDeleteOrgCustomPatterns
+  secretScanningUpdateOrgCustomPattern: SecretScanningUpdateOrgCustomPattern
   secretScanningListOrgPatternConfigs: SecretScanningListOrgPatternConfigs
   secretScanningUpdateOrgPatternConfigs: SecretScanningUpdateOrgPatternConfigs
   securityAdvisoriesListOrgRepositoryAdvisories: SecurityAdvisoriesListOrgRepositoryAdvisories
@@ -25331,7 +25991,6 @@ export type Implementation = {
   hostedComputeUpdateNetworkConfigurationForOrg: HostedComputeUpdateNetworkConfigurationForOrg
   hostedComputeDeleteNetworkConfigurationFromOrg: HostedComputeDeleteNetworkConfigurationFromOrg
   hostedComputeGetNetworkSettingsForOrg: HostedComputeGetNetworkSettingsForOrg
-  copilotCopilotMetricsForTeam: CopilotCopilotMetricsForTeam
   teamsList: TeamsList
   teamsCreate: TeamsCreate
   teamsGetByName: TeamsGetByName
@@ -25507,6 +26166,8 @@ export type Implementation = {
   checksGetSuite: ChecksGetSuite
   checksListForSuite: ChecksListForSuite
   checksRerequestSuite: ChecksRerequestSuite
+  codeQualityListFindingsForRepo: CodeQualityListFindingsForRepo
+  codeQualityGetFinding: CodeQualityGetFinding
   codeQualityGetSetup: CodeQualityGetSetup
   codeQualityUpdateSetup: CodeQualityUpdateSetup
   codeScanningListAlertsForRepo: CodeScanningListAlertsForRepo
@@ -25632,6 +26293,7 @@ export type Implementation = {
   gitGetTag: GitGetTag
   gitCreateTree: GitCreateTree
   gitGetTree: GitGetTree
+  reposGetHashAlgorithm: ReposGetHashAlgorithm
   reposListWebhooks: ReposListWebhooks
   reposCreateWebhook: ReposCreateWebhook
   reposGetWebhook: ReposGetWebhook
@@ -25659,9 +26321,15 @@ export type Implementation = {
   interactionsGetRestrictionsForRepo: InteractionsGetRestrictionsForRepo
   interactionsSetRestrictionsForRepo: InteractionsSetRestrictionsForRepo
   interactionsRemoveRestrictionsForRepo: InteractionsRemoveRestrictionsForRepo
+  interactionsGetPullRequestBypassListForRepo: InteractionsGetPullRequestBypassListForRepo
+  interactionsSetPullRequestBypassListForRepo: InteractionsSetPullRequestBypassListForRepo
+  interactionsRemovePullRequestBypassListForRepo: InteractionsRemovePullRequestBypassListForRepo
+  interactionsGetPullRequestCreationCapForRepo: InteractionsGetPullRequestCreationCapForRepo
+  interactionsUpdatePullRequestCreationCapForRepo: InteractionsUpdatePullRequestCreationCapForRepo
   reposListInvitations: ReposListInvitations
   reposUpdateInvitation: ReposUpdateInvitation
   reposDeleteInvitation: ReposDeleteInvitation
+  reposListIssueTypes: ReposListIssueTypes
   issuesListForRepo: IssuesListForRepo
   issuesCreate: IssuesCreate
   issuesListCommentsForRepo: IssuesListCommentsForRepo
@@ -25706,6 +26374,9 @@ export type Implementation = {
   issuesListSubIssues: IssuesListSubIssues
   issuesAddSubIssue: IssuesAddSubIssue
   issuesReprioritizeSubIssue: IssuesReprioritizeSubIssue
+  issuesListSuggestions: IssuesListSuggestions
+  issuesApproveSuggestion: IssuesApproveSuggestion
+  issuesDismissSuggestion: IssuesDismissSuggestion
   issuesListEventsForTimeline: IssuesListEventsForTimeline
   reposListDeployKeys: ReposListDeployKeys
   reposCreateDeployKey: ReposCreateDeployKey
@@ -25808,6 +26479,10 @@ export type Implementation = {
   secretScanningGetAlert: SecretScanningGetAlert
   secretScanningUpdateAlert: SecretScanningUpdateAlert
   secretScanningListLocationsForAlert: SecretScanningListLocationsForAlert
+  secretScanningListRepoCustomPatterns: SecretScanningListRepoCustomPatterns
+  secretScanningBulkCreateRepoCustomPatterns: SecretScanningBulkCreateRepoCustomPatterns
+  secretScanningBulkDeleteRepoCustomPatterns: SecretScanningBulkDeleteRepoCustomPatterns
+  secretScanningUpdateRepoCustomPattern: SecretScanningUpdateRepoCustomPattern
   secretScanningCreatePushProtectionBypass: SecretScanningCreatePushProtectionBypass
   secretScanningGetScanHistory: SecretScanningGetScanHistory
   securityAdvisoriesListRepositoryAdvisories: SecurityAdvisoriesListRepositoryAdvisories
@@ -26018,6 +26693,7 @@ export type Implementation = {
   activityListReceivedEventsForUser: ActivityListReceivedEventsForUser
   activityListReceivedPublicEventsForUser: ActivityListReceivedPublicEventsForUser
   reposListForUser: ReposListForUser
+  billingGetGithubBillingAiCreditUsageReportUser: BillingGetGithubBillingAiCreditUsageReportUser
   billingGetGithubBillingPremiumRequestUsageReportUser: BillingGetGithubBillingPremiumRequestUsageReportUser
   billingGetGithubBillingUsageReportUser: BillingGetGithubBillingUsageReportUser
   billingGetGithubBillingUsageSummaryReportUser: BillingGetGithubBillingUsageSummaryReportUser
@@ -26295,6 +26971,7 @@ export function createRouter(
                   .optional(),
                 updated_at: z.iso.datetime({offset: true}).optional(),
                 created_at: z.iso.datetime({offset: true}),
+                custom_agent: z.object({id: z.string().optional()}).optional(),
               }),
             ),
             total_active_count: z.coerce.number().optional(),
@@ -26462,6 +27139,11 @@ export function createRouter(
                     }
                   | undefined
                 creator_type?: ("user" | "organization") | undefined
+                custom_agent?:
+                  | {
+                      id?: string | undefined
+                    }
+                  | undefined
                 html_url?: string | undefined
                 id: string
                 name?: string | undefined
@@ -26658,6 +27340,7 @@ export function createRouter(
             archived_at: z.iso.datetime({offset: true}).nullable().optional(),
             updated_at: z.iso.datetime({offset: true}).optional(),
             created_at: z.iso.datetime({offset: true}),
+            custom_agent: z.object({id: z.string().optional()}).optional(),
           }),
         ],
         [
@@ -26798,6 +27481,11 @@ export function createRouter(
                   }
                 | undefined
               creator_type?: ("user" | "organization") | undefined
+              custom_agent?:
+                | {
+                    id?: string | undefined
+                  }
+                | undefined
               html_url?: string | undefined
               id: string
               name?: string | undefined
@@ -26974,6 +27662,7 @@ export function createRouter(
             archived_at: z.iso.datetime({offset: true}).nullable().optional(),
             updated_at: z.iso.datetime({offset: true}).optional(),
             created_at: z.iso.datetime({offset: true}),
+            custom_agent: z.object({id: z.string().optional()}).optional(),
             sessions: z
               .array(
                 z.object({
@@ -27004,6 +27693,12 @@ export function createRouter(
                   head_ref: z.string().optional(),
                   base_ref: z.string().optional(),
                   model: z.string().optional(),
+                  usage: z
+                    .object({
+                      type: z.enum(["ai_credits", "premium_requests"]),
+                      amount: z.coerce.number(),
+                    })
+                    .optional(),
                   error: z.object({message: z.string().optional()}).optional(),
                 }),
               )
@@ -27166,6 +27861,11 @@ export function createRouter(
                   }
                 | undefined
               creator_type?: ("user" | "organization") | undefined
+              custom_agent?:
+                | {
+                    id?: string | undefined
+                  }
+                | undefined
               html_url?: string | undefined
               id: string
               name?: string | undefined
@@ -27216,6 +27916,12 @@ export function createRouter(
                       | "cancelled"
                     task_id?: string | undefined
                     updated_at?: string | undefined
+                    usage?:
+                      | {
+                          amount: number
+                          type: "ai_credits" | "premium_requests"
+                        }
+                      | undefined
                     user?:
                       | {
                           id?: number | undefined
@@ -27410,6 +28116,7 @@ export function createRouter(
               archived_at: z.iso.datetime({offset: true}).nullable().optional(),
               updated_at: z.iso.datetime({offset: true}).optional(),
               created_at: z.iso.datetime({offset: true}),
+              custom_agent: z.object({id: z.string().optional()}).optional(),
             }),
           ),
           total_active_count: z.coerce.number().optional(),
@@ -27551,6 +28258,11 @@ export function createRouter(
                     }
                   | undefined
                 creator_type?: ("user" | "organization") | undefined
+                custom_agent?:
+                  | {
+                      id?: string | undefined
+                    }
+                  | undefined
                 html_url?: string | undefined
                 id: string
                 name?: string | undefined
@@ -27720,6 +28432,7 @@ export function createRouter(
           archived_at: z.iso.datetime({offset: true}).nullable().optional(),
           updated_at: z.iso.datetime({offset: true}).optional(),
           created_at: z.iso.datetime({offset: true}),
+          custom_agent: z.object({id: z.string().optional()}).optional(),
           sessions: z
             .array(
               z.object({
@@ -27748,6 +28461,12 @@ export function createRouter(
                 head_ref: z.string().optional(),
                 base_ref: z.string().optional(),
                 model: z.string().optional(),
+                usage: z
+                  .object({
+                    type: z.enum(["ai_credits", "premium_requests"]),
+                    amount: z.coerce.number(),
+                  })
+                  .optional(),
                 error: z.object({message: z.string().optional()}).optional(),
               }),
             )
@@ -27910,6 +28629,11 @@ export function createRouter(
                   }
                 | undefined
               creator_type?: ("user" | "organization") | undefined
+              custom_agent?:
+                | {
+                    id?: string | undefined
+                  }
+                | undefined
               html_url?: string | undefined
               id: string
               name?: string | undefined
@@ -27960,6 +28684,12 @@ export function createRouter(
                       | "cancelled"
                     task_id?: string | undefined
                     updated_at?: string | undefined
+                    usage?:
+                      | {
+                          amount: number
+                          type: "ai_credits" | "premium_requests"
+                        }
+                      | undefined
                     user?:
                       | {
                           id?: number | undefined
@@ -29195,6 +29925,7 @@ export function createRouter(
       [
         ["200", s_classroom_assignment],
         ["404", s_basic_error],
+        ["410", s_basic_error],
       ],
       undefined,
     )
@@ -29221,6 +29952,9 @@ export function createRouter(
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -29250,7 +29984,10 @@ export function createRouter(
 
   const classroomListAcceptedAssignmentsForAnAssignmentResponseBodyValidator =
     responseValidationFactory(
-      [["200", z.array(s_classroom_accepted_assignment)]],
+      [
+        ["200", z.array(s_classroom_accepted_assignment)],
+        ["410", s_basic_error],
+      ],
       undefined,
     )
 
@@ -29279,6 +30016,9 @@ export function createRouter(
             return new ExpressRuntimeResponse<
               t_classroom_accepted_assignment[]
             >(200)
+          },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -29315,6 +30055,7 @@ export function createRouter(
       [
         ["200", z.array(s_classroom_assignment_grade)],
         ["404", s_basic_error],
+        ["410", s_basic_error],
       ],
       undefined,
     )
@@ -29344,6 +30085,9 @@ export function createRouter(
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
           },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
+          },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
           },
@@ -29370,7 +30114,13 @@ export function createRouter(
   })
 
   const classroomListClassroomsResponseBodyValidator =
-    responseValidationFactory([["200", z.array(s_simple_classroom)]], undefined)
+    responseValidationFactory(
+      [
+        ["200", z.array(s_simple_classroom)],
+        ["410", s_basic_error],
+      ],
+      undefined,
+    )
 
   // classroomListClassrooms
   router.get(
@@ -29391,6 +30141,9 @@ export function createRouter(
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<t_simple_classroom[]>(200)
+          },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -29417,6 +30170,7 @@ export function createRouter(
     [
       ["200", s_classroom],
       ["404", s_basic_error],
+      ["410", s_basic_error],
     ],
     undefined,
   )
@@ -29443,6 +30197,9 @@ export function createRouter(
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -29472,7 +30229,10 @@ export function createRouter(
 
   const classroomListAssignmentsForAClassroomResponseBodyValidator =
     responseValidationFactory(
-      [["200", z.array(s_simple_classroom_assignment)]],
+      [
+        ["200", z.array(s_simple_classroom_assignment)],
+        ["410", s_basic_error],
+      ],
       undefined,
     )
 
@@ -29501,6 +30261,9 @@ export function createRouter(
             return new ExpressRuntimeResponse<t_simple_classroom_assignment[]>(
               200,
             )
+          },
+          with410() {
+            return new ExpressRuntimeResponse<t_basic_error>(410)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -31043,6 +31806,90 @@ export function createRouter(
             handleResponse(
               res,
               copilotCopilotEnterpriseUsageMetricsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const copilotCopilotEnterpriseReposOneDayReportParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotEnterpriseReposOneDayReportQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotEnterpriseReposOneDayReportResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // copilotCopilotEnterpriseReposOneDayReport
+  router.get(
+    `/enterprises/:enterprise/copilot/metrics/reports/repos-1-day`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            copilotCopilotEnterpriseReposOneDayReportParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            copilotCopilotEnterpriseReposOneDayReportQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+              200,
+            )
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .copilotCopilotEnterpriseReposOneDayReport(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              copilotCopilotEnterpriseReposOneDayReportResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -35850,14 +36697,126 @@ export function createRouter(
     },
   )
 
+  const billingGetGithubBillingAiCreditUsageReportOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const billingGetGithubBillingAiCreditUsageReportOrgQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    user: z.string().optional(),
+    model: z.string().optional(),
+    product: z.string().optional(),
+  })
+
+  const billingGetGithubBillingAiCreditUsageReportOrgResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_ai_credit_usage_report_org],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // billingGetGithubBillingAiCreditUsageReportOrg
+  router.get(
+    `/organizations/:org/settings/billing/ai_credit/usage`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            billingGetGithubBillingAiCreditUsageReportOrgParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            billingGetGithubBillingAiCreditUsageReportOrgQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_billing_ai_credit_usage_report_org>(
+              200,
+            )
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          with503() {
+            return new ExpressRuntimeResponse<{
+              code?: string | undefined
+              documentation_url?: string | undefined
+              message?: string | undefined
+            }>(503)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .billingGetGithubBillingAiCreditUsageReportOrg(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              billingGetGithubBillingAiCreditUsageReportOrgResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const billingGetAllBudgetsOrgParamSchema = z.object({org: z.string()})
 
   const billingGetAllBudgetsOrgQuerySchema = z.object({
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(10),
     scope: z
-      .enum(["enterprise", "organization", "repository", "cost_center"])
+      .enum([
+        "enterprise",
+        "organization",
+        "repository",
+        "cost_center",
+        "multi_user_customer",
+        "user",
+      ])
       .optional(),
+    user: z.string().optional(),
   })
 
   const billingGetAllBudgetsOrgResponseBodyValidator =
@@ -35914,6 +36873,84 @@ export function createRouter(
           .catch(handleImplementationError)
           .then(
             handleResponse(res, billingGetAllBudgetsOrgResponseBodyValidator),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const billingCreateOrganizationBudgetParamSchema = z.object({org: z.string()})
+
+  const billingCreateOrganizationBudgetResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_create_budget],
+        ["400", s_scim_error],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // billingCreateOrganizationBudget
+  router.post(
+    `/organizations/:org/settings/billing/budgets`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            billingCreateOrganizationBudgetParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_BillingCreateOrganizationBudgetRequestBody.optional(),
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_create_budget>(200)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with401() {
+            return new ExpressRuntimeResponse<t_basic_error>(401)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .billingCreateOrganizationBudget(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              billingCreateOrganizationBudgetResponseBodyValidator,
+            ),
           )
       } catch (error) {
         next(error)
@@ -36006,38 +37043,7 @@ export function createRouter(
 
   const billingUpdateBudgetOrgResponseBodyValidator = responseValidationFactory(
     [
-      [
-        "200",
-        z.object({
-          message: z.string().optional(),
-          budget: z
-            .object({
-              id: z.string().optional(),
-              budget_amount: z.coerce.number().optional(),
-              prevent_further_usage: PermissiveBoolean.optional(),
-              budget_alerting: z
-                .object({
-                  will_alert: PermissiveBoolean,
-                  alert_recipients: z.array(z.string()),
-                })
-                .optional(),
-              budget_scope: z
-                .enum([
-                  "enterprise",
-                  "organization",
-                  "repository",
-                  "cost_center",
-                ])
-                .optional(),
-              budget_entity_name: z.string().optional().default(""),
-              budget_type: z
-                .union([z.literal("ProductPricing"), z.literal("SkuPricing")])
-                .optional(),
-              budget_product_sku: z.string().optional(),
-            })
-            .optional(),
-        }),
-      ],
+      ["200", s_update_budget],
       ["400", s_scim_error],
       ["401", s_basic_error],
       ["403", s_basic_error],
@@ -36070,33 +37076,7 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<{
-              budget?:
-                | {
-                    budget_alerting?:
-                      | {
-                          alert_recipients: string[]
-                          will_alert: boolean
-                        }
-                      | undefined
-                    budget_amount?: number | undefined
-                    budget_entity_name?: string | undefined
-                    budget_product_sku?: string | undefined
-                    budget_scope?:
-                      | (
-                          | "enterprise"
-                          | "organization"
-                          | "repository"
-                          | "cost_center"
-                        )
-                      | undefined
-                    budget_type?: ("ProductPricing" | "SkuPricing") | undefined
-                    id?: string | undefined
-                    prevent_further_usage?: boolean | undefined
-                  }
-                | undefined
-              message?: string | undefined
-            }>(200)
+            return new ExpressRuntimeResponse<t_update_budget>(200)
           },
           with400() {
             return new ExpressRuntimeResponse<t_scim_error>(400)
@@ -43294,6 +44274,34 @@ export function createRouter(
               .optional(),
           }),
         ],
+        [
+          "207",
+          z.object({
+            total_count: z.coerce.number(),
+            deployment_records: z
+              .array(s_artifact_deployment_record)
+              .optional(),
+            errors: z
+              .array(
+                z.object({
+                  cause: z.enum(["unauthorized", "not_found"]).optional(),
+                  deployment: z
+                    .object({
+                      name: z.string().optional(),
+                      digest: z.string().optional(),
+                      deployment_name: z.string().optional(),
+                      version: z.string().nullable().optional(),
+                      status: z.string().optional(),
+                      github_repository: z.string().nullable().optional(),
+                      tags: z.record(z.string(), z.string()).optional(),
+                      runtime_risks: z.array(z.string()).optional(),
+                    })
+                    .optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
         ["403", s_basic_error],
         ["404", s_basic_error],
       ],
@@ -43326,6 +44334,29 @@ export function createRouter(
               deployment_records?: t_artifact_deployment_record[] | undefined
               total_count: number
             }>(200)
+          },
+          with207() {
+            return new ExpressRuntimeResponse<{
+              deployment_records?: t_artifact_deployment_record[] | undefined
+              errors?:
+                | {
+                    cause?: ("unauthorized" | "not_found") | undefined
+                    deployment?:
+                      | {
+                          deployment_name?: string | undefined
+                          digest?: string | undefined
+                          github_repository?: (string | null) | undefined
+                          name?: string | undefined
+                          runtime_risks?: string[] | undefined
+                          status?: string | undefined
+                          tags?: Record<string, string> | undefined
+                          version?: (string | null) | undefined
+                        }
+                      | undefined
+                  }[]
+                | undefined
+              total_count: number
+            }>(207)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -48432,93 +49463,6 @@ export function createRouter(
     },
   )
 
-  const copilotCopilotMetricsForOrganizationParamSchema = z.object({
-    org: z.string(),
-  })
-
-  const copilotCopilotMetricsForOrganizationQuerySchema = z.object({
-    since: z.string().optional(),
-    until: z.string().optional(),
-    page: z.coerce.number().optional().default(1),
-    per_page: z.coerce.number().optional().default(100),
-  })
-
-  const copilotCopilotMetricsForOrganizationResponseBodyValidator =
-    responseValidationFactory(
-      [
-        ["200", z.array(s_copilot_usage_metrics_day)],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_basic_error],
-        ["500", s_basic_error],
-      ],
-      undefined,
-    )
-
-  // copilotCopilotMetricsForOrganization
-  router.get(
-    `/orgs/:org/copilot/metrics`,
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const input = {
-          params: parseRequestInput(
-            copilotCopilotMetricsForOrganizationParamSchema,
-            req.params,
-            RequestInputType.RouteParam,
-          ),
-          query: parseRequestInput(
-            copilotCopilotMetricsForOrganizationQuerySchema,
-            req.query,
-            RequestInputType.QueryString,
-          ),
-          body: undefined,
-          headers: undefined,
-        }
-
-        const responder = {
-          with200() {
-            return new ExpressRuntimeResponse<t_copilot_usage_metrics_day[]>(
-              200,
-            )
-          },
-          with403() {
-            return new ExpressRuntimeResponse<t_basic_error>(403)
-          },
-          with404() {
-            return new ExpressRuntimeResponse<t_basic_error>(404)
-          },
-          with422() {
-            return new ExpressRuntimeResponse<t_basic_error>(422)
-          },
-          with500() {
-            return new ExpressRuntimeResponse<t_basic_error>(500)
-          },
-          withStatus(status: StatusCode) {
-            return new ExpressRuntimeResponse(status)
-          },
-        }
-
-        await implementation
-          .copilotCopilotMetricsForOrganization(
-            input,
-            responder,
-            req,
-            res,
-            next,
-          )
-          .catch(handleImplementationError)
-          .then(
-            handleResponse(
-              res,
-              copilotCopilotMetricsForOrganizationResponseBodyValidator,
-            ),
-          )
-      } catch (error) {
-        next(error)
-      }
-    },
-  )
-
   const copilotCopilotOrganizationOneDayUsageMetricsParamSchema = z.object({
     org: z.string(),
   })
@@ -48667,6 +49611,90 @@ export function createRouter(
             handleResponse(
               res,
               copilotCopilotOrganizationUsageMetricsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const copilotCopilotOrganizationReposOneDayReportParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotOrganizationReposOneDayReportQuerySchema = z.object({
+    day: z.iso.date(),
+  })
+
+  const copilotCopilotOrganizationReposOneDayReportResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_usage_metrics_1_day_report],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // copilotCopilotOrganizationReposOneDayReport
+  router.get(
+    `/orgs/:org/copilot/metrics/reports/repos-1-day`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            copilotCopilotOrganizationReposOneDayReportParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            copilotCopilotOrganizationReposOneDayReportQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_copilot_usage_metrics_1_day_report>(
+              200,
+            )
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .copilotCopilotOrganizationReposOneDayReport(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              copilotCopilotOrganizationReposOneDayReportResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -57477,6 +58505,10 @@ export function createRouter(
       .enum(["pass", "fail", "bypass", "all"])
       .optional()
       .default("all"),
+    evaluate_status: z
+      .enum(["all", "active", "evaluate"])
+      .optional()
+      .default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -57910,6 +58942,8 @@ export function createRouter(
     is_multi_repo: PermissiveBoolean.optional().default(false),
     hide_secret: PermissiveBoolean.optional().default(false),
     is_bypassed: PermissiveBoolean.optional(),
+    included_metadata: z.string().optional(),
+    owner_email_hash: z.string().optional(),
   })
 
   const secretScanningListAlertsForOrgResponseBodyValidator =
@@ -57977,6 +59011,358 @@ export function createRouter(
             handleResponse(
               res,
               secretScanningListAlertsForOrgResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningListOrgCustomPatternsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const secretScanningListOrgCustomPatternsQuerySchema = z.object({
+    state: z.enum(["published", "unpublished"]).optional(),
+    push_protection: z.enum(["enabled", "disabled"]).optional(),
+    sort: z.enum(["created", "updated", "name"]).optional().default("created"),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const secretScanningListOrgCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_secret_scanning_custom_pattern)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningListOrgCustomPatterns
+  router.get(
+    `/orgs/:org/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningListOrgCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            secretScanningListOrgCustomPatternsQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<
+              t_secret_scanning_custom_pattern[]
+            >(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningListOrgCustomPatterns(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningListOrgCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningBulkCreateOrgCustomPatternsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const secretScanningBulkCreateOrgCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "201",
+          z.object({
+            created_patterns: z
+              .array(s_secret_scanning_custom_pattern)
+              .optional(),
+          }),
+        ],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        [
+          "422",
+          z.object({
+            message: z.string().optional(),
+            validation_errors: z
+              .record(
+                z.string(),
+                z.object({
+                  errors: z
+                    .array(s_secret_scanning_custom_pattern_validation_error)
+                    .optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // secretScanningBulkCreateOrgCustomPatterns
+  router.post(
+    `/orgs/:org/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningBulkCreateOrgCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_SecretScanningBulkCreateOrgCustomPatternsRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with201() {
+            return new ExpressRuntimeResponse<{
+              created_patterns?: t_secret_scanning_custom_pattern[] | undefined
+            }>(201)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<{
+              message?: string | undefined
+              validation_errors?:
+                | Record<
+                    string,
+                    {
+                      errors?:
+                        | t_secret_scanning_custom_pattern_validation_error[]
+                        | undefined
+                    }
+                  >
+                | undefined
+            }>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningBulkCreateOrgCustomPatterns(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningBulkCreateOrgCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningBulkDeleteOrgCustomPatternsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const secretScanningBulkDeleteOrgCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["412", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningBulkDeleteOrgCustomPatterns
+  router.delete(
+    `/orgs/:org/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningBulkDeleteOrgCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_SecretScanningBulkDeleteOrgCustomPatternsRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with412() {
+            return new ExpressRuntimeResponse<t_basic_error>(412)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningBulkDeleteOrgCustomPatterns(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningBulkDeleteOrgCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningUpdateOrgCustomPatternParamSchema = z.object({
+    org: z.string(),
+    pattern_id: z.coerce.number(),
+  })
+
+  const secretScanningUpdateOrgCustomPatternResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_secret_scanning_custom_pattern],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["412", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningUpdateOrgCustomPattern
+  router.patch(
+    `/orgs/:org/secret-scanning/custom-patterns/:pattern_id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningUpdateOrgCustomPatternParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_secret_scanning_custom_pattern_to_update,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_secret_scanning_custom_pattern>(
+              200,
+            )
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with412() {
+            return new ExpressRuntimeResponse<t_basic_error>(412)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningUpdateOrgCustomPattern(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningUpdateOrgCustomPatternResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -59047,88 +60433,6 @@ export function createRouter(
     },
   )
 
-  const copilotCopilotMetricsForTeamParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-  })
-
-  const copilotCopilotMetricsForTeamQuerySchema = z.object({
-    since: z.string().optional(),
-    until: z.string().optional(),
-    page: z.coerce.number().optional().default(1),
-    per_page: z.coerce.number().optional().default(100),
-  })
-
-  const copilotCopilotMetricsForTeamResponseBodyValidator =
-    responseValidationFactory(
-      [
-        ["200", z.array(s_copilot_usage_metrics_day)],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_basic_error],
-        ["500", s_basic_error],
-      ],
-      undefined,
-    )
-
-  // copilotCopilotMetricsForTeam
-  router.get(
-    `/orgs/:org/team/:team_slug/copilot/metrics`,
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const input = {
-          params: parseRequestInput(
-            copilotCopilotMetricsForTeamParamSchema,
-            req.params,
-            RequestInputType.RouteParam,
-          ),
-          query: parseRequestInput(
-            copilotCopilotMetricsForTeamQuerySchema,
-            req.query,
-            RequestInputType.QueryString,
-          ),
-          body: undefined,
-          headers: undefined,
-        }
-
-        const responder = {
-          with200() {
-            return new ExpressRuntimeResponse<t_copilot_usage_metrics_day[]>(
-              200,
-            )
-          },
-          with403() {
-            return new ExpressRuntimeResponse<t_basic_error>(403)
-          },
-          with404() {
-            return new ExpressRuntimeResponse<t_basic_error>(404)
-          },
-          with422() {
-            return new ExpressRuntimeResponse<t_basic_error>(422)
-          },
-          with500() {
-            return new ExpressRuntimeResponse<t_basic_error>(500)
-          },
-          withStatus(status: StatusCode) {
-            return new ExpressRuntimeResponse(status)
-          },
-        }
-
-        await implementation
-          .copilotCopilotMetricsForTeam(input, responder, req, res, next)
-          .catch(handleImplementationError)
-          .then(
-            handleResponse(
-              res,
-              copilotCopilotMetricsForTeamResponseBodyValidator,
-            ),
-          )
-      } catch (error) {
-        next(error)
-      }
-    },
-  )
-
   const teamsListParamSchema = z.object({org: z.string()})
 
   const teamsListQuerySchema = z.object({
@@ -59493,7 +60797,7 @@ export function createRouter(
   })
 
   const teamsListMembersInOrgResponseBodyValidator = responseValidationFactory(
-    [["200", z.array(s_simple_user)]],
+    [["200", z.array(s_team_member)]],
     undefined,
   )
 
@@ -59519,7 +60823,7 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_simple_user[]>(200)
+            return new ExpressRuntimeResponse<t_team_member[]>(200)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -69609,6 +70913,165 @@ export function createRouter(
     },
   )
 
+  const codeQualityListFindingsForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const codeQualityListFindingsForRepoQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    state: z.enum(["open", "dismissed"]).optional(),
+  })
+
+  const codeQualityListFindingsForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_code_quality_finding)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // codeQualityListFindingsForRepo
+  router.get(
+    `/repos/:owner/:repo/code-quality/findings`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            codeQualityListFindingsForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            codeQualityListFindingsForRepoQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_code_quality_finding[]>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with503() {
+            return new ExpressRuntimeResponse<{
+              code?: string | undefined
+              documentation_url?: string | undefined
+              message?: string | undefined
+            }>(503)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .codeQualityListFindingsForRepo(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              codeQualityListFindingsForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const codeQualityGetFindingParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    finding_number: z.coerce.number(),
+  })
+
+  const codeQualityGetFindingResponseBodyValidator = responseValidationFactory(
+    [
+      ["200", s_code_quality_finding],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  // codeQualityGetFinding
+  router.get(
+    `/repos/:owner/:repo/code-quality/findings/:finding_number`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            codeQualityGetFindingParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_code_quality_finding>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with503() {
+            return new ExpressRuntimeResponse<{
+              code?: string | undefined
+              documentation_url?: string | undefined
+              message?: string | undefined
+            }>(503)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .codeQualityGetFinding(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, codeQualityGetFindingResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const codeQualityGetSetupParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -70040,14 +71503,7 @@ export function createRouter(
       ["400", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
-      [
-        "503",
-        z.object({
-          code: z.string().optional(),
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-        }),
-      ],
+      ["500", s_basic_error],
     ],
     undefined,
   )
@@ -70081,12 +71537,8 @@ export function createRouter(
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
           },
-          with503() {
-            return new ExpressRuntimeResponse<{
-              code?: string | undefined
-              documentation_url?: string | undefined
-              message?: string | undefined
-            }>(503)
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -70120,14 +71572,7 @@ export function createRouter(
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", z.undefined()],
-        [
-          "503",
-          z.object({
-            code: z.string().optional(),
-            message: z.string().optional(),
-            documentation_url: z.string().optional(),
-          }),
-        ],
+        ["500", s_basic_error],
       ],
       undefined,
     )
@@ -70167,12 +71612,8 @@ export function createRouter(
           with422() {
             return new ExpressRuntimeResponse<void>(422)
           },
-          with503() {
-            return new ExpressRuntimeResponse<{
-              code?: string | undefined
-              documentation_url?: string | undefined
-              message?: string | undefined
-            }>(503)
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -74318,6 +75759,8 @@ export function createRouter(
             is_firewall_enabled: PermissiveBoolean,
             is_firewall_recommended_allowlist_enabled: PermissiveBoolean,
             custom_allowlist: z.array(z.string()),
+            is_automations_enabled: PermissiveBoolean,
+            require_write_access_for_automation_triggers: PermissiveBoolean,
           }),
         ],
         ["401", s_basic_error],
@@ -74354,10 +75797,12 @@ export function createRouter(
                 dependency_vulnerability_checks: boolean
                 secret_scanning: boolean
               }
+              is_automations_enabled: boolean
               is_firewall_enabled: boolean
               is_firewall_recommended_allowlist_enabled: boolean
               mcp_configuration: Record<string, unknown> | null
               require_actions_workflow_approval: boolean
+              require_write_access_for_automation_triggers: boolean
             }>(200)
           },
           with401() {
@@ -78111,6 +79556,61 @@ export function createRouter(
     },
   )
 
+  const reposGetHashAlgorithmParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposGetHashAlgorithmResponseBodyValidator = responseValidationFactory(
+    [
+      ["200", s_repository_hash_algorithm],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  // reposGetHashAlgorithm
+  router.get(
+    `/repos/:owner/:repo/hash-algorithm`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            reposGetHashAlgorithmParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_repository_hash_algorithm>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .reposGetHashAlgorithm(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, reposGetHashAlgorithmResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const reposListWebhooksParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -79691,6 +81191,391 @@ export function createRouter(
     },
   )
 
+  const interactionsGetPullRequestBypassListForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const interactionsGetPullRequestBypassListForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_simple_user)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // interactionsGetPullRequestBypassListForRepo
+  router.get(
+    `/repos/:owner/:repo/interaction-limits/pulls/bypass-list`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            interactionsGetPullRequestBypassListForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_simple_user[]>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .interactionsGetPullRequestBypassListForRepo(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              interactionsGetPullRequestBypassListForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const interactionsSetPullRequestBypassListForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const interactionsSetPullRequestBypassListForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // interactionsSetPullRequestBypassListForRepo
+  router.put(
+    `/repos/:owner/:repo/interaction-limits/pulls/bypass-list`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            interactionsSetPullRequestBypassListForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_interaction_limit_pull_request_bypass_list,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .interactionsSetPullRequestBypassListForRepo(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              interactionsSetPullRequestBypassListForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const interactionsRemovePullRequestBypassListForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const interactionsRemovePullRequestBypassListForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // interactionsRemovePullRequestBypassListForRepo
+  router.delete(
+    `/repos/:owner/:repo/interaction-limits/pulls/bypass-list`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            interactionsRemovePullRequestBypassListForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_interaction_limit_pull_request_bypass_list,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .interactionsRemovePullRequestBypassListForRepo(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              interactionsRemovePullRequestBypassListForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const interactionsGetPullRequestCreationCapForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const interactionsGetPullRequestCreationCapForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            enabled: PermissiveBoolean,
+            max_open_pull_requests: z.coerce.number().min(1).max(1000),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["405", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // interactionsGetPullRequestCreationCapForRepo
+  router.get(
+    `/repos/:owner/:repo/interaction-limits/pulls/creation-cap`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            interactionsGetPullRequestCreationCapForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              enabled: boolean
+              max_open_pull_requests: number
+            }>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with405() {
+            return new ExpressRuntimeResponse<t_basic_error>(405)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .interactionsGetPullRequestCreationCapForRepo(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              interactionsGetPullRequestCreationCapForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const interactionsUpdatePullRequestCreationCapForRepoParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const interactionsUpdatePullRequestCreationCapForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            enabled: PermissiveBoolean,
+            max_open_pull_requests: z.coerce.number().min(1).max(1000),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["405", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // interactionsUpdatePullRequestCreationCapForRepo
+  router.patch(
+    `/repos/:owner/:repo/interaction-limits/pulls/creation-cap`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            interactionsUpdatePullRequestCreationCapForRepoParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_InteractionsUpdatePullRequestCreationCapForRepoRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              enabled: boolean
+              max_open_pull_requests: number
+            }>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with405() {
+            return new ExpressRuntimeResponse<t_basic_error>(405)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .interactionsUpdatePullRequestCreationCapForRepo(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              interactionsUpdatePullRequestCreationCapForRepoResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const reposListInvitationsParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -79835,6 +81720,57 @@ export function createRouter(
           .reposDeleteInvitation(input, responder, req, res, next)
           .catch(handleImplementationError)
           .then(handleResponse(res, reposDeleteInvitationResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const reposListIssueTypesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposListIssueTypesResponseBodyValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue_type)],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  // reposListIssueTypes
+  router.get(
+    `/repos/:owner/:repo/issue-types`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            reposListIssueTypesParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_issue_type[]>(200)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .reposListIssueTypes(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, reposListIssueTypesResponseBodyValidator))
       } catch (error) {
         next(error)
       }
@@ -80770,7 +82706,79 @@ export function createRouter(
 
   const issuesUpdateResponseBodyValidator = responseValidationFactory(
     [
-      ["200", s_issue],
+      [
+        "200",
+        s_issue.extend({
+          suggestions: z
+            .object({
+              type: z
+                .array(
+                  z.object({
+                    value: z.string().optional(),
+                    rationale: z.string().optional(),
+                    suggest: PermissiveBoolean.optional(),
+                    confidence: z.enum(["low", "medium", "high"]).optional(),
+                    already_applied: PermissiveBoolean.optional(),
+                  }),
+                )
+                .optional(),
+              issue_field_values: z
+                .array(
+                  z.object({
+                    field_id: z.coerce.number().optional(),
+                    value: z
+                      .union([
+                        z.string(),
+                        z.coerce.number(),
+                        z.array(z.string()),
+                      ])
+                      .optional(),
+                    rationale: z.string().optional(),
+                    suggest: PermissiveBoolean.optional(),
+                    confidence: z.enum(["low", "medium", "high"]).optional(),
+                    already_applied: PermissiveBoolean.optional(),
+                  }),
+                )
+                .optional(),
+              labels: z
+                .array(
+                  z.object({
+                    name: z.string().optional(),
+                    rationale: z.string().optional(),
+                    suggest: PermissiveBoolean.optional(),
+                    confidence: z.enum(["low", "medium", "high"]).optional(),
+                    already_applied: PermissiveBoolean.optional(),
+                  }),
+                )
+                .optional(),
+              assignees: z
+                .array(
+                  z.object({
+                    login: z.string().optional(),
+                    rationale: z.string().optional(),
+                    suggest: PermissiveBoolean.optional(),
+                    confidence: z.enum(["low", "medium", "high"]).optional(),
+                    already_applied: PermissiveBoolean.optional(),
+                  }),
+                )
+                .optional(),
+              state: z
+                .array(
+                  z.object({
+                    value: z.string().optional(),
+                    state_reason: z.string().optional(),
+                    duplicate_issue_id: z.coerce.number().optional(),
+                    rationale: z.string().optional(),
+                    suggest: PermissiveBoolean.optional(),
+                    confidence: z.enum(["low", "medium", "high"]).optional(),
+                    already_applied: PermissiveBoolean.optional(),
+                  }),
+                )
+                .optional(),
+            })
+            .optional(),
+        }),
+      ],
       ["301", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
@@ -80810,7 +82818,62 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_issue>(200)
+            return new ExpressRuntimeResponse<
+              t_issue & {
+                suggestions?:
+                  | {
+                      assignees?:
+                        | {
+                            already_applied?: boolean | undefined
+                            confidence?: ("low" | "medium" | "high") | undefined
+                            login?: string | undefined
+                            rationale?: string | undefined
+                            suggest?: boolean | undefined
+                          }[]
+                        | undefined
+                      issue_field_values?:
+                        | {
+                            already_applied?: boolean | undefined
+                            confidence?: ("low" | "medium" | "high") | undefined
+                            field_id?: number | undefined
+                            rationale?: string | undefined
+                            suggest?: boolean | undefined
+                            value?: (string | number | string[]) | undefined
+                          }[]
+                        | undefined
+                      labels?:
+                        | {
+                            already_applied?: boolean | undefined
+                            confidence?: ("low" | "medium" | "high") | undefined
+                            name?: string | undefined
+                            rationale?: string | undefined
+                            suggest?: boolean | undefined
+                          }[]
+                        | undefined
+                      state?:
+                        | {
+                            already_applied?: boolean | undefined
+                            confidence?: ("low" | "medium" | "high") | undefined
+                            duplicate_issue_id?: number | undefined
+                            rationale?: string | undefined
+                            state_reason?: string | undefined
+                            suggest?: boolean | undefined
+                            value?: string | undefined
+                          }[]
+                        | undefined
+                      type?:
+                        | {
+                            already_applied?: boolean | undefined
+                            confidence?: ("low" | "medium" | "high") | undefined
+                            rationale?: string | undefined
+                            suggest?: boolean | undefined
+                            value?: string | undefined
+                          }[]
+                        | undefined
+                    }
+                  | undefined
+              }
+            >(200)
           },
           with301() {
             return new ExpressRuntimeResponse<t_basic_error>(301)
@@ -82817,6 +84880,212 @@ export function createRouter(
     },
   )
 
+  const issuesListSuggestionsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesListSuggestionsQuerySchema = z.object({
+    state: z
+      .enum(["pending", "applied", "approved", "dismissed", "replaced", "all"])
+      .optional()
+      .default("pending"),
+    action: z
+      .enum([
+        "set_type",
+        "add_label",
+        "add_field",
+        "add_assignee",
+        "close_issue",
+      ])
+      .optional(),
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const issuesListSuggestionsResponseBodyValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue_suggestion)],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  // issuesListSuggestions
+  router.get(
+    `/repos/:owner/:repo/issues/:issue_number/suggestions`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            issuesListSuggestionsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            issuesListSuggestionsQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_issue_suggestion[]>(200)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .issuesListSuggestions(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, issuesListSuggestionsResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const issuesApproveSuggestionParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+    suggestion_id: z.coerce.number(),
+  })
+
+  const issuesApproveSuggestionResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_issue_suggestion],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // issuesApproveSuggestion
+  router.post(
+    `/repos/:owner/:repo/issues/:issue_number/suggestions/:suggestion_id/approve`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            issuesApproveSuggestionParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_issue_suggestion>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .issuesApproveSuggestion(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, issuesApproveSuggestionResponseBodyValidator),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const issuesDismissSuggestionParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+    suggestion_id: z.coerce.number(),
+  })
+
+  const issuesDismissSuggestionResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_issue_suggestion],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // issuesDismissSuggestion
+  router.post(
+    `/repos/:owner/:repo/issues/:issue_number/suggestions/:suggestion_id/dismiss`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            issuesDismissSuggestionParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_issue_suggestion>(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .issuesDismissSuggestion(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(res, issuesDismissSuggestionResponseBodyValidator),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const issuesListEventsForTimelineParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -82826,12 +85095,14 @@ export function createRouter(
   const issuesListEventsForTimelineQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
+    exclude: z.string().optional(),
   })
 
   const issuesListEventsForTimelineResponseBodyValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_timeline_issue_events)],
+        ["400", s_scim_error],
         ["404", s_basic_error],
         ["410", s_basic_error],
       ],
@@ -82861,6 +85132,9 @@ export function createRouter(
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<t_timeline_issue_events[]>(200)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
@@ -88312,6 +90586,10 @@ export function createRouter(
       .enum(["pass", "fail", "bypass", "all"])
       .optional()
       .default("all"),
+    evaluate_status: z
+      .enum(["all", "active", "evaluate"])
+      .optional()
+      .default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -88774,6 +91052,8 @@ export function createRouter(
     is_multi_repo: PermissiveBoolean.optional().default(false),
     hide_secret: PermissiveBoolean.optional().default(false),
     is_bypassed: PermissiveBoolean.optional(),
+    included_metadata: z.string().optional(),
+    owner_email_hash: z.string().optional(),
   })
 
   const secretScanningListAlertsForRepoResponseBodyValidator =
@@ -88859,7 +91139,7 @@ export function createRouter(
 
   const secretScanningGetAlertResponseBodyValidator = responseValidationFactory(
     [
-      ["200", s_secret_scanning_alert],
+      ["200", s_secret_scanning_alert_with_metadata],
       ["304", z.undefined()],
       ["404", z.undefined()],
       [
@@ -88896,7 +91176,9 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_secret_scanning_alert>(200)
+            return new ExpressRuntimeResponse<t_secret_scanning_alert_with_metadata>(
+              200,
+            )
           },
           with304() {
             return new ExpressRuntimeResponse<void>(304)
@@ -88937,7 +91219,7 @@ export function createRouter(
   const secretScanningUpdateAlertResponseBodyValidator =
     responseValidationFactory(
       [
-        ["200", s_secret_scanning_alert],
+        ["200", s_secret_scanning_alert_with_metadata],
         ["400", z.undefined()],
         ["403", z.undefined()],
         ["404", z.undefined()],
@@ -88976,7 +91258,9 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_secret_scanning_alert>(200)
+            return new ExpressRuntimeResponse<t_secret_scanning_alert_with_metadata>(
+              200,
+            )
           },
           with400() {
             return new ExpressRuntimeResponse<void>(400)
@@ -89088,6 +91372,368 @@ export function createRouter(
             handleResponse(
               res,
               secretScanningListLocationsForAlertResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningListRepoCustomPatternsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const secretScanningListRepoCustomPatternsQuerySchema = z.object({
+    state: z.enum(["published", "unpublished"]).optional(),
+    push_protection: z.enum(["enabled", "disabled"]).optional(),
+    sort: z.enum(["created", "updated", "name"]).optional().default("created"),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+  })
+
+  const secretScanningListRepoCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_secret_scanning_custom_pattern)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningListRepoCustomPatterns
+  router.get(
+    `/repos/:owner/:repo/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningListRepoCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            secretScanningListRepoCustomPatternsQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<
+              t_secret_scanning_custom_pattern[]
+            >(200)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningListRepoCustomPatterns(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningListRepoCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningBulkCreateRepoCustomPatternsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const secretScanningBulkCreateRepoCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "201",
+          z.object({
+            created_patterns: z
+              .array(s_secret_scanning_custom_pattern)
+              .optional(),
+          }),
+        ],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        [
+          "422",
+          z.object({
+            message: z.string().optional(),
+            validation_errors: z
+              .record(
+                z.string(),
+                z.object({
+                  errors: z
+                    .array(s_secret_scanning_custom_pattern_validation_error)
+                    .optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // secretScanningBulkCreateRepoCustomPatterns
+  router.post(
+    `/repos/:owner/:repo/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningBulkCreateRepoCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_SecretScanningBulkCreateRepoCustomPatternsRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with201() {
+            return new ExpressRuntimeResponse<{
+              created_patterns?: t_secret_scanning_custom_pattern[] | undefined
+            }>(201)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<{
+              message?: string | undefined
+              validation_errors?:
+                | Record<
+                    string,
+                    {
+                      errors?:
+                        | t_secret_scanning_custom_pattern_validation_error[]
+                        | undefined
+                    }
+                  >
+                | undefined
+            }>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningBulkCreateRepoCustomPatterns(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningBulkCreateRepoCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningBulkDeleteRepoCustomPatternsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const secretScanningBulkDeleteRepoCustomPatternsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["412", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningBulkDeleteRepoCustomPatterns
+  router.delete(
+    `/repos/:owner/:repo/secret-scanning/custom-patterns`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningBulkDeleteRepoCustomPatternsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_SecretScanningBulkDeleteRepoCustomPatternsRequestBody,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with412() {
+            return new ExpressRuntimeResponse<t_basic_error>(412)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningBulkDeleteRepoCustomPatterns(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningBulkDeleteRepoCustomPatternsResponseBodyValidator,
+            ),
+          )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const secretScanningUpdateRepoCustomPatternParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    pattern_id: z.coerce.number(),
+  })
+
+  const secretScanningUpdateRepoCustomPatternResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_secret_scanning_custom_pattern],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["412", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  // secretScanningUpdateRepoCustomPattern
+  router.patch(
+    `/repos/:owner/:repo/secret-scanning/custom-patterns/:pattern_id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            secretScanningUpdateRepoCustomPatternParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            s_secret_scanning_custom_pattern_to_update,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_secret_scanning_custom_pattern>(
+              200,
+            )
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with412() {
+            return new ExpressRuntimeResponse<t_basic_error>(412)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error>(422)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .secretScanningUpdateRepoCustomPattern(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              secretScanningUpdateRepoCustomPatternResponseBodyValidator,
             ),
           )
       } catch (error) {
@@ -92107,7 +94753,7 @@ export function createRouter(
 
   const teamsListMembersLegacyResponseBodyValidator = responseValidationFactory(
     [
-      ["200", z.array(s_simple_user)],
+      ["200", z.array(s_team_member)],
       ["404", s_basic_error],
     ],
     undefined,
@@ -92135,7 +94781,7 @@ export function createRouter(
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<t_simple_user[]>(200)
+            return new ExpressRuntimeResponse<t_team_member[]>(200)
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
@@ -96743,6 +99389,7 @@ export function createRouter(
     responseValidationFactory(
       [
         ["200", s_org_membership],
+        ["202", s_org_membership],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error],
@@ -96773,6 +99420,9 @@ export function createRouter(
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<t_org_membership>(200)
+          },
+          with202() {
+            return new ExpressRuntimeResponse<t_org_membership>(202)
           },
           with403() {
             return new ExpressRuntimeResponse<t_basic_error>(403)
@@ -103302,6 +105952,109 @@ export function createRouter(
           .reposListForUser(input, responder, req, res, next)
           .catch(handleImplementationError)
           .then(handleResponse(res, reposListForUserResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const billingGetGithubBillingAiCreditUsageReportUserParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const billingGetGithubBillingAiCreditUsageReportUserQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    model: z.string().optional(),
+    product: z.string().optional(),
+  })
+
+  const billingGetGithubBillingAiCreditUsageReportUserResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_ai_credit_usage_report_user],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // billingGetGithubBillingAiCreditUsageReportUser
+  router.get(
+    `/users/:username/settings/billing/ai_credit/usage`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            billingGetGithubBillingAiCreditUsageReportUserParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            billingGetGithubBillingAiCreditUsageReportUserQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_billing_ai_credit_usage_report_user>(
+              200,
+            )
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          with503() {
+            return new ExpressRuntimeResponse<{
+              code?: string | undefined
+              documentation_url?: string | undefined
+              message?: string | undefined
+            }>(503)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .billingGetGithubBillingAiCreditUsageReportUser(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch(handleImplementationError)
+          .then(
+            handleResponse(
+              res,
+              billingGetGithubBillingAiCreditUsageReportUserResponseBodyValidator,
+            ),
+          )
       } catch (error) {
         next(error)
       }
