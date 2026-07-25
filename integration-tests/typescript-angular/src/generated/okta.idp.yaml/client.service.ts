@@ -1065,7 +1065,12 @@ export class MyAccountManagementService {
     )
   }
 
-  deleteSessions(): Observable<
+  deleteSessions(
+    p: {
+      oauthTokens?: boolean
+      excludeCurrentAuthorizationContext?: boolean
+    } = {},
+  ): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 401})
     | (HttpResponse<t_Error> & {status: 404})
@@ -1073,11 +1078,17 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
+    const params = this._query({
+      oauthTokens: p["oauthTokens"],
+      excludeCurrentAuthorizationContext:
+        p["excludeCurrentAuthorizationContext"],
+    })
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/sessions`,
       {
+        params,
         headers,
         observe: "response",
         reportProgress: false,

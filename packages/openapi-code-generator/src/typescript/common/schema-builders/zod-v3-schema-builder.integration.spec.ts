@@ -7,41 +7,41 @@ import {
   schemaBuilderIntegrationTestHarness,
 } from "./schema-builder.test-utils.ts"
 
-describe.each(
-  testVersions,
-)("%s - typescript/common/schema-builders/zod-v3-schema-builder", (version) => {
-  const executeParseSchema = async (code: string) => {
-    return vm.runInNewContext(
-      code,
-      // Note: done this way for consistency with joi tests
-      {z: require("zod/v3").z, RegExp},
-    )
-  }
+describe.each(testVersions)(
+  "%s - typescript/common/schema-builders/zod-v3-schema-builder",
+  (version) => {
+    const executeParseSchema = async (code: string) => {
+      return vm.runInNewContext(
+        code,
+        // Note: done this way for consistency with joi tests
+        {z: require("zod/v3").z, RegExp},
+      )
+    }
 
-  let getActual: SchemaBuilderIntegrationTestHarness["getActual"]
+    let getActual: SchemaBuilderIntegrationTestHarness["getActual"]
 
-  beforeAll(async () => {
-    const formatter = await TypescriptFormatterBiome.createNodeFormatter()
-    const harness = schemaBuilderIntegrationTestHarness(
-      "zod-v3",
-      formatter,
-      version,
-      executeParseSchema,
-    )
+    beforeAll(async () => {
+      const formatter = await TypescriptFormatterBiome.createNodeFormatter()
+      const harness = schemaBuilderIntegrationTestHarness(
+        "zod-v3",
+        formatter,
+        version,
+        executeParseSchema,
+      )
 
-    getActual = harness.getActual
-  })
+      getActual = harness.getActual
+    })
 
-  it("supports the SimpleObject", async () => {
-    const {code, schemas} = await getActual("components/schemas/SimpleObject")
+    it("supports the SimpleObject", async () => {
+      const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_SimpleObject } from "./unit-test.schemas"
 
         const x = s_SimpleObject"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_SimpleObject = z.object({
@@ -54,20 +54,20 @@ describe.each(
           $ref: z.string().optional(),
         })"
       `)
-  })
+    })
 
-  it("supports the ObjectWithComplexProperties", async () => {
-    const {code, schemas} = await getActual(
-      "components/schemas/ObjectWithComplexProperties",
-    )
+    it("supports the ObjectWithComplexProperties", async () => {
+      const {code, schemas} = await getActual(
+        "components/schemas/ObjectWithComplexProperties",
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
 
         const x = s_ObjectWithComplexProperties"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const PermissiveBoolean = z.preprocess((value) => {
@@ -96,18 +96,18 @@ describe.each(
           nullableSingularOneOfRef: s_AString.nullable().optional(),
         })"
       `)
-  })
+    })
 
-  it("supports unions / oneOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/OneOf")
+    it("supports unions / oneOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/OneOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_OneOf } from "./unit-test.schemas"
 
         const x = s_OneOf"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_OneOf = z.union([
@@ -116,34 +116,34 @@ describe.each(
           z.string(),
         ])"
       `)
-  })
+    })
 
-  it("supports unions / anyOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/AnyOf")
+    it("supports unions / anyOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/AnyOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_AnyOf } from "./unit-test.schemas"
 
         const x = s_AnyOf"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_AnyOf = z.union([z.coerce.number(), z.string()])"
       `)
-  })
+    })
 
-  it("supports allOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/AllOf")
+    it("supports allOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/AllOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_AllOf } from "./unit-test.schemas"
 
         const x = s_AllOf"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_Base = z.object({
@@ -153,36 +153,36 @@ describe.each(
 
         export const s_AllOf = s_Base.merge(z.object({ id: z.coerce.number() }))"
       `)
-  })
+    })
 
-  it("supports recursion", async () => {
-    const {code, schemas} = await getActual("components/schemas/Recursive")
+    it("supports recursion", async () => {
+      const {code, schemas} = await getActual("components/schemas/Recursive")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Recursive } from "./unit-test.schemas"
 
         const x = z.lazy(() => s_Recursive)"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
         import type { t_Recursive } from "./unit-test.types"
 
         export const s_Recursive: z.ZodType<t_Recursive, z.ZodTypeDef, unknown> =
           z.object({ child: z.lazy(() => s_Recursive.optional()) })"
       `)
-  })
+    })
 
-  it("orders schemas such that dependencies are defined first", async () => {
-    const {code, schemas} = await getActual("components/schemas/Ordering")
+    it("orders schemas such that dependencies are defined first", async () => {
+      const {code, schemas} = await getActual("components/schemas/Ordering")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Ordering } from "./unit-test.schemas"
 
         const x = s_Ordering"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_AOrdering = z.object({ name: z.string().optional() })
@@ -197,18 +197,18 @@ describe.each(
           dependency2: s_AOrdering,
         })"
       `)
-  })
+    })
 
-  it("supports string and numeric enums", async () => {
-    const {code, schemas} = await getActual("components/schemas/Enums")
+    it("supports string and numeric enums", async () => {
+      const {code, schemas} = await getActual("components/schemas/Enums")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Enums } from "./unit-test.schemas"
 
         const x = s_Enums"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v3"
 
         export const s_Enums = z.object({
@@ -219,77 +219,77 @@ describe.each(
             .optional(),
         })"
       `)
-  })
+    })
 
-  describe("additionalProperties", () => {
-    it("handles additionalProperties set to true", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesBool",
-      )
+    describe("additionalProperties", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesBool"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v3"
 
           export const s_AdditionalPropertiesBool = z.record(z.unknown())"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to {}", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
-      )
+      it("handles additionalProperties set to {}", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesUnknownEmptySchema"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v3"
 
           export const s_AdditionalPropertiesUnknownEmptySchema = z.record(z.unknown())"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
-      )
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesUnknownEmptyObjectSchema"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v3"
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = z.record(
             z.record(z.unknown()),
           )"
         `)
-    })
+      })
 
-    it("handles additionalProperties specifying a schema", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesSchema",
-      )
+      it("handles additionalProperties specifying a schema", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesSchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesSchema"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v3"
 
           export const s_NamedNullableStringEnum = z
@@ -298,20 +298,20 @@ describe.each(
 
           export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)"
         `)
-    })
+      })
 
-    it("handles additionalProperties in conjunction with properties", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesMixed",
-      )
+      it("handles additionalProperties in conjunction with properties", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesMixed"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod/v3"
 
           export const s_AdditionalPropertiesMixed = z.intersection(
@@ -319,6 +319,7 @@ describe.each(
             z.record(z.unknown()),
           )"
         `)
+      })
     })
-  })
-})
+  },
+)

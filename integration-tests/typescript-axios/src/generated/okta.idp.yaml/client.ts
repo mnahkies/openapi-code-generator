@@ -865,14 +865,23 @@ export class MyAccountManagement extends AbstractAxiosClient {
   }
 
   async deleteSessions(
+    p: {
+      oauthTokens?: boolean
+      excludeCurrentAuthorizationContext?: boolean
+    } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/sessions`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const query = this._query({
+      oauthTokens: p["oauthTokens"],
+      excludeCurrentAuthorizationContext:
+        p["excludeCurrentAuthorizationContext"],
+    })
 
     return this._request({
-      url: url,
+      url: url + query,
       method: "DELETE",
       ...(timeout ? {timeout} : {}),
       ...opts,

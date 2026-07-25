@@ -30,4 +30,6 @@ export default defineConfig({
       outDir: "./dist/cjs",
     },
   },
+
+  suppressWarnings: ["is experimental"],
 })

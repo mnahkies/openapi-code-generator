@@ -430,6 +430,11 @@ export type t_DeletePhoneParamSchema = {
   id: string
 }
 
+export type t_DeleteSessionsQuerySchema = {
+  excludeCurrentAuthorizationContext?: boolean
+  oauthTokens?: boolean
+}
+
 export type t_DeleteWebAuthnParamSchema = {
   id: string
 }

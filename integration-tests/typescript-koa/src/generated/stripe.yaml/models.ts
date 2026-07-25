@@ -755,6 +755,7 @@ export type t_balance_transaction = {
     | "stripe_fee"
     | "stripe_fx_fee"
     | "tax_fee"
+    | "tax_fund"
     | "topup"
     | "topup_reversal"
     | "transfer"
@@ -791,6 +792,17 @@ export type t_bank_connections_resource_account_number_details = {
   status: "deactivated" | "transactable"
   supported_networks: "ach"[]
 }
+
+export type t_bank_connections_resource_account_status_details = {
+  active?: t_bank_connections_resource_account_status_details_api_resource_active_status_details
+}
+
+export type t_bank_connections_resource_account_status_details_api_resource_active_status_details =
+  {
+    action: "none" | "relink_required"
+    cause: "access_expired" | "institution_requirement" | "unspecified"
+    expected_deactivation_date: number
+  }
 
 export type t_bank_connections_resource_accountholder = {
   account?: string | t_account
@@ -1777,10 +1789,12 @@ export type t_checkout_session_payment_method_options = {
   scalapay?: t_checkout_scalapay_payment_method_options
   sepa_debit?: t_checkout_sepa_debit_payment_method_options
   sofort?: t_checkout_sofort_payment_method_options
+  sunbit?: t_checkout_sunbit_payment_method_options
   swish?: t_checkout_swish_payment_method_options
   twint?: t_checkout_twint_payment_method_options
   upi?: t_checkout_upi_payment_method_options
   us_bank_account?: t_checkout_us_bank_account_payment_method_options
+  wechat_pay?: t_checkout_wechat_pay_payment_method_options
 }
 
 export type t_checkout_session_wallet_options = {
@@ -1788,6 +1802,11 @@ export type t_checkout_session_wallet_options = {
 }
 
 export type t_checkout_sofort_payment_method_options = {
+  setup_future_usage?: "none"
+}
+
+export type t_checkout_sunbit_payment_method_options = {
+  capture_method?: "manual"
   setup_future_usage?: "none"
 }
 
@@ -1809,6 +1828,12 @@ export type t_checkout_us_bank_account_payment_method_options = {
   setup_future_usage?: "none" | "off_session" | "on_session"
   target_date?: string
   verification_method?: "automatic" | "instant"
+}
+
+export type t_checkout_wechat_pay_payment_method_options = {
+  app_id?: string | null
+  client?: "android" | "ios" | "web" | null
+  setup_future_usage?: "none"
 }
 
 export type t_climate_order = {
@@ -2905,6 +2930,7 @@ export type t_dispute = {
   created: number
   currency: string
   enhanced_eligibility_types: (
+    | "mastercard_compliance"
     | "visa_compelling_evidence_3"
     | "visa_compliance"
   )[]
@@ -2930,8 +2956,13 @@ export type t_dispute = {
 }
 
 export type t_dispute_enhanced_eligibility = {
+  mastercard_compliance?: t_dispute_enhanced_eligibility_mastercard_compliance
   visa_compelling_evidence_3?: t_dispute_enhanced_eligibility_visa_compelling_evidence3
   visa_compliance?: t_dispute_enhanced_eligibility_visa_compliance
+}
+
+export type t_dispute_enhanced_eligibility_mastercard_compliance = {
+  status: "fee_acknowledged" | "requires_fee_acknowledgement"
 }
 
 export type t_dispute_enhanced_eligibility_visa_compelling_evidence3 = {
@@ -2950,8 +2981,13 @@ export type t_dispute_enhanced_eligibility_visa_compliance = {
 }
 
 export type t_dispute_enhanced_evidence = {
+  mastercard_compliance?: t_dispute_enhanced_evidence_mastercard_compliance
   visa_compelling_evidence_3?: t_dispute_enhanced_evidence_visa_compelling_evidence3
   visa_compliance?: t_dispute_enhanced_evidence_visa_compliance
+}
+
+export type t_dispute_enhanced_evidence_mastercard_compliance = {
+  fee_acknowledged: boolean
 }
 
 export type t_dispute_enhanced_evidence_visa_compelling_evidence3 = {
@@ -3216,6 +3252,7 @@ export type t_financial_connections_account = {
     | ("balances" | "ownership" | "payment_method" | "transactions")[]
     | null
   status: "active" | "disconnected" | "inactive"
+  status_details?: t_bank_connections_resource_account_status_details
   subcategory:
     | "checking"
     | "credit_card"
@@ -4280,6 +4317,7 @@ export type t_invoices_payment_settings = {
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "satispay"
         | "sepa_credit_transfer"
         | "sepa_debit"
         | "sofort"
@@ -7828,6 +7866,9 @@ export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_o
     capture_method?: "manual"
   }
 
+export type t_payment_flows_private_payment_methods_satispay_setup_attempt_details =
+  Record<string, unknown>
+
 export type t_payment_intent = {
   amount?: number
   amount_capturable?: number
@@ -8321,6 +8362,9 @@ export type t_payment_intent_payment_method_options = {
     | t_payment_intent_type_specific_payment_method_options_client
   sofort?:
     | t_payment_method_options_sofort
+    | t_payment_intent_type_specific_payment_method_options_client
+  sunbit?:
+    | t_payment_method_options_sunbit
     | t_payment_intent_type_specific_payment_method_options_client
   swish?:
     | t_payment_intent_payment_method_options_swish
@@ -9186,9 +9230,13 @@ export type t_payment_method_bancontact = Record<string, unknown>
 
 export type t_payment_method_billie = Record<string, unknown>
 
-export type t_payment_method_bizum = Record<string, unknown>
+export type t_payment_method_bizum = {
+  buyer_id?: string | null
+}
 
-export type t_payment_method_blik = Record<string, unknown>
+export type t_payment_method_blik = {
+  buyer_id?: string | null
+}
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -9542,6 +9590,7 @@ export type t_payment_method_details_billie = {
 }
 
 export type t_payment_method_details_bizum = {
+  buyer_id?: string | null
   transaction_id?: string | null
 }
 
@@ -9576,6 +9625,7 @@ export type t_payment_method_details_card = {
   overcapture?: t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture
   regulated_status?: "regulated" | "unregulated" | null
   three_d_secure?: t_three_d_secure_details_charge | null
+  transaction_link_id?: string | null
   wallet?: t_payment_method_details_card_wallet | null
 }
 
@@ -9714,8 +9764,8 @@ export type t_payment_method_details_cashapp = {
 
 export type t_payment_method_details_crypto = {
   buyer_address?: string
-  network?: "base" | "ethereum" | "polygon" | "solana" | "tempo"
-  token_currency?: "phantom_cash" | "usdc" | "usdg" | "usdp" | "usdt"
+  network?: "base" | "ethereum" | "polygon" | "solana" | "sui" | "tempo"
+  token_currency?: "phantom_cash" | "usdc" | "usdg" | "usdp" | "usdsui" | "usdt"
   transaction_hash?: string
 }
 
@@ -10067,6 +10117,7 @@ export type t_payment_method_details_payment_record_billie = {
 }
 
 export type t_payment_method_details_payment_record_bizum = {
+  buyer_id?: string | null
   transaction_id?: string | null
 }
 
@@ -10327,6 +10378,10 @@ export type t_payment_method_details_payment_record_sofort = {
   verified_name?: string | null
 }
 
+export type t_payment_method_details_payment_record_sunbit = {
+  transaction_id?: string | null
+}
+
 export type t_payment_method_details_payment_record_swish = {
   fingerprint?: string | null
   payment_reference?: string | null
@@ -10389,6 +10444,7 @@ export type t_payment_method_details_payto = {
 
 export type t_payment_method_details_pix = {
   bank_transaction_id?: string | null
+  fingerprint?: string | null
   mandate?: string
 }
 
@@ -10914,6 +10970,7 @@ export type t_payment_method_options_revolut_pay = {
 
 export type t_payment_method_options_satispay = {
   capture_method?: "manual"
+  setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
 export type t_payment_method_options_scalapay = {
@@ -10923,6 +10980,11 @@ export type t_payment_method_options_scalapay = {
 export type t_payment_method_options_sofort = {
   preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null
   setup_future_usage?: "none" | "off_session"
+}
+
+export type t_payment_method_options_sunbit = {
+  capture_method?: "manual"
+  setup_future_usage?: "none"
 }
 
 export type t_payment_method_options_twint = {
@@ -10998,7 +11060,9 @@ export type t_payment_method_payto = {
   pay_id?: string | null
 }
 
-export type t_payment_method_pix = Record<string, unknown>
+export type t_payment_method_pix = {
+  fingerprint?: string | null
+}
 
 export type t_payment_method_promptpay = Record<string, unknown>
 
@@ -11785,14 +11849,11 @@ export type t_payments_primitives_payment_records_resource_payment_method_card_d
     capture_before?: number
     checks?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_checks | null
     country?: string | null
-    description?: string | null
     exp_month?: number | null
     exp_year?: number | null
     fingerprint?: string | null
     funding?: "credit" | "debit" | "prepaid" | "unknown" | null
-    iin?: string | null
     installments?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_installments | null
-    issuer?: string | null
     last4?: string | null
     network?:
       | "amex"
@@ -11812,7 +11873,6 @@ export type t_payments_primitives_payment_records_resource_payment_method_card_d
     network_decline_code?: string | null
     network_token?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_network_token | null
     network_transaction_id?: string | null
-    stored_credential_usage?: "recurring" | "unscheduled" | null
     three_d_secure?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_three_d_secure | null
     wallet?: t_payments_primitives_payment_records_resource_payment_method_card_details_resource_wallet | null
   }
@@ -11960,7 +12020,7 @@ export type t_payments_primitives_payment_records_resource_payment_method_detail
     sepa_debit?: t_payment_method_details_payment_record_sepa_debit
     sofort?: t_payment_method_details_payment_record_sofort
     stripe_account?: t_payment_method_details_stripe_account
-    sunbit?: t_payment_method_details_sunbit
+    sunbit?: t_payment_method_details_payment_record_sunbit
     swish?: t_payment_method_details_payment_record_swish
     twint?: t_payment_method_details_payment_record_twint
     type: string
@@ -13003,6 +13063,7 @@ export type t_setup_attempt_payment_method_details = {
   payto?: t_setup_attempt_payment_method_details_payto
   pix?: t_setup_attempt_payment_method_details_pix
   revolut_pay?: t_setup_attempt_payment_method_details_revolut_pay
+  satispay?: t_payment_flows_private_payment_methods_satispay_setup_attempt_details
   sepa_debit?: t_setup_attempt_payment_method_details_sepa_debit
   sofort?: t_setup_attempt_payment_method_details_sofort
   twint?: t_setup_attempt_payment_method_details_twint
@@ -13174,7 +13235,9 @@ export type t_setup_attempt_payment_method_details_payto = Record<
   unknown
 >
 
-export type t_setup_attempt_payment_method_details_pix = Record<string, unknown>
+export type t_setup_attempt_payment_method_details_pix = {
+  fingerprint?: string | null
+}
 
 export type t_setup_attempt_payment_method_details_revolut_pay = Record<
   string,
@@ -14360,6 +14423,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "satispay"
         | "sepa_credit_transfer"
         | "sepa_debit"
         | "sofort"
@@ -14386,6 +14450,9 @@ export type t_subscriptions_resource_pending_update = {
 
 export type t_subscriptions_resource_subscription_invoice_settings = {
   account_tax_ids?: (string | t_tax_id | t_deleted_tax_id)[] | null
+  custom_fields?: t_invoice_setting_custom_field[] | null
+  description?: string | null
+  footer?: string | null
   issuer: t_connect_account_reference
 }
 
@@ -16410,7 +16477,7 @@ export type t_us_bank_account_networks = {
 }
 
 export type t_verification_session_redaction = {
-  status: "processing" | "redacted"
+  status: "processing" | "redacted" | "validated"
 }
 
 export type t_webhook_endpoint = {
@@ -22231,12 +22298,17 @@ export type t_PostChargesRequestBody = {
         address_state?: string
         address_zip?: string
         cvc?: string
+        encrypted?: string
         exp_month: number
         exp_year: number
         metadata?: Record<string, string>
         name?: string
+        network_token?: {
+          number?: string
+        }
         number: string
         object?: "card"
+        swipe_data?: string
       }
     | string
   currency?: string
@@ -22349,6 +22421,9 @@ export type t_PostChargesChargeDisputeRequestBody = {
     duplicate_charge_id?: string
     enhanced_evidence?:
       | {
+          mastercard_compliance?: {
+            fee_acknowledged?: boolean
+          }
           visa_compelling_evidence_3?: {
             disputed_transaction?: {
               customer_account_id?: string | ""
@@ -23097,6 +23172,10 @@ export type t_PostCheckoutSessionsRequestBody = {
     sofort?: {
       setup_future_usage?: "none"
     }
+    sunbit?: {
+      capture_method?: "manual"
+      setup_future_usage?: "none"
+    }
     swish?: {
       reference?: string
     }
@@ -23483,6 +23562,13 @@ export type t_PostCheckoutSessionsRequestBody = {
   subscription_data?: {
     application_fee_percent?: number
     billing_cycle_anchor?: number
+    billing_cycle_anchor_config?: {
+      day_of_month: number
+      hour?: number
+      minute?: number
+      month?: number
+      second?: number
+    }
     billing_mode?: {
       flexible?: {
         proration_discounts?: "included" | "itemized"
@@ -24044,12 +24130,17 @@ export type t_PostCustomersCustomerRequestBody = {
         address_state?: string
         address_zip?: string
         cvc?: string
+        encrypted?: string
         exp_month: number
         exp_year: number
         metadata?: Record<string, string>
         name?: string
+        network_token?: {
+          number?: string
+        }
         number: string
         object?: "card"
+        swipe_data?: string
       }
     | string
   cash_balance?: {
@@ -24158,12 +24249,17 @@ export type t_PostCustomersCustomerBankAccountsRequestBody = {
         address_state?: string
         address_zip?: string
         cvc?: string
+        encrypted?: string
         exp_month: number
         exp_year: number
         metadata?: Record<string, string>
         name?: string
+        network_token?: {
+          number?: string
+        }
         number: string
         object?: "card"
+        swipe_data?: string
       }
     | string
   expand?: string[]
@@ -24241,12 +24337,17 @@ export type t_PostCustomersCustomerCardsRequestBody = {
         address_state?: string
         address_zip?: string
         cvc?: string
+        encrypted?: string
         exp_month: number
         exp_year: number
         metadata?: Record<string, string>
         name?: string
+        network_token?: {
+          number?: string
+        }
         number: string
         object?: "card"
+        swipe_data?: string
       }
     | string
   expand?: string[]
@@ -24347,12 +24448,17 @@ export type t_PostCustomersCustomerSourcesRequestBody = {
         address_state?: string
         address_zip?: string
         cvc?: string
+        encrypted?: string
         exp_month: number
         exp_year: number
         metadata?: Record<string, string>
         name?: string
+        network_token?: {
+          number?: string
+        }
         number: string
         object?: "card"
+        swipe_data?: string
       }
     | string
   expand?: string[]
@@ -24472,6 +24578,14 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
   expand?: string[]
   invoice_settings?: {
     account_tax_ids?: string[] | ""
+    custom_fields?:
+      | {
+          name: string
+          value: string
+        }[]
+      | ""
+    description?: string
+    footer?: string
     issuer?: {
       account?: string
       type: "account" | "self"
@@ -24667,6 +24781,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBody = {
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "satispay"
           | "sepa_credit_transfer"
           | "sepa_debit"
           | "sofort"
@@ -24787,6 +24902,14 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
     expand?: string[]
     invoice_settings?: {
       account_tax_ids?: string[] | ""
+      custom_fields?:
+        | {
+            name: string
+            value: string
+          }[]
+        | ""
+      description?: string | ""
+      footer?: string | ""
       issuer?: {
         account?: string
         type: "account" | "self"
@@ -24991,6 +25114,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "satispay"
             | "sepa_credit_transfer"
             | "sepa_debit"
             | "sofort"
@@ -25173,6 +25297,9 @@ export type t_PostDisputesDisputeRequestBody = {
     duplicate_charge_id?: string
     enhanced_evidence?:
       | {
+          mastercard_compliance?: {
+            fee_acknowledged?: boolean
+          }
           visa_compelling_evidence_3?: {
             disputed_transaction?: {
               customer_account_id?: string | ""
@@ -25740,6 +25867,7 @@ export type t_PostInvoicesRequestBody = {
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "satispay"
           | "sepa_credit_transfer"
           | "sepa_debit"
           | "sofort"
@@ -26397,6 +26525,7 @@ export type t_PostInvoicesInvoiceRequestBody = {
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "satispay"
           | "sepa_credit_transfer"
           | "sepa_debit"
           | "sofort"
@@ -31894,6 +32023,7 @@ export type t_PostPaymentIntentsRequestBody = {
     satispay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
     scalapay?:
@@ -31922,6 +32052,12 @@ export type t_PostPaymentIntentsRequestBody = {
             | "nl"
             | "pl"
           setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
+    sunbit?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
         }
       | ""
     swish?:
@@ -32925,6 +33061,7 @@ export type t_PostPaymentIntentsIntentRequestBody = {
     satispay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
     scalapay?:
@@ -32953,6 +33090,12 @@ export type t_PostPaymentIntentsIntentRequestBody = {
             | "nl"
             | "pl"
           setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
+    sunbit?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
         }
       | ""
     swish?:
@@ -34073,6 +34216,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
     satispay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
     scalapay?:
@@ -34101,6 +34245,12 @@ export type t_PostPaymentIntentsIntentConfirmRequestBody = {
             | "nl"
             | "pl"
           setup_future_usage?: "" | "none" | "off_session"
+        }
+      | ""
+    sunbit?:
+      | {
+          capture_method?: "" | "manual"
+          setup_future_usage?: "none"
         }
       | ""
     swish?:
@@ -36408,7 +36558,7 @@ export type t_PostPaymentRecordsIdReportRefundRequestBody = {
     }
     type: "custom"
   }
-  refunded: {
+  refunded?: {
     refunded_at: number
   }
 }
@@ -40275,6 +40425,14 @@ export type t_PostSubscriptionsRequestBody = {
   expand?: string[]
   invoice_settings?: {
     account_tax_ids?: string[] | ""
+    custom_fields?:
+      | {
+          name: string
+          value: string
+        }[]
+      | ""
+    description?: string
+    footer?: string
     issuer?: {
       account?: string
       type: "account" | "self"
@@ -40471,6 +40629,7 @@ export type t_PostSubscriptionsRequestBody = {
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "satispay"
           | "sepa_credit_transfer"
           | "sepa_debit"
           | "sofort"
@@ -40606,6 +40765,14 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
   expand?: string[]
   invoice_settings?: {
     account_tax_ids?: string[] | ""
+    custom_fields?:
+      | {
+          name: string
+          value: string
+        }[]
+      | ""
+    description?: string | ""
+    footer?: string | ""
     issuer?: {
       account?: string
       type: "account" | "self"
@@ -40811,6 +40978,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBody = {
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "satispay"
           | "sepa_credit_transfer"
           | "sepa_debit"
           | "sofort"
@@ -44877,6 +45045,12 @@ export type t_PostTopupsRequestBody = {
   description?: string
   expand?: string[]
   metadata?: Record<string, string> | ""
+  payment_method?: string
+  payment_method_options?: {
+    us_bank_account?: {
+      network: "ach"
+    }
+  }
   source?: string
   statement_descriptor?: string
   transfer_group?: string
@@ -45351,6 +45525,7 @@ export type t_PostWebhookEndpointsRequestBody = {
     | "2026-03-25.dahlia"
     | "2026-04-22.dahlia"
     | "2026-05-27.dahlia"
+    | "2026-06-24.dahlia"
   connect?: boolean
   description?: string | ""
   enabled_events: (
@@ -45367,7 +45542,13 @@ export type t_PostWebhookEndpointsRequestBody = {
     | "balance.available"
     | "balance_settings.updated"
     | "billing.alert.triggered"
+    | "billing.credit_balance_transaction.created"
     | "billing.credit_grant.created"
+    | "billing.credit_grant.updated"
+    | "billing.meter.created"
+    | "billing.meter.deactivated"
+    | "billing.meter.reactivated"
+    | "billing.meter.updated"
     | "billing_portal.configuration.created"
     | "billing_portal.configuration.updated"
     | "billing_portal.session.created"
@@ -45636,7 +45817,13 @@ export type t_PostWebhookEndpointsWebhookEndpointRequestBody = {
     | "balance.available"
     | "balance_settings.updated"
     | "billing.alert.triggered"
+    | "billing.credit_balance_transaction.created"
     | "billing.credit_grant.created"
+    | "billing.credit_grant.updated"
+    | "billing.meter.created"
+    | "billing.meter.deactivated"
+    | "billing.meter.reactivated"
+    | "billing.meter.updated"
     | "billing_portal.configuration.created"
     | "billing_portal.configuration.updated"
     | "billing_portal.session.created"

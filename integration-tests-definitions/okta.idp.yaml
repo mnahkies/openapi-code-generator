@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: MyAccount Management
-  version: 2026.03.0
+  version: 2026.07.2
   description: |-
     APIs for managing a user's own emails, phones, profile, and app authenticators.
     > **Note:** The MyAccount API doesn't support [delegated authentication](https://help.okta.com/okta_help.htm?id=ext_Security_Authentication).
@@ -140,14 +140,11 @@ tags:
       isGenerallyAvailable: true
   - name: WebAuthn
     description: |
-      The MyAccount WebAuthn API provides operations to enroll, list, and delete WebAuthn enrollments.
+      The MyAccount WebAuthn API provides operations to enroll, list, and delete Passkey (FIDO2 WebAuthn) enrollments.
 
-      > <x-lifecycle class="ea"></x-lifecycle>
-      > **Note:** When the **Passkeys Rebrand** self-service Early Access feature is enabled, the FIDO2 (WebAuthn) authenticator is called Passkeys (FIDO2 WebAuthn), and there are new settings and updates to the authenticator page layout.
-      >
-      > See [Configure the FIDO2 (WebAuthn) authenticator](https://help.okta.com/okta_help.htm?type=oie&id=csh-configure-webauthn) and [`settings`](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/replaceAuthenticatorMethod!path=8/settings&t=request). To enable the **Passkeys Rebrand** feature, see [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+      > **Note:** As of the `2026.04.0` release, the FIDO2 (WebAuthn) authenticator is now called Passkey (FIDO2 WebAuthn) and there are new settings and updates to the authenticator page layout. There have been no changes to any existing parameter names, values, or endpoint paths. For example, the authenticator `key` for the Passkey (FIDO2 WebAuthn) authenticator is still `webauthn`. See [Passkeys and WebAuthn](https://developer.okta.com/docs/guides/authenticators-web-authn/aspnet/main/#passkeys-and-webauthn).
 
-      The registration for a WebAuthn authenticator (also known as the "attestation ceremony") involves a challenge request and response. When you enroll a WebAuthn authenticator, use the following endpoints in this order:
+      The registration for a Passkey (FIDO2 WebAuthn) authenticator (also known as the attestation ceremony) involves a challenge request and response. When you enroll a Passkey (FIDO2 WebAuthn) authenticator, use the following endpoints in this order:
 
       1. [Start a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/startWebAuthnEnrollment). This endpoint returns a random challenge and other data from the Relying Party (RP).
       1. [Create a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/createWebAuthnEnrollment). This endpoint creates and sends a signed response that contains the challenge and other data from the RP.
@@ -1837,6 +1834,21 @@ paths:
       description: |
         Deletes all sessions. Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Also revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
       operationId: deleteSessions
+      parameters:
+        - name: oauthTokens
+          in: query
+          required: false
+          description: Optional parameter.  Defaults to 'true', which deletes OAuth refresh tokens and access tokens.  Set to `false` to keep OAuth refresh tokens and access tokens active.
+          schema:
+            type: boolean
+            default: true
+        - name: excludeCurrentAuthorizationContext
+          in: query
+          required: false
+          description: Optional parameter.  If `true`, excludes the current authorization context from being revoked.  Defaults to false.
+          schema:
+            type: boolean
+            default: false
       responses:
         '204':
           description: No Content
@@ -1867,7 +1879,7 @@ paths:
     get:
       summary: List all WebAuthn enrollments
       description: |
-        Lists all of the specified user's WebAuthn enrollments
+        Lists all of the specified user's Passkey (FIDO2 WebAuthn) enrollments
       operationId: listWebAuthn
       responses:
         '200':
@@ -1888,7 +1900,7 @@ paths:
     post:
       summary: Create a WebAuthn enrollment
       description: |
-        Creates a WebAuthn enrollment. Before using this endpoint, ensure that you've used the [Start a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/startWebAuthnEnrollment) endpoint first.
+        Creates a Passkey (FIDO2 WebAuthn) enrollment. Before using this endpoint, ensure that you've used the [Start a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/startWebAuthnEnrollment) endpoint first.
       operationId: createWebAuthnEnrollment
       requestBody:
         content:
@@ -1922,9 +1934,9 @@ paths:
     post:
       summary: Start a WebAuthn enrollment
       description: |
-        Starts the enrollment process for a WebAuthn authenticator. Complete the enrollment process by using the [Create a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/createWebAuthnEnrollment) endpoint.
+        Starts the enrollment process for a Passkey (FIDO2 WebAuthn) authenticator. Complete the enrollment process by using the [Create a WebAuthn enrollment](https://developer.okta.com/docs/api/openapi/okta-myaccount/myaccount/tag/WebAuthn/#tag/WebAuthn/operation/createWebAuthnEnrollment) endpoint.
 
-        Do not supply a request body for this operation. To start the enrollment process, send a `POST` request to the `/idp/myaccount/webauthn/registration` endpoint. The response contains the challenge and options for the WebAuthn credential creation.
+        Don't supply a request body for this operation. To start the enrollment process, send a `POST` request to the `/idp/myaccount/webauthn/registration` endpoint. The response contains the challenge and options for the Passkey (FIDO2 WebAuthn) credential creation.
       operationId: startWebAuthnEnrollment
       requestBody:
         content:
@@ -1954,7 +1966,7 @@ paths:
       - $ref: '#/components/parameters/webauthnEnrollmentId'
     get:
       summary: Retrieve a WebAuthn enrollment
-      description: Retrieves a WebAuthn enrollment
+      description: Retrieves a Passkey (FIDO2 WebAuthn) enrollment
       operationId: getWebAuthn
       responses:
         '200':
@@ -1976,7 +1988,7 @@ paths:
         SKUs: []
     delete:
       summary: Delete a WebAuthn enrollment
-      description: Deletes a specified WebAuthn enrollment
+      description: Deletes a specified Passkey (FIDO2 WebAuthn) enrollment
       operationId: deleteWebAuthn
       parameters: []
       responses:
@@ -2119,7 +2131,7 @@ components:
                 - LOGIN
                 - CIBA
     CreateWebAuthnExampleRequest:
-      summary: Create WebAuthn enrollment
+      summary: Create Passkey (FIDO2 WebAuthn) enrollment
       value:
         clientData: eyJjaGFsbGVuZ...
         attestation: o2NmbXRoZmlk...
@@ -2724,7 +2736,7 @@ components:
       name: id
       in: path
       required: true
-      description: Unique identifier of the WebAuthn enrollment
+      description: Unique identifier of the Passkey (FIDO2 WebAuthn) enrollment
       schema:
         type: string
         example: fwfn3c3rryqStmyp20g4
@@ -3761,7 +3773,7 @@ components:
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: This user account has reached the maximum number of enrolled WebAuthn authenticators.
+                  - errorSummary: This user account has reached the maximum number of enrolled Passkey authenticators.
   schemas:
     AppAuthenticatorEnrollment:
       description: App authenticator enrollment object
@@ -4088,7 +4100,7 @@ components:
         clientData:
           type: string
           example: eyJjaGFsbGVuZ...
-          description: JSON-serialized data that's passed to the WebAuthn authenticator by the client to generate the WebAuthn credentials
+          description: JSON-serialized data that's passed to the Passkey (FIDO2 WebAuthn) authenticator by the client to generate the WebAuthn credentials
         clientExtensions:
           type: string
           example: '{"credProps":{"rk":true}}'
@@ -5024,18 +5036,18 @@ components:
         nickname:
           type: string
     WebAuthn:
-      description: WebAuthn enrollment object
+      description: Passkey (FIDO2 WebAuthn) enrollment object
       type: object
       properties:
         created:
           type: string
-          description: Date when the WebAuthn authenticator was first enrolled
+          description: Date when the Passkey (FIDO2 WebAuthn) authenticator was first enrolled
         credentialId:
           type: string
           description: Unique identifier of the specific WebAuthn credential
         id:
           type: string
-          description: Unique identifier of the WebAuthn enrollment
+          description: Unique identifier of the Passkey (FIDO2 WebAuthn) enrollment
           minLength: 1
           readOnly: true
         key:
@@ -5043,7 +5055,7 @@ components:
           description: Authenticator key
         lastUpdated:
           type: string
-          description: Date when the WebAuthn enrollment was last updated
+          description: Date when the Passkey (FIDO2 WebAuthn) enrollment was last updated
         name:
           type: string
           description: Authenticator name
@@ -5063,7 +5075,7 @@ components:
             - security_key
         _links:
           type: object
-          description: Discoverable resources related to the WebAuthn enrollment
+          description: Discoverable resources related to the Passkey (FIDO2 WebAuthn) enrollment
           properties:
             self:
               type: object
@@ -5092,7 +5104,7 @@ components:
           description: Date and time when the challenge expires
         options:
           type: object
-          description: WebAuthn registration options
+          description: WebAuthn registration options for the Passkey (FIDO2 WebAuthn) authenticator
           properties:
             rp:
               type: object
@@ -5164,7 +5176,7 @@ components:
                   description: |-
                     Specifies whether the RP wants to create a client-side discoverable credential. If `residentKey` is set as `required` or `preferred`, then a discoverable credential is created and users can authenticate without the server
                     needing to send the credential ID. If `residentKey` is set as `discouraged`, then a non-discoverable credential is created and users must authenticate with the server that sends the credential ID.
-                    > **Note:** `residentKey` is only returned if you have enabled Passkeys Autofill as an [Early Access Self-Service](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature.
+                    > **Note:** `residentKey` is only returned if you have enabled Passkey Autofill as an [Early Access Self-Service](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature.
                   enum:
                     - required
                     - preferred
@@ -5226,7 +5238,6 @@ components:
             okta.myAccount.appAuthenticator.maintenance.manage: Write access to non-sensitive attributes of user app authenticator enrollments
             okta.myAccount.appAuthenticator.maintenance.read: Read access to non-sensitive attributes of user app authenticator enrollments
             okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
-            okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
             okta.myAccount.authenticators.manage: Write access to user authenticator enrollments
             okta.myAccount.authenticators.read: Read access to user authenticator configurations and enrollments
             okta.myAccount.email.manage: Write access to user emails
@@ -5240,5 +5251,5 @@ components:
             okta.myAccount.profile.manage: Write access to user profile and schema
             okta.myAccount.profile.read: Read access to user profile and schema
             okta.myAccount.sessions.manage: Write access to user sessions
-            okta.myAccount.webauthn.manage: Write access to user WebAuthn enrollments
-            okta.myAccount.webauthn.read: Read access to user WebAuthn enrollments
+            okta.myAccount.webauthn.manage: Write access to user Passkey (FIDO2 WebAuthn) enrollments
+            okta.myAccount.webauthn.read: Read access to user Passkey (FIDO2 WebAuthn) enrollments

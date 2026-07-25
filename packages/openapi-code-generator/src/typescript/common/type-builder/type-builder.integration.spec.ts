@@ -8,27 +8,27 @@ import {
 } from "./type-builder.test-utils.ts"
 import type {TypeBuilderConfig} from "./type-builder.ts"
 
-describe.each(
-  testVersions,
-)("%s - typescript/common/type-builder", (version) => {
-  let formatter: TypescriptFormatterBiome
-  let testHarness: TypeBuilderTestHarness
+describe.each(testVersions)(
+  "%s - typescript/common/type-builder",
+  (version) => {
+    let formatter: TypescriptFormatterBiome
+    let testHarness: TypeBuilderTestHarness
 
-  beforeAll(async () => {
-    formatter = await TypescriptFormatterBiome.createNodeFormatter()
-    testHarness = typeBuilderTestHarness(formatter)
-  })
+    beforeAll(async () => {
+      formatter = await TypescriptFormatterBiome.createNodeFormatter()
+      testHarness = typeBuilderTestHarness(formatter)
+    })
 
-  it("can build a type for a simple object correctly", async () => {
-    const {code, types} = await getActual("components/schemas/SimpleObject")
+    it("can build a type for a simple object correctly", async () => {
+      const {code, types} = await getActual("components/schemas/SimpleObject")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_SimpleObject } from "./unit-test.types"
 
         declare const x: t_SimpleObject"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_SimpleObject = {
           $ref?: string
           date: string
@@ -39,41 +39,41 @@ describe.each(
           str: string
         }"
       `)
-  })
+    })
 
-  it("can build an optional property compatible with 'exactOptionalPropertyTypes'", async () => {
-    const {code, types} = await getActual(
-      "components/schemas/OptionalProperties",
-      {
-        compilerOptions: {
-          exactOptionalPropertyTypes: true,
+    it("can build an optional property compatible with 'exactOptionalPropertyTypes'", async () => {
+      const {code, types} = await getActual(
+        "components/schemas/OptionalProperties",
+        {
+          compilerOptions: {
+            exactOptionalPropertyTypes: true,
+          },
         },
-      },
-    )
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_OptionalProperties } from "./unit-test.types"
 
         declare const x: t_OptionalProperties"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_OptionalProperties = {
           optional_str?: string | undefined
         }"
       `)
-  })
+    })
 
-  it("can build a type for an object that references other objects correctly", async () => {
-    const {code, types} = await getActual("components/schemas/ObjectWithRefs")
+    it("can build a type for an object that references other objects correctly", async () => {
+      const {code, types} = await getActual("components/schemas/ObjectWithRefs")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_ObjectWithRefs } from "./unit-test.types"
 
         declare const x: t_ObjectWithRefs"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_ObjectWithRefs = {
           optionalObject?: t_SimpleObject
           requiredObject: t_SimpleObject
@@ -89,34 +89,34 @@ describe.each(
           str: string
         }"
       `)
-  })
+    })
 
-  it("can build a type for a named nullable string enum", async () => {
-    const {code, types} = await getActual(
-      "components/schemas/NamedNullableStringEnum",
-    )
+    it("can build a type for a named nullable string enum", async () => {
+      const {code, types} = await getActual(
+        "components/schemas/NamedNullableStringEnum",
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_NamedNullableStringEnum } from "./unit-test.types"
 
         declare const x: t_NamedNullableStringEnum"
       `)
 
-    expect(types).toMatchInlineSnapshot(
-      '"export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"',
-    )
-  })
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"',
+      )
+    })
 
-  it("can build a type for a oneOf correctly", async () => {
-    const {code, types} = await getActual("components/schemas/OneOf")
+    it("can build a type for a oneOf correctly", async () => {
+      const {code, types} = await getActual("components/schemas/OneOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_OneOf } from "./unit-test.types"
 
         declare const x: t_OneOf"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_OneOf =
           | {
               strs: string[]
@@ -124,48 +124,48 @@ describe.each(
           | string[]
           | string"
       `)
-  })
+    })
 
-  it("can build a type for a anyOf correctly", async () => {
-    const {code, types} = await getActual("components/schemas/AnyOf")
+    it("can build a type for a anyOf correctly", async () => {
+      const {code, types} = await getActual("components/schemas/AnyOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_AnyOf } from "./unit-test.types"
 
         declare const x: t_AnyOf"
       `)
 
-    expect(types).toMatchInlineSnapshot(
-      '"export type t_AnyOf = number | string"',
-    )
-  })
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_AnyOf = number | string"',
+      )
+    })
 
-  it("can build a type for a nullable string using anyOf correctly", async () => {
-    const {code, types} = await getActual(
-      "components/schemas/AnyOfNullableString",
-    )
+    it("can build a type for a nullable string using anyOf correctly", async () => {
+      const {code, types} = await getActual(
+        "components/schemas/AnyOfNullableString",
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_AnyOfNullableString } from "./unit-test.types"
 
         declare const x: t_AnyOfNullableString"
       `)
 
-    expect(types).toMatchInlineSnapshot(
-      '"export type t_AnyOfNullableString = string | null"',
-    )
-  })
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_AnyOfNullableString = string | null"',
+      )
+    })
 
-  it("can build a type for a allOf correctly", async () => {
-    const {code, types} = await getActual("components/schemas/AllOf")
+    it("can build a type for a allOf correctly", async () => {
+      const {code, types} = await getActual("components/schemas/AllOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_AllOf } from "./unit-test.types"
 
         declare const x: t_AllOf"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_AllOf = t_Base & {
           id: number
         }
@@ -175,36 +175,36 @@ describe.each(
           name: string
         }"
       `)
-  })
+    })
 
-  it("can build a recursive type correctly", async () => {
-    const {code, types} = await getActual("components/schemas/Recursive")
+    it("can build a recursive type correctly", async () => {
+      const {code, types} = await getActual("components/schemas/Recursive")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_Recursive } from "./unit-test.types"
 
         declare const x: t_Recursive"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_Recursive = {
           child?: t_Recursive
         }"
       `)
-  })
+    })
 
-  it("handles additionalProperties specifying a schema", async () => {
-    const {code, types} = await getActual(
-      "components/schemas/AdditionalPropertiesSchema",
-    )
+    it("handles additionalProperties specifying a schema", async () => {
+      const {code, types} = await getActual(
+        "components/schemas/AdditionalPropertiesSchema",
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import type { t_AdditionalPropertiesSchema } from "./unit-test.types"
 
         declare const x: t_AdditionalPropertiesSchema"
       `)
 
-    expect(types).toMatchInlineSnapshot(`
+      expect(types).toMatchInlineSnapshot(`
         "export type t_AdditionalPropertiesSchema = Record<
           string,
           t_NamedNullableStringEnum
@@ -212,96 +212,99 @@ describe.each(
 
         export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null"
       `)
-  })
+    })
 
-  describe("unspecified schemas when allowAny: true", () => {
-    it("handles additionalProperties set to true", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesBool",
-        {config: {allowAny: true}},
-      )
+    describe("unspecified schemas when allowAny: true", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+          {config: {allowAny: true}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesBool } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesBool"
         `)
 
-      expect(types).toMatchInlineSnapshot(
-        `"export type t_AdditionalPropertiesBool = Record<string, any>"`,
-      )
-    })
+        expect(types).toMatchInlineSnapshot(
+          `"export type t_AdditionalPropertiesBool = Record<string, any>"`,
+        )
+      })
 
-    it("handles additionalProperties set to {}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
-        {config: {allowAny: true}},
-      )
+      it("handles additionalProperties set to {}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+          {config: {allowAny: true}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesUnknownEmptySchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(
-        `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, any>"`,
-      )
-    })
+        expect(types).toMatchInlineSnapshot(
+          `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, any>"`,
+        )
+      })
 
-    it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
-        {config: {allowAny: true}},
-      )
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+          {config: {allowAny: true}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = Record<
             string,
             Record<string, any>
           >"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to true in conjunction with properties", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesMixed",
-        {config: {allowAny: true}},
-      )
+      it("handles additionalProperties set to true in conjunction with properties", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+          {config: {allowAny: true}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesMixed } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesMixed"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
                   "export type t_AdditionalPropertiesMixed = {
                     id?: string
                     name?: string
                     [key: string]: any | undefined
                   }"
               `)
-    })
-
-    it("handles any / empty objects", async () => {
-      const {code, types} = await getActual("components/schemas/AnyJsonValue", {
-        config: {allowAny: true},
       })
 
-      expect(code).toMatchInlineSnapshot(`
+      it("handles any / empty objects", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AnyJsonValue",
+          {
+            config: {allowAny: true},
+          },
+        )
+
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AnyJsonValue } from "./unit-test.types"
 
           declare const x: t_AnyJsonValue"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
           "export type t_AnyJsonValue = {
             anyObject?: Record<string, any>
             arrayOfAny?: any[]
@@ -310,97 +313,100 @@ describe.each(
             emptySchemaAdditionalProperties?: Record<string, any>
           }"
         `)
+      })
     })
-  })
 
-  describe("unspecified schemas when allowAny: false", () => {
-    it("handles additionalProperties set to true", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesBool",
-        {config: {allowAny: false}},
-      )
+    describe("unspecified schemas when allowAny: false", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+          {config: {allowAny: false}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesBool } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesBool"
         `)
 
-      expect(types).toMatchInlineSnapshot(
-        `"export type t_AdditionalPropertiesBool = Record<string, unknown>"`,
-      )
-    })
+        expect(types).toMatchInlineSnapshot(
+          `"export type t_AdditionalPropertiesBool = Record<string, unknown>"`,
+        )
+      })
 
-    it("handles additionalProperties set to {}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
-        {config: {allowAny: false}},
-      )
+      it("handles additionalProperties set to {}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+          {config: {allowAny: false}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesUnknownEmptySchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(
-        `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, unknown>"`,
-      )
-    })
+        expect(types).toMatchInlineSnapshot(
+          `"export type t_AdditionalPropertiesUnknownEmptySchema = Record<string, unknown>"`,
+        )
+      })
 
-    it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
-        {config: {allowAny: false}},
-      )
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+          {config: {allowAny: false}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = Record<
             string,
             Record<string, unknown>
           >"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to true in conjunction with properties", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesMixed",
-        {config: {allowAny: false}},
-      )
+      it("handles additionalProperties set to true in conjunction with properties", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+          {config: {allowAny: false}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AdditionalPropertiesMixed } from "./unit-test.types"
 
           declare const x: t_AdditionalPropertiesMixed"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesMixed = {
             id?: string
             name?: string
             [key: string]: unknown | undefined
           }"
         `)
-    })
-
-    it("handles any / empty objects", async () => {
-      const {code, types} = await getActual("components/schemas/AnyJsonValue", {
-        config: {allowAny: false},
       })
 
-      expect(code).toMatchInlineSnapshot(`
+      it("handles any / empty objects", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AnyJsonValue",
+          {
+            config: {allowAny: false},
+          },
+        )
+
+        expect(code).toMatchInlineSnapshot(`
           "import type { t_AnyJsonValue } from "./unit-test.types"
 
           declare const x: t_AnyJsonValue"
         `)
 
-      expect(types).toMatchInlineSnapshot(`
+        expect(types).toMatchInlineSnapshot(`
           "export type t_AnyJsonValue = {
             anyObject?: Record<string, unknown>
             arrayOfAny?: unknown[]
@@ -409,18 +415,19 @@ describe.each(
             emptySchemaAdditionalProperties?: Record<string, unknown>
           }"
         `)
+      })
     })
-  })
 
-  async function getActual(
-    path: string,
-    config: {
-      config?: TypeBuilderConfig
-      compilerOptions?: CompilerOptions
-    } = {},
-  ) {
-    const {input, file} = await unitTestInput(version)
-    const schema = {$ref: `${file}#/${path}`}
-    return testHarness.getActual(schema, input, config)
-  }
-})
+    async function getActual(
+      path: string,
+      config: {
+        config?: TypeBuilderConfig
+        compilerOptions?: CompilerOptions
+      } = {},
+    ) {
+      const {input, file} = await unitTestInput(version)
+      const schema = {$ref: `${file}#/${path}`}
+      return testHarness.getActual(schema, input, config)
+    }
+  },
+)

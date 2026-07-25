@@ -9,602 +9,601 @@ import type {t_ProductOrder} from "./generated/client/axios/models.ts"
 import {startServerFunctions} from "./index.ts"
 import {numberBetween} from "./test-utils.ts"
 
-describe.each(
-  startServerFunctions,
-)("e2e - typescript-axios client against $name server", ({startServer}) => {
-  let server: Server | undefined
-  let client: ApiClient
-  let basePath: string
-
-  beforeAll(async () => {
-    const args = await startServer()
-    basePath = E2ETestClientServers.server("{protocol}://{host}:{port}").build(
-      undefined,
-      undefined,
-      args.address.port.toString(),
-    )
-    client = new ApiClient({
-      basePath,
-      defaultHeaders: {
-        Authorization: "Bearer default-header",
-      },
-    })
-    server = args.server
-  })
-
-  afterAll(async () => {
-    server?.close()
-  })
-
-  describe("CORS", () => {
-    it("should send the correct CORS headers", async () => {
-      const {headers} = await client.getResponsesEmpty(undefined, {
-        headers: {
-          Origin: "http://e2e.example.com",
-        },
-      })
-      expect(headers).toMatchObject({
-        "access-control-allow-origin": "http://example.com",
-        "access-control-allow-credentials": "true",
-      })
-    })
-    it("should support pre-flight requests", async () => {
-      const {headers} = await client.getResponsesEmpty(undefined, {
-        method: "OPTIONS",
-        headers: {
-          Origin: "http://e2e.example.com",
-          "Access-Control-Request-Method": "POST",
-        },
-      })
-      expect(headers).toMatchObject({
-        "access-control-allow-origin": "http://example.com",
-        "access-control-allow-credentials": "true",
-        "access-control-allow-methods": "GET,OPTIONS",
-        "access-control-allow-headers": "Authorization,Content-Type",
-      })
-    })
-  })
-
-  describe("404 handling", () => {
-    it("should handle 404s", async () => {
-      const err = await client
-        .getResponsesEmpty(undefined, {url: "/not-found"})
-        .then(
-          () => {
-            throw new Error("expected request to fail")
-          },
-          (err: AxiosError) => err,
-        )
-
-      expect(err).toMatchObject({
-        message: "Request failed with status code 404",
-        name: "AxiosError",
-        status: 404,
-      })
-      expect(err.response?.data).toMatchObject({
-        code: 404,
-        message: "route not found",
-      })
-    })
-  })
-
-  describe("GET /headers/undeclared", () => {
-    it("provides the default headers", async () => {
-      const {data} = await client.getHeadersUndeclared()
-
-      expect(data).toEqual({
-        typedHeaders: undefined,
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer default-header",
-        }),
-      })
-    })
-    it("provides default headers, and arbitrary extra headers", async () => {
-      const {data} = await client.getHeadersUndeclared(undefined, {
-        headers: {"some-random-header": "arbitrary-header"},
-      })
-
-      expect(data).toEqual({
-        typedHeaders: undefined,
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer default-header",
-          "some-random-header": "arbitrary-header",
-        }),
-      })
-    })
-  })
-
-  describe("GET /headers/request", () => {
-    it("provides the default headers", async () => {
-      const {data} = await client.getHeadersRequest()
-
-      expect(data).toEqual({
-        typedHeaders: {
-          authorization: "Bearer default-header",
-        },
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer default-header",
-        }),
-      })
-    })
-
-    it("provides route level header with default headers", async () => {
-      const {data} = await client.getHeadersRequest({
-        routeLevelHeader: "route-header",
-      })
-
-      expect(data).toEqual({
-        typedHeaders: {
-          authorization: "Bearer default-header",
-          "route-level-header": "route-header",
-        },
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer default-header",
-          "route-level-header": "route-header",
-        }),
-      })
-    })
-
-    it("overrides the default headers when a route level header is provided", async () => {
-      const {data} = await client.getHeadersRequest({
-        authorization: "Bearer override",
-      })
-
-      expect(data).toEqual({
-        typedHeaders: {
-          authorization: "Bearer override",
-        },
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer override",
-        }),
-      })
-    })
-
-    it("overrides the default headers when a config level header is provided", async () => {
-      const {data} = await client.getHeadersRequest(undefined, undefined, {
-        headers: {authorization: "Bearer config"},
-      })
-
-      expect(data).toEqual({
-        typedHeaders: {
-          authorization: "Bearer config",
-        },
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer config",
-        }),
-      })
-    })
-
-    it("provides route level header with default headers, and arbitrary extra headers", async () => {
-      const {data} = await client.getHeadersRequest(
-        {routeLevelHeader: "route-header"},
-        undefined,
-        {headers: {"some-random-header": "arbitrary-header"}},
-      )
-
-      expect(data).toEqual({
-        typedHeaders: {
-          authorization: "Bearer default-header",
-          "route-level-header": "route-header",
-        },
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer default-header",
-          "route-level-header": "route-header",
-          "some-random-header": "arbitrary-header",
-        }),
-      })
-    })
-
-    it("parses headers correctly", async () => {
-      const {data} = await client.getHeadersRequest({
-        numberHeader: 12,
-        booleanHeader: true,
-        secondBooleanHeader: false,
-        authorization: "Bearer test",
-      })
-
-      expect(data).toEqual({
-        rawHeaders: expect.objectContaining({
-          authorization: "Bearer test",
-          "number-header": "12",
-          "boolean-header": "true",
-          "second-boolean-header": "false",
-        }),
-        typedHeaders: {
-          authorization: "Bearer test",
-          "number-header": 12,
-          "boolean-header": true,
-          "second-boolean-header": false,
-        },
-      })
-    })
-
-    it("rejects headers of the wrong type (number)", async () => {
-      const err = await client
-        .getHeadersRequest(
-          // @ts-expect-error testing validation
-          {numberHeader: "i'm not a number"},
-        )
-        .then(
-          () => {
-            throw new Error("expected request to fail")
-          },
-          (err: AxiosError) => err,
-        )
-
-      expect(err.message).toMatch("Request failed with status code 400")
-      expect(err.status).toBe(400)
-      expect(err.response?.data).toMatchObject({
-        message: "Request validation failed parsing request header",
-        phase: "request_validation",
-        cause: expect.stringMatching(
-          /Expected number, received nan|Invalid input: expected number, received NaN/,
-        ),
-      })
-    })
-
-    it("rejects headers of the wrong type (boolean)", async () => {
-      const err = await client
-        .getHeadersRequest(
-          // @ts-expect-error testing validation
-          {booleanHeader: "i'm not a boolean"},
-        )
-        .then(
-          () => {
-            throw new Error("expected request to fail")
-          },
-          (err: AxiosError) => err,
-        )
-
-      expect(err.message).toMatch("Request failed with status code 400")
-      expect(err.status).toBe(400)
-      expect(err.response?.data).toMatchObject({
-        message: "Request validation failed parsing request header",
-        phase: "request_validation",
-        cause: expect.stringMatching(
-          /Expected boolean, received string|Invalid input: expected boolean, received string/,
-        ),
-      })
-    })
-  })
-
-  describe("GET /validation/numbers/random-number", () => {
-    it("returns a random number", async () => {
-      const {data} = await client.getValidationNumbersRandomNumber()
-
-      expect(data).toEqual({
-        result: numberBetween(0, 10),
-        params: {
-          min: 0,
-          max: 10,
-          forbidden: [],
-        },
-      })
-    })
-
-    it("returns 400 when parameters fail validation", async () => {
-      const err = await client
-        .getValidationNumbersRandomNumber({
-          // @ts-expect-error: testing runtime validation
-          min: "one",
-          // @ts-expect-error: testing runtime validation
-          max: "ten",
-        })
-        .then(
-          () => {
-            throw new Error("expected request to fail")
-          },
-          (err: AxiosError) => err,
-        )
-
-      expect(err.message).toMatch("Request failed with status code 400")
-      expect(err.status).toBe(400)
-      expect(err.response?.data).toMatchObject({
-        message: "Request validation failed parsing querystring",
-        phase: "request_validation",
-        cause: expect.stringMatching(
-          /Expected number, received nan|Invalid input: expected number, received NaN/,
-        ),
-      })
-    })
-
-    it("handles a query param array of 1 element", async () => {
-      const {data} = await client.getValidationNumbersRandomNumber({
-        forbidden: [1],
-      })
-
-      expect(data.params).toMatchObject({
-        forbidden: [1],
-      })
-    })
-
-    it("handles a query param array of multiple elements", async () => {
-      const {data} = await client.getValidationNumbersRandomNumber({
-        forbidden: [1, 2, 3],
-      })
-
-      expect(data.params).toMatchObject({
-        forbidden: [1, 2, 3],
-      })
-    })
-  })
-
-  describe("POST /validation/enumeration", () => {
-    it("should error if the server receives an unknown enum value", async () => {
-      const res = client.postValidationEnums({
-        requestBody: {
-          // @ts-expect-error: purple isn't a valid enum value
-          colors: "purple",
-          starRatings: 1,
-        },
-      })
-
-      await expect(res).rejects.toThrow("Request failed with status code 400")
-    })
-    // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
-  })
-
-  describe("POST /validation/optional-body", () => {
-    it("should send and accept the body if passed", async () => {
-      const res = await client.postValidationOptionalBody({
-        requestBody: {id: "123"},
-      })
-
-      expect(res.status).toBe(200)
-      expect(res.data).toMatchObject({id: "123"})
-    })
-    // TODO: axios' default response parsing doesn't handle endpoints that return optional responses well
-    //       probably need to implement our own transformResponse function that is aware of the expected
-    //       status code / content-types and parses appropriately, or uses the content-type response header.
-    it.skip("should omit the body if not passed", async () => {
-      const res = await client.postValidationOptionalBody()
-
-      expect(res.data).toEqual(undefined)
-      expect(res.status).toBe(204)
-    })
-  })
-
-  describe("POST /validation/objects/discriminated-union", () => {
-    it("can post a cat", async () => {
-      const cat = {
-        type: "cat" as const,
-        name: "Felix",
-        lives: 9,
-      }
-
-      const res = await client.postValidationObjectsDiscriminatedUnion({
-        requestBody: cat,
-      })
-
-      expect(res.status).toBe(200)
-      expect(res.data).toStrictEqual({
-        ...cat,
-        type: "cat",
-      })
-    })
-
-    it("can post a dog", async () => {
-      const dog = {
-        type: "dog" as const,
-        name: "Rex",
-        sticks: 5,
-      }
-
-      const res = await client.postValidationObjectsDiscriminatedUnion({
-        requestBody: dog,
-      })
-
-      expect(res.status).toBe(200)
-      expect(res.data).toStrictEqual({
-        ...dog,
-        type: "dog",
-      })
-    })
-  })
-
-  describe("GET /responses/empty", () => {
-    it("returns undefined", async () => {
-      const {status, data} = await client.getResponsesEmpty()
-
-      expect(status).toBe(204)
-      // TODO: this should really be undefined
-      expect(data).toEqual("")
-    })
-  })
-
-  describe("GET /responses/default", () => {
-    it("returns {id: string} for 200", async () => {
-      const {status, data} = await client.getResponsesDefault({status: "200"})
-
-      expect(status).toBe(200)
-      expect(data.id).toBe("123")
-    })
-
-    it("returns {error: string} for other status codes", async () => {
-      const err = await client.getResponsesDefault({status: "500"}).then(
-        () => {
-          throw new Error("expected request to fail")
-        },
-        (err: AxiosError) => err,
-      )
-
-      expect(err.status).toBe(500)
-      expect(err.response?.data).toStrictEqual({
-        error: "something went wrong",
-      })
-    })
-  })
-
-  describe("GET /responses/500", () => {
-    it("returns response from error middleware", async () => {
-      const err = await client.getResponses500().then(
-        () => {
-          throw new Error("expected request to fail")
-        },
-        (err: AxiosError) => err,
-      )
-
-      expect(err.message).toMatch("Request failed with status code 500")
-      expect(err.status).toBe(500)
-      expect(err.response?.data).toMatchObject({
-        message: "Request handler threw unhandled exception",
-        phase: "request_handler",
-        cause: expect.stringContaining("something went wrong"),
-      })
-    })
-  })
-
-  describe("GET /escape-hatches", () => {
-    it("can do raw response handling", async () => {
-      const res = await client.getEscapeHatchesPlainText()
-
-      expect(res.status).toBe(200)
-      expect(res.data).toBe("Plain text response")
-    })
-  })
-
-  describe("POST /media-types/text", () => {
-    it("can send and parse text/plain request bodies", async () => {
-      const res = await client.postMediaTypesText({
-        requestBody: "Some plain text",
-      })
-
-      expect(res.status).toBe(200)
-      expect(res.data).toBe("Some plain text")
-    })
-  })
-
-  describe("POST /media-types/x-www-form-urlencoded", () => {
-    it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
-      const productOrder = {
-        sku: "sku_123",
-        quantity: 2,
-        address: {
-          address1: "Green Park",
-          postcode: "SW1A 1AA",
-        },
-      } satisfies t_ProductOrder
-
-      const res = await client.postMediaTypesXWwwFormUrlencoded({
-        requestBody: productOrder,
-      })
-      expect(res.status).toBe(200)
-      expect(res.data).toStrictEqual(productOrder)
-    })
-  })
-
-  describe("POST /media-types/octet-stream", () => {
-    it("can send and parse application/octet-stream request bodies", async () => {
-      const blob = new Blob([new Uint8Array([0xde, 0xad, 0xbe, 0xef])], {
-        type: "application/octet-stream",
-      })
-      const res = await client.postMediaTypesOctetStream({
-        requestBody: blob,
-      })
-      expect(res.status).toBe(200)
-
-      await expect(res.data).toEqualBlob(blob)
-    })
-  })
-
-  describe("query parameters", () => {
-    it("GET /params/simple-query", async () => {
-      const {status, data} = await client.getParamsSimpleQuery({
-        orderBy: "asc",
-        limit: 10,
-      })
-
-      expect(status).toBe(200)
-      expect(data).toEqual({
-        orderBy: "asc",
-        limit: 10,
-      })
-    })
-
-    it("GET /params/default-object-query", async () => {
-      const {status, data} = await client.getParamsDefaultObjectQuery({
-        filter: {name: "John", age: 30},
-      })
-
-      expect(status).toBe(200)
-      expect(data).toEqual({
-        filter: {name: "John", age: 30},
-      })
-    })
-
-    it("GET /params/unexploded-object-query", async () => {
-      const {status, data} = await client.getParamsUnexplodedObjectQuery({
-        filter: {name: "John", age: 30},
-      })
-
-      expect(status).toBe(200)
-      expect(data).toEqual({
-        filter: {name: "John", age: 30},
-      })
-    })
-
-    it("GET /params/mixed-query", async () => {
-      const {status, data} = await client.getParamsMixedQuery({
-        limit: 10,
-        statuses: ["open", "closed"],
-        kebabCase: "some kebab value",
-        authorIds: [1, 2, 3],
-      })
-
-      expect(status).toBe(200)
-      expect(data).toEqual({
-        limit: 10,
-        statuses: ["open", "closed"],
-        author_ids: [1, 2, 3],
-        "kebab-case": "some kebab value",
-      })
-    })
-  })
-
-  describe("route matching", () => {
-    it("should match fixed field route over parameterized route", async () => {
-      const {status, data} = await client.routeMatchingGetByFixedField()
-
-      expect(status).toBe(200)
-      expect(data).toEqual({matched: "fixed-field"})
-    })
-
-    it("should match parameterized route", async () => {
-      const {status, data} = await client.routeMatchingGetById({id: "123"})
-
-      expect(status).toBe(200)
-      expect(data).toEqual({matched: "id", id: "123"})
-    })
-  })
-
-  describe("timeouts", () => {
-    it("should respect the default timeout", async () => {
-      const clientWithTimeout = new ApiClient({
+describe.each(startServerFunctions)(
+  "e2e - typescript-axios client against $name server",
+  ({startServer}) => {
+    let server: Server | undefined
+    let client: ApiClient
+    let basePath: string
+
+    beforeAll(async () => {
+      const args = await startServer()
+      basePath = E2ETestClientServers.server(
+        "{protocol}://{host}:{port}",
+      ).build(undefined, undefined, args.address.port.toString())
+      client = new ApiClient({
         basePath,
-        defaultTimeout: 200,
+        defaultHeaders: {
+          Authorization: "Bearer default-header",
+        },
+      })
+      server = args.server
+    })
+
+    afterAll(async () => {
+      server?.close()
+    })
+
+    describe("CORS", () => {
+      it("should send the correct CORS headers", async () => {
+        const {headers} = await client.getResponsesEmpty(undefined, {
+          headers: {
+            Origin: "http://e2e.example.com",
+          },
+        })
+        expect(headers).toMatchObject({
+          "access-control-allow-origin": "http://example.com",
+          "access-control-allow-credentials": "true",
+        })
+      })
+      it("should support pre-flight requests", async () => {
+        const {headers} = await client.getResponsesEmpty(undefined, {
+          method: "OPTIONS",
+          headers: {
+            Origin: "http://e2e.example.com",
+            "Access-Control-Request-Method": "POST",
+          },
+        })
+        expect(headers).toMatchObject({
+          "access-control-allow-origin": "http://example.com",
+          "access-control-allow-credentials": "true",
+          "access-control-allow-methods": "GET,OPTIONS",
+          "access-control-allow-headers": "Authorization,Content-Type",
+        })
+      })
+    })
+
+    describe("404 handling", () => {
+      it("should handle 404s", async () => {
+        const err = await client
+          .getResponsesEmpty(undefined, {url: "/not-found"})
+          .then(
+            () => {
+              throw new Error("expected request to fail")
+            },
+            (err: AxiosError) => err,
+          )
+
+        expect(err).toMatchObject({
+          message: "Request failed with status code 404",
+          name: "AxiosError",
+          status: 404,
+        })
+        expect(err.response?.data).toMatchObject({
+          code: 404,
+          message: "route not found",
+        })
+      })
+    })
+
+    describe("GET /headers/undeclared", () => {
+      it("provides the default headers", async () => {
+        const {data} = await client.getHeadersUndeclared()
+
+        expect(data).toEqual({
+          typedHeaders: undefined,
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer default-header",
+          }),
+        })
+      })
+      it("provides default headers, and arbitrary extra headers", async () => {
+        const {data} = await client.getHeadersUndeclared(undefined, {
+          headers: {"some-random-header": "arbitrary-header"},
+        })
+
+        expect(data).toEqual({
+          typedHeaders: undefined,
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer default-header",
+            "some-random-header": "arbitrary-header",
+          }),
+        })
+      })
+    })
+
+    describe("GET /headers/request", () => {
+      it("provides the default headers", async () => {
+        const {data} = await client.getHeadersRequest()
+
+        expect(data).toEqual({
+          typedHeaders: {
+            authorization: "Bearer default-header",
+          },
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer default-header",
+          }),
+        })
       })
 
-      const err = await clientWithTimeout.getTimeout({ms: 500}).then(
-        () => {
-          throw new Error("expected request to fail")
-        },
-        (err: AxiosError) => err,
-      )
+      it("provides route level header with default headers", async () => {
+        const {data} = await client.getHeadersRequest({
+          routeLevelHeader: "route-header",
+        })
 
-      expect(err.code).toBe("ECONNABORTED")
-      expect(err.message).toMatch(/timeout of 200ms exceeded/)
+        expect(data).toEqual({
+          typedHeaders: {
+            authorization: "Bearer default-header",
+            "route-level-header": "route-header",
+          },
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer default-header",
+            "route-level-header": "route-header",
+          }),
+        })
+      })
+
+      it("overrides the default headers when a route level header is provided", async () => {
+        const {data} = await client.getHeadersRequest({
+          authorization: "Bearer override",
+        })
+
+        expect(data).toEqual({
+          typedHeaders: {
+            authorization: "Bearer override",
+          },
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer override",
+          }),
+        })
+      })
+
+      it("overrides the default headers when a config level header is provided", async () => {
+        const {data} = await client.getHeadersRequest(undefined, undefined, {
+          headers: {authorization: "Bearer config"},
+        })
+
+        expect(data).toEqual({
+          typedHeaders: {
+            authorization: "Bearer config",
+          },
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer config",
+          }),
+        })
+      })
+
+      it("provides route level header with default headers, and arbitrary extra headers", async () => {
+        const {data} = await client.getHeadersRequest(
+          {routeLevelHeader: "route-header"},
+          undefined,
+          {headers: {"some-random-header": "arbitrary-header"}},
+        )
+
+        expect(data).toEqual({
+          typedHeaders: {
+            authorization: "Bearer default-header",
+            "route-level-header": "route-header",
+          },
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer default-header",
+            "route-level-header": "route-header",
+            "some-random-header": "arbitrary-header",
+          }),
+        })
+      })
+
+      it("parses headers correctly", async () => {
+        const {data} = await client.getHeadersRequest({
+          numberHeader: 12,
+          booleanHeader: true,
+          secondBooleanHeader: false,
+          authorization: "Bearer test",
+        })
+
+        expect(data).toEqual({
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer test",
+            "number-header": "12",
+            "boolean-header": "true",
+            "second-boolean-header": "false",
+          }),
+          typedHeaders: {
+            authorization: "Bearer test",
+            "number-header": 12,
+            "boolean-header": true,
+            "second-boolean-header": false,
+          },
+        })
+      })
+
+      it("rejects headers of the wrong type (number)", async () => {
+        const err = await client
+          .getHeadersRequest(
+            // @ts-expect-error testing validation
+            {numberHeader: "i'm not a number"},
+          )
+          .then(
+            () => {
+              throw new Error("expected request to fail")
+            },
+            (err: AxiosError) => err,
+          )
+
+        expect(err.message).toMatch("Request failed with status code 400")
+        expect(err.status).toBe(400)
+        expect(err.response?.data).toMatchObject({
+          message: "Request validation failed parsing request header",
+          phase: "request_validation",
+          cause: expect.stringMatching(
+            /Expected number, received nan|Invalid input: expected number, received NaN/,
+          ),
+        })
+      })
+
+      it("rejects headers of the wrong type (boolean)", async () => {
+        const err = await client
+          .getHeadersRequest(
+            // @ts-expect-error testing validation
+            {booleanHeader: "i'm not a boolean"},
+          )
+          .then(
+            () => {
+              throw new Error("expected request to fail")
+            },
+            (err: AxiosError) => err,
+          )
+
+        expect(err.message).toMatch("Request failed with status code 400")
+        expect(err.status).toBe(400)
+        expect(err.response?.data).toMatchObject({
+          message: "Request validation failed parsing request header",
+          phase: "request_validation",
+          cause: expect.stringMatching(
+            /Expected boolean, received string|Invalid input: expected boolean, received string/,
+          ),
+        })
+      })
     })
 
-    it("should respect the request level timeout", async () => {
-      const err = await client.getTimeout({ms: 150}, 100).then(
-        () => {
-          throw new Error("expected request to fail")
-        },
-        (err: AxiosError) => err,
-      )
+    describe("GET /validation/numbers/random-number", () => {
+      it("returns a random number", async () => {
+        const {data} = await client.getValidationNumbersRandomNumber()
 
-      expect(err.code).toBe("ECONNABORTED")
-      expect(err.message).toMatch(/timeout of 100ms exceeded/)
+        expect(data).toEqual({
+          result: numberBetween(0, 10),
+          params: {
+            min: 0,
+            max: 10,
+            forbidden: [],
+          },
+        })
+      })
+
+      it("returns 400 when parameters fail validation", async () => {
+        const err = await client
+          .getValidationNumbersRandomNumber({
+            // @ts-expect-error: testing runtime validation
+            min: "one",
+            // @ts-expect-error: testing runtime validation
+            max: "ten",
+          })
+          .then(
+            () => {
+              throw new Error("expected request to fail")
+            },
+            (err: AxiosError) => err,
+          )
+
+        expect(err.message).toMatch("Request failed with status code 400")
+        expect(err.status).toBe(400)
+        expect(err.response?.data).toMatchObject({
+          message: "Request validation failed parsing querystring",
+          phase: "request_validation",
+          cause: expect.stringMatching(
+            /Expected number, received nan|Invalid input: expected number, received NaN/,
+          ),
+        })
+      })
+
+      it("handles a query param array of 1 element", async () => {
+        const {data} = await client.getValidationNumbersRandomNumber({
+          forbidden: [1],
+        })
+
+        expect(data.params).toMatchObject({
+          forbidden: [1],
+        })
+      })
+
+      it("handles a query param array of multiple elements", async () => {
+        const {data} = await client.getValidationNumbersRandomNumber({
+          forbidden: [1, 2, 3],
+        })
+
+        expect(data.params).toMatchObject({
+          forbidden: [1, 2, 3],
+        })
+      })
     })
-  })
-})
+
+    describe("POST /validation/enumeration", () => {
+      it("should error if the server receives an unknown enum value", async () => {
+        const res = client.postValidationEnums({
+          requestBody: {
+            // @ts-expect-error: purple isn't a valid enum value
+            colors: "purple",
+            starRatings: 1,
+          },
+        })
+
+        await expect(res).rejects.toThrow("Request failed with status code 400")
+      })
+      // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
+    })
+
+    describe("POST /validation/optional-body", () => {
+      it("should send and accept the body if passed", async () => {
+        const res = await client.postValidationOptionalBody({
+          requestBody: {id: "123"},
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toMatchObject({id: "123"})
+      })
+      // TODO: axios' default response parsing doesn't handle endpoints that return optional responses well
+      //       probably need to implement our own transformResponse function that is aware of the expected
+      //       status code / content-types and parses appropriately, or uses the content-type response header.
+      it.skip("should omit the body if not passed", async () => {
+        const res = await client.postValidationOptionalBody()
+
+        expect(res.data).toEqual(undefined)
+        expect(res.status).toBe(204)
+      })
+    })
+
+    describe("POST /validation/objects/discriminated-union", () => {
+      it("can post a cat", async () => {
+        const cat = {
+          type: "cat" as const,
+          name: "Felix",
+          lives: 9,
+        }
+
+        const res = await client.postValidationObjectsDiscriminatedUnion({
+          requestBody: cat,
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toStrictEqual({
+          ...cat,
+          type: "cat",
+        })
+      })
+
+      it("can post a dog", async () => {
+        const dog = {
+          type: "dog" as const,
+          name: "Rex",
+          sticks: 5,
+        }
+
+        const res = await client.postValidationObjectsDiscriminatedUnion({
+          requestBody: dog,
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toStrictEqual({
+          ...dog,
+          type: "dog",
+        })
+      })
+    })
+
+    describe("GET /responses/empty", () => {
+      it("returns undefined", async () => {
+        const {status, data} = await client.getResponsesEmpty()
+
+        expect(status).toBe(204)
+        // TODO: this should really be undefined
+        expect(data).toEqual("")
+      })
+    })
+
+    describe("GET /responses/default", () => {
+      it("returns {id: string} for 200", async () => {
+        const {status, data} = await client.getResponsesDefault({status: "200"})
+
+        expect(status).toBe(200)
+        expect(data.id).toBe("123")
+      })
+
+      it("returns {error: string} for other status codes", async () => {
+        const err = await client.getResponsesDefault({status: "500"}).then(
+          () => {
+            throw new Error("expected request to fail")
+          },
+          (err: AxiosError) => err,
+        )
+
+        expect(err.status).toBe(500)
+        expect(err.response?.data).toStrictEqual({
+          error: "something went wrong",
+        })
+      })
+    })
+
+    describe("GET /responses/500", () => {
+      it("returns response from error middleware", async () => {
+        const err = await client.getResponses500().then(
+          () => {
+            throw new Error("expected request to fail")
+          },
+          (err: AxiosError) => err,
+        )
+
+        expect(err.message).toMatch("Request failed with status code 500")
+        expect(err.status).toBe(500)
+        expect(err.response?.data).toMatchObject({
+          message: "Request handler threw unhandled exception",
+          phase: "request_handler",
+          cause: expect.stringContaining("something went wrong"),
+        })
+      })
+    })
+
+    describe("GET /escape-hatches", () => {
+      it("can do raw response handling", async () => {
+        const res = await client.getEscapeHatchesPlainText()
+
+        expect(res.status).toBe(200)
+        expect(res.data).toBe("Plain text response")
+      })
+    })
+
+    describe("POST /media-types/text", () => {
+      it("can send and parse text/plain request bodies", async () => {
+        const res = await client.postMediaTypesText({
+          requestBody: "Some plain text",
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toBe("Some plain text")
+      })
+    })
+
+    describe("POST /media-types/x-www-form-urlencoded", () => {
+      it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
+        const productOrder = {
+          sku: "sku_123",
+          quantity: 2,
+          address: {
+            address1: "Green Park",
+            postcode: "SW1A 1AA",
+          },
+        } satisfies t_ProductOrder
+
+        const res = await client.postMediaTypesXWwwFormUrlencoded({
+          requestBody: productOrder,
+        })
+        expect(res.status).toBe(200)
+        expect(res.data).toStrictEqual(productOrder)
+      })
+    })
+
+    describe("POST /media-types/octet-stream", () => {
+      it("can send and parse application/octet-stream request bodies", async () => {
+        const blob = new Blob([new Uint8Array([0xde, 0xad, 0xbe, 0xef])], {
+          type: "application/octet-stream",
+        })
+        const res = await client.postMediaTypesOctetStream({
+          requestBody: blob,
+        })
+        expect(res.status).toBe(200)
+
+        await expect(res.data).toEqualBlob(blob)
+      })
+    })
+
+    describe("query parameters", () => {
+      it("GET /params/simple-query", async () => {
+        const {status, data} = await client.getParamsSimpleQuery({
+          orderBy: "asc",
+          limit: 10,
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          orderBy: "asc",
+          limit: 10,
+        })
+      })
+
+      it("GET /params/default-object-query", async () => {
+        const {status, data} = await client.getParamsDefaultObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+
+      it("GET /params/unexploded-object-query", async () => {
+        const {status, data} = await client.getParamsUnexplodedObjectQuery({
+          filter: {name: "John", age: 30},
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          filter: {name: "John", age: 30},
+        })
+      })
+
+      it("GET /params/mixed-query", async () => {
+        const {status, data} = await client.getParamsMixedQuery({
+          limit: 10,
+          statuses: ["open", "closed"],
+          kebabCase: "some kebab value",
+          authorIds: [1, 2, 3],
+        })
+
+        expect(status).toBe(200)
+        expect(data).toEqual({
+          limit: 10,
+          statuses: ["open", "closed"],
+          author_ids: [1, 2, 3],
+          "kebab-case": "some kebab value",
+        })
+      })
+    })
+
+    describe("route matching", () => {
+      it("should match fixed field route over parameterized route", async () => {
+        const {status, data} = await client.routeMatchingGetByFixedField()
+
+        expect(status).toBe(200)
+        expect(data).toEqual({matched: "fixed-field"})
+      })
+
+      it("should match parameterized route", async () => {
+        const {status, data} = await client.routeMatchingGetById({id: "123"})
+
+        expect(status).toBe(200)
+        expect(data).toEqual({matched: "id", id: "123"})
+      })
+    })
+
+    describe("timeouts", () => {
+      it("should respect the default timeout", async () => {
+        const clientWithTimeout = new ApiClient({
+          basePath,
+          defaultTimeout: 200,
+        })
+
+        const err = await clientWithTimeout.getTimeout({ms: 500}).then(
+          () => {
+            throw new Error("expected request to fail")
+          },
+          (err: AxiosError) => err,
+        )
+
+        expect(err.code).toBe("ECONNABORTED")
+        expect(err.message).toMatch(/timeout of 200ms exceeded/)
+      })
+
+      it("should respect the request level timeout", async () => {
+        const err = await client.getTimeout({ms: 150}, 100).then(
+          () => {
+            throw new Error("expected request to fail")
+          },
+          (err: AxiosError) => err,
+        )
+
+        expect(err.code).toBe("ECONNABORTED")
+        expect(err.message).toMatch(/timeout of 100ms exceeded/)
+      })
+    })
+  },
+)
