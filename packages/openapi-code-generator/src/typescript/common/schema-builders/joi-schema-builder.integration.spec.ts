@@ -7,46 +7,46 @@ import {
   schemaBuilderIntegrationTestHarness,
 } from "./schema-builder.test-utils.ts"
 
-describe.each(
-  testVersions,
-)("%s - typescript/common/schema-builders/joi-schema-builder", (version) => {
-  const executeParseSchema = async (code: string) => {
-    return vm.runInNewContext(
-      code,
-      // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
-      //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
-      //       the context.
-      //       I think it should be possible move loading of joi into the context, such that
-      //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
+describe.each(testVersions)(
+  "%s - typescript/common/schema-builders/joi-schema-builder",
+  (version) => {
+    const executeParseSchema = async (code: string) => {
+      return vm.runInNewContext(
+        code,
+        // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
+        //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
+        //       the context.
+        //       I think it should be possible move loading of joi into the context, such that
+        //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
 
-      {joi: require("joi"), RegExp},
-    )
-  }
+        {joi: require("joi"), RegExp},
+      )
+    }
 
-  let getActual: SchemaBuilderIntegrationTestHarness["getActual"]
+    let getActual: SchemaBuilderIntegrationTestHarness["getActual"]
 
-  beforeAll(async () => {
-    const formatter = await TypescriptFormatterBiome.createNodeFormatter()
-    const harness = schemaBuilderIntegrationTestHarness(
-      "joi",
-      formatter,
-      version,
-      executeParseSchema,
-    )
+    beforeAll(async () => {
+      const formatter = await TypescriptFormatterBiome.createNodeFormatter()
+      const harness = schemaBuilderIntegrationTestHarness(
+        "joi",
+        formatter,
+        version,
+        executeParseSchema,
+      )
 
-    getActual = harness.getActual
-  })
+      getActual = harness.getActual
+    })
 
-  it("supports the SimpleObject", async () => {
-    const {code, schemas} = await getActual("components/schemas/SimpleObject")
+    it("supports the SimpleObject", async () => {
+      const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_SimpleObject } from "./unit-test.schemas"
 
         const x = s_SimpleObject.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_SimpleObject = joi
@@ -64,20 +64,20 @@ describe.each(
           .required()
           .id("s_SimpleObject")"
       `)
-  })
+    })
 
-  it("supports the ObjectWithComplexProperties", async () => {
-    const {code, schemas} = await getActual(
-      "components/schemas/ObjectWithComplexProperties",
-    )
+    it("supports the ObjectWithComplexProperties", async () => {
+      const {code, schemas} = await getActual(
+        "components/schemas/ObjectWithComplexProperties",
+      )
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
 
         const x = s_ObjectWithComplexProperties.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_AString = joi.string().required().id("s_AString")
@@ -120,18 +120,18 @@ describe.each(
           .required()
           .id("s_ObjectWithComplexProperties")"
       `)
-  })
+    })
 
-  it("supports unions / oneOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/OneOf")
+    it("supports unions / oneOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/OneOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_OneOf } from "./unit-test.schemas"
 
         const x = s_OneOf.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_OneOf = joi
@@ -148,18 +148,18 @@ describe.each(
           .required()
           .id("s_OneOf")"
       `)
-  })
+    })
 
-  it("supports unions / anyOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/AnyOf")
+    it("supports unions / anyOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/AnyOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_AnyOf } from "./unit-test.schemas"
 
         const x = s_AnyOf.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_AnyOf = joi
@@ -168,18 +168,18 @@ describe.each(
           .required()
           .id("s_AnyOf")"
       `)
-  })
+    })
 
-  it("supports allOf", async () => {
-    const {code, schemas} = await getActual("components/schemas/AllOf")
+    it("supports allOf", async () => {
+      const {code, schemas} = await getActual("components/schemas/AllOf")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_AllOf } from "./unit-test.schemas"
 
         const x = s_AllOf.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_Base = joi
@@ -201,18 +201,18 @@ describe.each(
           .required()
           .id("s_AllOf")"
       `)
-  })
+    })
 
-  it("supports recursion", async () => {
-    const {code, schemas} = await getActual("components/schemas/Recursive")
+    it("supports recursion", async () => {
+      const {code, schemas} = await getActual("components/schemas/Recursive")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Recursive } from "./unit-test.schemas"
 
         const x = joi.link("#s_Recursive.required()")"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_Recursive = joi
@@ -222,18 +222,18 @@ describe.each(
           .required()
           .id("s_Recursive")"
       `)
-  })
+    })
 
-  it("orders schemas such that dependencies are defined first", async () => {
-    const {code, schemas} = await getActual("components/schemas/Ordering")
+    it("orders schemas such that dependencies are defined first", async () => {
+      const {code, schemas} = await getActual("components/schemas/Ordering")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Ordering } from "./unit-test.schemas"
 
         const x = s_Ordering.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_AOrdering = joi
@@ -260,18 +260,18 @@ describe.each(
           .required()
           .id("s_Ordering")"
       `)
-  })
+    })
 
-  it("supports string and numeric enums", async () => {
-    const {code, schemas} = await getActual("components/schemas/Enums")
+    it("supports string and numeric enums", async () => {
+      const {code, schemas} = await getActual("components/schemas/Enums")
 
-    expect(code).toMatchInlineSnapshot(`
+      expect(code).toMatchInlineSnapshot(`
         "import { s_Enums } from "./unit-test.schemas"
 
         const x = s_Enums.required()"
       `)
 
-    expect(schemas).toMatchInlineSnapshot(`
+      expect(schemas).toMatchInlineSnapshot(`
         "import joi from "joi"
 
         export const s_Enums = joi
@@ -284,21 +284,21 @@ describe.each(
           .required()
           .id("s_Enums")"
       `)
-  })
+    })
 
-  describe("additionalProperties", () => {
-    it("handles additionalProperties set to true", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesBool",
-      )
+    describe("additionalProperties", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesBool.required()"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
           export const s_AdditionalPropertiesBool = joi
@@ -307,20 +307,20 @@ describe.each(
             .required()
             .id("s_AdditionalPropertiesBool")"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to {}", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
-      )
+      it("handles additionalProperties set to {}", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesUnknownEmptySchema.required()"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
           export const s_AdditionalPropertiesUnknownEmptySchema = joi
@@ -329,20 +329,20 @@ describe.each(
             .required()
             .id("s_AdditionalPropertiesUnknownEmptySchema")"
         `)
-    })
+      })
 
-    it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
-      )
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesUnknownEmptyObjectSchema.required()"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
@@ -351,20 +351,20 @@ describe.each(
             .required()
             .id("s_AdditionalPropertiesUnknownEmptyObjectSchema")"
         `)
-    })
+      })
 
-    it("handles additionalProperties specifying a schema", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesSchema",
-      )
+      it("handles additionalProperties specifying a schema", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesSchema",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesSchema.required()"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
           export const s_NamedNullableStringEnum = joi
@@ -380,20 +380,20 @@ describe.each(
             .required()
             .id("s_AdditionalPropertiesSchema")"
         `)
-    })
+      })
 
-    it("handles additionalProperties in conjunction with properties", async () => {
-      const {code, schemas} = await getActual(
-        "components/schemas/AdditionalPropertiesMixed",
-      )
+      it("handles additionalProperties in conjunction with properties", async () => {
+        const {code, schemas} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+        )
 
-      expect(code).toMatchInlineSnapshot(`
+        expect(code).toMatchInlineSnapshot(`
           "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
 
           const x = s_AdditionalPropertiesMixed.required()"
         `)
 
-      expect(schemas).toMatchInlineSnapshot(`
+        expect(schemas).toMatchInlineSnapshot(`
           "import joi from "joi"
 
           /**
@@ -457,6 +457,7 @@ describe.each(
             .required()
             .id("s_AdditionalPropertiesMixed")"
         `)
+      })
     })
-  })
-})
+  },
+)

@@ -1,30 +1,30 @@
 catalog:
-  '@angular/build': ^22.0.5
-  '@angular/cli': ^22.0.5
-  '@angular/common': ^22.0.5
-  '@angular/compiler': ^22.0.5
-  '@angular/compiler-cli': ^22.0.5
-  '@angular/core': ^22.0.5
-  '@angular/forms': ^22.0.5
-  '@angular/platform-browser': ^22.0.5
-  '@angular/router': ^22.0.5
-  '@arethetypeswrong/core': ^0.18.4
-  '@azure-tools/typespec-autorest': 0.69.1
-  '@azure-tools/typespec-azure-core': 0.69.0
-  '@azure-tools/typespec-azure-resource-manager': 0.69.1
-  '@azure-tools/typespec-client-generator-core': 0.69.0
-  '@biomejs/biome': 2.5.2
+  '@angular/build': ^22.0.7
+  '@angular/cli': ^22.0.7
+  '@angular/common': ^22.0.7
+  '@angular/compiler': ^22.0.7
+  '@angular/compiler-cli': ^22.0.7
+  '@angular/core': ^22.0.7
+  '@angular/forms': ^22.0.7
+  '@angular/platform-browser': ^22.0.7
+  '@angular/router': ^22.0.7
+  '@arethetypeswrong/core': ^0.18.5
+  '@azure-tools/typespec-autorest': 0.70.0
+  '@azure-tools/typespec-azure-core': 0.70.0
+  '@azure-tools/typespec-azure-resource-manager': 0.70.0
+  '@azure-tools/typespec-client-generator-core': 0.70.0
+  '@biomejs/biome': 2.5.4
   '@biomejs/js-api': 6.0.0
-  '@biomejs/wasm-nodejs': 2.5.2
+  '@biomejs/wasm-nodejs': 2.5.4
   '@commander-js/extra-typings': ^15.0.0
-  '@hyperjump/json-schema': ^1.17.6
-  '@koa/router': ^15.6.0
-  '@lerna-lite/cli': ^5.4.0
-  '@lerna-lite/publish': ^5.4.0
-  '@lerna-lite/version': ^5.4.0
+  '@hyperjump/json-schema': ^1.17.7
+  '@koa/router': ^15.7.0
+  '@lerna-lite/cli': ^5.4.1
+  '@lerna-lite/publish': ^5.4.1
+  '@lerna-lite/version': ^5.4.1
   '@types/node': ^22.20.0
   '@types/react': ^19.2.17
-  '@vitest/coverage-v8': 4.1.9
+  '@vitest/coverage-v8': 4.1.10
   axios: ^1.18.1
   body-parser: ^2.3.0
   commander: ^15.0.0
@@ -32,14 +32,14 @@ catalog:
   joi: ^18.2.3
   js-yaml: ^5.2.1
   lint-staged: ^17.0.7
-  next: ^16.2.10
-  prettier: ^3.9.4
+  next: ^16.2.11
+  prettier: ^3.9.5
   react: 19.2.7
   react-dom: 19.2.7
-  react-hook-form: ^7.81.0
-  tsdown: ^0.22.5
-  tsx: ^4.23.0
-  vitest: ^4.1.9
+  react-hook-form: ^7.82.0
+  tsdown: ^0.22.9
+  tsx: ^4.23.1
+  vitest: ^4.1.10
 
 catalogs:
   typescript6:
@@ -75,72 +75,7 @@ gitChecks: false
 linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-  - '@oxc-project/types@0.139.0'
-  - '@rolldown/binding-android-arm64@1.1.5'
-  - '@rolldown/binding-darwin-arm64@1.1.5'
-  - '@rolldown/binding-darwin-x64@1.1.5'
-  - '@rolldown/binding-freebsd-x64@1.1.5'
-  - '@rolldown/binding-linux-arm-gnueabihf@1.1.5'
-  - '@rolldown/binding-linux-arm64-gnu@1.1.5'
-  - '@rolldown/binding-linux-arm64-musl@1.1.5'
-  - '@rolldown/binding-linux-ppc64-gnu@1.1.5'
-  - '@rolldown/binding-linux-s390x-gnu@1.1.5'
-  - '@rolldown/binding-linux-x64-gnu@1.1.5'
-  - '@rolldown/binding-linux-x64-musl@1.1.5'
-  - '@rolldown/binding-openharmony-arm64@1.1.5'
-  - '@rolldown/binding-wasm32-wasi@1.1.5'
-  - '@rolldown/binding-win32-arm64-msvc@1.1.5'
-  - '@rolldown/binding-win32-x64-msvc@1.1.5'
-  - '@typescript/typescript-aix-ppc64@7.0.2'
-  - '@typescript/typescript-darwin-arm64@7.0.2'
-  - '@typescript/typescript-darwin-x64@7.0.2'
-  - '@typescript/typescript-freebsd-arm64@7.0.2'
-  - '@typescript/typescript-freebsd-x64@7.0.2'
-  - '@typescript/typescript-linux-arm64@7.0.2'
-  - '@typescript/typescript-linux-arm@7.0.2'
-  - '@typescript/typescript-linux-loong64@7.0.2'
-  - '@typescript/typescript-linux-mips64el@7.0.2'
-  - '@typescript/typescript-linux-ppc64@7.0.2'
-  - '@typescript/typescript-linux-riscv64@7.0.2'
-  - '@typescript/typescript-linux-s390x@7.0.2'
-  - '@typescript/typescript-linux-x64@7.0.2'
-  - '@typescript/typescript-netbsd-arm64@7.0.2'
-  - '@typescript/typescript-netbsd-x64@7.0.2'
-  - '@typescript/typescript-openbsd-arm64@7.0.2'
-  - '@typescript/typescript-openbsd-x64@7.0.2'
-  - '@typescript/typescript-sunos-x64@7.0.2'
-  - '@typescript/typescript-win32-arm64@7.0.2'
-  - '@typescript/typescript-win32-x64@7.0.2'
-  - '@yuku-codegen/binding-darwin-arm64@0.5.44'
-  - '@yuku-codegen/binding-darwin-x64@0.5.44'
-  - '@yuku-codegen/binding-freebsd-x64@0.5.44'
-  - '@yuku-codegen/binding-linux-arm-gnu@0.5.44'
-  - '@yuku-codegen/binding-linux-arm-musl@0.5.44'
-  - '@yuku-codegen/binding-linux-arm64-gnu@0.5.44'
-  - '@yuku-codegen/binding-linux-arm64-musl@0.5.44'
-  - '@yuku-codegen/binding-linux-x64-gnu@0.5.44'
-  - '@yuku-codegen/binding-linux-x64-musl@0.5.44'
-  - '@yuku-codegen/binding-win32-arm64@0.5.44'
-  - '@yuku-codegen/binding-win32-x64@0.5.44'
-  - '@yuku-parser/binding-darwin-arm64@0.5.44'
-  - '@yuku-parser/binding-darwin-x64@0.5.44'
-  - '@yuku-parser/binding-freebsd-x64@0.5.44'
-  - '@yuku-parser/binding-linux-arm-gnu@0.5.44'
-  - '@yuku-parser/binding-linux-arm-musl@0.5.44'
-  - '@yuku-parser/binding-linux-arm64-gnu@0.5.44'
-  - '@yuku-parser/binding-linux-arm64-musl@0.5.44'
-  - '@yuku-parser/binding-linux-x64-gnu@0.5.44'
-  - '@yuku-parser/binding-linux-x64-musl@0.5.44'
-  - '@yuku-parser/binding-win32-arm64@0.5.44'
-  - '@yuku-parser/binding-win32-x64@0.5.44'
-  - rolldown-plugin-dts@0.27.4
-  - rolldown@1.1.5
-  - tsdown@0.22.5
-  - typescript@7.0.2
-  - yuku-ast@0.1.7
-  - yuku-codegen@0.5.44
-  - yuku-parser@0.5.44
+minimumReleaseAgeExclude: [ fast-uri@3.1.4, tar@7.5.21, '@next/env@16.2.11', '@next/swc-darwin-arm64@16.2.11', '@next/swc-darwin-x64@16.2.11', '@next/swc-linux-arm64-gnu@16.2.11', '@next/swc-linux-arm64-musl@16.2.11', '@next/swc-linux-x64-gnu@16.2.11', '@next/swc-linux-x64-musl@16.2.11', '@next/swc-win32-arm64-msvc@16.2.11', '@next/swc-win32-x64-msvc@16.2.11', next@16.2.11, brace-expansion@5.0.8 ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
@@ -155,11 +90,15 @@ overrides:
   '@isaacs/brace-expansion': ^5.0.1
   '@types/node': 'catalog:'
   axios: ^1.18.1
+  brace-expansion@^5: ^5.0.8
   'lodash-es@~4.17': ^4.18.0
+  dompurify@^3: ^3.4.12
+  postcss@^8: ^8.5.18
   qs: ^6.14.2
-  tar: ^7.5.11
+  sharp: 0.35.0
+  tar: ^7.5.21
   zod: ^4.4.3
-  fast-uri@^3: ^3.1.1
+  fast-uri@^3: ^3.1.4
 
 preferWorkspacePackages: true
 
