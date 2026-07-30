@@ -14,6 +14,7 @@ describe("core/input - SchemaNormalizer", () => {
       {
         extractInlineSchemas: true,
         enumExtensibility: "open",
+        unionExtensibility: "open",
       },
       schemaProvider,
     )
@@ -455,6 +456,7 @@ describe("core/input - SchemaNormalizer", () => {
         ir.union({
           nullable: true,
           schemas: [ir.number(), {$ref: "#/components/schemas/RefModel"}],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -473,6 +475,7 @@ describe("core/input - SchemaNormalizer", () => {
         ir.union({
           nullable: true,
           schemas: [ir.number(), {$ref: "#/components/schemas/Another"}],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -557,6 +560,7 @@ describe("core/input - SchemaNormalizer", () => {
                   },
                 }),
               ],
+              "x-union-extensibility": "open",
             }),
           ],
         }),
@@ -598,6 +602,7 @@ describe("core/input - SchemaNormalizer", () => {
                   },
                 }),
               ],
+              "x-union-extensibility": "open",
             }),
           ],
         }),
@@ -635,6 +640,7 @@ describe("core/input - SchemaNormalizer", () => {
                 ir.object({properties: {foo: ir.string()}, required: ["foo"]}),
                 ir.object({properties: {bar: ir.string()}, required: ["bar"]}),
               ],
+              "x-union-extensibility": "open",
             }),
           ],
         }),
@@ -688,6 +694,7 @@ describe("core/input - SchemaNormalizer", () => {
               ir.ref("/components/schemas/Foo"),
               ir.ref("/components/schemas/Bar"),
             ],
+            "x-union-extensibility": "open",
           }),
         )
       })
@@ -736,6 +743,7 @@ describe("core/input - SchemaNormalizer", () => {
               ir.ref("/components/schemas/Foo", "/absolute/path.yaml"),
               ir.ref("/components/schemas/Bar", "/absolute/path.yaml"),
             ],
+            "x-union-extensibility": "open",
           }),
         )
       })
@@ -823,6 +831,7 @@ describe("core/input - SchemaNormalizer", () => {
               ir.ref("/components/schemas/Foo"),
               ir.ref("/components/schemas/Bar"),
             ],
+            "x-union-extensibility": "open",
           }),
         )
       })
@@ -940,6 +949,7 @@ describe("core/input - SchemaNormalizer", () => {
             ir.object({properties: {type: ir.string()}}),
             ir.ref("/components/schemas/Bar"),
           ],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -977,6 +987,7 @@ describe("core/input - SchemaNormalizer", () => {
             ir.ref("/components/schemas/Foo"),
             ir.ref("/components/schemas/Bar"),
           ],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -1008,6 +1019,7 @@ describe("core/input - SchemaNormalizer", () => {
             ir.ref("/components/schemas/Foo"),
             ir.ref("/components/schemas/Bar"),
           ],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -1039,6 +1051,7 @@ describe("core/input - SchemaNormalizer", () => {
             ir.ref("/components/schemas/Foo"),
             ir.ref("/components/schemas/Bar"),
           ],
+          "x-union-extensibility": "open",
         }),
       )
     })
@@ -1198,6 +1211,7 @@ describe("core/input - SchemaNormalizer", () => {
       expect(actual).toStrictEqual(
         ir.union({
           schemas: [ir.string({nullable: true}), ir.number({nullable: true})],
+          "x-union-extensibility": "open",
         }),
       )
     })

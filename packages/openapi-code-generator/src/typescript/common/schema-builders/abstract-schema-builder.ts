@@ -252,6 +252,7 @@ export abstract class AbstractSchemaBuilder<
                 ([value, ref]) => [value, this.fromModel(ref, true)],
               ),
             ),
+            model["x-union-extensibility"],
           )
         } else {
           result = this.union(
@@ -370,6 +371,7 @@ export abstract class AbstractSchemaBuilder<
   protected abstract discriminatedUnion(
     propertyName: string,
     mapping: Record<string, string>,
+    extensibility: "open" | "closed" | undefined,
   ): string
 
   protected abstract preprocess(

@@ -225,9 +225,29 @@ export class TypeBuilder implements ICompilable {
       }
 
       case "union": {
+        const types = schemaObject.schemas.flatMap(this.schemaObjectToTypes)
+
+        if (
+          schemaObject.discriminator &&
+          schemaObject["x-union-extensibility"] === "open"
+        ) {
+          types.push(
+            intersect(
+              object([
+                objectProperty({
+                  name: schemaObject.discriminator.propertyName,
+                  type: this.addStaticType("UnknownEnumStringValue"),
+                  isReadonly: false,
+                  isRequired: true,
+                }),
+              ]),
+            ),
+          )
+        }
+
         result.push({
           type: "type-union",
-          types: schemaObject.schemas.flatMap(this.schemaObjectToTypes),
+          types,
         })
         break
       }

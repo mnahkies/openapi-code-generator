@@ -274,6 +274,7 @@ export interface SchemaBase {
    */
   "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
   "x-enum-extensibility"?: "open" | "closed" | undefined
+  "x-union-extensibility"?: "open" | "closed" | undefined
 }
 
 export interface SchemaNumber extends SchemaBase {

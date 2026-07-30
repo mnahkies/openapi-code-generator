@@ -582,6 +582,42 @@ describe("typescript/common/type-builder - unit tests", () => {
             )"
         `)
     })
+
+    it("can handle open-ended discriminated unions", async () => {
+      const {code} = await getActual(
+        ir.union({
+          schemas: [
+            ir.object({
+              properties: {
+                kind: ir.string({enum: ["a"]}),
+                a: ir.number(),
+              },
+              required: ["kind", "a"],
+            }),
+          ],
+          discriminator: {
+            propertyName: "kind",
+            mapping: {
+              a: ir.ref("/components/schemas/A"),
+            },
+          },
+          "x-union-extensibility": "open",
+        }),
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "import type { UnknownEnumStringValue } from "./unit-test.types"
+
+        declare const x:
+          | {
+              a: number
+              kind: "a"
+            }
+          | {
+              kind: UnknownEnumStringValue
+            }"
+      `)
+    })
   })
 
   it("throws if accidentally passed a 'null' type", async () => {

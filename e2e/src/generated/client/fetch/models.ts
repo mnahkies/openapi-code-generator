@@ -10,7 +10,12 @@ export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"
 }
 
-export type t_Animal = t_Cat | t_Dog
+export type t_Animal =
+  | t_Cat
+  | t_Dog
+  | {
+      type: UnknownEnumStringValue
+    }
 
 export type t_Cat = {
   lives?: number | undefined

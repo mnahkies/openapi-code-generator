@@ -25,6 +25,7 @@ export type Config = {
   groupingStrategy: "none" | "first-slug" | "first-tag"
   filenameConvention: IdentifierConvention
   enumExtensibility: "" | "open" | "closed"
+  unionExtensibility: "" | "open" | "closed"
   tsAllowAny: boolean
   tsServerImplementationMethod: ServerImplementationMethod
   tsIsEsmProject: boolean
@@ -63,6 +64,7 @@ export const configSchema = z.object({
     "snake-case",
   ]),
   enumExtensibility: z.enum(["", "open", "closed"]),
+  unionExtensibility: z.enum(["", "open", "closed"]),
   tsAllowAny: z.boolean(),
   tsServerImplementationMethod: tsServerImplementationSchema,
   tsIsEsmProject: z.boolean(),

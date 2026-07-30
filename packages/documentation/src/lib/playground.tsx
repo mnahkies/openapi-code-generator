@@ -60,6 +60,7 @@ const defaultConfig = {
   tsIsEsmProject: false,
   tsServerImplementationMethod: "type",
   enumExtensibility: "",
+  unionExtensibility: "",
 } satisfies Config
 
 const EditorFileSelectorWrapper: React.FC<PropsWithChildren> = ({children}) => {

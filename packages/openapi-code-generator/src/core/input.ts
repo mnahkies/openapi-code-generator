@@ -35,6 +35,7 @@ export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
 export type InputConfig = {
   extractInlineSchemas: boolean
   enumExtensibility: "open" | "closed"
+  unionExtensibility: "open" | "closed"
 }
 
 export interface ISchemaProvider {

@@ -47,6 +47,16 @@ export class SchemaNormalizer {
     )
   }
 
+  private getUnionExtensibility(
+    schemaObject: {"x-union-extensibility"?: "open" | "closed" | undefined},
+    enumValues: unknown[],
+  ) {
+    return (
+      schemaObject["x-union-extensibility"] ??
+      (enumValues.length === 1 ? "closed" : this.config.unionExtensibility)
+    )
+  }
+
   private hasPropertiesOrComposition(schema: SchemaObject): boolean {
     return Boolean(
       schema.allOf?.length ||
@@ -209,6 +219,7 @@ export class SchemaNormalizer {
           {...base, nullable},
           [...oneOf, ...anyOf],
           schemaObject.discriminator,
+          this.getUnionExtensibility(schemaObject, [...oneOf, ...anyOf]),
         )
 
         if (maybeIntersection && maybeUnion) {
@@ -657,6 +668,7 @@ export class SchemaNormalizer {
     base: IRModelBase,
     schemas: MaybeIRModel[],
     discriminator: Discriminator | undefined,
+    extensibility: "open" | "closed" | undefined,
   ): MaybeIRModel | IRModelUnion | undefined {
     // (A|B)|(C|D) is the same as (A|B|C|D)
     // todo: merge repeated in-line schemas
@@ -668,7 +680,12 @@ export class SchemaNormalizer {
     if (isNonEmptyArray(schemas)) {
       if (schemas.length === 1) {
         if (base.nullable) {
-          return {...base, type: "union", schemas}
+          return {
+            ...base,
+            type: "union",
+            schemas,
+            "x-union-extensibility": extensibility,
+          }
         }
         return schemas[0]
       }
@@ -678,6 +695,7 @@ export class SchemaNormalizer {
         type: "union",
         discriminator: this.normalizeDiscriminator(discriminator, schemas),
         schemas,
+        "x-union-extensibility": extensibility,
       }
     }
 

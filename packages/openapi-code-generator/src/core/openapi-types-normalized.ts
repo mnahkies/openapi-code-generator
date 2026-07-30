@@ -90,6 +90,7 @@ export interface IRModelUnion extends IRModelBase {
         //todo: support defaultMapping
       }
     | undefined
+  "x-union-extensibility"?: "open" | "closed" | undefined
 }
 
 export interface IRModelObject extends IRModelBase {
