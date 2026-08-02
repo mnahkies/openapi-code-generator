@@ -15,7 +15,7 @@ catalog:
   '@azure-tools/typespec-client-generator-core': 0.70.0
   '@biomejs/biome': 2.5.4
   '@biomejs/js-api': 6.0.0
-  '@biomejs/wasm-nodejs': 2.5.4
+  '@biomejs/wasm-nodejs': 2.5.5
   '@commander-js/extra-typings': ^15.0.0
   '@hyperjump/json-schema': ^1.17.7
   '@koa/router': ^15.7.0
