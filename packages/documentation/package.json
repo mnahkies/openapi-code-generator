@@ -29,7 +29,7 @@
     "@monaco-editor/react": "^4.7.0",
     "@nahkies/openapi-code-generator": "workspace:*",
     "lodash": "^4.18.1",
-    "monaco-editor": "^0.55.1",
+    "monaco-editor": "^0.56.0",
     "monaco-editor-auto-typings": "^0.4.6",
     "next": "catalog:",
     "nextra": "^4.6.1",
