@@ -278,6 +278,19 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected numberLiteral(value: number): string {
+    return [joi, "number()", `valid(${value})`].filter(isDefined).join(".")
+  }
+
+  protected booleanLiteral(value: boolean): string {
+    const truthy = 'truthy(1, "1")'
+    const falsy = 'falsy(0, "0")'
+
+    return [joi, "boolean()", value ? truthy : falsy, `valid(${value})`]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected number(model: IRModelNumeric) {
     const result = [joi, "number()"].filter(isDefined).join(".")
 
@@ -286,7 +299,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
         hasSingleElement(model.enum) &&
         model["x-enum-extensibility"] !== "open"
       ) {
-        return this.literal(model.enum[0])
+        return this.numberLiteral(model.enum[0])
       }
 
       if (model["x-enum-extensibility"] === "open") {

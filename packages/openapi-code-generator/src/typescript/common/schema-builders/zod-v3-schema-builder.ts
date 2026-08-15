@@ -264,6 +264,26 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected numberLiteral(value: number): string {
+    return this.coerceNumber(this.literal(value))
+  }
+
+  protected booleanLiteral(value: boolean): string {
+    this.addStaticSchema("PermissiveBoolean")
+    return this.addStaticSchema(
+      value ? "PermissiveLiteralTrue" : "PermissiveLiteralFalse",
+    )
+  }
+
+  // coerces string inputs to numbers, mirroring the `z.coerce.number()` used for
+  // plain numbers, so literals/enums also tolerate non-context-aware input.
+  private coerceNumber(schema: string): string {
+    return this.preprocess(
+      schema,
+      `(value) => (typeof value === "number" ? value : Number(value))`,
+    )
+  }
+
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
@@ -272,7 +292,7 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
         hasSingleElement(model.enum) &&
         model["x-enum-extensibility"] !== "open"
       ) {
-        return this.literal(model.enum[0])
+        return this.numberLiteral(model.enum[0])
       }
 
       if (model["x-enum-extensibility"] === "open") {
@@ -281,22 +301,18 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
           this.typeBuilder.filename,
           true,
         )
-        return [
+        return this.coerceNumber(
           this.union([
             ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
             "z.number().transform(it => it as (typeof it & UnknownEnumNumberValue))",
           ]),
-        ]
-          .filter(isDefined)
-          .join(".")
+        )
       }
 
       if (model["x-enum-extensibility"] === "closed") {
-        return [
+        return this.coerceNumber(
           this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
-        ]
-          .filter(isDefined)
-          .join(".")
+        )
       }
 
       throw new Error(

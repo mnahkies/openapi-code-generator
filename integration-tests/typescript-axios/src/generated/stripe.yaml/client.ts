@@ -2554,6 +2554,10 @@ export class StripeApi extends AbstractAxiosClient {
         starting_after: p["startingAfter"],
       },
       {
+        alert_type: {
+          style: "form",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,

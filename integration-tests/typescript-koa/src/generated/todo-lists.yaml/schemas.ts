@@ -13,6 +13,18 @@ export const s_Error = z.object({
 
 export const s_Statuses = z.array(z.enum(["incomplete", "complete"]))
 
+export const s_TodoCompletedEvent = z.object({
+  kind: z.literal("completed"),
+  id: z.string(),
+  completedAt: z.iso.datetime({offset: true}),
+})
+
+export const s_TodoCreatedEvent = z.object({
+  kind: z.literal("created"),
+  id: z.string(),
+  createdAt: z.iso.datetime({offset: true}),
+})
+
 export const s_TodoList = z.object({
   id: z.string(),
   name: z.string(),
@@ -23,6 +35,11 @@ export const s_TodoList = z.object({
 })
 
 export const s_UnknownObject = z.record(z.string(), z.unknown())
+
+export const s_TodoEvent = z.discriminatedUnion("kind", [
+  s_TodoCreatedEvent,
+  s_TodoCompletedEvent,
+])
 
 export const s_CreateTodoListItemRequestBody = z.object({
   id: z.string(),

@@ -2,8 +2,9 @@ import {
   bootstrap,
   createRouter,
   type GetTodoLists,
+  type ListTodoEvents,
 } from "./generated/todo-lists.yaml/generated"
-import type {t_TodoList} from "./generated/todo-lists.yaml/models"
+import type {t_TodoEvent, t_TodoList} from "./generated/todo-lists.yaml/models"
 import {genericErrorMiddleware, notImplemented} from "./petstore-expanded.yaml"
 
 const getTodoLists: GetTodoLists = async ({query}, respond) => {
@@ -11,10 +12,15 @@ const getTodoLists: GetTodoLists = async ({query}, respond) => {
   return respond.with200().body([] as t_TodoList[])
 }
 
+const listTodoEvents: ListTodoEvents = async (_req, respond) => {
+  return respond.with200().body([] as t_TodoEvent[])
+}
+
 async function main() {
   const {server, address} = await bootstrap({
     router: createRouter({
       getTodoLists,
+      listTodoEvents,
       getTodoListById: notImplemented,
       updateTodoListById: notImplemented,
       deleteTodoListById: notImplemented,

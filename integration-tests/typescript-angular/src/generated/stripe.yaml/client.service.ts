@@ -2108,6 +2108,10 @@ export class StripeApiService {
         starting_after: p["startingAfter"],
       },
       {
+        alert_type: {
+          style: "form",
+          explode: true,
+        },
         expand: {
           style: "deepObject",
           explode: true,

@@ -16,6 +16,7 @@ import type {
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
+  t_TodoEvent,
   t_TodoList,
   t_UnknownObject,
 } from "./models.ts"
@@ -288,6 +289,16 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+  }
+
+  async listTodoEvents(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_TodoEvent[]>> {
+    const url = this.basePath + `/events`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async listAttachments(

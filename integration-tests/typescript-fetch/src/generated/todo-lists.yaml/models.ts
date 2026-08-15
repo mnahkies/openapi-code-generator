@@ -17,6 +17,20 @@ export type t_CreateUpdateTodoList = {
 
 export type t_Statuses = ("incomplete" | "complete" | UnknownEnumStringValue)[]
 
+export type t_TodoCompletedEvent = {
+  completedAt: string
+  id: string
+  kind: "completed"
+}
+
+export type t_TodoCreatedEvent = {
+  createdAt: string
+  id: string
+  kind: "created"
+}
+
+export type t_TodoEvent = t_TodoCreatedEvent | t_TodoCompletedEvent
+
 export type t_TodoList = {
   created: string
   id: string

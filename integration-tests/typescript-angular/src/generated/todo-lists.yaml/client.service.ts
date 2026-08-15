@@ -10,6 +10,7 @@ import type {
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
+  t_TodoEvent,
   t_TodoList,
   t_UnknownObject,
 } from "./models"
@@ -381,6 +382,22 @@ export class TodoListsExampleApiService {
       {
         headers,
         body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  listTodoEvents(): Observable<
+    (HttpResponse<t_TodoEvent[]> & {status: 200}) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({Accept: "application/json"})
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/events`,
+      {
+        headers,
         observe: "response",
         reportProgress: false,
       },

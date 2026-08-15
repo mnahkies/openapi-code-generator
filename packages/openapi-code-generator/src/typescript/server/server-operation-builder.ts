@@ -250,6 +250,16 @@ export class ServerOperationBuilder {
         }
       }
 
+      case "const": {
+        const type =
+          typeof schema.value === "number"
+            ? "number"
+            : typeof schema.value === "boolean"
+              ? "boolean"
+              : "string"
+        return {type}
+      }
+
       case "intersection": {
         // todo: figure out if this can be done better
         logger.error(

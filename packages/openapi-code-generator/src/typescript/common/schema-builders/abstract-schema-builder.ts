@@ -235,6 +235,18 @@ export abstract class AbstractSchemaBuilder<
       case "boolean":
         result = this.boolean(model)
         break
+      case "const": {
+        // number and boolean literals need to tolerate non-context-aware
+        // coercion (eg. a query param arriving as a string), so they use
+        // dedicated handlers rather than the plain string `literal`.
+        result =
+          typeof model.value === "boolean"
+            ? this.booleanLiteral(model.value)
+            : typeof model.value === "number"
+              ? this.numberLiteral(model.value)
+              : this.literal(model.value)
+        break
+      }
       case "array":
         result = this.array(model, [this.arrayItems(model.items)])
         break
@@ -395,6 +407,10 @@ export abstract class AbstractSchemaBuilder<
   protected abstract arrayItems(model: MaybeIRModel): string
 
   protected abstract literal(value: string | number | boolean): string
+
+  protected abstract numberLiteral(value: number): string
+
+  protected abstract booleanLiteral(value: boolean): string
 
   protected abstract number(model: IRModelNumeric): string
 

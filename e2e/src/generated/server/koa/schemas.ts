@@ -27,7 +27,10 @@ export const s_Dog = z.object({
 
 export const s_Enumerations = z.object({
   colors: z.enum(["red", "green", "blue"]),
-  starRatings: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  starRatings: z.preprocess(
+    (it) => z.coerce.number().parse(it),
+    z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  ),
 })
 
 export const s_ProductOrder = z.object({

@@ -96,7 +96,7 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       )
 
       expect(code).toMatchInlineSnapshot(
-        `"const x = joi.any().valid(200).required()"`,
+        `"const x = joi.number().valid(200).required()"`,
       )
 
       await expect(execute(200)).resolves.toBe(200)
@@ -634,6 +634,56 @@ describe("typescript/common/schema-builders/joi-schema-builder - unit tests", ()
       await expect(execute("false")).resolves.toBe(false)
       await expect(execute(0)).resolves.toBe(false)
       await expect(execute(true)).rejects.toThrow('"value" must be [false]')
+    })
+  })
+
+  describe("const", () => {
+    it("supports a string const", async () => {
+      const {code, execute} = await getActual(ir.const({value: "task"}))
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.any().valid("task").required()"`,
+      )
+
+      await expect(execute("task")).resolves.toBe("task")
+      await expect(execute("other")).rejects.toThrow('"value" must be [task]')
+    })
+
+    it("supports a number const", async () => {
+      const {code, execute} = await getActual(ir.const({value: 5}))
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.number().valid(5).required()"`,
+      )
+
+      await expect(execute(5)).resolves.toBe(5)
+      await expect(execute("5")).resolves.toBe(5)
+      await expect(execute(6)).rejects.toThrow('"value" must be [5]')
+    })
+
+    it("supports a boolean const", async () => {
+      const {code, execute} = await getActual(ir.const({value: true}))
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.boolean().truthy(1, "1").valid(true).required()"`,
+      )
+
+      await expect(execute(true)).resolves.toBe(true)
+      await expect(execute("true")).resolves.toBe(true)
+      await expect(execute(false)).rejects.toThrow('"value" must be [true]')
+    })
+
+    it("supports a nullable const", async () => {
+      const {code, execute} = await getActual(
+        ir.const({value: "task", nullable: true}),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = joi.any().valid("task").allow(null).required()"`,
+      )
+
+      await expect(execute("task")).resolves.toBe("task")
+      await expect(execute(null)).resolves.toBe(null)
     })
   })
 

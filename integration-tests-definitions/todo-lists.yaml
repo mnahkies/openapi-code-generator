@@ -1,4 +1,4 @@
-openapi: "3.0.0"
+openapi: 3.1.1
 info:
   title: Todo Lists Example API
   version: '0.0.1'
@@ -161,6 +161,18 @@ paths:
       responses:
         204:
           description: success
+  /events:
+    get:
+      operationId: listTodoEvents
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoEvent'
   /attachments:
     servers:
       - url: '{schema}://{tenant}.attachments.example.com'
@@ -251,6 +263,43 @@ components:
         enum:
           - incomplete
           - complete
+    TodoEvent:
+      type: object
+      discriminator:
+        propertyName: kind
+      oneOf:
+        - $ref: '#/components/schemas/TodoCreatedEvent'
+        - $ref: '#/components/schemas/TodoCompletedEvent'
+    TodoCreatedEvent:
+      type: object
+      required:
+        - kind
+        - id
+        - createdAt
+      properties:
+        kind:
+          const: created
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+    TodoCompletedEvent:
+      type: object
+      required:
+        - kind
+        - id
+        - completedAt
+      properties:
+        kind:
+          const: completed
+        id:
+          type: string
+          format: uuid
+        completedAt:
+          type: string
+          format: date-time
   parameters:
     listId:
       name: listId

@@ -16,6 +16,7 @@ import type {
   IRModelArray,
   IRModelBase,
   IRModelBoolean,
+  IRModelConst,
   IRModelIntersection,
   IRModelNumeric,
   IRModelObject,
@@ -45,6 +46,37 @@ export class SchemaNormalizer {
       schemaObject["x-enum-extensibility"] ??
       (enumValues.length === 1 ? "closed" : this.config.enumExtensibility)
     )
+  }
+
+  /**
+   * Determines whether a schema should be normalized to an {@link IRModelConst}.
+   *
+   * An explicit `const` always results in a constant (a constant is by definition
+   * not extensible). An enum with a single possible value also becomes a constant
+   * unless the user explicitly opts in to open extensibility.
+   */
+  private getConstValue(
+    schemaObject: {
+      enum?: (string | number | boolean | null)[] | undefined
+      const?: string | number | boolean | null | undefined
+      "x-enum-extensibility"?: "open" | "closed" | undefined
+    },
+    isScalar: (it: unknown) => it is string | number | boolean,
+    coerce: (it: string | number | boolean) => string | number | boolean,
+  ): string | number | boolean | undefined {
+    if (schemaObject.const !== undefined && isScalar(schemaObject.const)) {
+      return coerce(schemaObject.const)
+    }
+
+    if (
+      schemaObject.enum?.length === 1 &&
+      isScalar(schemaObject.enum[0]) &&
+      schemaObject["x-enum-extensibility"] !== "open"
+    ) {
+      return coerce(schemaObject.enum[0])
+    }
+
+    return undefined
   }
 
   private hasPropertiesOrComposition(schema: SchemaObject): boolean {
@@ -96,7 +128,15 @@ export class SchemaNormalizer {
 
     switch (schemaObject.type) {
       case undefined: {
-        // hack: detect missing `type` but `enum` provided, implying a `type`
+        // hack: detect missing `type` but `const`/`enum` provided, implying a `type`
+        if (typeof schemaObject.const === "string") {
+          return self.normalize({...schemaObject, type: "string"})
+        } else if (typeof schemaObject.const === "number") {
+          return self.normalize({...schemaObject, type: "number"})
+        } else if (typeof schemaObject.const === "boolean") {
+          return self.normalize({...schemaObject, type: "boolean"})
+        }
+
         if (schemaObject.enum?.length) {
           if (schemaObject.enum?.every((it) => typeof it === "number")) {
             return self.normalize({...schemaObject, type: "number"})
@@ -255,6 +295,21 @@ export class SchemaNormalizer {
           Number.isFinite(it),
         )
 
+        const constValue = this.getConstValue(
+          schemaObject,
+          (it): it is number => typeof it === "number",
+          (it) => it,
+        )
+
+        if (constValue !== undefined) {
+          return {
+            ...base,
+            nullable: nullable || base.nullable,
+            type: "const",
+            value: constValue,
+          } satisfies IRModelConst
+        }
+
         const calcMaximums = () => {
           // draft-wright-json-schema-validation-01 changed "exclusiveMaximum"/"exclusiveMinimum" from boolean modifiers
           // of "maximum"/"minimum" to independent numeric fields.
@@ -321,6 +376,21 @@ export class SchemaNormalizer {
           .filter((it) => it !== undefined && it !== null)
           .map((it) => String(it))
 
+        const constValue = this.getConstValue(
+          schemaObject,
+          (it): it is string => typeof it === "string",
+          (it) => it,
+        )
+
+        if (constValue !== undefined) {
+          return {
+            ...base,
+            nullable: nullable || base.nullable,
+            type: "const",
+            value: constValue,
+          } satisfies IRModelConst
+        }
+
         return {
           ...base,
           nullable: nullable || base.nullable,
@@ -342,6 +412,24 @@ export class SchemaNormalizer {
         const enumValues = schemaObjectEnum
           .filter((it) => it !== undefined && it !== null)
           .map((it) => String(it).toLowerCase())
+
+        const constValue = this.getConstValue(
+          schemaObject,
+          (it): it is boolean | string =>
+            typeof it === "boolean" ||
+            (typeof it === "string" &&
+              (it.toLowerCase() === "true" || it.toLowerCase() === "false")),
+          (it) => String(it).toLowerCase() === "true",
+        )
+
+        if (constValue !== undefined) {
+          return {
+            ...base,
+            nullable: nullable || base.nullable,
+            type: "const",
+            value: constValue,
+          } satisfies IRModelConst
+        }
 
         return {
           ...base,
@@ -440,9 +528,16 @@ export class SchemaNormalizer {
         ? this.schemaProvider.schema(property)
         : property
 
-      if (!normalizedProperty || !Reflect.get(normalizedProperty, "enum")) {
+      const isConstOrEnum = Boolean(
+        normalizedProperty &&
+          (Reflect.get(normalizedProperty, "enum") ||
+            Reflect.get(normalizedProperty, "const") !== undefined ||
+            Reflect.get(normalizedProperty, "type") === "const"),
+      )
+
+      if (!normalizedProperty || !isConstOrEnum) {
         logger.warn(
-          `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's not an enum in one or more schemas`,
+          `ignoring 'discriminator' over propertyName '${discriminator.propertyName}' as it's not an enum or const in one or more schemas`,
         )
         return undefined
       }
