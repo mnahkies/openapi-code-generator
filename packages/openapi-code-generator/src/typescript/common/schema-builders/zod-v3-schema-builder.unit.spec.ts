@@ -60,7 +60,12 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       )
 
       expect(code).toMatchInlineSnapshot(
-        '"const x = z.union([z.literal(200), z.literal(301), z.literal(404)])"',
+        `
+        "const x = z.preprocess(
+          (it) => z.coerce.number().parse(it),
+          z.union([z.literal(200), z.literal(301), z.literal(404)]),
+        )"
+      `,
       )
 
       await expect(execute(123)).rejects.toThrow(
@@ -78,19 +83,22 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       )
 
       expect(code).toMatchInlineSnapshot(`
-          "const x = z.union([
+        "const x = z.preprocess(
+          (it) => z.coerce.number().parse(it),
+          z.union([
             z.literal(200),
             z.literal(301),
             z.literal(404),
             z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
-          ])"
-        `)
+          ]),
+        )"
+      `)
 
       await expect(execute(123)).resolves.toBe(123)
       await expect(execute(404)).resolves.toBe(404)
-      await expect(execute("not a number")).rejects.toThrow(
-        "Expected number, received string",
-      )
+      // string numbers are coerced, so they're accepted too
+      await expect(execute("404")).resolves.toBe(404)
+      await expect(execute("not a number")).rejects.toThrow()
     })
 
     it("supports single element closed numeric enums as literal", async () => {
@@ -103,9 +111,12 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
         }),
       )
 
-      expect(code).toMatchInlineSnapshot(`"const x = z.literal(200)"`)
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.preprocess((it) => z.coerce.number().parse(it), z.literal(200))"`,
+      )
 
       await expect(execute(200)).resolves.toBe(200)
+      await expect(execute("200")).resolves.toBe(200)
 
       await expect(execute(404)).rejects.toThrow(/200/)
     })
@@ -121,10 +132,13 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "const x = z.union([
-          z.literal(200),
-          z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
-        ])"
+        "const x = z.preprocess(
+          (it) => z.coerce.number().parse(it),
+          z.union([
+            z.literal(200),
+            z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
+          ]),
+        )"
       `)
 
       await expect(execute(200)).resolves.toBe(200)
@@ -725,6 +739,39 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       )
     })
 
+    it("supports a boolean const using the permissive literal", async () => {
+      const {code} = await getActual(ir.const({value: true}))
+
+      const codeWithoutImport = inlineStaticSchemas(code)
+
+      expect(codeWithoutImport).toMatchInlineSnapshot(`
+        "const PermissiveBoolean = z.preprocess((value) => {
+                  if(typeof value === "string" && (value === "true" || value === "false")) {
+                    return value === "true"
+                  } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                    return value === 1
+                  }
+                  return value
+                }, z.boolean())
+        const PermissiveLiteralTrue = z.preprocess((value) => {
+                  return PermissiveBoolean.parse(value)
+                }, z.literal(true))
+
+        const x = PermissiveLiteralTrue"
+      `)
+
+      await expect(executeBooleanTest(codeWithoutImport, true)).resolves.toBe(
+        true,
+      )
+      await expect(executeBooleanTest(codeWithoutImport, "true")).resolves.toBe(
+        true,
+      )
+      await expect(executeBooleanTest(codeWithoutImport, 1)).resolves.toBe(true)
+      await expect(
+        executeBooleanTest(codeWithoutImport, false),
+      ).rejects.toThrow("Invalid literal value, expected true")
+    })
+
     it("PermissiveBoolean works as expected", async () => {
       const code = `
         const x = ${staticSchemas.PermissiveBoolean}
@@ -751,6 +798,42 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       await expect(executeBooleanTest(code, {})).rejects.toThrow(
         "Expected boolean, received object",
       )
+    })
+  })
+
+  describe("const", () => {
+    it("supports a string const", async () => {
+      const {code, execute} = await getActual(ir.const({value: "task"}))
+
+      expect(code).toMatchInlineSnapshot(`"const x = z.literal("task")"`)
+
+      await expect(execute("task")).resolves.toBe("task")
+      await expect(execute("other")).rejects.toThrow(/task/)
+    })
+
+    it("supports a number const", async () => {
+      const {code, execute} = await getActual(ir.const({value: 5}))
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.preprocess((it) => z.coerce.number().parse(it), z.literal(5))"`,
+      )
+
+      await expect(execute(5)).resolves.toBe(5)
+      await expect(execute("5")).resolves.toBe(5)
+      await expect(execute(6)).rejects.toThrow(/5/)
+    })
+
+    it("supports a nullable const", async () => {
+      const {code, execute} = await getActual(
+        ir.const({value: "task", nullable: true}),
+      )
+
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.literal("task").nullable()"`,
+      )
+
+      await expect(execute("task")).resolves.toBe("task")
+      await expect(execute(null)).resolves.toBe(null)
     })
   })
 

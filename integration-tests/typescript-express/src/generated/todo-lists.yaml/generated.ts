@@ -39,6 +39,7 @@ import type {
   t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
   t_ReplaceAttachmentParamSchema,
+  t_TodoEvent,
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
@@ -48,6 +49,7 @@ import {
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
+  s_TodoEvent,
   s_TodoList,
   s_UnknownObject,
 } from "./schemas.ts"
@@ -149,6 +151,18 @@ export type CreateTodoListItem = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type ListTodoEventsResponder = {
+  with200(): ExpressRuntimeResponse<t_TodoEvent[]>
+} & ExpressRuntimeResponder
+
+export type ListTodoEvents = (
+  params: Params<void, void, void, void>,
+  respond: ListTodoEventsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type ListAttachmentsResponder = {
   with200(): ExpressRuntimeResponse<t_UnknownObject[]>
 } & ExpressRuntimeResponder
@@ -192,6 +206,7 @@ export type Implementation = {
   deleteTodoListById: DeleteTodoListById
   getTodoListItems: GetTodoListItems
   createTodoListItem: CreateTodoListItem
+  listTodoEvents: ListTodoEvents
   listAttachments: ListAttachments
   uploadAttachment: UploadAttachment
   replaceAttachment: ReplaceAttachment
@@ -524,6 +539,42 @@ export function createRouter(
           .createTodoListItem(input, responder, req, res, next)
           .catch(handleImplementationError)
           .then(handleResponse(res, createTodoListItemResponseBodyValidator))
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const listTodoEventsResponseBodyValidator = responseValidationFactory(
+    [["200", z.array(s_TodoEvent)]],
+    undefined,
+  )
+
+  // listTodoEvents
+  router.get(
+    `/events`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_TodoEvent[]>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        await implementation
+          .listTodoEvents(input, responder, req, res, next)
+          .catch(handleImplementationError)
+          .then(handleResponse(res, listTodoEventsResponseBodyValidator))
       } catch (error) {
         next(error)
       }

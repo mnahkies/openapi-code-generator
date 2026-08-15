@@ -2,6 +2,7 @@ import type {
   IRModelAny,
   IRModelArray,
   IRModelBoolean,
+  IRModelConst,
   IRModelIntersection,
   IRModelNever,
   IRModelNull,
@@ -89,6 +90,13 @@ const base = {
     nullable: false,
     "x-internal-preprocess": undefined,
   } satisfies IRModelBoolean,
+  const: {
+    isIRModel: true,
+    type: "const",
+    default: undefined,
+    nullable: false,
+    "x-internal-preprocess": undefined,
+  } satisfies Omit<IRModelConst, "value">,
 }
 
 const extension = {
@@ -203,6 +211,11 @@ export const irFixture = {
   },
   boolean(partial: Partial<IRModelBoolean> = {}): IRModelBoolean {
     return {...base.boolean, ...partial}
+  },
+  const(
+    partial: Partial<IRModelConst> & Pick<IRModelConst, "value">,
+  ): IRModelConst {
+    return {...base.const, ...partial}
   },
   record(partial: Partial<IRModelRecord> = {}): IRModelRecord {
     return {...extension.record, ...partial}

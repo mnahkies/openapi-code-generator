@@ -10925,6 +10925,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         token_id: p["tokenId"],
       },
       {
+        sort: {
+          style: "form",
+          explode: true,
+        },
         owner: {
           style: "form",
           explode: true,
@@ -11054,6 +11058,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         token_id: p["tokenId"],
       },
       {
+        sort: {
+          style: "form",
+          explode: true,
+        },
         owner: {
           style: "form",
           explode: true,
@@ -16898,17 +16906,25 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      tool_name: p["toolName"],
-      tool_guid: p["toolGuid"],
-      page: p["page"],
-      per_page: p["perPage"],
-      pr: p["pr"],
-      ref: p["ref"],
-      sarif_id: p["sarifId"],
-      direction: p["direction"],
-      sort: p["sort"],
-    })
+    const query = this._query(
+      {
+        tool_name: p["toolName"],
+        tool_guid: p["toolGuid"],
+        page: p["page"],
+        per_page: p["perPage"],
+        pr: p["pr"],
+        ref: p["ref"],
+        sarif_id: p["sarifId"],
+        direction: p["direction"],
+        sort: p["sort"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
@@ -25108,13 +25124,21 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/search/code`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      q: p["q"],
-      sort: p["sort"],
-      order: p["order"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const query = this._query(
+      {
+        q: p["q"],
+        sort: p["sort"],
+        order: p["order"],
+        per_page: p["perPage"],
+        page: p["page"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }

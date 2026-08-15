@@ -290,13 +290,28 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected numberLiteral(value: number): string {
+    return this.coerceNumber(this.literal(value))
+  }
+
+  protected booleanLiteral(value: boolean): string {
+    this.addStaticSchema("PermissiveBoolean")
+    return this.addStaticSchema(
+      value ? "PermissiveLiteralTrue" : "PermissiveLiteralFalse",
+    )
+  }
+
+  private coerceNumber(schema: string): string {
+    return this.preprocess(schema, `it => z.coerce.number().parse(it)`)
+  }
+
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       if (
         hasSingleElement(model.enum) &&
         model["x-enum-extensibility"] !== "open"
       ) {
-        return this.literal(model.enum[0])
+        return this.numberLiteral(model.enum[0])
       }
 
       if (model["x-enum-extensibility"] === "open") {
@@ -305,22 +320,18 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
           this.typeBuilder.filename,
           true,
         )
-        return [
+        return this.coerceNumber(
           this.union([
-            ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
+            ...model.enum.map((it) => this.literal(it)),
             "z.number().transform(it => it as (typeof it & UnknownEnumNumberValue))",
           ]),
-        ]
-          .filter(isDefined)
-          .join(".")
+        )
       }
 
       if (model["x-enum-extensibility"] === "closed") {
-        return [
-          this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
-        ]
-          .filter(isDefined)
-          .join(".")
+        return this.coerceNumber(
+          this.union(model.enum.map((it) => this.literal(it))),
+        )
       }
 
       throw new Error(
@@ -420,16 +431,13 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     //       true/false mapping in their schema.
 
     if (model.enum) {
-      this.addStaticSchema("PermissiveBoolean")
-
       return this.union(
         model.enum.map((it) => {
-          if (it === "true") {
-            return this.addStaticSchema("PermissiveLiteralTrue")
-          } else if (it === "false") {
-            return this.addStaticSchema("PermissiveLiteralFalse")
+          if (it !== "true" && it !== "false") {
+            throw new Error(`unsupported boolean enum value '${it}'`)
           }
-          throw new Error(`unsupported boolean enum value '${it}'`)
+
+          return this.booleanLiteral(it === "true")
         }),
       )
     }

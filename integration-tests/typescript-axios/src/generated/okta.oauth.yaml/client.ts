@@ -124,28 +124,36 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/authorize`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      acr_values: p["acrValues"],
-      client_id: p["clientId"],
-      code_challenge: p["codeChallenge"],
-      code_challenge_method: p["codeChallengeMethod"],
-      display: p["display"],
-      enroll_amr_values: p["enrollAmrValues"],
-      idp_scope: p["idpScope"],
-      idp: p["idp"],
-      login_hint: p["loginHint"],
-      max_age: p["maxAge"],
-      nonce: p["nonce"],
-      prompt: p["prompt"],
-      redirect_uri: p["redirectUri"],
-      response_type: p["responseType"],
-      response_mode: p["responseMode"],
-      request_uri: p["requestUri"],
-      request: p["request"],
-      scope: p["scope"],
-      sessionToken: p["sessionToken"],
-      state: p["state"],
-    })
+    const query = this._query(
+      {
+        acr_values: p["acrValues"],
+        client_id: p["clientId"],
+        code_challenge: p["codeChallenge"],
+        code_challenge_method: p["codeChallengeMethod"],
+        display: p["display"],
+        enroll_amr_values: p["enrollAmrValues"],
+        idp_scope: p["idpScope"],
+        idp: p["idp"],
+        login_hint: p["loginHint"],
+        max_age: p["maxAge"],
+        nonce: p["nonce"],
+        prompt: p["prompt"],
+        redirect_uri: p["redirectUri"],
+        response_type: p["responseType"],
+        response_mode: p["responseMode"],
+        request_uri: p["requestUri"],
+        request: p["request"],
+        scope: p["scope"],
+        sessionToken: p["sessionToken"],
+        state: p["state"],
+      },
+      {
+        code_challenge_method: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,
@@ -749,28 +757,36 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/authorize`
     const headers = this._headers({Accept: "application/json"}, opts.headers)
-    const query = this._query({
-      acr_values: p["acrValues"],
-      client_id: p["clientId"],
-      code_challenge: p["codeChallenge"],
-      code_challenge_method: p["codeChallengeMethod"],
-      display: p["display"],
-      enroll_amr_values: p["enrollAmrValues"],
-      idp_scope: p["idpScope"],
-      idp: p["idp"],
-      login_hint: p["loginHint"],
-      max_age: p["maxAge"],
-      nonce: p["nonce"],
-      prompt: p["prompt"],
-      redirect_uri: p["redirectUri"],
-      response_type: p["responseType"],
-      response_mode: p["responseMode"],
-      request_uri: p["requestUri"],
-      request: p["request"],
-      scope: p["scope"],
-      sessionToken: p["sessionToken"],
-      state: p["state"],
-    })
+    const query = this._query(
+      {
+        acr_values: p["acrValues"],
+        client_id: p["clientId"],
+        code_challenge: p["codeChallenge"],
+        code_challenge_method: p["codeChallengeMethod"],
+        display: p["display"],
+        enroll_amr_values: p["enrollAmrValues"],
+        idp_scope: p["idpScope"],
+        idp: p["idp"],
+        login_hint: p["loginHint"],
+        max_age: p["maxAge"],
+        nonce: p["nonce"],
+        prompt: p["prompt"],
+        redirect_uri: p["redirectUri"],
+        response_type: p["responseType"],
+        response_mode: p["responseMode"],
+        request_uri: p["requestUri"],
+        request: p["request"],
+        scope: p["scope"],
+        sessionToken: p["sessionToken"],
+        state: p["state"],
+      },
+      {
+        code_challenge_method: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this._request({
       url: url + query,

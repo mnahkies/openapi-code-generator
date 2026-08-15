@@ -104,6 +104,28 @@ describe("typescript/common/type-builder - unit tests", () => {
     })
   })
 
+  describe("const", () => {
+    it("handles a string const", async () => {
+      const {code} = await getActual(ir.const({value: "task"}))
+      expect(code).toMatchInlineSnapshot(`"declare const x: "task""`)
+    })
+
+    it("handles a number const", async () => {
+      const {code} = await getActual(ir.const({value: 5}))
+      expect(code).toMatchInlineSnapshot(`"declare const x: 5"`)
+    })
+
+    it("handles a boolean const", async () => {
+      const {code} = await getActual(ir.const({value: true}))
+      expect(code).toMatchInlineSnapshot(`"declare const x: true"`)
+    })
+
+    it("handles a nullable const", async () => {
+      const {code} = await getActual(ir.const({value: "task", nullable: true}))
+      expect(code).toMatchInlineSnapshot(`"declare const x: "task" | null"`)
+    })
+  })
+
   describe("numbers", () => {
     it("handles a basic number", async () => {
       const {code} = await getActual(ir.number())

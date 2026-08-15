@@ -69,6 +69,16 @@ export interface IRModelBoolean extends IRModelBase {
   enum?: string[] | undefined
 }
 
+/**
+ * A literal constant value. Produced from the `const` keyword (OpenAPI 3.1) and
+ * from enums with a single possible value. A constant is by definition not
+ * extensible, so `x-enum-extensibility` never applies.
+ */
+export interface IRModelConst extends IRModelBase {
+  type: "const"
+  value: string | number | boolean
+}
+
 export interface IRModelIntersection extends IRModelBase {
   type: "intersection"
   schemas: NonEmptyArray<MaybeIRModel>
@@ -130,6 +140,7 @@ export type IRModel =
   | IRModelNumeric
   | IRModelString
   | IRModelBoolean
+  | IRModelConst
   | IRModelObject
   | IRModelArray
   | IRModelAny

@@ -265,6 +265,15 @@ export class TypeBuilder implements ICompilable {
         break
       }
 
+      case "const": {
+        result.push(
+          typeof schemaObject.value === "string"
+            ? quotedStringLiteral(schemaObject.value)
+            : String(schemaObject.value),
+        )
+        break
+      }
+
       case "number": {
         // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
 

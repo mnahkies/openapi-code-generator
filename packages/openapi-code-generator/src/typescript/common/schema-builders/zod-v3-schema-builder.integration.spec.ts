@@ -214,7 +214,10 @@ describe.each(testVersions)(
         export const s_Enums = z.object({
           str: z.enum(["foo", "bar"]).nullable().optional(),
           num: z
-            .union([z.literal(10), z.literal(20)])
+            .preprocess(
+              (it) => z.coerce.number().parse(it),
+              z.union([z.literal(10), z.literal(20)]),
+            )
             .nullable()
             .optional(),
         })"

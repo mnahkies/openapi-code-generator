@@ -84,17 +84,12 @@ describe("core/input - SchemaNormalizer", () => {
         expect(actual).toStrictEqual(ir.string())
       })
 
-      it("defaults to closed for single element enums", () => {
+      it("normalizes single element enums to a const", () => {
         const actual = schemaNormalizer.normalize({
           type: "string",
           enum: ["a"],
         })
-        expect(actual).toStrictEqual(
-          ir.string({
-            enum: ["a"],
-            "x-enum-extensibility": "closed",
-          }),
-        )
+        expect(actual).toStrictEqual(ir.const({value: "a"}))
       })
 
       it("respects explicit open extensibility for single element enums", () => {
@@ -109,6 +104,32 @@ describe("core/input - SchemaNormalizer", () => {
             "x-enum-extensibility": "open",
           }),
         )
+      })
+
+      it("normalizes a const string to a const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "string",
+          const: "task",
+        })
+        expect(actual).toStrictEqual(ir.const({value: "task"}))
+      })
+
+      it("normalizes a nullable const string to a nullable const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "string",
+          nullable: true,
+          const: "task",
+        })
+        expect(actual).toStrictEqual(ir.const({value: "task", nullable: true}))
+      })
+
+      it("keeps a const closed even with explicit open extensibility", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "string",
+          const: "task",
+          "x-enum-extensibility": "open",
+        })
+        expect(actual).toStrictEqual(ir.const({value: "task"}))
       })
 
       it("passes through string specific modifiers", () => {
@@ -153,6 +174,22 @@ describe("core/input - SchemaNormalizer", () => {
             "x-enum-extensibility": "open",
           }),
         )
+      })
+
+      it("normalizes a single element number enum to a const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "number",
+          enum: [5],
+        })
+        expect(actual).toStrictEqual(ir.const({value: 5}))
+      })
+
+      it("normalizes a const number to a const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "number",
+          const: 5,
+        })
+        expect(actual).toStrictEqual(ir.const({value: 5}))
       })
 
       it("handles an nullable enum number", () => {
@@ -278,6 +315,45 @@ describe("core/input - SchemaNormalizer", () => {
         const actual = schemaNormalizer.normalize({type: "boolean", enum: []})
         expect(actual).toStrictEqual(ir.boolean())
       })
+
+      it("normalizes a const boolean to a const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "boolean",
+          const: true,
+        })
+        expect(actual).toStrictEqual(ir.const({value: true}))
+      })
+
+      it("normalizes a single element boolean enum to a const", () => {
+        const actual = schemaNormalizer.normalize({
+          type: "boolean",
+          enum: [false],
+        })
+        expect(actual).toStrictEqual(ir.const({value: false}))
+      })
+    })
+  })
+
+  describe("const", () => {
+    it("normalizes a const with a string value", () => {
+      const actual = schemaNormalizer.normalize({
+        const: "foo",
+      })
+      expect(actual).toStrictEqual(ir.const({value: "foo"}))
+    })
+
+    it("normalizes a const with a number value", () => {
+      const actual = schemaNormalizer.normalize({
+        const: 123,
+      })
+      expect(actual).toStrictEqual(ir.const({value: 123}))
+    })
+
+    it("normalizes a const with a boolean value", () => {
+      const actual = schemaNormalizer.normalize({
+        const: true,
+      })
+      expect(actual).toStrictEqual(ir.const({value: true}))
     })
   })
 
@@ -542,18 +618,12 @@ describe("core/input - SchemaNormalizer", () => {
               schemas: [
                 ir.object({
                   properties: {
-                    type: ir.string({
-                      enum: ["foo"],
-                      "x-enum-extensibility": "closed",
-                    }),
+                    type: ir.const({value: "foo"}),
                   },
                 }),
                 ir.object({
                   properties: {
-                    type: ir.string({
-                      enum: ["bar"],
-                      "x-enum-extensibility": "closed",
-                    }),
+                    type: ir.const({value: "bar"}),
                   },
                 }),
               ],
@@ -583,18 +653,12 @@ describe("core/input - SchemaNormalizer", () => {
               schemas: [
                 ir.object({
                   properties: {
-                    type: ir.string({
-                      enum: ["foo"],
-                      "x-enum-extensibility": "closed",
-                    }),
+                    type: ir.const({value: "foo"}),
                   },
                 }),
                 ir.object({
                   properties: {
-                    type: ir.string({
-                      enum: ["bar"],
-                      "x-enum-extensibility": "closed",
-                    }),
+                    type: ir.const({value: "bar"}),
                   },
                 }),
               ],
@@ -1012,6 +1076,50 @@ describe("core/input - SchemaNormalizer", () => {
       )
     })
 
+    it("supports a const discriminator property", () => {
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Foo"),
+        ir.object({
+          required: ["type"],
+          properties: {type: ir.const({value: "foo"})},
+        }),
+      )
+      schemaProvider.registerTestRef(
+        ir.ref("/components/schemas/Bar"),
+        ir.object({
+          required: ["type"],
+          properties: {type: ir.const({value: "bar"})},
+        }),
+      )
+
+      const actual = schemaNormalizer.normalize({
+        type: "object",
+        discriminator: {
+          propertyName: "type",
+        },
+        oneOf: [
+          {$ref: "#/components/schemas/Foo"},
+          {$ref: "#/components/schemas/Bar"},
+        ],
+      })
+
+      expect(actual).toStrictEqual(
+        ir.union({
+          discriminator: {
+            propertyName: "type",
+            mapping: {
+              Foo: ir.ref("/components/schemas/Foo"),
+              Bar: ir.ref("/components/schemas/Bar"),
+            },
+          },
+          schemas: [
+            ir.ref("/components/schemas/Foo"),
+            ir.ref("/components/schemas/Bar"),
+          ],
+        }),
+      )
+    })
+
     it("ignores the discriminator property when the discriminator property is not required in all alternatives", () => {
       schemaProvider.registerTestRef(
         ir.ref("/components/schemas/Foo"),
@@ -1145,15 +1253,15 @@ describe("core/input - SchemaNormalizer", () => {
       )
     })
 
-    it("detects a boolean enum", () => {
+    it("detects a boolean const", () => {
       const actual = schemaNormalizer.normalize({
         type: undefined,
         enum: [true],
       })
 
       expect(actual).toStrictEqual(
-        ir.boolean({
-          enum: ["true"],
+        ir.const({
+          value: true,
         }),
       )
     })

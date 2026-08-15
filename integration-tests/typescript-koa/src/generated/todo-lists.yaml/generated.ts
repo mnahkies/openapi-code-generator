@@ -35,6 +35,7 @@ import type {
   t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
   t_ReplaceAttachmentParamSchema,
+  t_TodoEvent,
   t_TodoList,
   t_UnknownObject,
   t_UpdateTodoListByIdParamSchema,
@@ -44,6 +45,7 @@ import {
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
+  s_TodoEvent,
   s_TodoList,
   s_UnknownObject,
 } from "./schemas"
@@ -172,6 +174,18 @@ export type CreateTodoListItem = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Res<204, void> | typeof SkipResponse>
 
+export type ListTodoEventsResponder = {
+  with200(): KoaRuntimeResponse<t_TodoEvent[]>
+} & KoaRuntimeResponder
+
+export type ListTodoEvents = (
+  params: Params<void, void, void, void>,
+  respond: ListTodoEventsResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Res<200, t_TodoEvent[]> | typeof SkipResponse
+>
+
 export type ListAttachmentsResponder = {
   with200(): KoaRuntimeResponse<t_UnknownObject[]>
 } & KoaRuntimeResponder
@@ -213,6 +227,7 @@ export type Implementation = {
   deleteTodoListById: DeleteTodoListById
   getTodoListItems: GetTodoListItems
   createTodoListItem: CreateTodoListItem
+  listTodoEvents: ListTodoEvents
   listAttachments: ListAttachments
   uploadAttachment: UploadAttachment
   replaceAttachment: ReplaceAttachment
@@ -501,6 +516,34 @@ export function createRouter(
       .createTodoListItem(input, responder, ctx)
       .catch(handleImplementationError)
       .then(handleResponse(ctx, createTodoListItemResponseValidator))
+  })
+
+  const listTodoEventsResponseValidator = responseValidationFactory(
+    [["200", z.array(s_TodoEvent)]],
+    undefined,
+  )
+
+  router.get("listTodoEvents", "/events", async (ctx) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_TodoEvent[]>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    await implementation
+      .listTodoEvents(input, responder, ctx)
+      .catch(handleImplementationError)
+      .then(handleResponse(ctx, listTodoEventsResponseValidator))
   })
 
   const listAttachmentsResponseValidator = responseValidationFactory(

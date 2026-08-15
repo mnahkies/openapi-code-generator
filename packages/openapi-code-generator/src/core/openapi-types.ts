@@ -247,8 +247,11 @@ export interface SchemaBase {
 
   type?: SchemaType | SchemaType[]
   enum?: (string | number | boolean | null)[] | undefined
-  // todo: Use of this keyword is functionally equivalent to an enum with a single value
-  // const?: unknown | undefined
+  /**
+   * JSON Schema `const` (OpenAPI 3.1). Functionally equivalent to an enum with
+   * a single value; always normalized to {@link IRModelConst}.
+   */
+  const?: string | number | boolean | null | undefined
 
   /**
    * OpenAPI specific keywords

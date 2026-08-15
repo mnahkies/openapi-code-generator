@@ -12709,6 +12709,10 @@ export class GitHubV3RestApiService {
         token_id: p["tokenId"],
       },
       {
+        sort: {
+          style: "form",
+          explode: true,
+        },
         owner: {
           style: "form",
           explode: true,
@@ -12855,6 +12859,10 @@ export class GitHubV3RestApiService {
         token_id: p["tokenId"],
       },
       {
+        sort: {
+          style: "form",
+          explode: true,
+        },
         owner: {
           style: "form",
           explode: true,
@@ -19697,17 +19705,25 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      tool_name: p["toolName"],
-      tool_guid: p["toolGuid"],
-      page: p["page"],
-      per_page: p["perPage"],
-      pr: p["pr"],
-      ref: p["ref"],
-      sarif_id: p["sarifId"],
-      direction: p["direction"],
-      sort: p["sort"],
-    })
+    const params = this._query(
+      {
+        tool_name: p["toolName"],
+        tool_guid: p["toolGuid"],
+        page: p["page"],
+        per_page: p["perPage"],
+        pr: p["pr"],
+        ref: p["ref"],
+        sarif_id: p["sarifId"],
+        direction: p["direction"],
+        sort: p["sort"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",
@@ -29300,13 +29316,21 @@ export class GitHubV3RestApiService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      q: p["q"],
-      sort: p["sort"],
-      order: p["order"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._query(
+      {
+        q: p["q"],
+        sort: p["sort"],
+        order: p["order"],
+        per_page: p["perPage"],
+        page: p["page"],
+      },
+      {
+        sort: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request<any>(
       "GET",

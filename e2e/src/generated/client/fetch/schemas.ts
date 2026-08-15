@@ -22,12 +22,15 @@ export const s_Enumerations = z.object({
     z.enum(["red", "green", "blue"]),
     z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
   ]),
-  starRatings: z.union([
-    z.literal(1),
-    z.literal(2),
-    z.literal(3),
-    z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
-  ]),
+  starRatings: z.preprocess(
+    (it) => z.coerce.number().parse(it),
+    z.union([
+      z.literal(1),
+      z.literal(2),
+      z.literal(3),
+      z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
+    ]),
+  ),
 })
 
 export const s_ProductOrder = z.object({

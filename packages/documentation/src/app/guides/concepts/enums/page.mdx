@@ -88,6 +88,17 @@ export type t_Fruit = "Apple"
 export const s_Fruit = z.literal("Apple")
 ```
 
+The JSON Schema `const` keyword (valid in OpenAPI 3.1) is treated identically - a single
+constant value is by definition not extensible, so it is always generated as a literal
+regardless of `--enum-extensibility`:
+
+```yaml
+type: string
+const: Apple
+```
+
+Generates the same `t_Fruit = "Apple"` / `s_Fruit = z.literal("Apple")` as above.
+
 ### Client code (open enum)
 
 For the client templates, we use a technique called "branded types" to include the `string` / `number` type in our union

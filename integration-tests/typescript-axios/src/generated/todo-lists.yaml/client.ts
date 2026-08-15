@@ -12,6 +12,7 @@ import type {
   t_CreateTodoListItemRequestBody,
   t_CreateUpdateTodoList,
   t_Statuses,
+  t_TodoEvent,
   t_TodoList,
   t_UnknownObject,
 } from "./models"
@@ -296,6 +297,22 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async listTodoEvents(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_TodoEvent[]>> {
+    const url = `/events`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,

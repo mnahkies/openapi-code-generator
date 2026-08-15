@@ -203,28 +203,36 @@ export class OktaOpenIdConnectOAuth20Service {
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      acr_values: p["acrValues"],
-      client_id: p["clientId"],
-      code_challenge: p["codeChallenge"],
-      code_challenge_method: p["codeChallengeMethod"],
-      display: p["display"],
-      enroll_amr_values: p["enrollAmrValues"],
-      idp_scope: p["idpScope"],
-      idp: p["idp"],
-      login_hint: p["loginHint"],
-      max_age: p["maxAge"],
-      nonce: p["nonce"],
-      prompt: p["prompt"],
-      redirect_uri: p["redirectUri"],
-      response_type: p["responseType"],
-      response_mode: p["responseMode"],
-      request_uri: p["requestUri"],
-      request: p["request"],
-      scope: p["scope"],
-      sessionToken: p["sessionToken"],
-      state: p["state"],
-    })
+    const params = this._query(
+      {
+        acr_values: p["acrValues"],
+        client_id: p["clientId"],
+        code_challenge: p["codeChallenge"],
+        code_challenge_method: p["codeChallengeMethod"],
+        display: p["display"],
+        enroll_amr_values: p["enrollAmrValues"],
+        idp_scope: p["idpScope"],
+        idp: p["idp"],
+        login_hint: p["loginHint"],
+        max_age: p["maxAge"],
+        nonce: p["nonce"],
+        prompt: p["prompt"],
+        redirect_uri: p["redirectUri"],
+        response_type: p["responseType"],
+        response_mode: p["responseMode"],
+        request_uri: p["requestUri"],
+        request: p["request"],
+        scope: p["scope"],
+        sessionToken: p["sessionToken"],
+        state: p["state"],
+      },
+      {
+        code_challenge_method: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request(
       "GET",
@@ -844,28 +852,36 @@ export class OktaOpenIdConnectOAuth20Service {
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({Accept: "application/json"})
-    const params = this._query({
-      acr_values: p["acrValues"],
-      client_id: p["clientId"],
-      code_challenge: p["codeChallenge"],
-      code_challenge_method: p["codeChallengeMethod"],
-      display: p["display"],
-      enroll_amr_values: p["enrollAmrValues"],
-      idp_scope: p["idpScope"],
-      idp: p["idp"],
-      login_hint: p["loginHint"],
-      max_age: p["maxAge"],
-      nonce: p["nonce"],
-      prompt: p["prompt"],
-      redirect_uri: p["redirectUri"],
-      response_type: p["responseType"],
-      response_mode: p["responseMode"],
-      request_uri: p["requestUri"],
-      request: p["request"],
-      scope: p["scope"],
-      sessionToken: p["sessionToken"],
-      state: p["state"],
-    })
+    const params = this._query(
+      {
+        acr_values: p["acrValues"],
+        client_id: p["clientId"],
+        code_challenge: p["codeChallenge"],
+        code_challenge_method: p["codeChallengeMethod"],
+        display: p["display"],
+        enroll_amr_values: p["enrollAmrValues"],
+        idp_scope: p["idpScope"],
+        idp: p["idp"],
+        login_hint: p["loginHint"],
+        max_age: p["maxAge"],
+        nonce: p["nonce"],
+        prompt: p["prompt"],
+        redirect_uri: p["redirectUri"],
+        response_type: p["responseType"],
+        response_mode: p["responseMode"],
+        request_uri: p["requestUri"],
+        request: p["request"],
+        scope: p["scope"],
+        sessionToken: p["sessionToken"],
+        state: p["state"],
+      },
+      {
+        code_challenge_method: {
+          style: "form",
+          explode: true,
+        },
+      },
+    )
 
     return this.httpClient.request(
       "GET",
