@@ -275,13 +275,8 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     )
   }
 
-  // coerces string inputs to numbers, mirroring the `z.coerce.number()` used for
-  // plain numbers, so literals/enums also tolerate non-context-aware input.
   private coerceNumber(schema: string): string {
-    return this.preprocess(
-      schema,
-      `(value) => (typeof value === "number" ? value : Number(value))`,
-    )
+    return this.preprocess(schema, `it => z.coerce.number().parse(it)`)
   }
 
   protected number(model: IRModelNumeric) {
@@ -303,7 +298,7 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
         )
         return this.coerceNumber(
           this.union([
-            ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
+            ...model.enum.map((it) => this.literal(it)),
             "z.number().transform(it => it as (typeof it & UnknownEnumNumberValue))",
           ]),
         )
@@ -311,7 +306,7 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
 
       if (model["x-enum-extensibility"] === "closed") {
         return this.coerceNumber(
-          this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
+          this.union(model.enum.map((it) => this.literal(it))),
         )
       }
 
@@ -405,16 +400,13 @@ export class ZodV3Builder extends AbstractSchemaBuilder<
     // todo: might be nice to have an x-extension prop that lets the user define the
     //       true/false mapping in their schema.
     if (model.enum) {
-      this.addStaticSchema("PermissiveBoolean")
-
       return this.union(
         model.enum.map((it) => {
-          if (it === "true") {
-            return this.addStaticSchema("PermissiveLiteralTrue")
-          } else if (it === "false") {
-            return this.addStaticSchema("PermissiveLiteralFalse")
+          if (it !== "true" && it !== "false") {
+            throw new Error(`unsupported boolean enum value '${it}'`)
           }
-          throw new Error(`unsupported boolean enum value '${it}'`)
+
+          return this.booleanLiteral(it === "true")
         }),
       )
     }

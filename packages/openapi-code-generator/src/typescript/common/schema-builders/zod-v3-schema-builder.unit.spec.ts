@@ -62,7 +62,7 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
       expect(code).toMatchInlineSnapshot(
         `
         "const x = z.preprocess(
-          (value) => (typeof value === "number" ? value : Number(value)),
+          (it) => z.coerce.number().parse(it),
           z.union([z.literal(200), z.literal(301), z.literal(404)]),
         )"
       `,
@@ -84,7 +84,7 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
 
       expect(code).toMatchInlineSnapshot(`
         "const x = z.preprocess(
-          (value) => (typeof value === "number" ? value : Number(value)),
+          (it) => z.coerce.number().parse(it),
           z.union([
             z.literal(200),
             z.literal(301),
@@ -111,12 +111,9 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
         }),
       )
 
-      expect(code).toMatchInlineSnapshot(`
-        "const x = z.preprocess(
-          (value) => (typeof value === "number" ? value : Number(value)),
-          z.literal(200),
-        )"
-      `)
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.preprocess((it) => z.coerce.number().parse(it), z.literal(200))"`,
+      )
 
       await expect(execute(200)).resolves.toBe(200)
       await expect(execute("200")).resolves.toBe(200)
@@ -136,7 +133,7 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
 
       expect(code).toMatchInlineSnapshot(`
         "const x = z.preprocess(
-          (value) => (typeof value === "number" ? value : Number(value)),
+          (it) => z.coerce.number().parse(it),
           z.union([
             z.literal(200),
             z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
@@ -817,12 +814,9 @@ describe("typescript/common/schema-builders/zod-v3-schema-builder - unit tests",
     it("supports a number const", async () => {
       const {code, execute} = await getActual(ir.const({value: 5}))
 
-      expect(code).toMatchInlineSnapshot(`
-        "const x = z.preprocess(
-          (value) => (typeof value === "number" ? value : Number(value)),
-          z.literal(5),
-        )"
-      `)
+      expect(code).toMatchInlineSnapshot(
+        `"const x = z.preprocess((it) => z.coerce.number().parse(it), z.literal(5))"`,
+      )
 
       await expect(execute(5)).resolves.toBe(5)
       await expect(execute("5")).resolves.toBe(5)

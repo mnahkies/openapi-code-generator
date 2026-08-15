@@ -301,8 +301,6 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     )
   }
 
-  // coerces string inputs to numbers, mirroring the `z.coerce.number()` used for
-  // plain numbers, so literals/enums also tolerate non-context-aware input.
   private coerceNumber(schema: string): string {
     return this.preprocess(schema, `it => z.coerce.number().parse(it)`)
   }

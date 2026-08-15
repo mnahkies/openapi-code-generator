@@ -215,7 +215,7 @@ describe.each(testVersions)(
           str: z.enum(["foo", "bar"]).nullable().optional(),
           num: z
             .preprocess(
-              (value) => (typeof value === "number" ? value : Number(value)),
+              (it) => z.coerce.number().parse(it),
               z.union([z.literal(10), z.literal(20)]),
             )
             .nullable()
