@@ -68,7 +68,7 @@
     "@azure-tools/typespec-client-generator-core": "catalog:",
     "@nahkies/typescript-common-runtime": "workspace:^",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "^4.17.24",
+    "@types/lodash": "catalog:",
     "@typespec/compiler": "^1.12.0",
     "@typespec/events": "0.84.0",
     "@typespec/http": "^1.12.0",

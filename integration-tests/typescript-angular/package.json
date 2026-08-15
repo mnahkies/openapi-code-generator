@@ -23,7 +23,7 @@
     "@angular/build": "catalog:",
     "@angular/cli": "catalog:",
     "@angular/compiler-cli": "catalog:",
-    "jsdom": "^29.1.1",
+    "jsdom": "catalog:",
     "typescript": "catalog:typescript6",
     "vitest": "catalog:"
   }

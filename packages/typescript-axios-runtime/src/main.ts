@@ -51,7 +51,7 @@ export abstract class AbstractAxiosClient {
       ...opts,
       ...(timeout !== undefined ? {timeout} : {}),
       headers,
-    })
+    }) as Promise<R>
   }
 
   protected _query(
