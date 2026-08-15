@@ -25,11 +25,11 @@
     "publish:gh-pages": "pnpm exec gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.4.0",
+    "@hookform/resolvers": "catalog:",
     "@monaco-editor/react": "^4.7.0",
     "@nahkies/openapi-code-generator": "workspace:*",
     "lodash": "^4.18.1",
-    "monaco-editor": "^0.55.1",
+    "monaco-editor": "catalog:",
     "monaco-editor-auto-typings": "^0.4.6",
     "next": "catalog:",
     "nextra": "^4.6.1",
@@ -41,10 +41,10 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.24",
+    "@types/lodash": "catalog:",
     "@types/node": "^22.20.0",
     "@types/react": "catalog:",
-    "@types/react-dom": "^19.2.3",
+    "@types/react-dom": "catalog:",
     "gh-pages": "^6.3.0",
     "tsx": "catalog:",
     "typescript": "catalog:typescript6"
