@@ -8,7 +8,7 @@ import type {ServerImplementationMethod} from "./templates.types.ts"
 
 export type Config = {
   input: string
-  inputType: "openapi3" | "typespec"
+  inputType: "openapi3" | "typespec" | "json-schema"
   overrideSpecificationTitle?: string | undefined
   output: string
   template:
@@ -17,6 +17,7 @@ export type Config = {
     | "typescript-angular"
     | "typescript-koa"
     | "typescript-express"
+    | "typescript-plain"
   schemaBuilder: "zod-v3" | "zod-v4" | "joi"
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
@@ -46,7 +47,7 @@ const tsServerImplementationSchema = z.enum([
 
 export const configSchema = z.object({
   input: z.string(),
-  inputType: z.enum(["openapi3", "typespec"]),
+  inputType: z.enum(["openapi3", "typespec", "json-schema"]),
   overrideSpecificationTitle: z.string().optional(),
   output: z.string(),
   template: templatesSchema,

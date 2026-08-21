@@ -99,7 +99,7 @@ export class ImportBuilder {
   > = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly config: ImportBuilderConfig) {
+  constructor(public readonly config: ImportBuilderConfig) {
     if (this.config.unit?.filename) {
       this.config.unit.filename = normalizeToUnix(this.config.unit.filename)
     }
@@ -204,6 +204,10 @@ export class ImportBuilder {
   ): void {
     // biome-ignore lint/style/noParameterAssign: normalization
     from = this.normalizeFrom(from)
+
+    if (this.config.unit?.filename === from) {
+      throw new Error(`cannot import from self: ${from}`)
+    }
 
     if (!this.imports[from]) {
       this.imports[from] = {

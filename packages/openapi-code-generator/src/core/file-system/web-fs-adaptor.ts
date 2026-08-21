@@ -32,6 +32,23 @@ export class WebFsAdaptor implements IFsAdaptor {
     return this.files.has(path)
   }
 
+  async isDir(path: string) {
+    const prefix = path.endsWith("/") ? path : `${path}/`
+    return Array.from(this.files.keys()).some((it) => it.startsWith(prefix))
+  }
+
+  async readDir(path: string) {
+    const prefix = path.endsWith("/") ? path : `${path}/`
+    return Array.from(
+      new Set(
+        Array.from(this.files.keys())
+          .filter((it) => it.startsWith(prefix))
+          .map((it) => it.slice(prefix.length).split("/")[0])
+          .filter((it): it is string => !!it),
+      ),
+    )
+  }
+
   async mkDir() {
     /*noop*/
   }

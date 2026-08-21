@@ -26,7 +26,9 @@ const templates = execSync(
   .map((it) => it.trim())
   .filter(Boolean)
 
-const definitions = execSync("find ./integration-tests-definitions -type f")
+const definitions = execSync(
+  "find ./integration-tests-definitions -type f -maxdepth 1",
+)
   .toString("utf-8")
   .split("\n")
   .map((it) => it.trim())
@@ -42,7 +44,11 @@ const filteredSpec = config.spec ? path.normalize(config.spec) : undefined
 console.info("filters", {filteredTemplate, filteredSpec})
 Promise.all(
   templates
-    .filter((it) => !filteredTemplate || it.includes(filteredTemplate))
+    .filter(
+      (it) =>
+        (!it.includes("typescript-plain") && !filteredTemplate) ||
+        it.includes(filteredTemplate),
+    )
     .flatMap((templatePath) =>
       definitions
         .filter(
@@ -50,6 +56,12 @@ Promise.all(
         )
         .map((definition) => runSingle(templatePath, definition)),
     ),
+  // .concat(
+  //   runSingle(
+  //     "./integration-tests/typescript-plain",
+  //     "./integration-tests-definitions/json-schemas",
+  //   ),
+  // ),
 )
   .then(() => {
     console.log("success!")
@@ -61,7 +73,10 @@ Promise.all(
   })
 
 async function runSingle(templatePath, input) {
-  const inputType = input.endsWith(".tsp") ? "typespec" : "openapi3"
+  let inputType = input.endsWith(".tsp") ? "typespec" : "openapi3"
+  if (input.includes("json-schemas")) {
+    inputType = "json-schema"
+  }
   const filename = path.basename(input)
   const template = path.basename(templatePath)
 
@@ -75,7 +90,7 @@ async function runSingle(templatePath, input) {
 
   try {
     const result = await runCmd(
-      `node ./packages/openapi-code-generator/dist/esm/cli.mjs ${args.join(" ")}`,
+      `pnpm exec tsx ./packages/openapi-code-generator/src/cli.ts ${args.join(" ")}`,
     )
     for (const it of result) {
       console.info(`[${template} - ${filename}] ${it}`)

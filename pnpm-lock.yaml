@@ -228,6 +228,9 @@ importers:
       remark-toc:
         specifier: ^9.0.0
         version: 9.0.0
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.0
       typescript:
         specifier: catalog:typescript7
         version: 7.0.2
@@ -420,6 +423,28 @@ importers:
       '@types/koa':
         specifier: ^3.0.3
         version: 3.0.3
+      typescript:
+        specifier: catalog:typescript7
+        version: 7.0.2
+
+  integration-tests/typescript-plain:
+    dependencies:
+      '@nahkies/typescript-fetch-runtime':
+        specifier: workspace:*
+        version: link:../../packages/typescript-fetch-runtime
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
+      tslib:
+        specifier: ^2.8.1
+        version: 2.8.1
+      zod:
+        specifier: ^4.3.6
+        version: 4.4.3
+    devDependencies:
+      '@types/node':
+        specifier: ^22.20.0
+        version: 22.20.0
       typescript:
         specifier: catalog:typescript7
         version: 7.0.2

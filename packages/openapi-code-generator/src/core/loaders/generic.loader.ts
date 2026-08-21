@@ -28,7 +28,7 @@ export function headersForRemoteUri(
 
 export class GenericLoader {
   constructor(
-    private readonly fsAdaptor: IFsAdaptor,
+    readonly fsAdaptor: IFsAdaptor,
     private readonly requestHeaders: GenericLoaderRequestHeaders = {},
   ) {}
 
