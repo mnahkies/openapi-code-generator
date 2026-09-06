@@ -13,7 +13,7 @@ catalog:
   '@azure-tools/typespec-azure-core': 0.71.0
   '@azure-tools/typespec-azure-resource-manager': 0.71.0
   '@azure-tools/typespec-client-generator-core': 0.71.2
-  '@biomejs/biome': 2.5.10
+  '@biomejs/biome': 2.5.11
   '@biomejs/js-api': 6.0.0
   '@biomejs/wasm-nodejs': 2.5.10
   '@commander-js/extra-typings': ^15.0.0
