@@ -87,7 +87,24 @@ gitChecks: false
 linkWorkspacePackages: deep
 
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude: [ fast-uri@3.1.4, tar@7.5.21, '@next/env@16.2.11', '@next/swc-darwin-arm64@16.2.11', '@next/swc-darwin-x64@16.2.11', '@next/swc-linux-arm64-gnu@16.2.11', '@next/swc-linux-arm64-musl@16.2.11', '@next/swc-linux-x64-gnu@16.2.11', '@next/swc-linux-x64-musl@16.2.11', '@next/swc-win32-arm64-msvc@16.2.11', '@next/swc-win32-x64-msvc@16.2.11', next@16.2.11, brace-expansion@5.0.8, '@hyperjump/json-schema-errors@1.0.0-alpha.1' ]
+minimumReleaseAgeExclude:
+  [
+    fast-uri@3.1.4,
+    tar@7.5.21,
+    '@next/env@16.2.11',
+    '@next/swc-darwin-arm64@16.2.11',
+    '@next/swc-darwin-x64@16.2.11',
+    '@next/swc-linux-arm64-gnu@16.2.11',
+    '@next/swc-linux-arm64-musl@16.2.11',
+    '@next/swc-linux-x64-gnu@16.2.11',
+    '@next/swc-linux-x64-musl@16.2.11',
+    '@next/swc-win32-arm64-msvc@16.2.11',
+    '@next/swc-win32-x64-msvc@16.2.11',
+    # Renovate security update: next@16.3.3
+    next@16.2.11 || 16.3.3,
+    brace-expansion@5.0.8,
+    '@hyperjump/json-schema-errors@1.0.0-alpha.1'
+  ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
 
