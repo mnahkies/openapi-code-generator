@@ -3,8 +3,8 @@ lockfile = true
 experimental = true
 
 [tools]
-node = "26.5.0"
-"npm:corepack" = "0.35.0"
+node = "26.8.2"
+"npm:corepack" = "0.36.0"
 
 [hooks]
 postinstall = 'npx corepack enable'
