@@ -103,7 +103,9 @@ minimumReleaseAgeExclude:
     # Renovate security update: next@16.3.3
     next@16.2.11 || 16.3.3,
     brace-expansion@5.0.8,
-    '@hyperjump/json-schema-errors@1.0.0-alpha.1'
+    '@hyperjump/json-schema-errors@1.0.0-alpha.1',
+    # Renovate security update: sharp@0.35.4
+    sharp@0.35.4
   ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
@@ -125,7 +127,7 @@ overrides:
   dompurify@^3: ^3.4.12
   postcss@^8: ^8.5.18
   qs: ^6.14.2
-  sharp: 0.35.0
+  sharp: 0.35.4
   tar: ^7.5.21
   zod: ^4.4.3
   fast-uri@^3: ^3.1.4
