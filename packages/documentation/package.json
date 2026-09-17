@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/lodash": "catalog:",
-    "@types/node": "^22.20.0",
+    "@types/node": "^26.0.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "gh-pages": "^6.3.0",
