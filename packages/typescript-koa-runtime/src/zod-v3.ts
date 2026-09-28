@@ -21,7 +21,10 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
   try {
     return schema?.parse(input)
   } catch (err) {
-    throw KoaRuntimeError.RequestError(err, type)
+    throw KoaRuntimeError.RequestError(
+      new Error("Invalid request input", {cause: err}),
+      type,
+    )
   }
 }
 
@@ -48,7 +51,11 @@ export function responseValidationFactory(
       // TODO: throw on unmatched response
       return value
     } catch (err) {
-      throw KoaRuntimeError.ResponseError(err)
+      throw KoaRuntimeError.ResponseError(
+        new Error("Invalid response", {
+          cause: err,
+        }),
+      )
     }
   }
 }
