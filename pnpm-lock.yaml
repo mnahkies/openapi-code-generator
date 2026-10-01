@@ -122,7 +122,7 @@ catalogs:
       version: 18.2.5
     js-yaml:
       specifier: ^5.2.3
-      version: 5.3.0
+      version: 5.4.2
     jsdom:
       specifier: ^30.0.1
       version: 30.0.1
@@ -534,7 +534,7 @@ importers:
         version: 15.0.0
       js-yaml:
         specifier: 'catalog:'
-        version: 5.3.0
+        version: 5.4.2
       json5:
         specifier: ^2.2.3
         version: 2.2.3
@@ -5258,8 +5258,8 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  js-yaml@5.3.0:
-    resolution: {integrity: sha512-muutsYr+e2+d3rTgUGslq5rxbBlUy3cJ61IsHag2QNDQV+7zXWjkUpmALIajhrlLlrgRUiymj6U3zUr/TMK84Q==}
+  js-yaml@5.4.2:
+    resolution: {integrity: sha512-m+aqu+LwO1O6sIopafj8HUVl5aawITwZQe/yHpMCKjaWBaA/d07B/QdMb3529REftiU+RMMHL3Vlsw3hON7vWg==}
     hasBin: true
 
   jsdom@30.0.1:
@@ -11434,7 +11434,7 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  js-yaml@5.3.0:
+  js-yaml@5.4.2:
     dependencies:
       argparse: 2.0.1
 
