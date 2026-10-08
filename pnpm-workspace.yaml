@@ -105,7 +105,9 @@ minimumReleaseAgeExclude:
     brace-expansion@5.0.8,
     '@hyperjump/json-schema-errors@1.0.0-alpha.1',
     # Renovate security update: sharp@0.35.4
-    sharp@0.35.4
+    sharp@0.35.4,
+    # Renovate security update: @angular/router@22.2.0
+    "@angular/router@22.2.0"
   ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
