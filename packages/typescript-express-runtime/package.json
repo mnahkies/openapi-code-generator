@@ -77,7 +77,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "raw-body": "^3.0.2",
+    "raw-body": "^4.0.0",
     "tslib": "^2.8.1"
   },
   "peerDependencies": {
