@@ -12,7 +12,6 @@ import {
 } from "./main.ts"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
-  // biome-ignore lint/complexity/noUselessConstructor: make public
   constructor(config: AbstractAxiosConfig) {
     super(config)
   }

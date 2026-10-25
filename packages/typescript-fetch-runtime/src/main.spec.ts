@@ -11,7 +11,6 @@ import {
 } from "./main.ts"
 
 class ConcreteFetchClient extends AbstractFetchClient {
-  // biome-ignore lint/complexity/noUselessConstructor: make public
   constructor(config: AbstractFetchClientConfig) {
     super(config)
   }

@@ -49,7 +49,7 @@ describe("core/openapi-validator", () => {
           true,
         ),
       ).rejects.toThrow(
-        "Validation failed: -> Expected an object with at least '1' properties at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.0/schema/2021-09-28#/definitions/Responses/minProperties\"]})",
+        'Validation failed: -> Expected a non-empty object at path \'#/paths/~1something/get/responses\' ({"schemaLocations":["https://spec.openapis.org/oas/3.0/schema/2021-09-28#/definitions/Responses/minProperties"]})',
       )
     })
   })
@@ -111,8 +111,8 @@ describe("core/openapi-validator", () => {
           true,
         ),
       ).rejects.toThrow(
-        "Validation failed: -> Expected an object with at least '1' properties at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.1/schema#/$defs/responses/minProperties\"]})\n" +
-          "-> Missing required 'property: 'default'' at path '#/paths/~1something/get/responses' ({\"schemaLocations\":[\"https://spec.openapis.org/oas/3.1/schema#/$defs/responses/then/required\"]})",
+        'Validation failed: -> Expected a non-empty object at path \'#/paths/~1something/get/responses\' ({"schemaLocations":["https://spec.openapis.org/oas/3.1/schema#/$defs/responses/minProperties"]})\n' +
+          '-> Missing required property: default at path \'#/paths/~1something/get/responses\' ({"schemaLocations":["https://spec.openapis.org/oas/3.1/schema#/$defs/responses/then/required"]})',
       )
     })
   })
