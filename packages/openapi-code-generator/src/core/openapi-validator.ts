@@ -5,10 +5,7 @@ import type {
 } from "@hyperjump/json-schema"
 import {validate as validate3_0} from "@hyperjump/json-schema/openapi-3-0"
 import {validate as validate3_1} from "@hyperjump/json-schema/openapi-3-1"
-import {
-  jsonSchemaErrors,
-  setNormalizationHandler,
-} from "@hyperjump/json-schema-errors"
+import {jsonSchemaErrors} from "@hyperjump/json-schema-errors"
 import {logger} from "./logger.ts"
 import type {ValidateFunction} from "./schemas/IValidateFunction.ts"
 
@@ -91,12 +88,6 @@ export class OpenapiValidator implements IOpenapiValidator {
   static async create(
     onValidationFailed: (filename: string) => Promise<void> = async () => {},
   ): Promise<OpenapiValidator> {
-    setNormalizationHandler("https://json-schema.org/keyword/comment", {
-      evaluate() {
-        // Only applicator keywords need to return a value
-      },
-    })
-
     return new OpenapiValidator(
       wrapHyperjump(validate3_1, "https://spec.openapis.org/oas/3.1/schema"),
       wrapHyperjump(validate3_0, "https://spec.openapis.org/oas/3.0/schema"),

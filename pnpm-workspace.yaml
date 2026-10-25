@@ -55,7 +55,7 @@ catalog:
 
 catalogs:
   typescript6:
-    typescript: ^7.0.0
+    typescript: ^6.0.3
   typescript7:
     typescript: ^7.0.2
 
