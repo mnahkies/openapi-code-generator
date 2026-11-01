@@ -17,7 +17,7 @@ catalog:
   '@biomejs/js-api': 6.0.0
   '@biomejs/wasm-nodejs': 2.5.15
   '@commander-js/extra-typings': ^15.0.0
-  '@hookform/resolvers': ^5.7.1
+  '@hookform/resolvers': ^6.0.0
   '@hyperjump/json-schema': ^1.17.8
   '@koa/router': ^15.7.0
   '@lerna-lite/cli': ^5.6.1
