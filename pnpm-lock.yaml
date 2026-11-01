@@ -213,8 +213,8 @@ catalogs:
       specifier: 6.0.0
       version: 6.0.0
     '@biomejs/wasm-nodejs':
-      specifier: 2.5.15
-      version: 2.5.15
+      specifier: 2.6.3
+      version: 2.6.3
     '@commander-js/extra-typings':
       specifier: ^15.0.0
       version: 15.0.0
@@ -352,10 +352,10 @@ importers:
         version: 2.5.15
       '@biomejs/js-api':
         specifier: 'catalog:'
-        version: 6.0.0(@biomejs/wasm-nodejs@2.5.15)
+        version: 6.0.0(@biomejs/wasm-nodejs@2.6.3)
       '@biomejs/wasm-nodejs':
         specifier: 'catalog:'
-        version: 2.5.15
+        version: 2.6.3
       '@commander-js/extra-typings':
         specifier: 'catalog:'
         version: 15.0.0(commander@15.0.0)
@@ -674,10 +674,10 @@ importers:
         version: 2.5.15
       '@biomejs/js-api':
         specifier: 'catalog:'
-        version: 6.0.0(@biomejs/wasm-nodejs@2.5.15)
+        version: 6.0.0(@biomejs/wasm-nodejs@2.6.3)
       '@biomejs/wasm-nodejs':
         specifier: 'catalog:'
-        version: 2.5.15
+        version: 2.6.3
       '@commander-js/extra-typings':
         specifier: 'catalog:'
         version: 15.0.0(commander@15.0.0)
@@ -1310,8 +1310,8 @@ packages:
       '@biomejs/wasm-web':
         optional: true
 
-  '@biomejs/wasm-nodejs@2.5.15':
-    resolution: {integrity: sha512-ZoGV6LQzBW7CbsZJWjlnTL6t4LgBOKuoTb18RsMyEpkd5IwoesWIimjw/EE7NatQJus5CPq4HgxlGheMHY6EEw==}
+  '@biomejs/wasm-nodejs@2.6.3':
+    resolution: {integrity: sha512-DPI9t7DcsR+FPEUrhCIXfejI2j6dJ1NuKW8ke6tBVnCunTzDPvQpsuSvGJhaqsuOHc0U413MrB0/DDGM/+fiKw==}
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
@@ -7689,11 +7689,11 @@ snapshots:
   '@biomejs/cli-win32-x64@2.5.15':
     optional: true
 
-  '@biomejs/js-api@6.0.0(@biomejs/wasm-nodejs@2.5.15)':
+  '@biomejs/js-api@6.0.0(@biomejs/wasm-nodejs@2.6.3)':
     optionalDependencies:
-      '@biomejs/wasm-nodejs': 2.5.15
+      '@biomejs/wasm-nodejs': 2.6.3
 
-  '@biomejs/wasm-nodejs@2.5.15': {}
+  '@biomejs/wasm-nodejs@2.6.3': {}
 
   '@braidai/lang@1.1.2': {}
 
