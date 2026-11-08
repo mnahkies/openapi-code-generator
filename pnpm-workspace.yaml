@@ -107,7 +107,9 @@ minimumReleaseAgeExclude:
     # Renovate security update: sharp@0.35.4
     sharp@0.35.4,
     # Renovate security update: body-parser@2.4.0
-    body-parser@2.4.0
+    body-parser@2.4.0,
+    # Renovate security update: joi@18.3.1
+    joi@18.3.1
   ]
 
 nodeOptions: ${NODE_OPTIONS:- } --experimental-vm-modules
