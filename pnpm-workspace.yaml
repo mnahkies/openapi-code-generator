@@ -9,7 +9,7 @@ catalog:
   '@angular/platform-browser': ^22.1.1
   '@angular/router': ^22.1.1
   '@arethetypeswrong/core': ^0.18.5
-  '@azure-tools/typespec-autorest': 0.73.1
+  '@azure-tools/typespec-autorest': 0.73.2
   '@azure-tools/typespec-azure-core': 0.73.0
   '@azure-tools/typespec-azure-resource-manager': 0.73.0
   '@azure-tools/typespec-client-generator-core': 0.73.0
