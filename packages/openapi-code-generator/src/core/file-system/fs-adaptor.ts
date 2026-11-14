@@ -7,6 +7,10 @@ export interface IFsAdaptor {
 
   existsSync(path: string): boolean
 
+  isDir(path: string): Promise<boolean>
+
+  readDir(path: string): Promise<string[]>
+
   mkDir(path: string, recursive: boolean): Promise<void>
 
   resolve(request: string, fromDir: string): string

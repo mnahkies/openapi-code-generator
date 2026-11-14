@@ -24,6 +24,7 @@ import type {SchemaBuilderType} from "./schema-builder.ts"
 
 export type SchemaBuilderConfig = {
   allowAny: boolean
+  refToFilename?: ($ref: string) => string
 }
 
 export abstract class AbstractSchemaBuilder<
@@ -61,14 +62,28 @@ export abstract class AbstractSchemaBuilder<
   abstract withImports(imports: ImportBuilder): SubClass
 
   private add(reference: Reference): string {
-    this.parent?.add(reference)
+    const {$ref} = reference
 
     const name = this.getSchemaNameFromRef(reference)
-    this.referenced[name] = reference
 
     if (this.imports) {
-      this.imports.addSingle(name, this.filename, false)
+      const ref = $ref.split("#")[0]
+      const from = ref && this.config.refToFilename?.(ref)
+
+      if (from && from !== this.filename) {
+        this.parent?.add(reference)
+        this.referenced[name] = reference
+        this.imports.addSingle(name, from, false)
+        return name
+      } else if (
+        this.imports.config.unit?.filename !== (from || this.filename)
+      ) {
+        this.imports?.addSingle(name, from || this.filename, false)
+      }
     }
+
+    this.parent?.add(reference)
+    this.referenced[name] = reference
 
     return name
   }

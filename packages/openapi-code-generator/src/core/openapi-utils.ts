@@ -1,3 +1,4 @@
+import path from "node:path"
 import type {Reference} from "./openapi-types.ts"
 
 export function isRef(it: unknown | Reference): it is Reference {
@@ -8,6 +9,10 @@ export function isRef(it: unknown | Reference): it is Reference {
 }
 
 export function getRawNameFromRef({$ref}: Reference): string {
+  if (!$ref.includes("#")) {
+    return path.basename($ref, path.extname($ref))
+  }
+
   const name = $ref.split("/").pop()
 
   if (!name) {

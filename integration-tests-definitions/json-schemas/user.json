@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "address": { "$ref": "./address.json" },
+    "self": { "$ref": "./user.json" }
+  },
+  "required": ["name"]
+}

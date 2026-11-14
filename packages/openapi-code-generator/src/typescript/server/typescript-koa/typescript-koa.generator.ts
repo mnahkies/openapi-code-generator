@@ -24,14 +24,14 @@ export async function generateTypescriptKoa(
     "./models.ts",
     input,
     config.compilerOptions,
-    {allowAny},
+    {allowAny, refToFilename: () => "./models.ts"},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
-    {allowAny},
+    {allowAny, refToFilename: () => "./schemas.ts"},
     schemaBuilderImports,
     rootTypeBuilder,
   )

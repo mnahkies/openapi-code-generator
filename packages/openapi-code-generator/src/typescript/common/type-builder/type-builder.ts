@@ -32,6 +32,7 @@ type StaticType = keyof typeof staticTypes
 
 export type TypeBuilderConfig = {
   allowAny: boolean
+  refToFilename?: ($ref: string) => string
 }
 
 type IRTypeIntersection = {type: "type-intersection"; types: IRType[]}
@@ -139,13 +140,24 @@ export class TypeBuilder implements ICompilable {
     return getNameFromRef(reference, "t_")
   }
 
-  protected add({$ref}: Reference): string {
-    this.parent?.add({$ref})
-    this.referenced.add($ref)
+  private add(reference: Reference): string {
+    const {$ref} = reference
 
-    const name = this.getTypeNameFromRef({$ref})
+    const name = this.getTypeNameFromRef(reference)
 
-    this.imports?.addSingle(name, this.filename, true)
+    const ref = $ref.split("#")[0]
+    const from = ref && this.config.refToFilename?.(ref)
+
+    if (from && from !== this.filename) {
+      this.imports?.addSingle(name, from, true)
+    } else {
+      if (this.imports?.config.unit?.filename !== (from || this.filename)) {
+        this.imports?.addSingle(name, from || this.filename, true)
+      }
+
+      this.parent?.add(reference)
+      this.referenced.add($ref)
+    }
 
     return name
   }

@@ -9,14 +9,21 @@ import {getRawNameFromRef, isRef} from "../core/openapi-utils.ts"
 
 export class FakeSchemaProvider implements ISchemaProvider {
   private readonly testRefs: Record<string, IRModel> = {}
+  private readonly testJsonSchemaDocuments: Record<string, IRModel> = {}
 
   registerTestRef(ref: IRRef, model: IRModel) {
     this.testRefs[ref.$ref] = model
   }
 
+  registerJsonSchemaDocument(filename: string, schema: IRModel) {
+    this.testJsonSchemaDocuments[filename] = schema
+  }
+
   schema(maybeRef: MaybeIRModel): IRModel {
     if (isRef(maybeRef)) {
-      const result = this.testRefs[maybeRef.$ref]
+      const result =
+        this.testRefs[maybeRef.$ref] ??
+        this.testJsonSchemaDocuments[maybeRef.$ref]
 
       if (!result) {
         throw new Error(
@@ -35,6 +42,14 @@ export class FakeSchemaProvider implements ISchemaProvider {
       Object.entries(this.testRefs).map(([$ref, value]) => {
         return [getRawNameFromRef({$ref}), value]
       }),
+    )
+  }
+
+  allJsonSchemaDocuments() {
+    return Object.entries(this.testJsonSchemaDocuments).map(
+      ([filename, schema]) => {
+        return {filename, schema}
+      },
     )
   }
 

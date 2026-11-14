@@ -21,6 +21,7 @@ import {isRemote} from "./utils.ts"
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
   private readonly library = new Map<string, OpenapiDocument>()
+  private readonly jsonSchemas = new Map<string, Schema>()
 
   private constructor(
     private readonly entryPointKey: string,
@@ -56,6 +57,13 @@ export class OpenapiLoader {
     return Array.from(this.library.values())
   }
 
+  allJsonSchemas(): {filename: string; schema: Schema}[] {
+    return Array.from(this.jsonSchemas.entries()).map(([key, value]) => ({
+      filename: key,
+      schema: value,
+    }))
+  }
+
   paths(maybeRef: Reference | Path): Path {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
@@ -88,7 +96,7 @@ export class OpenapiLoader {
     const [key, objPath] = $ref.split("#")
 
     // biome-ignore lint/suspicious/noExplicitAny: dynamic
-    const obj: any = key && this.library.get(key)
+    const obj: any = key && (this.library.get(key) ?? this.jsonSchemas.get(key))
 
     if (!obj) {
       throw new Error(`could not load $ref, key not loaded. $ref: '${$ref}'`)
@@ -148,6 +156,24 @@ export class OpenapiLoader {
     }
   }
 
+  private async loadJsonSchema(file: string) {
+    if (this.jsonSchemas.has(file)) {
+      return
+    }
+    const [loadedFrom, definition] = await this.genericLoader.loadFile(file)
+    await this.validator.validate(
+      loadedFrom,
+      definition,
+      undefined,
+      "json-schema",
+    )
+
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic
+    this.jsonSchemas.set(loadedFrom, definition as any)
+
+    await this.normalizeRefs(loadedFrom, definition)
+  }
+
   // biome-ignore lint/suspicious/noExplicitAny: dynamic
   private async normalizeRefs(loadedFrom: string, obj: any) {
     for (const key in obj) {
@@ -194,7 +220,7 @@ export class OpenapiLoader {
   static async create(
     config: {
       entryPoint: string
-      fileType: "openapi3" | "typespec"
+      fileType: "openapi3" | "typespec" | "json-schema"
       titleOverride: string | undefined
     },
     validator: IOpenapiValidator,
@@ -222,6 +248,44 @@ export class OpenapiLoader {
         const openapi =
           await typespecLoader.compileTypeSpecToOpenAPI3(entryPoint)
         await loader.loadFileContent(entryPoint, openapi)
+        break
+      }
+      case "json-schema": {
+        const isDir =
+          !isRemote(entryPoint) &&
+          (await genericLoader.fsAdaptor.isDir(entryPoint))
+
+        const files = isDir
+          ? (await genericLoader.fsAdaptor.readDir(entryPoint)).filter(
+              (it) =>
+                it.endsWith(".json") ||
+                it.endsWith(".yaml") ||
+                it.endsWith(".yml"),
+            )
+          : [entryPoint]
+
+        for (const file of files) {
+          await loader.loadJsonSchema(file)
+        }
+        //
+        // const openapi: OpenapiDocument = {
+        //   openapi: "3.0.3",
+        //   info: {
+        //     title: config.titleOverride ?? path.basename(entryPoint),
+        //     version: "1.0.0",
+        //   },
+        //   paths: {},
+        //   components: {
+        //     schemas: Object.fromEntries(
+        //       files.map((file) => {
+        //         const name = path.parse(file).name
+        //         return [name, {$ref: `${path.join(entryPoint, file)}#`}]
+        //       }),
+        //     ),
+        //   },
+        // }
+        // await loader.loadFileContent(entryPoint, openapi)
+
         break
       }
       default: {

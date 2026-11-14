@@ -834,13 +834,13 @@ export function createRouter(
             z.object({
               id: z.string(),
               status: s_Azure_Core_Foundations_OperationState,
-              error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-              result: s_Widget.optional(),
+              error: s_Azure_Core_Foundations_Error.optional(),
+              result: z.lazy(() => s_Widget.optional()),
             }),
             z.object({
               id: z.string(),
               status: s_Azure_Core_Foundations_OperationState,
-              error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+              error: s_Azure_Core_Foundations_Error.optional(),
             }),
           ]),
         ],
@@ -1069,7 +1069,7 @@ export function createRouter(
         z.object({
           id: z.string(),
           status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          error: s_Azure_Core_Foundations_Error.optional(),
         }),
       ],
     ],
@@ -1332,7 +1332,7 @@ export function createRouter(
         z.object({
           id: z.string(),
           status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          error: s_Azure_Core_Foundations_Error.optional(),
           result: s_WidgetRepairRequest.optional(),
         }),
       ],
@@ -1404,7 +1404,7 @@ export function createRouter(
         z.object({
           id: z.string(),
           status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          error: s_Azure_Core_Foundations_Error.optional(),
           result: z
             .object({
               requestState: s_WidgetRepairState,
@@ -1497,8 +1497,8 @@ export function createRouter(
           z.object({
             id: z.string(),
             status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-            result: s_WidgetPart.optional(),
+            error: s_Azure_Core_Foundations_Error.optional(),
+            result: z.lazy(() => s_WidgetPart.optional()),
           }),
         ],
       ],
@@ -1842,7 +1842,7 @@ export function createRouter(
         z.object({
           id: z.string(),
           status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          error: s_Azure_Core_Foundations_Error.optional(),
         }),
       ],
     ],
@@ -1918,8 +1918,8 @@ export function createRouter(
           z.object({
             id: z.string(),
             status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-            result: s_Manufacturer.optional(),
+            error: s_Azure_Core_Foundations_Error.optional(),
+            result: z.lazy(() => s_Manufacturer.optional()),
           }),
         ],
       ],
@@ -2153,7 +2153,7 @@ export function createRouter(
           z.object({
             id: z.string(),
             status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+            error: s_Azure_Core_Foundations_Error.optional(),
           }),
         ],
       ],

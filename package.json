@@ -60,6 +60,7 @@
     "remark": "^15.0.1",
     "remark-toc": "^9.0.0",
     "typescript": "catalog:typescript7",
+    "tsx": "catalog:",
     "vitest": "catalog:"
   },
   "workspaces": [

@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.integration.base.json",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
+    "noUnusedLocals": true
+  }
+}

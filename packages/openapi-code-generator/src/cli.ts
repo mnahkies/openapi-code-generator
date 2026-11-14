@@ -40,7 +40,7 @@ const program = new Command()
   .addOption(
     new Option("--input-type <value>", "type of input specification")
       .env("OPENAPI_INPUT_TYPE")
-      .choices(["openapi3", "typespec"] as const)
+      .choices(["openapi3", "typespec", "json-schema"] as const)
       .default("openapi3" as const)
       .makeOptionMandatory(),
   )

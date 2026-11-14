@@ -20,7 +20,8 @@ export const loadRuntimeTypes = async (
     | "typescript-fetch"
     | "typescript-axios"
     | "typescript-koa"
-    | "typescript-express",
+    | "typescript-express"
+    | "typescript-plain",
 ) => {
   const fileRootPath = "file:///"
 
@@ -119,6 +120,7 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.mts",
       },
     ],
+    "typescript-plain": [],
   }
 
   for (const file of files[template]) {

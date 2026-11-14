@@ -4,19 +4,10 @@
 
 import {z} from "zod/v4"
 import type {
-  t_Azure_Core_Foundations_Error,
-  t_Azure_Core_Foundations_ErrorResponse,
-  t_Azure_Core_Foundations_InnerError,
+  t_PagedManufacturer,
+  t_PagedWidget,
+  t_PagedWidgetPart,
 } from "./models.ts"
-
-export const s_Azure_Core_Foundations_OperationState = z.union([
-  z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),
-  z.string(),
-])
-
-export const s_Azure_Core_eTag = z.string()
-
-export const s_Azure_Core_uuid = z.string()
 
 export const s_WidgetAnalytics = z.object({
   id: z.literal("current"),
@@ -41,30 +32,9 @@ export const s_WidgetRepairState = z.union([
   z.enum(["Succeeded", "Failed", "Canceled", "SentToManufacturer"]),
 ])
 
-export const s_Manufacturer = z.object({
-  id: z.string(),
-  name: z.string(),
-  address: z.string(),
-  etag: s_Azure_Core_eTag,
-})
-
-export const s_Widget = z.object({
-  name: z.string(),
-  color: s_WidgetColor,
-  manufacturerId: z.string(),
-  etag: s_Azure_Core_eTag,
-})
-
 export const s_WidgetCreateOrUpdate = z.object({
   color: s_WidgetColor.optional(),
   manufacturerId: z.string().optional(),
-})
-
-export const s_WidgetPart = z.object({
-  name: z.string(),
-  partId: z.string(),
-  manufacturerId: z.string(),
-  etag: s_Azure_Core_eTag,
 })
 
 export const s_WidgetRepairRequest = z.object({
@@ -75,35 +45,64 @@ export const s_WidgetRepairRequest = z.object({
   completedDateTime: z.iso.datetime({offset: true}),
 })
 
-export const s_PagedManufacturer = z.object({
-  value: z.array(s_Manufacturer),
+export const s_Azure_Core_uuid = z.string()
+
+export const s_Azure_Core_Foundations_ErrorResponse = z.object({
+  error: s_Azure_Core_Foundations_Error,
+})
+
+export const s_Azure_Core_Foundations_OperationState = z.union([
+  z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),
+  z.string(),
+])
+
+export const s_Azure_Core_Foundations_Error = z.object({
+  code: z.string(),
+  message: z.string(),
+  target: z.string().optional(),
+  details: z.array(s_Azure_Core_Foundations_Error).optional(),
+  innererror: s_Azure_Core_Foundations_InnerError.optional(),
+})
+
+export const s_Widget = z.object({
+  name: z.string(),
+  color: s_WidgetColor,
+  manufacturerId: z.string(),
+  etag: s_Azure_Core_eTag,
+})
+
+export const s_PagedWidget: z.ZodType<t_PagedWidget> = z.object({
+  value: z.array(z.lazy(() => s_Widget)),
   nextLink: z.string().optional(),
 })
 
-export const s_PagedWidget = z.object({
-  value: z.array(s_Widget),
+export const s_WidgetPart = z.object({
+  name: z.string(),
+  partId: z.string(),
+  manufacturerId: z.string(),
+  etag: s_Azure_Core_eTag,
+})
+
+export const s_PagedWidgetPart: z.ZodType<t_PagedWidgetPart> = z.object({
+  value: z.array(z.lazy(() => s_WidgetPart)),
   nextLink: z.string().optional(),
 })
 
-export const s_PagedWidgetPart = z.object({
-  value: z.array(s_WidgetPart),
+export const s_Manufacturer = z.object({
+  id: z.string(),
+  name: z.string(),
+  address: z.string(),
+  etag: s_Azure_Core_eTag,
+})
+
+export const s_PagedManufacturer: z.ZodType<t_PagedManufacturer> = z.object({
+  value: z.array(z.lazy(() => s_Manufacturer)),
   nextLink: z.string().optional(),
 })
 
-export const s_Azure_Core_Foundations_ErrorResponse: z.ZodType<t_Azure_Core_Foundations_ErrorResponse> =
-  z.object({error: z.lazy(() => s_Azure_Core_Foundations_Error)})
+export const s_Azure_Core_Foundations_InnerError = z.object({
+  code: z.string().optional(),
+  innererror: s_Azure_Core_Foundations_InnerError.optional(),
+})
 
-export const s_Azure_Core_Foundations_Error: z.ZodType<t_Azure_Core_Foundations_Error> =
-  z.object({
-    code: z.string(),
-    message: z.string(),
-    target: z.string().optional(),
-    details: z.array(z.lazy(() => s_Azure_Core_Foundations_Error)).optional(),
-    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
-  })
-
-export const s_Azure_Core_Foundations_InnerError: z.ZodType<t_Azure_Core_Foundations_InnerError> =
-  z.object({
-    code: z.string().optional(),
-    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
-  })
+export const s_Azure_Core_eTag = z.string()

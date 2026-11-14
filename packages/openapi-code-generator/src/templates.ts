@@ -3,6 +3,7 @@ import type {OpenapiGenerator} from "./templates.types.ts"
 import {generateTypescriptAngular} from "./typescript/client/typescript-angular/typescript-angular.generator.ts"
 import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator.ts"
 import {generateTypescriptFetch} from "./typescript/client/typescript-fetch/typescript-fetch.generator.ts"
+import {generateTypescriptPlainSchema} from "./typescript/other/typescript-plain/typescript-plain.generator.ts"
 import {generateTypescriptExpress} from "./typescript/server/typescript-express/typescript-express.generator.ts"
 import {generateTypescriptKoa} from "./typescript/server/typescript-koa/typescript-koa.generator.ts"
 
@@ -37,6 +38,12 @@ export const templates = {
     run: generateTypescriptExpress,
     syntheticNameGenerator: defaultSyntheticNameGenerator,
   },
+  "typescript-plain": {
+    language: "typescript",
+    type: "client", // Doesn't matter much for this template
+    run: generateTypescriptPlainSchema,
+    syntheticNameGenerator: defaultSyntheticNameGenerator,
+  },
 } satisfies {[key: string]: OpenapiGenerator}
 
 export const templateNames = [
@@ -45,4 +52,5 @@ export const templateNames = [
   "typescript-angular",
   "typescript-koa",
   "typescript-express",
+  "typescript-plain",
 ] as const satisfies Array<keyof typeof templates>
