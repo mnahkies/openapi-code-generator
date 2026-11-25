@@ -3,7 +3,7 @@ lockfile = true
 experimental = true
 
 [tools]
-node = "26.12.1"
+node = "26.13.1"
 "npm:corepack" = "0.36.0"
 
 [hooks]
